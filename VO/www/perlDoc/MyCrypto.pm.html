@@ -1,0 +1,419 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>MyCrypto.pm</title>
+<link rev="made" href="mailto:root@kwan.com" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#abstract">ABSTRACT</a></li>
+	<li><a href="#dependencies">DEPENDENCIES</a></li>
+	<li><a href="#history_of_modifications">HISTORY OF MODIFICATIONS</a></li>
+	<li><a href="#list_of_functions">LIST OF FUNCTIONS</a></li>
+	<li><a href="#function_create_keys">FUNCTION create_keys</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	<li><a href="#function_jarriquez_423_encrypt__sentence_">FUNCTION <code>jarriquez_423_encrypt($sentence)</code></a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	<li><a href="#function_jarriquez_givenkey_encrypt__sentence__key_">FUNCTION <code>jarriquez_givenKey_encrypt($sentence,@key)</code></a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	<li><a href="#function_prohibited_characters__current_char__list_prohibitted_char_">FUNCTION <code>prohibited_characters($current_char,@list_prohibitted_char)</code></a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	<li><a href="#function_jarriquez_givenkey_decrypt__sentence__key_">FUNCTION <code>jarriquez_givenKey_decrypt($sentence,@key)</code></a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	<li><a href="#function_get_rank_within_new_alphabet__char__alphabet_">FUNCTION <code>get_rank_within_new_alphabet($char,@alphabet)</code></a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	<li><a href="#function_init_new_alphabet__begin__end_">FUNCTION <code>init_new_alphabet($begin,$end)</code></a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	<li><a href="#function_jarriquez_423_decrypt__sentence_">FUNCTION <code>jarriquez_423_decrypt($sentence)</code></a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	<li><a href="#function_transform_date_to_key__given_date_">FUNCTION <code>transform_date_to_key($given_date)</code></a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	<li><a href="#author">AUTHOR</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="abstract">ABSTRACT</a></h1>
+<p>This package creates encryption tools. It is based on Jarriquez algorithm taken from the book of Jules Vernes: La Janguada.</p>
+<p>
+</p>
+<hr />
+<h1><a name="dependencies">DEPENDENCIES</a></h1>
+<p>Requires to use: packages::MyTime</p>
+<p>
+</p>
+<hr />
+<h1><a name="history_of_modifications">HISTORY OF MODIFICATIONS</a></h1>
+<p>Last modification Feb 09 2006</p>
+<p>Starting date Oct 13  2005</p>
+<p>
+</p>
+<hr />
+<h1><a name="list_of_functions">LIST OF FUNCTIONS</a></h1>
+<p>create_keys, jarriquez_423_encrypt, jarriquez_givenKey_encrypt, prohibited_characters, jarriquez_givenKey_decrypt, get_rank_within_new_alphabet, init_new_alphabet, jarriquez_423_decrypt, transform_date_to_key,</p>
+<pre>
+    ============================================================</pre>
+<p>
+</p>
+<hr />
+<h1><a name="function_create_keys">FUNCTION create_keys</a></h1>
+<p>Creates a serie of keys in order to encrypt data.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns transformed date to key from a date given in digital format.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h1>
+<p><em>Last modification:</em> Jan 04 2006</p>
+<p><em>Last update on Nov:</em> 3rd 2005  |</p>
+<p><em>Created on:</em> Oct 13  2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="function_jarriquez_423_encrypt__sentence_">FUNCTION <code>jarriquez_423_encrypt($sentence)</code></a></h1>
+<p>Crypt with an already formated key that is 423 Jarriquez is the guy in the novel 'La Jangada' of Jules Vernes who discover this code (for sure).</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$sentence: that's the sentence to crypt.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns encrypted sentence.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h1>
+<p><em>Last modification:</em> Jan 04 2006</p>
+<p><em>Last update on Nov:</em> 3rd 2005  |</p>
+<p><em>Created on:</em> Oct 13  2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="function_jarriquez_givenkey_encrypt__sentence__key_">FUNCTION <code>jarriquez_givenKey_encrypt($sentence,@key)</code></a></h1>
+<p>Crypt with a given key.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$sentence: that's the sence to crypt.</p>
+<p>@key: that's the list of generated keys.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns encrypted sentence.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h1>
+<p><em>Last modification:</em> Jan 04 2006</p>
+<p><em>Last update on Nov:</em> 3rd 2005  |</p>
+<p><em>Created on:</em> Oct 13  2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="function_prohibited_characters__current_char__list_prohibitted_char_">FUNCTION <code>prohibited_characters($current_char,@list_prohibitted_char)</code></a></h1>
+<p>While prohibitted characters are given a new character is given instead</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$current_char: that's the current char.</p>
+<p>@list_prohibitted_char: that's the list of prohibited chars.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h1>
+<p><em>Last modification:</em> Jan 04 2006</p>
+<p><em>Last update on Nov:</em> 3rd 2005</p>
+<p><em>Created on:</em> Oct 13  2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="function_jarriquez_givenkey_decrypt__sentence__key_">FUNCTION <code>jarriquez_givenKey_decrypt($sentence,@key)</code></a></h1>
+<p>Crypts with a given key.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$sentence: that's the sentence to crypt.</p>
+<p>@key: that's generated keys.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns decrypted sentence.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h1>
+<p><em>Last modification:</em> Jan 04 2006</p>
+<p><em>Last update on Nov:</em> 3rd 2005</p>
+<p><em>Created on:</em> Oct 13  2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="function_get_rank_within_new_alphabet__char__alphabet_">FUNCTION <code>get_rank_within_new_alphabet($char,@alphabet)</code></a></h1>
+<p>Get rank from a given char within new alphabet.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$char: that's the char.</p>
+<p>@alphabet: that's the alphabet.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns rank.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h1>
+<p><em>Last modification:</em> Jan 04 2006</p>
+<p><em>Last update on Nov:</em> 3rd 2005</p>
+<p><em>Created on:</em> Oct 13  2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="function_init_new_alphabet__begin__end_">FUNCTION <code>init_new_alphabet($begin,$end)</code></a></h1>
+<p>Initializes my alphabet.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$begin: that's the begining of my alphabet.</p>
+<p>$end: that's the end of my alphabet.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>New alphabet.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h1>
+<p><em>Last modification:</em> Jan 04 2006</p>
+<p><em>Last update on Nov:</em> 3rd 2005</p>
+<p><em>Created on:</em> Oct 13  2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="function_jarriquez_423_decrypt__sentence_">FUNCTION <code>jarriquez_423_decrypt($sentence)</code></a></h1>
+<p>Decrypt with an already given key that is 423.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$sentence: that's the sentence to decrypt.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns decrypted sentence.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h1>
+<p><em>Last modification:</em> Jan 04 2006</p>
+<p><em>Last update on Nov:</em> 3rd 2005</p>
+<p><em>Created on:</em> Oct 13  2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="function_transform_date_to_key__given_date_">FUNCTION <code>transform_date_to_key($given_date)</code></a></h1>
+<p>We transform a given date to an array  to create keys to crypt data</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$given_date: that's the date.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns the date into it's array.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h1>
+<p><em>Last modification:</em> Jan 04 2006</p>
+<p><em>Last update on Nov:</em> 3rd 2005</p>
+<p><em>Created on:</em> Oct 13  2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="author">AUTHOR</a></h1>
+<p>Current maintainer: M. Sebastien DOREY, &lt;<a href="mailto:dorey_s@laposte.net">dorey_s@laposte.net</a>&gt;</p>
+
+</body>
+
+</html>

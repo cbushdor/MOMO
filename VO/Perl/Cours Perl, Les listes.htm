@@ -1,0 +1,981 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0049)http://www.dil.univ-mrs.fr/~chris/Perl/Listes.htm -->
+<HTML><HEAD><TITLE>Cours Perl, Les listes.</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1"><LINK 
+href="Cours Perl, Les listes_fichiers/Messtyles.css" type=text/css 
+rel=stylesheet>
+<META content="MSHTML 6.00.2900.3243" name=GENERATOR></HEAD>
+<BODY>
+<H1>Les listes.</H1>
+<H2>Définition.</H2>
+<H3>Dans Perl, la notion de liste couvre la structure connue dans la majorité 
+des langages sous le nom de tableau indexé. Elle va toutefois beaucoup plus 
+loin, ainsi que nous le verrons.<BR>L'ensemble des éléments d'une liste seront 
+repérés au moyen du caractère spécifique @.<BR>Une liste étant obligatoirement 
+composée de scalaires, on réfèrera chacun d'entre eux comme on le fait 
+habituellement pour les scalaires au moyen du caractère $. </H3>
+<H3>Ainsi donc, dans la liste @l, le quatrième élément sera $l[3]. La 
+numérotation des éléments commence à zéro. </H3>
+<H3>Les éléments d'une liste ne sont pas obligatoirement du même type (numérique 
+ou chaînes). </H3>
+<H3>De manière explicite, une liste sera représentée par une suite de valeurs 
+situées entre des parenthèses. </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog><PRE>(1,"Bonjour",3.14159,"Pi","e");
+  </PRE></DIV></DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Instruction.</TH>
+    <TH>Action.</TH></TR>
+  <TR>
+    <TD>@v = (1,"Bonjour",3.14159,"Pi","e");</TD>
+    <TD>&gt;Initialisation de la totalité d'une liste.</TD></TR>
+  <TR>
+    <TD>@vide = ();</TD>
+    <TD>Initialisation d'une liste vide</TD></TR>
+  <TR>
+    <TD>@B = @A</TD>
+    <TD>Recopie d'une liste dans une autre.</TD></TR>
+  <TR>
+    <TD>$table[$i+2]=100;</TD>
+    <TD>Initialisation ou modification de la valeur d'un élément.</TD></TR>
+  <TR>
+    <TD>@X = @Y [$i, , $i+3,21];</TD>
+    <TD>Création d'une liste à partir de certains éléments d'une 
+  autre.</TD></TR></TBODY></TABLE>
+<H3>Nous avons vu dans le cas des scalaires qu'il existait une variable standard 
+prédéfinie $_. Dans le cas des listes cette variable existe aussi. Elle est 
+référencée @_ et contiendra toute liste qui n'aura pas été explicitement 
+affectée. </H3>
+<H3>A chaque liste est attachée une variable scalaire spécifique qui contient 
+son indice le plus élevé. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Nom de la liste</TH>
+    <TH>Indice le plus élevé</TH></TR>
+  <TR>
+    <TD>@X</TD>
+    <TD>$#X</TD></TR></TBODY></TABLE>
+<H3>A noter que la longueur de la liste est égale à $#X + 1. </H3>
+<H2>Quelques exemples d'initialisation de liste. </H2>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme</TH>
+    <TH>Commentaire</TH>
+    <TH>Résultat</TH></TR>
+  <TR>
+    <TD>@a=(1,2,3);<BR>print "a = @a"; </TD>
+    <TD>Liste de 3 valeurs 1,2,3</TD>
+    <TD>a = 1 2 3</TD></TR>
+  <TR>
+    <TD>@a=(14.5,"Chris");<BR>print "a = @a"; </TD>
+    <TD>Liste de 2 valeurs 14.5 et "Chris"</TD>
+    <TD>a = 14.5 Chris</TD></TR>
+  <TR>
+    <TD>$i=1;<BR>@a=($i,10);<BR>print "a = @a"; </TD>
+    <TD>Liste de 2 valeurs contenu de $i et 10.</TD>
+    <TD>&gt;a = 1 10</TD></TR>
+  <TR>
+    <TD>$i=10;<BR>$j=5;<BR>@a=($i+$j,$i-$j);<BR>print "a = @a"; </TD>
+    <TD>Liste de 2 valeurs, somme et différence<BR>de $b et $c.</TD>
+    <TD>a = 15 5</TD></TR>
+  <TR>
+    <TD>@a=(1..5);<BR>print "a = @a";</TD>
+    <TD>Identique à (1,2,3,4,5).</TD>
+    <TD>a = 1 2 3 4 5</TD></TR>
+  <TR>
+    <TD>@a=();<BR>print "a = @a"; </TD>
+    <TD>Liste vide.</TD>
+    <TD>a = </TD></TR>
+  <TR>
+    <TD>@a=(1..3,10,11);<BR>print "a = @a"; </TD>
+    <TD>Identique à (1,2,3,10,11).</TD>
+    <TD>a = 1 2 3 10 11</TD></TR>
+  <TR>
+    <TD>$i=1;<BR>$j=8;<BR>@a=($i..$j);<BR>print "a = @a"; </TD>
+    <TD>Enumération fonction du contenu de $a et $b.</TD>
+    <TD>a = 1 2 3 4 5 6 7 8</TD></TR></TBODY></TABLE>
+<H2>Exemples de manipulation de listes.</H2>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list1.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste1 = (1,2,3,4,5,6,7,8,9);
+@liste2 = @liste1;
+print "Contenu de la liste2 :\n@liste2";
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list1.pl<SPAN class=rouge>ent</SPAN>
+Contenu de la liste 2 :
+1 2 3 4 5 6 7 8 9
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Affectation du contenu d'une liste à une autre. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list2.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste1 = (1,2,3,4,5,6,7,8,9);
+@liste1 = 1;
+print "Contenu de la liste1 :\n@liste1";
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list2.pl<SPAN class=rouge>ent</SPAN>
+Contenu de la liste 1 :
+1
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>La liste @liste1 a été initialisée, on lui réaffecte une nouvelle valeur, en 
+l'ocurence 1. Son ancienne valeur est repllacée par la nouvelle, une liste de 1 
+élément. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list3.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste1 = (4,5,6);
+@liste2 = (1,2,3,@liste1,7,8,9);
+print "Contenu de la liste2 :\n@liste2";
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list3.pl<SPAN class=rouge>ent</SPAN>
+Contenu de la liste 2 :
+1 2 3 4 5 6 7 8 9
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>On obtient la liste @liste2 en réunissant des éléments explicites et le 
+contenu de la liste @liste1 précédemment initialisée. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme liste4.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste1 = ("Un","Deux");
+@liste2 = ("Zero",@liste1);
+print "Contenu de la liste 2 :\n@liste2";
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl liste4.pl<SPAN class=rouge>ent</SPAN>
+Contenu de la liste 2 :
+Zero Un Deux
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>La liste @liste1 a été initialisée, on crée une nouvelle liste @liste2 
+composée du contenu de @liste1 précédé d'une chaine de caractères explicitement 
+indiquée. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme liste5.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste1 = ("Un","Deux");
+@liste2 = (@liste1,"Trois");
+print "Contenu de la liste2 :\n@liste2";
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl liste5.pl<SPAN class=rouge>ent</SPAN>
+Contenu de la liste 2 :
+Un Deux Trois
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Même opération que précédemment, mais la chaîne est ajoutée à la fin. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme liste6.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+($a,$b,$c) = (1,2,3);
+print ("a = $a, b = $b, c = $c");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl liste6.pl<SPAN class=rouge>ent</SPAN>
+a = 1, b = 2, c = 3
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>La partie gauche du signe d'affectation est une liste de scalaires. A chacun 
+des scalaires de la liste de gauche on affecte la valeur correspondante de la 
+liste de droite. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme liste7.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+($a,$b) = (2,3);
+print ("a = $a, b = $b);
+($a,$b) = ($b,$a);
+print ("a = $a, b = $b");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl liste7.pl<SPAN class=rouge>ent</SPAN>
+a = 2, b = 3
+a = 3, b = 2
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>La remarque précédente appliquée au désormais célèbre problème visant à 
+inverses le contenu de deux variables. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme liste8.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+$a = 1;
+$b = 2;
+$c = 3;
+($d,@liste) = ($a,$b,$c);
+print ("d = $d - liste= @liste\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl liste8.pl<SPAN class=rouge>ent</SPAN>
+d = 1 - liste= 2 3
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Toujours la même remarque, la liste d'affectation comportant elle même une 
+liste. Le premier élément étant un scalaire, il prend la valeur du premier 
+élément de la liste droite. La liste se voit alors affecter le reste des 
+éléments. 
+<H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list9.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = (0,1,2,3,4,5);
+($d,@liste) = @liste;
+print ("d = $d . liste= @liste\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list9.pl<SPAN class=rouge>ent</SPAN>
+d = 0 . liste = 1 2 3 4 5
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Même chose, simplement on travaille sur une variable au lieu de travailler 
+sur une liste explicite. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list10.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = (0,1,2,3,4,5);
+$l = @liste;
+print ("Longueur = $l\nliste = @liste\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list10.pl<SPAN class=rouge>ent</SPAN>
+Longueur = 6
+liste = 0 1 2 3 4 5
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Cas particulier d'une affectation dans laquelle la partie gauche est un 
+scalaire et la partie droite une liste. Dans ce cas, le scalaire se voit 
+affecter la longueur de la liste. C'est un des moyen de récupérer cette 
+information. Rappelons qu'elle est aussi égale à $#liste + 1. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list11.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = (0,1,2,3,4,5);
+($a) = @liste;
+print ("a = $a - liste= @liste\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list11.pl<SPAN class=rouge>ent</SPAN>
+a = 0 - liste = 0 1 2 3 4 5
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Il ne faut surtout pas confondre ce cas avec le précédent. Ici, nous avons 
+dans la partie gauche une liste explicitement désignée qui est constituée d'un 
+seul élément, la variable scalaire $a. Il s'agit donc d'une affection de type 
+liste à liste et non pas d'une affectation de type liste à scalaire. $a se voit 
+donc affecter la valeur du premier élément de @liste. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list12.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste2 = (@liste1 = (0,1,2,3,4,5));
+print ("liste1 = @liste1\n");
+print ("liste2 = @liste2\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list12.pl<SPAN class=rouge>ent</SPAN>
+liste1 = 0 1 2 3 4 5
+liste2 = 0 1 2 3 4 5
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Il s'agit ici de l'affectation multiple. Identique à celle que nous avions 
+évoqué dans le cas des scalaires. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list13.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste2 = @liste1 = (0,1,2,3,4,5));
+print ("liste1 = @liste1\n");
+print ("liste2 = @liste2\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list13.pl<SPAN class=rouge>ent</SPAN>
+liste1 = 0 1 2 3 4 5
+liste2 = 0 1 2 3 4 5
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Même chose mais sans les parenthèses. </H3>
+<H2>Exemples d'accés aux éléments d'une liste.</H2>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list14.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = (100,101,102,103);
+$b = $liste[1];
+$liste[2] += 100;
+print ("liste : @liste\n");
+print ("b = $b\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list14.pl<SPAN class=rouge>ent</SPAN>
+liste : 100 101 202 103
+b = 101
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Affectation à un scalaire $b de la valeur du second élément de la liste (le 
+premier élément étant $liste[0]) puis opération d'assignement sur le troisième 
+élément. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list15.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = (100,101,102,103);
+print ("-&gt; @liste[1,3]\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list15.pl<SPAN class=rouge>ent</SPAN>
+-&gt; 101 103
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Accés aux éléments 1 et 3 de la liste. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list16.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = (100,101,102,103);
+@liste[0,2] = @liste[2,0];
+print ("liste : @liste\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list16.pl<SPAN class=rouge>ent</SPAN>
+liste : 102 101 100 103
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Nouvelle version du problème d'inversion des valeurs appliqué cette fois à 
+deux éléments d'une liste. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list17.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = (100,101,102,103);
+@liste[0,1,2] = @liste[1,1,1];
+print ("liste : @liste\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list17.pl<SPAN class=rouge>ent</SPAN>
+liste : 101 101 101 103
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Sans difficulté, on remplace les trois premiers éléments de la liste par 
+trois fois le même. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list18.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = (100,101,102,103);
+@liste[0,2] = (AAA,BBB);
+print ("liste : @liste\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list18.pl<SPAN class=rouge>ent</SPAN>
+liste : AAA 101 BBB 103
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Toujours aucune difficulté. Notons au passage l'écriture des chaînes de 
+caractères AAA et BBB, les guillemets de chaîne ont été omis. Comme il n'y a 
+aucune autre interprétation possible, l'interpréteur les a implicitement 
+rajouté. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list19.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = (100,101,102,103,104)[0,2,4];
+print ("liste : @liste\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list19.pl<SPAN class=rouge>ent</SPAN>
+liste : 100 102 104
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Autre possibilité dans la manipulation des listes. La liste explicite 
+(100,101,102,103,104) peut sans difficulté être indicée. Ici on en a extrait les 
+éléments 0, 2 et 4 qui ont servi à créer le nouvel élément @liste. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list21.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = (100,101,102,103,104);
+@index = (0,2,4);
+@tab = @liste[@index];
+print ("liste : @tab\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list21.pl<SPAN class=rouge>ent</SPAN>
+liste : 100 102 104
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Il est possible d'indexer une lista au moyen d'une autre liste pour en 
+extraire une sous liste. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list21.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = (100,101,102,103,104);
+$i = 3;
+$t3 = $liste[$i];
+$t2 = $liste[$i-1];
+$c = (A,B,C,D,E) [$i+1];
+print ("liste : @liste\n");
+print ("i : $i\n");
+print ("t3 : $t3\n");
+print ("t2 : $t2\n");
+print ("c : $c\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list21.pl<SPAN class=rouge>ent</SPAN>
+liste : 100 101 102 103 104
+i : 3
+t3 : 103
+t2 : 102
+c : E
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Pas de difficulté majeure. On utilise simultanément plusieurs des 
+possibilités déjà vues. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list22.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = (100,101,102,103,104);
+print ("liste : @liste\n");
+$liste[5] = 205;
+print ("liste : @liste\n");
+$liste[8] = 808;
+print ("liste : @liste\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list22.pl<SPAN class=rouge>ent</SPAN>
+liste : 100 101 102 103 104
+liste : 100 101 102 103 104 205
+liste : 100 101 102 103 104 205 808
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Ajout d'élément à une liste existante. Remarquons que la liste d'origine 
+comportait cinq éléments (0 à 4). On lui en a rajouté un sixième à la suite des 
+cinq existants ($liste[5]) puis un septième élément en neuvième position 
+($liste[8]) alors que les éléments sept et huit ($liste[6] et $liste[7]) 
+n'existent pas. Ils contiennent par définition la valeur undef. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list23.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = (100,101,102,103,104);
+print ("Indice max : $#liste\n");
+print ("Dern Elem : $liste[$#liste]\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list23.pl<SPAN class=rouge>ent</SPAN>
+Indice max : 4
+Dern Elem : 104
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Utilisation de la variable $#liste pour accéder au dernier élément de la 
+liste concernée. </H3>
+<H2>Les opérateurs de liste.</H2>
+<H3>Nous avons déjà parle des opérateurs chop() et chomp(). Ces deux opérateurs 
+peuvent être appliqués à une liste. Ils opèrent alors succesivement sur chacun 
+des éléments de la liste passée en paramètre. Par contre, la valeur retournée 
+est la valeur du dernier caractère retiré. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list24.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = (100,101,102,103,104);
+@x = chop(@liste);
+print ("liste : @liste\n");
+print ("x : @x\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list24.pl<SPAN class=rouge>ent</SPAN>
+liste : 10 10 10 10 10
+x : 4
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list25.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = ("ab",xy\n",102,"z\n","Hello");
+@x = chomp(@liste);
+print ("liste : @liste\n");
+print ("x : @x\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list25.pl<SPAN class=rouge>ent</SPAN>
+liste : ab xy 102 z Hello
+x :
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Il est aussi possible de lire l'ensemble des éléments d'une liste. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list26.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = <STDIN>;
+chop (@liste);
+print ("\nliste : @liste\n")
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list26.pl<SPAN class=rouge>ent</SPAN>
+Premier<SPAN class=rouge>ent</SPAN>
+Second<SPAN class=rouge>ent</SPAN>
+Troisieme<SPAN class=rouge>ent</SPAN>
+<SPAN class=rouge>CtrlD</SPAN>
+liste : Premier Second Troisieme
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2>Les opérateurs sort() et reverse().</H2>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list27.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste1 = (A,B,C,D,E,F);
+@liste2 = reverse(@liste1);
+print ("liste1 : @liste1\n");
+print ("liste2 : @liste2\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list27.pl<SPAN class=rouge>ent</SPAN>
+liste1 : A B C D E F
+liste2 : F E D C B A
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list28.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste1 = (1,2,4,10,11,20,A,a,B,c);
+@liste2 = sort(@table1);
+print ("liste1 : @liste1\n");
+print ("liste2 : @liste2\n");
+
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list28.pl<SPAN class=rouge>ent</SPAN>
+liste1 : 1 2 4 10 11 20 A a B c
+liste2 : 1 10 11 2 20 4 A B a c
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>L'opérateur reverse() renvoie le tableau qui lui a été passé en paramètre 
+dans l'ordre inverse.<BR>L'opérateur sort() renvoie le tableau qui lui a été 
+passé en paramètre trié par ordre lexicographique. </H3>
+<H2>Les opérateurs push(), pop(), shift() et unshift().</H2>
+<H3>Ces opérateurs vont nous permettre d'utiliser une liste comme une pile ou 
+comme une file.</FONT></STRONG> </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>push (@liste,$val);
+push (@liste,@val);
+  </PRE></DIV></DIV>
+<H3>Ajoute $val (@val) à la fin de la liste @liste. </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>$val = pop (@liste);
+  </PRE></DIV></DIV>
+<H3>Retire le dernier élément de la liste passée en paramètre. </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>unshift (@liste,$val);
+unshift (@liste,@val);
+  </PRE></DIV></DIV>
+<H3>Insère $val (@val) au début de la liste @liste. </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>$val = shift (@liste); 
+  </PRE></DIV></DIV>
+<H3>Retire le premier élément de la liste passée en paramètre.</FONT></STRONG> 
+</H3>
+<H3>En résumé. </H3><IMG alt="File et Pile" src=""> 
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list29.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = (100,101,102,103,104);
+$element = pop (@liste);
+print ("liste : @liste\n");
+print ("element : $element\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list29.pl<SPAN class=rouge>ent</SPAN>
+liste : 100 101 102 103
+element : 104
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list30.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = (100,101,102,103,104);
+$element = shift (@liste);
+print ("liste : @liste\n");
+print ("element = $element\n");");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list30.pl<SPAN class=rouge>ent</SPAN>
+liste : 101 102 103 104
+element = 100
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list31.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@table = (A,B,C);
+unshift (@table,1,2,3);
+print ("Tableau : @table\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list31.pl<SPAN class=rouge>ent</SPAN>
+liste : 1 2 3 A B C
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list32.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@table = (A,B,C);
+push (@table,1,2,3);
+print ("Tableau : @table\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list32.pl<SPAN class=rouge>ent</SPAN>
+liste : A B C 1 2 3
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2>L'opérateurs split().</H2>
+<H3>Cet opérateur va permettre de transformer une chaîne de caractères en une 
+liste. Le premier argument qui est passé est le critère de coupure, le second 
+paramètre est la chaîne qui doit être traitée.<BR>Considérons par exemple le 
+fichier Unix /etc/passwd. Ce fichier décrit l'ensemble des usagers du système, à 
+raison de un par ligne, chaque ligne ayant la structure suivante : </H3>
+<DIV class=centre style="WIDTH: 30em">
+<DIV class=prog><PRE>login:mdp:uid:gid:nom (champ GECOS):repertoire:shell
+  </PRE></DIV></DIV>
+<H3>Les champs sont séparés par le caractère : (deux points) </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list33.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+$l = "chris::120:50:C. Aperghis:/home/chris:/bin/csh";
+($nom,$pass,$uid,$gid,$gcos,$rep,$sh) = split(/:/,$l);
+print "nom : $nom";
+print " mot de passe : $pass\n";
+print "uid : $uid";
+print " gid : $gid\n";
+print "gcos : $gcos";
+print " repertoire : $rep\n";
+print "shell : $shell\n";
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list33.pl<SPAN class=rouge>ent</SPAN>
+nom : chris
+mot de passe : 
+uid : 120
+gid : 50
+gcos : C. Aperghis
+repertoire : /home/chris
+shell : /bin/csh
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Afin de simplifier le problème, la chaîne a découper a été rangée dans une 
+variable $l.<BR>la fonction split(/:/,$l) découpe la chaîne en question en 
+autant de champs que nécesaire, le critère de coupure étant le caractère 
+':'.<BR>La liste a été explicitement représentée afin de récupérer directement 
+chaque champ dans une variable. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list34.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+$l = "chris::120:50:C. Aperghis:/home/chris:/bin/csh";
+@liste = split(/:/,$l);
+for ($i=0;$i&lt;=$#liste;$i++) {
+print ("$liste[$i]\n");
+
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list34.pl<SPAN class=rouge>ent</SPAN>
+chris
+
+120
+50
+C. Aperghis
+/home/chris
+/bin/csh
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Autre version du même programme, la liste dans laquelle les données sont 
+récupéreées étant une variable. </H3>
+<H3>Nous verrons ultérieurement que le critère de coupure paut être plus 
+détaillé. En fait il s'agit d'une expression régulière. Un chapitre leur sera 
+consacré.<BR>Si aucune chaine n'est spécifiée comme second argument split 
+(/.../), ce sera la variable prédéfinie $_ qui sera utilisée.<BR>Si le critère 
+de coupure est undef (//) alors, chaque caractère de la chaîne sera considéré 
+comme un élément de la liste créée. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list35.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+$l = "Hello.";
+@liste = split(//,$l);
+for ($i=0;$i&lt;=$#liste;$i++) {
+  print ("$liste[$i]\n");
+}
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list35.pl<SPAN class=rouge>ent</SPAN>
+H
+e
+l
+l
+o
+.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2>Exemple :</H2>
+<H3>On lit une chaîne de caractères qui comporte exclusivement des 1 et des 
+0.<BR>On désire compter le nombre de 1 et le nombre de 0. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list36.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+$ligne = <STDIN>;
+$z = split(/0/,$ligne) -1;
+$u = split(/1/,$ligne) -1;
+print ("La chaine $ligne,\n");
+print ("contient\n"); 
+print ("$z fois le chiffre 0.\n");
+print ("$u fois le chiffre 1.\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list36.pl<SPAN class=rouge>ent</SPAN>
+10101011001011111000101011010<SPAN class=rouge>ent</SPAN>
+La chaine 10101011001011111000101011010,
+contient
+13 fois le chiffre 0.
+16 fois le chiffre 1.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Il est important que la chaîne soit lue afin de se terminer par un caractère 
+qui n'est ni 1 ni 0 (\n).<BR>Pour le reste, il faut faire appel aux vieux 
+souvenirs du primaire lorsqu'on comptait les piquets et les intervalles. </H3>
+<H2>L'opérateurs join().</H2>
+<H3>C'est l'opérateur dual de split. Il va permettre de réunir les éléments 
+d'une liste en une chaîne de caractères. Un caractère passé en paramètre fera le 
+joint entre les divers éléments. </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>$ch = join("-",@liste)
+  </PRE></DIV></DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list37.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@liste = (Programmer, en, Perl);
+for ($i=0;$i&lt;=$#liste;$i++) {
+  print ("$liste[$i]\n");
+}
+$c1 = join(" ",@liste);
+print ("$c1\n");
+$c2 = join(" - ",@liste);
+print ("$c2\n"); 
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list37.pl<SPAN class=rouge>ent</SPAN>
+Programmer
+en
+Perl
+Programmer en Perl
+Programmer - en - Perl
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2>Plus loin avec la fonction sort().</H2>
+<H3>Nous avons vu l'utilisation de la fonction sort(). En fait, cette fonction 
+est beaucoup plus complexe qu'il n'y parait.<BR>Lors du chapitre consacré aux 
+scalaires, a été évoqué l'opérateur &lt;=&gt; (spaceship), et dans le chapitre 
+consacré aux chaînes, l'operateur cmp.<BR>Nous allons voir qu'ils peuvent être 
+utilisés pour afiner les algorithmes de tri. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list38.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+# Tri simple
+@b = (1,4,A,aa,BB,x,10,100);
+@a = sort @b;
+print ("@b\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list38.pl<SPAN class=rouge>ent</SPAN>
+1, 10, 100, 4, A, BB, aa, x
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Dans ce tri simple, nous ne faisons fait apparaître de critère de tri. Il 
+est, dans ce cas, implicite. </H3>
+<H3>Le fonctionnement de l'opérateur sort() est le suivant :<BR>Il va considérer 
+tous les couples de valeurs qu'il peut fabriquer avec les éléments de la liste 
+passée en paramètre. Ce couple de valeur est retourné dans les deux variables 
+globales $a et $b.<BR>L'usager teste ces deux valeurs et doit retourner :<BR>Une 
+valeur négative si il désire que les deux valeurs gardent leur ordre ($a 
+$b),<BR>Une valeur positive si il désire qu'elles soient inversées ($b $a). 
+</H3>
+<H3>Rappelons que nous disposons de deux opérateur de comparaison (&lt;=&gt; ou 
+cmp) qui renvoient justement ces valeurs. </H3>
+<H3>Ainsi, l'instruction de tri lexicographique simple en ordre croissant. </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>@a = sort @b;
+  </PRE></DIV></DIV>
+<H3>Aurait du, dans l'absolu, se présenter sous la forme. </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>@a = sort { $a cmp $b } @b;
+  </PRE></DIV></DIV>
+<H3>Il est donc maintenant facile d'écrire l'instruction de de tri 
+lexicographique en ordre décroissant. </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>@a = sort { $b cmp $a } @b;
+  </PRE></DIV></DIV>
+<H3>Ou bien le tri numérique, tout d'abord en ordre croissant. </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>@a = sort { $a &lt;=&gt; $b } @b;
+  </PRE></DIV></DIV>
+<H3>Puis en ordre décroissant. </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>@a = sort { $b &lt;=&gt; $a } @b;
+  </PRE></DIV></DIV>
+<H3>Mais rien n'interdit d'écrire son propre algorithme de comparaison. La seule 
+contrainte etant de renvoyer une valeur négative si on désire que les deux 
+valeurs gardent leur ordre ($a $b) ou une valeur positive si on désire qu'elles 
+soient inversées ($b $a). </H3>
+<H2>Exemple.</H2>
+<H3>Une liste contient une série de valeurs numériques. <BR>On desire qu'elles 
+soient triées comme suit :<BR>Au début, toutes les valeurs paires triées en 
+ordre croissant.<BR>Ensuite, toutes les valeurs impaires triées en ordre 
+décroissant. </H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type list39.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+sub ordonne() {
+  if(!($a%2)){
+    if(!($b%2)) {
+      #$a est pair, $b est pair.
+      return $a-$b;
+    }else {
+      #$a est pair, $b est impair.
+      return -1;
+    }
+  }else{
+    if(!($b%2)) {
+      #$a est impair, $b est pair.
+      return 1;
+    }else {
+      #$a est impair, $b est impair
+      return $b-$a;
+    }
+  }
+}
+         
+@l1=(10,8,13,1,2,5,12,3,14,9,17,20,19,18,6,11,4,15,7,16);
+#On demande un tri en fonction du résultat de
+#la comparaison renvoye par la fonction "ordonne".
+@l2 = sort ordonne @l1;
+print ("@l2\n");
+c:\progs&gt; perl list39.pl<SPAN class=rouge>ent</SPAN>
+2 4 6 8 10 12 14 16 18 20 19 17 15 13 12 11 9 7 5 3 1
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H2 style="POSITION: relative; HEIGHT: 5em">
+<DIV class=lieng><A 
+href="http://www.dil.univ-mrs.fr/~chris/Perl/Chaines.htm"><IMG 
+style="VERTICAL-ALIGN: middle" src="Cours Perl, Les listes_fichiers/prec.gif"> 
+</A>Précédent </DIV>
+<DIV class=liend>Suivant <A 
+href="http://www.dil.univ-mrs.fr/~chris/Perl/Controle.htm"><IMG 
+style="VERTICAL-ALIGN: middle" src="Cours Perl, Les listes_fichiers/suiv.gif"> 
+</A></DIV></H2></H3></H3></BODY></HTML>

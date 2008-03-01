@@ -1,0 +1,39 @@
+<html>
+<head>
+<script language="JavaScript">
+var pass = 0;
+
+function prompt() {
+    document.write("hello word");
+    document.write("<form name='login' method='get'>");
+//    if (pass ==  0) {
+        print_login_prompt();
+//	pass++;
+//    } else {
+//        print_password_prompt();
+//        pass = 0;
+//    }
+    document.write("</form>");
+    document.write("morpion");
+}
+
+function print_login_prompt() {
+  document.write("Enter login<input type=text name=login  onChange='print_password_prompt()'>");
+}
+
+function print_password_prompt() {
+  document.write("Enter pass<input type=text name=login  onChange='print_congrat()'>");
+}
+
+function print_congrat() {
+  document.write("over");
+}
+
+</script>
+</head>
+<body>
+<script>
+prompt();
+</script>
+</body>
+</html>

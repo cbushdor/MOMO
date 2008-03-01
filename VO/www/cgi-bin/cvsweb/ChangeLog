@@ -1,0 +1,1417 @@
+$FreeBSD: projects/cvsweb/ChangeLog,v 1.194 2005/09/25 20:28:51 scop Exp $
+
+2005-09-25  Ville Skyttä  <scop@FreeBSD.org>
+
+	* Release 3.0.6.
+
+	* README: CVS home page has moved to http://www.nongnu.org/cvs/
+
+2005-08-26  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Allow the "content-type" CGI param to contain "+".
+	[Submitted by: <charles.buysschaert@advalvas.be>]
+
+2005-06-19  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.conf: Spelling fixes.
+	[Submitted by: Zafer Aydogan <zafer@gmx.org>,
+	Jonathan Noack <noackjr@alumni.rice.edu>]
+
+2005-05-06  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (printLog): Improve presentation of the "Diff to ..."
+	lines, thanks to Jerry Nairn for pointing this out.
+
+2005-04-11  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (human_readable_diff): Try harder to output sane
+	revision numbers when rcsdiff produced no output.
+	[Submitted by: Jerry Nairn <jpnairn@gmail.com>,
+	Jon Noack <noackjr@alumni.rice.edu> (modified)]
+
+2005-01-22  Ville Skyttä  <scop@FreeBSD.org>
+
+	* Release 3.0.5.
+
+2005-01-08  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (spacedHtmlText): Fix tab expansion to take all
+	consecutive tabs into account on each pass, not just the last tab.
+	[Submitted by: Vlado Klimovsky <klimovsky@iblsoft.com>]
+
+	* cvsweb.cgi (config_error): New subroutine for reporting errors
+	in configuration files.
+
+	* cvsweb.cgi (html_header): Avoid warning when $CSS is not defined.
+
+	* cvsweb.conf: Add sample code for loading site configuration file
+	snippets from a conf.d directory.
+
+	* cvsweb.cgi, cvsweb.conf: The new configuration variable
+	$allow_mailtos can be set to false in order to disable creation
+	of mailto: links in various HTMLized views.  Thanks to
+	Solar Designer <solar@openwall.com> for the suggestion.
+
+2005-01-06  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.conf (ForbiddenFiles): Comment typo fix.
+	http://bugs.debian.org/288428
+
+	* cvsweb.conf, cvsweb.cgi: Configuration documentation improvements.
+
+	* cvsweb.cgi: Don't prefer the current dir (usually cgi-bin) when
+	finding a readable dir to operate in.  Checking whether we can read
+	that dir in the CGI script code may not be enough in some tightly
+	controlled enviroments, eg. SELinux, since it doesn't necessarily
+	apply to the commands we invoke.
+
+2004-12-11  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Preserve values of hidecvsroot and hidenonreadable
+	when submitting the options form.  Thanks to Daniel Leidert for
+	the heads up.
+
+2004-12-10  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (stickyvars): Add hidecvsroot and hidenonreadable.
+
+	* cvsweb.conf (DEFAULTVALUE): Improve documentation.
+
+2004-11-17  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (human_readable_diff): Fix query string in links
+	when human readable diff is the default diff format.
+	[Submitted by: Michael Sims <michaels@crye-leike.com> (modified)]
+
+2004-11-06  Ville Skyttä  <scop@FreeBSD.org>
+
+	* Release 3.0.4.
+
+	* cvsweb.cgi (spacedHtmlText): Fix tab expansion to not eat all
+	characters before the first tab.  This bug was introduced in
+	3.0.2.
+
+2004-11-03  Ville Skyttä  <scop@FreeBSD.org>
+
+	* Release 3.0.3.
+
+	* cvsweb.cgi (spacedHtmlText): Improve whitespace handling
+	when $hr_breakable is true, especially with String::Ediff.
+	[Submitted by: Bo Zou <bzou@atreus-systems.com> (modified)]
+
+2004-10-16  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Extend the magic "." revision support so that it
+	takes the branch into account (if defined in the query string's
+	only_with_tag parameter).  Applies to all download, view, and
+	annotate URLs.
+
+2004-10-15  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (navigateHeader): Support linking to log view's
+	branch/tag anchors.
+
+	* cvsweb.cgi, cvsweb.conf (DEBUG): New configuration parameter for
+	enabling more output to web server error log for troubleshooting.
+
+2004-08-20  Ville Skyttä  <scop@FreeBSD.org>
+
+	* Release 3.0.2.
+
+2004-08-11  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Review and rework URI escaping.
+
+2004-08-10  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Send temporary HTTP redirects where appropriate
+	instead of always permanent ones.
+
+	* cvsweb.cgi: When submitting the options form in an Attic/ dir,
+	stay there, don't change to the parent dir.
+
+	* cvsweb.cgi: Ensure that CVSROOT/modules is always properly closed.
+
+	* cvsweb.cgi: Coding style and variable scoping improvements.
+
+	* cvsweb.conf (MIRRORS): Add example mirror configuration.
+
+2004-07-28  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Get rid of the $newpath and $pathinfo globals.
+
+	* cvsweb.cgi: Don't use $&.
+
+	* cvsweb.cgi: Add a couple of table summaries.
+
+2004-07-26  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Make Attic "stripping" regexps more strict in
+	order to not treat eg. "FooAttic" as Attic.
+
+	* cvsweb.conf (ICONS): Shorten default alt text for binaries
+	to [BIN] for better text-based browser experience.
+
+2004-07-24  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Coding style and variable scoping improvements.
+
+2004-07-17  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi, css/cvsweb.css: Combine CSS properties for all
+	diff lines into the "diff" class, change default diff colors for
+	better experience on non-highcolor displays, and use only generic
+	font families.
+
+2004-05-08  Ville Skyttä  <scop@FreeBSD.org>
+
+	* Release 3.0.1.
+
+	* cvsweb.cgi: Include CVSHistory links for files from the log view.
+
+2004-05-05  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi, cvsweb.conf: Light integration with CVSHistory.
+
+2004-04-24  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (flush_diff_rows): Fix HTML escaping problem in the
+	"PreChangeRemove" state.
+	[Submitted by: Mark A. Mankins <raider15@mankins.us>]
+
+2004-04-20  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Resurrect the ability to link to the latest revision
+	of a file using ?rev=. and ?rev=HEAD.
+
+	* cvsweb.cgi (doGraphView): Make sure branch links from the graph
+	view contain only the target branch.
+
+2004-03-30  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Allow revision numbers without dots (eg. "1").
+
+	* cvsweb.cgi (download_url): Fix download links for valid non-branch
+	revisions which contain 0's, for example "2.0.2.1".
+	Thanks to Jules <jules@zjuul.net> for the heads up.
+
+2004-03-17  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.conf (cvs_options): Remove -l as it's not available in
+	current stable or "feature" versions of cvs.
+
+2004-03-16  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (doAnnotate): Add CSS class for current revision lines.
+	* css/cvsweb.css (current-rev): New.
+	[Submitted by: Max Laier <max@love2party.net> (modified)]
+
+2004-02-27  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Always pass the -m (module) argument to cvsgraph(1).
+	That's the right thing to do and makes the graphing more robust
+	against unexpected cvsgraph.conf files.  Also move some related
+	documentation from INSTALL to cvsweb.conf.
+	Thanks to Gernot W. Schmied and Jon Noack for the heads up.
+
+	* cvsweb.conf: Enscript regexp improvements: fix regexp for
+	Perl scripts [Submitted by: Stefan Moessler <moessler@getemed.de>
+	and Jon Noack <noackjr@alumni.rice.edu>], treat *.pac as JavaScript,
+	use Perl states instead of Makefile ones for Makefile.PL, other
+	documentation improvements.
+
+2004-02-26  Ville Skyttä  <scop@FreeBSD.org>
+
+	* Release 3.0.0.
+
+2004-02-23  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (doDiff): Don't pass -p or -F to rcsdiff(1) when
+	doing side by side diffs.  diff(1) from diffutils < 2.8 does not
+	like that.  Thanks to Jon Noack for the catch.
+
+	* cvsweb.conf: Improve $showfunc and %funcline_regexp documentation.
+
+2004-02-15  Ville Skyttä  <scop@FreeBSD.org>
+
+	* Release 2.9.3 (beta).
+
+	* cvsweb.cgi (printLog): Don't turn off tag, diff etc linking
+	in markup view.
+	[Submitted by: Christopher Wolf <wolf@ti.com> (modified)]
+
+	* cvsweb.cgi (cvswebMarkup): Use "Revision" consistently, HTML
+	escape tag names also when $show_log_in_markup is turned off.
+
+2004-02-14  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (DIFFTYPES): Use width=168 in side by side diffs to
+	support 80 character line lengths.
+	[Submitted by: Christopher Wolf <wolf@ti.com>]
+
+	* cvsweb.cgi, cvsweb.css: Better control over line wrapping in the
+	directory view.
+	[Submitted by: Christopher Wolf <wolf@ti.com> (modified)]
+
+	* cvsweb.cgi, enscript/lang_cvsweb_diff.st: Use a separate Enscript
+	language file for diffs, and tune it for better diff readability.
+	[Submitted by: Christopher Wolf <wolf@ti.com> (modified)]
+
+	* cvsweb.cgi: Fix tarball/zip creation from non-toplevel dirs.
+	This was broken since revision 1.191 (FreeBSD-CVSweb 2.9.1).
+	[Submitted by: Christopher Wolf <wolf@ti.com> (modified)]
+
+	* cvsweb.cgi (doGraphView): Add a compatiblity kludge for the
+	client side image map markup to make it work eg. with Mozilla
+	based browsers.  Thanks to Christopher Wolf for the catch.
+
+2004-01-31  Ville Skyttä  <scop@FreeBSD.org>
+
+	* Release 2.9.2 (beta).
+
+	* cvsweb.cgi: Rework handling of forbidden files.  forbidden_module()
+	and @HideModules had nothing to do with modules in CVS terminology,
+	and the implementation was broken.  forbidden() and @ForbiddenFiles
+	now affect directories as well.
+
+	* cvsweb.conf: Sample regexp improvements, remove @HideModules,
+	disable Apache logo by default.
+
+	* cvsweb.cgi: Path canonicalization/portability improvements, makes
+	@ForbiddenFiles more robust against not-too-paranoid regexps.
+
+	* cvsweb.cgi: Hide CVSROOT directories only directly below the root.
+
+	* README, README.FreeBSD: Combine into README.
+
+2004-01-24  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Add support for per file type external diff commands.
+	[Submitted by: Bryce Nesbitt <bryce1@obviously.com> (modified)]	
+
+	* cvsweb.conf (DIFF_COMMANDS): New, to support the above.
+
+	* cvsweb.cgi: Avoid some warnings when HTMLifying diffs and doing
+	revisionless checkouts (ie. HEAD), improve diff linking for binary
+	files, fix "as text" links for non-text/plain text files, make
+	search_path a bit more robust.
+
+	* cvsweb.conf (command_path): Change to a list for portability.
+	
+	* cvsweb.cgi: Clean up IPC::Run usage; get rid of timeouts, they
+	seem to cause more harm than good.
+
+2004-01-21  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Use only_complete in MIME::Types initialization
+	to get only useful entries: smaller memory footprint.
+
+2004-01-15  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Review, clean up and speed up regular expression
+	usage.  Also change a few globals to constants.
+
+	* cvsweb.conf: Remove the $checkout_magic configuration variable.
+	Support for it has been apparently broken since 2000-10-10 so
+	probably nobody will miss it.
+
+2004-01-11  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Lots of improvements in download/view linking
+	wrt. MIME types and binary files, avoid logging the file
+	multiple times when doing a checkout.
+	(VERSION): Set to 2.9.2-dev.
+
+	* css/cvsweb.css (display-link): New.
+
+	* cvsweb.conf (long_intro): Improve.
+
+2004-01-10  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (download_link): Get rid of the open-in-new-window
+	code altogether.  The end user should decide, not the sysadmin.
+
+	* cvsweb.conf: Remove now unused parameters $open_extern_window,
+	$extern_window_height, and $extern_window_width.
+
+2003-10-25  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (doCheckout): Fix checkout from paths where the
+	top level directory starts with a dot, improve error message.
+	[Submitted by: David O'Shea <dcoshea@hotmail.com>]
+
+	* cvsweb.cgi: General error handling and message improvements.
+	Avoid "cvs export" for unsupported tarball requests.
+
+2003-10-05  Ville Skyttä  <scop@FreeBSD.org>
+
+	* Release 2.9.1 (beta).
+
+	* cvsweb.cgi: Show contents of README.cvs(.html) in the dir view
+	header if such a file is present in the directory.
+
+	* cvsweb.cgi (human_readable_diff): Add some links to markup view.
+
+	* INSTALL: Clean up and add instructions for upgrading from 2.0.x.
+
+2003-10-02  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Improve markup, change to XHTML 1.0 Transitional.
+
+2003-09-26  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Pulling in the huge CGI module only for the sake
+	of query string parsing isn't quite worth it.  Revert to a
+	homebrew implementation, use URI::Escape and grok semicolons as
+	separators.
+
+2003-09-15  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (cvswebMarkup): Add line numbers support to
+	internal "preformat-in-markup" mode.  Prefer enscript(1) over
+	it (if enabled).
+
+2003-09-14  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Rewrite tarball/zip creation using IPC::Run,
+	now works with mod_perl.  Improve error handling, allow .tgz
+	extension for tarballs.
+
+	* cvsweb.cgi: Don't show tarball/zip download links if the
+	commands for creating them aren't available.
+
+	* cvsweb.cgi: Strict input checking and laundering, needed
+	for running under Perl 5.8 with taint checks enabled (PR 52386).
+	Use the CGI module for input parsing.
+
+	* cvsweb.cgi: More use of File::Spec for portability.
+
+	* cvsweb.conf: Improve documentation and default settings.
+
+2003-09-07  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Don't offer tarball/zip downloads for empty dirs.
+
+	* cvsweb.cgi, cvsweb.css: Redesign option forms, general
+	markup improvements.
+
+2003-09-06  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Get rid of mod_perl specific code.
+	It's not needed and will only cause trouble because of subtle
+	differences between mod_perl 1 and 2.
+
+	* cvsweb.cgi: Try to find and cd into a readable directory
+	before doing any cvs or rcs operations for better support for
+	non-readable cgi-bin directories.
+
+2003-08-12  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi, cvsweb.css: Use String::Ediff for Emacs-style
+	human readable ediffs if available.
+	[Submitted by: Bo Zou <boxzou@yahoo.com> (modified)]
+
+2003-08-08  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Use IPC::Run instead of IPC::Open2 and IO::Pipe
+	for better portablity (eg. for mod_perl 1.99+).
+
+2003-08-03  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Baby steps in use of File::Spec (0.8+) for
+	better portability.
+
+	* cvsweb.cgi: Implement enscript-colored diffs
+
+	* cvsweb.cgi (doDiff): Use rcsdiff_options.
+
+	* cvsweb.conf (rcsdiff_options): New.
+
+2003-07-30  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.conf-freebsd (prcategories): Bring up to date.
+	[Submitted by: simon@FreeBSD.org]
+
+2003-07-20  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Make $cvstreedefault optional in cvsweb.conf,
+	improve error messages and warnings.
+	* cvsweb.conf: Doc updates.
+
+2003-06-25  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Rework MIME type discovery, now uses
+	MIME::Types(3) if it's available.
+	(cvswebMarkup): Use height="100%" for <embed>.
+	* cvsweb.conf: Doc update, comment out '*' from %MTYPES.
+	[Heads up by: Daniel Wallner <daniel.wallner@bredband.net>]
+
+2003-06-24  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Don't try to rlog(1) unreadable files
+	[Submitted by: Bernd Groh <bgroh@redhat.com> (modified)]
+
+	* cvsweb.cgi (doGraphView): Make it work with multiple roots.
+	[Submitted by: Christophe Kalt <kalt@taranis.org>]
+
+	* cvsweb.cgi: Show binary (-kb) files with a different icon,
+	show keyword expansion mode in log view.
+	* cvsweb.conf: Add binfile to %ICONS.
+	* icons/binary.gif: New.
+	[Submitted by: Paul Gelderblom <paulgelderblom@bigfoot.com>]
+
+2003-05-04  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (cvswebMarkup): Implement line number output.
+	[Submitted by: Roy Smith <roy@panix.com> (modified)]
+
+	* cvsweb.conf (DEFAULTVALUE): Don't show line numbers by default.
+	* enscript/lang_cvsweb.st: Support for line numbers.
+	* css/cvsweb.css (src): Ditto.
+	* README.FreeBSD: Ditto.
+
+2003-05-01  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (cvswebMarkup): Syntax highlighting with GNU Enscript.
+	* cvsweb.conf (CMD): Search for enscript.
+	* cvsweb.conf (allow_enscript, enscript_options, enscript_types): New.
+	* enscript/lang_cvsweb.st: New.
+	[Submitted by: Neal Horman <neal@wanlink.com> (modified)]
+
+	* INSTALL: Document GNU Enscript stuff.
+	* README.FreeBSD: Ditto.
+
+2003-04-27  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Nuke $verbose and some undefinedness warnings.
+	Handle text/vnd.viewcvs-markup for interoperability/easier
+	migration from ViewCVS.
+
+	* cvsweb.cgi (fileSortCmp): Sort parent dir first, then Attic.
+
+	* cvsweb.cgi (htmlify): Don't link "man pages" that contain only
+	numbers	and punctuation.
+
+	* cvsweb.cgi (doGraphView): Prevent cross site scripting in
+	CvsGraph maps, output HTML 4.
+
+	* INSTALL: Minimum supported CvsGraph version is 1.4.0.
+
+2003-02-11  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.cgi (htmlify): Improve man page linking. [Requested by:
+	Yoshihiko SARUMARU <mistral@imasy.or.jp>]
+
+2002-12-23  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.conf*, cvsweb.cgi: Use $^O instead of `uname`.
+	See the perlport(1) manual page for $^O values.
+
+	* cvsweb.conf (CMD): Prefer gtar over tar.
+	(zip_options): Add -q to prevent zip(1) from trashing error logs.
+
+	* cvsweb.cgi: Get rid of unsafe environment variables.
+	[Submitted by: Paul Gelderblom <paul.gelderblom@lostboys.nl>]
+
+2002-12-21  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.conf (file_list_len): New configuration variable.
+
+	* cvsweb.cgi (getDirLogs): Use $file_list_len to handle dirs
+	with lots of files.
+	[Submitted by:  Peter Klausner <peter.klausner@systor.com> and
+	 Tomas Novak <tnovak@atrey.karlin.mff.cuni.cz> (modified)]
+
+	* cvsweb.cgi: Add case (in)sensitive sort option for files.
+	[Submitted by: Paul Gelderblom <paul.gelderblom@lostboys.nl>]
+
+2002-11-24  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Use File::Temp for creating temporary stuff,
+	only dirs for now, bump minimum Perl version to 5.005_03.
+
+2002-11-16  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Move CSS to external file, HTML escaping fixes.
+	* cvsweb.conf: New configuration variable: $cssurl
+	* css/cvsweb.css: New.
+
+2002-11-13  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Implement CvsGraph integration.
+	Thanks to CvsGraph and ViewCVS folks for ideas.
+
+	* cvsweb.conf (allow_cvsgraph, cvsgraph_config): New variables.
+	(ICONS): Add graph icon.
+	
+	* icons/minigraph.png: New.
+
+	* INSTALL, README.FreeBSD, TODO.FreeBSD: CvsGraph update.
+
+2002-10-21  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: More CSS'ifications.
+	(htmlify): Improve URL regexp.
+
+	* cvsweb.conf: Remove many options obsoleted by use of CSS,
+	they'll be customizable again when the CSS moves to an external
+	file.
+
+2002-09-23  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.conf (annotate_options): New config variable.
+	* cvsweb.cgi (doAnnotate): Use @annotate_options.
+	[Idea from: Debian bug tracking system (#117112)]
+
+2002-08-16  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (doAnnotate): Make annotate work under mod_perl.
+	
+	* cvsweb.cgi (html_footer): Output address only if it's set.
+	[Obtained from: NetBSD (modified)]
+
+	* cvsweb.conf: Add -u to cvs_options by default on NetBSD.
+	[Obtained from: NetBSD]
+
+2002-08-04  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Made annotate work against a read only repository.
+	This implementation uses the global -n option to cvs(1) if
+	any of the annotate dirs is not writable.  If all are, we don't
+	use -n since locking ensures consistent annotations.
+	While working with this, noticed that annotate didn't work under
+	mod_perl, nor does it after this change.
+
+	* cvsweb.cgi: Fix annotate HTML output.
+
+2002-08-03  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Escape filenames in directory listings.
+	Re-indentation, whitespace cleanup.
+
+2002-07-30  Ville Skyttä  <scop@FreeBSD.org>
+
+	* INSTALL: Recommend cvs >= 1.11, typo fixes.
+
+	* cvsweb.conf (cvs_options): Mention cvs < 1.11 '-l' bug.
+
+2002-07-23  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Fix diffs between tags.
+
+	* cvsweb.cgi: Release as FreeBSD-CVSweb 2.0.5.
+
+2002-07-18  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (chooseMirror):
+	Cleanup, sort and reformat mirror listing, fix HTML.
+
+	* cvsweb.cgi (chooseCVSRoot):
+	Fix duplicate accesskeys and id's in the "front" page.
+
+	* cvsweb.cgi (download_link):
+	Fix typo in JavaScript download window parameter.
+
+2002-07-14  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (download_link): Include query string in JavaScript
+	download links in order to unbreak downloads from non-default
+	CVS roots.
+	[Submitted by: Yann Droneaud <ydroneaud@meuh.eu.org>]
+
+2002-07-10  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Don't display @ForbiddenFiles in directory
+	listings; also make sure their logs are not accessible via direct
+	URLs.
+
+2002-07-09  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (fileSortCmp): Fix dir sort order breakage when
+	there are rogue files in the repository dir and the sort order
+	is not by file name.
+	[Submitted by: "Khachaturov, Vassilii" <vassilii@tarunz.org>]
+
+2002-07-06  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.conf (long_intro): Remove authors' email addresses.
+
+	* cvsweb.conf (cvs_options): Add -f; avoid reading ~/.cvsrc.
+
+	* cvsweb.cgi: Add some labels and access keys to form controls.
+
+	* cvsweb.cgi: Release as FreeBSD-CVSweb 2.0.4.
+
+2002-07-03  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi: Remove an unused variable.
+
+	* README, cvsweb.cgi, cvsweb.conf:
+	Update various contact infos and links.
+
+2002-07-02  Ville Skyttä  <scop@FreeBSD.org>
+
+	* cvsweb.cgi (printLog): Remove extra <br> from first log message.
+
+	* cvsweb.cgi: Variablize HTML metadata, add "generator".
+
+	* cvsweb.cgi: Close the CVSROOT/descriptions
+	filehandle after we're finished with it.
+
+2002-05-22  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.cgi: Read configuration files with `do' instead of
+	`require' to unbreak mod_perl support.
+	[Submitted by: "Khachaturov, Vassilii" <vassilii@tarunz.org>]
+
+	* cvsweb.cgi: Cosmetic fixes.  Use and/or rather than &&/|| to
+	connect sentences.
+
+	* cvsweb.cgi: Exit with -1 if exec() fails.
+
+	* cvsweb.cgi: Do not print a redundant `Diff' for rev.1.1.
+	[Submitted by:	Ville Skyttä <ville.skytta@iki.fi>]
+
+	* cvsweb.cgi: Prevent cross-site scripting.
+	[Submitted by: Motoyuki Konno <motoyuki@bsdclub.org> (modified)]
+
+	* cvsweb.cgi: Skip a possible `locked by' clause and extract a
+	revision number out of a log entry properly.
+	[Submitted by: "Khachaturov, Vassilii" <vassilii@tarunz.org>]
+
+	* cvsweb.cgi: Apply some HTML cleanups and use CSS instead of
+	ancient HTML 3/4 tags and attributes.	
+	[Submitted by:	Ville Skyttä <ville.skytta@iki.fi>]
+
+	* cvsweb.cgi: Pass `use' features to import to make it more memory
+	efficient.
+	[Submitted by: Ville Skyttä <ville.skytta@iki.fi>]
+
+	* cvsweb.cgi: Add new configuration variables: $allow_log_extra,
+	$allow_dir_extra, and $allow_source_extra.
+	[Submitted by: "Khachaturov, Vassilii" <vassilii@tarunz.org>]
+
+	* cvsweb.cgi: Release as FreeBSD-cvsweb 2.0.2.
+
+	* cvsweb.cgi: Previous fixes against cross-site scripting
+	vulnerabilities were insufficient and buggy (error messages were
+	messed up).  Revamp fatal() to HTML-quote automatically and fix
+	error message output.
+
+	* cvsweb.cgi: Release as FreeBSD-cvsweb 2.0.3.
+
+2002-05-11  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.cgi: There are no spaces at EOL in modern rlog output.
+	[Submitted by: "Khachaturov, Vassilii" <vassilii@tarunz.org>]
+
+2002-05-08  Motoyuki Konno <motoyuki@FreeBSD.org>
+
+	* cvsweb.cgi: Fix a cross-site scripting vulnerablity.
+
+2002-05-07  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.conf-netbsd, cvsweb.conf-openbsd: NetBSD and OpenBSD
+	don't use $CVSHeader$ but $Id$.
+	[Submitted by: motoyuki@FreeBSD.org]
+
+	* cvsweb.cgi: Work around a bug of cvs -p; expand symlinks in a
+	cvsroot.
+	[Submitted by: motoyuki@FreeBSD.org]
+
+	* cvsweb.cgi: Fix parsing in 'tags' state.
+	[Submitted by: "Khachaturov, Vassilii" <vassilii@tarunz.org>]
+
+2002-04-11  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.cgi, cvsweb.conf: Perform an HTML cleanup.
+	[Submitted by: Ville Skyttä <ville.skytta@iki.fi>]
+
+	* cvsweb.cgi: Call this version FreeBSD-cvsweb 2.0.1.
+
+2002-04-05  Akinori MUSHA  <knu@iDaemons.org>
+
+	* INSTALL: Somehow description configuration doesn't work if you
+	put trailing /'s in module names, so fix the document for the
+	moment.
+	[Submitted by: Mario Sergio Fujikawa Ferreira <lioux@FreeBSD.org>]
+
+2002-02-06  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.cgi: Use TMPDIR instead of the hardcoded /tmp.
+
+	* cvsweb.cgi: Never pass 'MAIN' to cvs(1).  'HEAD' is the valid
+	tag.
+
+2001-11-08  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.conf-freebsd: Allow downloading a tarball of a project
+	directory as well as a port directory.
+
+	* cvsweb.cgi: Call this version FreeBSD-cvsweb 2.0.0.
+
+2001-10-11  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.cgi, cvsweb.conf: Introduce optional output filter.
+	[Requested by:	Shigeyuki Fukushima <shige@FreeBSD.org>]
+
+	* ChangeLog, README.knu, TODO.knu, cvsweb.cgi, cvsweb.conf,
+	cvsweb.conf-freebsd, cvsweb.conf-netbsd, cvsweb.conf-openbsd,
+	cvsweb.conf-ruby: Add FreeBSD tags and adjust my vendor tags.
+
+2001-10-08  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.cgi: Fix a bug where it produces wrong download links
+	when cvsweb.cgi is placed right under the document root.
+	[Reported by:    Arnaud on EFnet]
+
+2001-08-01  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.cgi: perltidy -i=8 -t -pt=2 -bt=2 -sbt=2 -ci=4 -noll -sfs
+	-nasc -ce
+
+	* cvsweb.conf, cvsweb.conf-freebsd, cvsweb.conf-netbsd,
+	cvsweb.conf-openbsd, cvsweb.conf-ruby: perltidy -i=8 -t -pt=2 -bt=2
+	-sbt=2 -ci=4 -noll -sfs -nasc -ce
+
+	* cvsweb.cgi, cvsweb.conf: MFZ 1.111, but introduce @ForbiddenFiles
+	instead of @DissallowRead to forbid user to cvs
+	checkout/diff/annotate specified files.
+
+	* cvsweb.cgi: MFZ 1.112: A couple of trivial fixes.
+
+2001-07-26  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.cgi: Chdir to TMPDIR so it works even when the cgi-bin
+	directory is unreadable.
+	[Submitted by: Dmitry Morozovsky <marck@rinet.ru>]
+
+	* cvsweb.cgi: Let the module/path box appear and work properly
+	when there is only one repository.
+	[Submitted by: Dmitry Morozovsky <marck@rinet.ru>]
+
+2001-07-06  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.cgi, cvsweb.conf: Support "zip" as an additional
+	archiver.
+
+	* cvsweb.cgi: MFZ 1.110.  But the bug had already been fixed in
+	knu-cvsweb.
+
+2001-06-22  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.cgi: Get rid of a potential "uninitialized variable
+	usage" warning.
+	[Submitted by: Bill Fenner <fenner@FreeBSD.org>]
+
+2001-06-08  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.cgi: MFZ 1.109.  Preset the global variable the stores
+	the per file cvs info to avoid accumulating cruft under modperl.
+
+2001-06-05  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.cgi: Change "Previous Directory" to "Parent Directory".
+
+	* cvsweb.cgi: Properly HTML-quote function names in the colored
+	diff view.
+	[Submitted by: Ian Whalley <ian@whalley.org>]
+
+2001-05-18  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.cgi: Avoid localizing @_ to make threaded Perl happy.
+	[FreeBSD PR: 26851]
+	[Submitted by: David Wolfskill <dhw@whistle.com>]
+
+2001-05-10  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.cgi: Correct a link in the navigation header.
+	[Submitted by: Tanaka Akira <akr@m17n.org>]
+
+2001-05-08  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.cgi: Fix a typo and get diff -F RE to really work.
+
+2001-04-25  Akinori MUSHA  <knu@iDaemons.org>
+
+	* cvsweb.conf: Introduce the new knu-cvsweb site:
+	http://www.idaemons.org/~knu/cvsweb/
+
+	* ChangeLog: Update and reformat.
+
+2001-03-28 02:20  knu
+
+	* cvsweb.cgi: Re-fix the bogus fix for the previous
+	colons-in-a-filename problem.
+	[Noted by: Yar Tikhiy <yar@freebsd.org>]
+
+2001-03-28 01:39  knu
+
+	* cvsweb.cgi: Conform cvsweb-markup pages to HTML 4.0
+	Transitional.
+	[Submitted by: Will Andrews <will@physics.purdue.edu>]
+	[Validated by: http://validator.w3.org/]
+
+2001-03-23 04:46  knu
+
+	* cvsweb.cgi: MFZ: 1.106.  Do closedir() properly.
+
+2001-03-23 04:36  knu
+
+	* ChangeLog: Add a log missed on 2001-02-01.
+
+2001-03-23 04:29  knu
+
+	* ChangeLog: Encode colons in file names properly.
+	[FreeBSD PR: 25963]
+	[Submitted by: Marc van Woerkom <3d@FreeBSD.org>]
+
+2001-03-23 04:27  knu
+
+	* cvsweb.cgi: Encode colons in file names properly.
+	[FreeBSD PR: 25963]
+	[Submitted by: Marc van Woerkom <3d@FreeBSD.org>]
+
+2001-02-02 06:39  knu
+
+	* cvsweb.cgi: Use a fixed-width font in the colored diff view.
+	[Requested by: Julian Elischer <julian@elischer.org>]
+
+2001-01-29 12:54  knu
+
+	* cvsweb.cgi: Remove an obsolete notice: CVSWEB_CONFIG is disused.
+	One leftover substitution: "cvs" -> $CMD{cvs}
+
+2001-01-14 18:04  knu
+
+	* cvsweb.conf: s/at here/here/
+
+2001-01-13 16:48  knu
+
+	* ChangeLog, README.knu, TODO.knu, cvsweb.cgi, cvsweb.conf,
+	cvsweb.conf-freebsd, cvsweb.conf-netbsd, cvsweb.conf-openbsd,
+	cvsweb.conf-ruby: Add some knu-cvsweb info.
+
+	* cvsweb.cgi: MFZ: 1.105.
+
+	* README.knu, TODO.knu, cvsweb.cgi, cvsweb.conf,
+	cvsweb.conf-freebsd, cvsweb.conf-netbsd, cvsweb.conf-openbsd,
+	cvsweb.conf-ruby: Change CVS tags: "Id" -> "Idaemons".
+
+2001-01-12 16:48  knu
+
+	* ChangeLog: Add ChangeLog.
+
+2001-01-12 08:42  knu
+
+	* cvsweb.cgi: Clean up URI parser.
+
+	* cvsweb.cgi: Workaround thttpd's buggy SCRIPT_NAME / PATH_INFO
+	parser.
+	[Requested by: Makoto MATSUSHITA <matusita@jp.FreeBSD.org>]
+
+	* cvsweb.conf-freebsd, cvsweb.conf-netbsd, cvsweb.conf-openbsd:
+	Allow downloading a single port/pkgsrc in tarball by default.
+
+2001-01-12 03:17  knu
+
+	* cvsweb.cgi, cvsweb.conf: D'oh, forgot to chomp the result of
+	`uname`.
+	[Submitted by: Christian Weisgerber <naddy@mips.inka.de>]
+
+2001-01-11 11:00  knu
+
+	* cvsweb.cgi, cvsweb.conf: Oops.
+
+2001-01-11 10:52  knu
+
+	* cvsweb.cgi, cvsweb.conf, cvsweb.conf-freebsd, cvsweb.conf-netbsd,
+	cvsweb.conf-openbsd: Run "tar cf - ... | gzip -c" rather than "tar
+	zcf - ..." to avoid tar(1)'s automatic padding of nulls to align
+	with the block size, which is just garbage for a receiver.
+	[Noted by: Katsuyuki Komatsu <komatsu@sarion.co.jp>]
+
+	* cvsweb.cgi: Have $uname variable to hold the OS implementation
+	name.
+
+	* cvsweb.conf: Move %CMD's initialization part to the beginning of
+	cvsweb.conf so it can use $uname and configure properly for the
+	OS.
+
+	* cvsweb.conf, cvsweb.conf-freebsd, cvsweb.conf-netbsd,
+	cvsweb.conf-openbsd: Wrap FreeBSD or OpenBSD specific features in
+	conditional blocks using $uname.
+
+	* cvsweb.cgi: Fix some open() calls in good manners.
+
+2001-01-05 09:00  knu
+
+	* cvsweb.cgi: Delete $ENV{PATH} before everything. (against -T
+	paranoia) It's nothing to worry since cvsweb.cgi always invokes
+	executables by full paths, though.
+
+	* cvsweb.cgi: Correct the error messages regarding $command_path.
+
+2001-01-03 17:57  knu
+
+	* cvsweb.cgi, cvsweb.conf: Don't rely on perl's $ENV{PATH} search.
+	Search commands for itself and specify them by full paths.
+
+2001-01-03 11:55  knu
+
+	* README.knu, cvsweb.cgi: Don't forget to add $query to the URL
+	when redirecting.  Now module alias redirection and Attic
+	redirection work with all sticky variables preserved. (Previously
+	they didn't work against a non-default cvsroot)
+
+	* cvsweb.cgi: Put a text field on each directory view that allows
+	user to jump directly to an arbitrary module, which can be
+	specified either by a full module/file path or by a module alias.
+
+2001-01-03 08:34  knu
+
+	* README.knu, cvsweb.cgi, cvsweb.conf: List CVS repository entries
+	in the specified order, not alphabetical.
+
+	* README.knu, cvsweb.cgi, cvsweb.conf: Now /usr/local/etc/cvsweb/
+	is the default directory for configuration files.
+
+2001-01-02 21:23  knu
+
+	* cvsweb.cgi, cvsweb.conf: Get cvsweb.cgi to run under perl -T.
+
+	* cvsweb.cgi: Change perl command line: Change perl5 to perl and
+	just declare `require 5.000'. Remove -s option that was intended
+	for debug use.  Add -T option to perform security checks.
+
+	* cvsweb.cgi: Change search paths for cvsweb.conf: Don't adopt the
+	value of $ENV{CVSWEB_CONFIG} that was intended for debug use.
+	Search the same directory that cvsweb.cgi is in instead of the
+	current directory.
+
+	* cvsweb.cgi: Invoking `last' in `do { ... } while (0);' is wrong.
+	Change the loop to `while (1) { ... last; }'.
+
+	* cvsweb.cgi, cvsweb.conf: Don't do chdir.  Instead, use tar(1)'s
+	-C option and cvs(1) export's -d option.
+
+	* cvsweb.cgi: Explicitly define $ENV{PATH}.
+
+	* cvsweb.conf: Turn $allow_compress off by default so user can
+	debug cvsweb.cgi easily.
+
+2001-01-02 08:15  knu
+
+	* cvsweb.cgi: Add $prkeyword variable to allow user to use (e.g.)
+	`Bug' instead of `PR' as the bug report identifier.
+
+	* cvsweb.conf, cvsweb.conf-freebsd, cvsweb.conf-netbsd,
+	cvsweb.conf-openbsd, cvsweb.conf-ruby: Add
+	cvsweb.conf-{freebsd,openbsd,netbsd,ruby} files, and move rather
+	FreeBSD specific configuration values to cvsweb.conf-freebsd.
+
+	* cvsweb.conf: Add a %funcline_regexp entry for Ruby. (*.rb)
+
+2001-01-02 06:24  knu
+
+	* cvsweb.conf: Add `pending' to the list of PR categories.
+
+2001-01-02 05:57  knu
+
+	* cvsweb.cgi: Reduce 'Use of uninitialized value' warnings.
+	[Noticed by: Wolfram Schneider <wosch@schneider.org>]
+
+2000-12-30 08:56  knu
+
+	* cvsweb.cgi: Oops, I forgot "cvs export" always need a -r/-D.
+	Specify -rHEAD when no tag/branch is defaulted.
+
+2000-12-30 08:35  knu
+
+	* cvsweb.cgi, cvsweb.conf: Add $preformat_in_markup variable and
+	turn it off by default.  This option should be turned off when you
+	have files in the repository that are in a multibyte encoding which
+	uses HTML special characters ([<>&"]) as part of a multi-byte
+	character. (such as iso-2022-jp, ShiftJIS, etc.)  Otherwise those
+	files will get screwed up in markup.
+
+	* cvsweb.conf: Fix for those systems which tar(1)'s are not GNU
+	tar(1): Add @tar_options variable and make the
+	--ignore-failed-read flag optional.  Use cvs export instead of cvs
+	checkout, so the --exclude 'CVS' flag isn't needed.
+	[Noticed by: Christian Weisgerber <naddy@mips.inka.de>]
+
+	* cvsweb.conf: Fix for those systems which cvs(1)'s don't support
+	-R option (Actually, only FreeBSD's and OpenBSD's cvs(1) support
+	it): Add @cvs_options and make the -R flag optional.
+
+2000-12-29 22:29  knu
+
+	* cvsweb.cgi: Add charset to all text/* output, including diffs.
+	[Submitted by: Alexey Zelkin <phantom@cris.net>]
+
+2000-12-29 18:12  knu
+
+	* cvsweb.cgi: The use of `do "file"' is obsolete.  Use require
+	instead.
+
+2000-12-29 17:47  knu
+
+	* cvsweb.cgi: Add the prototype declaration for hrefquote().
+
+2000-12-29 03:17  knu
+
+	* README.knu: Mention automatic tarball generation feature.
+
+2000-12-29 03:16  knu
+
+	* TODO.knu: Directory sorting was fixed at the same time that
+	"show only tags" feature was fixed.
+
+2000-12-29 03:07  knu
+
+	* cvsweb.cgi: Specify --ignore-failed-read on invoking tar(1).
+
+2000-12-29 02:49  knu
+
+	* cvsweb.cgi, cvsweb.conf: Add "automatic tarball generation"
+	feature.  You can check out a whole directory in gzipped tarball.
+	[Obtained from: Debian package: cvsweb_1.93-1]
+
+	* cvsweb.cgi: Allow space characters in file names. (not tested
+	yet)
+
+2000-12-18 13:25  knu
+
+	* TODO.knu, cvsweb.cgi: Revert MFZ: 1.103 -> 1.104 which introduced
+	a bogus bug.  As noone seems to need to use 0.X revisions, I'd just
+	drop it.  This should fix the "show only tags" feature.
+
+2000-12-18 12:47  knu
+
+	* cvsweb.cgi: Silence the warnings.
+
+2000-12-18 11:48  knu
+
+	* cvsweb.cgi: Add meta tags to prevent WWW robots from crawling
+	over the cvsweb.
+	[Submitted by: Wolfram Schneider <wolfram@schneider.org>]
+
+2000-12-08 00:11  knu
+
+	* cvsweb.cgi: Silence `Use of uninitialized value' warnings.
+	(again)
+
+2000-12-07 03:20  knu
+
+	* TODO.knu: Mention "show only tags" feature breakage.
+
+2000-12-07 03:19  knu
+
+	* cvsweb.cgi: Emit a rather better error message when a user
+	requests to check out a deleted file.
+	[Pointed out by: Chris Faulhaber <jedgar@fxp.org>]
+
+	* cvsweb.cgi: Cut an out-of-date error message. (adding -R and -l
+	options to the cvs command line should have obsoleted it)
+
+	* cvsweb.cgi: Optimize, clean up.
+
+2000-11-23 04:26  knu
+
+	* cvsweb.cgi, cvsweb.conf: Add a new variable $charset to specify
+	the charset for HTML output.
+	[Submitted by: SADA Kenji <sada@bsdclub.org>]
+
+2000-11-05 00:32  knu
+
+	* cvsweb.cgi: Silence `Use of uninitialized value' warnings.
+
+2000-11-03 02:36  knu
+
+	* README.knu: Mention cat.1 is hyperlinked as well as cat(1).
+
+2000-11-03 02:34  knu
+
+	* cvsweb.cgi: MFZ: 1.104: ("Allow for 0.X versions. CVS accepts
+	such version numbers in import -b even if not strictly legal...")
+
+2000-11-03 02:33  knu
+
+	* cvsweb.conf: Set the default diff type to unidiff for all
+	browsers, not only text-based ones.
+
+2000-10-21 00:46  knu
+
+	* cvsweb.cgi: Always give options to click on a non-colored diff
+	_and_ a colored diff.
+	[Requested by: SO many people :>]
+
+2000-10-20 22:59  knu
+
+	* TODO.knu: Hyperlinking was properly fixed.
+
+2000-10-20 21:28  knu
+
+	* TODO.knu, cvsweb.cgi: Fix htmllify so that <A href="...">...</A>
+	won't nest. :)
+
+	* cvsweb.cgi: Do not show additional "(colored)" diff links when
+	long colored diff is the default.
+
+	* cvsweb.cgi: Reduce the use of `.' operator that is known to be
+	expensive.  Fix indent, clean up.
+
+2000-10-11 06:14  knu
+
+	* cvsweb.cgi: Introduce a new function: htmlquote().
+
+	* cvsweb.cgi: Clean up hyperlink tags.
+
+	* cvsweb.cgi: Use &link() instead of <a href="...">...</a>.
+
+	* cvsweb.cgi: Do urlencode() or htmlquote() as appropriate.
+
+2000-10-11 03:48  knu
+
+	* cvsweb.cgi: - Recognize "links" as another text mode browser.  -
+	Fix the revision links in the annotation view of a file.
+	[Submitted by: Christian Weisgerber <naddy@mips.inka.de>]
+
+2000-10-07 16:44  knu
+
+	* cvsweb.cgi: Fix &link() not to put a redundant trailing LF.
+
+	* cvsweb.cgi: Improve manpage linking to support "foo.1" as well
+	as "foo(1)".
+
+2000-10-07 16:35  knu
+
+	* cvsweb.cgi: Fix screwups in the last commit.
+
+	* cvsweb.cgi: Parse rlog's output explicitly.  Recognize 77 ='s as
+	a file separator, and 28 -'s as revision separator.
+	[Submitted by: Makoto MATSUSHITA <matusita@jp.FreeBSD.org>]
+
+2000-10-03 04:07  knu
+
+	* cvsweb.cgi: Cleanup $barequery generation.  Undefine "my"
+	variables when they are done.
+
+2000-10-01 05:10  knu
+
+	* cvsweb.cgi: Fix annotation bugs.
+
+	* cvsweb.cgi: Do not pass gzip'ed directives to cvs. (it never
+	worked, sigh)
+
+	* cvsweb.cgi: Fix mis-spacing. Now it should look pretty well.
+
+2000-10-01 03:48  knu
+
+	* INSTALL, cvsweb.cgi: Specify -R (Read-only mode) and -l (Do not
+	log in history) flags when doing a cvs annotation so that one does
+	not need to turn on the write permission on CVSROOT/history for the
+	user which httpd runs cvsweb.cgi as. (typically "nobody")
+
+2000-10-01 03:27  knu
+
+	* cvsweb.cgi: Fix the comment to make how to set $config clear.
+	[Inspired by: "Dan Langille" <dan@langille.org>]
+
+2000-09-29 03:06  knu
+
+	* cvsweb.cgi: Trap errors in the configuration files on loading and
+	show error messages.  (Previously it failed silently)
+	[Submitted by: Sean Scarff <sean@pavilion.net>]
+
+2000-09-22 20:13  knu
+
+	* cvsweb.cgi, cvsweb.conf: Remove $backcolor and introduce
+	$body_tag_for_src to allow to set the foreground color.
+	[Noticed by: dcs@FreeBSD.org]
+
+2000-09-22 00:30  knu
+
+	* cvsweb.cgi: MFZ: 1.103.
+
+2000-09-20 05:07  knu
+
+	* cvsweb.cgi: Follow tab-width/tabstop/ts directives when
+	expanding tabs into spaces.  Currently, only first 10 lines are
+	scanned for the directives.
+
+2000-09-20 04:57  knu
+
+	* cvsweb.cgi: MFZ: 1.101.
+
+	* cvsweb.cgi: Fix a few bugs under mod_perl.
+
+	* cvsweb.cgi: Use the Compress::Zlib module if available.
+
+	* cvsweb.cgi: Embed PDF files inside the cvs markup view.
+
+2000-09-20 03:35  knu
+
+	* cvsweb.cgi: s/ts/tabstop/ that I forgot to substitute in the
+	last update.
+
+2000-09-12 02:11  knu
+
+	* cvsweb.cgi: Allow one to set the default diff type.
+	[Inspired by: Makoto MATSUSHITA <matusita@jp.FreeBSD.org>]
+
+2000-09-10 20:54  knu
+
+	* cvsweb.cgi: Clean up spacedHtmlText().
+
+2000-09-05 00:55  knu
+
+	* README.knu: Mention revision numbers hyperlinking in annotation.
+
+2000-09-05 00:53  knu
+
+	* cvsweb.cgi: Get the revision numbers in annotation available as
+	hyperlinks.
+	[Requested by: Josef Karthauser <joe@pavilion.net>]
+
+2000-09-04 23:50  knu
+
+	* cvsweb.cgi: Fix previously introduced incorrect fix.	      
+	s/\s+\n$//; --> s/\s+$/\n/;
+	[FreeBSD PR: misc/20989]
+	[Submitted by: Tony Finch <dot@dotat.at>]
+
+2000-09-04 03:25  knu
+
+	* README.knu, cvsweb.cgi, cvsweb.conf: Introduce manpage
+	hyperlinking.
+
+2000-09-04 02:33  knu
+
+	* cvsweb.cgi: Get all mail URLs and addresses as hyperlinks, not
+	just the first one.  (s/// --> s///g)
+
+2000-08-25 18:01  knu
+
+	* cvsweb.cgi: Get side-by-side diff working when $showfunc is true,
+	noting that `-p' option of diff(1) can only be used with context
+	and unified diffs.
+	[Submitted by: Roger Hardiman <roger@cs.strath.ac.uk>]
+
+	* cvsweb.cgi: Allow to specify CVS tags or branch names (including
+	`.' and `HEAD') on cvs checkout.
+	(e.g. http://foo/cvsweb.cgi/bar/dood.c?rev=.
+	http://foo/cvsweb.cgi/bar/dood.c?rev=RELENG_4
+	http://foo/cvsweb.cgi/bar/dood.c?rev=RELENG_4_1_0_RELEASE)
+	Not for diff currently, as rcsdiff does not grok CVS tags.
+	[Inspired by: Folks at the FreeBSD cvs-all list.]
+
+	* cvsweb.cgi: Specify `-R' (turn on read-only repository mode) and
+	`-l' (do not log in the command history) on cvs checkout, so that
+	one does not need a write permission with the repository.
+
+2000-08-25 00:53  knu
+
+	* cvsweb.cgi: MFZ 1.94.
+
+2000-08-16 05:39  knu
+
+	* cvsweb.conf: Turn evil $hr_ignwhite off.
+
+2000-08-15 17:35  knu
+
+	* cvsweb.cgi: Fix cvsweb.cgi's hidden bug:  s/\s+$//;  -->
+	s/\s+\n$//;
+
+	Whitespace cleanup.
+
+2000-08-15 15:54  knu
+
+	* cvsweb.cgi: Declare prototypes and shut up warnings.
+
+	* cvsweb.cgi: Remove redundant white space at the end of lines.
+
+2000-08-14 03:58  knu
+
+	* cvsweb.cgi: Use cvsweb.conf* in the current directory when they
+	don't exist in /usr/local/etc/.
+
+2000-08-01 21:42  knu
+
+	* cvsweb.cgi: #!/usr/bin/perl -> #!/usr/bin/perl5
+
+2000-07-29 21:41  knu
+
+	* cvsweb.cgi: Resurrect $Revision$ tags of Zeller's version.
+
+2000-07-29 21:10  knu
+
+	* cvsweb.cgi: Change $prcgi to include `?pr=' part for such as
+	NetBSD.
+
+2000-07-29 21:04  knu
+
+	* cvsweb.conf: Change $prcgi to include `?pr=' part for such as
+	NetBSD.
+
+2000-07-29 20:16  knu
+
+	* README.knu: Add an RCS tag.
+
+2000-07-29 20:07  knu
+
+	* README.knu: Add README.knu to document the enhancements over
+	Zeller's version.
+
+2000-07-29 18:24  knu
+
+	* cvsweb.cgi: Another STDERR bit. (I only did 1/2 previously..)
+
+2000-07-29 06:38  knu
+
+	* cvsweb.cgi: D'oh.  Correct @stickyvars.
+
+2000-07-29 04:38  knu
+
+	* cvsweb.cgi: Output diffs in unidiff format for text-based
+	browsers. (by default)
+
+	* cvsweb.conf: Convert freebsd.org to FreeBSD.org.
+
+2000-07-29 02:24  knu
+
+	* cvsweb.cgi: Merge From Zeller: 1.93
+
+	* cvsweb.cgi: Use CR LF in HTTP header.
+
+	* cvsweb.cgi: Redirect STDERR to /dev/null before executing rlog
+	instead of closing it.
+
+2000-07-28 01:16  knu
+
+	* cvsweb.cgi, cvsweb.conf: Clean up.
+
+	* cvsweb.cgi, cvsweb.conf: Replace $hr_funout with $showfunc and
+	always show function names if defined.  (It has been only for
+	human readable format until this change)
+
+2000-07-20 20:52  knu
+
+	* cvsweb.cgi: Allow to use `!!CVSROOTdescr!!' in $long_intro to
+	embed per CVSROOT description.
+
+2000-07-20 20:14  knu
+
+	* cvsweb.conf: Make $hr_funout default.
+
+2000-07-20 20:06  knu
+
+	* cvsweb.conf: Display my mail address instead of Zeller's.
+
+2000-07-20 06:59  knu
+
+	* INSTALL, README, TODO, cvsweb.cgi, cvsweb.conf, icons/back.gif,
+	icons/dir.gif, icons/miniback.gif, icons/minidir.gif,
+	icons/minitext.gif, icons/text.gif: Start point.
+

@@ -1,0 +1,1872 @@
+/usr/local/bin/pod2html: no title for ./album.cgi.
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>./album.cgi</title>
+<link rev="made" href="mailto:root@gohan25.freebsd.org" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#abstract">ABSTRACT</a></li>
+	<ul>
+
+		<li><a href="#list_of_functions">LIST OF FUNCTIONS</a></li>
+		<li><a href="#history_of_modifications">HISTORY OF MODIFICATIONS</a></li>
+	</ul>
+
+	<li><a href="#function_find_directory_to_store_image">FUNCTION  find_directory_to_store_image</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_raised_upload_window">FUNCTION raised_upload_window</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_menu_leave_admin">FUNCTION menu_leave_admin</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_printpict">FUNCTION printPict</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_create_new_page">FUNCTION create_new_page</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_number_of_pages">FUNCTION number_of_pages</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_go_back">FUNCTION go_back</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_menu_page_title__title_">FUNCTION <code>menu_page_title($title)</code></a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_menu_admin_title">FUNCTION menu_admin_title</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#notes">NOTES</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_admin_menu__line_title_">FUNCTION  <code>admin_menu(@line_title)</code></a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_set_upload">FUNCTION set_upload</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_set_link">FUNCTION set_link</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_set_language___languages_">FUNCTION set_language( @languages)</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_manage_position">FUNCTION manage_position</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_auth_menu">FUNCTION auth_menu</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_footer">FUNCTION footer</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_check_password">FUNCTION check_password</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_numbers">FUNCTION numbers</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_record">FUNCTION record</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_create_dir">FUNCTION create_dir</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_under_construction_prompt">FUNCTION under_construction_prompt</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_size_dir__dir_">FUNCTION <code>size_dir($dir)</code></a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_error_raised__doc__explaination_">FUNCTION <code>error_raised($doc,$explaination)</code></a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_error_raised_visit__doc__explaination_">FUNCTION <code>error_raised_visit($doc,$explaination)</code></a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_show_page_not_taken_yet">FUNCTION  show_page_not_taken_yet</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_show_list_pictures">FUNCTION show_list_pictures</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_split_links__language_">FUNCTION <code>split_links($language)</code></a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_remove_picture">FUNCTION remove_picture</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_return_info_picture">FUNCTION return_info_picture</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_put_url_line__word_to_link__line__url_">FUNCTION <code>put_url_line($word_to_link,$line,$url)</code></a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_print_page">FUNCTION print_page</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_rank_right_navigator_bar_range__rank_max_">FUNCTION <code>rank_right_navigator_bar_range($rank_max)</code></a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_is_ok_page_num__page_asked__list_of_existing_pages_">FUNCTION <code>is_ok_page_num($page_asked,@list_of_existing_pages)</code></a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_create_table_for_navigator">FUNCTION create_table_for_navigator</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_return_average_file__file_size__info_read_from_begining__size_read_">FUNCTION <code>return_average_file($file_size,$info_read_from_begining,$size_read)</code></a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_title_average_formating__title1__title2_">FUNCTION <code>title_average_formating($title1,$title2)</code></a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_my_upload">FUNCTION my_upload</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_get_private_stuff_for_administrator">FUNCTION get_private_stuff_for_administrator</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_cascade_style_sheet_definition">FUNCTION cascade_style_sheet_definition</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_javascript">FUNCTION javaScript</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_general_css_def">FUNCTION general_css_def</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_main_menu">FUNCTION main_menu</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_help_menu_with_css">FUNCTION help_menu_with_css</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_switch_from_a_specified_character_to_tag__string_">FUNCTION <code>switch_from_a_specified_character_to_tag($string)</code></a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_switch_from_a_specified_tag_to_characters__string_">FUNCTION <code>switch_from_a_specified_tag_to_characters($string)</code></a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_look_for_images_used">FUNCTION look_for_images_used</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_get_first_page_number">FUNCTION  get_first_page_number</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#function_main_help_menu_css">FUNCTION  main_help_menu_css</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#author">AUTHOR</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="abstract">ABSTRACT</a></h1>
+<p>This file creates an album on the net of different pictures that have different formats. Formats can be jpeg or jpg or gif (can be others but these format are mostly used). Size of the picture (length,width) does not matter but file size yes (look my_upload function).</p>
+<p>
+</p>
+<h2><a name="list_of_functions">LIST OF FUNCTIONS</a></h2>
+<p>admin_menu
+auth_menu
+cascade_style_sheet_definition
+check_password
+create_dir
+create_new_page
+create_table_for_navigator
+error_raised
+error_raised_visit
+find_directory_to_store_images
+footer
+general_css_def
+get_first_page_number
+get_private_stuff_for_administrator
+go_back
+help_menu_with_css
+is_ok_page_num
+javaScript
+look_for_images_used
+main_help_menu_css
+main_menu
+manage_position
+menu_admin_title
+menu_leave_admin
+menu_page_title
+my_upload
+number_of_pages
+numbers
+printPict
+print_page
+put_url_line
+raised_upload_window
+rank_right_navigator_bar_range
+record
+remove_picture
+return_average_file
+return_info_picture
+set_language
+set_link
+set_upload
+show_list_pictures
+show_page_not_taken_yet
+size_dir
+split_links
+switch_from_a_specified_character_to_tag
+switch_from_a_specified_tag_to_characters
+title_average_formating
+under_construction_prompt</p>
+<p>
+</p>
+<h2><a name="history_of_modifications">HISTORY OF MODIFICATIONS</a></h2>
+<p>- <em>Last modification:</em> Jan 27 2006</p>
+<p>- <em>Last modification:</em> Mar 03 2005</p>
+<p>- <em>Starting date Nov:</em> 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_find_directory_to_store_image">FUNCTION  find_directory_to_store_image</a></h1>
+<p>We create a variable that stores image path for the constant DIRECTORY_DEPOSIT</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Returns directory path.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>-1 when no directory found for image that are already stored.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Jan 04 2006</p>
+<p>- <em>Created on:</em> Jan 04 2006</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_raised_upload_window">FUNCTION raised_upload_window</a></h1>
+<p>When the upload action is done, a new window is raised on the screen with info related to upload. This info now is the upload percent of the image file processing to directory.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Returns directory path.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>-1</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Mar 04 2005</p>
+<p>- <em>Created on:</em> Mar 03 2005</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_menu_leave_admin">FUNCTION menu_leave_admin</a></h1>
+<p>This function helps user to leave admin menu by creating a button on the screen.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Feb 25 2006</p>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_printpict">FUNCTION printPict</a></h1>
+<p>This function is used to print in big a picture.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Fev 14 2006</p>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_create_new_page">FUNCTION create_new_page</a></h1>
+<p>This function is called when a new page is asked to be created.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>New page created.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em>  Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_number_of_pages">FUNCTION number_of_pages</a></h1>
+<p>This function calculates number of pages to show on the screen when insert, or modify a picture.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Number of pages.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em>  Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_go_back">FUNCTION go_back</a></h1>
+<p>This function helps the user to go back on a previous page.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em>  Feb 25 2006</p>
+<p>- <em>Last modification:</em>  Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_menu_page_title__title_">FUNCTION <code>menu_page_title($title)</code></a></h1>
+<p>This function sets up the menu page title.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>$title: Enter title of the menu.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>The title.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Jan 27 2006</p>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_menu_admin_title">FUNCTION menu_admin_title</a></h1>
+<p>This function creates menu admin.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Admin menu.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="notes">NOTES</a></h2>
+<p>Name's changed from menu_admin to menu_admin_title.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Jan 27 2006.</p>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_admin_menu__line_title_">FUNCTION  <code>admin_menu(@line_title)</code></a></h1>
+<p>This function manages the menu in order to insert a new page. A page must have a fixed length of image per it.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>@line_title: that's the line title for each pictures.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Fev 25 2006</p>
+<p>- <em>Last modification:</em> Jan 20 2005</p>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_set_upload">FUNCTION set_upload</a></h1>
+<p>This function sets upload button in menu method. It manages all upload.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_set_link">FUNCTION set_link</a></h1>
+<p>This function sets a link (optional) within French text or English text when asked in admin menu.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Feb 2 2006</p>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_set_language___languages_">FUNCTION set_language( @languages)</a></h1>
+<p>This function sets language(s).</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>@languages: that's the list of languages that can be set up.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_manage_position">FUNCTION manage_position</a></h1>
+<p>This function manages position in the picture album.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>$number_of_page: that's the number of page.</p>
+<p>$line: that's the line.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_auth_menu">FUNCTION auth_menu</a></h1>
+<p>This function manages the Authentication menu.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Jan 27 2006</p>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_footer">FUNCTION footer</a></h1>
+<p>This function standardizes footer within menus.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>New footer string.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Jan 27 2006</p>
+<p>- <em>Created on:</em> Jan 27 2006</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_check_password">FUNCTION check_password</a></h1>
+<p>This function checks password for admin.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>0 if ok otherwise -1.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>-1 is returned and means that a problem occured.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_numbers">FUNCTION numbers</a></h1>
+<p>This function sorts numbers when it is used with the sort function.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>$a: value to sort.</p>
+<p>$b: value to sort.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>-1 if $a smaller that $b,0 is $a equals to $b, else 1</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_record">FUNCTION record</a></h1>
+<p>This function records information into a file named $file_conf.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Mar 29 2006</p>
+<p>- <em>Last modification:</em> Feb 16 2006</p>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_create_dir">FUNCTION create_dir</a></h1>
+<p>This function creates a directory in order to store all information related to album info.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_under_construction_prompt">FUNCTION under_construction_prompt</a></h1>
+<p>This function prints under construction prompt (picture) on the screen.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_size_dir__dir_">FUNCTION <code>size_dir($dir)</code></a></h1>
+<p>This function calculates the size of directory.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>$dir: directory.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Returns size of the directory.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_error_raised__doc__explaination_">FUNCTION <code>error_raised($doc,$explaination)</code></a></h1>
+<p>This function generates an error message when a problem occurs.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>$doc: that's an implementation of the object CGI (new CGI to be precised).</p>
+<p>$explaination: explaination of the error.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_error_raised_visit__doc__explaination_">FUNCTION <code>error_raised_visit($doc,$explaination)</code></a></h1>
+<p>This function generates an error message a when problem occurs.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>$doc: that's an implementation of the object CGI (new CGI to be precised).</p>
+<p>$explaination: explaination of the error.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_show_page_not_taken_yet">FUNCTION  show_page_not_taken_yet</a></h1>
+<p>This function shows pages that are taken.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Mar 28 2006</p>
+<p>- <em>Last modification:</em> Feb 16 2006</p>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_show_list_pictures">FUNCTION show_list_pictures</a></h1>
+<p>This function shows the list of pictures.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Feb 6 2006</p>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_split_links__language_">FUNCTION <code>split_links($language)</code></a></h1>
+<p>This function split links in a given string ($language). That's what it is return from $language ($word_to_link,$link,$word_to_link_eng,$link_eng).</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>$language: that's the list of possible languages.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>$word_to_link: word to link in French.</p>
+<p>$link: that's the link for French.</p>
+<p>$word_to_link_eng: word to link in English.</p>
+<p>$link_eng: that's the link.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_remove_picture">FUNCTION remove_picture</a></h1>
+<p>This function gets a picture to be removed. A line and, a page number are necesessary to know the location of the picture. Theses information are taken with $doc-&gt;<code>param('...')</code> function that's why no parameters are used.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_return_info_picture">FUNCTION return_info_picture</a></h1>
+<p>This function returns info related to picture. At this time, looks in the file where info are stored, then returns line concerned, if it exists.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_put_url_line__word_to_link__line__url_">FUNCTION <code>put_url_line($word_to_link,$line,$url)</code></a></h1>
+<p>When we print info on screen we put url if there is a link.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>$word_to_link: that's the word to link.</p>
+<p>$line: that's the line to look for the <code>word(s)</code> to link.</p>
+<p>$url: that's the url to link to the word(s).</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Returns the linked string.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Feb 16 2006</p>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_print_page">FUNCTION print_page</a></h1>
+<p>This function prints an HTML page for the album. There's automatic link to next page(s).</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Mar 7 2006</p>
+<p>- <em>Last modification:</em> Fev 6 2006</p>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_rank_right_navigator_bar_range__rank_max_">FUNCTION <code>rank_right_navigator_bar_range($rank_max)</code></a></h1>
+<p>This function is there to calculate right the navigator bar menu for pages (enumerates all page number(s)).</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>$rank_max: maximum rank.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Returns max_rank in one page (to check better).</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_is_ok_page_num__page_asked__list_of_existing_pages_">FUNCTION <code>is_ok_page_num($page_asked,@list_of_existing_pages)</code></a></h1>
+<p>This function checks if page asked is in the page rank.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>$page_asked:page asked.</p>
+<p>@list_of_existing_pages: list of pages.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>OK: ok.</p>
+<p>NOK: not ok.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_create_table_for_navigator">FUNCTION create_table_for_navigator</a></h1>
+<p>We create a table for navigation menu that's it.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>String of table for navigator.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Jan 29 2006</p>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_return_average_file__file_size__info_read_from_begining__size_read_">FUNCTION <code>return_average_file($file_size,$info_read_from_begining,$size_read)</code></a></h1>
+<p>This function calculates info for upload to be printed.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>$file_size: That's the file size.</p>
+<p>$info_read_from_begining: Info to print.</p>
+<p>$size_read: That's the size read from the begining.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Returns string to print.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_title_average_formating__title1__title2_">FUNCTION <code>title_average_formating($title1,$title2)</code></a></h1>
+<p>This function center the title of the main page.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>$title1: that's the title.</p>
+<p>$title2: other info abour title.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Returns the title formated with the two titles concatenated.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_my_upload">FUNCTION my_upload</a></h1>
+<p>This function allows upload.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Mar 04 2006</p>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_get_private_stuff_for_administrator">FUNCTION get_private_stuff_for_administrator</a></h1>
+<p>This function gets info related to administrator to be identified.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Returns $login, and $passwd values.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Feb 16 2006</p>
+<p>- <em>Last modification:</em> Jan 04 2006</p>
+<p>- <em>Created on:</em> Jan 04 2006</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_cascade_style_sheet_definition">FUNCTION cascade_style_sheet_definition</a></h1>
+<p>This function creates a cascade style sheet for the whole program.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Returns String formated for style sheet.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Jan 27 2006</p>
+<p>- <em>Created on:</em> Jan 27 2006</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_javascript">FUNCTION javaScript</a></h1>
+<p>This function creates a java script section.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Returns string formated of section in Java Script code.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Feb 10 2006</p>
+<p>- <em>Created on:</em> Feb 10 2006</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_general_css_def">FUNCTION general_css_def</a></h1>
+<p>This function creates a cascade style sheet definition for the 'a' html tag.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Returns String formated for style sheet for 'a' tag.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Mar 9 2006</p>
+<p>- <em>Last modification:</em> Feb 1 2006</p>
+<p>- <em>Created on:</em> Jan 27 2006</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_main_menu">FUNCTION main_menu</a></h1>
+<p>This function creates a general menu.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Feb 25 2006</p>
+<p>- <em>Created on:</em> Feb 1 2006</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_help_menu_with_css">FUNCTION help_menu_with_css</a></h1>
+<p>This function creates a menu for help.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Feb 8 2006</p>
+<p>- <em>Created on:</em> Feb 8 2006</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_switch_from_a_specified_character_to_tag__string_">FUNCTION <code>switch_from_a_specified_character_to_tag($string)</code></a></h1>
+<p>This function changes some specified character to a tag in order not to avoid miss-understanding in local Data Base when reading it.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>$string: that's the string to reformat.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>New srting formated.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Feb 6 2006</p>
+<p>- <em>Created on:</em> Feb 5 2006</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_switch_from_a_specified_tag_to_characters__string_">FUNCTION <code>switch_from_a_specified_tag_to_characters($string)</code></a></h1>
+<p>This function changes some specified character tag to a character in order not to avoid miss-understanding in local Data Base when reading it.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>$string: that's the string to reformat.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>New srting formated.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Feb 6 2006</p>
+<p>- <em>Created on:</em> Feb 5 2006</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_look_for_images_used">FUNCTION look_for_images_used</a></h1>
+<p>This function check if all necessary images are stored in the path where images are stored.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Mar 27 2006</p>
+<p>- <em>Last modification:</em> Feb 17 2006</p>
+<p>- <em>Created on:</em> Feb 17 2006</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_get_first_page_number">FUNCTION  get_first_page_number</a></h1>
+<p>We got the first page that is stored. Usefull if fake page number is given.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Returns first page number stored in album DB file.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Mar 09 2006</p>
+<p>- <em>Created on:</em> Mar 09 2006</p>
+<p>
+</p>
+<hr />
+<h1><a name="function_main_help_menu_css">FUNCTION  main_help_menu_css</a></h1>
+<p>We print help menu just for main page.</p>
+<p>
+</p>
+<h2><a name="parameter_s_"><code>PARAMETER(S)</code></a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Mar 27 2006
+
+</p>
+<p>- <em>Created on:</em> Mar 27 2006
+
+</p>
+<p>
+</p>
+<hr />
+<h1><a name="author">AUTHOR</a></h1>
+<p>Current maintainer: M. Sebastien DOREY, &lt;<a href="mailto:dorey_s@laposte.net">dorey_s@laposte.net</a>&gt;
+
+</p>
+
+</body>
+
+</html>

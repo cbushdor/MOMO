@@ -1,0 +1,78 @@
+.overlay_dialog {
+	FILTER: alpha(opacity=60); BACKGROUND-COLOR: #666666; moz-opacity: 0.6; opacity: 0.6
+}
+.overlay___invisible__ {
+	FILTER: alpha(opacity=0); BACKGROUND-COLOR: #666666; moz-opacity: 0; opacity: 0
+}
+.dialog_nw {
+	BACKGROUND: url(/remote/images/top_left.gif) no-repeat 0px 0px; WIDTH: 9px; HEIGHT: 23px
+}
+.dialog_n {
+	BACKGROUND: url(/remote/images/top_mid.gif) repeat-x 0px 0px; HEIGHT: 23px
+}
+.dialog_ne {
+	BACKGROUND: url(/remote/images/top_right.gif) no-repeat 0px 0px; WIDTH: 9px; HEIGHT: 23px
+}
+.dialog_e {
+	BACKGROUND: url(/remote/images/center_right.gif) repeat-y 0px 0px; WIDTH: 2px
+}
+.dialog_w {
+	BACKGROUND: url(/remote/images/center_left.gif) repeat-y 0px 0px; WIDTH: 2px
+}
+.dialog_sw {
+	BACKGROUND: url(/remote/images/bottom_left.gif) no-repeat 0px 0px; WIDTH: 9px; HEIGHT: 19px
+}
+.dialog_s {
+	BACKGROUND: url(/remote/images/bottom_mid.gif) repeat-x 0px 0px; HEIGHT: 19px
+}
+.dialog_se {
+	BACKGROUND: url(/remote/images/bottom_right.gif) no-repeat 0px 0px; WIDTH: 9px; HEIGHT: 19px
+}
+.dialog_sizer {
+	BACKGROUND: url(/remote/images/sizer.gif) no-repeat 0px 0px; WIDTH: 9px; CURSOR: se-resize; HEIGHT: 19px
+}
+.dialog_close {
+	Z-INDEX: 2000; BACKGROUND: url(/remote/images/close.png) no-repeat 0px 0px; LEFT: 8px; WIDTH: 15px; CURSOR: pointer; POSITION: absolute; TOP: 5px; HEIGHT: 15px
+}
+.dialog_minimize {
+	Z-INDEX: 2000; BACKGROUND: url(/remote/images/minimize.png) no-repeat 0px 0px; LEFT: 26px; WIDTH: 15px; CURSOR: pointer; POSITION: absolute; TOP: 5px; HEIGHT: 15px
+}
+.dialog_maximize {
+	Z-INDEX: 2000; BACKGROUND: url(/remote/images/maximize.png) no-repeat 0px 0px; LEFT: 44px; WIDTH: 15px; CURSOR: pointer; POSITION: absolute; TOP: 5px; HEIGHT: 15px
+}
+.dialog_title {
+	FONT-SIZE: 12px; FLOAT: left; WIDTH: 100%; COLOR: #000; FONT-FAMILY: Tahoma, Arial, sans-serif; HEIGHT: 14px; TEXT-ALIGN: center
+}
+.dialog_content {
+	FONT-SIZE: 10px; OVERFLOW: auto; COLOR: #ddd; FONT-FAMILY: Tahoma, Arial, sans-serif; BACKGROUND-COLOR: #eff2fb
+}
+.top_draggable {
+	CURSOR: move
+}
+.bottom_draggable {
+	CURSOR: move
+}
+.status_bar {
+	FONT-SIZE: 12px
+}
+.status_bar INPUT {
+	FONT-SIZE: 12px
+}
+.wired_frame {
+	BORDER-RIGHT: #000 1px dashed; BORDER-TOP: #000 1px dashed; DISPLAY: block; BORDER-LEFT: #000 1px dashed; BORDER-BOTTOM: #000 1px dashed; POSITION: absolute
+}
+.dialog {
+	DISPLAY: block; POSITION: absolute
+}
+.dialog TABLE.table_window {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 100%; PADDING-TOP: 0px; BORDER-COLLAPSE: collapse; border-spacing: 0
+}
+.dialog TABLE.table_window TD {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.dialog TABLE.table_window TH {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.dialog .title_window {
+	moz-user-select: none
+}

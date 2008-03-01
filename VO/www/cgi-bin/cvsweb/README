@@ -1,0 +1,190 @@
+$FreeBSD: projects/cvsweb/README,v 1.7 2005/09/25 20:21:38 scop Exp $
+$Idaemons: /home/cvs/cvsweb/README.knu,v 1.9 2001/01/13 07:48:09 knu Exp $
+
+FreeBSD-CVSweb is a WWW interface for CVS repositories.
+
+CVSweb was originally written by Bill Fenner and improved by Henner
+Zeller, Henrik Nordström, and Ken Coar, then Akinori MUSHA brought
+it back to FreeBSD community and made further improvements.  Ville
+Skyttä has continued that work.
+
+To track the development, access the MAIN branch of the module
+`projects/cvsweb' in the FreeBSD CVS repository.  For legacy 2.x
+versions, see the branch named 'rel-2_0-branch'.
+
+  Project home page:
+    <http://www.FreeBSD.org/projects/cvsweb.html>
+
+  Repository access:
+    <http://www.FreeBSD.org/support.html#cvs>
+
+  CVSweb of CVSweb:
+    <http://www.FreeBSD.org/cgi/cvsweb.cgi/projects/cvsweb/>
+
+  Release archives:
+    <http://people.FreeBSD.org/~scop/cvsweb/>
+    <ftp://ftp.FreeBSD.org/pub/FreeBSD/ports/local-distfiles/scop/>
+
+  Mailing list:
+    <freebsd-cvsweb@FreeBSD.org>
+    <http://lists.freebsd.org/mailman/listinfo/freebsd-cvsweb>
+    <http://www.FreeBSD.org/doc/handbook/eresources.html#ERESOURCES-SUBSCRIBE>
+
+Here is the list of added features over Zeller's version:
+
+o Customizable "show functions" option
+    You can specify a regexp for each file type to teach rcsdiff(1) to
+    recognize function lines.
+
+o Customizable PR categories
+o Move $prcgi to cvsweb.conf
+    Now each repository can have its own PR categories and
+    query-pr.cgi URL, which can be defined in cvsweb.conf-${cvstree}.
+    It is useful when you have such as NetBSD and/or OpenBSD
+    repositories.
+
+o Improved support for text-based browsers
+    Unidiff is the default format for diffs, for text-based browsers.
+
+o Enhanced PR # hyperlinking.
+    The following styles are supported.
+
+        PR:     12345, 67890, ..
+
+        PR:     #12345, #67890, ..
+
+        PR#     sparc/12345, i386/67890
+
+        PR:     ports/43210
+                kern/98765
+
+        .. is related to bin/4567, which is ...
+
+o Manpage hyperlinking.
+    Both `cat(1)' and `cat.1' styles are supported.
+
+o Revision numbers hyperlinking in annotation.
+
+o Automatic tarball generation. (Obtained from Debian)
+
+o Automatic zipball generation.
+
+o Customizable repository entry order.
+
+o Location text field.
+
+o Support for the use of localized charsets.
+
+o Workaround for buggy web servers.
+
+o Numerous bugfixes regarding URI/filename manipulation.
+
+o HTML improvements, XHTML 1.0 Transitional, and a separate CSS file for
+  presentation.
+
+o Security fixes to let it work under perl -T.
+
+o Annotate works under mod_perl and against a read only repository.
+
+o CvsGraph <http://www.akhphd.au.dk/~bertho/cvsgraph/> integration.
+
+o Syntax highlighting using GNU Enscript <http://www.iki.fi/~mtr/genscript/>.
+
+o CVSHistory <http://www.jamwt.com/CVSHistory/> integration.
+
+o Line number output for HTMLized views.
+
+o Support for showing README.cvs.html and README.cvs akin to Apache's
+  FancyIndexes.
+
+o Support for external diff tools.
+
+o Works with mod_perl >= 1.99_11 as well as 1.2x.
+
+o ...and much more!  See NEWS for high level changes between releases.
+
+See also README, as well as TODO for new features under consideration
+and development.
+
+-------------------------------------------------------------------------------
+The original Zeller README follows (possibly outdated to some extent):
+-------------------------------------------------------------------------------
+
+The cgi-script cvsweb.cgi is written by Bill Fenner <fenner@freebsd.org> 
+(see [1]) for the freebsd project. It allows browsing of
+CVS-repositories (see [2]) with an HTML-browser.
+
+This version is based on Bill's script and is hacked to fit our needs,
+so don't blame him if anything doesn't work .. 
+
+Added features:
+ - a colored side by side diff
+ - easier navigation
+ - mime-type aware checkout which allows for browsing
+   of version controlled HTML-pages
+ - easier configuration - everything configurable is in one
+   external file now
+ - added cvs-annotate - this requires cvs >= 1.9 
+   (tested with cvs 1.10)
+ - a better way of viewing timestamps: they're shown as age
+   (something like 'changed 2 days 4 hours ago')
+ - sorting by filename / age - just click on the corresponding
+   column
+ - urlencodes all filenames so files with spaces and special
+   characters in their names are viewable as well.
+ - selectionbox for choosing different CVS-roots
+ - overview of last revisionnumber, age and logentry in the 
+   directory view
+ - you can check out the current revision of a file if you are
+   in the directory view (idea from Nick Brachet)
+ - gzip'ed output if the browser accepts this; this can reduce the
+   size (and download time) by a factor of 4 (directory view) to
+   10 (colored diff; the size of the colored diff could be reduced
+   with CSS .. anyone ?). The use of gzip has been in the very first
+   version of cvsweb (by Bill Fenner), but has been removed because
+   it wasn't easy to determine if a browser actually understands it. Today
+   the browsers state if they accept the Content-encoding gzip..
+   .. but MSIE lies about this (so cvsweb disables gzip-encoding in this
+   case).
+ - Tag based browsing. An easy and what I think intuitive way to browse a
+   CVS tree based on tags, with filtering of files and CVS logs to only
+   show whats relevant for the selected tag.
+ - "Pretty-printed" checkouts for text based files. My intention is to
+   eventually add cross-referencing to this, but for now the file is only
+   converted to HTML with automatic detection of various links.
+ - "Click-on-version" diff selection.
+ - sorting for every column now
+ - uses 'cvs co' for checkout instead of rcs co
+ - Ability to show directory descriptions from CVSROOT/descriptions
+
+cvsweb.cgi became quite huge now and is bad style code (I am not a
+perl-programmer - this is what I do in my spare time!) so this 
+should be rewritten. 
+
+I'd propose a Java-servlet which could use the C/S-protocol .. anyone ?
+
+And what about using mod_perl, and rewriting it into a set of proper Perl-5
+modules?
+
+This software is distributed under the terms of the BSD-licence.
+
+You can download the latest version at
+    <http://stud.fh-heilbronn.de/~zeller/cgi/cvsweb.cgi/>
+
+or get it directly with cvs at
+  CVSROOT:  :pserver:anonymous@cvs.stud.fh-heilbronn.de:/cvsroot/public
+ Password:  anonymous
+   Module:  cvsweb
+
+Please send suggestions, bugs etc to
+    Henner Zeller <zeller@think.de>
+or
+    Henrik Nordstrom <hno@hem.passagen.se>
+
+-- refs
+[1] for the original Version of cvsweb.cgi, see 
+    <http://www.freebsd.org/~fenner/cvsweb/>
+[2] for cvs, see <http://www.nongnu.org/cvs/>
+
+-- 
+Ville Skyttä <scop@FreeBSD.org> -- The FreeBSD Project

@@ -1,0 +1,380 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0050)http://www.dil.univ-mrs.fr/~chris/Perl/Formats.htm -->
+<HTML><HEAD><TITLE>Cours Perl, Les formats.</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1"><LINK 
+href="Cours Perl, Les formats_fichiers/Messtyles.css" type=text/css 
+rel=stylesheet>
+<META content="MSHTML 6.00.2900.3243" name=GENERATOR></HEAD>
+<BODY>
+<H1>Les formats d'impression.</H1>
+<H2>L'impression des données.</H2>
+<H3>Nous avons vu comment il était possible de présenter simplement ders 
+résultats sur l'écran.<BR>Pour les véritables adeptes de C, Perl propose 
+l'instruction printf qui fonctionne exactement comme en C. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme form1.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+$v=10;
+printf ("Valeur de v : %d.\n", $v);
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl form1.pl<SPAN class=rouge>ent</SPAN>
+    Valeur de v : 10.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Les champs de l'instruction printf ont les même signification que en C. 
+</H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Champ.</TH>
+    <TH>Signification.</TH></TR>
+  <TR>
+    <TD>%c</TD>
+    <TD>Un caractère isolé.</TD></TR>
+  <TR>
+    <TD>%d</TD>
+    <TD>Un entier en base 10.</TD></TR>
+  <TR>
+    <TD>%e</TD>
+    <TD>Un nombre flotant en notation scientifique.</TD></TR>
+  <TR>
+    <TD>%f</TD>
+    <TD>Un nombre flotant en notation normale.</TD></TR>
+  <TR>
+    <TD>%g</TD>
+    <TD>Un nombre flotant en format compact.</TD></TR>
+  <TR>
+    <TD>%o</TD>
+    <TD>Un entiier en base 8</TD></TR>
+  <TR>
+    <TD>%s</TD>
+    <TD>Une chaine de caractères.</TD></TR>
+  <TR>
+    <TD>%u</TD>
+    <TD>Un entier non signé.</TD></TR>
+  <TR>
+    <TD>%x</TD>
+    <TD>Un entier en base 16.</TD></TR></TBODY></TABLE>
+<H3>Perl étant aussi un langage d'édition, (repport language), dispose pour 
+réaliser cette fonction d'affichage, de facilités de présentation 
+supplémentaires. Ce sont les formats. </H3>
+<H3>L'utilisation de la notion de format nécessite trois opérations :</H3>
+<H3>1 - Assignation du format à la variable système $~ ce qui en autorisera 
+l'interprétation. </H3>
+<H3>2 - Positionnement de l'information à imprimer dans les emplacements prévus 
+du format. </H3>
+<H3>3 - Appel du format. </H3>
+<H3>Généralement, la première étape est faite une fois pour toute dans le texte 
+du programme. La seule contrainte est qu'elle soit définie au moment de la 
+compilation.<BR>Les étapes 2 et 3 sont des fonctions répétitives. </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog><PRE>@format NOM_DU_FORMAT =
+definition_de_champ
+valeur_1,valeur_2
+definition_de_champ
+valeur_1,valeur_2
+definition_de_champ
+valeur_1,valeur_2
+.
+  </PRE></DIV></DIV>
+<H3>Le mot 'format' est un mot réservé, il est suivi du nom que l'on affecte au 
+format en question, l'ensemble est suivi du signe "=" (égal).<BR>Une définition 
+de format doit impérativement se termine par une ligne contenant un point suivi 
+d'un retour chariot. </H3>
+<H3>Prenons le fichier suivant : </H3>
+<DIV class=centre style="WIDTH: 30em">
+<DIV class=prog><PRE>Christian Aperghis Marseille France
+Ivan Momchev Sofia Bulgarie
+Ivan Madjarov Sofia Bulgarie
+Bogdan Shishedjiev Sofia Bulgarie
+Jacques Guizol Plan-de-Cuques France
+  </PRE></DIV></DIV>
+<H3>Il contient des données (une par ligne) représentant le prénom, le nom, la 
+ville et le pays relatifs à un individu. </H3>
+<H3>On désire procéder à une édition de ces données sous forme d'étiquette selon 
+le suivant </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog><PRE>+----------------------------+
+| Prenom                     |
+| Nom                        |
+|            Ville           |
+|                      Pays  |
++----------------------------+
+   </PRE></DIV></DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme form2.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@ARGV =("Etiq.txt");
+$~="ETIQUETTE";
+while  ($ligne = &lt;&gt;) {
+  chop ($ligne);
+  ($pre,$nom,$ville,$pays) = split(/ /,$l);
+  write;
+}
+
+format ETIQUETTE =
++----------------------------+
+| @&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;     |
+$pre
+| @&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;     |
+$nom
+|    @|||||||||||||||||||||  |
+$ville
+|    @&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;  |
+$pays
++----------------------------+
+.
+      </PRE></TD>
+    <TD class=prog>c:\progs&gt; perl form2.pl<SPAN class=rouge>ent</SPAN> <BR><PRE>+----------------------------+
+| Christian                  |
+| Aperghis                   |
+|          Marseille         |
+|                    France  |
++----------------------------+
++----------------------------+
+| Ivan                       |
+| Momchev                    |
+|            Sofia           |
+|                  Bulgarie  |
++----------------------------+
++----------------------------+
+| Ivan                       |
+| Madjarov                   |
+|            Sofia           |
+|                  Bulgarie  |
++----------------------------+
++----------------------------+
+| Bogdan                     |
+| Shishedjiev                |
+|            Sofia           |
+|                  Bulgarie  |
++----------------------------+
++----------------------------+
+| Jacques                    |
+| Guizol                     |
+|        Plan-de-Cuques      |
+|                    France  |
++----------------------------+
+</PRE>c:\progs&gt; </TD></TR></TBODY></TABLE>
+<H3>Les champs d'affichage des formats ont les significations suivantes : </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Champ.</TH>
+    <TH>Signification.</TH></TR>
+  <TR>
+    <TD>@&lt;&lt;&lt;&lt;&lt;</TD>
+    <TD>&gt;Champ texte cadré à gauche.</TD></TR>
+  <TR>
+    <TD>@&gt;&gt;&gt;&gt;&gt;</TD>
+    <TD>Champ texte cadré à droite.</TD></TR>
+  <TR>
+    <TD>@|||||</TD>
+    <TD>Champ texte centré.</TD></TR>
+  <TR>
+    <TD>@###.##</TD>
+    <TD>Affichage de nombre flotant.</TD></TR>
+  <TR>
+    <TD>@*</TD>
+    <TD>Texte sur plusieurs lignes</TD></TR></TBODY></TABLE>
+<H3>Voyons un autre exemple un peu plus compliqué.<BR>En reprenant le fichier 
+Poeme.txt, on désitre compter le nombre de voyelles apparaissant dans le texte 
+et afficher un tableau indiquant clairement combien de fois chacune d'elle est 
+présente. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme form3.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@ARGV =("Poeme.txt");
+while  ($ligne = &lt;&gt;) {
+  $ligne=~s/[^aeiou]//g;
+  @voyelles = split(//,$ligne);
+  foreach $voyelle (@voyelles) {
+    $c{$voyelle} +=1;
+  }
+}
+$~= "AFFICHAGE";
+write;
+
+format AFFICHAGE =
++=========================================+
+|     Nombre de voyelles dans le texte    |
++-----------------------------------------+
+|  a   |  e   |  i   |  o   |  u   |  y   |
++------+------+------+------+------+------+
+|@###  |@###  |@###  |@###  |@###  |@###  |
+$c{"a"},$c{"e"},$c{"i"},$c{"o"},$c{"u"},$c{"y"}
++======+======+======+======+======+======+
+</PRE></TD>
+    <TD class=prog>c:\progs&gt; perl form3.pl<SPAN class=rouge>ent</SPAN> <BR><PRE>+=========================================+
+|     Nombre de voyelles dans le texte    |
++-----------------------------------------+
+|  a   |  e   |  i   |  o   |  u   |  y   |
++------+------+------+------+------+------+
+|  42  |  88  |  32  |  27  |  31  |   0  |
++======+======+======+======+======+======+
+</PRE>c:\progs&gt; </TD></TR></TBODY></TABLE>
+<H2>Les tubes.</H2>
+<H3>Nous reparlerons en détail de cette notion de tubes lorsque nous aborderons 
+le chapitre sur l'interface Perl / Unix. Pour l'instant, il suffit de savoir que 
+dans un environnement Unix, il est possible de récupérer, via un tube, le 
+résultat d'une commande dans un fichier et de l'utiliser comme fichier d'entrée. 
+Cette particularité nous permet de formater certaines données afin d'améliorer 
+leur présentation.<BR>Voyons tout d'abord la récupération du résultat de la 
+commande </H3>
+<DIV class=centre>
+<DIV class=prog>"cat Poeme.txt|" </DIV></DIV>
+<H3>Qui permet de lister le contenu d'un fichier. Le signe | (pipe) qui se 
+trouve en fin de commande indique qu'il s'agit d'un tube et que le résultat de 
+l'exécution de la commande en question pourra être considére comme un fichier 
+dont le descripteur sera référencé. par exemple, nous l'appellerons 
+"FICH1".<BR>Chaque accés au descripteur &lt;FICH1&gt; permettra d'accéder à la 
+ligne syuivante générée par l'exécution de la commande en question. </H3>
+<H3>Voyonc ceci sur un exemple. </H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type form4.pl<SPAN class=rouge>ent</SPAN>
+#!usr/bin/perl
+open (FICH1, "cat Poeme.txt|");
+$compteur = 1;
+$ligne = &lt;FICH1&gt;;
+chop ($ligne);
+while ($ligne ne "") {
+  $~ = "LIGNE";
+  write;
+  $compteur++;
+  $ligne = &lt;FICH1&gt;;
+  chop ($ligne);
+}
+$compteur--;
+print ("\nLe nombre total de lignes est de : $compteur.\n");
+format LIGNE =<BR>&lt;@&gt;&gt; &gt; @&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+$compteur, $ligne
+.
+c:\progs&gt; perl form4.pl<SPAN class=rouge>ent</SPAN>
+&lt;  1 &gt; Terre, ouvre-moi ton sein, et me laisse reprendre
+&lt;  2 &gt; Mon tresor, que ta parque a cache dessous toi;
+&lt;  3 &gt; Ou bien, si tu ne peux, o terre, cache moi
+&lt;  4 &gt; Sous meme sepulture, avec sa belle cendre.
+&lt;  5 &gt;
+&lt;  6 &gt; Le trait qui la tua devait faire descendre
+&lt;  7 &gt; Mon corps aupres du sien pour finir mon emoi;
+&lt;  8 &gt; Aussi bien, vu le mal qu'en sa mort je recoit,
+&lt;  9 &gt; Je ne saurais plus vivre, et me fache d'attendre.
+&lt; 10 &gt;
+&lt; 11 &gt; Quand ses yeux m'eclairaient, et qu'en terre j'avais
+&lt; 12 &gt; Le bonheur de les voir, a l'heure je vivais,
+&lt; 13 &gt; Ayant de leurs rayons mon ame gouvernee.
+&lt; 14 &gt;
+&lt; 15 &gt; Maintenant je suis mort : la Mort qui s'en alla
+&lt; 16 &gt; Loger dedans ses yeux, en parlant m'appela,
+&lt; 17 &gt; Et me fit de ses pieds accomplir ma journee.
+
+Le nombre total de lignes est de : 17
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H3>Pour terminer, voyons une commande un peu plus évoluée et une compilation 
+des résultats fournis par cette commande selon un format de présentation 
+clair.<BR>La commande unix "w" permet de lister les usagers de la machine sous 
+le format suivant : </H3>
+<DIV class=centre style="WIDTH: 50em">
+<DIV class=prog><PRE>3:35pm  up 77 day(s),  7:14,  14 users,  load average: 4.79, 4.14, 4.12
+User     tty           login@  idle   JCPU   PCPU  what
+redondo  pts/0         2:14pm         2:56      2  /usr/bin/../java/bin/../bin/spar
+chris    pts/10        2:37pm     1      1         w
+malzac9j pts/22        3:07pm    24                oracleDBdess (DESCRIPTION=(LOCAL
+dormoy9s pts/25        2:39pm     8      1      1  oracleDBdess (DESCRIPTION=(LOCAL
+bosqui9v pts/8        11:37am     8      1      1  oracleDBdess (DESCRIPTION=(LOCAL
+oulmoh9l dtremote      2:16pm     3                olwmslave
+bernard  dtremote      2:17pm     3     16      3  dtwm
+augier9l pts/9         3:02pm    17      1      1  oracleDBdess (DESCRIPTION=(LOCAL
+massat   pts/7         3:30pm     3     36
+augier9l pts/15        3:04pm    24      2         -sh
+malzac9j pts/26        3:15pm    18                oracleDBdess (DESCRIPTION=(LOCAL
+berkan9a pts/27        3:16pm     6      1      1  oracleDBdess (DESCRIPTION=(LOCAL
+malzac9j pts/3         3:24pm                      oracleDBdess (DESCRIPTION=(LOCAL
+malzac9j pts/13        3:07pm    24                telnet big
+malzac9j pts/1         3:23pm            2      2  telnet big
+bernard  pts/20        2:22pm    32   2:21   1:33  netscape
+oulmoh9l pts/21        2:40pm    53                ftp big
+malzac9j pts/24        3:14pm    18                telnet big
+oulmoh9l pts/18        2:17pm    55                ftp big
+malzac9j dtremote      3:22pm     3      1      1  dtwm
+</PRE></DIV></DIV>
+<H3>On désire analyser ces résultats en écrivant un programme perl qui donne la 
+liste des noms de logins des divers utilisateurs de la machine classés par ordre 
+alphabétique et pour chacun d'entre eux, le nombre de process qu'ils ont ouvert. 
+</H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme form5.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+open (W, "w|");
+$compteur = 1;
+$heure = &lt;W&gt;;
+$heure =~s/^ *//;
+$heure =~s/ .*\n//;
+print ("Il est actuellement $heure.\n\n");
+print ("Usager    Processus\n\n");
+&lt;W&gt;;
+$ligne = &lt;W&gt;;
+$ligne =~s/^ *//;
+$ligne =~s/ .*\n//;
+while ($ligne ne "") {
+  $liste{$ligne} +=1;
+  $ligne = &lt;W&gt;;
+  $ligne =~s/^ *//;
+  $ligne =~s/ .*\n//;
+}
+$nbut = 0;
+$nbproc = 0;
+foreach $nom (sort(keys(%liste))) {
+  $nbut ++;
+  $nbproc += $liste{$nom};
+  $~="LISTENOMS";
+  write;
+}
+print ("\nActuellement $nbproc processus;\n");
+print ("Appartenant a $nbut utilisateurs.\n");
+
+format LISTENOMS =
+@&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;  @###
+$nom, $liste{$nom}
+.
+    </PRE></TD>
+    <TD class=prog>c:\progs&gt; perl form5.pl<SPAN class=rouge>ent</SPAN> <BR><PRE>Il est actuellement 4:45pm.
+
+Usager    Processus
+
+berkan9a         1
+bernard          2
+chris            1
+dormoy9s         1
+elbechir         1
+malzac9j        11
+
+Actuellement 17 processus;
+Appartenant a 6 utilisateurs.
+</PRE>c:\progs&gt; </TD></TR></TBODY></TABLE>
+<H2 style="POSITION: relative; HEIGHT: 5em">
+<DIV class=lieng><A 
+href="http://www.dil.univ-mrs.fr/~chris/Perl/Fichiers.htm"><IMG 
+style="VERTICAL-ALIGN: middle" src="Cours Perl, Les formats_fichiers/prec.gif"> 
+</A>Précédent </DIV>
+<DIV class=liend>Suivant <A 
+href="http://www.dil.univ-mrs.fr/~chris/Perl/Unix.htm"><IMG 
+style="VERTICAL-ALIGN: middle" src="Cours Perl, Les formats_fichiers/suiv.gif"> 
+</A></DIV></H2></BODY></HTML>

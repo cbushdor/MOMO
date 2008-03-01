@@ -1,0 +1,14 @@
+#!/usr/bin/perl
+
+
+print &print_number("192345");
+
+sub print_number {
+my ($num) = @_;
+my $str = "<table><tr><td>";
+for ($i = 0; $i < length($num); $i++) {
+$str .= "<td valign=bottom><img src=\"image/".substr($num,$i,1).".gif\">\n";
+}
+$str .= "</table>";
+return $str;
+}

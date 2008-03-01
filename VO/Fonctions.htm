@@ -1,0 +1,817 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0052)http://www.dil.univ-mrs.fr/~chris/Perl/Fonctions.htm -->
+<HTML><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1"><LINK 
+href="Fonctions_fichiers/Messtyles.css" type=text/css rel=stylesheet>
+<META content="MSHTML 6.00.2900.3243" name=GENERATOR></HEAD>
+<BODY>
+<H1>Les fonctions.</H1>
+<H2>Déclaration de fonctions.</H2>
+<H3>Aprés avoir vu quelques unes des fonctions prédéfinies, voyons maintenant 
+comment l'utilisateur va pouvoir déclarer les siennes propre.<BR>La déclaration 
+de fonction est de la forme : </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>sub Nom_de_la_fonction {
+  Instruction_1;
+  Instruction_2;
+  . . . . .
+  Instruction_n;
+}
+  </PRE></DIV></DIV>
+<H3>L'appel de la fonction se fera généralement : </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog>&amp;Nom_de_la_fonction; </DIV></DIV>
+<H3>Il peut aussi se faire au moyen de l'instruction do sous la forme : </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog>do Nom_de_la_fonction; </DIV></DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc1.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+# Declaration de la fonction
+sub Dire_bonjour {
+  print ("Bonjour la compagnie.\n");
+}
+&amp;Dire_bonjour;
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc1.pl<SPAN class=rouge>ent</SPAN>
+Bonjour la compagnie.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Ainsi que nous l'avons dit, en Perl il n'y a pas de différence entre la 
+notion de procédure et la notion de fonction. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc2.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+# Declaration de la fonction
+sub Dire_bonjour {
+  print ("Bonjour la compagnie.\n");
+}
+$a=10 + &amp;Dire_bonjour;
+print "$a";
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc2.pl<SPAN class=rouge>ent</SPAN>
+Bonjour la compagnie.
+11
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Le scalaire $a sa voit affecter la valeur numérique 10 auquel on ajoute le 
+résultat de l'évaluation de la fonction &amp;Dire_bonjour. Le seul moyen 
+d'évaluer une fonction est de l'éxécuter, le message apparait donc sur 
+l'écran.<BR>Si l'exécution avait rencontré un problème le code de retour aurait 
+été 'faux'. Dans notre cas, devant l'absence de toute erreur, il est à 'vrai' 
+évalué à 1 car inclus dans une expression arithmétique. D'ou la valeur de $a 
+(11). </H3>
+<H3>Si rien n'est spécifié, les variables sont globales. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc3.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl; 
+# Declaration de la fonction
+sub lecture {
+  $ligne = &lt;STDIN&gt;;
+  $ligne =~s/^\s+|\s*\n$//g;
+  @nombres = split(/\s+/,$ligne);
+}
+$somme = 0;
+&amp;lecture;
+foreach $nombre (@nombres) {
+  $somme += $nombre;
+}
+$long = @nombres;
+$moy = $somme / $long;
+print ("\nSomme des $long éléments : ");
+print ("$somme.\n");
+print Moyenne : $moyenne.\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc3.pl<SPAN class=rouge>ent</SPAN>
+1 2 3 4 5 6 7 8 9
+
+Somme des 9 éléments : 45.
+Moyenne : 5.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2>Arguments et valeur de retour .</H2>
+<H3>Dans un premier temps, les variables étant globales sont connues de 
+l'ensemble des blocs du programme.<BR>La valeur de retour sera toujours la 
+dernière valeur qui aura été évaluée. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc4.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+# Declaration de la fonction&lt;
+sub exp {
+  $x ** $y;
+}
+$x=10;
+$y=2;
+$a=10 + &amp;exp;
+print "Valeur de a : $a\n";
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc4.pl<SPAN class=rouge>ent</SPAN>
+Valeur de a : 110
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>La fonction élève la valeur contenue dans la variable $x à la puissance 
+indiquée par $y. Cette valeur étant la dernière évaluée, elle sera retournée 
+dans l'expression. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc5.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;     
+# Declaration de la fonction
+sub liste {
+  ($x,$y);
+}
+$x=10;
+$y=2;
+@a = &amp;liste;
+print "Valeur de a : @a\n";
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc5.pl<SPAN class=rouge>ent</SPAN>
+Valeur de a : 10 2
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Le programme fait appel à une fonction dont la dernière opération est 
+l'évaluation d'une liste constituée des scalaires $x et $y. C'est celle liste 
+qui sera retournée comme valeur de retour. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc6.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+# Declaration de la fonction
+sub maximum {
+  if ($x &gt; $x) {
+    $x;
+  } else {
+    $x
+  }
+}
+$x=10;
+$y=2;
+@a = &amp;maximum;
+print "Valeur de a : @a\n";
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc6.pl<SPAN class=rouge>ent</SPAN>
+Valeur de a : 10
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Autre exemple reprenant le programme fonc3.pl mais en utilisant la valeur de 
+retour. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc7.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+# Declaration de la fonction.
+sub lecture {
+  $ligne = &lt;STDIN&gt;;
+    $ligne =~s/^\s+|\s*\n$//g;
+split(/\s+/,$ligne);
+}
+$somme = 0;
+@nombres = &amp;lecture;
+foreach $nombre (@nombres) {
+  $somme += $nombre;
+}
+$longueur = @nombres;
+$moyenne = $somme / $longueur;
+print ("\nTotal des $longueur éléments : ");
+print ("$somme.\n");
+print ("Moyenne : $moyenne.\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc7.pl<SPAN class=rouge>ent</SPAN>
+1 2 3 4 5 6 7 8 9
+
+Total des 9 éléments : 45.
+Moyenne : 5.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Il faut toutefois être très vigilant quant à la détermination de la valeur 
+retournée, un manque de réflexion peut conduire à des surprises : </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc8.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+sub total {
+  $somme = 0;
+  $ligne = &lt;stdin&gt;;
+  $ligne =~s/^\s+|\s*\n$//g;
+  @nombres = split(/\s+/,$ligne);
+  $index = 0;
+  while ($nombres[$index] ne ""){
+    $somme += $nombres[$index++];
+  }
+}
+$somme = 0;
+$total = &amp;total;
+print ("\nTotal des éléments : $total.\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc8.pl<SPAN class=rouge>ent</SPAN>
+1 2 3 4 5 6 7 8 9
+
+Total des éléments :.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Nous avons bien spécifié que la valeur de retour de la fonction était 
+toujours la dernière valeur évaluée. Cette règle souffriait-elle de quelques 
+exeptions?<BR>&lt; On serait tenté de croire que la valeur de retour de la 
+fonction serait la somme des éléments du tableau tels qu'on les calcule dans : 
+</H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog><PRE>while ($nombre[$index] ne ""){
+  $somme += $nombres[$index++];
+}
+  </PRE></DIV></DIV>
+<H3>Ce qui ne semble pas être le cas.<BR>Question : Quelle est la dernière 
+valeur évaluée?<BR>Est-ce bien comme nous le pensons : </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog><PRE>    $somme += $nombres[$index++];
+  </PRE></DIV></DIV>
+<H3>En fait, la réponse est non. La dernière valeur évaluée par la fonction est 
+la condition de sortie : </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog><PRE>   $nombre[$index] ne ""
+  </PRE></DIV></DIV>
+<H3>Cette évaluation est fausse car c'est cette condition qui termine la 
+boucle.<BR>La valeur de retour est donc 'faux', ce qui, en matière de chaine se 
+traduit par "" (chaine vide).<BR>Pour obtenir le retour que nous souhaitons, il 
+nous suffit avant de terminer la fonction de rajouter une évaluation de la 
+valeur en question. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc9.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+sub total {
+  $somme = 0;
+  $ligne = &lt;stdin&gt;;
+  $ligne =~s/^\s+|\s*\n$//g;
+  @nombres = split(/\s+/,$ligne);
+  $index = 0;
+  while ($nombres[$index] ne ""){
+    $somme += $nombres[$index++];
+  }
+  $somme;
+}
+$somme = 0;
+$total = &amp;total;
+print ("\nTotal des éléments : $total.\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc9.pl<SPAN class=rouge>ent</SPAN>
+1 2 3 4 5 6 7 8 9
+
+Total des éléments : 45.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Ou bien d'utiliser l'instruction </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog>return $valeur; </DIV></DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc10.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+sub total {
+  $somme = 0;
+  $ligne = &lt;stdin&gt;;
+  $ligne =~s/^\s+|\s*\n$//g;
+  if ($ligne eq "") {
+    return ("Erreur");
+  }
+  @nombres = split(/\s+/,$ligne);
+  $index = 0;
+  while ($nombres[$index] ne ""){
+    $somme += $nombres[$index++];
+  }
+  return $somme;
+}
+
+$total = &amp;total;
+if ($total eq "Erreur") {
+  print ("Pas de données à traiter.\n");
+} else{
+  print ("Total des éléments: $total.\n");
+}
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc10.pl<SPAN class=rouge>ent</SPAN>
+1 2 3 4 5 6 7 8 9
+
+Total des éléments : 45.
+c:\progs&gt; perl fonc10.pl<SPAN class=rouge>ent</SPAN>
+Pas de données à traiter.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Cette instruction nous permet, ainsi que nous le voyons dans l'exemple 
+précédent,de disposer de plusieurs sorties distinctes dans le corps de la 
+fonction, chacune d'elle étant identifiée par sa valeur de retour. </H3>
+<H2>La fonction wantarray().</H2>
+<H3>Il est parfois interessant de savoir si la valeur que doit retourner 
+procédure est une liste ou un scalaire. C'est la fonction wantarray va permettre 
+d'effectuer de savoir quel est le type de l'objet qui se trouve à la gauche du 
+signe d'affectation. </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog>$resultat = wantarray(); </DIV></DIV>
+<H3>$resultat est undef ('faux') si la procédure est sensée retourner un 
+scalaire.<BR>$resultat est 'vrai' si la procédure est sensée retourner une 
+liste. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programmefonc11.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl
+print ("Affectation à une liste.\n");
+@liste = &amp;ma_procedure;
+print ("Affectation à un scalaire.\n");
+$scalaire = &amp;ma_procedure;
+
+sub ma_procedure {
+  if (wantarray()) {
+    print ("Retour de liste.\n\n");
+  } else{
+    print ("Retour de scalaire.\n\n");
+  }
+}
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc11.pl<SPAN class=rouge>ent</SPAN>
+Affectation à une liste.
+Retour de liste.
+
+Affectation à un scalaire.
+Retour de scalaire.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2>Les variables locales.</H2>
+<H3>Il est courant qu'une fonctions doive faire référence à certaines variables 
+qui ne seront utilisées qu'à l'intérieur du bloc qui les concerne.<BR>Dans ces 
+conditions, il est judicieux de les déclarer comme des variables locales.<BR>Il 
+existe deux manières de déclarer une variable locale.<BR>La déclaration 'my' 
+permet de définir une variable qui n'existe que dans le corps de la fonction. 
+Cette déclaration n'existe pas en Perl 4.<BR>La déclaration 'local' permet de 
+définir une variable qui n'existe pas dans le programme principal, mais qui est 
+connue de la fonction et qui le sera aussi de toutes celles internes à cette 
+procédure. </H3>
+<DIV class=centre style="WIDTH: 35em">
+<DIV class=prog><PRE>my $var;
+my @lst = (0..9);
+my ($somme, $ligne, @mots) = (0,"****","Vide");
+local $s = 3,14159;
+local @c;
+local ($index, $retour) = (0,"Erreur");
+local (@phrase) ("Ceci"," est"," une"," phrase.");
+  </PRE></DIV></DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc12.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@suite = (1..10);
+print ("le produit des valeurs\n");
+print ("@suite\n");
+print ("est egal a : ";
+print &amp;multiplier (@suite);
+print "\nLa variable prod est à $prod.";
+
+# Declaration de la fonction
+sub multiplier {
+  local ($prod);
+  $prod = 1;
+  foreach $_ (@_) {
+    $prod *= $_;
+  }
+  $prod;
+}
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc12.pl<SPAN class=rouge>ent</SPAN>
+le produit des valeurs
+1 2 3 4 5 6 7 8 9 10
+est egal a : 3628800
+La variable prod est à .
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>La variable $prod est déclarée locale à la procédure elle est donc connue du 
+corps de la fonction mais inconnue du programme.<BR>Sa valeur est 3628800 dans 
+le bloc correspondant à la fonction multiplier(). Elle est "" (undef) partout 
+ailleurs. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc13.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+# Déclaration de la fonction.
+sub faire_le_total {
+  my ($somme, $ligne, @mots);
+  my ($index, $retour);
+  $somme = 0;
+  $ligne = &lt;STDIN&gt;;
+  if ($ligne eq "") {
+    return ("fini");
+  }
+  $ligne =~s/^\s+|\s*\n$//g;
+  @mots = split(/\s+/, $ligne);
+  $index = 0;
+  while ($mots[$index] ne "") {
+    $somme += $mots[$index++];
+  }
+  $retour = $somme;
+}
+
+$somme = 0;
+while (1) {
+  $total = &amp;faire_le_total;
+  last if ($total eq "fini");
+  print ("Total de la ligne : $total.\n");
+  $somme += $total;
+}
+print ("Total général : $somme.\n");
+    </PRE></TD>
+    <TD class=prog><PRE> c:\progs&gt; perl fonc13.pl<SPAN class=rouge>ent</SPAN>
+ 1 2 3<SPAN class=rouge>ent</SPAN>
+ Total de laligne : 6.
+ 4 5 6<SPAN class=rouge>ent</SPAN>
+ Total de laligne : 15.
+ 7 8 9<SPAN class=rouge>ent</SPAN>
+ Total de la ligne : 24.
+ <SPAN class=rouge>ctrlD</SPAN>
+ Total général : 45.
+ c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2>La liste d'appel.</H2>
+<H3>Il n'existe pas à proprement parler une liste d'appel au sens pascalien du 
+terme. C'est par l'intermédiaire de la liste standard prédéfinie qu'une fonction 
+paut récupérer la liste des arguments qu'un appelant souhaite lui 
+transmettre.<BR>Rappelons que dans la liste @_ le premier élément est $_[0], le 
+second élément $_[1] etc...<BR>Rappelons aussi que l'instruction </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>    shift (@liste);
+  </PRE></DIV></DIV>
+<H3>Permet de récupérer l'un aprés l'autre les éléments d'une liste. Une manière 
+simple, pour une fonction, d'itérer sur l'ensemble des éléments de la liste @_ 
+serait : </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog><PRE>my $a;
+while ($a = shift (@_){
+  # Le corps de la fonction.
+  # travaille sur la variable $a
+}
+  </PRE></DIV></DIV>
+<H3>Quelques exemples. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc14.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+# Declaration de la fonction
+sub Dire_bonjour_a {
+  print ("Bonjour $_[0].\n");
+}
+
+&amp;Dire_bonjour_a ("Francis");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc14.pl<SPAN class=rouge>ent</SPAN>
+Bonjour Francis.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc15.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+# Declaration de la fonction
+sub ecrire {
+  print ("$_[0] $_[1] $_[2] \n");
+}
+
+&amp;ecrire ("Adieu","monde","cruel");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc15.pl<SPAN class=rouge>ent</SPAN>
+Adieu monde cruel
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc16.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+# Declaration de la fonction
+sub ecrire {
+  print ("$_[0] $_[1] $_[2] \n");
+}
+
+$x = "monde";
+&amp;ecrire ("Adieu",$x,"cruel");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc16.pl<SPAN class=rouge>ent</SPAN>
+Adieu monde cruel
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc17.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+# Declaration de la fonction
+sub ajouter {
+  $_[0] + $_[1];
+}
+
+$x = 3; $y = 5;
+print "La somme de $x et de $y est ";
+print &amp;ajouter ($x,$y);
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc17.pl<SPAN class=rouge>ent</SPAN>
+La somme de 3 et de 5 est 8
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc18.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+sub plus_grand_que {
+  local ($n,@liste);
+  ($n,@liste) = @_;
+  local(@resultat);
+  foreach $_ (@liste) {
+    if ($_ &gt; $n) {
+      push (@resultat,$_);
+      push (@resultat," ");
+    }
+  }
+  @resultat;
+}
+
+@appel = (1 .. 20);
+$lim = 10;
+print "Liste des elements &gt; $lim :\n";
+print &amp;plus_grand_que (10,@appel);
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc18.pl<SPAN class=rouge>ent</SPAN>
+Liste des elements &gt; 10 :
+11 12 13 14 15 16 17 18 19 20
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Dans la fonction, on sépare les éléments de la liste d'appel, le premier est 
+le critère de comparaison, le second la liste de référence.<BR>La séparation des 
+divers éléments de la liste d'appel en deux éléments structurés </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog>($n,@liste) = @_; </DIV></DIV>
+<H3>Permet une utilisation plus aisée des paramètres.<BR>En fait, compte tenu de 
+la syntaxe du langage, cette écriture est équivalente à la manipulation des 
+variables dans laquelle.<BR>$_[0] représenterait le critère.<BR>@_[1..$#] 
+représenterait la liste de référence.<BR>
+<H3>Cette opération aurait aussi tout aussi bien pu s'écrire : </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog>local ($n,@liste) = @_; </DIV></DIV>
+<H3>Toutes les variables utilisées dans la fonction sont locales. </H3>
+<H2>Généralisation de la liste d'appel.</H2>
+<H3>La liste des arguments peut être composée d'un nombre inconnu de variables. 
+Nous pouvons reprendre et légèrement modifier le programme fonc12 afin qu'il 
+lise la liste contenent les éléments à multiplier entre eux sur le clavier. 
+</H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc19.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+# Declaration de la fonction
+sub multiplier {
+  local $prod;
+  $prod = 1;
+  foreach $_ (@_) {
+    $prod *= $_;
+  }
+  return $prod;
+}
+
+&lt;STDIN&gt;;
+split(/ /);
+print ("le produit des valeurs\n");
+print ("@suite\n");
+print ("est egal a : ";
+print &amp;multiplier ();
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc19.pl<SPAN class=rouge>ent</SPAN>
+1 2 3 4 5 6 7 8 9 10<SPAN class=rouge>ent</SPAN>
+le produit des valeurs
+1 2 3 4 5 6 7 8 9 10
+est egal a : 3628800
+c:\progs&gt;perl fonc19.pl<SPAN class=rouge>ent</SPAN>
+1 2 3 4 5<SPAN class=rouge>ent</SPAN>
+le produit des valeurs
+1 2 3 4 5
+est egal a : 120
+c:\progs&gt;perl fonc19.pl<SPAN class=rouge>ent</SPAN>
+1 2 3<SPAN class=rouge>ent</SPAN>
+le produit des valeurs
+1 2 3
+est egal a : 6
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Dans le programme ci dessus, la liste d'appel n'existe pas, c'est @_ qui est 
+utilisée. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc20.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+# Declaration de la fonction
+sub ecrire_la_somme {
+  my($n1, $n2, $n3) = @_;
+  my($total);
+  print ("\nNombres proposés :\n");
+  print ("$n1, $n2 et $n3.\n");
+  $total = $n1 + $n2 + $n3;
+  print ("\nSomme : $total.\n");
+}
+
+print ("Somme de trois nombres.\n");
+print ("Premier nombre ? ");
+chomp ($n1 = &lt;STDIN&gt;);
+print ("Second nombre ? ");
+chop ($n2 = &lt;STDIN&gt;);
+print ("Troisième nombre ? ");
+chop ($n3 = &lt;STDIN&gt;);
+ecrire_la_somme ($n1, $n2, $n3);
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc20.pl<SPAN class=rouge>ent</SPAN>
+Somme de trois nombres.
+Premier nombre ? 1285<SPAN class=rouge>ent</SPAN>
+Second nombre ? 32584<SPAN class=rouge>ent</SPAN>
+Troisième nombre ? 251468<SPAN class=rouge>ent</SPAN>
+
+Nombres proposés :
+1285, 32584 et 251468.
+
+Somme : 285337.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Alors que dans le programme ci dessus, la liste @_ se constitue à partir des 
+éléments de la liste d'appel de la fonction. </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog>@_ = ($n1,$n2,$n3); </DIV></DIV>
+<H3>Voici pour terminer un petit exemple réunissant plusieurs particularités du 
+langage. Le but est de lire des lignes sur le clavier, de décompter le nombre de 
+mots qui ont été lus et le nombre total de caractères. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc21.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+# Declaration de la fonction
+sub compte {
+  my ($ligne,$vide) = @_;
+  my ($compteur);
+  if ($vide eq "") {
+    @elements = split (//, $ligne);
+  } else {
+    @elements = split (/$vide/,$ligne);
+  }
+  $compteur = @elements;
+}
+
+$nbmots = $nbcar = 0;
+$carvide = "";
+$motvide = "\\s+";
+while ($ligne = &lt;stdin&gt;){
+  $nbcar += &amp;compte($ligne,$carvide);
+  $ligne =~s/^\s+|\s+$//g;
+  $nbmots += &amp;compte($ligne,$motvide);
+}
+print ("\n$nbmots mots.\n");
+print ("$nbcar caractères.\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc21.pl<SPAN class=rouge>ent</SPAN>
+Voici un texte qui comporte plusieurs lignes<SPAN class=rouge>ent</SPAN>
+la premiere ligne<SPAN class=rouge>ent</SPAN>
+a laquelle succede une seconde<SPAN class=rouge>ent</SPAN>
+et une toisieme<SPAN class=rouge>ent</SPAN>
+pour finir une quatrieme<SPAN class=rouge>ent</SPAN>
+<SPAN class=rouge>CtrlD</SPAN>
+
+22 mots.
+135 caractères.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2>Imbrication de fonctions.</H2>
+<H3>Ainsi qu'il est montré dans l'exemple qui suit, il est possible d'imbriquer 
+les fonctions les unes dans les autres. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fonc22.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+# Declaration de la fonction
+sub compter {
+  my ($lignes) = @_;
+  my ($carvide,$motvide);
+  my ($nbcars,$nbmots);
+  my ($ligne,$nblignes);
+  my (@retour);
+  sub count {
+    my ($ligne,$forme) = @_;
+    my ($compte);
+    if ($forme eq "") {
+      @elements = split (//, $ligne);
+    } else {
+      @elements = split (/$forme/,$ligne);
+    }
+    $compte = @elements;
+  }
+  $carvide = "";
+  $motvide = "\\s+";
+  $nblignes = $nbcars = $nbmots = 0;
+  while (1) {
+    $ligne = &lt;stdin&gt;;
+    last if ($ligne eq "");
+    $nblignes++;
+    $nbcars += &amp;count($ligne, $carvide);
+    $line =~ s/^\s+|\s+$//g;
+    $nbmots += &amp;count($ligne, $motvide);
+    last if ($nblignes == $lignes);
+  }
+  @retour = ($nblignes, $nbmots, $nbcars);
+}
+
+print ("Nombre maximum de lignes ? \n");
+chomp ($max = &lt;STDIN&gt;);
+($nbl, $nbm, $nbc) = &amp;compter($max);
+print ("\n$nbl lignes lues\n");
+print ("$nbm mots\n");
+print ("$nbc caractères\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fonc22.pl<SPAN class=rouge>ent</SPAN>
+Nombre maximum de lignes ?
+5<SPAN class=rouge>ent</SPAN>
+Ligne un<SPAN class=rouge>ent</SPAN>
+la seconde ligne<SPAN class=rouge>ent</SPAN>
+une toisieme ligne<SPAN class=rouge>ent</SPAN>
+la quatrieme<SPAN class=rouge>ent</SPAN>
+la cinquieme et derniere<SPAN class=rouge>ent</SPAN>
+
+5 lignes lues
+14 mots.
+84 caractères.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2 style="POSITION: relative; HEIGHT: 5em">
+<DIV class=lieng><A 
+href="http://www.dil.univ-mrs.fr/~chris/Perl/Fnspec.htm"><IMG 
+style="VERTICAL-ALIGN: middle" src="Fonctions_fichiers/prec.gif"> </A>Précédent 
+</DIV>
+<DIV class=liend>Suivant <A 
+href="http://www.dil.univ-mrs.fr/~chris/Perl/Specificites.htm"><IMG 
+style="VERTICAL-ALIGN: middle" src="Fonctions_fichiers/suiv.gif"> 
+</A></DIV></H2></H3></BODY></HTML>

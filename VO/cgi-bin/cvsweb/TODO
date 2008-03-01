@@ -1,0 +1,40 @@
+$FreeBSD: projects/cvsweb/TODO,v 1.10 2004/10/31 22:46:00 scop Exp $
+$Idaemons: /home/cvs/cvsweb/TODO.knu,v 1.6 2001/01/13 07:48:09 knu Exp $
+
+TODO list for FreeBSD-CVSweb
+-------------------------------------------------------------------------------
+
+o Tear the code apart, and modularize.
+
+o Ensure that fatal error messages are shown properly when gzip encoding
+  is enabled.
+
+o Use specialized modules from CPAN to do stuff, maybe these would be useful:
+  + Archive::Tar
+  + Archive::Zip
+  + Compress::Zlib
+  + Compress::Bzip2
+  + HTML::Entities
+  + Cvs or VCS::LibCVS
+
+o Integrate/cooperate with various CVS utilities.
+  + cvs2cl      <http://www.red-bean.com/cvs2cl/>
+  + cvsplot     <http://cvsplot.sourceforge.net/>
+  + CVSps       <http://www.cobite.com/cvsps/>
+
+o Limit the number of log entries shown.
+
+o Explore whether we can use cvs for all operations and drop rlog, rcsdiff
+  and friends.
+
+o Find out if it is feasible to provide prune-like functionality, ie. hide
+  empty subdirs.
+
+o Recursive diffs, including support for tags/branches/dates.
+
+o Support for dates in tarballs/zips (in addition to tags/branches).
+
+o Make it possible to pass media type parameters with the content-type
+  query string parameter, for example "Content-Type: text/html; charset=utf-8".
+
+o Make use of String::Ediff (if it's available) configurable in the UI.

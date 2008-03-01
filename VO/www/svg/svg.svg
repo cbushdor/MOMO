@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="no"?>
+<svg>
+ <rect x="50" y="50" rx="5" ry="5" width="200" height="100"
+       style="fill:#CCCCFF;stroke:#000099"/>
+ <text x="55" y="90" style="stroke:#000099;fill:#000099;font-size:14;">
+      HELLO cher visiteur </text>
+ <svg with="200" height="200" x="200" y="100">
+    <rect x="50" y="50" rx="5" ry="5" width="200" height="100"
+        style="fill:#CCCCFF;stroke:#000099"/>
+    <text x="55" y="90" style="stroke:#000099;fill:#000099;font-size:14;">
+         HELLO cher visiteur </text>
+ </svg> </svg>
+

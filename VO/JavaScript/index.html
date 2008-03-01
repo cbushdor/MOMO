@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<script>
+			var monChien = new Object() ; 
+
+			monChien.nom  = "medor" ;
+			monChien.sexe = "Male" ;
+			monChien.aboyer = function () {
+				return "ouaff" ; 
+			}
+
+			document.write(monChien.nom) ;
+			document.write("<br>") ;
+			document.write(monChien.sexe) ;
+			document.write("<br>") ;
+			document.write(monChien.aboyer()) ;
+			document.write("<br>") ;
+
+			function Chien(nom,sexe){
+				this.nom = nom ;
+				this.sexe = sexe ;
+				this.aboyer = function () { return "ouaff" ; }
+				this.print = function () { document.write("nom:" + this.nom + " sexe:" + this.sexe +"<br>") ; }
+			}
+
+			var unChien = new Chien("medo","male") ;
+			var uneChienne = new Chien("medole","femelle") ;
+			unChien.print() ;
+			uneChienne.print() ;
+			document.write(unChien.constructor.name + "<br>") ; 
+		</script>
+	</head>
+	<body>
+		hello world<br>
+	</body>
+</html>

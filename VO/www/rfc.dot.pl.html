@@ -1,0 +1,1035 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>./rfc.dot.pl</title>
+<link rev="made" href="mailto:root@kwan.com" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#abstract">ABSTRACT</a></li>
+	<li><a href="#list_of_functions">LIST OF FUNCTIONS</a></li>
+	<li><a href="#__ask_message__message_">* <code>ask_message($message)</code></a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__returns_rfc_value">* returns_rfc_value</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__is_number__message_">* <code>is_number($message)</code></a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__paragraph_number">* paragraph_number</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__set_in_file__file_name__paragraph__comment_">* <code>set_in_file($file_name,$paragraph,$comment)</code></a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__create_file__file_name__paragraph__comment__links_">* <code>create_file($file_name,$paragraph,$comment,$links)</code></a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__sub_insert_links__paragraph_number__links__list_">* sub <code>insert_links($paragraph_number,$links,@list)</code></a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__sub_insert_rfc__paragraph_number__links__list_">* sub <code>insert_rfc($paragraph_number,$links,@list)</code></a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__sub_by_rfc">* sub by_rfc</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__sub_sort_formating">* sub sort_formating</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__sub_remove_same_line__list_">* sub <code>remove_same_line(@list)</code></a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__sub_sort_link">* sub sort_link</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__insert_info__file_name__paragraph__comment__links_">* <code>insert_info($file_name,$paragraph,$comment,$links)</code></a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__load_file__load_f_">* <code>load_file($load_f)</code></a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__write_file__write_f__lines_">* <code>write_file($write_f,@lines)</code></a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__ask_reference_in_paragraph__current_paragraph_">*  <code>ask_reference_in_paragraph($current_paragraph)</code></a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__print_list__message__rfc_ref_paragraph_">* <code>print_list($message,@rfc_ref_paragraph)</code></a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__get_begin_end_field__file__comment_">* <code>get_begin_end_field($file,$comment)</code></a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__insert_formating__num_comment__comment__info_stored_">* <code>insert_formating($num_comment,$comment,@info_stored)</code></a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__insert_comments__num_comment__comment__info_stored_">* <code>insert_comments($num_comment,$comment,@info_stored)</code></a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__insert_tree__num_comment__info_stored_">*  <code>insert_tree($num_comment,@info_stored)</code></a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#__insert_paragraph__num__comment__info_">* <code>insert_paragraph($num,$comment,$info)</code></a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#parameter_s_"><code>PARAMETER(S)</code></a></li>
+	<li><a href="#returned_value">RETURNED VALUE</a></li>
+	<li><a href="#error_returned">ERROR RETURNED</a></li>
+	<li><a href="#bug_known">BUG KNOWN</a></li>
+	<li><a href="#creation_modification_dates">CREATION/MODIFICATION DATES</a></li>
+	<li><a href="#author">AUTHOR</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="abstract">ABSTRACT</a></h1>
+<p>This function allows a user to enter information such as paragraph number, comment, rfc reference in paragraph, references of paragraph in paragraph in the same rfc. The aim is to create a tree dependency of the rfc in order to get a map done.</p>
+<p>
+</p>
+<hr />
+<h1><a name="list_of_functions">LIST OF FUNCTIONS</a></h1>
+<p>ask_message, returns_rfc_value, is_number, paragraph_number, set_in_file, create_file, insert_info, load_file, write_file, rfc_reference_in_paragraph, print_list, get_begin_end_field, insert_formating, insert_comments, insert_tree, insert_paragraph,</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__ask_message__message_">* <code>ask_message($message)</code></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function asks to user a question according to the message entered in $message.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$message: Message that is prompted.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns what is ask in question. No test done.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 27 2005</p>
+<p><em>Last modification:</em> Tue Dec 27 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__returns_rfc_value">* returns_rfc_value</a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function a string formated for rfc.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns rfc and its number ie rfc1234 .</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known_none_">BUG KNOWN
+None.</a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 27 2005</p>
+<p><em>Last modification:</em> Tue Dec 27 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__is_number__message_">* <code>is_number($message)</code></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function check if parameter entered is a number.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$num: that's the string that need to be checked.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns 1 for True otherwise 0.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 27 2005</p>
+<p><em>Last modification:</em> Tue Dec 27 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__paragraph_number">* paragraph_number</a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function ask to user a paragraph number.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns paragraph number.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 27 2005</p>
+<p><em>Last modification:</em> Tue Dec 27 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__set_in_file__file_name__paragraph__comment_">* <code>set_in_file($file_name,$paragraph,$comment)</code></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function insert info in the dot script</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$file_name: file name</p>
+<p>$paragraph: paragraph number</p>
+<p>$comment: comment related to paragraph</p>
+<p>$list_ref_parag: list of referenced paragraph within current paragraph ($paragraph).</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 27 2005</p>
+<p><em>Last modification:</em> Tue Dec 27 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__create_file__file_name__paragraph__comment__links_">* <code>create_file($file_name,$paragraph,$comment,$links)</code></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function insert info in the dot script if the file doesnot already exists.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$file_name: file name</p>
+<p>$paragraph: paragraph number</p>
+<p>$comment: comment related to paragraph</p>
+<p>$links: list of refrerenced paragraph within current paragraph (in $paragraph variable).</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 22 2005</p>
+<p><em>Last modification:</em> Tue Dec 28 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__sub_insert_links__paragraph_number__links__list_">* sub <code>insert_links($paragraph_number,$links,@list)</code></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function insert info in the dot script if the file doesnot already exists.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$paragraph_number: that's the paragraph number where everything will be tied.</p>
+<p>$links: list of refrerenced paragraph within current paragraph (in $paragraph variable).</p>
+<p>@list: to be completed</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns @list because complete the list passed as a parameter.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 27 2005</p>
+<p><em>Last modification:</em> Tue Dec 28 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__sub_insert_rfc__paragraph_number__links__list_">* sub <code>insert_rfc($paragraph_number,$links,@list)</code></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function insert info in the dot script if the file doesnot already exists.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$paragraph_number: that's the paragraph number where everything will be tied.</p>
+<p>$links: list of refrerenced paragraph within current paragraph (in $paragraph variable).</p>
+<p>@list: to be completed</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns @list because complete the list passed as a parameter.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 27 2005</p>
+<p><em>Last modification:</em> Tue Dec 28 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__sub_by_rfc">* sub by_rfc</a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function sort by rfc.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns inter -1 for $a lt $b or 0 if $a eq $b or $a gt $b. LT stands for lower than, GT greater than and EQ for equal.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 28 2005</p>
+<p><em>Last modification:</em> Tue Dec 28 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__sub_sort_formating">* sub sort_formating</a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function help thesort function to Sort formating section in the final script.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns inter -1 for $a lt $b or 0 if $a eq $b or $a gt $b. LT stands for lower than, GT greater than and EQ for equal.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 28 2005</p>
+<p><em>Last modification:</em> Tue Dec 28 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__sub_remove_same_line__list_">* sub <code>remove_same_line(@list)</code></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>Remove the same line in the final script.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>@list: to be cleaned with redundant information.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns @list with cleaned value.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 27 2005</p>
+<p><em>Last modification:</em> Tue Dec 28 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__sub_sort_link">* sub sort_link</a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function help the sort function to Sort link section in the final script.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns inter -1 for $a lt $b or 0 if $a eq $b or $a gt $b. LT stands for lower than, GT greater than and EQ for equal.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 28 2005</p>
+<p><em>Last modification:</em> Tue Dec 28 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__insert_info__file_name__paragraph__comment__links_">* <code>insert_info($file_name,$paragraph,$comment,$links)</code></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function insert info in the dot script</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$file_name: file name</p>
+<p>$paragraph: paragraph number</p>
+<p>$comment: comment related to paragraph</p>
+<p>$links: list of related paragraphs that are referenced in $paragraph.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 27 2005</p>
+<p><em>Last modification:</em> Tue Dec 27 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__load_file__load_f_">* <code>load_file($load_f)</code></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function load file stored.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$file_name: file name</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>returns file stored in array.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 27 2005</p>
+<p><em>Last modification:</em> Tue Dec 27 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__write_file__write_f__lines_">* <code>write_file($write_f,@lines)</code></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function write file new info recorded in array</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$file: file name</p>
+<p>@lines: lines to store.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>returns file stored in array.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 27 2005</p>
+<p><em>Last modification:</em> Tue Dec 27 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__ask_reference_in_paragraph__current_paragraph_">*  <code>ask_reference_in_paragraph($current_paragraph)</code></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function asks to user paragraph references that are told within this paragraph and go to other paragraphs</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$current_paragraph: this is the current paragraph</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>returns list within rfc of other paragraphs in a variable.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 20 2005</p>
+<p><em>Last modification:</em> Tue Dec 28 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__print_list__message__rfc_ref_paragraph_">* <code>print_list($message,@rfc_ref_paragraph)</code></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function write file new info recorded in array</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$message: enter a message to print</p>
+<p>@rfc_ref_paragraph: enter the list of information to print.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 27 2005</p>
+<p><em>Last modification:</em> Tue Dec 27 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__get_begin_end_field__file__comment_">* <code>get_begin_end_field($file,$comment)</code></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function get get information stored between two fields.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$file: That's the file where to search</p>
+<p>$comment: that's the comment line info where to search between.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>@store_begend: Info stored between the two comments.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 27 2005</p>
+<p><em>Last modification:</em> Tue Dec 27 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__insert_formating__num_comment__comment__info_stored_">* <code>insert_formating($num_comment,$comment,@info_stored)</code></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function store information in a file.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$num_comment: Number for the comment. The number is the chapter number.</p>
+<p>$comment: comment associated to number.</p>
+<p>@info_stored: that's info to store.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 27 2005</p>
+<p><em>Last modification:</em> Tue Dec 27 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__insert_comments__num_comment__comment__info_stored_">* <code>insert_comments($num_comment,$comment,@info_stored)</code></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function check if number already exists. If not create a comment otherwise replace the comment.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$num_comment: number of the comment. As a matter of fact it is the paragraph number of rfc.</p>
+<p>$comment: comment related to number.</p>
+<p>@info_stored: info already stored between the ciomment begin tag and end tag.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns @new_store array and then within it info inserted.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 27 2005</p>
+<p><em>Last modification:</em> Tue Dec 27 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__insert_tree__num_comment__info_stored_">*  <code>insert_tree($num_comment,@info_stored)</code></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<pre>
+    This function check if number already exists in the tree (final tree or main). If not, creates a new node and sort it.</pre>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$num_comment: number of the comment. As a matter of fact it is the paragraph number of rfc.</p>
+<p>@info_stored: info already stored between the ciomment begin tag and end tag.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns @new_store array and then within it info inserted.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 27 2005</p>
+<p><em>Last modification:</em> Tue Dec 27 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="__insert_paragraph__num__comment__info_">* <code>insert_paragraph($num,$comment,$info)</code></a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This function check if number already exists. If not create a comment otherwise replace the comment.</p>
+<p>
+</p>
+<hr />
+<h1><a name="parameter_s_"><code>PARAMETER(S)</code></a></h1>
+<p>$num: number of the comment. As a matter of fact it is the paragraph number of rfc.</p>
+<p>$comment: Comment related to paragraph (num).</p>
+<p>$info: info already stored between the comment begin tag and end tag.</p>
+<p>
+</p>
+<hr />
+<h1><a name="returned_value">RETURNED VALUE</a></h1>
+<p>Returns @new_store array and then within it info inserted.</p>
+<p>
+</p>
+<hr />
+<h1><a name="error_returned">ERROR RETURNED</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="bug_known">BUG KNOWN</a></h1>
+<p>None.</p>
+<p>
+</p>
+<hr />
+<h1><a name="creation_modification_dates">CREATION/MODIFICATION DATES</a></h1>
+<p><em>Created on:</em> Tue Dec 27 2005</p>
+<p><em>Last modification:</em> Tue Dec 27 2005</p>
+<pre>
+    -------------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="author">AUTHOR</a></h1>
+<p>Current maintainer: M. Sebastien DOREY, &lt;<a href="mailto:dorey_s@laposte.net">dorey_s@laposte.net</a>&gt;
+
+</p>
+
+</body>
+
+</html>

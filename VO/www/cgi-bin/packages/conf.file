@@ -1,0 +1,46 @@
+ 
+$home_src = (); 
+
+# Name of script for monthly stat and wher to store image
+$stat_script_monthly="packages/stat_month.gnuplot";
+$store_img="image/";
+$plot_x = 0;
+$max_plot_x = 0;
+%store_coord_monthly = ();
+
+# That's executable file
+$gnuplot_exe = "/usr/pkg/bin/gnuplot";
+$ppmtogif_exe = "/usr/pkg/bin/ppmtogif";
+
+#script for gnuplot
+# whole year
+$script_whole_year = "cgi-bin/packages/stat.gnuplot";
+
+#detailed
+$script_detailed = "cgi-bin/packages/stat_month.gnuplot";
+
+# That's all fields used in first menu French/English menu
+@subject = ('Qui Suis je / Who am I','Profil / Profile','Forum','Projets / Projects','Vee Eye','Guest Book');
+
+# That the URL base
+$localhost = 'wcube.epita.fr';
+
+# All information are stored to make stats in trhe next file
+$file_stat = ".gnuplot/counter.stat";
+
+# We calculate date for the whole program once per each process running
+$dte = `date`;
+$dt=`date "+%m/%Y"`;
+chomp($dt);
+$mo = $ye = ();
+($mo,$ye) = split(/\//,$dt);
+
+# This is where all CGI scripts appear
+$root="";
+
+# This is where all hits show up
+$temporary_files = ".gnuplot/";
+
+# Max year show up on board and base
+$max_year_base=5;
+1;

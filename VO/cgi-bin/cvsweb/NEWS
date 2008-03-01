@@ -1,0 +1,93 @@
+$FreeBSD: projects/cvsweb/NEWS,v 1.48 2005/09/25 20:28:51 scop Exp $
+
+This document describes the high level changes between FreeBSD-CVSweb
+versions.  For detailed changes including credits, see ChangeLog.
+For installation instructions and upgrade notes, see INSTALL.
+
+Changes in 3.0.6, released 2005-09-25:
+
+* Better human readable diff output when rcsdiff doesn't output anything.
+* Improved "Diff to" presentation in log view.
+* Allow MIME types to contain "+".
+
+Changes in 3.0.5, released 2005-01-22:
+
+* Fixed links in human readable diff view when it's the default diff format.
+* Submitting the option form preserves hidden user settings.
+* Improvements related to tightly controlled setups such as SELinux.
+* Configuration and configuration documentation improvements.
+* Tab expansion fix for HTMLized views.
+
+Changes in 3.0.4, released 2004-11-06:
+
+* Fixed tab expansion to not eat everything before a tab in HTMLized diffs.
+
+Changes in 3.0.3, released 2004-11-03:
+
+* Improved support for the magic "." (== latest) revision on branches
+  for download, view, and annotate URLs.
+* Improved whitespace handling in "human readable" (HTMLized) diffs.
+* The new cvsweb.conf parameter $DEBUG can be set to a true value in order
+  to enable more output to the web server error log for troubleshooting.
+
+Changes in 3.0.2, released 2004-08-20:
+
+* More robust URI escaping, links to paths/filenames containing unusual
+  characters work better now.
+* Visual, accessibility, and CSS class structure improvements.
+* Minor optimizations and bug fixes.
+
+Changes in 3.0.1, released 2004-05-08:
+
+* Light integration with CVSHistory.
+* CvsGraph invocation is more robust against unexpected cvsgraph.conf settings.
+* Fix download links for non-branch files whose revision number contains 0's.
+* Linking to the latest revision of a file works again using ?rev=(.|HEAD).
+* Improve Enscript file type detection regexps.
+* Improve annotate view formatting a bit.
+* Other minor enhancements.
+
+Changes in 3.0.0, released 2004-02-26:
+
+* Fix Enscript colored side by side diffs with diffutils < 2.8.
+
+Changes in 2.9.3 (beta), released 2004-02-15:
+
+* Fix tarball/zip creation from non-toplevel dirs (was broken since 2.9.1).
+* Support 80 character line lengths in side by side diffs.
+* Improved control over line wrapping in the directory view.
+* Separate GNU Enscript language file for diffs.
+* Better browser compatiblity in client side graph image maps.
+* Don't turn off tag, diff etc linking in markup view.
+
+Changes in 2.9.2 (beta), released 2004-01-31:
+
+* Improved download/view/diff linking wrt. MIME types and binary files.
+* Support for per file type, external diff commands.
+* Support for read-only repository access mode also for cvs >= 1.12.1.
+* Fix checkouts from paths where the top level dir starts with a dot.
+* Improved hidden/forbidden file/dir functionality.
+* The minimum supported version of GNU Enscript is actually 1.6.3, and
+  for mod_perl 2, >= 1.99_11 is strongly recommended although it does run
+  to some extent with 1.99_08.
+
+Changes in 2.9.1 (beta) (after 2.0.6), released 2003-10-05:
+
+* Much improved HTML quality, XHTML 1.0 Transitional, use of external CSS.
+* Visual and accessibility improvements.
+* Graphical revision views using CvsGraph (>= 1.4.0).
+* Source and diff syntax highlighting using GNU Enscript (>= 1.6.2).
+* mod_perl 2 support (>= 1.99_08).
+* Ability to handle directories with *lots* of files.
+* Case insensitive sorting option for directories.
+* Cross site scripting paranoia against weirdly formatted tags etc.
+* Option to display line numbers in source views.
+* Improved MIME type discovery and support for binary files.
+* Support for (X)Emacs-style human readable diffs using String::Ediff.
+* Taint-safety on Perl 5.8, strict CGI query parameter checking.
+* Ability to show Apache FancyIndex-style README.cvs(.html) in dir views.
+* Lots of minor bugfixes.
+* Portability improvements.
+* Documentation improvements.
+* Code cleanups.
+* For information how to upgrade from 2.0.x versions, see INSTALL.
