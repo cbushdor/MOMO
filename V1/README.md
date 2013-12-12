@@ -1,1 +1,1 @@
-Contains source code and documentations.
+Contains source code (src) and documentations (doc).
