@@ -1,6 +1,6 @@
 Directory
 =========
-La Grande Vadrouille and Gantt files ; 
+LGV: La Grande Vadrouille and Gantt files of the project ; 
 
 V1: first version of MAOP (My Album Of Pictures) ; 
 
