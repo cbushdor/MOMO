@@ -27,13 +27,37 @@
       <task id="3" name="MDB" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
       <task id="4" name="Videos" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
     </task>
-    <task id="5" name="Meetings" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="5" name="Meetings" note="" work="43200" start="20131228T000000Z" end="20140106T120000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
       <task id="6" name="Salons" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="7" name="Associations" note="" work="14400" start="20140104T000000Z" end="20140106T120000Z" work-start="20140106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="8" name="Install Parties" note="" work="14400" start="20140104T000000Z" end="20140106T120000Z" work-start="20140106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="9" name="IP01" note="" work="14400" duration="14400" start="20140104T000000Z" end="20140106T120000Z" work-start="20140106T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20140104T000000Z"/>
+          </task>
+        </task>
+      </task>
     </task>
-    <task id="7" name="Gaming" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-    <task id="8" name="Series" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="10" name="Gaming" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="11" name="Series" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
   </tasks>
-  <resource-groups/>
-  <resources/>
-  <allocations/>
+  <resource-groups>
+    <group id="1" name="Association" admin-name="" admin-phone="" admin-email=""/>
+    <group id="2" name="Administration" admin-name="" admin-phone="" admin-email=""/>
+    <group id="3" name="Programmation" admin-name="" admin-phone="" admin-email=""/>
+  </resource-groups>
+  <resources>
+    <resource group="1" id="1" name="Abacus Geel &amp;  Business Team" short-name="agb" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="2" name="Perl Mongueurs" short-name="pms" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="3" name="Paris est une fete" short-name="pef" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="4" name="April" short-name="apr" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="5" name="Borsalinux" short-name="bsl" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="6" name="Parinux" short-name="prx" type="1" units="0" email="" note="" std-rate="0"/>
+  </resources>
+  <allocations>
+    <allocation task-id="9" resource-id="1" units="20"/>
+    <allocation task-id="9" resource-id="3" units="20"/>
+    <allocation task-id="9" resource-id="4" units="20"/>
+    <allocation task-id="9" resource-id="5" units="20"/>
+    <allocation task-id="9" resource-id="6" units="20"/>
+  </allocations>
 </project>
