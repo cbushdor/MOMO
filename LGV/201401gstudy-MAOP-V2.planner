@@ -54,68 +54,76 @@
         </task>
       </task>
     </task>
-    <task id="16" name="Meetings" note="" work="50400" start="20131228T000000Z" end="20140106T120000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="16" name="Meetings" note="" work="54000" start="20131228T000000Z" end="20140113T090000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
       <task id="17" name="Salons" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="18" name="Associations" note="" work="21600" start="20140104T000000Z" end="20140106T120000Z" work-start="20140106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="19" name="Install Parties" note="" work="14400" start="20140104T000000Z" end="20140106T120000Z" work-start="20140106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="20" name="IP01" note="" work="14400" duration="14400" start="20140104T000000Z" end="20140106T120000Z" work-start="20140106T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="18" name="External exibit" note="" work="3600" start="20140111T000000Z" end="20140113T090000Z" work-start="20140113T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="19" name="ice rink" note="Sat 11 Jan 2014, 21:24&#10;Hotel de Ville Paris" work="3600" duration="3600" start="20140111T000000Z" end="20140113T090000Z" work-start="20140113T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20140111T000000Z"/>
+        </task>
+      </task>
+      <task id="20" name="Associations" note="" work="21600" start="20140104T000000Z" end="20140106T120000Z" work-start="20140106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="21" name="Install Parties" note="" work="14400" start="20140104T000000Z" end="20140106T120000Z" work-start="20140106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="22" name="IP01" note="" work="14400" duration="14400" start="20140104T000000Z" end="20140106T120000Z" work-start="20140106T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20140104T000000Z"/>
           </task>
         </task>
-        <task id="21" name="PM" note="" work="7200" start="20140106T000000Z" end="20140106T100000Z" work-start="20140106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="22" name="irc" note="" work="7200" duration="7200" start="20140106T000000Z" end="20140106T100000Z" work-start="20140106T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="23" name="PM" note="" work="7200" start="20140106T000000Z" end="20140106T100000Z" work-start="20140106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="24" name="irc" note="" work="7200" duration="7200" start="20140106T000000Z" end="20140106T100000Z" work-start="20140106T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20140106T000000Z"/>
           </task>
         </task>
       </task>
     </task>
-    <task id="23" name="Gaming" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-    <task id="24" name="Series" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="25" name="Gaming" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="26" name="Series" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
   </tasks>
   <resource-groups>
-    <group id="1" name="Internet" admin-name="" admin-phone="" admin-email=""/>
-    <group id="2" name="tools" admin-name="" admin-phone="" admin-email=""/>
-    <group id="3" name="Administration" admin-name="" admin-phone="" admin-email=""/>
+    <group id="1" name="Programming Language" admin-name="" admin-phone="" admin-email=""/>
+    <group id="2" name="System" admin-name="" admin-phone="" admin-email=""/>
+    <group id="3" name="Network" admin-name="" admin-phone="" admin-email=""/>
     <group id="4" name="Association" admin-name="" admin-phone="" admin-email=""/>
-    <group id="5" name="Network" admin-name="" admin-phone="" admin-email=""/>
-    <group id="6" name="System" admin-name="" admin-phone="" admin-email=""/>
-    <group id="7" name="Programming Language" admin-name="" admin-phone="" admin-email=""/>
+    <group id="5" name="Administration" admin-name="" admin-phone="" admin-email=""/>
+    <group id="6" name="tools" admin-name="" admin-phone="" admin-email=""/>
+    <group id="7" name="Internet" admin-name="" admin-phone="" admin-email=""/>
   </resource-groups>
   <resources>
-    <resource group="5" id="1" name="Internet" short-name="int" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="2" name="Youtube" short-name="ytb" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="3" name="imovie" short-name="imo" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="4" name="Parinux" short-name="prx" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="5" name="Borsalinux" short-name="bsl" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="6" name="April" short-name="apr" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="1" name="Mairie de Paris IDF France Europe" short-name="mdp" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="2" name="Virtual box" short-name="vbx" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="3" name="Linux OS" short-name="los" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="4" name="Perl" short-name="pel" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="5" name="Abacus Geek &amp;  Business Team" short-name="agb" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="6" name="Perl Mongueurs" short-name="pms" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="4" id="7" name="Paris est une fete" short-name="pef" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="8" name="Perl Mongueurs" short-name="pms" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="9" name="Abacus Geek &amp;  Business Team" short-name="agb" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="7" id="10" name="Perl" short-name="pel" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="11" name="Linux OS" short-name="los" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="12" name="Virtual box" short-name="vbx" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="8" name="April" short-name="apr" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="9" name="Borsalinux" short-name="bsl" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="10" name="Parinux" short-name="prx" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="11" name="imovie" short-name="imo" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="12" name="Youtube" short-name="ytb" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="13" name="Internet" short-name="int" type="1" units="0" email="" note="" std-rate="0"/>
   </resources>
   <allocations>
-    <allocation task-id="13" resource-id="1" units="33"/>
-    <allocation task-id="12" resource-id="1" units="100"/>
-    <allocation task-id="15" resource-id="1" units="50"/>
-    <allocation task-id="11" resource-id="1" units="100"/>
-    <allocation task-id="10" resource-id="1" units="100"/>
-    <allocation task-id="9" resource-id="1" units="100"/>
-    <allocation task-id="8" resource-id="1" units="100"/>
-    <allocation task-id="5" resource-id="2" units="20"/>
-    <allocation task-id="5" resource-id="3" units="20"/>
-    <allocation task-id="5" resource-id="4" units="20"/>
-    <allocation task-id="20" resource-id="4" units="20"/>
-    <allocation task-id="5" resource-id="5" units="20"/>
-    <allocation task-id="20" resource-id="5" units="20"/>
-    <allocation task-id="5" resource-id="6" units="20"/>
-    <allocation task-id="20" resource-id="6" units="20"/>
-    <allocation task-id="20" resource-id="7" units="20"/>
-    <allocation task-id="15" resource-id="8" units="50"/>
-    <allocation task-id="22" resource-id="8" units="100"/>
-    <allocation task-id="20" resource-id="9" units="20"/>
-    <allocation task-id="13" resource-id="11" units="33"/>
-    <allocation task-id="13" resource-id="12" units="33"/>
+    <allocation task-id="19" resource-id="1" units="50"/>
+    <allocation task-id="13" resource-id="2" units="33"/>
+    <allocation task-id="13" resource-id="3" units="33"/>
+    <allocation task-id="22" resource-id="5" units="20"/>
+    <allocation task-id="15" resource-id="6" units="50"/>
+    <allocation task-id="24" resource-id="6" units="100"/>
+    <allocation task-id="22" resource-id="7" units="20"/>
+    <allocation task-id="5" resource-id="8" units="20"/>
+    <allocation task-id="22" resource-id="8" units="20"/>
+    <allocation task-id="5" resource-id="9" units="20"/>
+    <allocation task-id="22" resource-id="9" units="20"/>
+    <allocation task-id="5" resource-id="10" units="20"/>
+    <allocation task-id="22" resource-id="10" units="20"/>
+    <allocation task-id="5" resource-id="11" units="20"/>
+    <allocation task-id="5" resource-id="12" units="20"/>
+    <allocation task-id="19" resource-id="13" units="50"/>
+    <allocation task-id="13" resource-id="13" units="33"/>
+    <allocation task-id="12" resource-id="13" units="100"/>
+    <allocation task-id="15" resource-id="13" units="50"/>
+    <allocation task-id="11" resource-id="13" units="100"/>
+    <allocation task-id="10" resource-id="13" units="100"/>
+    <allocation task-id="9" resource-id="13" units="100"/>
+    <allocation task-id="8" resource-id="13" units="100"/>
   </allocations>
 </project>
