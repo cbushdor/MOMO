@@ -72,6 +72,7 @@ print "</pre>";
 &sortAndStore("history","album");
 my %l=&getsLoLa("album/history"); # Load file
 my $path=&getsPath("album/history","Canada"); # Load file
+my $path=&getsPath("album/history","New Zealand"); # Load file
 
 #chomp($id) ;
 &mapGoogle("$id");
@@ -372,6 +373,3 @@ sub is_hash{
 	my ($re)=@_;
 	return ref($re) eq 'HASH';
 }
-
-
-
