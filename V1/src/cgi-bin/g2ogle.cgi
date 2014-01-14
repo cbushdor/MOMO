@@ -8,10 +8,22 @@ use warnings;
 use LWP::Simple;
 use XML::Simple;
 use Data::Dumper;
+use Net::Ping;
 
 use io::MySec;
 use io::MyNav;
 use io::MyUtilities;
+
+my $p = Net::Ping->new;
+if ($p->ping("www.google.com")){
+}
+else{
+	printf "Content-Type: text/html\n\n";
+	printf "Internet connection not active!...\n";
+	exit(-1);
+}   
+my $checkconnexion=get("http://www.google.com");
+print "------>$checkconnexion\n\n";
 
 my $ipAddr=io::MyNav::gets_ip_address;
 my $fn=$0; # file name
@@ -72,7 +84,7 @@ print "</pre>";
 &sortAndStore("history","album");
 my %l=&getsLoLa("album/history"); # Load file
 my $path=&getsPath("album/history","Canada"); # Load file
-my $path=&getsPath("album/history","New Zealand"); # Load file
+#$path=&getsPath("album/history","New Zealand"); # Load file
 
 #chomp($id) ;
 &mapGoogle("$id");
