@@ -14,16 +14,16 @@ use io::MySec;
 use io::MyNav;
 use io::MyUtilities;
 
-my $p = Net::Ping->new;
+#my $p = Net::Ping->new;
 my $ipAddr=io::MyNav::gets_ip_address;
 
-if ($p->ping("www.google.com")){
-}
-else{
-	printf "Content-Type: text/html\n\n";
-	printf "Internet connection not active!...\n";
-	exit(-1);
-}   
+#if ($p->ping("www.google.com")){
+#}
+#else{
+#	printf "Content-Type: text/html\n\n";
+#	printf "Internet connection not active!...\n";
+#	exit(-1);
+#}   
 
 my $fn=$0; # file name
 $fn=~m/([0-9a-zA-Z\-\.]*)$/;
