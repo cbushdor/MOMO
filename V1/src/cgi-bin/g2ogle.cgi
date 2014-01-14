@@ -15,6 +15,8 @@ use io::MyNav;
 use io::MyUtilities;
 
 my $p = Net::Ping->new;
+my $ipAddr=io::MyNav::gets_ip_address;
+
 if ($p->ping("www.google.com")){
 }
 else{
@@ -22,10 +24,7 @@ else{
 	printf "Internet connection not active!...\n";
 	exit(-1);
 }   
-my $checkconnexion=get("http://www.google.com");
-print "------>$checkconnexion\n\n";
 
-my $ipAddr=io::MyNav::gets_ip_address;
 my $fn=$0; # file name
 $fn=~m/([0-9a-zA-Z\-\.]*)$/;
 $fn=$1;
