@@ -8,23 +8,12 @@ use warnings;
 use LWP::Simple;
 use XML::Simple;
 use Data::Dumper;
-use Net::Ping;
 
 use io::MySec;
 use io::MyNav;
 use io::MyUtilities;
 
-#my $p = Net::Ping->new;
 my $ipAddr=io::MyNav::gets_ip_address;
-
-#if ($p->ping("www.google.com")){
-#}
-#else{
-#	printf "Content-Type: text/html\n\n";
-#	printf "Internet connection not active!...\n";
-#	exit(-1);
-#}   
-
 my $fn=$0; # file name
 $fn=~m/([0-9a-zA-Z\-\.]*)$/;
 $fn=$1;
@@ -50,7 +39,7 @@ if(-f "debug"){ # Begin if(-f "debug")
 	$id="ABQIAAAA14j0lCov2bd1GrJ5ANl5IRTD9FXmJRh4UX7FdKnW6k9bqHlslhTnoSdkW9cwNdIa0zOXKE3zzNBZVQ";
 } # end if(-f "debug")
 else{ # begin else
-	$id=io::MyUtilities::loadFile("private/id.googlemap");	
+	$id=io::MyUtilities::loadFile("private/id.googlemap.v2");	
 } # end else
 
 my $mymp=() ;
@@ -83,7 +72,7 @@ print "</pre>";
 &sortAndStore("history","album");
 my %l=&getsLoLa("album/history"); # Load file
 my $path=&getsPath("album/history","Canada"); # Load file
-#$path=&getsPath("album/history","New Zealand"); # Load file
+my $path=&getsPath("album/history","New Zealand"); # Load file
 
 #chomp($id) ;
 &mapGoogle("$id");
