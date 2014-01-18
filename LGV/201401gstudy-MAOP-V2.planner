@@ -22,108 +22,197 @@
     </calendar>
   </calendars>
   <tasks>
-    <task id="1" name="Projects" note="" work="576000" start="20131228T000000Z" end="20140116T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="2" name="MAOP" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="3" name="MDB" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="4" name="Videos" note="" work="28800" start="20140104T000000Z" end="20140106T170000Z" work-start="20140106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="5" name="videos created IP CDSI 20140104" note="" work="28800" duration="28800" start="20140104T000000Z" end="20140106T170000Z" work-start="20140106T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+    <task id="1" name="Projects" note="" work="723600" start="20131228T000000Z" end="20140116T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="2" name="MAOP" note="" work="90000" start="20131228T000000Z" end="20140116T090000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="3" name="V1" note="" work="61200" start="20140114T000000Z" end="20140116T090000Z" work-start="20140114T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="4" name="Google Map My project" note="" work="61200" start="20140114T000000Z" end="20140116T090000Z" work-start="20140114T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <task id="5" name="V2" note="" work="32400" start="20140114T000000Z" end="20140115T090000Z" work-start="20140114T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+              <task id="6" name="Modification of script (bugs)" note="" work="28800" duration="28800" start="20140114T000000Z" end="20140114T170000Z" work-start="20140114T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+                <constraint type="must-start-on" time="20140114T000000Z"/>
+              </task>
+              <task id="7" name="Watch googlemap garage (v3 googlemap)" note="Tue 14 Jan 2014, 05:24&#10;https://www.youtube.com/watch?v=21PDd17dnnI" work="3600" duration="3600" start="20140114T170000Z" end="20140115T090000Z" work-start="20140115T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+                <constraint type="start-no-earlier-than" time="20140114T000000Z"/>
+                <predecessors>
+                  <predecessor id="1" predecessor-id="6" type="FS"/>
+                </predecessors>
+              </task>
+            </task>
+            <task id="8" name="V3" note="" work="28800" start="20140115T090000Z" end="20140116T090000Z" work-start="20140115T090000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+              <task id="9" name="Read change V2-&gt;V3" note="Tue 14 Jan 2014, 17:38&#10;Checks differences between Google map V2 and V3" work="28800" duration="28800" start="20140115T090000Z" end="20140116T090000Z" work-start="20140115T090000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+                <constraint type="start-no-earlier-than" time="20140114T000000Z"/>
+                <predecessors>
+                  <predecessor id="1" predecessor-id="7" type="FS"/>
+                </predecessors>
+              </task>
+            </task>
+          </task>
+        </task>
+        <task id="10" name="V2" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      </task>
+      <task id="11" name="MDB" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="12" name="Videos" note="" work="28800" start="20140104T000000Z" end="20140106T170000Z" work-start="20140106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="13" name="videos created IP CDSI 20140104" note="" work="28800" duration="28800" start="20140104T000000Z" end="20140106T170000Z" work-start="20140106T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20140104T000000Z"/>
         </task>
       </task>
-      <task id="6" name="Administration" note="" work="489600" start="20131228T000000Z" end="20140116T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="7" name="Linux" note="" work="201600" start="20131228T000000Z" end="20140110T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="8" name="usb" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-          <task id="9" name="usb" note="" work="28800" duration="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
-          <task id="10" name="usb" note="" work="28800" duration="28800" start="20140108T000000Z" end="20140108T170000Z" work-start="20140108T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="14" name="Administration" note="" work="576000" start="20131228T000000Z" end="20140116T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="15" name="Linux" note="" work="288000" start="20131228T000000Z" end="20140116T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="16" name="usb" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+          <task id="17" name="usb" note="" work="28800" duration="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
+          <task id="18" name="usb" note="" work="28800" duration="28800" start="20140108T000000Z" end="20140108T170000Z" work-start="20140108T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20140108T000000Z"/>
           </task>
-          <task id="11" name="usb" note="" work="28800" duration="28800" start="20140109T000000Z" end="20140109T170000Z" work-start="20140109T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="19" name="usb" note="" work="28800" duration="28800" start="20140109T000000Z" end="20140109T170000Z" work-start="20140109T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20140109T000000Z"/>
           </task>
-          <task id="12" name="usb" note="" work="28800" duration="28800" start="20140110T000000Z" end="20140110T170000Z" work-start="20140110T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="20" name="usb" note="" work="28800" duration="28800" start="20140110T000000Z" end="20140110T170000Z" work-start="20140110T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20140110T000000Z"/>
           </task>
-          <task id="13" name="Burn CD debian" note="" work="57600" duration="57600" start="20140109T000000Z" end="20140110T170000Z" work-start="20140109T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="21" name="Burn CD debian" note="" work="57600" duration="57600" start="20140109T000000Z" end="20140110T170000Z" work-start="20140109T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20140109T000000Z"/>
           </task>
+          <task id="22" name="Install Fedora 20" note="Mon 13 Jan 2014, 17:35&#10;Fedora 20" work="28800" duration="28800" start="20140113T000000Z" end="20140113T170000Z" work-start="20140113T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20140113T000000Z"/>
+          </task>
+          <task id="23" name="Install Fedora 20 20140115" note="Wed 15 Jan 2014, 23:41&#10;USB Key, Machine" work="28800" duration="28800" start="20140115T000000Z" end="20140115T170000Z" work-start="20140115T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20140115T000000Z"/>
+          </task>
+          <task id="24" name="insntall" note="" work="28800" duration="28800" start="20140116T000000Z" end="20140116T170000Z" work-start="20140116T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20140116T000000Z"/>
+          </task>
         </task>
-        <task id="14" name="Perl" note="" work="288000" start="20140103T000000Z" end="20140116T170000Z" work-start="20140103T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="15" name="Read manual" note="" work="288000" duration="288000" start="20140103T000000Z" end="20140116T170000Z" work-start="20140103T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="25" name="Perl" note="" work="288000" start="20140103T000000Z" end="20140116T170000Z" work-start="20140103T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="26" name="Read manual" note="" work="288000" duration="288000" start="20140103T000000Z" end="20140116T170000Z" work-start="20140103T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20140103T000000Z"/>
           </task>
         </task>
       </task>
     </task>
-    <task id="16" name="Meetings" note="" work="54000" start="20131228T000000Z" end="20140113T090000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="17" name="Salons" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="18" name="External exibit" note="" work="3600" start="20140111T000000Z" end="20140113T090000Z" work-start="20140113T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="19" name="ice rink" note="Sat 11 Jan 2014, 21:24&#10;Hotel de Ville Paris" work="3600" duration="3600" start="20140111T000000Z" end="20140113T090000Z" work-start="20140113T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
-          <constraint type="must-start-on" time="20140111T000000Z"/>
+    <task id="27" name="Meetings" note="" work="75600" start="20131228T000000Z" end="20140117T110000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="28" name="Salons" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="29" name="Festivals" note="" work="10800" start="20140117T000000Z" end="20140117T110000Z" work-start="20140117T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="30" name="Festival cin&#xE9;ma t&#xE9;l&#xE9;rama" note="" work="10800" start="20140117T000000Z" end="20140117T110000Z" work-start="20140117T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="31" name="lnl" note="Fri 17 Jan 2014, 22:41&#10;Blue Jasmin" work="10800" duration="10800" start="20140117T000000Z" end="20140117T110000Z" work-start="20140117T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20140117T000000Z"/>
+          </task>
         </task>
       </task>
-      <task id="20" name="Associations" note="" work="21600" start="20140104T000000Z" end="20140106T120000Z" work-start="20140106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="21" name="Install Parties" note="" work="14400" start="20140104T000000Z" end="20140106T120000Z" work-start="20140106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="22" name="IP01" note="" work="14400" duration="14400" start="20140104T000000Z" end="20140106T120000Z" work-start="20140106T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="32" name="External exibit" note="" work="7200" start="20140111T000000Z" end="20140115T090000Z" work-start="20140113T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="33" name="ice rink" note="Sat 11 Jan 2014, 21:24&#10;Hotel de Ville Paris" work="3600" duration="3600" start="20140111T000000Z" end="20140113T090000Z" work-start="20140113T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20140111T000000Z"/>
+        </task>
+        <task id="34" name="Brassai hotel de ville showroom" note="" work="3600" duration="3600" start="20140115T000000Z" end="20140115T090000Z" work-start="20140115T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20140115T000000Z"/>
+        </task>
+      </task>
+      <task id="35" name="Associations" note="" work="28800" start="20140104T000000Z" end="20140113T100000Z" work-start="20140106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="36" name="Install Parties" note="" work="14400" start="20140104T000000Z" end="20140106T120000Z" work-start="20140106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="37" name="IP01" note="" work="14400" duration="14400" start="20140104T000000Z" end="20140106T120000Z" work-start="20140106T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20140104T000000Z"/>
           </task>
         </task>
-        <task id="23" name="PM" note="" work="7200" start="20140106T000000Z" end="20140106T100000Z" work-start="20140106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="24" name="irc" note="" work="7200" duration="7200" start="20140106T000000Z" end="20140106T100000Z" work-start="20140106T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="38" name="PM" note="" work="7200" start="20140106T000000Z" end="20140106T100000Z" work-start="20140106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="39" name="irc" note="" work="7200" duration="7200" start="20140106T000000Z" end="20140106T100000Z" work-start="20140106T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20140106T000000Z"/>
+          </task>
+        </task>
+        <task id="40" name="Meetups" note="" work="7200" start="20140113T000000Z" end="20140113T100000Z" work-start="20140113T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="41" name=" November NoVA UX Meetup: Google Glass" note="Mon 13 Jan 2014, 16:46&#10;Cannot go to meetup @ google in Paris France...&#10;http://www.youtube.com/watch?v=zLGxdWNRVLM&amp;ntz=1" work="7200" duration="7200" start="20140113T000000Z" end="20140113T100000Z" work-start="20140113T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20140113T000000Z"/>
           </task>
         </task>
       </task>
     </task>
-    <task id="25" name="Gaming" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-    <task id="26" name="Series" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="42" name="Gaming" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="43" name="Series" note="" work="28800" start="20131228T000000Z" end="20131230T170000Z" work-start="20131230T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="44" name="Documentaries" note="" work="10800" start="20140115T000000Z" end="20140115T090000Z" work-start="20140115T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="45" name="Cult" note="" work="10800" start="20140115T000000Z" end="20140115T090000Z" work-start="20140115T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="46" name="Colective suicide: 20140115" note="" work="10800" start="20140115T000000Z" end="20140115T090000Z" work-start="20140115T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="47" name="Heaven's gate:  La Porte du paradis (1980) // Bande-annonce 1 HD (VO)" note="Wed 15 Jan 2014, 23:32&#10;http://www.youtube.com/watch?v=0rzTFn4Wri0" work="3600" duration="1800" start="20140115T000000Z" end="20140115T083000Z" work-start="20140115T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20140115T000000Z"/>
+          </task>
+          <task id="48" name="Heaven's gate: Heavens Gate Cult Inside Story Full Documentary" note="Wed 15 Jan 2014, 23:35&#10;http://www.youtube.com/watch?v=FBTLThA0wOw&amp;ntz=1" work="3600" duration="3600" start="20140115T000000Z" end="20140115T090000Z" work-start="20140115T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20140115T000000Z"/>
+          </task>
+          <task id="49" name="Heaven's gate:La Porte du paradis (1980) // Bande-annonce 1 HD (VO)" note="Wed 15 Jan 2014, 23:33&#10;http://www.youtube.com/watch?v=sGDe9eEkYcU" work="3600" duration="3600" start="20140115T000000Z" end="20140115T090000Z" work-start="20140115T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20140115T000000Z"/>
+          </task>
+        </task>
+      </task>
+    </task>
   </tasks>
   <resource-groups>
-    <group id="1" name="Programming Language" admin-name="" admin-phone="" admin-email=""/>
-    <group id="2" name="System" admin-name="" admin-phone="" admin-email=""/>
-    <group id="3" name="Network" admin-name="" admin-phone="" admin-email=""/>
-    <group id="4" name="Association" admin-name="" admin-phone="" admin-email=""/>
-    <group id="5" name="Administration" admin-name="" admin-phone="" admin-email=""/>
-    <group id="6" name="tools" admin-name="" admin-phone="" admin-email=""/>
-    <group id="7" name="Internet" admin-name="" admin-phone="" admin-email=""/>
+    <group id="1" name="5th art" admin-name="" admin-phone="" admin-email=""/>
+    <group id="2" name="Internet" admin-name="" admin-phone="" admin-email=""/>
+    <group id="3" name="tools" admin-name="" admin-phone="" admin-email=""/>
+    <group id="4" name="Administration" admin-name="" admin-phone="" admin-email=""/>
+    <group id="5" name="Association" admin-name="" admin-phone="" admin-email=""/>
+    <group id="6" name="Network" admin-name="" admin-phone="" admin-email=""/>
+    <group id="7" name="System" admin-name="" admin-phone="" admin-email=""/>
+    <group id="8" name="Programming Language" admin-name="" admin-phone="" admin-email=""/>
   </resource-groups>
   <resources>
-    <resource group="5" id="1" name="Mairie de Paris IDF France Europe" short-name="mdp" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="2" name="Virtual box" short-name="vbx" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="3" name="Linux OS" short-name="los" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="4" name="Perl" short-name="pel" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="5" name="Abacus Geek &amp;  Business Team" short-name="agb" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="6" name="Perl Mongueurs" short-name="pms" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="7" name="Paris est une fete" short-name="pef" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="8" name="April" short-name="apr" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="9" name="Borsalinux" short-name="bsl" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="10" name="Parinux" short-name="prx" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="11" name="imovie" short-name="imo" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="12" name="Youtube" short-name="ytb" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="13" name="Internet" short-name="int" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="1" name="Passion" short-name="pass" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="8" id="2" name="Google" short-name="goo" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="3" name="Internet" short-name="int" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="4" name="Youtube" short-name="ytb" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="5" name="imovie" short-name="imo" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="6" name="Parinux" short-name="prx" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="7" name="Borsalinux" short-name="bsl" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="8" name="April" short-name="apr" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="9" name="Paris est une fete" short-name="pef" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="10" name="Perl Mongueurs" short-name="pms" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="11" name="Abacus Geek &amp;  Business Team" short-name="agb" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="8" id="12" name="Perl" short-name="pel" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="7" id="13" name="Linux OS" short-name="los" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="7" id="14" name="Virtual box" short-name="vbx" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="15" name="Mairie de Paris IDF France Europe" short-name="mdp" type="2" units="0" email="" note="" std-rate="0"/>
   </resources>
   <allocations>
-    <allocation task-id="19" resource-id="1" units="50"/>
-    <allocation task-id="13" resource-id="2" units="33"/>
-    <allocation task-id="13" resource-id="3" units="33"/>
-    <allocation task-id="22" resource-id="5" units="20"/>
-    <allocation task-id="15" resource-id="6" units="50"/>
-    <allocation task-id="24" resource-id="6" units="100"/>
-    <allocation task-id="22" resource-id="7" units="20"/>
-    <allocation task-id="5" resource-id="8" units="20"/>
-    <allocation task-id="22" resource-id="8" units="20"/>
-    <allocation task-id="5" resource-id="9" units="20"/>
-    <allocation task-id="22" resource-id="9" units="20"/>
-    <allocation task-id="5" resource-id="10" units="20"/>
-    <allocation task-id="22" resource-id="10" units="20"/>
-    <allocation task-id="5" resource-id="11" units="20"/>
-    <allocation task-id="5" resource-id="12" units="20"/>
-    <allocation task-id="19" resource-id="13" units="50"/>
-    <allocation task-id="13" resource-id="13" units="33"/>
-    <allocation task-id="12" resource-id="13" units="100"/>
-    <allocation task-id="15" resource-id="13" units="50"/>
-    <allocation task-id="11" resource-id="13" units="100"/>
-    <allocation task-id="10" resource-id="13" units="100"/>
-    <allocation task-id="9" resource-id="13" units="100"/>
-    <allocation task-id="8" resource-id="13" units="100"/>
+    <allocation task-id="31" resource-id="1" units="100"/>
+    <allocation task-id="48" resource-id="2" units="33"/>
+    <allocation task-id="49" resource-id="2" units="33"/>
+    <allocation task-id="47" resource-id="2" units="67"/>
+    <allocation task-id="48" resource-id="3" units="33"/>
+    <allocation task-id="49" resource-id="3" units="33"/>
+    <allocation task-id="47" resource-id="3" units="67"/>
+    <allocation task-id="9" resource-id="3" units="100"/>
+    <allocation task-id="7" resource-id="3" units="50"/>
+    <allocation task-id="6" resource-id="3" units="50"/>
+    <allocation task-id="22" resource-id="3" units="50"/>
+    <allocation task-id="41" resource-id="3" units="50"/>
+    <allocation task-id="33" resource-id="3" units="50"/>
+    <allocation task-id="21" resource-id="3" units="33"/>
+    <allocation task-id="20" resource-id="3" units="100"/>
+    <allocation task-id="26" resource-id="3" units="50"/>
+    <allocation task-id="19" resource-id="3" units="100"/>
+    <allocation task-id="18" resource-id="3" units="100"/>
+    <allocation task-id="17" resource-id="3" units="100"/>
+    <allocation task-id="16" resource-id="3" units="100"/>
+    <allocation task-id="49" resource-id="4" units="33"/>
+    <allocation task-id="48" resource-id="4" units="33"/>
+    <allocation task-id="47" resource-id="4" units="67"/>
+    <allocation task-id="7" resource-id="4" units="50"/>
+    <allocation task-id="41" resource-id="4" units="50"/>
+    <allocation task-id="13" resource-id="4" units="20"/>
+    <allocation task-id="13" resource-id="5" units="20"/>
+    <allocation task-id="13" resource-id="6" units="20"/>
+    <allocation task-id="37" resource-id="6" units="20"/>
+    <allocation task-id="13" resource-id="7" units="20"/>
+    <allocation task-id="37" resource-id="7" units="20"/>
+    <allocation task-id="13" resource-id="8" units="20"/>
+    <allocation task-id="37" resource-id="8" units="20"/>
+    <allocation task-id="37" resource-id="9" units="20"/>
+    <allocation task-id="26" resource-id="10" units="50"/>
+    <allocation task-id="39" resource-id="10" units="100"/>
+    <allocation task-id="37" resource-id="11" units="20"/>
+    <allocation task-id="6" resource-id="12" units="50"/>
+    <allocation task-id="24" resource-id="13" units="100"/>
+    <allocation task-id="23" resource-id="13" units="100"/>
+    <allocation task-id="22" resource-id="13" units="50"/>
+    <allocation task-id="21" resource-id="13" units="33"/>
+    <allocation task-id="21" resource-id="14" units="33"/>
+    <allocation task-id="34" resource-id="15" units="100"/>
+    <allocation task-id="33" resource-id="15" units="50"/>
   </allocations>
 </project>
