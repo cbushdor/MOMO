@@ -1,6 +1,5 @@
 #!/usr/bin/perl
 
-
 # +-------------------------------+
 # | album.cgi                     |
 # +-------------------------------+
@@ -69,8 +68,9 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '13.10'; # Album release
+use constant ALBUM_REL               	=> '13.12'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
+use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
 use constant HOSTED_BY_URL 		=> 'http://www.heliohost.org';    # That's the url of host name
 use constant TESTED_WITH_BROWSERS    	=> 'Google Chrome 9.0.597.102; SeaMonkey'; # That's browsers tested
@@ -85,7 +85,8 @@ use constant MPWD 			=> "M!gn0n3 411ons si l4 R0s3"; # that's the master passwor
 use constant SHOW_PICTURES_ADMIN     	=> 0 ; # Prints on admin menu picture (!0) or not
 use constant ALLOWED_FILE_FORMAT_TYPE 	=> "jpeg|jpg|gif|png|mp4|3gp|mpeg|mov|dat|mp3|avi"; # Allowed file format to be uploaded
 use constant ALLOWED_SOCIAL_NETWORK 	=> "http\:\/\/www.youtube.com";
-use constant PATH_GOOGLE_MAP_ID 	=> "private/id.googlemap";
+use constant PATH_GOOGLE_MAP_ID 	=> "private/id.googlemap.v2";
+use constant PATH_GOOGLE_MAP_TRIP 	=> "private/trip.googlemap";
 
 my $vnl=100; # calculate version number length (number of characters in string)
 my $main_prog=(split(/[\\\/]/,"$0"))[scalar(split(/[\\\/]/,"$0"))-1]; # gets program name
@@ -113,7 +114,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.13.10
+$VERSION=1.6.13.12
 
 =head1 ABSTRACT
 
@@ -191,6 +192,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.13.12> Jan 18 2014 put the trip name in history
 
 - I<Last modification:v1.6.13.10> Jul 17 2012 see accessToPicture
 
@@ -436,6 +439,7 @@ use constant MAX_COL_NUMBER => 10 ;
 my $doc=new CGI;
 my $an_action=();
 my $lok=$doc->param("login");
+my $param_trip=$doc->param("TRIP_ID");
 
 # Password for login
 my ( $login, $password )=io::MyUtilities::gets_private_stuff_for_administrator($an_action,
@@ -617,9 +621,10 @@ my $rul=(); # return of my upload
 print "<!-- 3.0 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 my @all_file=();
 print "<!-- 3.1212 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
-my ($resPing,$ipOk)=(-1,0); # stub io::MySec::checksRevIpAdd($ipAddr,io::MySec::getsAllIPReceived); # Checks ping address
+my ($resPing,$ipOk)=(0,0); # stub io::MySec::checksRevIpAdd($ipAddr,io::MySec::getsAllIPReceived); # Checks ping address
 
 print "<!-- 3.2 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
+#print "<script>document.write(\"connected with\"+navigator.userAgent);</script>\n";
 if( -f "album/debug_album_DO_NOT_REMOVE"){ # begin if( -f "album/debug_album_DO_NOT_REMOVE")
 	print "<br />\n---->res ping($resPing,$ipOk) for $ipAddr<br />---$service---<br />";
 } # end if( -f "album/debug_album_DO_NOT_REMOVE")
@@ -644,7 +649,7 @@ my $locid="$co/$cn/$cr/$ct/$lo/$la";
 
 
 my $resAuth=io::MyUtilities::check_password($my_pid,$doc->param("service"), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,"album/pid");
-#print " ( ($resPing==0) && ($resAuth==0) ) \n<br />";
+print " ( ($resPing==0) && ($resAuth==0) ) \n<br />";
 # Check login & password if ok then access to extra services
 if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==0) ) 
 	$user_password=""; # we remove password because of pid and prev pid
@@ -847,7 +852,7 @@ else { # Begin else
 	$llll_res[7]=~s/[^:]*://g;
 	set_history(${ipAddr}, $oppp,$locpa ,"$ipAddr",$llll_l);
 	my $llll_inf="[$llll_res[6],$llll_res[7]]";
-	system("`pwd`/tweet \"Sh4rkb41t\" \"lakpwr\"  \"[album] $oppp page:$locpa $llll_inf\""); 
+	system("`pwd`/tweet.sh \"Sh4rkb41t\" \"lakpwr\"  \"[album] $oppp page:$locpa $llll_inf\""); 
 	if("$authorized" eq "ok"){ # Begin if("$authorized" eq "ok")
 		print io::MyTime::gets_formated_date."<br />\n";
 		print "<script type=\"text/javascript\">\nvar d = new Date();\ndocument.write(d);\n</script>\n";
@@ -4863,6 +4868,8 @@ None.
 
 =over 4
 
+- I<Last modification:> Jan 18 2014 add to map the trip id parameter
+
 - I<Last modification:> Mar 04 2010: new feature... visitor map
 
 - I<Last modification:> Feb 25 2006
@@ -4882,7 +4889,7 @@ sub main_menu { # begin main_menu
 		. "http://dorey.sebastien.free.fr"
 		. "\");'>My website</a>\n</dt>\n";
 	#print "<dt>Other albums</dt>\n";
-	print "<dt><a href=\"g2ogle.cgi\">Visitor map</a></dt>\n";
+	print "<dt><a href=\"g2ogle.cgi?googid=".$doc->param("googid")."\">Visitor map</a></dt>\n";
 	print "<dt onclick=\"javascript:show('smenu2');\" onmouseout=\"javascript:show();\">Help</dt>";
 	print "\n<dd id=\"smenu2\"><!-- begin dd smenu2 -->\n";
 	&help_menu_with_css( $title, @help_feature );
@@ -5818,8 +5825,10 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 <input type='hidden' name='login' value='$lok' />
 <input type='hidden' name='recPid' value='ok' />
 <input type='hidden' name='service' value='check' />
-Google ID:<input type='text' name='googid' />
+Google ID or trip name(no=Google ID by default):<input type='text' name='googid' />
 <input type='hidden' name='ssection' value='adminGoogleID' />
+<input type="radio" name="TRIP_ID" value="ok">ok
+<input type="radio" name="TRIP_ID" value="no" checked>no<br>
 <input type='submit' value='Autorisation google ID map/ Authorize google ID map' />
 <!--input type='hidden' name='ssecgoo' value='adminGroup'-->
 </form>
@@ -6144,6 +6153,8 @@ None.
 
 =over 4
 
+- I<Last modification:> Jan 18 2014 put the trip name in history
+
 - I<Last modification:> Feb 02 2012 geoloc added
 
 - I<Last modification:> Aug 16 2008
@@ -6157,10 +6168,23 @@ None.
 =cut
 
 sub set_history{ # begin set_history
-	#print "Content-type: text/html\n\n";
-	#print "sssssssssssssssssssssss\n";
 	my ($u,$d,$p,$f,$l)=@_; # url,date,page,file to store
-	io::MyUtilities::setUrlFile("$u#$d#$p#$l",$f); 
+	my $mgidt=$doc->param("googid"); #my google id  trip
+	open(R,PATH_GOOGLE_MAP_TRIP."-".TRIP_NAME);
+	my @lf=<R>;# local file
+	close(R);
+	#print "Content-Type: text/html\n\n";
+	foreach (@lf){ # begin foreach (@lf)
+		chomp($_);
+		#print ">>>>>>>>$_<<<<>>>>>>>$mgidt<<<<<br>\n";
+		if($_=~m/^$mgidt$/){ # begin if($_=~m/^$mgidt$/)
+			#print "------>found ok $f >$mgidt<<br>";
+			io::MyUtilities::setUrlFile("$u#$d#$p#$l#$mgidt",$f); 
+			return;
+		} # end if($_=~m/^$mgidt$/)
+	} # end foreach (@lf)
+	#print "o------>not found ok $f >$mgidt<<br>";
+	io::MyUtilities::setUrlFile("$u#$d#$p#$l#-",$f); 
 	#system("`pwd`/tweet \"Sh4rkb41t\" \"lakpwr\"  \"[album] $d page:$p $inf\""); 
 } # End sub set_history
 
@@ -6791,6 +6815,8 @@ None.
 
 =over 4
 
+- I<Last modification:> Jan 18 2014 put the trip name
+
 - I<Last modification:> Feb 13 2011
 
 - I<Created on:> Feb 13 2011
@@ -6805,9 +6831,15 @@ sub setGoogleID{# begin setGoogleID
 	my ($fname,$googleid)=@_;# $fname: file name where to save google id map;$goohleid: that's the google id
 	chomp($fname);chomp($googleid);
 	#print "($fname,$googleid)<br />";	
-	open(W,">$fname");
-	print W "$googleid";
-	close(W);
+	if($param_trip=~m/^ok$/){
+		open(W,">>".PATH_GOOGLE_MAP_TRIP."-".TRIP_NAME);
+		print W "$googleid\n";
+		close(W);
+	}else{
+		open(W,">$fname");
+		print W "$googleid";
+		close(W);
+	}
 }# end setGoogleID
 
 =head1 AUTHOR
