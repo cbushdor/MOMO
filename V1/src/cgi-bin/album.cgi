@@ -2377,6 +2377,8 @@ None.
 
 =over 4
 
+- I<Last modification:> Jan 18 2014 keep the trip name in parameter to follow from page to page
+
 - I<Last modification:> Jul 15 2012 Synchro with data base not up to snuff. Correction done but still yet error(s) occur(s).
 
 - I<Last modification:> Oct 31 2011. Modification for youtube to be accepted with url and then print it as if it was embeded.
@@ -3835,14 +3837,14 @@ sub print_page { # begin print_page
 							if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) < ( $my_prev % MAX_PAGE_PER_LINE_INDEX ) ){ # Begin if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) < ( $my_prev % MAX_PAGE_PER_LINE_INDEX ) )
 								$list_page .= " </td><!-- blue jean --></tr><!-- balaaaaa -->\"\n+\"<tr>";
 							} # End if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) < ( $my_prev % MAX_PAGE_PER_LINE_INDEX ) )
-							$list_page .= "<td align='center'><a href='${main_prog}?page=$line[0]'>x</a></td><!-- <wwblablablablo -->\"\n+\"";
+							$list_page .= "<td align='center'><a href='${main_prog}?page=$line[0]&googid=".$doc->param("googid")."'>x</a></td><!-- <wwblablablablo -->\"\n+\"";
 						} # End if ($my_prev != 1)
 						else { #  Begin else 
 							if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) == 0 ){ # Begin if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) == 0 )
 								$list_page .= "<td align='center'></td><!-- pantalon --></tr>\"\n+\"<tr>";
 							} # End if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) == 0 )
 							#    First element in the list
-							$list_page .= "<td align='center'><a href='${main_prog}?page=$line[0]'  >x</a></td><!-- lolololozutzutyyyyyyyy -->\"\n+\"";
+							$list_page .= "<td align='center'><a href='${main_prog}?page=$line[0]&googid=".$doc->param("googid")."'>x</a></td><!-- lolololozutzutyyyyyyyy -->\"\n+\"";
 						} # End if ( ($my_prev != 1) && (($line[0] % (MAX_IMAGES_PER_PAGE+1)) != 0) )
 						$my_prev = $line[0];
 					} # End if ($page_asked != $line[0])
