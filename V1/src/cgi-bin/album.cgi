@@ -85,7 +85,8 @@ use constant MPWD 			=> "M!gn0n3 411ons si l4 R0s3"; # that's the master passwor
 use constant SHOW_PICTURES_ADMIN     	=> 0 ; # Prints on admin menu picture (!0) or not
 use constant ALLOWED_FILE_FORMAT_TYPE 	=> "jpeg|jpg|gif|png|mp4|3gp|mpeg|mov|dat|mp3|avi"; # Allowed file format to be uploaded
 use constant ALLOWED_SOCIAL_NETWORK 	=> "http\:\/\/www.youtube.com";
-use constant PATH_GOOGLE_MAP_ID 	=> "private/id.googlemap.v2";
+use constant GOOGLE_MAP_SCRIPT_VERSION	=> "2";
+use constant PATH_GOOGLE_MAP_ID 	=> "private/id.googlemap.v". GOOGLE_MAP_SCRIPT_VERSION;
 use constant PATH_GOOGLE_MAP_TRIP 	=> "private/trip.googlemap";
 
 my $vnl=100; # calculate version number length (number of characters in string)
@@ -649,7 +650,7 @@ my $locid="$co/$cn/$cr/$ct/$lo/$la";
 
 
 my $resAuth=io::MyUtilities::check_password($my_pid,$doc->param("service"), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,"album/pid");
-print " ( ($resPing==0) && ($resAuth==0) ) \n<br />";
+# print " ( ($resPing==0) && ($resAuth==0) ) \n<br />";
 # Check login & password if ok then access to extra services
 if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==0) ) 
 	$user_password=""; # we remove password because of pid and prev pid
@@ -4891,7 +4892,7 @@ sub main_menu { # begin main_menu
 		. "http://dorey.sebastien.free.fr"
 		. "\");'>My website</a>\n</dt>\n";
 	#print "<dt>Other albums</dt>\n";
-	print "<dt><a href=\"g2ogle.cgi?googid=".$doc->param("googid")."\">Visitor map</a></dt>\n";
+	print "<dt><a href=\"g".GOOGLE_MAP_SCRIPT_VERSION."ogle.cgi?googid=".$doc->param("googid")."\">Visitor map</a></dt>\n";
 	print "<dt onclick=\"javascript:show('smenu2');\" onmouseout=\"javascript:show();\">Help</dt>";
 	print "\n<dd id=\"smenu2\"><!-- begin dd smenu2 -->\n";
 	&help_menu_with_css( $title, @help_feature );
