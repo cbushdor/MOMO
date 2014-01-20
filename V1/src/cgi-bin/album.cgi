@@ -68,7 +68,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '13.12'; # Album release
+use constant ALBUM_REL               	=> '14.0'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -115,7 +115,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.13.12
+$VERSION=1.6.14.0
 
 =head1 ABSTRACT
 
@@ -195,6 +195,7 @@ under_construction_prompt
 =over 4
 
 - I<Last modification:v1.6.13.12> Jan 18 2014 put the trip name in history
+			GOOGLE_MAP_SCRIPT_VERSION added.
 
 - I<Last modification:v1.6.13.10> Jul 17 2012 see accessToPicture
 
