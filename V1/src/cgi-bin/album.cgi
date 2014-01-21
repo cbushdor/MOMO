@@ -6185,7 +6185,7 @@ sub set_history{ # begin set_history
 		#print "-------->$_<<<<>>>>>>>$mgidt<<<<<br>\n";
 		if($_=~m/^$mgidt$/){ # begin if($_=~m/^$mgidt$/)
 			#print "------>found ok $f >$mgidt<<br>";
-			io::MyUtilities::setUrlFile("$u#$d#$p#$l#$mgidt","zzzz-$f"); 
+			io::MyUtilities::setUrlFile("$u#$d#$p#$l#$mgidt","$f"); 
 			return;
 		} # end if($_=~m/^$mgidt$/)
 	} # end foreach (@lf)
