@@ -68,7 +68,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '14.0'; # Album release
+use constant ALBUM_REL               	=> '15.0'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -115,7 +115,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.14.0
+$VERSION=1.6.15.0
 
 =head1 ABSTRACT
 
@@ -6174,16 +6174,18 @@ None.
 sub set_history{ # begin set_history
 	my ($u,$d,$p,$f,$l)=@_; # url,date,page,file to store
 	my $mgidt=$doc->param("googid"); #my google id  trip
+	chomp($mgidt);
+	#print "eeeeeeeeeee>".PATH_GOOGLE_MAP_TRIP."-".TRIP_NAME . "\n";
 	open(R,PATH_GOOGLE_MAP_TRIP."-".TRIP_NAME);
 	my @lf=<R>;# local file
 	close(R);
 	#print "Content-Type: text/html\n\n";
 	foreach (@lf){ # begin foreach (@lf)
 		chomp($_);
-		#print ">>>>>>>>$_<<<<>>>>>>>$mgidt<<<<<br>\n";
+		#print "-------->$_<<<<>>>>>>>$mgidt<<<<<br>\n";
 		if($_=~m/^$mgidt$/){ # begin if($_=~m/^$mgidt$/)
 			#print "------>found ok $f >$mgidt<<br>";
-			io::MyUtilities::setUrlFile("$u#$d#$p#$l#$mgidt",$f); 
+			io::MyUtilities::setUrlFile("$u#$d#$p#$l#$mgidt","zzzz-$f"); 
 			return;
 		} # end if($_=~m/^$mgidt$/)
 	} # end foreach (@lf)
