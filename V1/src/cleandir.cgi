@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl -wT
 
 use strict;
 use warnings;
@@ -6,8 +6,10 @@ use CGI;
 
 $|=1;
 
+print "Content-Type: text/html\n\n";
+
 my $doc=new CGI;
-my $mpid=$doc->param("mpid");# ensure that it is the father
+my $mpid=$doc->param("pid");# ensure that it is the father
 my $opid=$doc->param("opid");# ensure that one tar operation ok
 
 open(R,"mfpid.txt") or die("problem with open $!");;
@@ -20,14 +22,17 @@ my $smpid=<R>; # get saved mpid (from process that had tar file)
 close R or die "problem with close $!";
 chomp($smpid);
 
+#print "$smfpid=~m/^$mpid$/\n<br>";
 if($smfpid=~m/^$mpid$/){
+	#print "$opid=~m/^$smpid$/)\n<br>";
 	# we check that tar file was launched by the backup.cgi file
-	if($mpid=~m/^$smpid$/){ # begin if($mpid=~m/^$smpid$/)
+	if($opid=~m/^$smpid$/){ # begin if($opid=~m/^$smpid$/)
+		#print "ok\n<br>";
 		&clean(".","backups_album.tgz");# clean backup file
 		&clean("cgi-bin/.","wfc_data.*.xml");# clean extra files
-		#&clean(".","mfpid");# clean extra files
-		#&clean(".","mpid");# clean extra files
-	} # end if($mpid=~m/^$smpid$/)
+		&clean("..","mfpid.txt");# clean extra files
+		&clean(".","mpid.txt");# clean extra files
+	} # end if($opid=~m/^$smpid$/)
 }
 
 # cleaning operation: need $directory where cleaning will occur and the file to be cleaned
