@@ -1,10 +1,11 @@
-#!/usr/bin/perl -wT
+#!/usr/bin/perl -w
 
 use strict;
 use warnings 'all';
 use Archive::Tar;
 use File::Find;
 use CGI;
+use Cwd;
 
 $|=1;
 
