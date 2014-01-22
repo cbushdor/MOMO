@@ -12,6 +12,11 @@ my $doc=new CGI;
 my $mpid=$doc->param("pid");# ensure that it is the father
 my $opid=$doc->param("opid");# ensure that one tar operation ok
 
+if(length($mpid)==length($opid)&&length($opid)==0){ # begin if(length($mpid)==length($opid)&&length($opid)==0)
+	print "error";
+	exit(-1);
+} # end if(length($mpid)==length($opid)&&length($opid)==0)
+
 open(R,"mfpid.txt") or die("problem with open $!");;
 my $smfpid=<R>; # get saved mfpid (from process that had launched the backup process)
 close R or die "problem with close $!";
@@ -22,8 +27,7 @@ my $smpid=<R>; # get saved mpid (from process that had tar file)
 close R or die "problem with close $!";
 chomp($smpid);
 
-#print "$smfpid=~m/^$mpid$/\n<br>";
-if($smfpid=~m/^$mpid$/){
+if($smfpid=~m/^$mpid$/){ # begin if($smfpid=~m/^$mpid$/)
 	#print "$opid=~m/^$smpid$/)\n<br>";
 	# we check that tar file was launched by the backup.cgi file
 	if($opid=~m/^$smpid$/){ # begin if($opid=~m/^$smpid$/)
@@ -33,8 +37,17 @@ if($smfpid=~m/^$mpid$/){
 		chdir("cgi-bin");
 		&clean(".","wfc_data.*.xml");# clean extra files
 		chdir("..");
+		exit(0);
 	} # end if($opid=~m/^$smpid$/)
-}
+	else{ # begin else
+		print "error";
+		exit(-1);
+	} # end else
+} # end if($smfpid=~m/^$mpid$/)
+else{ # begin else
+	print "error";
+	exit(-1);
+} # end else
 
 # cleaning operation: need $directory where cleaning will occur and the file to be cleaned
 sub clean{ # begin sub clean
