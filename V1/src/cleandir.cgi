@@ -1,4 +1,4 @@
-#!/usr/bin/perl -wT
+#!/usr/bin/perl -w
 
 use strict;
 use warnings;
@@ -27,11 +27,12 @@ if($smfpid=~m/^$mpid$/){
 	#print "$opid=~m/^$smpid$/)\n<br>";
 	# we check that tar file was launched by the backup.cgi file
 	if($opid=~m/^$smpid$/){ # begin if($opid=~m/^$smpid$/)
-		#print "ok\n<br>";
 		&clean(".","backups_album.tgz");# clean backup file
-		&clean("cgi-bin/.","wfc_data.*.xml");# clean extra files
-		&clean("..","mfpid.txt");# clean extra files
+		&clean(".","mfpid.txt");# clean extra files
 		&clean(".","mpid.txt");# clean extra files
+		chdir("cgi-bin");
+		&clean(".","wfc_data.*.xml");# clean extra files
+		chdir("..");
 	} # end if($opid=~m/^$smpid$/)
 }
 
@@ -40,7 +41,7 @@ sub clean{ # begin sub clean
 	my ($dir,$fil)=@_;
 	my $file= ();
 
-	chdir("$dir");
+	#chdir("$dir");
 	opendir (DIR,".") or die "Couldn't open directory, $!";
 	while ($file = readdir DIR) { # begin while ($file = readdir DIR)
 		if($file=~m/$fil/){ # begin if($file=~m/$fil/)
@@ -49,4 +50,5 @@ sub clean{ # begin sub clean
 		} # end if($file=~m/$fil/)
 	} # end while ($file = readdir DIR)
 	closedir DIR;
+	#chdir("..");
 } # end sub clean
