@@ -6,12 +6,24 @@ use Net::Ping;
 
 use LWP::Simple;
 
-my $host="http://derased.heliohost.org/";
+$|=1;
+
+my $mpid=$$;# pid of current process
+#my $host="http://derased.heliohost.org/";
+my $host="http://localhost/~sdo";
 my $nob="backups_album.tgz"; # name of backup
+my $file="/Users/Shared/Library/biblio/My-Distant-Programs-Backups/$nob" ;
 
-my $url="http://derased.heliohost.org/$nob";
-my $urlexec="http://derased.heliohost.org//cgi-bin/tarcvf.cgi?archive=../$nob&dir=album/hist";
+if (-e $file){# begin if (-e $file)
+	unlink $file;
+}# end if (-e $file)
 
+my $url="$host/$nob";
+my $urlexec="$host/tarcvf.cgi?archive=$nob&dir=.&pid=$mpid";
+my $content=get $urlexec;
 
-my $content = get $urlexec;
-`wget -c -P /Users/sdo/../Shared/BackUps/ $url`;
+print "--------------------->$content\n";
+`wget -c -P /Users/Shared/Library/biblio/My-Distant-Programs-Backups $url`;
+
+$urlexec="$host/cleandir.cgi?pid=$mpid&opid=$content";# need to proof that the process to start cleaning came from the fact that it is requested by a backup
+$content = get $urlexec;
