@@ -11,8 +11,8 @@ $|=1;
 
 my $hostn=hostname;
 my $mpid=$$;# pid of current process
-#my $host="http://derased.heliohost.org/";
-my $host="http://localhost/~sdo";
+my $host="http://derased.heliohost.org/";
+#my $host="http://localhost/~sdo";
 my $nob="backups_album.tgz"; # name of backup
 my $file="/Users/Shared/Library/biblio/My-Distant-Programs-Backups/$nob" ;
 
