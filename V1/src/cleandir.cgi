@@ -9,11 +9,11 @@ $|=1;
 print "Content-Type: text/html\n\n";
 
 my $doc=new CGI;
-my $mpid=$doc->param("pid");# ensure that it is the father
-my $opid=$doc->param("opid");# ensure that one tar operation ok
+my $mpid=$doc->param("pid");chomp($mpid);# ensure that it is the father
+my $opid=$doc->param("opid");chomp($opid);# ensure that one tar operation ok
 
 if(length($mpid)==length($opid)&&length($opid)==0){ # begin if(length($mpid)==length($opid)&&length($opid)==0)
-	print "error";
+	print "error XXXXXX";
 	exit(-1);
 } # end if(length($mpid)==length($opid)&&length($opid)==0)
 
@@ -40,12 +40,12 @@ if($smfpid=~m/^$mpid$/){ # begin if($smfpid=~m/^$mpid$/)
 		exit(0);
 	} # end if($opid=~m/^$smpid$/)
 	else{ # begin else
-		print "error";
+		print "error K1";
 		exit(-1);
 	} # end else
 } # end if($smfpid=~m/^$mpid$/)
 else{ # begin else
-	print "error";
+	print "error K2";
 	exit(-1);
 } # end else
 
