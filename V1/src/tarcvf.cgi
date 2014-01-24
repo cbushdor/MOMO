@@ -12,14 +12,45 @@ $|=1;
 print "Content-Type: text/html\n\n";
 
 my $doc=new CGI;
-my $archive=$doc->param("archive");
-my $dir=$doc->param("dir");
-my $mpid=$doc->param("pid");
+my $archive=$doc->param("archive");chomp($archive);
+my $dir=$doc->param("dir");chomp($dir);
+my $mpid=$doc->param("pid");chomp($mpid);
+my $hostn=$doc->param("hostn");chomp($hostn);
 
-if(length($archive)==length($doc)&&$archive=~m/^\ */){ # begin if(length($archive)==length($doc)&&$archive=~m/^\ */)
-	print "<url>/tarcvf.cgi?dir=directory&archive=file.tgz<br>";
+if(length($hostn)==0){
+	print "error length host: $hostn=".length($hostn)."\n";
 	exit -1;
-} # end if(length($archive)==length($doc)&&$archive=~m/^\ */)
+}
+if(! -e "cgi-bin/private/info.txt"){
+	print "\nuuuuuuu)(tarcvf.cgi) creation \n";
+	open(W,">cgi-bin/private/info.txt") or die("problem with open $!");
+	print W "$hostn";
+	close W or die "problem with close $!";
+}
+else {
+	open(R,"cgi-bin/private/info.txt") or die("problem with open $!");
+	my $z=<R>;chomp($z);
+	close R or die "problem with close $!";
+#	print "\n(tarcvf.cgi)oooooo)tests regarding $hostn $z ";
+	if($hostn!~m/^$z$/){
+#		print "ko\n";
+		#print "error host";
+		print "error";
+		exit -1;
+	}
+#	else{
+#		print "ok\n";
+#	}
+}
+
+if(length($mpid)==0){ # begin if(length($mpid)==0)
+	print "error";
+	exit -1;
+} # end if(length($mpid)==0)
+elsif(length($archive)==length($doc)&&($archive=~m/^\ *$/||length($doc)==0)){ # begin elsif(length($archive)==length($doc)&&$archive=~m/^\ */)
+	print "error";
+	exit -1;
+} # end elsif(length($archive)==length($doc)&&$archive=~m/^\ */)
 else{ # begin else
 	# --------------------------------------------------------------------------------------------
 	# we save pid of the father to ensure security
