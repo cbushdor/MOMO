@@ -68,7 +68,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.0'; # Album release
+use constant ALBUM_REL               	=> '15.13'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -85,7 +85,7 @@ use constant MPWD 			=> "M!gn0n3 411ons si l4 R0s3"; # that's the master passwor
 use constant SHOW_PICTURES_ADMIN     	=> 0 ; # Prints on admin menu picture (!0) or not
 use constant ALLOWED_FILE_FORMAT_TYPE 	=> "jpeg|jpg|gif|png|mp4|3gp|mpeg|mov|dat|mp3|avi"; # Allowed file format to be uploaded
 use constant ALLOWED_SOCIAL_NETWORK 	=> "http\:\/\/www.youtube.com";
-use constant GOOGLE_MAP_SCRIPT_VERSION	=> "2";
+use constant GOOGLE_MAP_SCRIPT_VERSION	=> "3";
 use constant PATH_GOOGLE_MAP_ID 	=> "private/id.googlemap.v". GOOGLE_MAP_SCRIPT_VERSION;
 use constant PATH_GOOGLE_MAP_TRIP 	=> "private/trip.googlemap";
 
@@ -115,7 +115,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.0
+$VERSION=1.6.15.13
 
 =head1 ABSTRACT
 
