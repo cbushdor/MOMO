@@ -1356,6 +1356,7 @@ sub googHead{ # begin sub googHead
 	my ($idgoog,$gmv)=@_;
 	my $r=();# that's for the header
 
+	#print "parameters ($idgoog,\n$gmv)\n<br>";
 	if($gmv == 3){
 		$r=<<R;
 		<script type="text/javascript"
