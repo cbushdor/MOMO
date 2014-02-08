@@ -854,7 +854,7 @@ else { # Begin else
 	$llll_res[7]=~s/[^:]*://g;
 	set_history(${ipAddr}, $oppp,$locpa ,"$ipAddr",$llll_l);
 	my $llll_inf="[$llll_res[6],$llll_res[7]]";
-	system("`pwd`/tweet.sh \"Sh4rkb41t\" \"lakpwr\"  \"[album] $oppp page:$locpa $llll_inf\""); 
+	#system("`pwd`/tweet.sh \"Sh4rkb41t\" \"lakpwr\"  \"[album] $oppp page:$locpa $llll_inf\""); 
 	if("$authorized" eq "ok"){ # Begin if("$authorized" eq "ok")
 		print io::MyTime::gets_formated_date."<br />\n";
 		print "<script type=\"text/javascript\">\nvar d = new Date();\ndocument.write(d);\n</script>\n";
