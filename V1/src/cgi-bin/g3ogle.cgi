@@ -7,6 +7,7 @@ use strict;
 
 BEGIN {
 	push @INC, '/Users/sdo/Sites/cgi-bin/';
+	push @INC, '/home1/derased/public_html/cgi-bin/';
 }
 
 use LWP::Simple;
@@ -16,6 +17,12 @@ use Data::Dumper;
 use io::MyNav;
 use io::MySec;
 use io::MyUtilities;
+
+use CGI;
+
+my $doc=new CGI;
+
+my $gmv=$doc->param("gmv"); # Gets google map version
 
 print "Content-Type: text/html\n\n";
 
@@ -27,9 +34,9 @@ $fn=$1;
 my $xml = new XML::Simple;
 my ($L,$l)=(48.866699,2.333300); # By default these are the coodinates
 
-if($ipAddr=~m/^127./||$ipAddr=~m/loclost/||!length($ipAddr)){ # begin if($ipAddr=~m/^127./||$ipAddr=~m/loclost/||!length($ipAddr))
-	print "------>$ipAddr<br>";
-} # end if($ipAddr=~m/^127./||$ipAddr=~m/loclost/||!length($ipAddr))
+if($ipAddr=~m/^127./||$ipAddr=~m/localhost/||!length($ipAddr)){ # begin if($ipAddr=~m/^127./||$ipAddr=~m/localhost/||!length($ipAddr))
+	#print "------>$ipAddr<br>";
+} # end if($ipAddr=~m/^127./||$ipAddr=~m/localhost/||!length($ipAddr))
 else{ # begin else
 	($L,$l)=getsGPSCoordinates();
 } # end else
@@ -47,7 +54,7 @@ my $id=();
 my @rr=();
 my ($dev, $ino, $mode, $nlink, $uid, $gid, $rdev, $size, $atime, $mtime, $ctime, $blksize, $blocks) = stat "$fn";
 if(-f "debug"){ # Begin if(-f "debug")
-	$id="ABQIAAAA14j0lCov2bd1GrJ5ANl5IRTD9FXmJRh4UX7FdKnW6k9bqHlslhTnoSdkW9cwNdIa0zOXKE3zzNBZVQ";
+	$id="AIzaSyDoz8j1983lLAncsYMjXLeemy5ks3DkfM8";
 } # end if(-f "debug")
 else{ # begin else
 	$id=io::MyUtilities::loadFile("private/id.googlemap.v3");	
@@ -55,7 +62,7 @@ else{ # begin else
 
 my $mymp=() ;
 
-print "Content-type: text/html\n\n";
+#print "Content-type: text/html\n\n";
 
 #-------------------------------------------------------------------------
 
@@ -67,7 +74,7 @@ my $path=&getsPath("album/history","Canada"); # Load file
 my $path=&getsPath("album/history","New Zealand"); # Load file
 
 chomp($id) ;
-&mapGoogle("$id");
+&mapGoogle("$id","$gmv");
 
 =head1 sub getsLoLa(...)
 
@@ -468,7 +475,9 @@ Draw basic map acording to db recorded
 
 =over 4
 
-$idgoog: Google id for one page
+$idgoog: Google id for one page.
+
+$gmv: Google map version.
 
 =back
 
@@ -517,6 +526,8 @@ None.
 =over 4
 
 - Last modification: Feb 06 2014
+googheader modified. by default sensor is set to false can't be modified for 
+the moment.
 
 - Created on: Feb 13 2011
 
@@ -527,104 +538,135 @@ None.
 =cut
 
 sub mapGoogle{# begin mapGoogle
-	my ($idgoog)=@_ ; # Google id for one page
+	my ($idgoog,$gmv)=@_ ; # Google id for one page; google map version
 	chomp($idgoog); # Remove CR at end of string
 	my $cart=();
-	#foreach(@rr){ print "----->$_\n"; }
 	my @aa=sort(@rr);
-	#for my $i (keys %l){
 	my $vbn=@aa;
-	my $cvbn=0;
-	for my $i (@aa){
-		#print "xxxxxxxxx>$i<<<<<<\n";
-		$cvbn++;
-		if(length($i)>0){
-			my ($v,$u)=split(/\@/,$i);
-			#print "oooo)$i oooooo $v,$u\n";
+	my $cvbn=0;# counter
+
+	# we add markers on the map
+	for my $i (@aa){ # Begin for my $i (@aa)
+		#print "xxxxxxxxx>$i<<<<<<\n<br>\n";
+		$cvbn++;# increase of 1 each time pass here
+		if(length($i)>0){ # Begin if(length($i)>0)
+			my ($v,$u)=split(/\@/,$i); # split date and geoloc coord
+			#print "oooo)$i oooooo $v|$u<br>\n";
+			# we build the map
+
+			# -------------------------------------
 			$cart.="/* A---$i $cvbn / $vbn  ------------------------------------------------ */\n";
-			$cart.="			var point = new GLatLng($u);\n";
-			$cart.="			var marker = createMarker(point,'');\n";
-			$cart.="			map.addOverlay(marker);\n";
+			$cart.="var point = new google.maps.LatLng($u);\n";
+			$cart.="var marker = createMarker(point,'text');\n";
+			$cart.="marker.setMap(map);\n";
 			$cart.="/* B---$i $cvbn / $vbn  ------------------------------------------------ */\n\n";
-		}
-	}
+			# -------------------------------------
+		} # End if(length($i)>0)
+	} # End for my $i (@aa)
 	$cart.="/* C--------------------------------------------------- */\n\n";
 	print <<R;
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html">
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 		<title>Google Maps</title>
 R
-	print io::MyUtilities::googHead("$idgoog");	
+	#print "inside:\n<br>--->$idgoog\n<br>----->$gmv";	
 	print <<R;
-	<style type="text/css">
-		<!--
-			a.mailaddr { color: #008000;text-decoration: none; }
-			a.mailaddr:visited { color: #008000;text-decoration: none; }
-		-->
-	</style>
-	</head>
-<body onunload="GUnload()">
+		<style type="text/css">
+			<!--
+				html { height: 100% }
+				body { height: 100%; margin: 0; padding: 0 }
+				#map { height: 100% }
 
-	<div id="map" style="width: 950px; height: 450px"></div>
-	<script language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
+				a.mailaddr { color: #008000;text-decoration: none; }
+				a.mailaddr:visited { color: #008000;text-decoration: none; }
+			-->
+		</style>
 
-	<script type="text/javascript">
-		//<![CDATA[
-		function createMarker(point,html) {
-			var marker = new GMarker(point);
-			GEvent.addListener(marker, "click", function() {
-					marker.openInfoWindowHtml(html);
-					});
-			return marker;
-		}
+		<script language="JavaScript" 
+			  src="http://www.geoplugin.net/javascript.gp" type="text/javascript">
+		</script>
 
-		if (GBrowserIsCompatible()) { 
+R
+	print io::MyUtilities::googHead("$idgoog","$gmv");	
+	print <<R;
+
+		<script type="text/javascript">
+			//<![CDATA[
+			var map;
+			var marker;
 			var la=geoplugin_latitude();
 			var lo=geoplugin_longitude();
-			var map = new GMap2(document.getElementById("map"));
+			var position= new google.maps.LatLng(la,lo);
 
-			document.write("la:"+la+"   lo:"+lo+"<br>@ $ipAddr <br>");
-			map.addControl(new GLargeMapControl());
-			map.addControl(new GMapTypeControl());
-			//map.setCenter(new GLatLng(43.91892,-78.89231),8);
-			map.setCenter(new GLatLng(la,lo),8);
+			function initialize(){ // Begin function initialize()
+				var mapOptions = {
+					center: position,
+					zoom: 8
+				};
+				map=new google.maps.Map(document.getElementById("map"),mapOptions);
 
-			// Display the map, with some controls and set the initial location 
-			var point = new GLatLng(la,lo);
-			var marker = createMarker(point,'lo la from geoplugin');
-			map.addOverlay(marker);
-			// -------------------------------------------------------------
+				marker=createMarker(position,"text");
+				marker.setMap(map);
+				$cart;
+			} // End function initialize()
 
-			// -------------------------------------------------------------
-			// -------------------------------------------------------------
 
-			/*
-				display_location:$data->{display_location}->{longitude}<br>
-				display_location:$data->{display_location}->{latitude}<br>
-				observation_location:$data->{observation_location}->{longitude}<br>
-				observation_location:$data->{observation_location}->{latitude}<br>
-			*/
+			// To add the marker to the map, call setMap();
+			function createMarker(point,text) { // Begin function createMarker(point,html)
+				var lmarker = new google.maps.Marker({
+						position: point,
+						map: map,
+						title: text
+					});
+					return lmarker;
+			} // End function createMarker(point,html)
 
-			// -------------------------------------------------------------
-			var cIcon = new GIcon();
-			cIcon.image = "http://nhw.pl/images/cross.png";
-			cIcon.iconSize = new GSize(16,16);
-			cIcon.iconAnchor = new GPoint(8,9);
-			var point = new GLatLng($data->{observation_location}->{latitude},$data->{observation_location}->{longitude});
-			var marker = createMarker(point,'lo la from api.wunderground.com');
-			map.addOverlay(marker);
-			// -------------------------------------------------------------
-$cart;
-$path;
-		} // display a warning if the browser was not compatible
-		else {
-			alert("Sorry, the Google Maps API is not compatible with this browser");
-		}
+			google.maps.event.addDomListener(window, 'load', initialize);
 
-		//]]>
-	</script>
+
+
+				/*
+					map.addControl(new GLargeMapControl());
+					map.addControl(new GMapTypeControl());
+				*/
+
+				// Display the map, with some controls and set the initial location 
+				/*
+				var point = new new google.maps.LatLng(la,lo);
+				var marker = createMarker(point,'lo la from geoplugin');
+				map.addOverlay(marker);
+				*/
+				// -------------------------------------------------------------
+
+				// -------------------------------------------------------------
+				// -------------------------------------------------------------
+
+				/*
+					display_location:$data->{display_location}->{longitude}<br>
+					display_location:$data->{display_location}->{latitude}<br>
+					observation_location:$data->{observation_location}->{longitude}<br>
+					observation_location:$data->{observation_location}->{latitude}<br>
+				*/
+
+				// -------------------------------------------------------------
+				/*
+				var cIcon = new GIcon();
+				cIcon.image = "http://nhw.pl/images/cross.png";
+				cIcon.iconSize = new GSize(16,16);
+				cIcon.iconAnchor = new GPoint(8,9);
+				var point = new GLatLng($data->{observation_location}->{latitude},$data->{observation_location}->{longitude});
+				var marker = createMarker(point,'lo la from api.wunderground.com');
+				map.addOverlay(marker);
+				*/
+				// -------------------------------------------------------------
+	$path;
+			//]]>
+		</script>
+	</head>
+<body>
+	<div id="map"/>
 	$fn proto: 0.3.$mtime <a href="mailto:shark.baits\@laposte.net" class="mailaddr">shark bait</a>
 </body>
 
