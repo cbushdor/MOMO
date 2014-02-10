@@ -106,11 +106,11 @@ my $mymp=() ;
 #-------------------------------------------------------------------------
 
 #print "<br>XXXXXXXXXXXXXXXXX<br>";
+my $path=&getsPath("album/history","Canada"); # Load file
+$path.=&getsPath("album/history","New Zealand"); # Load file
 my %l=&getsLoLa("album","hist"); # Load DB 
 #print "<br>------------<br>";
 #exit(0);
-my $path=&getsPath("album/history","Canada"); # Load file
-my $path=&getsPath("album/history","New Zealand"); # Load file
 
 chomp($id) ;
 &mapGoogle("$id","$gmv");
@@ -351,7 +351,7 @@ sub getsPath{# begin getsPath
 	my ($file,$field)=@_; # File name to analyze
 	my $llL=();# list of Longitude and latitude taken from a given file
 	$llL="//Begin polyline code \n";
-	$llL.="var polyline = new GPolyline([\n";
+	$llL.="var polyline = [\n";
 
 	#open(R,"$file"); # Load given file
 	#my $r=<R>;
@@ -400,8 +400,8 @@ sub getsPath{# begin getsPath
 				if($dte=~m/(Dec)/){$dte=~s/$1/12/;}
 				#print "$jj $dte<br>";
 				#print "blobloblobloblo>$dte@ new GLatLng($l,$L),\n";
-				@zz=(@zz,"$dte@ new GLatLng($l,$L),\n");
-				#$llL.="new GLatLng($l,$L),\n";
+				@zz=(@zz,"$dte@ new google.maps.LatLng($l,$L),\n");
+				#$llL.="new google.maps.LatLng($l,$L),\n";
 			}# end if(!("$ll" eq "$l" && "$LL" eq "$L"))
 			$ll=$l;$LL=$L;
 #print "	
@@ -411,10 +411,23 @@ sub getsPath{# begin getsPath
 	foreach(@qq){ # begin foreach(@qq)
 		my($ed,$ea)=split(/\@/,$_);
 		chomp($_);
-		$llL.="/* $_ */$ea";
+		$llL.="/* XXXX>  _ */$ea";
 	} # end foreach(@qq)
 	$llL=~s/,\n$//;
-	$llL.="  ], \"#ff0044\", 5); \nmap.addOverlay(polyline);\n //End polyline code";
+	$llL.="  ];\n"; #", \"#ff0044\", 5); \nmap.addOverlay(polyline);\n //End polyline code";
+	$llL.=<<POLY;
+
+  var flightPath = new google.maps.Polyline({
+    path: polyline,
+    geodesic: true,
+    strokeColor: '#FF0000',
+    strokeOpacity: 1.0,
+    strokeWeight: 2
+  });
+
+  flightPath.setMap(map);
+
+POLY
 	return $llL; # Returns list
 }# end getsPath
 
@@ -665,6 +678,7 @@ R
 				marker=createMarker(position,"text");
 				marker.setMap(map);
 				$cart;
+				$path;
 			} // End function initialize()
 
 
@@ -716,7 +730,6 @@ R
 				map.addOverlay(marker);
 				*/
 				// -------------------------------------------------------------
-	$path;
 			//]]>
 		</script>
 	</head>
