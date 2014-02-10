@@ -20,6 +20,185 @@ use io::MyUtilities;
 
 use CGI;
 
+=head1 NAME
+
+g3ogle.cgi
+
+$VERSION=0.2.1.3
+
+=head1 ABSTRACT
+
+This file creates drawings on google map.
+
+=head2 LIST OF FUNCTIONS
+
+=over 4
+
+=over 4
+
+getsLoLa
+getsPath
+loadFile
+mapGoogle
+is_array
+is_hash
+
+=back
+
+=back
+
+=head2 HISTORY OF MODIFICATIONS
+
+=over 4
+
+- I<Last modification:v0.2.1.3> Feb 10 2014: mark(s) is/are missing on the map.
+getsLoLa(...)
+
+
+- I<Last modification:v1.5.11.23> Mar 14 2011: check for sub print_page and sub record.
+
+- I<Last modification:v1.5.11.0> Mar 13 2011: check sub record.
+
+- I<Last modification:v1.5.10.0> Feb 26 2011: check sub record.
+
+- I<Last modification:v1.5.9.20> Feb 25 2011: print_page, record.
+
+- I<Last modification:v1.5.9.15> Feb 24th 2011: see print_page, record.
+
+- I<Last modification:v1.5.9.3> Feb 22 2011: see io::gut::machine::MyFile::my_upload
+see manage_position
+
+- I<Last modification: v1.5.9.0> Feb 18 2011: ipAddressGranted modified
+history structure modified.
+
+- I<Last modification: v1.5.8.1> Feb 17 2011: see io::MyUtilies::setUrlFile
+
+- I<Last modification: v1.5.8.0>  Feb 11 2011: setGoogleID added.
+
+- I<Last modification: v1.5.7.0>  Feb 10 2011:  see io::MyNav
+
+- I<Last modification: v1.5.6.0> Jan 31 2011: seee packages::MyFile.pm.
+
+- I<Last modification: v1.5.4.10> Jan 21 2011. Better ip address format management IPV4 & IPV6.
+
+- I<Last modification: v1.5.4.0> Nov 23rd 2010. Better management of module added.
+
+- I<Last modification: v1.5.3.1> Nov 22 2010. Problem with storing in data base.
+
+- I<Last modification: v1.5.3.0> Nov 22 2010. Error management added for file format.
+see package::MyFile::my_upload(...).
+
+- I<Last modification: v1.5.2.0> Nov 21 2010. flv format replaced by mp3 format.
+
+- I<Last modification: v1.5.1.20> Nov 02 2010: Segmentation packet done in a different way.
+Extra tests were done.
+
+- I<Last modification: v1.5.1.10> Nov 02 2010: Segmentation packet done in a different way.
+
+- I<Last modification: v1.5.1.0> Oct 28th 2010: previous operation canceled. Segmentation packet done instead.
+
+- I<Last modification: v1.5.0.2> Oct 27th 2010: characters for html tags replaced.
+
+- I<Last modification: v1.5.0.0> Oct 16th 2010: crypto system added on service versioning, verDoc.
+
+- I<Last modification: v1.4.18.0> Oct 15th 2010: Function added in io::MyNav.pm
+
+- I<Last modification: v1.4.17.12> Oct 15th 2010: Tests about how to make documentation.
+
+- I<Last modification: v1.4.17.11> Oct 5th 2010: modification see io::MyUtilities.pm.
+New $service verDoc added.
+
+- I<Last modification: v1.4.17.10> Oct 5th 2010: modification see io::MyUtilities.pm.
+
+- I<Last modification: v1.4.17.9> Oct 4th 2010: bug on tests upon optimisation of 2 transactions to 1. 
+Bug fixed.
+
+- I<Last modification: v1.4.17.5> Oct 4th 2010: optimisation of 2 transactions to 1. 
+(go and back)*2 optimised to (go and back)*1
+See io::MyUtilities.pm
+
+- I<Last modification: v1.4.17.0> Oct 3rd 2010: $service==versionning added.
+Only updates version number datum.
+
+- I<Last modification: v1.4.16.4> Oct 1 2010: see MyUtilities.
+Add unlink for *._.html doc * already done.
+ 
+- I<Last modification: v1.4.16.2> Oct 1 2010: see MyUtilities.
+
+- I<Last modification: v1.4.16.0> Oct 1 2010: and $main_prog=$0 variable added.
+Extra tests were done to remove trailing path with separator / or \.
+\ not tested yet.
+
+- I<Last modification: v1.4.15.23> Sep 25 2010: test
+
+- I<Last modification: v1.4.15.22> Sep 25 2010: modification function getVers() see packag::MyUtilities 
+Creation of the log book.
+This page is the log book.
+
+- I<Last modification: v1.4.15.15> Sep 24 2010: function getVers() added to package::MyUtilities
+
+- I<Last modification: v1.4.15.1> Jun 15 2010: see package::MySec::myGetsUrl()
+
+- I<Last modification: v1.4.14.5> Mar 04 2010: see albun.cgi main_menu;menu modiffied log book admin menu;package::MyUtilities::setUrlFile()
+
+- I<Last modification: v1.4.14.1> Dec 5 2009: help_menu_with_css, general_css_def
+
+- I<Last modification: v1.4.14.0RC> Oct 29 2009: see  ipAddressGranted.
+
+- I<Last modification: v1.4.13.9> Oct 24 2009: mp4 or dat or flv file format added.
+
+- I<Last modification: v1.4.13.1> Oct 18 2009: SHOW_PICTURES_ADMIN added.
+
+- I<Last modification: v1.4.12.0> Oct 04 2009: read comment io::MyNav.pm.
+
+- I<Last modification: v1.4.11.0> Sep 27 2009: read comment of cascade_style_sheet_definition.
+
+- I<Last modification: v1.4.8.0> Sept 26 2009: read comment of accessToPicture.
+
+- I<Last modification: v1.4.4.0> Sept 24 2009: Add CGI:: beautifuller. Auto conf html tags.
+
+- I<Last modification: v1.4.3.0> Sept 20 2009: page_list.
+
+- I<Last modification: v1.4.2.0> Sep 17 2009: read io::MyNav.pm  .
+
+- I<Last modification: v1.4.1.20> Sep 13 2009: see shows_list_pictures .
+
+- I<Last modification: v1.4.1.11> Sep 10 2009: see auth_menu,menu_page_title.
+
+- I<Last modification: v1.4.1.10c> Sep 08 2009: see io::MyNav.pm .
+
+- I<Last modification: v1.4.1.10b> Sep 07 2009: see io::MyNav.pm firstChoicetMenuadmin .
+
+- I<Last modification: v1.4.1.10aTryOut> Sep 03 2009: switch recPid value from ok to none value.
+
+- I<Last modification: v1.4.1.8> Aug 31 2009: Link tag shows up on .mov .3gp movie format. Correction done. When asks to put left side image and allowed to be printed a link tag shows up corection done no link shows up now.
+
+- I<Last modification: v1.4.1.7> Jul 29 2009: Html code reformated see help_menu_with_css, groupAndStuff,firstChoicetMenuadmin.
+
+- I<Last modification: v1.4.1.6> Jul 25 2009: Intermediate menu added. Change was done in menu_leave_admin.
+
+- I<Last modification: v1.4.1.5> Jul 21 2009: Moved from album.cgi to  io::MySec::urlsAllowed .
+
+- I<Last modification: v1.4.1.0> Jul 20 2009: Look at function accessToPicture, urlsAllowed.
+
+- I<Last modification: v1.4.0.3> Jul 19 2009: Look at functions print_page, extra_comments.
+
+- I<Last modification: v1.4.0.0> Jun 27 2009: Checks function where modif were done.
+
+- I<Last modification: v1.3.7.0> Nov 30 2008: Checks function where modif were done.
+
+- I<Last modification: v1.0.5.0> Apr 20 2008: Checks function where modif were done.
+
+- I<Last modification: v1.0.0.0> Jan 27 2006: Checks function where modif were done.
+
+- I<Last modification: v0.4.0.0> Mar 03 2005: Checks function where modif were done.
+
+- I<Last modification: v0.4.0.0FirstShot> Nov 10 2004: Checks function where modif were done.
+
+=back
+
+=cut
+
 my $doc=new CGI;
 
 my $gmv=$doc->param("gmv"); # Gets google map version
@@ -146,6 +325,8 @@ None.
 
 =over 4
 
+- Last modification: Feb 10 2014: mark(s) is/are missing on the map.
+
 - Last modification: Jan 14 2014
 
 - Created on: Feb 13 2011
@@ -164,13 +345,16 @@ sub getsLoLa{# begin getsLoLa
 	chdir("$dp");chdir("$ds");# we go in $dp/$ds. Now it's current diectory
 	my $r=();# store content of each file
 	opendir(ARD,".") || die(". $!");# open current directory
-	my @dr= grep { $_ ne '.' and $_ ne '..' } readdir(ARD);# parse current directory
+	my @dr= grep { $_ ne '.' and $_ ne '..' and $_ !~ m/pl$/i and $_ !~ m/cgi$/i} readdir(ARD);# parse current directory
 	closedir(ARD) || die(". $!");# close directory
 
 	# @dr contains all files and directories from current dir except . and ..
 	foreach my $ee (@dr){ # begin foreach (@dr) ; parse each file name from current directory
 		if(length("$ee")>0){# begin if(length("$ee")>0)
 			open(RO,"$ee") || die("$ee $!");$r.=<RO>;chomp($r);close(RO)||die("$ee $!");# store data from files in $r variable
+			#if($r=~m/perl/){
+				#print "#############)$ee<br>";
+			#}
 		}# end if(length("$ee")>0)
 	} # end foreach (@dr)
 	chdir("..");chdir(".."); # come back to original dir configuration
@@ -178,7 +362,7 @@ sub getsLoLa{# begin getsLoLa
 	for my $p (@a){# begin for my $p (@a)
 		chomp($p);#remove cariage return if one found
 		my @q=split(/\#/,$p); # split each lines as a column
-		if(scalar(@q)==14){# begin if(scalar(@q)==14)
+		if(scalar(@q)>10){# begin if(scalar(@q)>10)
 			my $dtes=$q[1]; # Gets login date
 			my $l=$q[11]; # Gets Latitude
 			my $L=$q[12]; # Gets Longitude
@@ -186,7 +370,11 @@ sub getsLoLa{# begin getsLoLa
 			$L=~s/LONGITUDE\://; # Remove comment for the column name
 			if(length("$l")){# begin if(length($l))
 				if(length("$L")){# begin if(length($L))
-#print "\n<br>ooooooo) {$dtes arobase $l,$L}(ooooooooooooooo<br>";
+		#print "\n<br>ooo(". scalar(@q) . ")oooo) {$dtes arobase $l,$L}(ooooooooooooooo>";
+		#if(scalar(@q)>14){# begin if(scalar(@q)>14)
+			#print "---->$p";
+		#}# end if(scalar(@q)>14)
+		#print "<br>";
 					#print "\n<br>$dtes @ $l,$L stop here<br>";
 					$llL{"$dtes @ $l,$L"}.="<br>$dtes <!-- $q[7]-->";
 					#print "\n<br>$dtes @ $l,$L stop here<br>";
@@ -206,7 +394,10 @@ sub getsLoLa{# begin getsLoLa
 					@rr=(@rr,"$dtes\@$l,$L");
 				}# end if(length($L))
 			}# end if(length($l))
-		}# end if(scalar(@q)==14)
+		} # end if(scalar(@q))
+		#else { # begin else
+			#print "-------> " . scalar(@q) . " <<<<<<------$p<br>\n";
+		#} # end else
 	}# end for my $p (@a)
 	return %llL; # Returns hash
 } # end getsLoLa
