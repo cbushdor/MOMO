@@ -350,8 +350,8 @@ None.
 sub getsPath{# begin getsPath
 	my ($file,$field)=@_; # File name to analyze
 	my $llL=();# list of Longitude and latitude taken from a given file
-	$llL="//Begin polyline code \n";
-	$llL.="var polyline = [\n";
+	$llL="\t\t\t\t//Begin polyline code \n";
+	$llL.="\t\t\t\tvar polyline = [\n";
 
 	#open(R,"$file"); # Load given file
 	#my $r=<R>;
@@ -411,21 +411,22 @@ sub getsPath{# begin getsPath
 	foreach(@qq){ # begin foreach(@qq)
 		my($ed,$ea)=split(/\@/,$_);
 		chomp($_);
-		$llL.="/* XXXX>  _ */$ea";
+		$llL.="\t\t\t\t\t$ea";
 	} # end foreach(@qq)
 	$llL=~s/,\n$//;
 	$llL.="  ];\n"; #", \"#ff0044\", 5); \nmap.addOverlay(polyline);\n //End polyline code";
 	$llL.=<<POLY;
 
-  var flightPath = new google.maps.Polyline({
-    path: polyline,
-    geodesic: true,
-    strokeColor: '#FF0000',
-    strokeOpacity: 1.0,
-    strokeWeight: 2
-  });
+				var flightPath = new google.maps.Polyline({
+					path: polyline,
+					geodesic: true,
+					strokeColor: '#FF0000',
+					strokeOpacity: 1.0,
+					strokeWeight: 2
+					});
 
-  flightPath.setMap(map);
+				flightPath.setMap(map);
+				// End polylines codes
 
 POLY
 	return $llL; # Returns list
@@ -623,15 +624,15 @@ sub mapGoogle{# begin mapGoogle
 			# we build the map
 
 			# -------------------------------------
-			$cart.="/* A---$i $cvbn / $vbn  ------------------------------------------------ */\n";
-			$cart.="var point = new google.maps.LatLng($u);\n";
-			$cart.="var marker = createMarker(point,'text');\n";
-			$cart.="marker.setMap(map);\n";
-			$cart.="/* B---$i $cvbn / $vbn  ------------------------------------------------ */\n\n";
+			$cart.="\n\t\t\t\t/* A---$i $cvbn / $vbn  ------------------------------------------------ */\n";
+			$cart.="\t\t\t\tvar point = new google.maps.LatLng($u);\n";
+			$cart.="\t\t\t\tvar marker = createMarker(point,'text');\n";
+			$cart.="\t\t\t\tmarker.setMap(map);\n";
+			$cart.="\t\t\t\t/* B---$i $cvbn / $vbn  ------------------------------------------------ */\n\n";
 			# -------------------------------------
 		} # End if(length($i)>0)
 	} # End for my $i (@aa)
-	$cart.="/* C--------------------------------------------------- */\n\n";
+	$cart.="\t\t\t/* C--------------------------------------------------- */\n\n";
 	print <<R;
 <!DOCTYPE html">
 <html>
@@ -677,8 +678,8 @@ R
 
 				marker=createMarker(position,"text");
 				marker.setMap(map);
-				$cart;
-				$path;
+$cart;
+$path;
 			} // End function initialize()
 
 
@@ -694,42 +695,6 @@ R
 
 			google.maps.event.addDomListener(window, 'load', initialize);
 
-
-
-				/*
-					map.addControl(new GLargeMapControl());
-					map.addControl(new GMapTypeControl());
-				*/
-
-				// Display the map, with some controls and set the initial location 
-				/*
-				var point = new new google.maps.LatLng(la,lo);
-				var marker = createMarker(point,'lo la from geoplugin');
-				map.addOverlay(marker);
-				*/
-				// -------------------------------------------------------------
-
-				// -------------------------------------------------------------
-				// -------------------------------------------------------------
-
-				/*
-					display_location:$data->{display_location}->{longitude}<br>
-					display_location:$data->{display_location}->{latitude}<br>
-					observation_location:$data->{observation_location}->{longitude}<br>
-					observation_location:$data->{observation_location}->{latitude}<br>
-				*/
-
-				// -------------------------------------------------------------
-				/*
-				var cIcon = new GIcon();
-				cIcon.image = "http://nhw.pl/images/cross.png";
-				cIcon.iconSize = new GSize(16,16);
-				cIcon.iconAnchor = new GPoint(8,9);
-				var point = new GLatLng($data->{observation_location}->{latitude},$data->{observation_location}->{longitude});
-				var marker = createMarker(point,'lo la from api.wunderground.com');
-				map.addOverlay(marker);
-				*/
-				// -------------------------------------------------------------
 			//]]>
 		</script>
 	</head>
