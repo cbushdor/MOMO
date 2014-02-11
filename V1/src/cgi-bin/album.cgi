@@ -195,7 +195,7 @@ under_construction_prompt
 
 =over 4
 
-- I<Last modification:v1.6.13.13> Feb 11 2014 cdded use constant PATH_GOOGLE_MAP_OPT
+- I<Last modification:v1.6.13.13> Feb 11 2014 Add the constant PATH_GOOGLE_MAP_OPT
 
 - I<Last modification:v1.6.13.12> Jan 18 2014 put the trip name in history
 			GOOGLE_MAP_SCRIPT_VERSION added.
