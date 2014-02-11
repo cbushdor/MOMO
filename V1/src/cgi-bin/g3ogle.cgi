@@ -51,9 +51,9 @@ is_hash
 
 =over 4
 
-- I<Last modification:v0.2.1.3> Feb 10 2014: mark(s) is/are missing on the map.
-getsLoLa(...)
-getsPath(...)
+- I<Last modification:v0.2.1.3> Feb 11 2014: see mapGoogle
+
+- I<Last modification:v0.2.1.3> Feb 10 2014: see getsLoLa(...), getsPath(...)
 
 =back
 
@@ -61,7 +61,9 @@ getsPath(...)
 
 my $doc=new CGI;
 
-my $gmv=$doc->param("gmv"); # Gets google map version
+my ($gmv,$prt)=split(/\-/,$doc->param("gmv")); # Gets google map version
+
+#$prt= (! defined($prt)) ? "0";
 
 print "Content-Type: text/html\n\n";
 
@@ -92,6 +94,7 @@ my $data = $xml->XMLin("wfc_data.$$.xml");
 my $id=();
 my @rr=();
 my ($dev, $ino, $mode, $nlink, $uid, $gid, $rdev, $size, $atime, $mtime, $ctime, $blksize, $blocks) = stat "$fn";
+
 if(-f "debug"){ # Begin if(-f "debug")
 	$id="AIzaSyDoz8j1983lLAncsYMjXLeemy5ks3DkfM8";
 } # end if(-f "debug")
@@ -100,17 +103,21 @@ else{ # begin else
 } # end else
 
 my $mymp=() ;
-
-#print "Content-type: text/html\n\n";
+my $path=(); # olds data to prin on the map
+my %l=();
 
 #-------------------------------------------------------------------------
 
-#print "<br>XXXXXXXXXXXXXXXXX<br>";
-my $path=&getsPath("album/history","Canada"); # Load file
+$path.=&getsPath("album/history","Canada"); # Load file
 $path.=&getsPath("album/history","New Zealand"); # Load file
-my %l=&getsLoLa("album","hist"); # Load DB 
-#print "<br>------------<br>";
-#exit(0);
+
+# Checks options for map rinting with Markers
+if(defined($prt)){ # Begin if(definied($prt))
+	# Prints all markers
+	if($prt==1){ # Begin if($prt==1)
+		%l=&getsLoLa("album","hist"); # Load DB 
+	} # End if($prt==1)
+} # End if(definied($prt))
 
 chomp($id) ;
 &mapGoogle("$id","$gmv");
@@ -594,6 +601,9 @@ None.
 
 =over 4
 
+- Last modification: Feb 11 2014
+Modified the script to make it more readable
+
 - Last modification: Feb 06 2014
 googheader modified. by default sensor is set to false can't be modified for 
 the moment.
@@ -614,25 +624,26 @@ sub mapGoogle{# begin mapGoogle
 	my $vbn=@aa;
 	my $cvbn=0;# counter
 
+	$cart="\t\t\t\tvar points=[";
 	# we add markers on the map
+	my $gls=scalar(@aa);# geoloction size
 	for my $i (@aa){ # Begin for my $i (@aa)
-		#print "xxxxxxxxx>$i<<<<<<\n<br>\n";
 		$cvbn++;# increase of 1 each time pass here
 		if(length($i)>0){ # Begin if(length($i)>0)
 			my ($v,$u)=split(/\@/,$i); # split date and geoloc coord
-			#print "oooo)$i oooooo $v|$u<br>\n";
-			# we build the map
-
-			# -------------------------------------
-			$cart.="\n\t\t\t\t/* A---$i $cvbn / $vbn  ------------------------------------------------ */\n";
-			$cart.="\t\t\t\tvar point = new google.maps.LatLng($u);\n";
-			$cart.="\t\t\t\tvar marker = createMarker(point,'text');\n";
-			$cart.="\t\t\t\tmarker.setMap(map);\n";
-			$cart.="\t\t\t\t/* B---$i $cvbn / $vbn  ------------------------------------------------ */\n\n";
-			# -------------------------------------
+			$cart.="new google.maps.LatLng($u)";
+			# Tests for the comma at the end of the list
+			if($gls!=1){ # Begin if($gls!=1)
+				$cart.=",";
+			} # End if($gls!=1)
+			$gls--;
 		} # End if(length($i)>0)
 	} # End for my $i (@aa)
-	$cart.="\t\t\t/* C--------------------------------------------------- */\n\n";
+	$cart.="\n\t\t\t\t\t];\n";
+	$cart.="\t\t\t\tfor(var i=0;i<points.length;i++){\n";
+	$cart.="\t\t\t\t\tvar marker = createMarker(points[i],'text');\n";
+	$cart.="\t\t\t\t\tmarker.setMap(map);\n";
+	$cart.="\t\t\t\t}\n";
 	print <<R;
 <!DOCTYPE html">
 <html>
