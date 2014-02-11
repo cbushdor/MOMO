@@ -68,7 +68,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.13'; # Album release
+use constant ALBUM_REL               	=> '15.14'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -88,6 +88,7 @@ use constant ALLOWED_SOCIAL_NETWORK 	=> "http\:\/\/www.youtube.com";
 use constant GOOGLE_MAP_SCRIPT_VERSION	=> "3";
 use constant PATH_GOOGLE_MAP_ID 	=> "private/id.googlemap.v". GOOGLE_MAP_SCRIPT_VERSION;
 use constant PATH_GOOGLE_MAP_TRIP 	=> "private/trip.googlemap";
+use constant PATH_GOOGLE_MAP_OPT 	=> "-0";
 
 my $vnl=100; # calculate version number length (number of characters in string)
 my $main_prog=(split(/[\\\/]/,"$0"))[scalar(split(/[\\\/]/,"$0"))-1]; # gets program name
@@ -115,7 +116,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.13
+$VERSION=1.6.15.14
 
 =head1 ABSTRACT
 
@@ -193,6 +194,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.13.13> Feb 11 2014 cdded use constant PATH_GOOGLE_MAP_OPT
 
 - I<Last modification:v1.6.13.12> Jan 18 2014 put the trip name in history
 			GOOGLE_MAP_SCRIPT_VERSION added.
@@ -3840,7 +3843,7 @@ sub print_page { # begin print_page
 								$list_page .= " </td><!-- blue jean --></tr><!-- balaaaaa -->\"\n+\"<tr>";
 							} # End if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) < ( $my_prev % MAX_PAGE_PER_LINE_INDEX ) )
 							$list_page .= "<td align='center'><a href='${main_prog}?page=$line[0]&googid=".$doc->param("googid").
-								"&gmv=".GOOGLE_MAP_SCRIPT_VERSION."'>x</a></td><!-- <wwblablablablo -->\"\n+\"";
+								"&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT ."'>x</a></td><!-- <wwblablablablo -->\"\n+\"";
 						} # End if ($my_prev != 1)
 						else { #  Begin else 
 							if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) == 0 ){ # Begin if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) == 0 )
@@ -3848,7 +3851,7 @@ sub print_page { # begin print_page
 							} # End if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) == 0 )
 							#    First element in the list
 							$list_page .= "<td align='center'><a href='${main_prog}?page=$line[0]&googid=".$doc->param("googid").
-							"&gmv=".GOOGLE_MAP_SCRIPT_VERSION."'>x</a></td><!-- lolololozutzutyyyyyyyy -->\"\n+\"";
+							"&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT ."'>x</a></td><!-- lolololozutzutyyyyyyyy -->\"\n+\"";
 						} # End if ( ($my_prev != 1) && (($line[0] % (MAX_IMAGES_PER_PAGE+1)) != 0) )
 						$my_prev = $line[0];
 					} # End if ($page_asked != $line[0])
@@ -4896,7 +4899,7 @@ sub main_menu { # begin main_menu
 		. "\");'>My website</a>\n</dt>\n";
 	#print "<dt>Other albums</dt>\n";
 	print "<dt><a href=\"g".GOOGLE_MAP_SCRIPT_VERSION."ogle.cgi?googid=".$doc->param("googid").
-		"&gmv=".GOOGLE_MAP_SCRIPT_VERSION."\">Visitor map</a></dt>\n";
+		"&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT ."\">Visitor map</a></dt>\n";
 	print "<dt onclick=\"javascript:show('smenu2');\" onmouseout=\"javascript:show();\">Help</dt>";
 	print "\n<dd id=\"smenu2\"><!-- begin dd smenu2 -->\n";
 	&help_menu_with_css( $title, @help_feature );
