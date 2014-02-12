@@ -24,7 +24,7 @@ use CGI;
 
 g3ogle.cgi
 
-$VERSION=0.2.1.3
+$VERSION=0.2.1.14
 
 =head1 ABSTRACT
 
@@ -51,7 +51,7 @@ is_hash
 
 =over 4
 
-- I<Last modification:v0.2.1.3> Feb 11 2014: see mapGoogle
+- I<Last modification:v0.2.1.4> Feb 11 2014: see mapGoogle
 
 - I<Last modification:v0.2.1.3> Feb 10 2014: see getsLoLa(...), getsPath(...)
 
@@ -108,19 +108,31 @@ my %l=();
 
 #-------------------------------------------------------------------------
 
-$path.=&getsPath("album/history","Canada"); # Load file
-$path.=&getsPath("album/history","New Zealand"); # Load file
+chomp($id) ;
 
 # Checks options for map rinting with Markers
 if(defined($prt)){ # Begin if(definied($prt))
+	# Prints where you are
+	if($prt==0){ # Begin if($prt==0)
+		$path.=&getsPath("album/history","New Zealand"); # Load file
+		#$path.=&getsPath("album/history","Canada"); # Load file
+		&mapGoogle("$id","$gmv");
+	} # End if($prt==0)
 	# Prints all markers
 	if($prt==1){ # Begin if($prt==1)
 		%l=&getsLoLa("album","hist"); # Load DB 
+		&mapGoogle("$id","$gmv");
 	} # End if($prt==1)
+	# marks trips
+	if($prt==2){ # Begin if($prt==2)
+		$path.=&getsPath("album/history","Canada"); # Load file
+		$path.=&getsPath("album/history","New Zealand"); # Load file
+		&mapGoogle("$id","$gmv");
+	} # End if($prt==2)
 } # End if(definied($prt))
-
-chomp($id) ;
-&mapGoogle("$id","$gmv");
+else {
+	&mapGoogle("$id","$gmv");
+}
 
 =head1 sub getsLoLa(...)
 
@@ -205,7 +217,7 @@ None.
 
 =cut
 
-sub getsLoLa{# begin getsLoLa
+sub getsLoLa{ # begin getsLoLa
 	my ($dp,$ds)=@_; # (dp: directory parent,ds: directory son) where are stored DB
 
 	my %llL=();# list of Longitude and latitude taken from a given file
@@ -218,30 +230,30 @@ sub getsLoLa{# begin getsLoLa
 
 	# @dr contains all files and directories from current dir except . and ..
 	foreach my $ee (@dr){ # begin foreach (@dr) ; parse each file name from current directory
-		if(length("$ee")>0){# begin if(length("$ee")>0)
+		if(length("$ee")>0){ # begin if(length("$ee")>0)
 			open(RO,"$ee") || die("$ee $!");$r.=<RO>;chomp($r);close(RO)||die("$ee $!");# store data from files in $r variable
 			#if($r=~m/perl/){
 				#print "#############)$ee<br>";
 			#}
-		}# end if(length("$ee")>0)
+		} # end if(length("$ee")>0)
 	} # end foreach (@dr)
 	chdir("..");chdir(".."); # come back to original dir configuration
 	my @a=split(/\,/,$r);# split in an array
-	for my $p (@a){# begin for my $p (@a)
+	for my $p (@a){ # begin for my $p (@a)
 		chomp($p);#remove cariage return if one found
 		my @q=split(/\#/,$p); # split each lines as a column
-		if(scalar(@q)>10){# begin if(scalar(@q)>10)
+		if(scalar(@q)>10){ # begin if(scalar(@q)>10)
 			my $dtes=$q[1]; # Gets login date
 			my $l=$q[11]; # Gets Latitude
 			my $L=$q[12]; # Gets Longitude
 			$l=~s/LATITUDE\://; # Remove comment for the column name
 			$L=~s/LONGITUDE\://; # Remove comment for the column name
-			if(length("$l")){# begin if(length($l))
-				if(length("$L")){# begin if(length($L))
+			if(length("$l")){ # begin if(length($l))
+				if(length("$L")){ # begin if(length($L))
 		#print "\n<br>ooo(". scalar(@q) . ")oooo) {$dtes arobase $l,$L}(ooooooooooooooo>";
-		#if(scalar(@q)>14){# begin if(scalar(@q)>14)
+		#if(scalar(@q)>14){ # begin if(scalar(@q)>14)
 			#print "---->$p";
-		#}# end if(scalar(@q)>14)
+		#} # end if(scalar(@q)>14)
 		#print "<br>";
 					#print "\n<br>$dtes @ $l,$L stop here<br>";
 					$llL{"$dtes @ $l,$L"}.="<br>$dtes <!-- $q[7]-->";
@@ -260,13 +272,13 @@ sub getsLoLa{# begin getsLoLa
 					if($dtes=~m/(Nov)/){$dtes=~s/$1/11/;}
 					if($dtes=~m/(Dec)/){$dtes=~s/$1/12/;}
 					@rr=(@rr,"$dtes\@$l,$L");
-				}# end if(length($L))
-			}# end if(length($l))
+				} # end if(length($L))
+			} # end if(length($l))
 		} # end if(scalar(@q))
 		#else { # begin else
 			#print "-------> " . scalar(@q) . " <<<<<<------$p<br>\n";
 		#} # end else
-	}# end for my $p (@a)
+	} # end for my $p (@a)
 	return %llL; # Returns hash
 } # end getsLoLa
 
@@ -354,35 +366,35 @@ None.
 
 =cut
 
-sub getsPath{# begin getsPath
+sub getsPath{ # begin getsPath
 	my ($file,$field)=@_; # File name to analyze
 	my $llL=();# list of Longitude and latitude taken from a given file
-	$llL="\t\t\t\t//Begin polyline code \n";
-	$llL.="\t\t\t\tvar polyline = [\n";
 
-	#open(R,"$file"); # Load given file
-	#my $r=<R>;
-	#close(R);
+	#$llL="\t\t\t\t// Begin polyline code \n";
+	#$llL.="\t\t\t\tvar polyline = [\n";
+
 	chdir("album");chdir("hist");# we go in album/hist
 	my $r=();# store content of each file
 	opendir(ARD,".") || die(". $!");# open current directory
 	my @dr= grep { $_ ne '.' and $_ ne '..' and $_ !~ m/pl$/i and $_ !~ m/cgi$/i} readdir(ARD);# parse current directory
 	closedir(ARD) || die(". $!");# close directory
 	foreach my $ee (@dr){ # begin foreach (@dr) ; parse each file name from current directory
-		if(length("$ee")>0){# begin if(length("$ee")>0)
+		if(length("$ee")>0){ # begin if(length("$ee")>0)
 			open(R,"$ee") || die("$ee $!");$r.=<R>;chomp($r);close(R)||die("$ee $!");# store data from files in $r variable
-		}# end if(length("$ee")>0)
+		} # end if(length("$ee")>0)
 	} # end foreach (@dr)
 	chdir("..");chdir(".."); # come back to original dir configuration
 	
 	my @a=split(/\,/,$r);
 	my $l=();my $L=();my $ll=();my $LL=();
 	my @zz=();
+	my $prev=();
+	my $newArrows=();
 	for my $p (@a){ # begin for my $p (@a)
 		chomp($p);
 		my @q=split(/\#/,$p); # split each lines as a column
 		# we check country name below
-		if($q[7]=~m/$field/i){# begin if($q[7]=~m/$field/i)
+		if($q[7]=~m/$field/i){ # begin if($q[7]=~m/$field/i)
 			my $dte=$q[1]; # Gets login date
 			my $l=$q[11]; # Gets Latitude
 			my $L=$q[12]; # Gets Longitude
@@ -409,21 +421,59 @@ sub getsPath{# begin getsPath
 				#print "blobloblobloblo>$dte@ new GLatLng($l,$L),\n";
 				@zz=(@zz,"$dte@ new google.maps.LatLng($l,$L),\n");
 				#$llL.="new google.maps.LatLng($l,$L),\n";
-			}# end if(!("$ll" eq "$l" && "$LL" eq "$L"))
+			} # end if(!("$ll" eq "$l" && "$LL" eq "$L"))
 			$ll=$l;$LL=$L;
 #print "	
-		}# end if($q[7]=~m/$field/i)
+		} # end if($q[7]=~m/$field/i)
 	} # end for my $p (@a)
 	my @qq=sort(@zz);
+	my $markersTrip=();
+
+	$markersTrip="var iconBase = '../images/icons/';\n";
 	foreach(@qq){ # begin foreach(@qq)
 		my($ed,$ea)=split(/\@/,$_);
 		chomp($_);
-		$llL.="\t\t\t\t\t$ea";
-	} # end foreach(@qq)
-	$llL=~s/,\n$//;
-	$llL.="  ];\n"; #", \"#ff0044\", 5); \nmap.addOverlay(polyline);\n //End polyline code";
-	$llL.=<<POLY;
+		chomp($ea);
+		$ea=~s/,$//;
+		#$llL.="\t\t\t\t\t$ea,\n";
+		$markersTrip.=<<TRIP_MARKERS;
+		//marker=createMarker($ea,"text");
+				var marker = new google.maps.Marker({
+						position: $ea,
+						map: map,
+						icon: iconBase + 'cabin.png'
+					});
+		marker.setMap(map);
+TRIP_MARKERS
+		if(length($prev)!=0){
+			$newArrows.=<<ARROWS;
+			var lineSymbol = {
+				path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+			};
 
+			var lineCoordinates = [
+				$prev,
+				$ea
+			];
+
+			var line = new google.maps.Polyline({
+				path: lineCoordinates,
+				icons: [{
+					icon: lineSymbol,
+					offset: '50%'
+				}],
+				map: map
+			});
+ARROWS
+		}
+		$prev="$ea";
+	} # end foreach(@qq)
+	#$llL=~s/,\n$//;
+	#$llL.="  ];\n"; 
+	$llL.=<<POLY;
+				$markersTrip
+
+				/*
 				var flightPath = new google.maps.Polyline({
 					path: polyline,
 					geodesic: true,
@@ -433,11 +483,15 @@ sub getsPath{# begin getsPath
 					});
 
 				flightPath.setMap(map);
+				*/
 				// End polylines codes
 
+					$newArrows
+				/*
+				*/
 POLY
 	return $llL; # Returns list
-}# end getsPath
+} # end getsPath
 
 
 =head1 sub loadFile(...)
@@ -521,14 +575,14 @@ added documentation.
 
 =cut
 
-sub loadFile{# begin loadFile
+sub loadFile{ # begin loadFile
 	my ($fn)=@_; # File name
 
 	open(R,"$fn");
 	my @r=<R>;# fle content
 	close(R);
 	return join("",@r);
-}# end loadFile
+} # end loadFile
 
 
 =head1 sub mapGoogle(...)
@@ -616,7 +670,7 @@ the moment.
 
 =cut
 
-sub mapGoogle{# begin mapGoogle
+sub mapGoogle{ # begin mapGoogle
 	my ($idgoog,$gmv)=@_ ; # Google id for one page; google map version
 	chomp($idgoog); # Remove CR at end of string
 	my $cart=();
