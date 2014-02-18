@@ -1,10 +1,16 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -T
 
 $|=0;
+
 use warnings;
-#use strict;
+use strict;
 
+BEGIN {
+	push @INC, '/Users/sdo/Sites/cgi-bin/';
+	push @INC, '/home1/derased/public_html/cgi-bin/';
+}
 
+use CGI;
 use LWP::Simple;
 use XML::Simple;
 use Data::Dumper;
@@ -12,6 +18,9 @@ use Data::Dumper;
 use io::MySec;
 use io::MyNav;
 use io::MyUtilities;
+
+my $doc=new CGI;
+my ($gmv,$prt)=split(/\-/,$doc->param("gmv")); # Gets google map version
 
 my $ipAddr=io::MyNav::gets_ip_address;
 my $fn=$0; # file name
@@ -45,34 +54,14 @@ else{ # begin else
 my $mymp=() ;
 
 print "Content-type: text/html\n\n";
-print "<pre>";
+#print "<pre>";
 #print Dumper($data);
-print "</pre>";
-#print "----uuuuu)$_:$data->{pressure_in}  $r<br>";
-#print "----uuuuu)$_:$data->{dewpoint_string}  $r<br>";
-#foreach my $oo (%{$data}){
-		#if(is_hash($data->{$oo})){
-			#my %mmm=%{$data->{$oo}};
-			#foreach my $ii (%mmm){
-				#if(is_hash($mmm->{$ii})){
-					#my %mmmm=%{$mmm->{$ii}};
-					#foreach my $iii (%mmmm){
-						##print "$oo --$ii---->this is hash ($iii): $mmmm->{$iii}<br> ";
-					#}
-				##}else{
-					##print "$oo ------>this is hash $ii: $mmm->{$ii}<br> ";
-				##}
-			##}
-		##}else{
-			##print "----uuuuu)$oo:". $data->{$oo} . "<br>";
-			### print "----uuuuu)$_:$data->{display_location}->{latitude}  $r<br>";
-		##}
-##}
+#print "</pre>";
 
 &sortAndStore("history","album");
 my %l=&getsLoLa("album/history"); # Load file
 my $path=&getsPath("album/history","Canada"); # Load file
-my $path=&getsPath("album/history","New Zealand"); # Load file
+#my $path=&getsPath("album/history","New Zealand"); # Load file
 
 #chomp($id) ;
 &mapGoogle("$id");
@@ -120,57 +109,58 @@ sub getsLoLa{# begin getsLoLa
 	chdir("album");chdir("hist");# we go in album/hist
 	my $r=();# store content of each file
 	opendir(ARD,".") || die(". $!");# open current directory
-	my @dr= grep { $_ ne '.' and $_ ne '..' } readdir(ARD);# parse current directory
+	my @dr= grep { $_ ne '.' and $_ ne '..'  and $_ !~ m/pl$/i and $_ !~ m/cgi$/i} readdir(ARD);# parse current directory
 	closedir(ARD) || die(". $!");# close directory
 	foreach my $ee (@dr){ # begin foreach (@dr) ; parse each file name from current directory
 		if(length("$ee")>0){# begin if(length("$ee")>0)
+			##print "oooooooooo>$ee<br>\n";
+		#	my $kk;
 			open(RO,"$ee") || die("$ee $!");$r.=<RO>;chomp($r);close(RO)||die("$ee $!");# store data from files in $r variable
+			##print "ppppppppppp>$kk<br>";
 		}# end if(length("$ee")>0)
 	} # end foreach (@dr)
 	chdir("..");chdir(".."); # come back to original dir configuration
 	#print $r;
-	#exit(0);
+#	exit(0);
 	my @a=split(/\,/,$r);# split in an array
 	for my $p (@a){# begin for my $p (@a)
 		chomp($p);#remove cariage return if one found
 		my @q=split(/\#/,$p); # split each lines as a column
-		if(scalar(@q)==14){
-		#foreach(@q){ print "\n\nooooiiii)$_\n"; }
-		#exit(0);
-		#print "#########>".@q." @q\n";
-		my $dte=$q[1]; # Gets login date
-		my $l=$q[11]; # Gets Latitude
-		my $L=$q[12]; # Gets Longitude
-		#print "uuuuuuuuuuuuu>$l $L<oooooooo\n";
-		#exit(0);
-		$l=~s/LATITUDE\://; # Remove comment for the column name
-		$L=~s/LONGITUDE\://; # Remove comment for the column name
-		if(length("$l")){# begin if(length($l))
-		#	print "uuuuuuuuuuuuu>$l $L<oooooooo\n";
-			#exit(0);
-			if(length("$L")){# begin if(length($L))
-				$llL{"$dte@$l,$L"}.="<br>$dte <!-- $q[7]-->";
-				$dte=~s/(Mon|Tues|Wed|Thu|Fri|Sat|Sun)//g;
-				if($dte=~m/(Jan)/){$dte=~s/$1/01/;}
-				if($dte=~m/(Feb)/){$dte=~s/$1/02/;}
-				if($dte=~m/(Mar)/){$dte=~s/$1/03/;}
-				if($dte=~m/(Apr)/){$dte=~s/$1/04/;}
-				if($dte=~m/(May)/){$dte=~s/$1/05/;}
-				if($dte=~m/(Jun)/){$dte=~s/$1/06/;}
-				if($dte=~m/(Jul)/){$dte=~s/$1/07/;}
-				if($dte=~m/(Aug)/){$dte=~s/$1/08/;}
-				if($dte=~m/(Sep)/){$dte=~s/$1/09/;}
-				if($dte=~m/(Oct)/){$dte=~s/$1/10/;}
-				if($dte=~m/(Nov)/){$dte=~s/$1/11/;}
-				if($dte=~m/(Dec)/){$dte=~s/$1/12/;}
-				@rr=(@rr,"$dte\@$l,$L");
-				#print "ooooooooooooooooooooooooooooooooooooooooooooo\n";
-				#print "ooooooooooo $dte\@$l,$L ooooooooooooo\n";
-				#print "ooooooooooooooooooooooooooooooooooooooooooooo\n";
+		if(scalar(@q)>10){ # Begin if(scalar(@q)>10)
+			my $dte=$q[1]; # Gets login date
+			my $l=$q[11]; # Gets Latitude
+			my $L=$q[12]; # Gets Longitude
+			$l=~s/LATITUDE\://; # Remove comment for the column name
+			$L=~s/LONGITUDE\://; # Remove comment for the column name
+			if(length("$l")){# begin if(length($l))
+				#	print "uuuuuuuuuuuuu>$l $L<oooooooo\n";
 				#exit(0);
-			}# end if(length($L))
-		}# end if(length($l))
-		}# end if(scalar(@q))
+				if(length("$L")){# begin if(length($L))
+					$llL{"$dte @ $l,$L"}.="<br>$dte <!-- $q[7]-->";
+					$dte=~s/(Mon|Tues|Wed|Thu|Fri|Sat|Sun)//g;
+					if($dte=~m/(Jan)/){$dte=~s/$1/01/;}
+					if($dte=~m/(Feb)/){$dte=~s/$1/02/;}
+					if($dte=~m/(Mar)/){$dte=~s/$1/03/;}
+					if($dte=~m/(Apr)/){$dte=~s/$1/04/;}
+					if($dte=~m/(May)/){$dte=~s/$1/05/;}
+					if($dte=~m/(Jun)/){$dte=~s/$1/06/;}
+					if($dte=~m/(Jul)/){$dte=~s/$1/07/;}
+					if($dte=~m/(Aug)/){$dte=~s/$1/08/;}
+					if($dte=~m/(Sep)/){$dte=~s/$1/09/;}
+					if($dte=~m/(Oct)/){$dte=~s/$1/10/;}
+					if($dte=~m/(Nov)/){$dte=~s/$1/11/;}
+					if($dte=~m/(Dec)/){$dte=~s/$1/12/;}
+					@rr=(@rr,"$dte\@$l,$L");
+					#print "ooooooooooooooooooooooooooooooooooooooooooooo\n";
+					#print "ooooooooooo $dte\@$l,$L ooooooooooooo\n";
+					#print "ooooooooooooooooooooooooooooooooooooooooooooo\n";
+					#exit(0);
+				}# end if(length($L))
+			}# end if(length($l))
+		} # End if(scalar(@q)>10)
+		#else { # begin else
+			#print "-------> " . scalar(@q) . " <<<<<<------$p<br>\n";
+		#} # end else
 	}# end for my $p (@a)
 	return %llL; # Returns list
 } # end getsLoLa
@@ -188,7 +178,7 @@ sub getsPath{# begin getsPath
 	chdir("album");chdir("hist");# we go in album/hist
 	my $r=();# store content of each file
 	opendir(ARD,".") || die(". $!");# open current directory
-	my @dr= grep { $_ ne '.' and $_ ne '..' } readdir(ARD);# parse current directory
+	my @dr= grep { $_ ne '.' and $_ ne '..'  and $_ !~ m/pl$/i and $_ !~ m/cgi$/i} readdir(ARD);# parse current directory
 	closedir(ARD) || die(". $!");# close directory
 	foreach my $ee (@dr){ # begin foreach (@dr) ; parse each file name from current directory
 		if(length("$ee")>0){# begin if(length("$ee")>0)
@@ -267,20 +257,25 @@ sub mapGoogle{# begin mapGoogle
 	#for my $i (keys %l){
 	my $vbn=@aa;
 	my $cvbn=0;
+	$cart.="		var geocoo=[";
 	for my $i (@aa){
 		#print "xxxxxxxxx>$i<<<<<<\n";
 		$cvbn++;
 		if(length($i)>0){
 			my ($v,$u)=split(/\@/,$i);
-			#print "oooo)$i oooooo $v,$u\n";
-			$cart.="/* A---$i $cvbn / $vbn  ------------------------------------------------ */\n";
-			$cart.="			var point = new GLatLng($u);\n";
-			$cart.="			var marker = createMarker(point,'');\n";
-			$cart.="			map.addOverlay(marker);\n";
-			$cart.="/* B---$i $cvbn / $vbn  ------------------------------------------------ */\n\n";
+			$cart.="$u,";
 		}
 	}
-	$cart.="/* C--------------------------------------------------- */\n\n";
+	$cart=~s/,^//;
+	$cart.="];\n\n";
+	$cart.=<<RRRR;
+		for(var i=0;i<geocoo.length;i++){
+		//	document.write("---->"+geocoo[i++]+"----"+geocoo[i]+"<br>");
+			var point = new GLatLng(geocoo[i++],geocoo[i]);
+			var marker = createMarker(point,'');
+			map.addOverlay(marker);
+		}
+RRRR
 	print <<R;
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
@@ -288,19 +283,11 @@ sub mapGoogle{# begin mapGoogle
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 		<title>Google Maps</title>
 R
-	print io::MyUtilities::googHead("$idgoog");	
+	print io::MyUtilities::googHead("$idgoog","2");	
 	print <<R;
-	<style type="text/css">
-		<!--
-			a.mailaddr { color: #008000;text-decoration: none; }
-			a.mailaddr:visited { color: #008000;text-decoration: none; }
-		-->
-	</style>
-	</head>
-<body onunload="GUnload()">
-
-	<div id="map" style="width: 950px; height: 450px"></div>
-	<script language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
+		<style type="text/css">
+			html, body, #map-canvas { height: 100%; margin: 0; }
+		</style>
 
 	<script type="text/javascript">
 		//<![CDATA[
@@ -311,13 +298,20 @@ R
 					});
 			return marker;
 		}
+		//]]>
+	</script>
 
+
+	<script language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
+
+	<script type="text/javascript">
+	function initialize() {
 		if (GBrowserIsCompatible()) { 
 			var la=geoplugin_latitude();
 			var lo=geoplugin_longitude();
-			var map = new GMap2(document.getElementById("map"));
+			var map = new GMap2(document.getElementById("map-canvas"));
 
-			document.write("la:"+la+"   lo:"+lo+"<br>@ $ipAddr <br>");
+	//		document.write("la:"+la+"   lo:"+lo+"<br>@ $ipAddr <br>");
 			map.addControl(new GLargeMapControl());
 			map.addControl(new GMapTypeControl());
 			//map.setCenter(new GLatLng(43.91892,-78.89231),8);
@@ -327,19 +321,7 @@ R
 			var point = new GLatLng(la,lo);
 			var marker = createMarker(point,'lo la from geoplugin');
 			map.addOverlay(marker);
-			// -------------------------------------------------------------
 
-			// -------------------------------------------------------------
-			// -------------------------------------------------------------
-
-			/*
-				display_location:$data->{display_location}->{longitude}<br>
-				display_location:$data->{display_location}->{latitude}<br>
-				observation_location:$data->{observation_location}->{longitude}<br>
-				observation_location:$data->{observation_location}->{latitude}<br>
-			*/
-
-			// -------------------------------------------------------------
 			var cIcon = new GIcon();
 			cIcon.image = "http://nhw.pl/images/cross.png";
 			cIcon.iconSize = new GSize(16,16);
@@ -354,10 +336,11 @@ $path;
 		else {
 			alert("Sorry, the Google Maps API is not compatible with this browser");
 		}
-
-		//]]>
+	}
 	</script>
-	$fn proto: 0.3.$mtime <a href="mailto:shark.baits\@laposte.net" class="mailaddr">shark bait</a>
+	</head>
+<body  onload="initialize()"  onunload="GUnload()">
+	<div id="map-canvas" ></div>
 </body>
 
 </html>
