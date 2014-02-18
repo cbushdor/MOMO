@@ -68,7 +68,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.14'; # Album release
+use constant ALBUM_REL               	=> '15.20'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -85,7 +85,7 @@ use constant MPWD 			=> "M!gn0n3 411ons si l4 R0s3"; # that's the master passwor
 use constant SHOW_PICTURES_ADMIN     	=> 0 ; # Prints on admin menu picture (!0) or not
 use constant ALLOWED_FILE_FORMAT_TYPE 	=> "jpeg|jpg|gif|png|mp4|3gp|mpeg|mov|dat|mp3|avi"; # Allowed file format to be uploaded
 use constant ALLOWED_SOCIAL_NETWORK 	=> "http\:\/\/www.youtube.com";
-use constant GOOGLE_MAP_SCRIPT_VERSION	=> "3";
+use constant GOOGLE_MAP_SCRIPT_VERSION	=> "2";
 use constant PATH_GOOGLE_MAP_ID 	=> "private/id.googlemap.v". GOOGLE_MAP_SCRIPT_VERSION;
 use constant PATH_GOOGLE_MAP_TRIP 	=> "private/trip.googlemap";
 use constant PATH_GOOGLE_MAP_OPT 	=> "-0";
@@ -116,7 +116,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.14
+$VERSION=1.6.15.20
 
 =head1 ABSTRACT
 
@@ -194,6 +194,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.15.14> Feb 18 2014 Removed parameters. Caused problems with google map.
 
 - I<Last modification:v1.6.13.13> Feb 11 2014 Add the constant PATH_GOOGLE_MAP_OPT
 
@@ -445,6 +447,10 @@ my $doc=new CGI;
 my $an_action=();
 my $lok=$doc->param("login");
 my $param_trip=$doc->param("TRIP_ID");
+my $bdaytime=$doc->param("bdaytime");
+my $edaytime=$doc->param("edaytime");
+#print "Content-type:text/html\n\n";
+#print "---->$bdaytime<br>========>$edaytime<br>";
 
 # Password for login
 my ( $login, $password )=io::MyUtilities::gets_private_stuff_for_administrator($an_action,
@@ -3842,16 +3848,18 @@ sub print_page { # begin print_page
 							if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) < ( $my_prev % MAX_PAGE_PER_LINE_INDEX ) ){ # Begin if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) < ( $my_prev % MAX_PAGE_PER_LINE_INDEX ) )
 								$list_page .= " </td><!-- blue jean --></tr><!-- balaaaaa -->\"\n+\"<tr>";
 							} # End if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) < ( $my_prev % MAX_PAGE_PER_LINE_INDEX ) )
-							$list_page .= "<td align='center'><a href='${main_prog}?page=$line[0]&googid=".$doc->param("googid").
-								"&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT ."'>x</a></td><!-- <wwblablablablo -->\"\n+\"";
+							$list_page .= "<td align='center'><a href='${main_prog}?page=$line[0]".
+								#"&googid=".$doc->param("googid")."&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
+								"'>x</a></td><!-- <wwblablablablo -->\"\n+\"";
 						} # End if ($my_prev != 1)
 						else { #  Begin else 
 							if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) == 0 ){ # Begin if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) == 0 )
 								$list_page .= "<td align='center'></td><!-- pantalon --></tr>\"\n+\"<tr>";
 							} # End if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) == 0 )
 							#    First element in the list
-							$list_page .= "<td align='center'><a href='${main_prog}?page=$line[0]&googid=".$doc->param("googid").
-							"&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT ."'>x</a></td><!-- lolololozutzutyyyyyyyy -->\"\n+\"";
+							$list_page .= "<td align='center'><a href='${main_prog}?page=$line[0]".
+							#"&googid=".$doc->param("googid"). "&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
+							"'>x</a></td><!-- lolololozutzutyyyyyyyy -->\"\n+\"";
 						} # End if ( ($my_prev != 1) && (($line[0] % (MAX_IMAGES_PER_PAGE+1)) != 0) )
 						$my_prev = $line[0];
 					} # End if ($page_asked != $line[0])
@@ -4898,8 +4906,9 @@ sub main_menu { # begin main_menu
 		. "http://dorey.sebastien.free.fr"
 		. "\");'>My website</a>\n</dt>\n";
 	#print "<dt>Other albums</dt>\n";
-	print "<dt><a href=\"g".GOOGLE_MAP_SCRIPT_VERSION."ogle.cgi?googid=".$doc->param("googid").
-		"&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT ."\">Visitor map</a></dt>\n";
+	print "<dt><a href=\"g".GOOGLE_MAP_SCRIPT_VERSION."ogle.cgi" . 
+	#	"?googid=".$doc->param("googid")."&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
+	"\">Visitor map</a></dt>\n";
 	print "<dt onclick=\"javascript:show('smenu2');\" onmouseout=\"javascript:show();\">Help</dt>";
 	print "\n<dd id=\"smenu2\"><!-- begin dd smenu2 -->\n";
 	&help_menu_with_css( $title, @help_feature );
@@ -5839,8 +5848,11 @@ Google ID or trip name(no=Google ID by default):<input type='text' name='googid'
 <input type='hidden' name='ssection' value='adminGoogleID' />
 <input type="radio" name="TRIP_ID" value="ok">ok
 <input type="radio" name="TRIP_ID" value="no" checked>no<br>
-<input type='submit' value='Autorisation google ID map/ Authorize google ID map' />
 <!--input type='hidden' name='ssecgoo' value='adminGroup'-->
+<br>Begining of the trip<input type="datetime-local" name="bdaytime">
+<br>End on the trip<input type="datetime-local" name="edaytime">
+
+<br><input type='submit' value='Autorisation google ID map/ Authorize google ID map' />
 </form>
 </fieldset>	
 <style tyle="text/css">
