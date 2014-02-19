@@ -3849,7 +3849,7 @@ sub print_page { # begin print_page
 								$list_page .= " </td><!-- blue jean --></tr><!-- balaaaaa -->\"\n+\"<tr>";
 							} # End if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) < ( $my_prev % MAX_PAGE_PER_LINE_INDEX ) )
 							$list_page .= "<td align='center'><a href='${main_prog}?page=$line[0]".
-								#"&googid=".$doc->param("googid")."&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
+								"&googid=".$doc->param("googid")."&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
 								"'>x</a></td><!-- <wwblablablablo -->\"\n+\"";
 						} # End if ($my_prev != 1)
 						else { #  Begin else 
@@ -3858,7 +3858,7 @@ sub print_page { # begin print_page
 							} # End if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) == 0 )
 							#    First element in the list
 							$list_page .= "<td align='center'><a href='${main_prog}?page=$line[0]".
-							#"&googid=".$doc->param("googid"). "&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
+							"&googid=".$doc->param("googid"). "&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
 							"'>x</a></td><!-- lolololozutzutyyyyyyyy -->\"\n+\"";
 						} # End if ( ($my_prev != 1) && (($line[0] % (MAX_IMAGES_PER_PAGE+1)) != 0) )
 						$my_prev = $line[0];
@@ -4906,8 +4906,8 @@ sub main_menu { # begin main_menu
 		. "http://dorey.sebastien.free.fr"
 		. "\");'>My website</a>\n</dt>\n";
 	#print "<dt>Other albums</dt>\n";
-	print "<dt><a href=\"g".GOOGLE_MAP_SCRIPT_VERSION."ogle.cgi" . 
-	#	"?googid=".$doc->param("googid")."&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
+	print "<dt><a href=\"transit.cgi" . 
+		"?googid=".$doc->param("googid")."&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
 	"\">Visitor map</a></dt>\n";
 	print "<dt onclick=\"javascript:show('smenu2');\" onmouseout=\"javascript:show();\">Help</dt>";
 	print "\n<dd id=\"smenu2\"><!-- begin dd smenu2 -->\n";
