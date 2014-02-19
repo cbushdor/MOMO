@@ -39,6 +39,11 @@ open(W,">wfc_data.$$.xml") or die("error $!");
 print W $wfc;
 close(W) or die("error $!");
 my $data = $xml->XMLin("wfc_data.$$.xml");
+my $choice=$doc->param("choice");
+
+if($choice!~m/[0-9]{1,9}/){
+	$choice=0;
+}
 
 my $id=();
 my @rr=();
@@ -59,8 +64,15 @@ print "Content-type: text/html\n\n";
 #print "</pre>";
 
 &sortAndStore("history","album");
-my %l=&getsLoLa("album/history"); # Load file
-my $path=&getsPath("album/history","Canada"); # Load file
+my %l=(); # list of logitude latitude
+my $path=();
+
+#print "---------------->$choice<br>";
+if($choice==1){
+	%l=&getsLoLa("album/history"); # Load file
+}elsif($choice==2){
+	$path=&getsPath("album/history","Canada"); # Load file
+}
 #my $path=&getsPath("album/history","New Zealand"); # Load file
 
 #chomp($id) ;
