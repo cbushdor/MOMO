@@ -1360,9 +1360,12 @@ sub googHead{ # begin sub googHead
 	if($gmv == 3){
 		$r=<<R;
 		<script type="text/javascript"
-		      src="https://maps.googleapis.com/maps/api/js?key=${idgoog}&sensor=false">
+			src="https://maps.googleapis.com/maps/api/js?sensor=true">
 		</script>
 R
+#		<script type="text/javascript"
+#		      src="https://maps.googleapis.com/maps/api/js?key=${idgoog}&sensor=false">
+#		</script>
 	} else {
 		$r=<<R;
 			<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=${idgoog}" type="text/javascript"></script>
