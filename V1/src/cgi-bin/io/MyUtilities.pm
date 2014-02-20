@@ -17,7 +17,7 @@ use IO::Socket;
 
 # use strict;
 
-my $VERSION    = '1.1.25.13';
+my $VERSION    = '1.1.25.21';
 $VERSION    = eval $VERSION;
 my @ISA    = qw( Exporter );
 my @EXPORT = qw(
@@ -42,7 +42,7 @@ use constant ROOT_DEPOSIT  => '../'; # To store information
 
 io::MyUtilities.pm
 
-$VERSION    = '1.1.25.13'
+$VERSION    = '1.1.25.21'
 
 =head1 ABSTRACT
 
@@ -79,6 +79,8 @@ In used.
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification: v1.1.25.21> 20140206 see footer
 
 - I<Last modification: v1.1.25.13> 20140206 see googHead
 
@@ -384,6 +386,8 @@ None.
 =head2 HISTORY OF CREATION/MODIFICATION 
 
 =over 4
+
+- I<Last modification:> Feb 20 2014. field html validator removed.
 
 - I<Last modification:> Jun 21 2011. bug add two last args about url
 
