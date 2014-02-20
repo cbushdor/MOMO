@@ -76,7 +76,6 @@ if ($ipAddr=~m/127.0.0.1/){
 	my $pong = Net::Ping->new( $> ? "tcp" : "icmp" );
 	if ($pong->ping("kingkong.com")) {
 	} else {
-		print "Content-Type: text/html\n\n";
 		print "No connection!\n";
 		exit(-1);
 	}
