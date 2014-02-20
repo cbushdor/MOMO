@@ -13,6 +13,7 @@ BEGIN {
 use LWP::Simple;
 use XML::Simple;
 use Data::Dumper;
+use Net::Ping;
 
 use io::MyNav;
 use io::MySec;
@@ -24,7 +25,7 @@ use CGI;
 
 g3ogle.cgi
 
-$VERSION=0.2.1.14
+$VERSION=0.2.1.20
 
 =head1 ABSTRACT
 
@@ -51,6 +52,8 @@ is_hash
 
 =over 4
 
+- I<Last modification:v0.2.1.20> Feb 20 2014: test with ping added for local debug
+
 - I<Last modification:v0.2.1.4> Feb 11 2014: see mapGoogle
 
 - I<Last modification:v0.2.1.3> Feb 10 2014: see getsLoLa(...), getsPath(...)
@@ -59,15 +62,26 @@ is_hash
 
 =cut
 
+
 my $doc=new CGI;
 
-my ($gmv,$prt)=split(/\-/,$doc->param("gmv")); # Gets google map version
+my ($gmv,$prt)=(3,0);#split(/\-/,$doc->param("gmv")); # Gets google map version
 
 #$prt= (! defined($prt)) ? "0";
 
 print "Content-Type: text/html\n\n";
 
 my $ipAddr=io::MyNav::gets_ip_address;
+if ($ipAddr=~m/127.0.0.1/){
+	my $pong = Net::Ping->new( $> ? "tcp" : "icmp" );
+	if ($pong->ping("kingkong.com")) {
+	} else {
+		print "Content-Type: text/html\n\n";
+		print "No connection!\n";
+		exit(-1);
+	}
+}
+
 my $fn=$0; # file name
 $fn=~m/([0-9a-zA-Z\-\.]*)$/;
 $fn=$1;
@@ -429,23 +443,23 @@ sub getsPath{ # begin getsPath
 	my @qq=sort(@zz);
 	my $markersTrip=();
 
-	$markersTrip="var iconBase = '../images/icons/';\n";
 	foreach(@qq){ # begin foreach(@qq)
 		my($ed,$ea)=split(/\@/,$_);
 		chomp($_);
 		chomp($ea);
 		$ea=~s/,$//;
-		#$llL.="\t\t\t\t\t$ea,\n";
 		$markersTrip.=<<TRIP_MARKERS;
-		//marker=createMarker($ea,"text");
+
+		// --------------------------------
 				var marker = new google.maps.Marker({
 						position: $ea,
 						map: map,
 						icon: 'https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|H|FFFF42'
 					});
-		marker.setMap(map);
+				marker.setMap(map);
+		// --------------------------------
 TRIP_MARKERS
-		if(length($prev)!=0){
+		if(length($prev)!=0){ # Begin if(length($prev)!=0)
 			$newArrows.=<<ARROWS;
 			var lineSymbol = {
 				path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
@@ -465,30 +479,17 @@ TRIP_MARKERS
 				map: map
 			});
 ARROWS
-		}
+		} # End if(length($prev)!=0)
 		$prev="$ea";
 	} # end foreach(@qq)
-	#$llL=~s/,\n$//;
-	#$llL.="  ];\n"; 
 	$llL.=<<POLY;
+				// Begin polylines codes
+
 				$markersTrip
 
-				/*
-				var flightPath = new google.maps.Polyline({
-					path: polyline,
-					geodesic: true,
-					strokeColor: '#FF0000',
-					strokeOpacity: 1.0,
-					strokeWeight: 2
-					});
-
-				flightPath.setMap(map);
-				*/
 				// End polylines codes
 
 					$newArrows
-				/*
-				*/
 POLY
 	return $llL; # Returns list
 } # end getsPath
@@ -747,23 +748,13 @@ R
 
 			var icons = {
 				hotel: {
-					name: 'Place to spend the night',
+					name: 'Hostels',
 					icon: "https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|H|FFFF42"
 				},
 				wyrrn: {
-					name: 'Where you are right now',
+					name: 'you are here',
 					icon: "https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|W|EA1212"
 				}
-/*
-				library: {
-					name: 'Library',
-					icon: iconBase + 'library_maps.png'
-				},
-				info: {
-					name: 'Info',
-					icon: iconBase + 'info-i_maps.png'
-				}
-*/
 			};
 
 
