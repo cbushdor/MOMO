@@ -68,7 +68,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.20'; # Album release
+use constant ALBUM_REL               	=> '15.25'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -116,7 +116,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.20
+$VERSION=1.6.15.25
 
 =head1 ABSTRACT
 
@@ -194,6 +194,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.15.25> Feb 20 2014 io::MyUtilities::footer information modified.
 
 - I<Last modification:v1.6.15.14> Feb 18 2014 Removed parameters. Caused problems with google map.
 
