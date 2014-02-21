@@ -87,7 +87,7 @@ use constant ALLOWED_FILE_FORMAT_TYPE 	=> "jpeg|jpg|gif|png|mp4|3gp|mpeg|mov|dat
 use constant ALLOWED_SOCIAL_NETWORK 	=> "http\:\/\/www.youtube.com";
 use constant GOOGLE_MAP_SCRIPT_VERSION	=> "3";
 use constant PATH_GOOGLE_MAP_ID 	=> "private/id.googlemap.v". GOOGLE_MAP_SCRIPT_VERSION;
-use constant PATH_GOOGLE_MAP_TRIP 	=> "private/trip.googlemap";
+use constant PATH_GOOGLE_MAP_TRIP 	=> "album/trips/";
 use constant PATH_GOOGLE_MAP_OPT 	=> "-0";
 
 my $vnl=100; # calculate version number length (number of characters in string)
@@ -440,6 +440,7 @@ use constant NOK => !(OK);
 
 # create temporary file
 if( ! -d "tmp"){mkdir("tmp");}
+if( ! -d PATH_GOOGLE_MAP_TRIP ){mkdir(PATH_GOOGLE_MAP_TRIP);}
 
 # Add cols till MAX_COL_NUMBER in DB
 use constant MAX_COL_NUMBER => 10 ;
@@ -5838,6 +5839,20 @@ None.
 
 sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 # --------------google id
+	
+	chdir(PATH_GOOGLE_MAP_TRIP);
+	opendir(ARD,".") || die(". $!");# open current directory
+	my @dr= grep { $_ =~ m/\-trips$/ } readdir(ARD);# parse current directory
+	closedir(ARD) || die(". $!");# close directory
+	chdir("../..");
+	my $lot="var lot= new Array("; # List of trips
+	my $lotList="<select name='operationok' onChange='listToDelete()'>"; # List of trips
+	foreach my $i (@dr){ # begin foreach my $i (@dr)
+		$lot.="\"$i\",";
+		$lotList.="<option>$i</option>";
+	} # end foreach my $i (@dr)
+	$lot=~s/,$/\)\;/; # They array is built of trips
+	$lotList.="</select>";
 	print <<MENU;
 <fieldset>
 <legend>Google</legend>
@@ -5846,15 +5861,93 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 <input type='hidden' name='login' value='$lok' />
 <input type='hidden' name='recPid' value='ok' />
 <input type='hidden' name='service' value='check' />
-Google ID or trip name(no=Google ID by default):<input type='text' name='googid' />
+Google ID:<input type='text' name='googid' />
 <input type='hidden' name='ssection' value='adminGoogleID' />
-<input type="radio" name="TRIP_ID" value="ok">ok
-<input type="radio" name="TRIP_ID" value="no" checked>no<br>
-<!--input type='hidden' name='ssecgoo' value='adminGroup'-->
-<br>Begining of the trip<input type="datetime-local" name="bdaytime">
-<br>End on the trip<input type="datetime-local" name="edaytime">
+<input type="hidden" name="TRIP_ID" value="no">
+<br><input type='submit' value='Autorisation google ID map/ Authorized google ID map' />
+</form>
+</fieldset>	
+<script>
+	function listToDelete(){ // Begin function listToDelete()
+		if(trip.length == 0){ // Begin if(trip.length == 0)
+		//	document.getElementById('err').innerHTML = "No trip name specified "+ trip +"-trip";
+		} // End if(trip.length == 0)
+		else { // Begin else
+		//	if( lot.indexOf(trip+ "-trips",0)>=0){ // Begin if( lot.indexOf(trip+ "-trips",0)>=0)
+		//		document.getElementById('err').innerHTML = "Choose another trip name." + trip + " already exists.";
+		//	} // End if( lot.indexOf(trip+ "-trips",0)>=0)
+		//	else{ // Begin else
+		//	} // End else
+		} // End else
+	} // End function listToDelete()
 
-<br><input type='submit' value='Autorisation google ID map/ Authorize google ID map' />
+	function myList(){ // Begin function myList()
+		var idx = document.myform.operation.selectedIndex;
+		var choice = document.myform.operation.options[idx].innerHTML;
+
+
+		if(choice.match("Delete")){ // Begin if(choice.match("Delete")) 
+			document.getElementById('tripList').innerHTML = "Trip list: $lotList" ;
+		} // End if(choice.match("Delete")) 
+		else if(choice.match("Add")){ // Begin else if(choice.match("Add")) 
+			document.getElementById('tripList').innerHTML = 
+									"<input type='hidden' name='prev_pid' value='$$' />"+
+									"<input type='hidden' name='login' value='$lok' />"+
+									"<input type='hidden' name='recPid' value='ok' />"+
+									"<input type='hidden' name='service' value='check' />"+
+									"Trip name:<input type='text' name='googid' /> "+
+									"<input type='hidden' name='ssection' value='adminGoogleID' />"+
+									"<input type='hidden' name='TRIP_ID' value='ok'>"+
+									"<br>Begining of the trip<input type='datetime-local' name='bdaytime'>"+
+									"End on the trip<input type='datetime-local' name='edaytime'>"+
+									"<input type='button' onclick='calc()' value='Checks dates'>"+
+									'<div id="err"></div>';
+		} // End else if(choice.match("Add")) 
+		else{ // Begin else
+			document.getElementById('tripList').innerHTML = "";
+		} // End else
+	} // End function myList()
+
+	function calc(){ // Begin function calc()
+		$lot
+		var d1;
+		var d2;
+		var trip = document.myform.googid.value;
+		var num1 = document.myform.bdaytime.value;
+		var num2 = document.myform.edaytime.value;
+
+		if(trip.length == 0){ // Begin if(trip.length == 0)
+			document.getElementById('err').innerHTML = "No trip name specified "+ trip +"-trip";
+		} // End if(trip.length == 0)
+		else { // Begin else
+			if( lot.indexOf(trip+ "-trips",0)>=0){ // Begin if( lot.indexOf(trip+ "-trips",0)>=0)
+				document.getElementById('err').innerHTML = "Choose another trip name." + trip + " already exists.";
+			} // End if( lot.indexOf(trip+ "-trips",0)>=0)
+			else{ // Begin else
+				d1=new Date(num1);
+				d2=new Date(num2);
+				if ((d1 - d2) < 0){ // Begin if ((d1 - d2) < 0)
+					document.getElementById('err').innerHTML = "<input type='submit'>";
+				} // End if ((d1 - d2) < 0)
+				else{ // Begin else
+					document.getElementById('err').innerHTML = "d1 > d2";
+				} // End else
+			} // End else
+		} // End else
+	} // End function calc()
+</script>
+<fieldset>
+<form name="myform" method='post' enctype='multipart/form-data'>
+<legend>Trip information</legend>
+	Operation <select name="operation" onChange="myList()">
+								<option default>--</option>
+								<option>Add</option>
+								<option>Delete</option>
+								</select> 
+	<div id="tripList"></div>
+<!--
+<form action='${main_prog}?service=auth&amp;upld=ok' method='post' enctype='multipart/form-data'>
+-->
 </form>
 </fieldset>	
 <style tyle="text/css">
@@ -6196,7 +6289,8 @@ sub set_history{ # begin set_history
 	my $mgidt=$doc->param("googid"); #my google id  trip
 	chomp($mgidt);
 	#print "eeeeeeeeeee>".PATH_GOOGLE_MAP_TRIP."-".TRIP_NAME . "\n";
-	open(R,PATH_GOOGLE_MAP_TRIP."-".TRIP_NAME);
+
+	open(R,PATH_GOOGLE_MAP_TRIP."/".$mgidt."-".TRIP_NAME) |die "Can't open ".PATH_GOOGLE_MAP_TRIP."/".$mgidt."-".TRIP_NAME." $!";
 	my @lf=<R>;# local file
 	close(R);
 	#print "Content-Type: text/html\n\n";
@@ -6857,15 +6951,42 @@ sub setGoogleID{# begin setGoogleID
 	my ($fname,$googleid)=@_;# $fname: file name where to save google id map;$goohleid: that's the google id
 	chomp($fname);chomp($googleid);
 	#print "($fname,$googleid)<br />";	
-	if($param_trip=~m/^ok$/){
-		open(W,">>".PATH_GOOGLE_MAP_TRIP."-".TRIP_NAME);
-		print W "$googleid\n";
-		close(W);
-	}else{
+	#print "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu>$param_trip<br>";
+	if($param_trip=~m/^ok$/){ # Begin if($param_trip=~m/^ok$/)
+		my $tn=PATH_GOOGLE_MAP_TRIP.$googleid ."-".TRIP_NAME; # Trip name
+
+		if(length($googleid)!=0){
+			if( ! -f "$tn" ){ # Begin if( ! -f "$tn" )
+				my $bdaytime=$doc->param("bdaytime");
+				my $edaytime=$doc->param("edaytime");
+				if(length($bdaytime)!=0){ 
+					if(length($edaytime)!=0){ 
+						open(W,">$tn");
+						print W $doc->param("bdaytime") . "-" . $doc->param("bdaytime");
+						close(W);
+					}else{
+						print "<br><br><BR><i>ERRROR<br>";
+						print "Must set dates<br>";
+					}
+				}else{
+					print "<br><BR><br><i>ERRROR<br>";
+					print "Must set dates<br>";
+				}
+			} # End if( ! -f "$tn" )
+			else { # Begin else
+				print "<br><BR><br><i>ERRROR<br>";
+				print "Trip $googleid already exist. Cannot create it...<br>";
+			} # End else
+		}else{
+			print "<br><BR><br><i>ERRROR<br>";
+			print "Must set a trip name<br>";
+		}
+	} # End if($param_trip=~m/^ok$/)
+	else{ # Begin else
 		open(W,">$fname");
 		print W "$googleid";
 		close(W);
-	}
+	} # End else
 }# end setGoogleID
 
 =head1 AUTHOR
