@@ -68,7 +68,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.25'; # Album release
+use constant ALBUM_REL               	=> '15.30'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -116,7 +116,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.25
+$VERSION=1.6.15.30
 
 =head1 ABSTRACT
 
@@ -194,6 +194,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.15.30> Feb 21 2014 see menu_admin_GoogleMap_ID
 
 - I<Last modification:v1.6.15.25> Feb 20 2014 io::MyUtilities::footer information modified.
 
@@ -338,7 +340,7 @@ Extra tests were done to remove trailing path with separator / or \.
 Creation of the log book.
 This page is the log book.
 
-- I<Last modification: v1.4.15.15> Sep 24 2010: function getVers() added to package::MyUtilities
+- I<Last modification: v1.4.15.30> Sep 24 2010: function getVers() added to package::MyUtilities
 
 - I<Last modification: v1.4.15.1> Jun 15 2010: see package::MySec::myGetsUrl()
 
@@ -5825,6 +5827,8 @@ None.
 
 =over 4
 
+- I<Last modification:> Feb 21 2014: menu trip added
+
 - I<Last modification:> Aug 21 2011: menu youtube added
 
 - I<Last modification:> Apr 11 2011: menu googlemap added
@@ -5849,6 +5853,7 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 	my $lotList="<select name='operationok' onChange='listToDelete()'>"; # List of trips
 	foreach my $i (@dr){ # begin foreach my $i (@dr)
 		$lot.="\"$i\",";
+		$i=~s/-trips$//;
 		$lotList.="<option>$i</option>";
 	} # end foreach my $i (@dr)
 	$lot=~s/,$/\)\;/; # They array is built of trips
@@ -5887,7 +5892,14 @@ Google ID:<input type='text' name='googid' />
 
 
 		if(choice.match("Delete")){ // Begin if(choice.match("Delete")) 
-			document.getElementById('tripList').innerHTML = "Trip list: $lotList" ;
+			document.getElementById('tripList').innerHTML = "Trip list: $lotList" +
+									"<input type='hidden' name='prev_pid' value='$$' />"+
+									"<input type='hidden' name='login' value='$lok' />"+
+									"<input type='hidden' name='recPid' value='ok' />"+
+									"<input type='hidden' name='service' value='check' />"+
+									"<input type='hidden' name='ssection' value='adminGoogleID' />"+
+									"<input type='hidden' name='TRIP_ID' value='ok'>"+
+									"<input type='submit'>";
 		} // End if(choice.match("Delete")) 
 		else if(choice.match("Add")){ // Begin else if(choice.match("Add")) 
 			document.getElementById('tripList').innerHTML = 
@@ -5903,6 +5915,9 @@ Google ID:<input type='text' name='googid' />
 									"<input type='button' onclick='calc()' value='Checks dates'>"+
 									'<div id="err"></div>';
 		} // End else if(choice.match("Add")) 
+		else if(choice.match("List")){ // Begin else if(choice.match("List")) 
+			document.getElementById('tripList').innerHTML = "";
+		} // End if(choice.match("List")) 
 		else{ // Begin else
 			document.getElementById('tripList').innerHTML = "";
 		} // End else
@@ -5917,7 +5932,7 @@ Google ID:<input type='text' name='googid' />
 		var num2 = document.myform.edaytime.value;
 
 		if(trip.length == 0){ // Begin if(trip.length == 0)
-			document.getElementById('err').innerHTML = "No trip name specified "+ trip +"-trip";
+			document.getElementById('err').innerHTML = "No trip name specified.";
 		} // End if(trip.length == 0)
 		else { // Begin else
 			if( lot.indexOf(trip+ "-trips",0)>=0){ // Begin if( lot.indexOf(trip+ "-trips",0)>=0)
@@ -5937,17 +5952,14 @@ Google ID:<input type='text' name='googid' />
 	} // End function calc()
 </script>
 <fieldset>
-<form name="myform" method='post' enctype='multipart/form-data'>
 <legend>Trip information</legend>
+<form name="myform" method='post' enctype='multipart/form-data'>
 	Operation <select name="operation" onChange="myList()">
 								<option default>--</option>
 								<option>Add</option>
 								<option>Delete</option>
 								</select> 
 	<div id="tripList"></div>
-<!--
-<form action='${main_prog}?service=auth&amp;upld=ok' method='post' enctype='multipart/form-data'>
--->
 </form>
 </fieldset>	
 <style tyle="text/css">
@@ -6949,38 +6961,40 @@ None.
 
 sub setGoogleID{# begin setGoogleID
 	my ($fname,$googleid)=@_;# $fname: file name where to save google id map;$goohleid: that's the google id
+
 	chomp($fname);chomp($googleid);
-	#print "($fname,$googleid)<br />";	
-	#print "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu>$param_trip<br>";
 	if($param_trip=~m/^ok$/){ # Begin if($param_trip=~m/^ok$/)
 		my $tn=PATH_GOOGLE_MAP_TRIP.$googleid ."-".TRIP_NAME; # Trip name
 
-		if(length($googleid)!=0){
+		if(length($googleid)!=0){ # Begin if(length($googleid)!=0)
 			if( ! -f "$tn" ){ # Begin if( ! -f "$tn" )
 				my $bdaytime=$doc->param("bdaytime");
 				my $edaytime=$doc->param("edaytime");
-				if(length($bdaytime)!=0){ 
-					if(length($edaytime)!=0){ 
+				if(length($bdaytime)!=0){ # Begin if(length($bdaytime)!=0)
+					if(length($edaytime)!=0){ # Begin if(length($edaytime)!=0)
 						open(W,">$tn");
 						print W $doc->param("bdaytime") . "-" . $doc->param("bdaytime");
 						close(W);
-					}else{
+					} # End if(length($edaytime)!=0)
+					else{ # Begin else
 						print "<br><br><BR><i>ERRROR<br>";
 						print "Must set dates<br>";
-					}
-				}else{
+					} # End else
+				} # End if(length($bdaytime)!=0)
+				else{ # Begin else
 					print "<br><BR><br><i>ERRROR<br>";
 					print "Must set dates<br>";
-				}
+				} # End else
 			} # End if( ! -f "$tn" )
 			else { # Begin else
 				print "<br><BR><br><i>ERRROR<br>";
 				print "Trip $googleid already exist. Cannot create it...<br>";
 			} # End else
-		}else{
+		} # End if(length($googleid)!=0)
+		else{ # Begin else
 			print "<br><BR><br><i>ERRROR<br>";
 			print "Must set a trip name<br>";
-		}
+		} # End else
 	} # End if($param_trip=~m/^ok$/)
 	else{ # Begin else
 		open(W,">$fname");
