@@ -68,7 +68,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.30'; # Album release
+use constant ALBUM_REL               	=> '15.40'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -116,7 +116,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.30
+$VERSION=1.6.15.40
 
 =head1 ABSTRACT
 
@@ -194,6 +194,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.15.40> Feb 23 2014 see menu_admin_GoogleMap_ID
 
 - I<Last modification:v1.6.15.30> Feb 21 2014 see menu_admin_GoogleMap_ID
 
@@ -5826,6 +5828,8 @@ None.
 =over 4
 
 =over 4
+
+- I<Last modification:> Feb 23 2014: Infobox alert in deletion trip information added
 
 - I<Last modification:> Feb 21 2014: menu trip added
 
