@@ -5874,22 +5874,18 @@ Google ID:<input type='text' name='googid' />
 </fieldset>	
 <script>
 	function listToDelete(){ // Begin function listToDelete()
-		if(trip.length == 0){ // Begin if(trip.length == 0)
-		//	document.getElementById('err').innerHTML = "No trip name specified "+ trip +"-trip";
-		} // End if(trip.length == 0)
-		else { // Begin else
-		//	if( lot.indexOf(trip+ "-trips",0)>=0){ // Begin if( lot.indexOf(trip+ "-trips",0)>=0)
-		//		document.getElementById('err').innerHTML = "Choose another trip name." + trip + " already exists.";
-		//	} // End if( lot.indexOf(trip+ "-trips",0)>=0)
-		//	else{ // Begin else
-		//	} // End else
-		} // End else
+		var r=confirm("Press ok button to delete otherwise cancel button."); 
+		
+		if (r==true) { 
+			document.myform.submit(); 
+		} else { 
+			x="You pressed Cancel!"; 
+		}
 	} // End function listToDelete()
 
 	function myList(){ // Begin function myList()
 		var idx = document.myform.operation.selectedIndex;
 		var choice = document.myform.operation.options[idx].innerHTML;
-
 
 		if(choice.match("Delete")){ // Begin if(choice.match("Delete")) 
 			document.getElementById('tripList').innerHTML = "Trip list: $lotList" +
@@ -5899,7 +5895,7 @@ Google ID:<input type='text' name='googid' />
 									"<input type='hidden' name='service' value='check' />"+
 									"<input type='hidden' name='ssection' value='adminGoogleID' />"+
 									"<input type='hidden' name='TRIP_ID' value='ok'>"+
-									"<input type='submit'>";
+									"<input type='button' value='confirm' onClick='listToDelete()' >";
 		} // End if(choice.match("Delete")) 
 		else if(choice.match("Add")){ // Begin else if(choice.match("Add")) 
 			document.getElementById('tripList').innerHTML = 
@@ -5910,8 +5906,8 @@ Google ID:<input type='text' name='googid' />
 									"Trip name:<input type='text' name='googid' /> "+
 									"<input type='hidden' name='ssection' value='adminGoogleID' />"+
 									"<input type='hidden' name='TRIP_ID' value='ok'>"+
-									"<br>Begining of the trip<input type='datetime-local' name='bdaytime'>"+
-									"End on the trip<input type='datetime-local' name='edaytime'>"+
+									"<br>Begining of the trip (2014-02-22T15:50)<input type='datetime-local' name='bdaytime'>"+
+									"End on the trip (2014-02-23T05:50)<input type='datetime-local' name='edaytime'>"+
 									"<input type='button' onclick='calc()' value='Checks dates'>"+
 									'<div id="err"></div>';
 		} // End else if(choice.match("Add")) 
