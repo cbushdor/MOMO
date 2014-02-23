@@ -5874,7 +5874,9 @@ Google ID:<input type='text' name='googid' />
 </fieldset>	
 <script>
 	function listToDelete(){ // Begin function listToDelete()
-		var r=confirm("Press ok button to delete otherwise cancel button."); 
+		var idx = document.myform.operationok.selectedIndex;
+		var choice = document.myform.operationok.options[idx].innerHTML;
+		var r=confirm("Press OK button to delete ["+choice+"] trip name.Press Cancel button to avoid ["+choice+"] deletion."); 
 		
 		if (r==true) { 
 			document.myform.submit(); 
