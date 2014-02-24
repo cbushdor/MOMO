@@ -6307,24 +6307,18 @@ sub set_history{ # begin set_history
 	my ($u,$d,$p,$f,$l)=@_; # url,date,page,file to store
 	my $mgidt=$doc->param("googid"); #my google id  trip
 	chomp($mgidt);
-	#print "eeeeeeeeeee>".PATH_GOOGLE_MAP_TRIP."-".TRIP_NAME . "\n";
+	my $tn=PATH_GOOGLE_MAP_TRIP.$googleid ."-".TRIP_NAME; # Trip name
 
-	open(R,PATH_GOOGLE_MAP_TRIP."/".$mgidt."-".TRIP_NAME) |die "Can't open ".PATH_GOOGLE_MAP_TRIP."/".$mgidt."-".TRIP_NAME." $!";
-	my @lf=<R>;# local file
-	close(R);
-	#print "Content-Type: text/html\n\n";
-	foreach (@lf){ # begin foreach (@lf)
-		chomp($_);
-		#print "-------->$_<<<<>>>>>>>$mgidt<<<<<br>\n";
-		if($_=~m/^$mgidt$/){ # begin if($_=~m/^$mgidt$/)
-			#print "------>found ok $f >$mgidt<<br>";
-			io::MyUtilities::setUrlFile("$u#$d#$p#$l#$mgidt","$f"); 
-			return;
-		} # end if($_=~m/^$mgidt$/)
-	} # end foreach (@lf)
-	#print "o------>not found ok $f >$mgidt<<br>";
-	io::MyUtilities::setUrlFile("$u#$d#$p#$l#-",$f); 
-	#system("`pwd`/tweet \"Sh4rkb41t\" \"lakpwr\"  \"[album] $d page:$p $inf\""); 
+
+	print "$tn<br>";
+
+	if(-f "$tn"){ # Begin if(-f "$tn")
+		io::MyUtilities::setUrlFile("$u#$d#$p#$l#$mgidt","$f"); 
+		return;
+	} # End if(-f "$tn")
+	else{ # Begin else
+		io::MyUtilities::setUrlFile("$u#$d#$p#$l#-",$f); 
+	} # End else
 } # End sub set_history
 
 =head1 sub accessAdminPicture(...)
