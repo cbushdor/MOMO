@@ -68,7 +68,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.40'; # Album release
+use constant ALBUM_REL               	=> '15.45'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -116,7 +116,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.40
+$VERSION=1.6.15.45
 
 =head1 ABSTRACT
 
@@ -194,6 +194,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.15.45> Feb 24 2014 see menu_admin_GoogleMap_ID
 
 - I<Last modification:v1.6.15.40> Feb 23 2014 see menu_admin_GoogleMap_ID
 
@@ -5829,6 +5831,8 @@ None.
 
 =over 4
 
+- I<Last modification:> Feb 24 2014: Deletion of trip name complete. Traces in files that contains coordinates are not yet removed.
+
 - I<Last modification:> Feb 23 2014: Infobox alert in deletion trip information added
 
 - I<Last modification:> Feb 21 2014: menu trip added
@@ -5853,7 +5857,7 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 	my @dr= grep { $_ =~ m/\-trips$/ } readdir(ARD);# parse current directory
 	closedir(ARD) || die(". $!");# close directory
 	chdir("../..");
-	my $lot="var lot= new Array("; # List of trips
+	my $lot="var lot= new Array('--',"; # List of trips
 	my $lotList="<select name='operationokdelete' onChange='listToDelete()'>"; # List of trips
 	foreach my $i (@dr){ # begin foreach my $i (@dr)
 		$lot.="\"$i\",";
