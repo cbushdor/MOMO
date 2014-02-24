@@ -5854,7 +5854,7 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 	closedir(ARD) || die(". $!");# close directory
 	chdir("../..");
 	my $lot="var lot= new Array("; # List of trips
-	my $lotList="<select name='operationok' onChange='listToDelete()'>"; # List of trips
+	my $lotList="<select name='operationokdelete' onChange='listToDelete()'>"; # List of trips
 	foreach my $i (@dr){ # begin foreach my $i (@dr)
 		$lot.="\"$i\",";
 		$i=~s/-trips$//;
@@ -5878,8 +5878,8 @@ Google ID:<input type='text' name='googid' />
 </fieldset>	
 <script>
 	function listToDelete(){ // Begin function listToDelete()
-		var idx = document.myform.operationok.selectedIndex;
-		var choice = document.myform.operationok.options[idx].innerHTML;
+		var idx = document.myform.operationokdelete.selectedIndex;
+		var choice = document.myform.operationokdelete.options[idx].innerHTML;
 		var r=confirm("Press OK button to delete ["+choice+"] trip name.Press Cancel button to avoid ["+choice+"] deletion."); 
 		
 		if (r==true) { 
@@ -5901,6 +5901,7 @@ Google ID:<input type='text' name='googid' />
 									"<input type='hidden' name='service' value='check' />"+
 									"<input type='hidden' name='ssection' value='adminGoogleID' />"+
 									"<input type='hidden' name='TRIP_ID' value='ok'>"+
+									"<input type='hidden' name='TRIP_ID_DELETE' value='ok'>"+
 									"<input type='button' value='confirm' onClick='listToDelete()' >";
 		} // End if(choice.match("Delete")) 
 		else if(choice.match("Add")){ // Begin else if(choice.match("Add")) 
@@ -6963,6 +6964,25 @@ None.
 
 sub setGoogleID{# begin setGoogleID
 	my ($fname,$googleid)=@_;# $fname: file name where to save google id map;$goohleid: that's the google id
+	my $method = $ENV{'REQUEST_METHOD'} ;
+	chomp($method);
+
+	#print "file to delete -$method- +$param_trip_delete----  " . $doc->param("operationokdelete") . "<br>";
+	if($method eq "POST"){
+		my $param_trip_delete=$doc->param("TRIP_ID_DELETE");
+		chomp($param_trip_delete);
+		if($param_trip_delete=~m/^ok$/){ # Begin if($param_trip_delete=~m/^ok$/)
+			chdir(PATH_GOOGLE_MAP_TRIP);
+			#print "file to delete " . PATH_GOOGLE_MAP_TRIP . "/" . $doc->param("operationokdelete") . "-trips <br>";
+			unlink($doc->param("operationokdelete") . "-trips");
+			if( ! -f $doc->param("operationokdelete") . "-trips"){
+				print "<br><br><br><br>Trip " . $doc->param("operationokdelete") . " removed<br>";
+			}
+
+			chdir("../..");
+		
+		}
+	}
 
 	chomp($fname);chomp($googleid);
 	if($param_trip=~m/^ok$/){ # Begin if($param_trip=~m/^ok$/)
@@ -6979,23 +6999,23 @@ sub setGoogleID{# begin setGoogleID
 						close(W);
 					} # End if(length($edaytime)!=0)
 					else{ # Begin else
-						print "<br><br><BR><i>ERRROR<br>";
-						print "Must set dates<br>";
+						#print "<br><br><BR><i>ERRROR<br>";
+						#print "Must set dates<br>";
 					} # End else
 				} # End if(length($bdaytime)!=0)
 				else{ # Begin else
-					print "<br><BR><br><i>ERRROR<br>";
-					print "Must set dates<br>";
+					#print "<br><BR><br><i>ERRROR<br>";
+					#print "Must set dates<br>";
 				} # End else
 			} # End if( ! -f "$tn" )
 			else { # Begin else
-				print "<br><BR><br><i>ERRROR<br>";
-				print "Trip $googleid already exist. Cannot create it...<br>";
+				#print "<br><BR><br><i>ERRROR<br>";
+				#print "Trip $googleid already exist. Cannot create it...<br>";
 			} # End else
 		} # End if(length($googleid)!=0)
 		else{ # Begin else
-			print "<br><BR><br><i>ERRROR<br>";
-			print "Must set a trip name<br>";
+			#print "<br><BR><br><i>ERRROR<br>";
+			#print "Must set a trip name<br>";
 		} # End else
 	} # End if($param_trip=~m/^ok$/)
 	else{ # Begin else
