@@ -5866,6 +5866,11 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 	} # end foreach my $i (@dr)
 	$lot=~s/,$/\)\;/; # They array is built of trips
 	$lotList.="</select>";
+	my $myuri="$ENV{SERVER_NAME}";
+	my $myport= ($ENV{SERVER_PORT}=~m/[0-9]+/) ? ":$ENV{SERVER_PORT}/" : "/";
+	my $myscript= $ENV{REQUEST_URI};
+	$myscript=~s/\?.*$//;
+	#$myuri=~s/\?.*$//;
 	print <<MENU;
 <fieldset>
 <legend>Google</legend>
@@ -5893,6 +5898,14 @@ Google ID:<input type='text' name='googid' />
 		}
 	} // End function listToDelete()
 
+	function listToList(){ // Begin function listToList()
+		var idx = document.myform.operationokdelete.selectedIndex;
+		var choice = document.myform.operationokdelete.options[idx].innerHTML;
+		var r=alert("$myuri$myport/$myscript?googid="+choice+"&gmv=3-0"); 
+		
+		document.myform.submit(); 
+	} // End function listToList()
+
 	function myList(){ // Begin function myList()
 		var idx = document.myform.operation.selectedIndex;
 		var choice = document.myform.operation.options[idx].innerHTML;
@@ -5908,6 +5921,16 @@ Google ID:<input type='text' name='googid' />
 									"<input type='hidden' name='TRIP_ID_DELETE' value='ok'>"+
 									"<input type='button' value='confirm' onClick='listToDelete()' >";
 		} // End if(choice.match("Delete")) 
+		else if(choice.match("List")){ // Begin if(choice.match("List")) 
+			document.getElementById('tripList').innerHTML = "Trip list: $lotList" +
+									"<input type='hidden' name='prev_pid' value='$$' />"+
+									"<input type='hidden' name='login' value='$lok' />"+
+									"<input type='hidden' name='recPid' value='ok' />"+
+									"<input type='hidden' name='service' value='check' />"+
+									"<input type='hidden' name='ssection' value='adminGoogleID' />"+
+									"<input type='hidden' name='TRIP_ID' value='ok'>"+
+									"<input type='button' value='confirm' onClick='listToList()' >";
+		} // End if(choice.match("List")) 
 		else if(choice.match("Add")){ // Begin else if(choice.match("Add")) 
 			document.getElementById('tripList').innerHTML = 
 									"<input type='hidden' name='prev_pid' value='$$' />"+
@@ -5952,7 +5975,7 @@ Google ID:<input type='text' name='googid' />
 					document.getElementById('err').innerHTML = "<input type='submit'>";
 				} // End if ((d1 - d2) < 0)
 				else{ // Begin else
-					document.getElementById('err').innerHTML = "d1 > d2";
+					document.getElementById('err').innerHTML = "d1 > d2 ..." + document.myform.bdaytime.value + " iiiiii "+document.myform.edaytime.value;
 				} // End else
 			} // End else
 		} // End else
@@ -5965,6 +5988,7 @@ Google ID:<input type='text' name='googid' />
 								<option default>--</option>
 								<option>Add</option>
 								<option>Delete</option>
+								<option>List</option>
 								</select> 
 	<div id="tripList"></div>
 </form>
