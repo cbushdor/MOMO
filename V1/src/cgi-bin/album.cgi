@@ -5901,7 +5901,9 @@ Google ID:<input type='text' name='googid' />
 	function listToList(){ // Begin function listToList()
 		var idx = document.myform.operationokdelete.selectedIndex;
 		var choice = document.myform.operationokdelete.options[idx].innerHTML;
-		var r=alert("$myuri$myport/$myscript?googid="+choice+"&gmv=3-0"); 
+		var myurl=new String("$myuri$myport/$myscript?googid="+choice+"&gmv=3-0");
+		var r=alert(myurl.replace(/[\/]{2,}/g,"/")); 
+		//var r=alert("$myuri$myport/$myscript?googid="+choice+"&gmv=3-0"); 
 		
 		document.myform.submit(); 
 	} // End function listToList()
