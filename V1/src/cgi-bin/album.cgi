@@ -5902,7 +5902,7 @@ Google ID:<input type='text' name='googid' />
 		var idx = document.myform.operationokdelete.selectedIndex;
 		var choice = document.myform.operationokdelete.options[idx].innerHTML;
 		var myurl=new String("$myuri$myport/$myscript?googid="+choice+"&gmv=3-0");
-		var r=alert(myurl.replace(/[\/]{2,}/g,"/")); 
+		var r=alert(myurl.replace(/[\/]{2,}/g,"/")); // Regexp used to eliminate bugs while printing URL   ....
 		
 		document.myform.submit(); 
 	} // End function listToList()
