@@ -6332,7 +6332,7 @@ sub set_history{ # begin set_history
 	my ($u,$d,$p,$f,$l)=@_; # url,date,page,file to store
 	my $mgidt=$doc->param("googid"); #my google id  trip
 	chomp($mgidt);
-	my $tn=PATH_GOOGLE_MAP_TRIP.$googleid ."-".TRIP_NAME; # Trip name
+	my $tn=PATH_GOOGLE_MAP_TRIP.$mgidt ."-".TRIP_NAME; # Trip name
 
 
 	print "$tn<br>";
@@ -6342,7 +6342,7 @@ sub set_history{ # begin set_history
 		return;
 	} # End if(-f "$tn")
 	else{ # Begin else
-		io::MyUtilities::setUrlFile("$u#$d#$p#$l#-",$f); 
+		io::MyUtilities::setUrlFile("$u#$d#$p#$l#- $tn",$f); 
 	} # End else
 } # End sub set_history
 
