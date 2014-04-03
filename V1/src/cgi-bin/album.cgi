@@ -6338,11 +6338,11 @@ sub set_history{ # begin set_history
 	print "$tn<br>";
 
 	if(-f "$tn"){ # Begin if(-f "$tn")
-		io::MyUtilities::setUrlFile("$u#$d#$p#$l#$mgidt","$f"); 
+		io::MyUtilities::setUrlFile("$u#$d#$p#$l#${mgidt}-" . TRIP_NAME,"$f"); 
 		return;
 	} # End if(-f "$tn")
 	else{ # Begin else
-		io::MyUtilities::setUrlFile("$u#$d#$p#$l#- $tn",$f); 
+		io::MyUtilities::setUrlFile("$u#$d#$p#$l#_-" . TRIP_NAME,"$f"); 
 	} # End else
 } # End sub set_history
 
