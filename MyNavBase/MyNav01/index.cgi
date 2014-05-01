@@ -1,5 +1,4 @@
-#!/usr/bin/perl 
-#-T
+#!/usr/bin/perl -T
 
 use strict;
 use warnings;
@@ -26,7 +25,7 @@ my $gcd = getcwd; # Gets current dir
 # ------------- Set direcories webhost and local --------------------------------
 my $HOME_ROOT = "/Users/sdo/Sites/";# alternative directory for local debug)
 my $MY_HOME_DIR = "/Users/sdo/Sites/cgi-bin";# alternative directory for local debug
-my $HOME_URL='http://localhost/~sdo';
+my $HOME_URL='http://127.0.0.1/~sdo';
 
 if("$HOME_ROOT" eq "$gcd"){
 	$HOME_ROOT = "/home1/derased/public_html";
@@ -51,8 +50,8 @@ my @lor = (
 my %freq = (minutes=>2*60);# Frequency of update when last submission date is not over
 my %lsa = (year => 2012, month => 8, day => 14);# Date of last submission authorized 
 my $lag = "+2";#GMT+2
-my $timer_directory_js = 10000;
-my $timer_directory_mobiles_js = 1000;
+my $timer_directory_js = 1000*3;
+my $timer_directory_mobiles_js = 1000*3; # that's 3 seconds sec*3 1 sec =1000 1 sec =1000ms
 # -------------------------------------------------------------------------------
 
 # -------------------------------------------------------------------------------
@@ -563,10 +562,12 @@ sub corps0{
 			chomp($out);
 			if("$out" ne ".."){#
 				if(-d "$out"){
+					$out=~s/\ +/\_$$\_\_MY\_SPACE\_$$\_\_/g;
 					unless ($out =~ m#^([\w.-]+)$#){# $1 is untainted
 						die("Variable '$out' has invalid characters $!.\n");
 					}
 					$out=$1;
+					$out=~s/\_$$\_\_MY\_SPACE\_$$\_\_/\ /g;
 					&putLink($out);# copy index.cgi to subdir 1 level
 				}
 			}
@@ -592,12 +593,12 @@ sub corps0{
 			#$spo++;# 
 		}
 		my $body0=$cgi->center($cgi->table({-summary => "Listings of file in current directory"},$cgi->Tr($cgi->td({-align => "left",-valign => "top"},$cgi->ul($corps)))) 
-			.  $cgi->img({-width => "50", -alt => "",-src =>$HOME_URL .  '/icons/logo.png'})
+			.  $cgi->img({-width => "50", -alt => "",-src =>$HOME_URL .  '/icons/-logo.png'})
 		);  # onion image added
 		print "$body0";
 		&myenc("$html",$spo);
 	}else{ # Case name provided
-		system("touch popo");
+		#system("touch popo");
 		if($finace =~ m/\.pod$/i){# we print readme.pod file
 			my $p = Pod::Simple::HTML->new;
 			$p->output_string(\$html); # We attach memory $html to $p object
@@ -620,9 +621,9 @@ sub corps0{
 # Option to print index
 sub corps2{
 	if($lenm>0){$finace = uri_unescape("$finace");
-		open(A,">rrrr.txt");
-		print A "$finace";
-		close(A);
+		#open(A,">rrrr.txt");
+		#print A "$finace";
+		#close(A);
 	}
 	#else{ print "ooooooooooooo>$lenm,$finace,$$<br>"; }
 	if(length($finace) == 0){
@@ -667,10 +668,12 @@ sub corps2{
 				POSIX::close($fd) or die("Error $!");# close it
 				if("$out" ne ".."){
 					if(-d "$out"){
+						$out=~s/\ +/\_$$\_\_MY\_SPACE\_$$\_\_/g;
 						unless ($out =~ m#^([\w.-]+)$#){# $1 is untainted
 							die("Variable '$out' has invalid characters $!.\n");
 						}
 						$out=$1;
+						$out=~s/\_$$\_\_MY\_SPACE\_$$\_\_/\ /g;
 						&putLink($out);# copy index.cgi to subdir 1 level
 					}
 				}
@@ -704,7 +707,7 @@ sub corps2{
 			}
 		}
 		$p2p .= $cgi->Tr( $cgi->td({-valign => "top",-align => "center",-colspan => "5"},$cgi->hr()
-					. $cgi->img({-width => "50", -alt => "",-src => $HOME_URL . '/icons/logo.png'})
+					. $cgi->img({-width => "50", -alt => "",-src => $HOME_URL . '/icons/-logo.png'})
 				));
 		if($finace =~ m/\.pod$/i){ # we print readme.pod file
 			my $p = Pod::Simple::HTML->new;
@@ -717,7 +720,7 @@ sub corps2{
 #		&myenc("$html",$spo);
 		#print $cgi->b("+++---------------oooooooooooo-----<br>");
 	}else{
-		system("/usr/bin/touch popo2.0.0");
+		#system("/usr/bin/touch popo2.0.0");
 		if($finace =~ m/\.pod$/i){# we print readme.pod file
 			my $p = Pod::Simple::HTML->new;
 			$p->output_string(\$html);
@@ -816,7 +819,7 @@ E
 sub manage_repo{
 	my $fd = ();
 	my $buf1 = ();
-	my $lim_da = DateTime->new(%lsa);# Calculate the date for last submission authorized
+	my $lim_da = DateTime->new(%lsa);# Calculates the date for last submission authorized
 	my $dt2 = DateTime->now();# Gets the current date
 	my $cal2 = DateTime->compare($lim_da,$dt2);# Calculates if date for submition is still authorized
 
@@ -849,7 +852,7 @@ R
 			if ($loc =~ /^(.*)$/) {
 				$loc=$1;
 			}else{
-				#die("Variable '$loc' has invalid characters $!.\n");
+				#die("oooooo> Variable '$loc' has invalid characters $!.\n");
 				return MY_ERROR;
 			}
 			foreach my $ore (@lor){
