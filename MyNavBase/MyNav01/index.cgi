@@ -50,8 +50,8 @@ my @lor = (
 my %freq = (minutes=>2*60);# Frequency of update when last submission date is not over
 my %lsa = (year => 2012, month => 8, day => 14);# Date of last submission authorized 
 my $lag = "+2";#GMT+2
-my $timer_directory_js = 1000*3;
-my $timer_directory_mobiles_js = 1000*3; # that's 3 seconds sec*3 1 sec =1000 1 sec =1000ms
+my $timer_directory_js = 1000*20;
+my $timer_directory_mobiles_js = 1000*20; # that's 3 seconds sec*3 1 sec =1000 1 sec =1000ms
 # -------------------------------------------------------------------------------
 
 # -------------------------------------------------------------------------------
@@ -442,7 +442,7 @@ S
 			}
 
 			if(mobile.detect()){
-				t=setTimeout('refreshCurDir()',$timer_directory_mobiles_js);
+				t=setTimeout('refreshCurDir()',$timer_directory_mobiles_js);// wowo
 				/*
 				if($timer_directory_mobiles_js==1000){
 					$timer_directory_mobiles_js*=2;
@@ -744,11 +744,20 @@ sub corps2{
 sub putLink{
 	my($dir) = @_;# directory to check
 
+	#print ">>>>>>>>>$dir<<<<<br>";
 	if( ! -f "$dir/$fnc"){# Checks if it is a file
-		copy("$MY_HOME_DIR/$fnc","$dir/$fnc");
+		#print "case 1 copy($MY_HOME_DIR     /     $fnc,              $dir/$fnc)<br>";
+		#copy("$MY_HOME_DIR/$fnc","$dir/$fnc") or die(getcwd() . " error $!");
+		copy("$fnc","$dir/$fnc") or die(getcwd() . " error $!");
 		chmod(0755,"$dir/$fnc");
+		#if( -f "$dir/$fnc"){# Checks if it is a file
+		#print "----------->ok exists<br>";
+		#else{
+		#print "----------->not ok exists<br>";
+		#}
 	}else{
 		my ($buf1,$buf2,$buf3) = ();# buffers for signatures
+		#print "case 2<br>";
 		my $fd = POSIX::open("$fnc",&POSIX::O_RDONLY) or die("Error $!");
 		@stat = POSIX::fstat($fd);# gets its content
 		my $res1 = POSIX::read($fd,$buf1,$stat[7]);
@@ -763,18 +772,26 @@ sub putLink{
 		POSIX::close($fd3) or die("Error $!");
 
 		if($stat[9]>$stat2[9]){
+			#print "case 2.1<br>";
 			if($buf2 =~ m/\r{0,1}\n# -------- MY CODE DO NOT REMOVE THIS LINE ------\r{0,1}\n/){
+				#print "case 2.2<br>";
 				if(-f "$dir/$fnc") {
+					#open(W,">err.txt");
+					#print W "case 2.2.1 unlink($dir/$fnc) <br>";
+					#close(W);
 					unlink("$dir/$fnc") or die("Error $dir/$fnc $!");
 				}
+				#print "case 2.3 copy($fnc,$dir/$fnc)<br>";
 				copy("$fnc","$dir/$fnc");
 				chmod(0755,"$dir/$fnc");
 				if("$gcd" ne "$MY_HOME_DIR"){
 					if($buf3 =~ m/\r{0,1}\n# -------- MY CODE DO NOT REMOVE THIS LINE ------\r{0,1}\n/){
 						if("$buf1" ne "$buf3"){
 							if(-f "$MY_HOME_DIR/$fnc"){
+								#print "case 2.4 unlink($MY_HOME_DIR/$fnc)<br>";
 								unlink("$MY_HOME_DIR/$fnc") or die("Error $dir/$fnc $!");
 							}
+							#print "case 2.5 copy($fnc,$MY_HOME_DIR/$fnc)<br>";
 							copy("$fnc","$MY_HOME_DIR/$fnc");
 							chmod(0755,"$MY_HOME_DIR/$fnc");
 						}
@@ -901,7 +918,7 @@ R
 				"ipod","android"
 			]
 		};
-		setTimeout(continueExecution,$timer_directory_js);
+		setTimeout(continueExecution,$timer_directory_js);// wow 1
 
 	function continueExecution(){
 		document.getElementById('github').innerHTML='';
@@ -1018,7 +1035,7 @@ R
 
 				print <<R;
 <script type="text/javascript">
-	setTimeout(continueExecution,$timer_directory_js);
+	setTimeout(continueExecution,$timer_directory_js); // wow 43
 	function continueExecution(){
 		document.getElementById('github').innerHTML='';
 	}
@@ -1095,7 +1112,7 @@ sub checkIfNotRunning{
 		print $cgi->div({-id => "github"},$cgi->div({-id => "info"},"Githubs is running"));
 		print <<R;
 <script type="text/javascript">
-	setTimeout(continueExecution,$timer_directory_js);
+	setTimeout(continueExecution,$timer_directory_js); // wow 5
 	function continueExecution(){
 		document.getElementById('github').innerHTML='';
 	}
@@ -1127,7 +1144,7 @@ sub cBVaiV{
 			)).
 			<<R;
 <script type="text/javascript">
-	setTimeout(continueExecution,$timer_directory_js);
+	setTimeout(continueExecution,$timer_directory_js);// wow 11
 	function continueExecution(){
 		document.getElementById('navinfo').innerHTML='';
 	}
