@@ -747,8 +747,11 @@ sub putLink{
 	#print ">>>>>>>>>$dir<<<<<br>";
 	if( ! -f "$dir/$fnc"){# Checks if it is a file
 		#print "case 1 copy($MY_HOME_DIR     /     $fnc,              $dir/$fnc)<br>";
-		#copy("$MY_HOME_DIR/$fnc","$dir/$fnc") or die(getcwd() . " error $!");
-		copy("$fnc","$dir/$fnc") or die(getcwd() . " error $!");
+		if(-f "$MY_HOME_DIR/$fnc") {
+			copy("$MY_HOME_DIR/$fnc","$dir/$fnc") or die(getcwd() . " error $!");
+		}else{
+			copy("$fnc","$dir/$fnc") or die(getcwd() . " error $!");
+		}
 		chmod(0755,"$dir/$fnc");
 		#if( -f "$dir/$fnc"){# Checks if it is a file
 		#print "----------->ok exists<br>";
