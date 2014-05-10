@@ -905,8 +905,8 @@ None.
 =cut
 
 sub setUrlFile{ # begin setUrlFile
-	my ($p,$f)=@_;#$p:line,$f:file where to store
-	my $locdep="album/hist";
+	my ($p,$f,$locdep)=@_;#$p:line,$f:file where to store;path
+	#my $locdep="album/hist";
 	my $d=();
 
 #	print "Content-type: txt/html\n\n";
