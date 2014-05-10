@@ -79,6 +79,7 @@ use constant MAX_IMAGES_PER_PAGE     	=> 5; # Maximum of images per page
 use constant LANGUAGES               	=> ( "French", "English" ); # Languages used
 use constant PRIVATE_INFO_DIRECTORY  	=> "private/"; # that's where private info are stored
 use constant ALBUM_INFO_DIRECTORY  	=> "album/"; # that's where album info are stored
+use constant ALBUM_INFO_HIST_DIRECTORY 	=> ALBUM_INFO_DIRECTORY . "hist/";
 use constant ALBUM_HISTORY_INFO_FILE  	=> "history"; # that's where album history info file is stored
 use constant MPWD 			=> "M!gn0n3 411ons si l4 R0s3"; # that's the master password to crypt session
 #use constant MAX_SIZE_PACKET 		=> $vnl; # maximum packet size
@@ -194,6 +195,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.15.48> May 10 2014 see set set_history
 
 - I<Last modification:v1.6.15.45> Feb 24 2014 see menu_admin_GoogleMap_ID
 
@@ -650,12 +653,12 @@ if( -f "album/debug_album_DO_NOT_REMOVE"){ # begin if( -f "album/debug_album_DO_
 } # end if( -f "album/debug_album_DO_NOT_REMOVE")
 use Net::Domain qw(hostname hostfqdn hostdomain);
          
-my @resa=split(/\n/,io::MySec::getsCoordinates(${ipAddr}));
+my @resa=split(/\n/,io::MySec::getsCoordinates(${ipAddr}));# from ip address gets geoloc coordinates
 print "<!-- 3.3 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 my $l=();
 foreach (@resa){
-	chomp($_);
-	$l.="#$_";
+	chomp($_); # must desapeared (non sense due to previous split
+	$l.="#$_"; # we create a line with fields separate with  ended with ,
 }
 @resa=split(/\#/,$l);
 my $co=(split(/\:/,$resa[2]))[1];
@@ -865,12 +868,12 @@ else { # Begin else
 	my @llll_res=split(/\n/,io::MySec::getsCoordinates(${ipAddr}));# from ip address gets geoloc coordinates
 	my $llll_v=0;
 	foreach (@llll_res){ # begin foreach (@llll_res)
-		chomp($_);
-		$llll_l.="#$_";
+		chomp($_);# must desapeared (non sense due to previous split
+		$llll_l.="#$_";# fill fields + concatenation with previous data
 	} # end foreach (@llll_res)
 	$llll_res[6]=~s/[^:]*://g;
 	$llll_res[7]=~s/[^:]*://g;
-	set_history(${ipAddr}, $oppp,$locpa ,"$ipAddr",$llll_l);
+	set_history(${ipAddr}, $oppp,$locpa ,"$ipAddr",$llll_l,ALBUM_INFO_HIST_DIRECTORY);
 	my $llll_inf="[$llll_res[6],$llll_res[7]]";
 	#system("`pwd`/tweet.sh \"Sh4rkb41t\" \"lakpwr\"  \"[album] $oppp page:$locpa $llll_inf\""); 
 	if("$authorized" eq "ok"){ # Begin if("$authorized" eq "ok")
@@ -6314,6 +6317,8 @@ None.
 
 =over 4
 
+- I<Last modification:> May 10 2014 add extra parameter (hdf history directory file; path to store data)
+
 - I<Last modification:> Jan 18 2014 put the trip name in history
 
 - I<Last modification:> Feb 02 2012 geoloc added
@@ -6329,7 +6334,7 @@ None.
 =cut
 
 sub set_history{ # begin set_history
-	my ($u,$d,$p,$f,$l)=@_; # url,date,page,file to store
+	my ($u,$d,$p,$f,$l,$hdf)=@_; # url,date,page,file to store;history directory file
 	my $mgidt=$doc->param("googid"); #my google id  trip
 	chomp($mgidt);
 	my $tn=PATH_GOOGLE_MAP_TRIP.$mgidt ."-".TRIP_NAME; # Trip name
@@ -6338,11 +6343,11 @@ sub set_history{ # begin set_history
 	print "$tn<br>";
 
 	if(-f "$tn"){ # Begin if(-f "$tn")
-		io::MyUtilities::setUrlFile("$u#$d#$p#$l#${mgidt}-" . TRIP_NAME,"$f"); 
+		io::MyUtilities::setUrlFile("$u#$d#$p#$l#${mgidt}-" . TRIP_NAME,"$f",$hdf); 
 		return;
 	} # End if(-f "$tn")
 	else{ # Begin else
-		io::MyUtilities::setUrlFile("$u#$d#$p#$l#_-" . TRIP_NAME,"$f"); 
+		io::MyUtilities::setUrlFile("$u#$d#$p#$l#_-" . TRIP_NAME,"$f",$hdf); 
 	} # End else
 } # End sub set_history
 
