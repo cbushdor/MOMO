@@ -593,7 +593,7 @@ sub corps0{
 			#$spo++;# 
 		}
 		my $body0=$cgi->center($cgi->table({-summary => "Listings of file in current directory"},$cgi->Tr($cgi->td({-align => "left",-valign => "top"},$cgi->ul($corps)))) 
-			.  $cgi->img({-width => "50", -alt => "",-src =>$HOME_URL .  '/icons/-logo.png'})
+			#.  $cgi->img({-width => "50", -alt => "",-src =>$HOME_URL .  '/icons/_logo.png'})
 		);  # onion image added
 		print "$body0";
 		&myenc("$html",$spo);
@@ -707,7 +707,7 @@ sub corps2{
 			}
 		}
 		$p2p .= $cgi->Tr( $cgi->td({-valign => "top",-align => "center",-colspan => "5"},$cgi->hr()
-					. $cgi->img({-width => "50", -alt => "",-src => $HOME_URL . '/icons/-logo.png'})
+					# . $cgi->img({-width => "50", -alt => "",-src => $HOME_URL . '/icons/_logo.png'})
 				));
 		if($finace =~ m/\.pod$/i){ # we print readme.pod file
 			my $p = Pod::Simple::HTML->new;
