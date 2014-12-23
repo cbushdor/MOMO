@@ -452,7 +452,7 @@ sub getsPath{ # begin getsPath
 	my @qq=sort(@zz);
 	my $markersTrip=();
 
-	print "size of the array ". scalar(@qq) . "<<<<<<<<<<<<<<<<br>";
+	#print "size of the array ". scalar(@qq) . "<<<<<<<<<<<<<<<<br>";
 	foreach(@qq){ # begin foreach(@qq)
 		my($ed,$ea)=split(/\@/,$_);
 		chomp($_);
