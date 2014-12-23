@@ -66,11 +66,15 @@ is_hash
 
 my $doc=new CGI;
 
-my ($gmv,$prt)=(3,0);#split(/\-/,$doc->param("gmv")); # Gets google map version
+my ($gmv,$prt)=split(/\-/,$doc->param("gmv")); # Gets google map version
+my ($googid)=$doc->param("googid"); # Gets google map version
+chomp($prt);chomp($googid);
 
 #$prt= (! defined($prt)) ? "0";
 
 print "Content-Type: text/html\n\n";
+
+#print "-----($gmv,$prt)------>$googid\n<br>";
 
 my $ipAddr=io::MyNav::gets_ip_address;
 if ($ipAddr=~m/127.0.0.1/){
@@ -131,7 +135,7 @@ if(defined($prt)){ # Begin if(definied($prt))
 		#$path.=&getsPath("album/hist","New Zealand"); # Load file
 		#$path.=&getsPath("album/hist","Canada"); # Load file
 		#$path.=&getsPath("album/hist","FOURTHTEST"); # Load file
-		$path.=&getsPath("album/hist","STUTRI"); # Load file
+		$path.=&getsPath("album/hist","$googid"); # Load file
 		&mapGoogle("$id","$gmv");
 	} # End if($prt==0)
 	# Prints all markers
