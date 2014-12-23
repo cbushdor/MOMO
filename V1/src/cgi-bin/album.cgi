@@ -10,6 +10,11 @@ use locale;
 use MIME::Base64;
 use CGI::Carp qw(fatalsToBrowser); 
 
+use DateTime;
+use DateTime::Format::Strptime;
+
+
+
 my $debug=0;# 0=false for no debug;1=true for debug
 
 if($debug==1){ # begin if($debug==true)
@@ -68,7 +73,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.48'; # Album release
+use constant ALBUM_REL               	=> '15.60'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -117,7 +122,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.48
+$VERSION=1.6.15.60
 
 =head1 ABSTRACT
 
@@ -195,6 +200,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.15.60> Dec 23 2014 see set set_history
 
 - I<Last modification:v1.6.15.48> May 10 2014 see set set_history
 
@@ -4918,7 +4925,7 @@ sub main_menu { # begin main_menu
 		. "http://dorey.sebastien.free.fr"
 		. "\");'>My website</a>\n</dt>\n";
 	#print "<dt>Other albums</dt>\n";
-	print "<dt><a href=\"transit.cgi" . 
+	print "<dt><a href=\"g".GOOGLE_MAP_SCRIPT_VERSION."ogle.cgi" . 
 		"?googid=".$doc->param("googid")."&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
 	"\">Visitor map</a></dt>\n";
 	print "<dt onclick=\"javascript:show('smenu2');\" onmouseout=\"javascript:show();\">Help</dt>";
@@ -5778,7 +5785,7 @@ MENU
 
 =head1 sub menu_admin_GoogleMap_ID(...)
 
-Gives authorisation to different intener application s.a googlemap, youtube
+Gives authorisation to different intern application s.a googlemap, youtube
 
 =head2 PARAMETER(S)
 
@@ -5862,13 +5869,16 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 	chdir("../..");
 	my $lot="var lot= new Array('--',"; # List of trips
 	my $lotList="<select name='operationokdelete' onChange='listToDelete()'>"; # List of trips
+	my $lotList2="<select name='operationokdelete' onChange='listToList()'>"; # List of trips
 	foreach my $i (@dr){ # begin foreach my $i (@dr)
 		$lot.="\"$i\",";
 		$i=~s/-trips$//;
 		$lotList.="<option>$i</option>";
+		$lotList2.="<option>$i</option>";
 	} # end foreach my $i (@dr)
 	$lot=~s/,$/\)\;/; # They array is built of trips
 	$lotList.="</select>";
+	$lotList2.="</select>";
 	my $myuri="$ENV{SERVER_NAME}";
 	my $myport= ($ENV{SERVER_PORT}=~m/[0-9]+/) ? ":$ENV{SERVER_PORT}/" : "/";
 	my $myscript= $ENV{REQUEST_URI};
@@ -5905,7 +5915,7 @@ Google ID:<input type='text' name='googid' />
 		var idx = document.myform.operationokdelete.selectedIndex;
 		var choice = document.myform.operationokdelete.options[idx].innerHTML;
 		var myurl=new String("$myuri$myport/$myscript?googid="+choice+"&gmv=3-0");
-		var r=alert(myurl.replace(/[\/]{2,}/g,"/")); // Regexp used to eliminate bugs while printing URL   ....
+		var r=alert("http://"+myurl.replace(/[\/]{2,}/g,"/")); // Regexp used to eliminate bugs while printing URL   ....
 		
 		document.myform.submit(); 
 	} // End function listToList()
@@ -5926,7 +5936,7 @@ Google ID:<input type='text' name='googid' />
 									"<input type='button' value='confirm' onClick='listToDelete()' >";
 		} // End if(choice.match("Delete")) 
 		else if(choice.match("List")){ // Begin if(choice.match("List")) 
-			document.getElementById('tripList').innerHTML = "Trip list: $lotList" +
+			document.getElementById('tripList').innerHTML = "<!--zeub $lotList2 --> Trip list: $lotList2" +
 									"<input type='hidden' name='prev_pid' value='$$' />"+
 									"<input type='hidden' name='login' value='$lok' />"+
 									"<input type='hidden' name='recPid' value='ok' />"+
@@ -5945,7 +5955,7 @@ Google ID:<input type='text' name='googid' />
 									"<input type='hidden' name='ssection' value='adminGoogleID' />"+
 									"<input type='hidden' name='TRIP_ID' value='ok'>"+
 									"<br>Begining of the trip (2014-02-22T15:50)<input type='datetime-local' name='bdaytime'>"+
-									"End on the trip (2014-02-23T05:50)<input type='datetime-local' name='edaytime'>"+
+									"End of the trip (2014-02-23T05:50)<input type='datetime-local' name='edaytime'>"+
 									"<input type='button' onclick='calc()' value='Checks dates'>"+
 									'<div id="err"></div>';
 		} // End else if(choice.match("Add")) 
@@ -6317,6 +6327,8 @@ None.
 
 =over 4
 
+- I<Last modification:> Dec 23 2014 add extra tests to record trip rec ok if in rage otherwise no (hdf history directory file; path to store data)
+
 - I<Last modification:> May 10 2014 add extra parameter (hdf history directory file; path to store data)
 
 - I<Last modification:> Jan 18 2014 put the trip name in history
@@ -6339,14 +6351,42 @@ sub set_history{ # begin set_history
 	chomp($mgidt);
 	my $tn=PATH_GOOGLE_MAP_TRIP.$mgidt ."-".TRIP_NAME; # Trip name
 
-
-	print "$tn<br>";
+	#print "$f\n<br>$tn<br>";
 
 	if(-f "$tn"){ # Begin if(-f "$tn")
-		io::MyUtilities::setUrlFile("$u#$d#$p#$l#${mgidt}-" . TRIP_NAME,"$f",$hdf); 
+		my $dt3 = DateTime->from_epoch( epoch => time() );# Current date format DateTime
+
+		#print "$tn mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm<br>";
+
+		open(RTN,"$tn") or die ("$td error");my @rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains begin and end of trip)
+		chomp($rtn[0]);my ($brtn,$ertn)=split(/\#/,$rtn[0]);
+		my $anal = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
+		my $dtb = $anal->parse_datetime( $brtn );
+		if($dtb>$dt3){ # begin if($dtb>$dt3)
+			# date is not yet arrived
+			#print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
+			io::MyUtilities::setUrlFile("$u#$d#$p#$l#_-" . TRIP_NAME,"$f",$hdf); 
+			return;
+		} # end if($dtb>$dt3)
+		else{ # begin else $dtb<=$dt3
+			my $anal2 = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
+			my $dte = $anal2->parse_datetime( $ertn );
+			if($dte<$dt3){ # begin if($dte<$dt3)
+				# date is passed
+				#print "<<<<<<<<<<<<<<<<<<<<<<<<<<<< $dte<<u>$dt3</u> not passed\n";
+				io::MyUtilities::setUrlFile("$u#$d#$p#$l#_-" . TRIP_NAME,"$f",$hdf); 
+				return;
+			} # end if($dte<$dt3)
+			else { # begin  $dte>=$dt3
+				#print "<====================> $dtb<=$dt3<=$dte in range\n";
+				io::MyUtilities::setUrlFile("$u#$d#$p#$l#${mgidt}-" . TRIP_NAME,"$f",$hdf); 
+			} # end  $dte>=$dt3
+		} # end else $dtb<=$dt3
+
 		return;
 	} # End if(-f "$tn")
 	else{ # Begin else
+		print "usual record\n<br>";
 		io::MyUtilities::setUrlFile("$u#$d#$p#$l#_-" . TRIP_NAME,"$f",$hdf); 
 	} # End else
 } # End sub set_history
@@ -6930,7 +6970,7 @@ Record in $fname the id
 
 $fname: file name where to save google id map
 
-$googleid ;$goohleid: that's the google id
+$googleid: $goohleid: that's the google id
 
 =back
 
@@ -7022,8 +7062,9 @@ sub setGoogleID{# begin setGoogleID
 				my $edaytime=$doc->param("edaytime");
 				if(length($bdaytime)!=0){ # Begin if(length($bdaytime)!=0)
 					if(length($edaytime)!=0){ # Begin if(length($edaytime)!=0)
+						# We create the file that contains data related to trip s.a name, bdate,edate of trip
 						open(W,">$tn");
-						print W $doc->param("bdaytime") . "-" . $doc->param("bdaytime");
+						print W $doc->param("bdaytime") . "#" . $doc->param("bdaytime");
 						close(W);
 					} # End if(length($edaytime)!=0)
 					else{ # Begin else
