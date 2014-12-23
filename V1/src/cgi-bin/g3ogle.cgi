@@ -14,6 +14,7 @@ use LWP::Simple;
 use XML::Simple;
 use Data::Dumper;
 use Net::Ping;
+use Cwd;
 
 use io::MyNav;
 use io::MySec;
@@ -127,8 +128,10 @@ chomp($id) ;
 if(defined($prt)){ # Begin if(definied($prt))
 	# Prints where you are
 	if($prt==0){ # Begin if($prt==0)
-		$path.=&getsPath("album/history","New Zealand"); # Load file
-		#$path.=&getsPath("album/history","Canada"); # Load file
+		#$path.=&getsPath("album/hist","New Zealand"); # Load file
+		#$path.=&getsPath("album/hist","Canada"); # Load file
+		#$path.=&getsPath("album/hist","FOURTHTEST"); # Load file
+		$path.=&getsPath("album/hist","STUTRI"); # Load file
 		&mapGoogle("$id","$gmv");
 	} # End if($prt==0)
 	# Prints all markers
@@ -138,8 +141,9 @@ if(defined($prt)){ # Begin if(definied($prt))
 	} # End if($prt==1)
 	# marks trips
 	if($prt==2){ # Begin if($prt==2)
-		$path.=&getsPath("album/history","Canada"); # Load file
-		$path.=&getsPath("album/history","New Zealand"); # Load file
+		$path.=&getsPath("album/hist","Canada"); # Load file
+		$path.=&getsPath("album/hist","New Zealand"); # Load file
+		$path.=&getsPath("album/hist","THIRDTEST"); # Load file
 		&mapGoogle("$id","$gmv");
 	} # End if($prt==2)
 } # End if(definied($prt))
@@ -386,7 +390,12 @@ sub getsPath{ # begin getsPath
 	#$llL="\t\t\t\t// Begin polyline code \n";
 	#$llL.="\t\t\t\tvar polyline = [\n";
 
-	chdir("album");chdir("hist");# we go in album/hist
+	chomp($file);
+	foreach my $ld (split(/\//,$file)){ # begin foreach (split(/\//,$file))
+		chdir("$ld");
+		#print "directory: $ld  ---->".getcwd()."<br>\n";
+	} # end foreach (split(/\//,$file))
+#	chdir("hist");# we go in album/hist
 	my $r=();# store content of each file
 	opendir(ARD,".") || die(". $!");# open current directory
 	my @dr= grep { $_ ne '.' and $_ ne '..' and $_ !~ m/pl$/i and $_ !~ m/cgi$/i} readdir(ARD);# parse current directory
@@ -400,20 +409,21 @@ sub getsPath{ # begin getsPath
 	
 	my @a=split(/\,/,$r);
 	my $l=();my $L=();my $ll=();my $LL=();
-	my @zz=();
+	my @zz=(); # path stored
 	my $prev=();
 	my $newArrows=();
 	for my $p (@a){ # begin for my $p (@a)
 		chomp($p);
 		my @q=split(/\#/,$p); # split each lines as a column
 		# we check country name below
-		if($q[7]=~m/$field/i){ # begin if($q[7]=~m/$field/i)
+		if($q[14]=~m/$field/i){ # begin if($q[7]=~m/$field/i)
+			#print "oooooooooooooooo)$q[14] ------------ ";
 			my $dte=$q[1]; # Gets login date
 			my $l=$q[11]; # Gets Latitude
 			my $L=$q[12]; # Gets Longitude
 			$l=~s/LATITUDE://; # Remove coment
 			$L=~s/LONGITUDE://; # Remove coment
-			#print ">>>>>>>>>>>>>>>$l $L\n";
+			#print ">>>>>>>>>>>>>>>$l $L\n<br>";
 			# we remove same coordnitates that next to each ohers (line before)
 			if(!("$ll" eq "$l" && "$LL" eq "$L")){ # begin if(!("$ll" eq "$l" && "$LL" eq "$L"))
 				my $jj=$dte;
@@ -442,6 +452,7 @@ sub getsPath{ # begin getsPath
 	my @qq=sort(@zz);
 	my $markersTrip=();
 
+	print "size of the array ". scalar(@qq) . "<<<<<<<<<<<<<<<<br>";
 	foreach(@qq){ # begin foreach(@qq)
 		my($ed,$ea)=split(/\@/,$_);
 		chomp($_);
