@@ -73,7 +73,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.60'; # Album release
+use constant ALBUM_REL               	=> '15.65'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -122,7 +122,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.60
+$VERSION=1.6.15.65
 
 =head1 ABSTRACT
 
@@ -200,6 +200,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.15.65> Dec 24 2014 see setGoogleID
 
 - I<Last modification:v1.6.15.60> Dec 23 2014 see set set_history
 
@@ -7017,6 +7019,8 @@ None.
 =over 4
 
 =over 4
+
+- I<Last modification:> Dec 24 2014 bug cleared. d1#d1 recorded instread of d1#d2 s.a d1<d2 where dn is a date and 0<=n<=inf n is an integer inf is the infinite
 
 - I<Last modification:> Jan 18 2014 put the trip name
 
