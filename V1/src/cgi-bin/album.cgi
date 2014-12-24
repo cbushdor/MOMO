@@ -6356,7 +6356,7 @@ sub set_history{ # begin set_history
 	if(-f "$tn"){ # Begin if(-f "$tn")
 		my $dt3 = DateTime->from_epoch( epoch => time() );# Current date format DateTime
 
-		#print "$tn mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm<br>";
+		print "$tn mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm<br>";
 
 		open(RTN,"$tn") or die ("$td error");my @rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains begin and end of trip)
 		chomp($rtn[0]);my ($brtn,$ertn)=split(/\#/,$rtn[0]);
@@ -6364,7 +6364,7 @@ sub set_history{ # begin set_history
 		my $dtb = $anal->parse_datetime( $brtn );
 		if($dtb>$dt3){ # begin if($dtb>$dt3)
 			# date is not yet arrived
-			#print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
+			print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
 			io::MyUtilities::setUrlFile("$u#$d#$p#$l#_-" . TRIP_NAME,"$f",$hdf); 
 			return;
 		} # end if($dtb>$dt3)
@@ -6373,12 +6373,12 @@ sub set_history{ # begin set_history
 			my $dte = $anal2->parse_datetime( $ertn );
 			if($dte<$dt3){ # begin if($dte<$dt3)
 				# date is passed
-				#print "<<<<<<<<<<<<<<<<<<<<<<<<<<<< $dte<<u>$dt3</u> not passed\n";
+				print "<<<<<<<<<<<<<<<<<<<<<<<<<<<< $dte<<u>$dt3</u> not passed\n";
 				io::MyUtilities::setUrlFile("$u#$d#$p#$l#_-" . TRIP_NAME,"$f",$hdf); 
 				return;
 			} # end if($dte<$dt3)
 			else { # begin  $dte>=$dt3
-				#print "<====================> $dtb<=$dt3<=$dte in range\n";
+				print "<====================> $dtb<=$dt3<=$dte in range\n";
 				io::MyUtilities::setUrlFile("$u#$d#$p#$l#${mgidt}-" . TRIP_NAME,"$f",$hdf); 
 			} # end  $dte>=$dt3
 		} # end else $dtb<=$dt3
@@ -7064,7 +7064,7 @@ sub setGoogleID{# begin setGoogleID
 					if(length($edaytime)!=0){ # Begin if(length($edaytime)!=0)
 						# We create the file that contains data related to trip s.a name, bdate,edate of trip
 						open(W,">$tn");
-						print W $doc->param("bdaytime") . "#" . $doc->param("bdaytime");
+						print W $doc->param("bdaytime") . "#" . $doc->param("edaytime");
 						close(W);
 					} # End if(length($edaytime)!=0)
 					else{ # Begin else
