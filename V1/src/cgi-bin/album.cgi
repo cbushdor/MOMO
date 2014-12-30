@@ -9,6 +9,7 @@ use File::stat;
 use locale;
 use MIME::Base64;
 use CGI::Carp qw(fatalsToBrowser); 
+use LWP::Simple;
 
 use DateTime;
 use DateTime::Format::Strptime;
@@ -110,6 +111,7 @@ my $suffix_for_image_file =
 	 $ipAddr
 	. "||";
 
+my $fn="album/hist/${ipAddr}";
 
 #use constant DEBUG => 1;
 
@@ -467,11 +469,65 @@ use constant MAX_COL_NUMBER => 10 ;
 my $doc=new CGI;
 my $an_action=();
 my $lok=$doc->param("login");
+my $lon=$doc->param("lon");
+my $lat=$doc->param("lat");
 my $param_trip=$doc->param("TRIP_ID");
 my $bdaytime=$doc->param("bdaytime");
 my $edaytime=$doc->param("edaytime");
 #print "Content-type:text/html\n\n";
 #print "---->$bdaytime<br>========>$edaytime<br>";
+
+if(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
+	my $url=();
+	print "Content-Type: text/html\n\n";
+	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){
+		$url="http://localhost/~sdo/cgi-bin/maop.cgi";
+	}else{
+		$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
+	}
+	my $c=<<A;
+<!DOCTYPE html>
+<html>
+<body>
+<p id="wait"></p>
+
+<script>
+	var x=document.getElementById("wait");
+	x.innerHTML="Please wait while loading...";
+	window.location="$url";
+</script>
+</body>
+</html>
+A
+	print $c;
+	exit(0);
+} # end if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
+
+if(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)
+	my $url=();
+	print "Content-Type: text/html\n\n";
+	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){
+		$url="http://localhost/~sdo/cgi-bin/maop.cgi";
+	}else{
+		$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
+	}
+	my $c=<<A;
+<!DOCTYPE html>
+<html>
+<body>
+<p id="wait"></p>
+
+<script>
+	var x=document.getElementById("wait");
+	x.innerHTML="Please wait while loading...";
+	window.location="$url";
+</script>
+</body>
+</html>
+A
+	print $c;
+	exit(0);
+} # end if(!defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)
 
 # Password for login
 my ( $login, $password )=io::MyUtilities::gets_private_stuff_for_administrator($an_action,
@@ -874,16 +930,18 @@ else { # Begin else
 	print $main_page;
 	my $oppp=io::MyTime::gets_formated_date;
 	my $llll_l=();
-	my @llll_res=split(/\n/,io::MySec::getsCoordinates(${ipAddr}));# from ip address gets geoloc coordinates
+	#my @llll_res=split(/\n/,io::MySec::getsCoordinates(${ipAddr}));# from ip address gets geoloc coordinates
+	my @llll_res=($lon,$lat);# from ip address gets geoloc coordinates
 	my $llll_v=0;
 	foreach (@llll_res){ # begin foreach (@llll_res)
 		chomp($_);# must desapeared (non sense due to previous split
 		$llll_l.="#$_";# fill fields + concatenation with previous data
 	} # end foreach (@llll_res)
-	$llll_res[6]=~s/[^:]*://g;
-	$llll_res[7]=~s/[^:]*://g;
+	#$llll_res[6]=~s/[^:]*://g;
+	#$llll_res[7]=~s/[^:]*://g;
 	set_history(${ipAddr}, $oppp,$locpa ,"$ipAddr",$llll_l,ALBUM_INFO_HIST_DIRECTORY);
-	my $llll_inf="[$llll_res[6],$llll_res[7]]";
+	# Dealing with tweeter
+	#my $llll_inf="[$llll_res[6],$llll_res[7]]";
 	#system("`pwd`/tweet.sh \"Sh4rkb41t\" \"lakpwr\"  \"[album] $oppp page:$locpa $llll_inf\""); 
 	if("$authorized" eq "ok"){ # Begin if("$authorized" eq "ok")
 		print io::MyTime::gets_formated_date."<br />\n";
@@ -6349,6 +6407,8 @@ None.
 
 sub set_history{ # begin set_history
 	my ($u,$d,$p,$f,$l,$hdf)=@_; # url,date,page,file to store;history directory file
+
+# -----------------------------------
 	my $mgidt=$doc->param("googid"); #my google id  trip
 	chomp($mgidt);
 	my $tn=PATH_GOOGLE_MAP_TRIP.$mgidt ."-".TRIP_NAME; # Trip name
