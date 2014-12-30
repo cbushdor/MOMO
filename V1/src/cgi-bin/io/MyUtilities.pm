@@ -17,7 +17,7 @@ use IO::Socket;
 
 # use strict;
 
-my $VERSION    = '1.1.25.21';
+my $VERSION    = '1.1.25.24';
 $VERSION    = eval $VERSION;
 my @ISA    = qw( Exporter );
 my @EXPORT = qw(
@@ -42,7 +42,7 @@ use constant ROOT_DEPOSIT  => '../'; # To store information
 
 io::MyUtilities.pm
 
-$VERSION    = '1.1.25.21'
+$VERSION    = '1.1.25.24'
 
 =head1 ABSTRACT
 
@@ -79,6 +79,8 @@ In used.
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification: v1.1.25.24> 20142230 see setUrlFile
 
 - I<Last modification: v1.1.25.21> 20140206 see footer
 
@@ -864,6 +866,8 @@ $p : that's the IP address
 
 $f : that's the file where to store info
 
+$locdep: path
+
 =back
 
 =head2 RETURNED VALUE
@@ -894,9 +898,11 @@ None.
 
 =over 4
 
-- I<Created on:> Feb 18 2011: removes lock
+- I<Last modification on:> Dec 30 2014: removed dead code
 
-- I<Created on:> Mar 04 2010: adds lock
+- I<Last modification on:> Feb 18 2011: removes lock
+
+- I<Last modification on:> Mar 04 2010: adds lock
 
 - I<Created on:> Jun 01 2008
 
@@ -920,40 +926,15 @@ sub setUrlFile{ # begin setUrlFile
 			}# end if( !-d "$d")
 			$d.="/";	
 		}# end for (split(/\//,$locdep))
-		if(-f "album/history"){# begin if(-f "album/history")
-			print "album/history does exists<br>";
-			open(R,"album/history");
-			my $f=<R>;
-			close(R);
-			foreach (split(/\,/,$f)){# foreach (split(/\,/,$f))
-				my $l=$_;
-				chomp($l);
-				my (@col)=split(/\#/,$_);
-				my $aip=$col[0]; # Gets  ip address
-				my $cn=$col[7]; # Gets  country name
-				if(length("$cna")==0){$cna="localhost";}
-				my ($c,$cna)=split(/\:/,$cn);
-				#$cna=~s/COUNTRY NAME://;
-				#$cna=~s/\ /_/g;
-				open(W,">>$locdep/$cna-$aip");
-				print W "$l,";
-				close(W);
-			}# foreach (split(/\,/,$f))
-			open(W,">album/history.old");
-			print W "$f";
-			close(W);
-			unlink("album/history");
-		}# end if(-f "album/history")
 	}# end if( !-d "$locdep")
 	else{# begin else
-		my (@col)=split(/\#/,$p);
-		my $aip=$col[0]; # Gets  ip address
-		my $cn=$col[7]; # Gets  country name
-		if(length("$cna")==0){$cna="localhost";}
-		my ($c,$cna)=split(/\:/,$cn);
+		#my (@col)=split(/\#/,$p);
+		#my $aip=$col[0]; # Gets  ip address
+		#my $cn=$col[7]; # Gets  country name
+		#if(length("$cna")==0){$cna="localhost";}
+		#my ($c,$cna)=split(/\:/,$cn);
 				
-		open(URL,">>$locdep/$cna-$f") or die("$locdep/$f");
-		#flock(URL, LOCK_EX | LOCK_SH );
+		open(URL,">>$locdep/maop-$f") or die("$locdep/maop-$f");
 		print URL "$p," ;
 		close(URL); 
 	}# end else
