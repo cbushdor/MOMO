@@ -10,11 +10,11 @@ use locale;
 use MIME::Base64;
 use CGI::Carp qw(fatalsToBrowser); 
 use LWP::Simple;
+use XML::Simple;
+use Data::Dumper;
 
 use DateTime;
 use DateTime::Format::Strptime;
-
-
 
 my $debug=0;# 0=false for no debug;1=true for debug
 
@@ -98,7 +98,7 @@ use constant PATH_GOOGLE_MAP_TRIP 	=> "album/trips/";
 use constant PATH_GOOGLE_MAP_OPT 	=> "-0";
 
 my $vnl=100; # calculate version number length (number of characters in string)
-my $main_prog=(split(/[\\\/]/,"$0"))[scalar(split(/[\\\/]/,"$0"))-1]; # gets program name
+my $main_prog="maop.cgi"; #(split(/[\\\/]/,"$0"))[scalar(split(/[\\\/]/,"$0"))-1]; # gets program name
 #my $loc_margin="        ";
 my $loc_margin="";
 
@@ -467,19 +467,24 @@ use constant MAX_COL_NUMBER => 10 ;
 
 # This is document which will help to deal with CGI information
 my $doc=new CGI;
+my $mgidt=$doc->param("maop_googid"); #my google id  trip
+chomp($mgidt);
+my $tn=PATH_GOOGLE_MAP_TRIP.$mgidt ."-".TRIP_NAME; # Trip name
 my $an_action=();
-my $lok=$doc->param("login");
-my $lon=$doc->param("lon");
-my $lat=$doc->param("lat");
-my $param_trip=$doc->param("TRIP_ID");
-my $bdaytime=$doc->param("bdaytime");
-my $edaytime=$doc->param("edaytime");
+my $lok=$doc->param("maop_login");
+my $lon=$doc->param("maop_lon");
+my $lat=$doc->param("maop_lat");
+my $param_trip=$doc->param("maop_TRIP_ID");
+my $bdaytime=$doc->param("maop_bdaytime");
+my $edaytime=$doc->param("maop_edaytime");
 #print "Content-type:text/html\n\n";
 #print "---->$bdaytime<br>========>$edaytime<br>";
+
 
 if(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
 	print "Content-Type: text/html\n\n";
+	#print "case 2<br>";exit(1);
 	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){
 		$url="http://localhost/~sdo/cgi-bin/maop.cgi";
 	}else{
@@ -503,23 +508,27 @@ A
 	exit(0);
 } # end if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
 
+	my $locweaf=ALBUM_INFO_HIST_DIRECTORY ."wfc_data.$lon.$lat.$$.".time().".xml";# file for local weather
+
 if(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
 	print "Content-Type: text/html\n\n";
-	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){
+	#print "case 1<br>";exit(1);
+	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){ # begin if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
 		$url="http://localhost/~sdo/cgi-bin/maop.cgi";
-	}else{
+	} # end if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
+	else{ # begin else
 		$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
-	}
+	} # end else
 	my $c=<<A;
-<!DOCTYPE html>
-<html>
-<body>
-<p id="wait"></p>
+	<!DOCTYPE html>
+	<html>
+	<body>
+	<p id="wait"></p>
 
-<script>
-	var x=document.getElementById("wait");
-	x.innerHTML="Please wait while loading...";
+	<script>
+		var x=document.getElementById("wait");
+		x.innerHTML="Please wait while loading...";
 	window.location="$url";
 </script>
 </body>
@@ -528,15 +537,32 @@ A
 	print $c;
 	exit(0);
 } # end if(!defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)
+	else{
+	# begin else
+		my $wfcu="http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=$lat,$lon";
+		my $xml = new XML::Simple;
+
+		#print "Content-Type: text/html\n\n";
+		#print "--------------------->bef $locweaf rec<------<br>\n$wfcu<br>";
+		# Weather center
+		my $wfc=get("$wfcu");
+
+		#print "--------------------->$locweaf rec<------<br>$wfc\n";
+		open(W,">$locweaf") or die("error $!");
+		print W $wfc;
+		close(W) or die("error $!");
+		my $data = $xml->XMLin("$locweaf");
+	}
+	# end else
 
 # Password for login
 my ( $login, $password )=io::MyUtilities::gets_private_stuff_for_administrator($an_action,
 									       PRIVATE_INFO_DIRECTORY,
-									       $doc->param("login"),
-									       $doc->param("password"));
+									       $doc->param("maop_login"),
+									       $doc->param("maop_password"));
 
 # We need PID tO make a little security
-my $my_pid=$doc->param('prev_pid');
+my $my_pid=$doc->param('maop_prev_id');
 chomp($my_pid);
 
 # This is where configuration file is
@@ -547,7 +573,7 @@ my $file_conf_to_save="$album_directory/$configuration_file";
 chomp($file_conf_to_save);
 
 # That's the service
-my $service=$doc->param("service");
+my $service=$doc->param("maop_service");
 chomp(${service});
 #print "eeeeeeeeeeeee)$service<br />";
 
@@ -605,27 +631,27 @@ if($service eq "verDoc"){ # Only entire documentation + version is asked
 }# end elsif($service=~m/geoLoc/)
 
 # That's the pid to record
-my $recPid=$doc->param("recPid");
+my $recPid=$doc->param("maop_recPid");
 chomp($recPid);
 
 # That's the pid to remove
-my $remPid=$doc->param("remPid");
+my $remPid=$doc->param("maop_remPid");
 chomp($remPid);
 
 # Upload granted or not
-my $upload=$doc->param("upld");
+my $upload=$doc->param("maop_upld");
 chomp($upload);
 
 # That's the user login from the url
-my $user_login=$doc->param("login");
+my $user_login=$doc->param("maop_login");
 chomp($user_login);
 
 # That's the user password from the url
-my $user_password=$doc->param("password");
+my $user_password=$doc->param("maop_password");
 chomp($user_password);
 
 # Modify or remove lines for album
-$an_action=$doc->param("action");
+$an_action=$doc->param("maop_action");
 chomp($an_action);
 
 # That's info stored when we want to modify it
@@ -643,9 +669,45 @@ my @images_used=(
 	DIRECTORY_DEPOSIT . "powered.gif"
 	);
 
-
 print "Content-Type: text/html;charset=iso-8859-15;\n";
 print "Pragma: no-cache \n\n";
+	#------------------------------------------------------------------------
+	my $mtfn=();# my trip file name
+
+	if(-f "$tn"){ # Begin if(-f "$tn")
+		my $dt3 = DateTime->from_epoch( epoch => time() );# Current date format DateTime
+
+		print "$tn mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm<br>";
+
+		open(RTN,"$tn") or die ("$td error");my @rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains begin and end of trip)
+		chomp($rtn[0]);my ($brtn,$ertn)=split(/\#/,$rtn[0]);
+		my $anal = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
+		my $dtb = $anal->parse_datetime( $brtn );
+		if($dtb>$dt3){ # begin if($dtb>$dt3)
+			# date is not yet arrived
+			print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
+			$mtfn="_-" . TRIP_NAME; 
+		} # end if($dtb>$dt3)
+		else{ # begin else $dtb<=$dt3
+			my $anal2 = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
+			my $dte = $anal2->parse_datetime( $ertn );
+			if($dte<$dt3){ # begin if($dte<$dt3)
+				# date is passed
+				print "<<<<<<<<<<<<<<<<<<<<<<<<<<<< $dte<<u>$dt3</u> not passed\n";
+				$mtfn="_-" . TRIP_NAME; 
+			} # end if($dte<$dt3)
+			else { # begin  $dte>=$dt3
+				print "<====================> $dtb<=$dt3<=$dte in range\n";
+				$mtfn="${mgidt}-" . TRIP_NAME; 
+			} # end  $dte>=$dt3
+		} # end else $dtb<=$dt3
+	} # End if(-f "$tn")
+	else{ # Begin else
+		print "usual record\n<br>";
+		$mtfn="_-" . TRIP_NAME; 
+	} # End else
+	#------------------------------------------------------------------------
+
 print "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n";
 print "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n";
 print $doc->start_head();
@@ -736,7 +798,7 @@ my $locid="$co/$cn/$cr/$ct/$lo/$la";
 #print "The host name is $l --->$co-$cn-$cr-$ct-lo-la\n";
 
 
-my $resAuth=io::MyUtilities::check_password($my_pid,$doc->param("service"), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,"album/pid");
+my $resAuth=io::MyUtilities::check_password($my_pid,$doc->param("maop_service"), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,"album/pid");
 # print " ( ($resPing==0) && ($resAuth==0) ) \n<br />";
 # Check login & password if ok then access to extra services
 if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==0) ) 
@@ -744,7 +806,7 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 	$password=""; # we remove password because of pid and prev pid
 	print $doc->title("album ${service} admin interface");
 	print $doc->end_head();
-	my $recor=$doc->param("recording");
+	my $recor=$doc->param("maop_recording");
 	chomp($recor);
 	open( R, "$file_conf_to_save" ) || error_raised( $doc, "File [$file_conf_to_save] not found!!!" );
 	@all_file=<R>;
@@ -760,7 +822,7 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 		"Mettre les commentaires. / Write comments."
 		);
 
-	my $ssection=$doc->param("ssection") ; # Gets login
+	my $ssection=$doc->param("maop_ssection") ; # Gets login
 	chomp($ssection);
 	if(length($ssection)==0){ # Begin if(length($$section)==0)
 		&firstChoicetMenuadmin ; # Create am pre admin first menu choice
@@ -770,14 +832,14 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 	} # End elsif($ssection=~m/adminGroup/)
 	elsif($ssection=~m/adminGoogleID/){ # Begin elsif($ssection=~m/adminGoogleID/)
 		#print "toto 2 l er ret";
-		&setGoogleID(PATH_GOOGLE_MAP_ID,$doc->param("googid")) ; # Stuff about google ID map
+		&setGoogleID(PATH_GOOGLE_MAP_ID,$doc->param("maop_googid")) ; # Stuff about google ID map
 		&firstChoicetMenuadmin ; # Create am pre admin first menu choice
 	} # End elsif($ssection=~m/adminGoogleID/)
 	elsif($ssection=~m/adminPict/){ # Begin elsif($ssection=~m/adminPict/)
 		# That's where info are uploaded
 		if ( $an_action ne "record_modify" ){ # Begin if ($an_action ne "record_modify")
 			if ( $upload eq "ok" ){ # Begin if ($upload eq "ok")
-				my $type_upload=$doc->param("type_of_upload");
+				my $type_upload=$doc->param("maop_type_of_upload");
 
 				# We use this option in order to make a difference between an image linked to a web site and an image localy uploaded
 				if ( $type_upload eq "Local" ){ # Begin if ($type_upload eq "Local")
@@ -788,9 +850,9 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 					##&raised_upload_window;
 					sleep(1);
 #					print "ooooooo".ALLOWED_FILE_FORMAT_TYPE."<br />";
-					if(length($doc->param("file_name_img"))>0){
+					if(length($doc->param("maop_file_name_img"))>0){
 						# watch out case of youtube
-						$rul=my_upload($doc, $doc->param("file_name_img"), DIRECTORY_DEPOSIT, "$timsec",ALLOWED_FILE_FORMAT_TYPE);
+						$rul=my_upload($doc, $doc->param("maop_file_name_img"), DIRECTORY_DEPOSIT, "$timsec",ALLOWED_FILE_FORMAT_TYPE);
 	#					$file_name=~s!\&\#95;!g;
 					}
 				} # End if ($type_upload eq "Local")
@@ -798,9 +860,9 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 		} # End if ($an_action ne "record_modify")
 
 		# Record information on disk
-		if ((( $doc->param("file_name_img") ne "" ) && ( $doc->param("file_name_img2") eq "" ) )
-			|| (( $doc->param("file_name_img2") ne "" ) && ( $doc->param("file_name_img") eq "" ) )
-			|| ( $an_action eq "record_modify" ) ){ #  Begin if ( ($doc->param("file_name_img") ne "") || ($an_action eq "record_modify") )
+		if ((( $doc->param("maop_file_name_img") ne "" ) && ( $doc->param("maop_file_name_img2") eq "" ) )
+			|| (( $doc->param("maop_file_name_img2") ne "" ) && ( $doc->param("maop_file_name_img") eq "" ) )
+			|| ( $an_action eq "record_modify" ) ){ #  Begin if ( ($doc->param("maop_file_name_img") ne "") || ($an_action eq "record_modify") )
 			if ( $recor eq "check" ){ #  Begin if ($recor eq "check")
 				if($rul==0){ # Begin if($rul==0) 
 					&record;
@@ -809,7 +871,7 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 					print "<br />Picture not recorded<br />"
 				} # End else
 			} # End if ($recor eq "check")
-		} # End if ( ($doc->param("file_name_img") ne "") || ($an_action eq "record_modify") )
+		} # End if ( ($doc->param("maop_file_name_img") ne "") || ($an_action eq "record_modify") )
 		else{ # Begin else
 			print "<br />Picture not recorded<br />"
 		} # End else
@@ -817,19 +879,19 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 		# We remove a feature from the list
 		if ( $an_action eq "remove" ){ # Begin if ($an_action eq "remove")
 			print $doc->p( "<br /><br /><br /><br />Picture will be removed from page "
-				. $doc->param("page")
+				. $doc->param("maop_page")
 				. " line "
-				. $doc->param("line") );
+				. $doc->param("maop_line") );
 			# transcodint char - to ascii value
 			#$file_name=~s!\-!&#45;!g;
-			&remove_picture($doc->param("page"),$doc->param("line"));
+			&remove_picture($doc->param("maop_page"),$doc->param("maop_line"));
 		} # End if ($an_action eq "remove")
 
 		&menu_admin_title();
 		&menu_leave_admin;
 		
-		print "\n<form action='${main_prog}?service=auth&amp;upld=ok' method='post' name=\"adminMenu\"  enctype='multipart/form-data'>\n";
-		print "<input type='hidden' name='prev_pid' value='$$' />";
+		print "\n<form action='${main_prog}?maop_service=auth&amp;maop_upld=ok' method='post' name=\"adminMenu\"  enctype='multipart/form-data'>\n";
+		print "<input type='hidden' name='maop_prev_id' value='$$' />";
 		print "<table width=\"100%\" border=\"0\">\n" . 
 			"<tr>\n<td width=22% bgcolor='#CFD3F6' align='left' valign='top'>\n";
 
@@ -887,7 +949,7 @@ elsif (
   #             )
 elsif ( ${service} eq "showPict" ){ # Begin elsif ( ${service} eq "showPict" )
 	# shows picture enlarged
-	my $separator=$doc->param("comments");
+	my $separator=$doc->param("maop_comments");
 
 	$separator=~s!SEPARATOR!] / [!g;
 	print "\n    <title>album ${service} section; comment [${separator}] pict enlarged</title>\n";
@@ -905,7 +967,7 @@ elsif ( ${service} eq "showPict" ){ # Begin elsif ( ${service} eq "showPict" )
 else { # Begin else 
 #print "<!-- 5 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 	my $u=();
-	my $locpa=(($doc->param("page")=~m/[0-9]+/) ? $doc->param("page") : 1 );
+	my $locpa=(($doc->param("maop_page")=~m/[0-9]+/) ? $doc->param("maop_page") : 1 );
 
 	&create_dir;# Creates infrastructure directories,...
 	# We create a directory if it does not exists
@@ -915,7 +977,7 @@ else { # Begin else
 	#print $doc->script( { -language => "javascript" ,
 	print "<script language=\"javascript\" type=\"text/javascript\" >";
 	print "//<![CDATA[\nfunction listOfPages(){\n".'document.write("' . $a . '");'."\n}\n//]]>\n".
-	      "\n</script>\n" . $doc->title("album's page") ; # . (($doc->param("page")=~m/[0-9]+/) ? $doc->param("page") : 1 )
+	      "\n</script>\n" . $doc->title("album's page") ; # . (($doc->param("maop_page")=~m/[0-9]+/) ? $doc->param("maop_page") : 1 )
 #	) .
 	#$doc->end_head() .
 	#print "\n</script>";
@@ -930,12 +992,16 @@ else { # Begin else
 	print $main_page;
 	my $oppp=io::MyTime::gets_formated_date;
 	my $llll_l=();
-	#my @llll_res=split(/\n/,io::MySec::getsCoordinates(${ipAddr}));# from ip address gets geoloc coordinates
-	my @llll_res=($lon,$lat);# from ip address gets geoloc coordinates
-	my $llll_v=0;
+	#print "------------weather----------------->$locweaf<br>";
+	my @llll_res=($lon,$lat,$mtfn,(-f "$locweaf") ? "$locweaf" : "-");# from ip address gets geoloc coordinates, trip name,weather stuff
 	foreach (@llll_res){ # begin foreach (@llll_res)
 		chomp($_);# must desapeared (non sense due to previous split
-		$llll_l.="#$_";# fill fields + concatenation with previous data
+		if (length($llll_l)==0){ # begin if (length($llll_l)==0) 
+			$llll_l.="$_";# fill fields + concatenation with previous data
+		} # end if (length($llll_l)==0) 
+		else{ # begin else
+			$llll_l.="#$_";# fill fields + concatenation with previous data
+		} # end else
 	} # end foreach (@llll_res)
 	#$llll_res[6]=~s/[^:]*://g;
 	#$llll_res[7]=~s/[^:]*://g;
@@ -1093,15 +1159,15 @@ None.
 =cut
 
 sub menu_leave_admin { # begin menu_leave_admin
-	my $login=$doc->param("login") ; # Gets login
-	my $password=$doc->param("password") ; # Gets login
+	my $login=$doc->param("maop_login") ; # Gets login
+	my $password=$doc->param("maop_password") ; # Gets login
 
 	print <<MENU;
-<form action='${main_prog}?service=auth&amp;upld=ok' method='post' name="adminMenu" enctype='multipart/form-data'>
-	<input type='hidden' name='prev_pid' value='$$' />
-	<input type='hidden' name='login' value='$login' />
-	<input type='hidden' name='remPid' value='ok' />
-	<input type='hidden' name='service' value='check' />
+<form action='${main_prog}?maop_service=auth&amp;maop_upld=ok' method='post' name="maop_adminMenu" enctype='multipart/form-data'>
+	<input type='hidden' name='maop_prev_id' value='$$' />
+	<input type='hidden' name='maop_login' value='$login' />
+	<input type='hidden' name='maop_remPid' value='ok' />
+	<input type='hidden' name='maop_service' value='check' />
 	<input type='submit' value='Retour au menu principal/Back to main menu' />
 </form>
 MENU
@@ -1160,7 +1226,7 @@ None.
 sub print_info_picture { # begin print_info_picture
 	my ($rank,$img)=@_;
 	return "";
-	my $comment=$doc->param('comments');
+	my $comment=$doc->param('maop_comments');
 	my ( $french, $english )=split( /SEPARATOR/, $comment );
 	my $uuu= DIRECTORY_DEPOSIT ."$img";
 	chomp($uuu);
@@ -1228,8 +1294,8 @@ None.
 =cut
 
 sub print_pictures { # begin print_pictures
-	my $img     = $doc->param('pict');
-	my $comment=$doc->param('comments');
+	my $img     = $doc->param('maop_pict');
+	my $comment=$doc->param('maop_comments');
 	my ( $french, $english )=split( /SEPARATOR/, $comment );
 	my (@stat_img)=stat $img;
 
@@ -1540,10 +1606,10 @@ None.
 sub go_back { # begin go_back
 	print <<MNU;
 	<form action='${main_prog}' method='post'>
-		<input type='hidden' name='prev_pid' value='$$' />
-		<input type='hidden' name='login' value='$login' />
-		<input type='hidden' name='remPid' value='ok' />
-		<input type='hidden' name='service' value='check' />
+		<input type='hidden' name='maop_prev_id' value='$$' />
+		<input type='hidden' name='maop_login' value='$login' />
+		<input type='hidden' name='maop_remPid' value='ok' />
+		<input type='hidden' name='maop_service' value='check' />
 		<input type='submit' value='Menu principal / Go back to main menu' />
 	</form>
 MNU
@@ -1742,27 +1808,27 @@ sub admin_menu { # begin admin_menu
 						$l_title ,
 						( # position of image
 							(length($modify_valign)==0) ?
-								$doc->param("vertical"):
+								$doc->param("maop_vertical"):
 								$modify_valign
 						),
 						( # position of image
 							(length($modify_halign)==0) ?
-								$doc->param("horizontal"):
+								$doc->param("maop_horizontal"):
 								$modify_halign
 						),
 						( # position of text from image (separated compartment)
 							(length($modify_position_from_the_image)==0) ?	
-								$doc->param("Set_position_of_the_text_from_the_image_in_compartment"): 
+								$doc->param("maop_Set_position_of_the_text_from_the_image_in_compartment"): 
 								$modify_position_from_the_image
 						),
 						( # position of text in its compartment
 							(length($modify_vertical_text)==0) ?
-								$doc->param("vertical_text"):
+								$doc->param("maop_vertical_text"):
 								$modify_vertical_text
 						),
 						(
 							(length($modify_horizontal_text)==0) ?
-								$doc->param("horizontal_text"):
+								$doc->param("maop_horizontal_text"):
 								$modify_horizontal_text
 						)
 					);
@@ -1779,44 +1845,44 @@ sub admin_menu { # begin admin_menu
 						$l_title ,
 						( # position of image
 							(length($modify_valign)==0) ?
-								$doc->param("vertical"):
+								$doc->param("maop_vertical"):
 								$modify_valign
 						),
 						( # position of image
 							(length($modify_halign)==0) ?
-								$doc->param("horizontal"):
+								$doc->param("maop_horizontal"):
 								$modify_halign
 						),
 						( # position of text from image (separated compartment)
 							(length($modify_position_from_the_image)==0) ?	
-								$doc->param("Set_position_of_the_text_from_the_image_in_compartment"): 
+								$doc->param("maop_Set_position_of_the_text_from_the_image_in_compartment"): 
 								$modify_position_from_the_image
 						),
 						( # position of text in its compartment
 							(length($modify_vertical_text)==0) ?
-								$doc->param("vertical_text"):
+								$doc->param("maop_vertical_text"):
 								$modify_vertical_text
 						),
 						(
 							(length($modify_horizontal_text)==0) ?
-								$doc->param("horizontal_text"):
+								$doc->param("maop_horizontal_text"):
 								$modify_horizontal_text
 						)
 					);
 			#            &manage_position( (&number_of_pages), $l_title );
 			print "</tr>\n";
 		} # End foreach @line_title
-		print "<input type='hidden' name='page' value='$modify_page_position_in_album' />\n";
-		print "<input type='hidden' name='line' value='$modify_position_in_page' />\n";
-		print "<input type='hidden' name='file_name_img' value='$modify_file_name' />\n";
+		print "<input type='hidden' name='maop_page' value='$modify_page_position_in_album' />\n";
+		print "<input type='hidden' name='maop_line' value='$modify_position_in_page' />\n";
+		print "<input type='hidden' name='maop_file_name_img' value='$modify_file_name' />\n";
 	} # End  if ($an_action ne "modify")
 	&set_language(LANGUAGES);
 	print $doc->Tr(
 		$doc->td( {align=>'right'},
 			$doc->input({ type=>'hidden', name=>'upld', value=>'ok'}),
-			$doc->input({ type=>'hidden', name=>'login', value=>$doc->param("login")}),
+			$doc->input({ type=>'hidden', name=>'maop_login', value=>$doc->param("maop_login")}),
 			$doc->input({ type=>'hidden', name=>'Set_page_position_in_the_album', value=>"Page #$modify_page_position_in_album @ row #$modify_position_in_page"}),
-			$doc->input({ type=>'hidden', name=>'service', value=>'check'}),
+			$doc->input({ type=>'hidden', name=>'maop_service', value=>'check'}),
 			$doc->input({ type=>'hidden', name=>'ssection', value=>'adminPict'}),
 			$doc->input({ type=>'hidden', name=>'recording', value=>'check' }),
 			$doc->input({ type=>'submit', value=>'Envoyer la requete / Send query' } )),
@@ -1890,12 +1956,12 @@ sub set_upload { # begin set_upload
 																			'Local'
 																		    ]
 																       ) .
-															"<td><input type=\"file\" name='file_name_img' size='50' />\n";
+															"<td><input type=\"file\" name='maop_file_name_img' size='50' />\n";
 
 		print "<script languagen'javascript' type='text/javascript'>\n";
 		print "gti();";
 		print "</script>\n";
-		print "<tr>\n<td>Enter URL here if http option above is choosen<td><input type=\"text\" name='file_name_img2' size='50' />\n";
+		print "<tr>\n<td>Enter URL here if http option above is choosen<td><input type=\"text\" name='maop_file_name_img2' size='50' />\n";
 		print "Printed/Imprime<select name=\"youtubeln\"><option selected>normal</option><option>link/lien</option></select>";
 	} # End if ($an_action ne "modify")
 } # End sub set_upload
@@ -1959,8 +2025,8 @@ sub set_link { # begin set_link
 	my ( $words,     $link )     = split( /\,/, $fr );
 	my ( $words_eng, $link_eng )=split( /\,/, $eng );
 
-	print "<tr>\n<td valign='top' aglign=left>Enter a name to link within the text for French comment </td><td><table><tr>\n<td><input name='name_to_link' value='$words' /><td>Enter the related link<input type='text' name='link' value='$link' /></tr>\n</table>\n</tr>\n";
-	print "<tr>\n<td valign='top' aglign=left>Enter a name to link within the text for English comment</td>\n<td>\n<table><tr>\n<td><input name='name_to_link_eng' value='$words_eng' /></td><td>Enter the related link for eng<input type='text' name='link_eng' value='$link_eng' /></tr>\n</table>\n</tr>\n";
+	print "<tr>\n<td valign='top' aglign=left>Enter a name to link within the text for French comment </td><td><table><tr>\n<td><input name='maop_name_to_link' value='$words' /><td>Enter the related link<input type='text' name='link' value='$link' /></tr>\n</table>\n</tr>\n";
+	print "<tr>\n<td valign='top' aglign=left>Enter a name to link within the text for English comment</td>\n<td>\n<table><tr>\n<td><input name='maop_name_to_link_eng' value='$words_eng' /></td><td>Enter the related link for eng<input type='text' name='maop_link_eng' value='$link_eng' /></tr>\n</table>\n</tr>\n";
 } # End sub set_link
 
 =head1 sub set_language(...)
@@ -2025,10 +2091,10 @@ sub set_language { # begin set_language
 		$comment=&switch_from_a_specified_tag_to_characters($comment);
 		$comment=~s/\'/\&\#145/g;
 		$comment=~s/\"/\&\#147/g;
-		print "<tr>\n<td>Comment of the picture in $lng <td><input type='text' size=50 name='lang_${lng}_comment' value=\"$comment\" /></tr>\n<br />\n";
+		print "<tr>\n<td>Comment of the picture in $lng <td><input type='text' size=50 name='maop_lang_${lng}_comment' value=\"$comment\" /></tr>\n<br />\n";
 	} # End foreach @languages
 	if ( $an_action eq "modify" ){ # Begin if ($an_action eq "modify")
-		print "<input type='hidden' name='action' value='record_modify' />\n";
+		print "<input type='hidden' name='maop_action' value='record_modify' />\n";
 	} # End if ($an_action eq "modify")
 } # End sub set_language
 
@@ -2115,7 +2181,7 @@ sub manage_position { # begin manage_position
 	print "$line<td>\n";
 	print "<table border=\"0\" width=\"100%\">\n<tr>\n<td valign='top' align='right'>";
 	if( $line=~m!text from the image! ){ # Begin if ($line=~m!text from the image!)
-		print "<select name='$select_name'>\n";
+		print "<select name='maop_$select_name'>\n";
 		if ($text_position =~ m/Left side of the image/){ # Begin if ($text_position =~ m/Left side of the image/)
 			print 
 				"<option selected>Left side of the image</option>\n" .
@@ -2129,7 +2195,7 @@ sub manage_position { # begin manage_position
 				"</select></tr>\n";
 		} # End else
 		print "<tr>\n<td align='left' valign='top'>${image_vertical}--- Vertical ";
-		print "<select name='vertical_text'>\n";
+		print "<select name='maop_vertical_text'>\n";
 		if ($image_vertical !~ m/(top|middle|bottom)/i){ # Begin if ($image_vertical !~ m/(top|middle|bottom)/i)
 			print "<option selected>top</option>\n";
 			print "<option>middle</option>\n";
@@ -2142,7 +2208,7 @@ sub manage_position { # begin manage_position
 		} # End else
 		print "</select>\n<td>\n";
 		print "Horizontal ";
-		print "****$image_horizontal***---<select name='horizontal_text'>\n";
+		print "****$image_horizontal***---<select name='maop_horizontal_text'>\n";
 		if ($image_horizontal !~ m/(left|center|right)/i){ # Begin if ($image_vertical !~ m/(left|center|right)/i)
 			print "<option selected>left</option>\n";
 			print "<option>center</option>\n";
@@ -2159,7 +2225,7 @@ sub manage_position { # begin manage_position
 	} # End if ($line=~m!text from the image!)
 	elsif ( $line=~m!position of the image!i ){ # Begin elsif ( $line=~m!position of the image!i )
 		print "<td valign='top' align='left'>Vertical ";
-		print "-------$vertical_text_position-----<select name='vertical'>\n";
+		print "-------$vertical_text_position-----<select name='maop_vertical'>\n";
 		if ($vertical_text_position !~ m/(top|middle|bottom)/i){ # Begin if ($vertical_text_position !~ m/(top|middle|bottom/i)
 			print "<option selected>top</option>\n";
 			print "<option>middle</option>\n";
@@ -2172,7 +2238,7 @@ sub manage_position { # begin manage_position
 		} # End else
 		print "</select>\n\n";
 		print "<td valign='top' align='left'>Horizontal ";
-		print "----------------$horizontal_text_position------<select name='horizontal'>\n";
+		print "----------------$horizontal_text_position------<select name='maop_horizontal'>\n";
 		if ($horizontal_text_position !~ m/(left|center|right)/i){ # Begin if ($horizontal_text_position !~ m/(left|center|right)/i)
 			print "<option selected>left</option>\n";
 			print "<option>center</option>\n";
@@ -2323,7 +2389,7 @@ sub auth_menu { # begin auth_menu
 Enter login
 </td> 
 <td>
-<input type='text' name='login' />
+<input type='text' name='maop_login' />
 </td>
 </tr>
 <tr>
@@ -2331,8 +2397,8 @@ Enter login
 Enter password
 </td>
 <td>
-<input type='password' name='password' />
-<input type='hidden' name='service' value='check' />
+<input type='password' name='maop_password' />
+<input type='hidden' name='maop_service' value='check' />
 </td>
 </tr>
 <tr>
@@ -2516,28 +2582,28 @@ sub record { # begin record
 		$link,                    $link_name_eng,
 		$link_eng
 	)=(
-		(length($doc->param("file_name_img"))>0) ? "$timsec" . $doc->param("file_name_img") : ($doc->param("file_name_img2")=~m/\<\ *iframe\ *title\ *\=/i) ?  $doc->param("file_name_img2") : $doc->param("file_name_img2")
+		(length($doc->param("maop_file_name_img"))>0) ? "$timsec" . $doc->param("maop_file_name_img") : ($doc->param("maop_file_name_img2")=~m/\<\ *iframe\ *title\ *\=/i) ?  $doc->param("maop_file_name_img2") : $doc->param("maop_file_name_img2")
 		,
-		$doc->param("Set_page_position_in_the_album"),
-		$doc->param("vertical"),
-		$doc->param("horizontal"),
-		$doc->param("lang_French_comment"),
-		$doc->param("lang_English_comment"),
-		$doc->param("vertical_text"),
-		$doc->param("horizontal_text"),
-		$doc->param("Set_position_of_the_text_from_the_image_in_compartment"),
-		$doc->param("name_to_link"),
-		$doc->param("link"),
-		$doc->param("name_to_link_eng"),
-		$doc->param("link_eng"),
+		$doc->param("maop_Set_page_position_in_the_album"),
+		$doc->param("maop_vertical"),
+		$doc->param("maop_horizontal"),
+		$doc->param("maop_lang_French_comment"),
+		$doc->param("maop_lang_English_comment"),
+		$doc->param("maop_vertical_text"),
+		$doc->param("maop_horizontal_text"),
+		$doc->param("maop_Set_position_of_the_text_from_the_image_in_compartment"),
+		$doc->param("maop_name_to_link"),
+		$doc->param("maop_link"),
+		$doc->param("maop_name_to_link_eng"),
+		$doc->param("maop_link_eng"),
 	);
 	my $page_num=(); # no comment that's the page number
-	my $grantPictur=$doc->param("grantPicture");
+	my $grantPictur=$doc->param("maop_grantPicture");
 	chomp($grantPictur);
 	my $grantPicture=($grantPictur=~m!Public granted!) ? "ok" : (($grantPictur=~m!Admin granted!) ? "adm" : "ko") ;
 
 	print "<br>------------------>record($grantPictur):$grantPicture<br>";
-	my $type_upload=$doc->param("type_of_upload");
+	my $type_upload=$doc->param("maop_type_of_upload");
 	my @save_result=();
 	if($file_name=~m/www.youtube.com/){ # begin if($file_name=~m/www.youtube.com/)
 		print "<!-- oCROCOoooooooooooooooooooooo)$file_name(mmmmmmmmmmm=======>$file_name<br -->";
@@ -2558,12 +2624,12 @@ sub record { # begin record
 	
 	print $doc->p( "<br /><br /><br /><br />Information recorded. granted:  $grantPicture" .  $doc->br );
 
-	if ( $doc->param("Set_page_position_in_the_album") eq "" ){ # Begin if ($doc->param("Set_page_position_in_the_album") eq "" )
+	if ( $doc->param("maop_Set_page_position_in_the_album") eq "" ){ # Begin if ($doc->param("maop_Set_page_position_in_the_album") eq "" )
 		error_raised( $doc,
 		"No page position set in the previous menu here is the value ["
-		. $doc->param("Set_page_position_in_the_album")
+		. $doc->param("maop_Set_page_position_in_the_album")
 		. "]" );
-	} # End if ($doc->param("Set_page_position_in_the_album") eq "" )
+	} # End if ($doc->param("maop_Set_page_position_in_the_album") eq "" )
 
 	# We check if file has the following format
 	# <drive name>:\d1\d1\f1.gif where d[num] is a directory and and f1.gif an image file name
@@ -2625,23 +2691,23 @@ sub record { # begin record
 		# End of code not in use
 		$french_comment  = ( $french_comment  eq "" ) ? "." : $french_comment;
 		$english_comment = ( $english_comment eq "" ) ? "." : $english_comment;
-		$page_position_in_album=$doc->param("Set_page_position_in_the_album");
+		$page_position_in_album=$doc->param("maop_Set_page_position_in_the_album");
 		$page_position_in_album=~s/\ *\@\ */\|\|/g;
 		$page_position_in_album=~s/\ *(Page|[\#]|row)\ *//g;
 		if ( $page_position_in_album=~m/create/i ){ # Begin if ( $page_position_in_album=~m/create/)
 			$page_position_in_album = &create_new_page;
 		} # End if ( $page_position_in_album=~m/create/i)
 
-		$valign=$doc->param("vertical");
-		$halign=$doc->param("horizontal"),
+		$valign=$doc->param("maop_vertical");
+		$halign=$doc->param("maop_horizontal"),
 		$valign=~tr/[A-Z]/[a-z]/;
 		$halign=~tr/[A-Z]/[a-z]/;
-		$vertical_text=$doc->param("vertical_text");
-		$horizontal_text=$doc->param("horizontal_text");
+		$vertical_text=$doc->param("maop_vertical_text");
+		$horizontal_text=$doc->param("maop_horizontal_text");
 		$vertical_text=~tr/[A-Z]/[a-z]/;
 		$horizontal_text=~tr/[A-Z]/[a-z]/;
-		my $commFr=$doc->param("lang_French_comment");
-		my $commEng= $doc->param("lang_English_comment");
+		my $commFr=$doc->param("maop_lang_French_comment");
+		my $commEng= $doc->param("maop_lang_English_comment");
 		#print "uuuuuuuuuuuuuuuuuuu)$file_name<br />";
 		# do same thing with the minimum of MyFile.pm
 		# string transformation
@@ -2673,14 +2739,14 @@ sub record { # begin record
 			. "||"
 			. $horizontal_text . "||"
 			. $vertical_text . "||"
-			. $doc->param( "Set_position_of_the_text_from_the_image_in_compartment")
+			. $doc->param( "maop_Set_position_of_the_text_from_the_image_in_compartment")
 			. "||" . "("
-			. $doc->param("name_to_link") . ","
-			. $doc->param("link") . ")" . ";" . "("
-			. $doc->param("name_to_link_eng") . ","
-			. $doc->param("link_eng") . ")"
+			. $doc->param("maop_name_to_link") . ","
+			. $doc->param("maop_link") . ")" . ";" . "("
+			. $doc->param("maop_name_to_link_eng") . ","
+			. $doc->param("maop_link_eng") . ")"
 			. "||$grantPicture"
-			. "||" . $doc->param("youtubeln");
+			. "||" . $doc->param("maop_youtubeln");
 		#print "oooo)$line_pos<br />";
 		if($line_pos!~m/^\|\|/){# begin if($line_pos!~m/^\|\|/)
 				@save_result = (@save_result,$line_pos);
@@ -2689,8 +2755,8 @@ sub record { # begin record
 	} # End if ($an_action ne "record_modify")
 	else { # Begin else
 		#    Else record modify action requested
-		my $local_page = $doc->param("page");
-		my $local_line = $doc->param("line");
+		my $local_page = $doc->param("maop_page");
+		my $local_line = $doc->param("maop_line");
 
 		#	print $doc->p("case 2");
 		open( R, "$file_conf_to_save" ) || error_raised( $doc, "File [$file_conf_to_save] not found!!!" );
@@ -2717,19 +2783,19 @@ sub record { # begin record
 
 					my $l =
 						"$page_position_in_album||$position_in_page||$ipaddr||$file_name||"
-						. $doc->param("vertical") . "||"
-						. $doc->param("horizontal") . "||"
-						. $doc->param("lang_French_comment") . "||"
-						. $doc->param("lang_English_comment") . "||"
-						. $doc->param("horizontal_text") . "||"
-						. $doc->param("vertical_text") . "||"
-						. $doc->param("Set_position_of_the_text_from_the_image_in_compartment") . "||"
+						. $doc->param("maop_vertical") . "||"
+						. $doc->param("maop_horizontal") . "||"
+						. $doc->param("maop_lang_French_comment") . "||"
+						. $doc->param("maop_lang_English_comment") . "||"
+						. $doc->param("maop_horizontal_text") . "||"
+						. $doc->param("maop_vertical_text") . "||"
+						. $doc->param("maop_Set_position_of_the_text_from_the_image_in_compartment") . "||"
 						. "("
-							. $doc->param("name_to_link") . "," . $doc->param("link") 
+							. $doc->param("maop_name_to_link") . "," . $doc->param("maop_link") 
 						. ")" 
 						. ";"
 						. "("
-							. $doc->param("name_to_link_eng") . "," . $doc->param("link_eng") 
+							. $doc->param("maop_name_to_link_eng") . "," . $doc->param("maop_link_eng") 
 						. ")"
 						. "||$grantPicture||$my_tag";
 					if($l!~m/^\|\|/){# begin if($l!~m/^\|\|/)
@@ -2889,8 +2955,8 @@ sub under_construction_prompt { # begin under_construction_prompt
 	&look_for_images_used;
 	print "<td>\n<center>\n";
 	print "<br />\n<br />\n<br />\n";
-	print "<br /><br /><b><a href='${main_prog}?service=auth'  >Administrer le Cyber Album</a></b> /\n";
-	print "<font color='gray42'><b><a href='${main_prog}?service=auth'  >Administrate Cyber Album</a></b></font>\n<br />\n<br />\n";
+	print "<br /><br /><b><a href='${main_prog}?maop_service=auth'  >Administrer le Cyber Album</a></b> /\n";
+	print "<font color='gray42'><b><a href='${main_prog}?maop_service=auth'  >Administrate Cyber Album</a></b></font>\n<br />\n<br />\n";
 	print "<img src='"
 				. DIRECTORY_DEPOSIT
 				. "under_construction10.gif' alt='y' />\n<br />";
@@ -3028,7 +3094,7 @@ sub shows_page_not_taken_yet { # begin shows_page_not_taken_yet
 	open( SHOW, "$file_conf_to_save" ) or error_raised("File $file_conf_to_save does not exists");
 	my @save_info = <SHOW>;
 	close(SHOW);
-	my $script_page_taken = "<table width='100%' border='0'><tr>\n<td bgcolor='#CF6748' align=center>Nouvelles postions / New positions</tr>\n<tr><td align='center' valign='middle'><select name='Set_page_position_in_the_album' size=12>\n"
+	my $script_page_taken = "<table width='100%' border='0'><tr>\n<td bgcolor='#CF6748' align=center>Nouvelles postions / New positions</tr>\n<tr><td align='center' valign='middle'><select name='maop_Set_page_position_in_the_album' size=12>\n"
 	; # Final script to print
 	my $lmax = ( split( /\|\|/, $save_info[ scalar(@save_info) - 1 ] ) )[0] ; # Max of lines
 	my $s =
@@ -3189,7 +3255,7 @@ sub shows_list_pictures { # begin shows_list_pictures
 					#-------------------------------------
 					# get info from file
 					chdir("../img");
-					if(-f "$line[3]"){
+					if(-f "$line[3]"){ # begin if(-f "$line[3]")
 						#print "----------ooooo)$line[3]";
 						open(R,"$line[3]");
 						my $dta=stat(R);
@@ -3197,7 +3263,7 @@ sub shows_list_pictures { # begin shows_list_pictures
 						print scalar localtime $dta->mtime ;
 						close(R);
 						print "\n<br />";
-					}
+					} # end if(-f "$line[3]")
 					chdir("../cgi-bin");
 					print "<u><b>IP/IP:</b></u>$line[2]\n<br />";
 					if($line[3]=~m/www.youtube.com/i){ # begin if($line[2]=~m/www.youtube.com/i)
@@ -3232,25 +3298,25 @@ sub shows_list_pictures { # begin shows_list_pictures
 			# ---------------------
 			print "<td align='center' valign='middle'>\n";
 			print "$granted</td>";
-			print "\n<form action='${main_prog}?service=auth&amp;upld=ok' method='post' enctype='multipart/form-data'>\n";
-			print "<input type='hidden' name='prev_pid' value='$$' />\n";
+			print "\n<form action='${main_prog}?maop_service=auth&amp;maop_upld=ok' method='post' enctype='multipart/form-data'>\n";
+			print "<input type='hidden' name='maop_prev_id' value='$$' />\n";
 			print "<td align='center' valign='middle'>\n";
-			print "<input type='radio' name='action' value='modify' />\n";
+			print "<input type='radio' name='maop_action' value='modify' />\n";
 			print "<td align='center' valign='middle'>\n";
-			print "<input type='radio' name='action' value='remove' />\n";
+			print "<input type='radio' name='maop_action' value='remove' />\n";
 			print "<td align='center' valign='middle'>\n";
-			print "<!-- input type='radio' name='action' value='youtuberightslink' --> $line[13]\n";
+			print "<!-- input type='radio' name='maop_action' value='youtuberightslink' --> $line[13]\n";
 			print "<td align='center' valign='middle'>\n";
-			print "<input type='hidden' name='login' value='" . $doc->param("login") . "' />\n";
-			print "<input type='hidden' name='page' value='$line[0]' />\n";
-			print "<input type='hidden' name='ssection' value='adminPict' />";
-			print "<input type='hidden' name='line' value='$line[1]' />\n";
-			print "<input type='hidden' name='vertical' value='$line[8]' />\n";
-			print "<input type='hidden' name='horizontal' value='$line[7]' />\n";
-			print "<input type='hidden' name='Set_position_of_the_text_from_the_image_in_compartment' value='$line[9]' />\n";
-			print "<input type='hidden' name='vertical_text' value='$line[3]' />\n";
-			print "<input type='hidden' name='horizontal_text' value='$line[4]' />\n";
-			print "<input type='hidden' name='service' value='check' />\n";
+			print "<input type='hidden' name='maop_login' value='" . $doc->param("maop_login") . "' />\n";
+			print "<input type='hidden' name='maop_page' value='$line[0]' />\n";
+			print "<input type='hidden' name='maop_ssection' value='adminPict' />";
+			print "<input type='hidden' name='maop_line' value='$line[1]' />\n";
+			print "<input type='hidden' name='maop_vertical' value='$line[8]' />\n";
+			print "<input type='hidden' name='maop_horizontal' value='$line[7]' />\n";
+			print "<input type='hidden' name='maop_Set_position_of_the_text_from_the_image_in_compartment' value='$line[9]' />\n";
+			print "<input type='hidden' name='maop_vertical_text' value='$line[3]' />\n";
+			print "<input type='hidden' name='maop_horizontal_text' value='$line[4]' />\n";
+			print "<input type='hidden' name='maop_service' value='check' />\n";
 			print "<input type='submit'  value='Soumettre :) / Submit :)' />\n";
 			print "</form></tr>\n";
 		} # end if($counter_p>1)
@@ -3387,8 +3453,8 @@ None.
 sub remove_picture { # begin remove_picture
 	my @tmp            = ();
 	my @all_file       = ();
-	#my $local_page     = $doc->param("page");
-	#my $local_line     = $doc->param("line");
+	#my $local_page     = $doc->param("maop_page");
+	#my $local_line     = $doc->param("maop_line");
 	my $file_to_remove = ();
 	my ($local_page, $local_line)=@_;
 
@@ -3593,8 +3659,8 @@ None.
 sub return_info_picture { # begin return_info_picture
 	my @tmp            = ();
 	my @all_file       = ();
-	my $local_page     = $doc->param("page");
-	my $local_line     = $doc->param("line");
+	my $local_page     = $doc->param("maop_page");
+	my $local_line     = $doc->param("maop_line");
 	my $file_to_remove = ();
 
 	open( R, "$file_conf_to_save" ) || error_raised( $doc, "File [$file_conf_to_save] not found!!!" );
@@ -3805,7 +3871,7 @@ Transtypage added
 =cut
 
 sub print_page { # begin print_page
-	my $page_asked                = $doc->param("page");
+	my $page_asked                = $doc->param("maop_page");
 	my $print_my_page_script_head = ();
 	my $print_my_page_script   = ();
 	my @all_file               = ();
@@ -3927,8 +3993,8 @@ sub print_page { # begin print_page
 							if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) < ( $my_prev % MAX_PAGE_PER_LINE_INDEX ) ){ # Begin if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) < ( $my_prev % MAX_PAGE_PER_LINE_INDEX ) )
 								$list_page .= " </td><!-- blue jean --></tr><!-- balaaaaa -->\"\n+\"<tr>";
 							} # End if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) < ( $my_prev % MAX_PAGE_PER_LINE_INDEX ) )
-							$list_page .= "<td align='center'><a href='${main_prog}?page=$line[0]".
-								"&googid=".$doc->param("googid")."&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
+							$list_page .= "<td align='center'><a href='${main_prog}?maop_page=$line[0]".
+								"&maop_googid=".$doc->param("maop_googid")."&maop_gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
 								"'>x</a></td><!-- <wwblablablablo -->\"\n+\"";
 						} # End if ($my_prev != 1)
 						else { #  Begin else 
@@ -3936,8 +4002,8 @@ sub print_page { # begin print_page
 								$list_page .= "<td align='center'></td><!-- pantalon --></tr>\"\n+\"<tr>";
 							} # End if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ) == 0 )
 							#    First element in the list
-							$list_page .= "<td align='center'><a href='${main_prog}?page=$line[0]".
-							"&googid=".$doc->param("googid"). "&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
+							$list_page .= "<td align='center'><a href='${main_prog}?maop_page=$line[0]".
+							"&maop_googid=".$doc->param("maop_googid"). "&maop_gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
 							"'>x</a></td><!-- lolololozutzutyyyyyyyy -->\"\n+\"";
 						} # End if ( ($my_prev != 1) && (($line[0] % (MAX_IMAGES_PER_PAGE+1)) != 0) )
 						$my_prev = $line[0];
@@ -3973,9 +4039,9 @@ sub print_page { # begin print_page
 								if($line[3]!~/.(mp4|3gp|mpeg|mov|dat|mp3|avi|www.youtube.com)$/i){ # Begin if($line[3]!~/.(mp4|3gp|mpeg|mov|dat|mp3|avi)/i)
 									if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i){ # begin if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
 										$print_my_page_script .= 
-											"\n<!-- momo and toto --><a  href='${main_prog}?service=showPict&pict="
+											"\n<!-- momo and toto --><a  href='${main_prog}?maop_service=showPict&maop_pict="
 											. DIRECTORY_DEPOSIT
-											. "$line[3]&comments="
+											. "$line[3]&maop_comments="
 											. &switch_from_a_specified_character_to_tag(
 														"$line[6]SEPARATOR$line[7]")
 										. "'>\n";
@@ -4067,9 +4133,9 @@ sub print_page { # begin print_page
 						else { # BEGIN else
 							if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i){ # begin if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
 								if((io::MySec::urlsAllowed)[1] eq "ok" ){ # Begin if((io::MySec::urlsAllowed)[1] eq "ok" )
-									$print_my_page_script.="<a   href='${main_prog}?service=showPict&pict="
+									$print_my_page_script.="<a   href='${main_prog}?maop_service=showPict&maop_pict="
 										. DIRECTORY_DEPOSIT
-										. "$line[3]&comments="
+										. "$line[3]&maop_comments="
 										. &switch_from_a_specified_character_to_tag(
 										"$line[6]SEPARATOR$line[7]")
 										. "'>\n";
@@ -4985,9 +5051,8 @@ sub main_menu { # begin main_menu
 		. "http://dorey.sebastien.free.fr"
 		. "\");'>My website</a>\n</dt>\n";
 	#print "<dt>Other albums</dt>\n";
-	print "<dt><a href=\"g".GOOGLE_MAP_SCRIPT_VERSION."ogle.cgi" . 
-		"?googid=".$doc->param("googid")."&gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
-	"\">Visitor map</a></dt>\n";
+	print "<dt><a href=\"maop.cgi?maop_prog=g".GOOGLE_MAP_SCRIPT_VERSION."ogle.cgi" . 
+		"&maop_googid=".$doc->param("maop_googid")."&maop_gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT . "&maop_lon=$lon&maop_lat=$lat". "\">Visitor map</a></dt>\n";
 	print "<dt onclick=\"javascript:show('smenu2');\" onmouseout=\"javascript:show();\">Help</dt>";
 	print "\n<dd id=\"smenu2\"><!-- begin dd smenu2 -->\n";
 	&help_menu_with_css( $title, @help_feature );
@@ -5759,7 +5824,7 @@ None.
 =cut
 
 sub ipAddressGranted{ # Begin ipAddressGranted
-	my $ipad=$doc->param("urls"); # gets_ip_address ; # get IP address in order to print the right stuff on the screen 
+	my $ipad=$doc->param("maop_urls"); # gets_ip_address ; # get IP address in order to print the right stuff on the screen 
 	chomp($ipad); # Separator crlf
 
 	# Records ip address if user agreed
@@ -5770,11 +5835,11 @@ sub ipAddressGranted{ # Begin ipAddressGranted
 		if($url!~/$ipad\|/){ # begin if($url!~/$ipad\|/)
 			chomp($ipad); # Remove crlf
 			$ipad.="||" ; # Separator
-			my $pad=$doc->param("locIdName"); 
+			my $pad=$doc->param("maop_locIdName"); 
 			#$pad=~s!\,!__COMA__!g; # replaces ; by a tag
 			$ipad.=$pad;
 			$ipad.="||" ; # Separator
-			my $pad=$doc->param("grantAdministration"); # grant administration of album
+			my $pad=$doc->param("maop_grantAdministration"); # grant administration of album
 			chomp($pad); # Remove crlf
 			$ipad.=$pad;
 			#printf "---)${recPid}(-->${url}<---->${ipad}<----";
@@ -5800,19 +5865,19 @@ sub ipAddressGranted{ # Begin ipAddressGranted
 	print <<MENU;
 	<fieldset>
 		<legend>Administration of IP address</legend>
-		<form action='${main_prog}?service=auth&amp;upld=ok' method='post' enctype='multipart/form-data'>
-			<input type='hidden' name='prev_pid' value='$$' />
-			<input type='hidden' name='login' value='$lok' />
-			<input type='hidden' name='recPid' value='ok' />
-			<input type='hidden' name='service' value='check' />
-			IP address:<input type='text' name='urls' value='$mip' /><br />
-			<input type='hidden' name='ssection' value='adminGroup' />
-			Given name:<input type='text' name='locIdName' value='$locid' />
+		<form action='${main_prog}?maop_service=auth&amp;maop_upld=ok' method='post' enctype='multipart/form-data'>
+			<input type='hidden' name='maop_prev_pid' value='$$' />
+			<input type='hidden' name='maop_login' value='$lok' />
+			<input type='hidden' name='maop_recPid' value='ok' />
+			<input type='hidden' name='maop_maop_service' value='check' />
+			IP address:<input type='text' name='maop_urls' value='$mip' /><br />
+			<input type='hidden' name='maop_ssection' value='adminGroup' />
+			Given name:<input type='text' name='maop_locIdName' value='$locid' />
 MENU
 		&accessAdminPicture;
 		print <<MENU;
 			<input type='submit' value='Autoriser cette adresse IP / Authorize this IP adress' />
-			<input type='hidden' name='ssection' value='adminGroup' />
+			<input type='hidden' name='maop_ssection' value='adminGroup' />
 		</form>
 	</fieldset>
 </td></tr><tr><td valign=top algin=left>Log book/Journal de log
@@ -5943,18 +6008,19 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 	my $myport= ($ENV{SERVER_PORT}=~m/[0-9]+/) ? ":$ENV{SERVER_PORT}/" : "/";
 	my $myscript= $ENV{REQUEST_URI};
 	$myscript=~s/\?.*$//;
+	$myscript=~s/album.cgi/maop.cgi/;
 	#$myuri=~s/\?.*$//;
 	print <<MENU;
 <fieldset>
 <legend>Google</legend>
-<form action='${main_prog}?service=auth&amp;upld=ok' method='post' enctype='multipart/form-data'>
-<input type='hidden' name='prev_pid' value='$$' />
-<input type='hidden' name='login' value='$lok' />
-<input type='hidden' name='recPid' value='ok' />
-<input type='hidden' name='service' value='check' />
-Google ID:<input type='text' name='googid' />
-<input type='hidden' name='ssection' value='adminGoogleID' />
-<input type="hidden" name="TRIP_ID" value="no">
+<form action='${main_prog}?maop_service=auth&amp;maop_upld=ok' method='post' enctype='multipart/form-data'>
+<input type='hidden' name='maop_prev_id' value='$$' />
+<input type='hidden' name='maop_login' value='$lok' />
+<input type='hidden' name='maop_recPid' value='ok' />
+<input type='hidden' name='maop_service' value='check' />
+Google ID:<input type='text' name='maop_googid' />
+<input type='hidden' name='maop_ssection' value='adminGoogleID' />
+<input type="hidden" name="maop_TRIP_ID" value="no">
 <br><input type='submit' value='Autorisation google ID map/ Authorized google ID map' />
 </form>
 </fieldset>	
@@ -5974,7 +6040,7 @@ Google ID:<input type='text' name='googid' />
 	function listToList(){ // Begin function listToList()
 		var idx = document.myform.operationokdelete.selectedIndex;
 		var choice = document.myform.operationokdelete.options[idx].innerHTML;
-		var myurl=new String("$myuri$myport/$myscript?googid="+choice+"&gmv=3-0");
+		var myurl=new String("$myuri$myport/$myscript?maop_googid="+choice+"&maop_gmv=3-0");
 		var r=alert("http://"+myurl.replace(/[\/]{2,}/g,"/")); // Regexp used to eliminate bugs while printing URL   ....
 		
 		document.myform.submit(); 
@@ -5986,42 +6052,45 @@ Google ID:<input type='text' name='googid' />
 
 		if(choice.match("Delete")){ // Begin if(choice.match("Delete")) 
 			document.getElementById('tripList').innerHTML = "Trip list: $lotList" +
-									"<input type='hidden' name='prev_pid' value='$$' />"+
-									"<input type='hidden' name='login' value='$lok' />"+
-									"<input type='hidden' name='recPid' value='ok' />"+
-									"<input type='hidden' name='service' value='check' />"+
-									"<input type='hidden' name='ssection' value='adminGoogleID' />"+
-									"<input type='hidden' name='TRIP_ID' value='ok'>"+
-									"<input type='hidden' name='TRIP_ID_DELETE' value='ok'>"+
+									"<input type='hidden' name='maop_prev_id' value='$$' />"+
+									"<input type='hidden' name='maop_lon' value='$lon' />"+
+									"<input type='hidden' name='maop_lat' value='$lat' />"+
+									"<input type='hidden' name='maop_login' value='$lok' />"+
+									"<input type='hidden' name='maop_recPid' value='ok' />"+
+									"<input type='hidden' name='maop_service' value='check' />"+
+									"<input type='hidden' name='maop_ssection' value='adminGoogleID' />"+
+									"<input type='hidden' name='maop_TRIP_ID' value='ok'>"+
+									"<input type='hidden' name='maop_TRIP_ID_DELETE' value='ok'>"+
 									"<input type='button' value='confirm' onClick='listToDelete()' >";
 		} // End if(choice.match("Delete")) 
 		else if(choice.match("List")){ // Begin if(choice.match("List")) 
 			document.getElementById('tripList').innerHTML = "<!--zeub $lotList2 --> Trip list: $lotList2" +
-									"<input type='hidden' name='prev_pid' value='$$' />"+
-									"<input type='hidden' name='login' value='$lok' />"+
-									"<input type='hidden' name='recPid' value='ok' />"+
-									"<input type='hidden' name='service' value='check' />"+
-									"<input type='hidden' name='ssection' value='adminGoogleID' />"+
-									"<input type='hidden' name='TRIP_ID' value='ok'>"+
+									"<input type='hidden' name='maop_prev_id' value='$$' />"+
+									"<input type='hidden' name='maop_login' value='$lok' />"+
+									"<input type='hidden' name='maop_recPid' value='ok' />"+
+									"<input type='hidden' name='maop_service' value='check' />"+
+									"<input type='hidden' name='maop_ssection' value='adminGoogleID' />"+
+									"<input type='hidden' name='maop_TRIP_ID' value='ok'>"+
+									"<input type='hidden' name='maop_lon' value='$lon' />"+
+									"<input type='hidden' name='maop_lat' value='$lat' />"+
 									"<input type='button' value='confirm' onClick='listToList()' >";
 		} // End if(choice.match("List")) 
 		else if(choice.match("Add")){ // Begin else if(choice.match("Add")) 
 			document.getElementById('tripList').innerHTML = 
-									"<input type='hidden' name='prev_pid' value='$$' />"+
-									"<input type='hidden' name='login' value='$lok' />"+
-									"<input type='hidden' name='recPid' value='ok' />"+
-									"<input type='hidden' name='service' value='check' />"+
-									"Trip name:<input type='text' name='googid' /> "+
-									"<input type='hidden' name='ssection' value='adminGoogleID' />"+
-									"<input type='hidden' name='TRIP_ID' value='ok'>"+
-									"<br>Begining of the trip (2014-02-22T15:50)<input type='datetime-local' name='bdaytime'>"+
-									"End of the trip (2014-02-23T05:50)<input type='datetime-local' name='edaytime'>"+
+									"<input type='hidden' name='maop_lon' value='$lon' />"+
+									"<input type='hidden' name='maop_lat' value='$lat' />"+
+									"<input type='hidden' name='maop_prev_id' value='$$' />"+
+									"<input type='hidden' name='maop_login' value='$lok' />"+
+									"<input type='hidden' name='maop_recPid' value='ok' />"+
+									"<input type='hidden' name='maop_service' value='check' />"+
+									"Trip name:<input type='text' name='maop_googid' /> "+
+									"<input type='hidden' name='maop_ssection' value='adminGoogleID' />"+
+									"<input type='hidden' name='maop_TRIP_ID' value='ok'>"+
+									"<br>Begining of the trip (2014-02-22T15:50)<input type='datetime-local' name='maop_bdaytime'>"+
+									"End of the trip (2014-02-23T05:50)<input type='datetime-local' name='maop_edaytime'>"+
 									"<input type='button' onclick='calc()' value='Checks dates'>"+
 									'<div id="err"></div>';
 		} // End else if(choice.match("Add")) 
-		else if(choice.match("List")){ // Begin else if(choice.match("List")) 
-			document.getElementById('tripList').innerHTML = "";
-		} // End if(choice.match("List")) 
 		else{ // Begin else
 			document.getElementById('tripList').innerHTML = "";
 		} // End else
@@ -6031,9 +6100,9 @@ Google ID:<input type='text' name='googid' />
 		$lot
 		var d1;
 		var d2;
-		var trip = document.myform.googid.value;
-		var num1 = document.myform.bdaytime.value;
-		var num2 = document.myform.edaytime.value;
+		var trip = document.myform.maop_googid.value;
+		var num1 = document.myform.maop_bdaytime.value;
+		var num2 = document.myform.maop_edaytime.value;
 
 		if(trip.length == 0){ // Begin if(trip.length == 0)
 			document.getElementById('err').innerHTML = "No trip name specified.";
@@ -6049,7 +6118,7 @@ Google ID:<input type='text' name='googid' />
 					document.getElementById('err').innerHTML = "<input type='submit'>";
 				} // End if ((d1 - d2) < 0)
 				else{ // Begin else
-					document.getElementById('err').innerHTML = "d1 > d2 ..." + document.myform.bdaytime.value + " iiiiii "+document.myform.edaytime.value;
+					document.getElementById('err').innerHTML = "d1 > d2 ..." + document.myform.maop_bdaytime.value + " iiiiii "+document.myform.maop_edaytime.value;
 				} // End else
 			} // End else
 		} // End else
@@ -6097,18 +6166,18 @@ z-index: 33;
 </div>
 <fieldset>
 <legend>Youtube</legend>
-<form action='${main_prog}?service=auth&amp;upld=ok' method='post' enctype='multipart/form-data'>
-<input type='hidden' name='prev_pid' value='$$' />
-<input type='hidden' name='login' value='$lok' />
-<input type='hidden' name='recPid' value='ok' />
-<input type='hidden' name='service' value='check' />
-<input type='hidden' name='ssection' value='adminYoutubeAppearance' />
-<select name="youtubeAppearance"><!--  begin select youtubeAppearance -->
+<form action='${main_prog}?maop_service=auth&amp;maop_upld=ok' method='post' enctype='multipart/form-data'>
+<input type='hidden' name='maop_prev_id' value='$$' />
+<input type='hidden' name='maop_login' value='$lok' />
+<input type='hidden' name='maop_recPid' value='ok' />
+<input type='hidden' name='maop_service' value='check' />
+<input type='hidden' name='maop_ssection' value='adminYoutubeAppearance' />
+<select name="maop_youtubeAppearance"><!--  begin select youtubeAppearance -->
 <option selected>Visual/Visuel</option>
 <option selected>Link/Lien</option>
 </select><!--  end select youtubeAppearance -->
 <input type='submit' value='Autoriser/Authorize youtube' />
-<!--input type='hidden' name='ssecgoo' value='adminGroup'-->
+<!--input type='hidden' name='maop_ssecgoo' value='adminGroup'-->
 </form>
 </fieldset>	
 MENU
@@ -6188,7 +6257,7 @@ None.
 
 sub ipAddressRemoved{ # begin ipAddressRemoved
 	if("$remPid" eq "ok"){ # Begin if("$remPid" eq "ok") remove ip address if user agreed
-		my $locRemIpInf=$doc->param("remAddrIp");
+		my $locRemIpInf=$doc->param("maop_remAddrIp");
 		chomp($locRemIpInf);
 		my $locRemIp=(split(/\|\|/,$locRemIpInf))[0];
 
@@ -6212,14 +6281,14 @@ sub ipAddressRemoved{ # begin ipAddressRemoved
 		} # End if(($locRemIp=~/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/) || ($locRemIp=~/[0-9a-z]{0,}\:[0-9a-z]{0,}\:[0-9a-z]{0,}/i))
 	} # End if("$remPid" eq "ok")
 
-	my $log=$doc->param("login");
+	my $log=$doc->param("maop_login");
 	print <<MENU;
-<form action='${main_prog}?service=auth&amp;upld=ok' method='post' enctype='multipart/form-data'>
-<input type='hidden' name='prev_pid' value='$$' />
-<input type='hidden' name='login' value='$log' />
-<input type='hidden' name='remPid' value='ok' />
-<input type='hidden' name='service' value='check' />
-<select name='remAddrIp'>
+<form action='${main_prog}?maop_service=auth&amp;maop_maop_upld=ok' method='post' enctype='multipart/form-data'>
+<input type='hidden' name='maop_prev_id' value='$$' />
+<input type='hidden' name='maop_login' value='$log' />
+<input type='hidden' name='maop_remPid' value='ok' />
+<input type='hidden' name='maop_service' value='check' />
+<select name='maop_remAddrIp'>
 MENU
 foreach (@urlAllowed){ # Begin foreach (@urlAllowed)
 	$_=~s!__COMA__!,!g;
@@ -6230,7 +6299,7 @@ MENU
 	print <<MENU;
 </select>
 <input type='submit' value='Supprimer cette adresse IP / Remove this IP adress' />
-<input type='hidden' name='ssection' value='adminGroup' />
+<input type='hidden' name='maop_ssection' value='adminGroup' />
 </form>
 MENU
 } # End sub ipAddressRemoved
@@ -6387,6 +6456,8 @@ None.
 
 =over 4
 
+- I<Last modification:> Dec 24 2014 optimized sub routine
+
 - I<Last modification:> Dec 23 2014 add extra tests to record trip rec ok if in rage otherwise no (hdf history directory file; path to store data)
 
 - I<Last modification:> May 10 2014 add extra parameter (hdf history directory file; path to store data)
@@ -6406,51 +6477,11 @@ None.
 =cut
 
 sub set_history{ # begin set_history
-	my ($u,$d,$p,$f,$l,$hdf)=@_; # url,date,page,file to store;history directory file
+	my ($u,$d,$p,$f,$l,$hdf)=@_; # url,date,page,fields to store,history directory file
 
-# -----------------------------------
-	my $mgidt=$doc->param("googid"); #my google id  trip
-	chomp($mgidt);
-	my $tn=PATH_GOOGLE_MAP_TRIP.$mgidt ."-".TRIP_NAME; # Trip name
-
-	#print "$f\n<br>$tn<br>";
-
-	if(-f "$tn"){ # Begin if(-f "$tn")
-		my $dt3 = DateTime->from_epoch( epoch => time() );# Current date format DateTime
-
-		print "$tn mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm<br>";
-
-		open(RTN,"$tn") or die ("$td error");my @rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains begin and end of trip)
-		chomp($rtn[0]);my ($brtn,$ertn)=split(/\#/,$rtn[0]);
-		my $anal = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
-		my $dtb = $anal->parse_datetime( $brtn );
-		if($dtb>$dt3){ # begin if($dtb>$dt3)
-			# date is not yet arrived
-			print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
-			io::MyUtilities::setUrlFile("$u#$d#$p#$l#_-" . TRIP_NAME,"$f",$hdf); 
-			return;
-		} # end if($dtb>$dt3)
-		else{ # begin else $dtb<=$dt3
-			my $anal2 = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
-			my $dte = $anal2->parse_datetime( $ertn );
-			if($dte<$dt3){ # begin if($dte<$dt3)
-				# date is passed
-				print "<<<<<<<<<<<<<<<<<<<<<<<<<<<< $dte<<u>$dt3</u> not passed\n";
-				io::MyUtilities::setUrlFile("$u#$d#$p#$l#_-" . TRIP_NAME,"$f",$hdf); 
-				return;
-			} # end if($dte<$dt3)
-			else { # begin  $dte>=$dt3
-				print "<====================> $dtb<=$dt3<=$dte in range\n";
-				io::MyUtilities::setUrlFile("$u#$d#$p#$l#${mgidt}-" . TRIP_NAME,"$f",$hdf); 
-			} # end  $dte>=$dt3
-		} # end else $dtb<=$dt3
-
-		return;
-	} # End if(-f "$tn")
-	else{ # Begin else
-		print "usual record\n<br>";
-		io::MyUtilities::setUrlFile("$u#$d#$p#$l#_-" . TRIP_NAME,"$f",$hdf); 
-	} # End else
+	print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
+	io::MyUtilities::setUrlFile("$u#$d#$p#$l","$f",$hdf); 
+	return;
 } # End sub set_history
 
 =head1 sub accessAdminPicture(...)
@@ -6524,7 +6555,7 @@ None.
 sub accessAdminPicture{ # begin accessAdminPicture
 	print <<MENU
 <br />Administrer album/Administrate Album:
-<select name="grantAdministration">
+<select name="maop_grantAdministration">
 	<option selected>Public non autorise/Public not granted</option>
 	<option>Administration autorisee/Administration granted</option>
 </select>
@@ -6870,35 +6901,35 @@ None.
 =cut
 
 sub firstChoicetMenuadmin{ # begin firstChoicetMenuadmin
-	my $login=$doc->param("login") ; # Gets login
-	my $password=$doc->param("password") ; # Gets login
+	my $login=$doc->param("maop_login") ; # Gets login
+	my $password=$doc->param("maop_password") ; # Gets login
 	print &menu_page_title( "<br /><br />MENU PRINCIPAL<br /><font color='blue'>MAIN MENU</font>" . $doc->br );
 	print <<MENU;
 <br />
 <br />
 <br />
-<form action='${main_prog}?service=auth&amp;upld=ok' method='post' name="adminMenu" enctype='multipart/form-data'>
-<input type='hidden' name='prev_pid' value='$$' />
-<input type='hidden' name='login' value='$login' />
-<input type='hidden' name='password' value='$password' />
-<input type='hidden' name='recPid' value='ok' />
-<input type='hidden' name='service' value='check' />
-<input type='hidden' name='ssection' value='adminPict' />
+<form action='${main_prog}?maop_service=auth&amp;maop_maop_upld=ok' method='post' name="maop_adminMenu" enctype='multipart/form-data'>
+<input type='hidden' name='maop_prev_id' value='$$' />
+<input type='hidden' name='maop_login' value='$login' />
+<input type='hidden' name='maop_password' value='$password' />
+<input type='hidden' name='maop_recPid' value='ok' />
+<input type='hidden' name='maop_service' value='check' />
+<input type='hidden' name='maop_ssection' value='adminPict' />
 <input type='submit' value="Administration des photos/Administration of pictures" />
 <br />
 </form>
-<form action='${main_prog}?service=auth&amp;upld=ok' method='post' name="adminMenu" enctype='multipart/form-data'>
-<input type='hidden' name='prev_pid' value='$$' />
-<input type='hidden' name='login' value='$login' />
-<input type='hidden' name='password' value='$password' />
-<input type='hidden' name='recPid' value='' />
-<input type='hidden' name='service' value='check' />
-<input type='hidden' name='ssection' value='adminGroup' />
+<form action='${main_prog}?maop_service=auth&amp;maop_maop_upld=ok' method='post' name="maop_adminMenu" enctype='multipart/form-data'>
+<input type='hidden' name='maop_prev_id' value='$$' />
+<input type='hidden' name='maop_login' value='$login' />
+<input type='hidden' name='maop_password' value='$password' />
+<input type='hidden' name='maop_recPid' value='' />
+<input type='hidden' name='maop_service' value='check' />
+<input type='hidden' name='maop_ssection' value='adminGroup' />
 <input type='submit' value="Groups &amp; URLs/Groups &amp; URLs" />
 <br />
 </form>
 <form action='${main_prog}' method='post' enctype='multipart/form-data'>
-<input type='hidden' name='ssection' value='' />
+<input type='hidden' name='maop_ssection' value='' />
 <input type='submit' value="Retour vers l'album/Go back to album" />
 </form>
 <br />
@@ -7099,16 +7130,16 @@ sub setGoogleID{# begin setGoogleID
 	my $method = $ENV{'REQUEST_METHOD'} ;
 	chomp($method);
 
-	#print "file to delete -$method- +$param_trip_delete----  " . $doc->param("operationokdelete") . "<br>";
-	if($method eq "POST"){
-		my $param_trip_delete=$doc->param("TRIP_ID_DELETE");
+	print "We go in param googoid<br>";
+	if($method ne "POST"){
+		my $param_trip_delete=$doc->param("maop_TRIP_ID_DELETE");
 		chomp($param_trip_delete);
 		if($param_trip_delete=~m/^ok$/){ # Begin if($param_trip_delete=~m/^ok$/)
 			chdir(PATH_GOOGLE_MAP_TRIP);
-			#print "file to delete " . PATH_GOOGLE_MAP_TRIP . "/" . $doc->param("operationokdelete") . "-trips <br>";
-			unlink($doc->param("operationokdelete") . "-trips");
-			if( ! -f $doc->param("operationokdelete") . "-trips"){
-				print "<br><br><br><br>Trip " . $doc->param("operationokdelete") . " removed<br>";
+			#print "file to delete " . PATH_GOOGLE_MAP_TRIP . "/" . $doc->param("maop_operationokdelete") . "-trips <br>";
+			unlink($doc->param("maop_operationokdelete") . "-trips");
+			if( ! -f $doc->param("maop_operationokdelete") . "-trips"){
+				print "<br><br><br><br>Trip " . $doc->param("maop_operationokdelete") . " removed<br>";
 			}
 
 			chdir("../..");
@@ -7116,19 +7147,24 @@ sub setGoogleID{# begin setGoogleID
 		}
 	}
 
+	print "Stge 1<br>";
 	chomp($fname);chomp($googleid);
 	if($param_trip=~m/^ok$/){ # Begin if($param_trip=~m/^ok$/)
 		my $tn=PATH_GOOGLE_MAP_TRIP.$googleid ."-".TRIP_NAME; # Trip name
+		print "Stge 2<br>";
 
 		if(length($googleid)!=0){ # Begin if(length($googleid)!=0)
 			if( ! -f "$tn" ){ # Begin if( ! -f "$tn" )
-				my $bdaytime=$doc->param("bdaytime");
-				my $edaytime=$doc->param("edaytime");
+				my $bdaytime=$doc->param("maop_bdaytime");
+				my $edaytime=$doc->param("maop_edaytime");
+
+				print "record in $tn<br>";
 				if(length($bdaytime)!=0){ # Begin if(length($bdaytime)!=0)
 					if(length($edaytime)!=0){ # Begin if(length($edaytime)!=0)
+						print $bdaytime . "#" . $edaytime.'<br>';
 						# We create the file that contains data related to trip s.a name, bdate,edate of trip
 						open(W,">$tn");
-						print W $doc->param("bdaytime") . "#" . $doc->param("edaytime");
+						print W $bdaytime . "#" . $edaytime;
 						close(W);
 					} # End if(length($edaytime)!=0)
 					else{ # Begin else
