@@ -22,6 +22,9 @@ use io::MyUtilities;
 
 use CGI;
 
+
+my $ipAddr=io::MyNav::gets_ip_address;
+
 =head1 NAME
 
 g3ogle.cgi
@@ -66,20 +69,78 @@ is_hash
 
 my $doc=new CGI;
 
-my ($gmv,$prt)=split(/\-/,$doc->param("gmv")); # Gets google map version
-my ($googid)=$doc->param("googid"); # Gets google map version
+my $lon=$doc->param("maop_lon");
+my $lat=$doc->param("maop_lat");
+
+if(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
+	my $url=();
+	print "Content-Type: text/html\n\n";
+	#print "case 2<br>";exit(1);
+	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){
+		$url="http://localhost/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
+	}else{
+		$url="http://derased.heliohost.org/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
+	}
+	my $c=<<A;
+<!DOCTYPE html>
+<html>
+<body>
+<p id="wait"></p>
+
+<script>
+	var x=document.getElementById("wait");
+	x.innerHTML="Please wait while loading...";
+	window.location="$url";
+</script>
+</body>
+</html>
+A
+	print $c;
+	exit(0);
+} # end if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
+
+if(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)
+	my $url=();
+	print "Content-Type: text/html\n\n";
+	#print "case 1<br>";exit(1);
+	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){
+		$url="http://localhost/~sdo/cgi-bin/maop.cgi";
+	}else{
+		$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
+	}
+	my $c=<<A;
+<!DOCTYPE html>
+<html>
+<body>
+<p id="wait"></p>
+
+<script>
+	var x=document.getElementById("wait");
+	x.innerHTML="Please wait while loading...";
+	window.location="$url";
+</script>
+</body>
+</html>
+A
+	print $c;
+	exit(0);
+} # end if(!defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)
+
+
+my ($gmv,$prt)=split(/\-/,$doc->param("maop_gmv")); # Gets google map version
+my ($googid)=$doc->param("maop_googid"); # Gets google map version
 chomp($prt);chomp($googid);
 
-#$prt= (! defined($prt)) ? "0";
+print "Content-type: text/html\n\n";
+print "i$gmv,$prt, check  test prt length if it is ok. implemented but not tested yet<br>";
 
-print "Content-Type: text/html\n\n";
+if(length($googid)==0 || ! defined($googid) ){ # begin if(length($prt)==0 || ! defined($prt) )
+	$prt=1;
+} # end if(length($prt)==0 || ! defined($prt) )
 
-#print "-----($gmv,$prt)------>$googid\n<br>";
-
-my $ipAddr=io::MyNav::gets_ip_address;
 if ($ipAddr=~m/127.0.0.1/){
 	my $pong = Net::Ping->new( $> ? "tcp" : "icmp" );
-	if ($pong->ping("kingkong.com")) {
+	if ($pong->ping("www.heliohost.org")) {
 	} else {
 		print "No connection!\n";
 		exit(-1);
@@ -89,25 +150,6 @@ if ($ipAddr=~m/127.0.0.1/){
 my $fn=$0; # file name
 $fn=~m/([0-9a-zA-Z\-\.]*)$/;
 $fn=$1;
-
-my $xml = new XML::Simple;
-my ($L,$l)=(48.866699,2.333300); # By default these are the coodinates
-
-if($ipAddr=~m/^127./||$ipAddr=~m/localhost/||!length($ipAddr)){ # begin if($ipAddr=~m/^127./||$ipAddr=~m/localhost/||!length($ipAddr))
-	#print "------>$ipAddr<br>";
-} # end if($ipAddr=~m/^127./||$ipAddr=~m/localhost/||!length($ipAddr))
-else{ # begin else
-	($L,$l)=getsGPSCoordinates();
-} # end else
-
-my $wfc=get("http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=$L,$l");
-
-open(W,">wfc_data.$$.xml") or die("error $!");
-print W $wfc;
-close(W) or die("error $!");
-#print "ooooooooo)$wfc(oooooooooooooooo<br>";
-my $data = $xml->XMLin("wfc_data.$$.xml");
-#print "uuuuu>pasted $data<<<<<<<<<<<<<br>";
 
 my $id=();
 my @rr=();
@@ -121,7 +163,7 @@ else{ # begin else
 } # end else
 
 my $mymp=() ;
-my $path=(); # olds data to prin on the map
+my $path=(); # olds data to print on the map
 my %l=();
 
 #-------------------------------------------------------------------------
@@ -129,7 +171,7 @@ my %l=();
 chomp($id) ;
 
 # Checks options for map rinting with Markers
-if(defined($prt)){ # Begin if(definied($prt))
+#if(defined($prt)){ # Begin if(definied($prt))
 	# Prints where you are
 	if($prt==0){ # Begin if($prt==0)
 		#$path.=&getsPath("album/hist","New Zealand"); # Load file
@@ -150,10 +192,10 @@ if(defined($prt)){ # Begin if(definied($prt))
 		$path.=&getsPath("album/hist","THIRDTEST"); # Load file
 		&mapGoogle("$id","$gmv");
 	} # End if($prt==2)
-} # End if(definied($prt))
-else {
-	&mapGoogle("$id","$gmv");
-}
+#} # End if(definied($prt))
+#else {
+	#&mapGoogle("$id","$gmv");
+#}
 
 =head1 sub getsLoLa(...)
 
@@ -251,10 +293,11 @@ sub getsLoLa{ # begin getsLoLa
 
 	# @dr contains all files and directories from current dir except . and ..
 	foreach my $ee (@dr){ # begin foreach (@dr) ; parse each file name from current directory
+		print "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@)$ee<br>";
 		if(length("$ee")>0){ # begin if(length("$ee")>0)
 			open(RO,"$ee") || die("$ee $!");$r.=<RO>;chomp($r);close(RO)||die("$ee $!");# store data from files in $r variable
 			#if($r=~m/perl/){
-				#print "#############)$ee<br>";
+				##print "#############)$ee<br>";
 			#}
 		} # end if(length("$ee")>0)
 	} # end foreach (@dr)
@@ -404,7 +447,7 @@ sub getsPath{ # begin getsPath
 	opendir(ARD,".") || die(". $!");# open current directory
 	my @dr= grep { $_ ne '.' and $_ ne '..' and $_ !~ m/pl$/i and $_ !~ m/cgi$/i} readdir(ARD);# parse current directory
 	closedir(ARD) || die(". $!");# close directory
-	foreach my $ee (@dr){ # begin foreach (@dr) ; parse each file name from current directory
+	foreach my $ee (@dr){ # begin foreach (@dr) ; parse each file name from cuon directory
 		if(length("$ee")>0){ # begin if(length("$ee")>0)
 			open(R,"$ee") || die("$ee $!");$r.=<R>;chomp($r);close(R)||die("$ee $!");# store data from files in $r variable
 		} # end if(length("$ee")>0)
@@ -420,13 +463,11 @@ sub getsPath{ # begin getsPath
 		chomp($p);
 		my @q=split(/\#/,$p); # split each lines as a column
 		# we check country name below
-		if($q[14]=~m/$field/i){ # begin if($q[7]=~m/$field/i)
+		if($q[5]=~m/$field/i){ # begin if($q[7]=~m/$field/i)
 			#print "oooooooooooooooo)$q[14] ------------ ";
 			my $dte=$q[1]; # Gets login date
-			my $l=$q[11]; # Gets Latitude
-			my $L=$q[12]; # Gets Longitude
-			$l=~s/LATITUDE://; # Remove coment
-			$L=~s/LONGITUDE://; # Remove coment
+			my $l=$q[4]; # Gets Latitude
+			my $L=$q[3]; # Gets Longitude
 			#print ">>>>>>>>>>>>>>>$l $L\n<br>";
 			# we remove same coordnitates that next to each ohers (line before)
 			if(!("$ll" eq "$l" && "$LL" eq "$L")){ # begin if(!("$ll" eq "$l" && "$LL" eq "$L"))
@@ -457,22 +498,40 @@ sub getsPath{ # begin getsPath
 	my $markersTrip=();
 
 	#print "size of the array ". scalar(@qq) . "<<<<<<<<<<<<<<<<br>";
+	my $max=scalar(@qq);
+	my $cur=1;
 	foreach(@qq){ # begin foreach(@qq)
 		my($ed,$ea)=split(/\@/,$_);
 		chomp($_);
 		chomp($ea);
 		$ea=~s/,$//;
-		$markersTrip.=<<TRIP_MARKERS;
+		if($cur<$max){ # Begin if($cur<$max)
+			$markersTrip.=<<TRIP_MARKERS;
 
-		// --------------------------------
+			// --------------------------------
 				var marker = new google.maps.Marker({
 						position: $ea,
 						map: map,
-						icon: 'https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|H|FFFF42'
+						icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|00FF00'
 					});
 				marker.setMap(map);
-		// --------------------------------
+			// --------------------------------
 TRIP_MARKERS
+		} # end if($cur<$max)
+		else{
+			$markersTrip.=<<TRIP_MARKERS;
+
+			// --------------------------------
+				var marker = new google.maps.Marker({
+						position: $ea,
+						map: map,
+						icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|FF0000'
+					});
+				marker.setMap(map);
+			// --------------------------------
+TRIP_MARKERS
+		}
+		$cur++;
 		if(length($prev)!=0){ # Begin if(length($prev)!=0)
 			$newArrows.=<<ARROWS;
 			var lineSymbol = {
@@ -695,7 +754,7 @@ sub mapGoogle{ # begin mapGoogle
 
 	$cart="\t\t\t\tvar points=[";
 	# we add markers on the map
-	my $gls=scalar(@aa);# geoloction size
+	my $gls=scalar(@aa);# geolocation size
 	for my $i (@aa){ # Begin for my $i (@aa)
 		$cvbn++;# increase of 1 each time pass here
 		if(length($i)>0){ # Begin if(length($i)>0)
@@ -756,14 +815,18 @@ R
 			//<![CDATA[
 			var map;
 			var marker;
-			var la=geoplugin_latitude();
-			var lo=geoplugin_longitude();
+			var la=$lat; //geoplugin_latitude();
+			var lo=$lon; //geoplugin_longitude();
 			var position= new google.maps.LatLng(la,lo);
 
 			var icons = {
-				hotel: {
-					name: 'Hostels',
-					icon: "https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|H|FFFF42"
+				EtapeTerminée: {
+					name: 'Etape terminée/Stage over',
+					icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|00FF00'
+				},
+				EtapeEnCour: {
+					name: 'Etape en cour/Start',
+					icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|FF0000'
 				},
 				wyrrn: {
 					name: 'you are here',
@@ -775,7 +838,8 @@ R
 			function initialize(){ // Begin function initialize()
 				var mapOptions = {
 					center: position,
-					zoom: 8
+					zoom: 15,
+					zoomControl: true
 				};
 
 				var legend = document.getElementById('legend');
