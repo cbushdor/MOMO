@@ -1,0 +1,58 @@
+Previously...
+we had geolocation issues...due to limitation of service (10^-2 as precision for geo coordinates) we had to work with something more accurate. Back in the days (year 2011) only external services was doing this (my mistake if it is not). Now HTML 5 and JS can do the job.
+
+The architcture...
+To include this service many architectures were possible. The one with Ajax, the one with HTML5,...
+
+The choices
+Ajax was good but due to the limit pipes number per session (each browser has its own spec). HTML 5 was the best choice. The heck was how to include the code in an existing code? One solution was to add a file that launch the album.cgi file.
+
+The program
+the program below is the execution of CGI script. 
+
+----------------------------------------------------------
+
+<!DOCTYPE html>
+<html>
+<body>
+<p id="wait"></p>
+
+<script>
+var x=document.getElementById("wait");
+x.innerHTML="Please wait while loading...http://localhost/~sdo/cgi-bin/album.cgi<br>------->";
+getLocation();
+
+function getLocation() { // begin function getLocation()
+    if (navigator.geolocation) { // begin if (navigator.geolocation)
+        navigator.geolocation.watchPosition(showPosition,showError);
+    } // end if (navigator.geolocation)
+    else { // begin else
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    } // end else
+} // end function getLocation()
+
+function showError(error){ // begin function showError(error)
+    switch(error.code) { // begin switch(error.code)
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+    } // end switch(error.code)
+} // end function showError(error)
+
+function showPosition(position) { // begin function showPosition(position)
+    var lon=position.coords.longitude;
+    var lat=position.coords.latitude;
+    window.location="http://localhost/~sdo/cgi-bin/album.cgi?maop_lon="+lon+"&maop_lat="+lat+"";
+} // end function showPosition(position)
+</script>
+</body>
+</html>
