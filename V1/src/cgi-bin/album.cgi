@@ -669,6 +669,7 @@ my @images_used=(
 	DIRECTORY_DEPOSIT . "powered.gif"
 	);
 
+my $date_ticket=$doc->param("date");
 print "Content-Type: text/html;charset=iso-8859-15;\n";
 print "Pragma: no-cache \n\n";
 	#------------------------------------------------------------------------
@@ -703,7 +704,7 @@ print "Pragma: no-cache \n\n";
 		} # end else $dtb<=$dt3
 	} # End if(-f "$tn")
 	else{ # Begin else
-		print "usual record\n<br>";
+		print $doc->param("date")." usual record\n<br>";
 		$mtfn="_-" . TRIP_NAME; 
 	} # End else
 	#------------------------------------------------------------------------
@@ -993,7 +994,7 @@ else { # Begin else
 	my $oppp=io::MyTime::gets_formated_date;
 	my $llll_l=();
 	#print "------------weather----------------->$locweaf<br>";
-	my @llll_res=($lon,$lat,$mtfn,(-f "$locweaf") ? "$locweaf" : "-");# from ip address gets geoloc coordinates, trip name,weather stuff
+	my @llll_res=($lon,$lat,$mtfn,(-f "$locweaf") ? "$locweaf" : "-",$date_ticket);# from ip address gets geoloc coordinates, trip name,weather stuff
 	foreach (@llll_res){ # begin foreach (@llll_res)
 		chomp($_);# must desapeared (non sense due to previous split
 		if (length($llll_l)==0){ # begin if (length($llll_l)==0) 
