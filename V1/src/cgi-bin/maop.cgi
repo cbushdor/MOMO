@@ -2,6 +2,16 @@
 
 use strict;
 use warnings;
+use POSIX qw(strftime);
+#my $now_string = strftime "%a %b %e %H:%M:%S %Y", localtime;
+# or for GMT formatted appropriately for your locale:
+my $now_string = strftime "%m %d %H:%M:%S UTC %Y", gmtime;
+
+#print "Content-Type: text/html\n\n";
+#print "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>$now_string<<<<<<<<<<<<<<<<<<<<<<<";
+
+#exit(1);
+#my $dt3 = DateTime->from_epoch( epoch => time() );# Current date format DateTime
 
 use CGI;
 
@@ -13,13 +23,16 @@ my $ip=io::MyNav::gets_ip_address;
 
 my $mparam=();# my parameter passed
 
-foreach my $p ($doc->param){
-	if($p=~m/^maop\_/){
-		if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!){
+#print "Content-type: text/html\n\n";
+
+foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
+	if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
+		if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!)
 			$mparam.="&$p=".$doc->param($p);
-		}
-	}
-}
+		} # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!)
+	} # end if($p=~m/^maop\_/)
+} # end foreach my $p ($doc->param)
+
 my $prog=(length($doc->param("maop_prog"))==0) ? "album.cgi" : $doc->param("maop_prog");
 
 if(! defined($ip)||$ip=~m/^127\.0\.0\.1/i||$ip=~m!localhost!){ # begin if(! defined($ip)||$ip=~m/^127\.0\.0\.1/i||$ip=~m!localhost!)
@@ -69,7 +82,7 @@ function showError(error){ // begin function showError(error)
 function showPosition(position) { // begin function showPosition(position)
     var lon=position.coords.longitude;
     var lat=position.coords.latitude;
-    window.location="$url?maop_lon="+lon+"&maop_lat="+lat+"$mparam";
+    window.location="$url?maop_lon="+lon+"&maop_lat="+lat+"$mparam&date=$now_string";
 } // end function showPosition(position)
 </script>
 </body>
