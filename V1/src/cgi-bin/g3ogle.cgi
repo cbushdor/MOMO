@@ -29,7 +29,7 @@ my $ipAddr=io::MyNav::gets_ip_address;
 
 g3ogle.cgi
 
-$VERSION=0.2.1.20
+$VERSION=0.2.1.34
 
 =head1 ABSTRACT
 
@@ -47,6 +47,7 @@ loadFile
 mapGoogle
 is_array
 is_hash
+infoCenter
 
 =back
 
@@ -55,6 +56,8 @@ is_hash
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v0.2.1.34> Jan 06 2014: see infoCenter
 
 - I<Last modification:v0.2.1.20> Feb 20 2014: test with ping added for local debug
 
@@ -1112,7 +1115,85 @@ sub is_hash{ # begin sub is_hash
 } # end sub is_hash
 
 
-sub infoCenter{
+=head1 sub infoCenter(...)
+
+=head2 SYNOPSIS
+
+=over 4
+
+=over 4
+
+Return a string that contains data from weather center  website.
+
+=back
+
+=back
+
+=head2 PARAMETER(S)
+
+=over 4
+
+=over 4
+
+$nwc: file name that contains weather center data
+
+=back
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+=over 4
+
+That's a formated string.
+
+=back
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+=over 4
+
+None.
+
+=back
+
+=back
+
+=head2 BUG(S) KNOWN
+
+=over 4
+
+=over 4
+
+None.
+
+=back
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+=over 4
+
+- Last modification: Jan 08 2014
+
+- Created on: Jan 02 2014
+
+=back
+
+=back
+
+=cut
+
+sub infoCenter{ # begin sub infoCenter
 	my ($nwc)=@_; # Name weather center
 	my $xml = new XML::Simple;
 	my $data = $xml->XMLin("$nwc");
@@ -1129,4 +1210,4 @@ sub infoCenter{
 		."<li><u>Lat/Lon:</u>$data->{display_location}->{latitude},$data->{display_location}->{longitude}</li></ul></p>"
 		."</div>"
 	;
-}
+} # end sub infoCenter
