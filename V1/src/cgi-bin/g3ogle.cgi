@@ -293,7 +293,7 @@ sub getsLoLa{ # begin getsLoLa
 
 	# @dr contains all files and directories from current dir except . and ..
 	foreach my $ee (@dr){ # begin foreach (@dr) ; parse each file name from current directory
-		print "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@)$ee<br>";
+		#print "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@)$ee<br>";
 		if(length("$ee")>0){ # begin if(length("$ee")>0)
 			open(RO,"$ee") || die("$ee $!");$r.=<RO>;chomp($r);close(RO)||die("$ee $!");# store data from files in $r variable
 			#if($r=~m/perl/){
@@ -445,7 +445,7 @@ sub getsPath{ # begin getsPath
 #	chdir("hist");# we go in album/hist
 	my $r=();# store content of each file
 	opendir(ARD,".") || die(". $!");# open current directory
-	my @dr= grep { $_ ne '.' and $_ ne '..' and $_ !~ m/pl$/i and $_ !~ m/cgi$/i} readdir(ARD);# parse current directory
+	my @dr= grep { $_ ne '.' and $_ ne '..' and $_ !~ m/pl$/i and $_ !~ m/cgi$/i and $_=~m/^maop\-/} readdir(ARD);# parse current directory
 	closedir(ARD) || die(". $!");# close directory
 	foreach my $ee (@dr){ # begin foreach (@dr) ; parse each file name from cuon directory
 		if(length("$ee")>0){ # begin if(length("$ee")>0)
@@ -459,34 +459,22 @@ sub getsPath{ # begin getsPath
 	my @zz=(); # path stored
 	my $prev=();
 	my $newArrows=();
+	my @infoWC=();
 	for my $p (@a){ # begin for my $p (@a)
 		chomp($p);
 		my @q=split(/\#/,$p); # split each lines as a column
 		# we check country name below
 		if($q[5]=~m/$field/i){ # begin if($q[7]=~m/$field/i)
 			#print "oooooooooooooooo)$q[14] ------------ ";
-			my $dte=$q[1]; # Gets login date
+			my $dte=$q[7]; # Gets login date
 			my $l=$q[4]; # Gets Latitude
 			my $L=$q[3]; # Gets Longitude
-			#print ">>>>>>>>>>>>>>>$l $L\n<br>";
+			@infoWC=(@infoWC,&infoCenter("$q[6]"));# Info Weather Center
 			# we remove same coordnitates that next to each ohers (line before)
 			if(!("$ll" eq "$l" && "$LL" eq "$L")){ # begin if(!("$ll" eq "$l" && "$LL" eq "$L"))
-				my $jj=$dte;
-				$dte=~s/(Mon|Tues|Wed|Thu|Fri|Sat|Sun)//g;
-				if($dte=~m/(Jan)/){$dte=~s/$1/01/;}
-				if($dte=~m/(Feb)/){$dte=~s/$1/02/;}
-				if($dte=~m/(Mar)/){$dte=~s/$1/03/;}
-				if($dte=~m/(Apr)/){$dte=~s/$1/04/;}
-				if($dte=~m/(May)/){$dte=~s/$1/05/;}
-				if($dte=~m/(Jun)/){$dte=~s/$1/06/;}
-				if($dte=~m/(Jul)/){$dte=~s/$1/07/;}
-				if($dte=~m/(Aug)/){$dte=~s/$1/08/;}
-				if($dte=~m/(Sep)/){$dte=~s/$1/09/;}
-				if($dte=~m/(Oct)/){$dte=~s/$1/10/;}
-				if($dte=~m/(Nov)/){$dte=~s/$1/11/;}
-				if($dte=~m/(Dec)/){$dte=~s/$1/12/;}
-				#print "$jj $dte<br>";
-				#print "blobloblobloblo>$dte@ new GLatLng($l,$L),\n";
+				# checks here if we can mix array with weather forecast
+				# trig with vi a.s /new google.maps.LatLng
+				#print "------------------------------------------------------->$dte<br>";
 				@zz=(@zz,"$dte@ new google.maps.LatLng($l,$L),\n");
 				#$llL.="new google.maps.LatLng($l,$L),\n";
 			} # end if(!("$ll" eq "$l" && "$LL" eq "$L"))
@@ -506,17 +494,62 @@ sub getsPath{ # begin getsPath
 		chomp($ea);
 		$ea=~s/,$//;
 		if($cur<$max){ # Begin if($cur<$max)
-			$markersTrip.=<<TRIP_MARKERS;
+			if ($cur>1){
+				$markersTrip.=<<TRIP_MARKERS;
 
-			// --------------------------------
+			// --------------  $ea   ------------------
+				var contentString = "$infoWC[$cur]";
+
+				var infowindow = new google.maps.InfoWindow({
+						content: contentString
+					});
+
 				var marker = new google.maps.Marker({
 						position: $ea,
 						map: map,
 						icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|00FF00'
 					});
+
+				// --------------------------------
+    
 				marker.setMap(map);
+				google.maps.event.addListener( marker, 'click', function( data){
+								// affichage position du marker
+								infowindow.setContent( "$infoWC[$cur]" );
+								infowindow.open( this.getMap(), this);
+							}); 
+				// --------------------------------
 			// --------------------------------
 TRIP_MARKERS
+			}
+			else {
+				$markersTrip.=<<TRIP_MARKERS;
+
+			// --------------  $ea   ------------------
+				var contentString = "$infoWC[$cur]";
+
+				var infowindow = new google.maps.InfoWindow({
+						content: contentString
+					});
+
+				var marker = new google.maps.Marker({
+						position: $ea,
+						map: map,
+						icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|003300'
+					});
+
+				// --------------------------------
+    
+				marker.setMap(map);
+				google.maps.event.addListener( marker, 'click', function( data){
+				    // affichage position du marker
+				    infowindow.setContent( "$cur==1 ---->$ea" );
+				    infowindow.open( this.getMap(), this);
+				  }); 
+				// --------------------------------
+			// --------------------------------
+TRIP_MARKERS
+			}
 		} # end if($cur<$max)
 		else{
 			$markersTrip.=<<TRIP_MARKERS;
@@ -759,6 +792,7 @@ sub mapGoogle{ # begin mapGoogle
 		$cvbn++;# increase of 1 each time pass here
 		if(length($i)>0){ # Begin if(length($i)>0)
 			my ($v,$u)=split(/\@/,$i); # split date and geoloc coord
+			#// check if we can't make an array of different values at once with weather forcast
 			$cart.="new google.maps.LatLng($u)";
 			# Tests for the comma at the end of the list
 			if($gls!=1){ # Begin if($gls!=1)
@@ -783,6 +817,21 @@ R
 	print <<R;
 		<style type="text/css">
 			<!--
+				#content {
+					width: 650px;
+				}
+				img.infoWin{
+					margin-top:1px;
+					margin-bottom:1px;
+					float: left;
+					vertical-align: top;
+				}
+				ul {
+					margin-top:1px;
+					margin-bottom:1px;
+					float: left;
+					list-style: none;
+				}
 				html { height: 100% }
 				body { height: 100%; margin: 0; padding: 0 }
 				#map { height: 100% }
@@ -820,6 +869,10 @@ R
 			var position= new google.maps.LatLng(la,lo);
 
 			var icons = {
+				EtapeDebut: {
+					name: "Début d'étape/Stage starts",
+					icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|003300'
+				},
 				EtapeTerminée: {
 					name: 'Etape terminée/Stage over',
 					icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|00FF00'
@@ -829,11 +882,10 @@ R
 					icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|FF0000'
 				},
 				wyrrn: {
-					name: 'you are here',
-					icon: "https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|W|EA1212"
+					name: 'You are here',
+					icon: "https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|W|CCCC00"
 				}
 			};
-
 
 			function initialize(){ // Begin function initialize()
 				var mapOptions = {
@@ -867,7 +919,7 @@ $path;
 				var lmarker = new google.maps.Marker({
 						position: point,
 						map: map,
-						icon: "https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|W|EA1212",
+						icon: "https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|W|CCCC00",
 						title: text
 					});
 					return lmarker;
@@ -1058,3 +1110,23 @@ sub is_hash{ # begin sub is_hash
 	my ($re)=@_; #$re: variable to check its type.
 	return ref($re) eq 'HASH';
 } # end sub is_hash
+
+
+sub infoCenter{
+	my ($nwc)=@_; # Name weather center
+	my $xml = new XML::Simple;
+	my $data = $xml->XMLin("$nwc");
+
+	return   
+		"<div id='content'><!-- $data->{credit} -->"
+		."<p><img class='infoWin' src='$data->{icons}->{icon_set}->{Default}->{icon_url}'>"
+		."<ul><li>$data->{local_time}</li>"
+		."<li>$data->{display_location}->{city},$data->{display_location}->{state_name}</li>"
+		."<li>$data->{temperature_string}</li></ul>"
+		."<ul><li><u>Visibilité/Visibility:</u>$data->{visibility_mi}</li>"
+		."<li><u>Vent/Wind:</u>$data->{wind_string}</li>"
+		."<li><u>Pression/Pressure:</u>$data->{pressure_string}</li>"
+		."<li><u>Lat/Lon:</u>$data->{display_location}->{latitude},$data->{display_location}->{longitude}</li></ul></p>"
+		."</div>"
+	;
+}
