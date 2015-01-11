@@ -135,27 +135,29 @@ my ($googid)=$doc->param("maop_googid"); # Gets google map version
 chomp($prt);chomp($googid);
 
 print "Content-type: text/html\n\n";
-print "i$gmv,$prt, check  test prt length if it is ok. implemented but not tested yet<br>";
 
+print "A - i$gmv,$prt, check  test prt length if it is ok. implemented but not tested yet<br>";
 if(length($googid)==0 || ! defined($googid) ){ # begin if(length($prt)==0 || ! defined($prt) )
 	$prt=1;
 } # end if(length($prt)==0 || ! defined($prt) )
 
-if ($ipAddr=~m/127.0.0.1/){
+print "B - i$gmv,$prt, check  test prt length if it is ok. implemented but not tested yet<br>";
+
+if ($ipAddr=~m/127.0.0.1/){ # begin if ($ipAddr=~m/127.0.0.1/)
 	my $pong = Net::Ping->new( $> ? "tcp" : "icmp" );
-	if ($pong->ping("www.heliohost.org")) {
-	} else {
+	if ($pong->ping("www.heliohost.org")) { # begin if ($pong->ping("www.heliohost.org"))
+	} # end if ($pong->ping("www.heliohost.org"))
+	else { # begin else
 		print "No connection!\n";
 		exit(-1);
-	}
-}
+	} # end else
+} # end if ($ipAddr=~m/127.0.0.1/)
 
 my $fn=$0; # file name
 $fn=~m/([0-9a-zA-Z\-\.]*)$/;
 $fn=$1;
 
 my $id=();
-my @rr=();
 my ($dev, $ino, $mode, $nlink, $uid, $gid, $rdev, $size, $atime, $mtime, $ctime, $blksize, $blocks) = stat "$fn";
 
 if(-f "debug"){ # Begin if(-f "debug")
@@ -168,6 +170,7 @@ else{ # begin else
 my $mymp=() ;
 my $path=(); # olds data to print on the map
 my %l=();
+my @rr=();
 
 #-------------------------------------------------------------------------
 
@@ -177,15 +180,12 @@ chomp($id) ;
 #if(defined($prt)){ # Begin if(definied($prt))
 	# Prints where you are
 	if($prt==0){ # Begin if($prt==0)
-		#$path.=&getsPath("album/hist","New Zealand"); # Load file
-		#$path.=&getsPath("album/hist","Canada"); # Load file
-		#$path.=&getsPath("album/hist","FOURTHTEST"); # Load file
 		$path.=&getsPath("album/hist","$googid"); # Load file
 		&mapGoogle("$id","$gmv");
 	} # End if($prt==0)
 	# Prints all markers
 	if($prt==1){ # Begin if($prt==1)
-		%l=&getsLoLa("album","hist"); # Load DB 
+		$path.=&getsLoLa("album","hist"); # Load DB 
 		&mapGoogle("$id","$gmv");
 	} # End if($prt==1)
 	# marks trips
@@ -286,22 +286,18 @@ None.
 sub getsLoLa{ # begin getsLoLa
 	my ($dp,$ds)=@_; # (dp: directory parent,ds: directory son) where are stored DB
 
-	my %llL=();# list of Longitude and latitude taken from a given file
+	my $llL=();# list of Longitude and latitude taken from a given file
 	
 	chdir("$dp");chdir("$ds");# we go in $dp/$ds. Now it's current diectory
 	my $r=();# store content of each file
 	opendir(ARD,".") || die(". $!");# open current directory
-	my @dr= grep { $_ ne '.' and $_ ne '..' and $_ !~ m/pl$/i and $_ !~ m/cgi$/i} readdir(ARD);# parse current directory
+	my @dr= grep { $_ ne '.' and $_ ne '..' and $_ !~ m/pl$/i and $_ !~ m/cgi$/i and $_=~m!^maop-!} readdir(ARD);# parse current directory
 	closedir(ARD) || die(". $!");# close directory
 
 	# @dr contains all files and directories from current dir except . and ..
 	foreach my $ee (@dr){ # begin foreach (@dr) ; parse each file name from current directory
-		#print "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@)$ee<br>";
 		if(length("$ee")>0){ # begin if(length("$ee")>0)
 			open(RO,"$ee") || die("$ee $!");$r.=<RO>;chomp($r);close(RO)||die("$ee $!");# store data from files in $r variable
-			#if($r=~m/perl/){
-				##print "#############)$ee<br>";
-			#}
 		} # end if(length("$ee")>0)
 	} # end foreach (@dr)
 	chdir("..");chdir(".."); # come back to original dir configuration
@@ -309,44 +305,18 @@ sub getsLoLa{ # begin getsLoLa
 	for my $p (@a){ # begin for my $p (@a)
 		chomp($p);#remove cariage return if one found
 		my @q=split(/\#/,$p); # split each lines as a column
-		if(scalar(@q)>10){ # begin if(scalar(@q)>10)
-			my $dtes=$q[1]; # Gets login date
-			my $l=$q[11]; # Gets Latitude
-			my $L=$q[12]; # Gets Longitude
-			$l=~s/LATITUDE\://; # Remove comment for the column name
-			$L=~s/LONGITUDE\://; # Remove comment for the column name
+		if(scalar(@q)>3){ # begin if(scalar(@q)>3)
+			my $dtes=$q[7]; # Gets login date
+			my $l=$q[4]; # Gets Latitude
+			my $L=$q[3]; # Gets Longitude
 			if(length("$l")){ # begin if(length($l))
 				if(length("$L")){ # begin if(length($L))
-		#print "\n<br>ooo(". scalar(@q) . ")oooo) {$dtes arobase $l,$L}(ooooooooooooooo>";
-		#if(scalar(@q)>14){ # begin if(scalar(@q)>14)
-			#print "---->$p";
-		#} # end if(scalar(@q)>14)
-		#print "<br>";
-					#print "\n<br>$dtes @ $l,$L stop here<br>";
-					$llL{"$dtes @ $l,$L"}.="<br>$dtes <!-- $q[7]-->";
-					#print "\n<br>$dtes @ $l,$L stop here<br>";
-					$dtes=~s/(Mon|Tues|Wed|Thu|Fri|Sat|Sun)//g;
-					if($dtes=~m/(Jan)/){$dtes=~s/$1/01/;}
-					if($dtes=~m/(Feb)/){$dtes=~s/$1/02/;}
-					if($dtes=~m/(Mar)/){$dtes=~s/$1/03/;}
-					if($dtes=~m/(Apr)/){$dtes=~s/$1/04/;}
-					if($dtes=~m/(May)/){$dtes=~s/$1/05/;}
-					if($dtes=~m/(Jun)/){$dtes=~s/$1/06/;}
-					if($dtes=~m/(Jul)/){$dtes=~s/$1/07/;}
-					if($dtes=~m/(Aug)/){$dtes=~s/$1/08/;}
-					if($dtes=~m/(Sep)/){$dtes=~s/$1/09/;}
-					if($dtes=~m/(Oct)/){$dtes=~s/$1/10/;}
-					if($dtes=~m/(Nov)/){$dtes=~s/$1/11/;}
-					if($dtes=~m/(Dec)/){$dtes=~s/$1/12/;}
 					@rr=(@rr,"$dtes\@$l,$L");
 				} # end if(length($L))
 			} # end if(length($l))
-		} # end if(scalar(@q))
-		#else { # begin else
-			#print "-------> " . scalar(@q) . " <<<<<<------$p<br>\n";
-		#} # end else
+		} # end if(scalar(@q)>3)
 	} # end for my $p (@a)
-	return %llL; # Returns hash
+	return $llL; # Returns list
 } # end getsLoLa
 
 
@@ -437,15 +407,10 @@ sub getsPath{ # begin getsPath
 	my ($file,$field)=@_; # File name to analyze
 	my $llL=();# list of Longitude and latitude taken from a given file
 
-	#$llL="\t\t\t\t// Begin polyline code \n";
-	#$llL.="\t\t\t\tvar polyline = [\n";
-
 	chomp($file);
 	foreach my $ld (split(/\//,$file)){ # begin foreach (split(/\//,$file))
 		chdir("$ld");
-		#print "directory: $ld  ---->".getcwd()."<br>\n";
 	} # end foreach (split(/\//,$file))
-#	chdir("hist");# we go in album/hist
 	my $r=();# store content of each file
 	opendir(ARD,".") || die(". $!");# open current directory
 	my @dr= grep { $_ ne '.' and $_ ne '..' and $_ !~ m/pl$/i and $_ !~ m/cgi$/i and $_=~m/^maop\-/} readdir(ARD);# parse current directory
@@ -479,7 +444,6 @@ sub getsPath{ # begin getsPath
 				# trig with vi a.s /new google.maps.LatLng
 				#print "------------------------------------------------------->$dte<br>";
 				@zz=(@zz,"$dte@ new google.maps.LatLng($l,$L),\n");
-				#$llL.="new google.maps.LatLng($l,$L),\n";
 			} # end if(!("$ll" eq "$l" && "$LL" eq "$L"))
 			$ll=$l;$LL=$L;
 #print "	
@@ -861,6 +825,7 @@ R
 
 R
 	print io::MyUtilities::googHead("$idgoog","$gmv");	
+	my $colo=($gmv==0) ? "CCCC00": "0033CC";
 	print <<R;
 
 		<script type="text/javascript">
@@ -910,10 +875,10 @@ R
 				map=new google.maps.Map(document.getElementById("map"),mapOptions);
 				map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
 
-				marker=createMarker(position,"text");
-				marker.setMap(map);
 $cart;
 $path;
+				marker=createMarkerWhereYouAre(position,"text");
+				marker.setMap(map);
 			} // End function initialize()
 
 
@@ -922,11 +887,22 @@ $path;
 				var lmarker = new google.maps.Marker({
 						position: point,
 						map: map,
+						icon: "https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|W|$colo",
+						title: text
+					});
+					return lmarker;
+			} // End function createMarker(point,html)
+
+			function createMarkerWhereYouAre(point,text) { // Begin function createMarker(point,html)
+				var lmarker = new google.maps.Marker({
+						position: point,
+						map: map,
 						icon: "https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|W|CCCC00",
 						title: text
 					});
 					return lmarker;
 			} // End function createMarker(point,html)
+
 
 			google.maps.event.addDomListener(window, 'load', initialize);
 			document.getElementById("legend")="https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|H|FFFF42";
