@@ -136,12 +136,12 @@ chomp($prt);chomp($googid);
 
 print "Content-type: text/html\n\n";
 
-print "A - i$gmv,$prt, check  test prt length if it is ok. implemented but not tested yet<br>";
+#print "A - i$gmv,$prt, check  test prt length if it is ok. implemented but not tested yet<br>";
 if(length($googid)==0 || ! defined($googid) ){ # begin if(length($prt)==0 || ! defined($prt) )
 	$prt=1;
 } # end if(length($prt)==0 || ! defined($prt) )
 
-print "B - i$gmv,$prt, check  test prt length if it is ok. implemented but not tested yet<br>";
+#print "B - i$gmv,$prt, check  test prt length if it is ok. implemented but not tested yet<br>";
 
 if ($ipAddr=~m/127.0.0.1/){ # begin if ($ipAddr=~m/127.0.0.1/)
 	my $pong = Net::Ping->new( $> ? "tcp" : "icmp" );
@@ -825,18 +825,8 @@ R
 
 R
 	print io::MyUtilities::googHead("$idgoog","$gmv");	
-	my $colo=($gmv==0) ? "CCCC00": "0033CC";
-	print <<R;
-
-		<script type="text/javascript">
-			//<![CDATA[
-			var map;
-			var marker;
-			var la=$lat; //geoplugin_latitude();
-			var lo=$lon; //geoplugin_longitude();
-			var position= new google.maps.LatLng(la,lo);
-
-			var icons = {
+	my $colo="CCCC00";
+	my $leng=<<A;
 				EtapeDebut: {
 					name: "Début d'étape/Stage starts",
 					icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|003300'
@@ -853,6 +843,33 @@ R
 					name: 'You are here',
 					icon: "https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|W|CCCC00"
 				}
+A
+	#print "Content-type text/html\n\n"; print "ooooooooooooooooooooooooooooooo>$gmv<------<br>";
+	if($prt!~0){
+		$colo="0033CC";
+		$leng=<<A;
+				ywt: {
+					name: 'Vous etiez là/You were there',
+					icon: "https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|W|0033CC"
+				},
+				wyrrn: {
+					name: 'You are here',
+					icon: "https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|W|CCCC00"
+				}
+A
+	}
+	print <<R;
+
+		<script type="text/javascript">
+			//<![CDATA[
+			var map;
+			var marker;
+			var la=$lat; //geoplugin_latitude();
+			var lo=$lon; //geoplugin_longitude();
+			var position= new google.maps.LatLng(la,lo);
+
+			var icons = {
+				$leng
 			};
 
 			function initialize(){ // Begin function initialize()
@@ -898,6 +915,7 @@ $path;
 						position: point,
 						map: map,
 						icon: "https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|W|CCCC00",
+						 zIndex: google.maps.Marker.MAX_ZINDEX + 1,
 						title: text
 					});
 					return lmarker;
