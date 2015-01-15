@@ -772,6 +772,7 @@ sub mapGoogle{ # begin mapGoogle
 	$cart.="\t\t\t\tfor(var i=0;i<points.length;i++){\n";
 	$cart.="\t\t\t\t\tvar marker = createMarker(points[i],'text');\n";
 	$cart.="\t\t\t\t\tmarker.setMap(map);\n";
+	$cart.="\t\t\t\t\tmarkers.push(marker);\n";
 	$cart.="\t\t\t\t}\n";
 	print <<R;
 <!DOCTYPE html">
@@ -859,10 +860,13 @@ A
 A
 	}
 	print <<R;
-
+		<script type="text/javascript" src="../js/markerclusterer.js"></script>
 		<script type="text/javascript">
 			//<![CDATA[
 			var map;
+			var mc;// MarkerClusterer
+			var mcOptions = {gridSize: 50, maxZoom: 15};// MarkerCluster Options
+			var markers = [];
 			var marker;
 			var la=$lat; //geoplugin_latitude();
 			var lo=$lon; //geoplugin_longitude();
@@ -894,10 +898,10 @@ A
 
 $cart;
 $path;
+				mc=new MarkerClusterer(map,markers,mcOptions);
 				marker=createMarkerWhereYouAre(position,"text");
 				marker.setMap(map);
 			} // End function initialize()
-
 
 			// To add the marker to the map, call setMap();
 			function createMarker(point,text) { // Begin function createMarker(point,html)
