@@ -82,7 +82,7 @@ function showError(error){ // begin function showError(error)
 function showPosition(position) { // begin function showPosition(position)
     var lon=position.coords.longitude;
     var lat=position.coords.latitude;
-    window.location="$url?maop_lon="+lon+"&maop_lat="+lat+"$mparam&date=$now_string";
+    window.location="$url?maop_lon="+lon+"&maop_lat="+lat+"$mparam&maop_date=$now_string";
 } // end function showPosition(position)
 </script>
 </body>

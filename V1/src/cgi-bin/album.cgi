@@ -669,7 +669,7 @@ my @images_used=(
 	DIRECTORY_DEPOSIT . "powered.gif"
 	);
 
-my $date_ticket=$doc->param("date");
+my $date_ticket=$doc->param("maop_date");
 print "Content-Type: text/html;charset=iso-8859-15;\n";
 print "Pragma: no-cache \n\n";
 	#------------------------------------------------------------------------
@@ -704,7 +704,7 @@ print "Pragma: no-cache \n\n";
 		} # end else $dtb<=$dt3
 	} # End if(-f "$tn")
 	else{ # Begin else
-		print $doc->param("date")." usual record\n<br>";
+		print $doc->param("maop_date")." usual record\n<br>";
 		$mtfn="_-" . TRIP_NAME; 
 	} # End else
 	#------------------------------------------------------------------------
