@@ -12,6 +12,10 @@ use CGI::Carp qw(fatalsToBrowser);
 use LWP::Simple;
 use XML::Simple;
 use Data::Dumper;
+use Time::localtime;
+#use File::stat;
+use Time::Local;
+
 
 use DateTime;
 use DateTime::Format::Strptime;
@@ -74,7 +78,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.79'; # Album release
+use constant ALBUM_REL               	=> '15.80'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -124,7 +128,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.79
+$VERSION=1.6.15.80
 
 =head1 ABSTRACT
 
@@ -202,6 +206,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.15.80> Jan 20 2015 extra test to avoid user cheating
 
 - I<Last modification:v1.6.15.65> Dec 24 2014 see setGoogleID
 
@@ -477,9 +483,89 @@ my $lat=$doc->param("maop_lat");
 my $param_trip=$doc->param("maop_TRIP_ID");
 my $bdaytime=$doc->param("maop_bdaytime");
 my $edaytime=$doc->param("maop_edaytime");
+my $logfile=$doc->param("maop_log");
+chomp($logfile);
 #print "Content-type:text/html\n\n";
 #print "---->$bdaytime<br>========>$edaytime<br>";
 
+if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/){ # begin if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
+	my $url=();
+	print "Content-Type: text/html\n\n";
+	#print "case 2<br>";exit(1);
+	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){ # begin if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
+		$url="http://localhost/~sdo/cgi-bin/maop.cgi";
+	} # end if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
+	else{ # begin else
+		$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
+	} # end else
+	my $c=<<A;
+<!DOCTYPE html>
+<html>
+<body>
+<p id="wait"></p>
+
+<script>
+	var x=document.getElementById("wait");
+	x.innerHTML="Please wait while loading...";
+	window.location="$url";
+</script>
+</body>
+</html>
+A
+	print $c;
+	exit(0);
+} # end if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
+
+$logfile=~s/\_/\//g;
+if(!-f "$logfile"){ # begin if(!-f "$logfile")
+	my $url=();
+	print "Content-Type: text/html\n\n";
+	#print "case 2<br>";exit(1);
+	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){ # begin if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
+		$url="http://localhost/~sdo/cgi-bin/maop.cgi";
+	} # end if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
+	else{ # begin else
+		$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
+	} # end else
+	my $c=<<A;
+<!DOCTYPE html>
+<html>
+<body>
+<p id="wait"></p>
+
+<script>
+	var x=document.getElementById("wait");
+	x.innerHTML="Please wait while loading...";
+	window.location="$url";
+</script>
+</body>
+</html>
+A
+	print $c;
+	exit(0);
+} # end if(!-f "$logfile") 
+else{ # begin else
+	if( -e "$logfile"){
+		unlink("$logfile");
+	}
+	chdir("album");chdir("hist");
+	opendir(ARD,".") || die(". $!");# open current directory
+	my @dr= grep { $_ ne '.' and $_ ne '..' and $_ !~ m/pl$/i and $_ !~ m/cgi$/i and $_=~m!^log-!} readdir(ARD);# parse current directory
+	closedir(ARD) || die(". $!");# close directory
+	#print "Content-Type: text/html\n\n";
+	my $c=0;
+	for my $o (@dr){
+		my $uuu= time - stat($o)->ctime;
+		if( $uuu > 5*60*60){
+			#print ">".$c++ . "--------------ooo)" . ( time - $uuu )  ;
+			if( -e "$o"){
+				#print "removing $o<br>";
+				unlink("$o");
+			}
+		}
+	}
+	chdir(".."); chdir("..");
+} # end else
 
 if(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
@@ -678,7 +764,7 @@ print "Pragma: no-cache \n\n";
 	if(-f "$tn"){ # Begin if(-f "$tn")
 		my $dt3 = DateTime->from_epoch( epoch => time() );# Current date format DateTime
 
-		print "$tn mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm<br>";
+		#print "$tn mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm<br>";
 
 		open(RTN,"$tn") or die ("$td error");my @rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains begin and end of trip)
 		chomp($rtn[0]);my ($brtn,$ertn)=split(/\#/,$rtn[0]);
@@ -704,7 +790,7 @@ print "Pragma: no-cache \n\n";
 		} # end else $dtb<=$dt3
 	} # End if(-f "$tn")
 	else{ # Begin else
-		print $doc->param("maop_date")." usual record\n<br>";
+		#print $doc->param("maop_date")." usual record\n<br>";
 		$mtfn="_-" . TRIP_NAME; 
 	} # End else
 	#------------------------------------------------------------------------
