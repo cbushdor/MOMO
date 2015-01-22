@@ -488,16 +488,38 @@ chomp($logfile);
 #print "Content-type:text/html\n\n";
 #print "---->$bdaytime<br>========>$edaytime<br>";
 
-if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/){ # begin if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
+my $mparam=();
+
+# Saving parametters
+foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
+	#print ">>>>>>>$p<br>";
+	if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
+		if($p!~m!maop_lon!&&
+		   $p!~m!maop_lat!&&
+		   $p!~m!maop_prog!&&
+		   $p!~m!maop_log!){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
+			$mparam.="&$p=".$doc->param($p);
+		}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
+	} # end if($p=~m/^maop\_/)
+} # end foreach my $p ($doc->param)
+#print "iiiiiioooooooooo>$mparam<br>";
+$mparam=~s/^\&//;
+#print "oooooooooo>$mparam<br>";
+#exit(1);
+
 	my $url=();
-	print "Content-Type: text/html\n\n";
+	#print "Content-Type: text/html\n\n";
 	#print "case 2<br>";exit(1);
 	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){ # begin if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
-		$url="http://localhost/~sdo/cgi-bin/maop.cgi";
+		#print "iiiiiiii>case 1-";
+		$url="http://localhost/~sdo/cgi-bin/maop.cgi\?$mparam";
+		#print "$url<br>";
 	} # end if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
 	else{ # begin else
-		$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
+		#print "iiiiiiii>case 2-";
+		$url="http://derased.heliohost.org/cgi-bin/maop.cgi\?$mparam";
 	} # end else
+	#print "<br>$ipAddr<br><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< $url<br>";
 	my $c=<<A;
 <!DOCTYPE html>
 <html>
@@ -512,100 +534,61 @@ if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]
 </body>
 </html>
 A
+	#exit(0);
+
+if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/){ # begin if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
+	print "Content-Type: text/html\n\n";
 	print $c;
 	exit(0);
 } # end if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
 
 $logfile=~s/\_/\//g;
 if(!-f "$logfile"){ # begin if(!-f "$logfile")
-	my $url=();
 	print "Content-Type: text/html\n\n";
-	#print "case 2<br>";exit(1);
-	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){ # begin if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
-		$url="http://localhost/~sdo/cgi-bin/maop.cgi";
-	} # end if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
-	else{ # begin else
-		$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
-	} # end else
-	my $c=<<A;
-<!DOCTYPE html>
-<html>
-<body>
-<p id="wait"></p>
-
-<script>
-	var x=document.getElementById("wait");
-	x.innerHTML="Please wait while loading...";
-	window.location="$url";
-</script>
-</body>
-</html>
-A
 	print $c;
 	exit(0);
 } # end if(!-f "$logfile") 
 else{ # begin else
-	if( -e "$logfile"){
+	if( -e "$logfile"){ # begin if( -e "$logfile")
 		unlink("$logfile");
-	}
+	} # end if( -e "$logfile")
 	chdir("album");chdir("hist");
 	opendir(ARD,".") || die(". $!");# open current directory
 	my @dr= grep { $_ ne '.' and $_ ne '..' and $_ !~ m/pl$/i and $_ !~ m/cgi$/i and $_=~m!^log-!} readdir(ARD);# parse current directory
 	closedir(ARD) || die(". $!");# close directory
 	#print "Content-Type: text/html\n\n";
 	my $c=0;
-	for my $o (@dr){
+	for my $o (@dr){ # begin for my $o (@dr)
 		my $uuu= time - stat($o)->ctime;
-		if( $uuu > 5*60*60){
+		if( $uuu > 5*60*60){ # begin if( $uuu > 5*60*60)
 			#print ">".$c++ . "--------------ooo)" . ( time - $uuu )  ;
-			if( -e "$o"){
+			if( -e "$o"){ # begin if( -e "$o")
 				#print "removing $o<br>";
 				unlink("$o");
-			}
-		}
-	}
+			} # end if( -e "$o")
+		} # end if( $uuu > 5*60*60)
+	} # end for my $o (@dr)
 	chdir(".."); chdir("..");
 } # end else
 
 if(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
-	my $url=();
 	print "Content-Type: text/html\n\n";
-	#print "case 2<br>";exit(1);
-	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){
-		$url="http://localhost/~sdo/cgi-bin/maop.cgi";
-	}else{
-		$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
-	}
-	my $c=<<A;
-<!DOCTYPE html>
-<html>
-<body>
-<p id="wait"></p>
-
-<script>
-	var x=document.getElementById("wait");
-	x.innerHTML="Please wait while loading...";
-	window.location="$url";
-</script>
-</body>
-</html>
-A
 	print $c;
 	exit(0);
 } # end if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
 
-	my $locweaf=ALBUM_INFO_HIST_DIRECTORY ."wfc_data.$lon.$lat.$$.".time().".xml";# file for local weather
+my $locweaf=ALBUM_INFO_HIST_DIRECTORY ."wfc_data.$lon.$lat.$$.".time().".xml";# file for local weather
 
 if(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
 	print "Content-Type: text/html\n\n";
 	#print "case 1<br>";exit(1);
-	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){ # begin if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
-		$url="http://localhost/~sdo/cgi-bin/maop.cgi";
-	} # end if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
-	else{ # begin else
-		$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
-	} # end else
+	#if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){ # begin if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
+		#$url="http://localhost/~sdo/cgi-bin/maop.cgi";
+	#} # end if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
+	#else{ # begin else
+		#$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
+	#} # end else
 	my $c=<<A;
 	<!DOCTYPE html>
 	<html>

@@ -1,40 +1,35 @@
 #!/usr/bin/perl
 
+use CGI;
 use strict;
 use warnings;
 use POSIX qw(strftime);
 use io::MyNav;
 
-#my $now_string = strftime "%a %b %e %H:%M:%S %Y", localtime;
-# or for GMT formatted appropriately for your locale:
 my $now_string = strftime "%m %d %H:%M:%S UTC %Y", gmtime;
 
-#print "Content-Type: text/html\n\n";
-#print "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>$now_string<<<<<<<<<<<<<<<<<<<<<<<";
-
-#exit(1);
-#my $dt3 = DateTime->from_epoch( epoch => time() );# Current date format DateTime
-
-use CGI;
-
-use io::MyNav;
-
-my $doc=new CGI();
+my $doc = new CGI;
 my $url=();
 my $ip=io::MyNav::gets_ip_address;
 
 my $mparam=();# my parameter passed
 
 #print "Content-type: text/html\n\n";
+#print "---------". $doc->param('maop_lon') ."<br>";
 
 foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
+	#print ">>>>>>>$p<br>";
 	if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
-		if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
+		if($p!~m!maop_lon!&&
+		   $p!~m!maop_lat!&&
+		   $p!~m!maop_prog!&&
+		   $p!~m!maop_log!){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 			$mparam.="&$p=".$doc->param($p);
-		} # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
+		}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 	} # end if($p=~m/^maop\_/)
 } # end foreach my $p ($doc->param)
 
+#print "oooooooo>$mparam<br>";
 
 my $prog=(length($doc->param("maop_prog"))==0) ? "album.cgi" : $doc->param("maop_prog");
 
@@ -66,7 +61,7 @@ my $myform=<<FORM;
 
 <script>
 var x=document.getElementById("wait");
-x.innerHTML="Please wait while loading...$url<br>------->$mparam";
+x.innerHTML="Attendre svp pendant le chargement...<br><i>Please wait while loading...</i>";// + "$url?maop_lon="+lon+"&maop_lat="+lat+"$mparam&maop_date=$now_string&maop_log=$logfile";
 getLocation();
 
 function getLocation() { // begin function getLocation()
