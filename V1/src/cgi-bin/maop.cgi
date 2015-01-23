@@ -20,10 +20,10 @@ my $mparam=();# my parameter passed
 foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 	#print ">>>>>>>$p<br>";
 	if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
-		if($p!~m!maop_lon!&&
-		   $p!~m!maop_lat!&&
-		   $p!~m!maop_prog!&&
-		   $p!~m!maop_log!){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
+		if($p!~m/^maop_lon$/&&
+		   $p!~m/^maop_lat$/&&
+		   $p!~m/^maop_prog$/&&
+		   $p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 			$mparam.="&$p=".$doc->param($p);
 		}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 	} # end if($p=~m/^maop\_/)

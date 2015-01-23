@@ -494,11 +494,13 @@ my $mparam=();
 foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 	#print ">>>>>>>$p<br>";
 	if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
-		if($p!~m!maop_lon!&&
-		   $p!~m!maop_lat!&&
-		   $p!~m!maop_prog!&&
-		   $p!~m!maop_log!){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
-			$mparam.="&$p=".$doc->param($p);
+		if($p!~m/^maop_lon$/&&
+		   $p!~m/^maop_lat$/&&
+		   $p!~m/^maop_prog$/&&
+		   $p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
+			my $ull=$doc->param($p);
+			#print "<br>PARAMS-------------->$p:$ull<br>";
+			$mparam.="&$p=".$ull;
 		}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 	} # end if($p=~m/^maop\_/)
 } # end foreach my $p ($doc->param)
@@ -868,7 +870,9 @@ my $locid="$co/$cn/$cr/$ct/$lo/$la";
 #print "The host name is $l --->$co-$cn-$cr-$ct-lo-la\n";
 
 
+#print "aaaaaa>check_password($my_pid,". $doc->param("maop_service").",check, $my_pid, $user_login, $login, $user_password, $password, $doc,album/pid);------>";
 my $resAuth=io::MyUtilities::check_password($my_pid,$doc->param("maop_service"), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,"album/pid");
+#print ">>>>>>>>>>>>$resAuth<br>";
 # print " ( ($resPing==0) && ($resAuth==0) ) \n<br />";
 # Check login & password if ok then access to extra services
 if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==0) ) 
