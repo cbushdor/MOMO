@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+e!/usr/bin/perl
 
 # +-------------------------------+
 # | album.cgi                     |
@@ -79,7 +79,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.80'; # Album release
+use constant ALBUM_REL               	=> '15.89'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -129,7 +129,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.80
+$VERSION=1.6.15.89
 
 =head1 ABSTRACT
 
@@ -1073,7 +1073,7 @@ else { # Begin else
 	my $oppp=io::MyTime::gets_formated_date;
 	my $llll_l=();
 	#print "------------weather----------------->$locweaf<br>";
-	my @llll_res=($lon,$lat,$mtfn,(-f "$locweaf") ? "$locweaf" : "-",$date_ticket);# from ip address gets geoloc coordinates, trip name,weather stuff
+	my @llll_res=($lon,$lat,$mtfn,(-e "$locweaf") ? "$locweaf" : "-",$date_ticket);# from ip address gets geoloc coordinates, trip name,weather stuff
 	foreach (@llll_res){ # begin foreach (@llll_res)
 		chomp($_);# must desapeared (non sense due to previous split
 		if (length($llll_l)==0){ # begin if (length($llll_l)==0) 
