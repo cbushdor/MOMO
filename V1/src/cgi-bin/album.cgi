@@ -1,4 +1,4 @@
-e!/usr/bin/perl
+#!/usr/bin/perl
 
 # +-------------------------------+
 # | album.cgi                     |
