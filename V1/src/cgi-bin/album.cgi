@@ -15,6 +15,7 @@ use Data::Dumper;
 use Time::localtime;
 #use File::stat;
 use Time::Local;
+use Try::Tiny;
 
 
 use DateTime;
@@ -608,23 +609,28 @@ A
 	print $c;
 	exit(0);
 } # end if(!defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)
-	else{
-	# begin else
+	else{ # begin else
 		my $wfcu="http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=$lat,$lon";
 		my $xml = new XML::Simple;
 
 		#print "Content-Type: text/html\n\n";
 		#print "--------------------->bef $locweaf rec<------<br>\n$wfcu<br>";
-		# Weather center
-		my $wfc=get("$wfcu");
+		try { # begin try
+			# Weather center
+			my $wfc=get("$wfcu");
 
-		#print "--------------------->$locweaf rec<------<br>$wfc\n";
-		open(W,">$locweaf") or die("error $!");
-		print W $wfc;
-		close(W) or die("error $!");
-		my $data = $xml->XMLin("$locweaf");
-	}
-	# end else
+			#print "--------------------->$locweaf rec<------<br>$wfc\n";
+			open(W,">$locweaf") or die("error $!");
+			print W $wfc;
+			close(W) or die("error $!");
+			my $data = $xml->XMLin("$locweaf") or die("error $locweaf $!");
+		} # end try
+		catch { # begin catch
+			if( -e "$locweaf"){ # begin if( -e "$locweaf")
+				unlink("$locweaf") or die("error $!");
+			} # end if( -e "$locweaf")
+		}; # end catch
+	} # end else
 
 # Password for login
 my ( $login, $password )=io::MyUtilities::gets_private_stuff_for_administrator($an_action,
