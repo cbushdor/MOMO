@@ -20,55 +20,107 @@
     </calendar>
   </calendars>
   <tasks>
-    <task id="1" name="Projects" note="" work="1526400" start="20150103T000000Z" end="20150122T170000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="2" name="Geolocation" note="" work="1526400" start="20150103T000000Z" end="20150122T170000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="1" name="Projects" note="" work="1605600" start="20150103T000000Z" end="20150202T170000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="2" name="Geolocation" note="" work="1605600" start="20150103T000000Z" end="20150202T170000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <task id="3" name="Tests" note="" work="1440000" duration="288000" start="20150103T000000Z" end="20150116T170000Z" work-start="20150105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150101T000000Z"/>
         </task>
         <task id="4" name="Code optimisation+tests for parameter" note="" work="86400" duration="86400" start="20150120T000000Z" end="20150122T170000Z" work-start="20150120T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150120T000000Z"/>
         </task>
+        <task id="5" name="Tests" note="" work="28800" duration="28800" start="20150124T000000Z" end="20150126T170000Z" work-start="20150126T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20150124T000000Z"/>
+        </task>
+        <task id="6" name="Research/Reading" note="" work="10800" duration="10800" start="20150125T000000Z" end="20150126T110000Z" work-start="20150126T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20150125T000000Z"/>
+        </task>
+        <task id="7" name="Tests 20150126 04:00PM-06:00PM Lac Dausm&#xE9;nil Vincennes, Paris France Europe" note="" work="10800" duration="10800" start="20150126T110000Z" end="20150126T150000Z" work-start="20150126T110000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="start-no-earlier-than" time="20150126T000000Z"/>
+          <predecessors>
+            <predecessor id="1" predecessor-id="18" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="8" name="Hike" note="" work="28800" duration="28800" start="20150131T000000Z" end="20150202T170000Z" work-start="20150202T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20150131T000000Z"/>
+        </task>
       </task>
     </task>
-    <task id="5" name="Associations" note="" work="25200" start="20150103T000000Z" end="20150112T110000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="6" name="Parties" note="" work="25200" start="20150103T000000Z" end="20150112T110000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="7" name="IP1" note="" work="14400" duration="14400" start="20150103T000000Z" end="20150105T120000Z" work-start="20150105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+    <task id="9" name="Production" note="" work="18000" start="20150126T150000Z" end="20150128T100000Z" work-start="20150126T150000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="10" name="Movies" note="" work="18000" start="20150126T150000Z" end="20150128T100000Z" work-start="20150126T150000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="11" name="Tests regarding geolocation Vicennes Park" note="" work="10800" duration="10800" start="20150126T150000Z" end="20150127T090000Z" work-start="20150126T150000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="start-no-earlier-than" time="20150126T000000Z"/>
+          <predecessors>
+            <predecessor id="1" predecessor-id="7" type="FS"/>
+            <predecessor id="1" predecessor-id="18" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="12" name="Made subtitles" note="" work="7200" duration="7200" start="20150128T000000Z" end="20150128T100000Z" work-start="20150128T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="start-no-earlier-than" time="20150128T000000Z"/>
+          <predecessors>
+            <predecessor id="1" predecessor-id="11" type="FS"/>
+          </predecessors>
+        </task>
+      </task>
+    </task>
+    <task id="13" name="Associations" note="" work="25200" start="20150103T000000Z" end="20150112T110000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="14" name="Parties" note="" work="25200" start="20150103T000000Z" end="20150112T110000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="15" name="IP1" note="" work="14400" duration="14400" start="20150103T000000Z" end="20150105T120000Z" work-start="20150105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150103T000000Z"/>
         </task>
-        <task id="8" name="AG Parinux 2015" note="" work="10800" duration="10800" start="20150111T000000Z" end="20150112T110000Z" work-start="20150112T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="16" name="AG Parinux 2015" note="" work="10800" duration="10800" start="20150111T000000Z" end="20150112T110000Z" work-start="20150112T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150111T000000Z"/>
         </task>
       </task>
     </task>
-    <task id="9" name="Journ&#xE9;es Perl 2015" note="" work="7200" start="20150105T000000Z" end="20150105T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="10" name="IRC" note="" work="7200" duration="7200" start="20150105T000000Z" end="20150105T100000Z" work-start="20150105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+    <task id="17" name="Sports" note="" work="10800" start="20150126T000000Z" end="20150126T110000Z" work-start="20150126T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="18" name="Hike 20150126 04:00PM-06:00PM Lac Dausm&#xE9;nil Vincennes, Paris France EuropeVincennes" note="" work="10800" duration="10800" start="20150126T000000Z" end="20150126T110000Z" work-start="20150126T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <constraint type="must-start-on" time="20150126T000000Z"/>
+      </task>
+    </task>
+    <task id="19" name="Journ&#xE9;es Perl 2015" note="" work="7200" start="20150105T000000Z" end="20150105T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="20" name="IRC" note="" work="7200" duration="7200" start="20150105T000000Z" end="20150105T100000Z" work-start="20150105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
         <constraint type="must-start-on" time="20150105T000000Z"/>
       </task>
     </task>
-    <task id="11" name="Conf/Renc/Mati/Salo/Expo" note="" work="64800" start="20150103T000000Z" end="20150122T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="12" name="Cin&#xE9;ma" note="" work="57600" start="20150103T000000Z" end="20150122T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="13" name="Regular" note="" work="21600" start="20150112T000000Z" end="20150122T100000Z" work-start="20150112T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="14" name="Luminor" note="Mon 12 Jan 2015, 21:51&#10;C'est dur d'etre aim&#xE9; par des cons" work="7200" duration="7200" start="20150112T000000Z" end="20150112T100000Z" work-start="20150112T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+    <task id="21" name="Conf/Renc/Mati/Salo/Expo" note="" work="100800" start="20150103T000000Z" end="20150130T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="22" name="Cin&#xE9;ma" note="" work="93600" start="20150103T000000Z" end="20150130T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="23" name="Regular" note="" work="57600" start="20150112T000000Z" end="20150130T100000Z" work-start="20150112T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="24" name="Luminor" note="Mon 12 Jan 2015, 21:51&#10;C'est dur d'etre aim&#xE9; par des cons" work="7200" duration="7200" start="20150112T000000Z" end="20150112T100000Z" work-start="20150112T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20150112T000000Z"/>
           </task>
-          <task id="15" name="Luminor" note="Fri 16 Jan 2015, 21:48&#10;Les nouveaux sauvages" work="7200" duration="7200" start="20150116T000000Z" end="20150116T100000Z" work-start="20150116T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="25" name="Luminor" note="Fri 16 Jan 2015, 21:48&#10;Les nouveaux sauvages" work="7200" duration="7200" start="20150116T000000Z" end="20150116T100000Z" work-start="20150116T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20150116T000000Z"/>
           </task>
-          <task id="16" name="Le Desperado" note="Thu 22 Jan 2015, 20:29&#10;They live by night - Les Amants de la nuit" work="7200" duration="7200" start="20150122T000000Z" end="20150122T100000Z" work-start="20150122T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="26" name="Le Desperado" note="Thu 22 Jan 2015, 20:29&#10;They live by night - Les Amants de la nuit" work="7200" duration="7200" start="20150122T000000Z" end="20150122T100000Z" work-start="20150122T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20150122T000000Z"/>
           </task>
+          <task id="27" name="Le Desperado" note="Wed 28 Jan 2015, 12:05&#10;Bas fonds" work="7200" duration="7200" start="20150127T000000Z" end="20150127T100000Z" work-start="20150127T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20150127T000000Z"/>
+          </task>
+          <task id="28" name="La Filmotheque du quartier latin" note="Wed 28 Jan 2015, 12:08&#10;Alice n'est plus ici" work="7200" duration="7200" start="20150127T000000Z" end="20150127T100000Z" work-start="20150127T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20150127T000000Z"/>
+          </task>
+          <task id="29" name="Le Desperado" note="Thu 29 Jan 2015, 02:17&#10; Kiss the Blood off My Hands" work="7200" duration="7200" start="20150128T000000Z" end="20150128T100000Z" work-start="20150128T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20150128T000000Z"/>
+          </task>
+          <task id="30" name="Le champo" note="Fri 30 Jan 2015, 22:02&#10;La dixieme victime" work="7200" duration="7200" start="20150129T000000Z" end="20150129T100000Z" work-start="20150129T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20150129T000000Z"/>
+          </task>
+          <task id="31" name="Le Champo" note="Fri 30 Jan 2015, 22:02&#10;La dixieme victime" work="7200" duration="7200" start="20150130T000000Z" end="20150130T100000Z" work-start="20150130T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20150130T000000Z"/>
+          </task>
         </task>
-        <task id="17" name="Festival" note="" work="36000" start="20150103T000000Z" end="20150122T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="18" name="Festival cin&#xE9;ma T&#xE9;l&#xE9;rama" note="" work="36000" start="20150103T000000Z" end="20150122T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-            <task id="19" name="Le champo" note="Wed 21 Jan 2015, 20:24&#10;Le gar&#xE7;on et le monde" work="28800" start="20150103T000000Z" end="20150105T170000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-            <task id="20" name="Le Grand Action" note="Thu 22 Jan 2015, 20:28&#10;Mommy (2014)" work="7200" duration="7200" start="20150122T000000Z" end="20150122T100000Z" work-start="20150122T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="32" name="Festival" note="" work="36000" start="20150103T000000Z" end="20150122T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="33" name="Festival cin&#xE9;ma T&#xE9;l&#xE9;rama" note="" work="36000" start="20150103T000000Z" end="20150122T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <task id="34" name="Le champo" note="Wed 21 Jan 2015, 20:24&#10;Le gar&#xE7;on et le monde" work="28800" start="20150103T000000Z" end="20150105T170000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+            <task id="35" name="Le Grand Action" note="Thu 22 Jan 2015, 20:28&#10;Mommy (2014)" work="7200" duration="7200" start="20150122T000000Z" end="20150122T100000Z" work-start="20150122T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150122T000000Z"/>
             </task>
           </task>
         </task>
       </task>
-      <task id="21" name="Expo" note="" work="7200" start="20150112T000000Z" end="20150112T100000Z" work-start="20150112T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="22" name="Archives nationales" note="Mon 12 Jan 2015, 21:54&#10;La collaboration 1940-1945" work="7200" duration="7200" start="20150112T000000Z" end="20150112T100000Z" work-start="20150112T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="36" name="Expo" note="" work="7200" start="20150112T000000Z" end="20150112T100000Z" work-start="20150112T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="37" name="Archives nationales" note="Mon 12 Jan 2015, 21:54&#10;La collaboration 1940-1945" work="7200" duration="7200" start="20150112T000000Z" end="20150112T100000Z" work-start="20150112T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150112T000000Z"/>
         </task>
       </task>
@@ -91,23 +143,48 @@
     <resource group="3" id="9" name="Googlemap" short-name="gma" type="1" units="0" email="" note="" std-rate="0"/>
   </resources>
   <allocations>
-    <allocation task-id="16" resource-id="1" units="100"/>
-    <allocation task-id="20" resource-id="1" units="100"/>
-    <allocation task-id="19" resource-id="1" units="100"/>
+    <allocation task-id="8" resource-id="1" units="100"/>
+    <allocation task-id="31" resource-id="1" units="100"/>
+    <allocation task-id="30" resource-id="1" units="100"/>
+    <allocation task-id="29" resource-id="1" units="100"/>
+    <allocation task-id="12" resource-id="1" units="100"/>
+    <allocation task-id="28" resource-id="1" units="100"/>
+    <allocation task-id="27" resource-id="1" units="100"/>
+    <allocation task-id="7" resource-id="1" units="25"/>
+    <allocation task-id="18" resource-id="1" units="25"/>
+    <allocation task-id="11" resource-id="1" units="25"/>
+    <allocation task-id="26" resource-id="1" units="100"/>
+    <allocation task-id="35" resource-id="1" units="100"/>
+    <allocation task-id="34" resource-id="1" units="100"/>
     <allocation task-id="3" resource-id="1" units="125"/>
-    <allocation task-id="15" resource-id="1" units="100"/>
-    <allocation task-id="22" resource-id="1" units="100"/>
-    <allocation task-id="14" resource-id="1" units="100"/>
-    <allocation task-id="10" resource-id="2" units="100"/>
-    <allocation task-id="8" resource-id="3" units="100"/>
-    <allocation task-id="7" resource-id="3" units="25"/>
-    <allocation task-id="7" resource-id="4" units="25"/>
-    <allocation task-id="7" resource-id="5" units="25"/>
-    <allocation task-id="7" resource-id="6" units="25"/>
+    <allocation task-id="25" resource-id="1" units="100"/>
+    <allocation task-id="37" resource-id="1" units="100"/>
+    <allocation task-id="24" resource-id="1" units="100"/>
+    <allocation task-id="20" resource-id="2" units="100"/>
+    <allocation task-id="16" resource-id="3" units="100"/>
+    <allocation task-id="15" resource-id="3" units="25"/>
+    <allocation task-id="15" resource-id="4" units="25"/>
+    <allocation task-id="15" resource-id="5" units="25"/>
+    <allocation task-id="15" resource-id="6" units="25"/>
+    <allocation task-id="7" resource-id="7" units="25"/>
+    <allocation task-id="18" resource-id="7" units="25"/>
+    <allocation task-id="11" resource-id="7" units="25"/>
+    <allocation task-id="5" resource-id="7" units="33"/>
+    <allocation task-id="6" resource-id="7" units="33"/>
     <allocation task-id="4" resource-id="7" units="33"/>
     <allocation task-id="3" resource-id="7" units="125"/>
+    <allocation task-id="7" resource-id="8" units="25"/>
+    <allocation task-id="18" resource-id="8" units="25"/>
+    <allocation task-id="11" resource-id="8" units="25"/>
+    <allocation task-id="5" resource-id="8" units="33"/>
+    <allocation task-id="6" resource-id="8" units="33"/>
     <allocation task-id="4" resource-id="8" units="33"/>
     <allocation task-id="3" resource-id="8" units="125"/>
+    <allocation task-id="7" resource-id="9" units="25"/>
+    <allocation task-id="18" resource-id="9" units="25"/>
+    <allocation task-id="11" resource-id="9" units="25"/>
+    <allocation task-id="5" resource-id="9" units="33"/>
+    <allocation task-id="6" resource-id="9" units="33"/>
     <allocation task-id="4" resource-id="9" units="33"/>
     <allocation task-id="3" resource-id="9" units="125"/>
   </allocations>
