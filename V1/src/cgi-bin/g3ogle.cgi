@@ -29,7 +29,7 @@ my $ipAddr=io::MyNav::gets_ip_address;
 
 g3ogle.cgi
 
-$VERSION=0.2.1.34
+$VERSION=0.2.1.50
 
 =head1 ABSTRACT
 
@@ -56,6 +56,8 @@ infoCenter
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v0.2.1.50> Jan 31 2015: see infoCenter
 
 - I<Last modification:v0.2.1.34> Jan 06 2014: see infoCenter
 
@@ -880,7 +882,8 @@ A
 				var mapOptions = {
 					center: position,
 					zoom: 15,
-					zoomControl: true
+					zoomControl: true,
+					mapTypeId: google.maps.MapTypeId.TERRAIN
 				};
 
 				var legend = document.getElementById('legend');
@@ -1193,19 +1196,29 @@ None.
 
 sub infoCenter{ # begin sub infoCenter
 	my ($nwc)=@_; # Name weather center
-	my $xml = new XML::Simple;
-	my $data = $xml->XMLin("$nwc");
+	if(-e "$nwc"){ # begin if(-e "$nwc")
+		my $xml = new XML::Simple;
+		my $data = $xml->XMLin("$nwc");
 
-	return   
-		"<div id='content'><!-- $data->{credit} -->"
-		."<p><img class='infoWin' src='$data->{icons}->{icon_set}->{Default}->{icon_url}'>"
-		."<ul><li>$data->{local_time}</li>"
-		."<li>$data->{display_location}->{city},$data->{display_location}->{state_name}</li>"
-		."<li>$data->{temperature_string}</li></ul>"
-		."<ul><li><u>Visibilité/Visibility:</u>$data->{visibility_mi}</li>"
-		."<li><u>Vent/Wind:</u>$data->{wind_string}</li>"
-		."<li><u>Pression/Pressure:</u>$data->{pressure_string}</li>"
-		."<li><u>Lat/Lon:</u>$data->{display_location}->{latitude},$data->{display_location}->{longitude}</li></ul></p>"
-		."</div>"
-	;
+		return   
+			"<div id='content'><!-- $data->{credit} -->"
+			."<p><img class='infoWin' src='$data->{icons}->{icon_set}->{Default}->{icon_url}'>"
+			."<ul><li>$data->{local_time}</li>"
+			."<li>$data->{display_location}->{city},$data->{display_location}->{state_name}</li>"
+			."<li>$data->{temperature_string}</li></ul>"
+			."<ul><li><u>Visibilité/Visibility:</u>$data->{visibility_mi}</li>"
+			."<li><u>Vent/Wind:</u>$data->{wind_string}</li>"
+			."<li><u>Pression/Pressure:</u>$data->{pressure_string}</li>"
+			."<li><u>Lat/Lon:</u>$data->{display_location}->{latitude},$data->{display_location}->{longitude}</li></ul></p>"
+			."</div>"
+			;
+	} # end if(-e "$nwc")
+	else{ # begin else
+		return   
+			"<div id='content'>"
+			."<ul>"
+			."<li>- No data available</li></ul>"
+			."</div>"
+			;
+	} # end else
 } # end sub infoCenter
