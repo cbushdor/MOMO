@@ -22,7 +22,7 @@ my $gcd = getcwd; # Gets current dir
 # -------------------------------------------------------------------------------
 
 # -------------------------------------------------------------------------------
-# ------------- Set direcories webhost and local --------------------------------
+# ------------- Set directories webhost and local --------------------------------
 my $HOME_ROOT = "/Users/sdo/Sites/";# alternative directory for local debug)
 my $MY_HOME_DIR = "/Users/sdo/Sites/cgi-bin";# alternative directory for local debug
 my $HOME_URL='http://127.0.0.1/~sdo';
@@ -531,20 +531,23 @@ R
 					$cgi->h2($cgi->span({-style => "position: relative;float: top;left: 290px;bottom:20px"},"...")) .
 					$cgi->h3($cgi->span({-style => "position: relative;float: top;left: 290px;bottom:35px"},"vendredi 29, samedi 30 juin 2012 à Strasbourg, France")).
 					$cgi->h3($cgi->span({-style => "position: relative;float: top;left:5px;bottom: 55px;"},"Index ".$cgi->i("$cud"))) 
-			) . (($nav=~m/msie/i) ? " ":
-			$cgi->div({-class=>"searchcase"},
-				$cgi->start_form({
-						-method=>"post",
-						-name=>"searchengine",
-						-action=>"$fnc?F=$F&go=$finace&C=$C&O=$O&bgdaem=1"
-					    }).
-						"Search/Chercher ".
-							$cgi->input({-type=>"text",-name=>"request"}).
-							$cgi->input({-type=>"button",-value=>"Soumettre/Submit",
-							-submit=>"orderRequest(this.form.request.value);",
-							-onclick=>"orderRequest(this.form.request.value);"
-							}).
-				$cgi->endform())) .
+			) .
+			#(($nav=~m/msie/i) ? " ":
+			#$cgi->div({-class=>"searchcase"},
+				#$cgi->start_form({
+						#-method=>"post",
+						#-name=>"searchengine",
+						#-action=>"$fnc?F=$F&go=$finace&C=$C&O=$O&bgdaem=1"
+					    #}).
+						#"Search/Chercher ".
+							#$cgi->input({-type=>"text",-name=>"request"}).
+							#$cgi->input({-type=>"button",-value=>"Soumettre/Submit",
+							#-submit=>"orderRequest(this.form.request.value);",
+							#-onclick=>"orderRequest(this.form.request.value);"
+							#}).
+				#"<!-- begin hello world -->". 
+				#$cgi->endform())) .
+				"<!-- end hello world-->".
 				$cgi->div({-id=>"infos"},"").
 				$cgi->br();
 }
