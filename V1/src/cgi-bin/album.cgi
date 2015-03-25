@@ -79,7 +79,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.99'; # Album release
+use constant ALBUM_REL               	=> '15.100'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -129,7 +129,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.99
+$VERSION=1.6.15.100
 
 =head1 ABSTRACT
 
@@ -551,7 +551,7 @@ if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]
 $logfile=~s/\_/\//g;
 if(!-f "$logfile"){ # begin if(!-f "$logfile")
 	print "Content-Type: text/html\n\n";
-	&myrec("Case lofile exist as a file","../error.html","!-f $logfile");
+	&myrec("Case logfile exist as a file","../error.html","!-f $logfile");
 	print "++++++++++" . $c;
 	exit(0);
 } # end if(!-f "$logfile") 
