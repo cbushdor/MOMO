@@ -79,7 +79,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.89'; # Album release
+use constant ALBUM_REL               	=> '15.98'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -129,7 +129,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.89
+$VERSION=1.6.15.98
 
 =head1 ABSTRACT
 
@@ -523,6 +523,7 @@ $mparam=~s/^\&//;
 		$url="http://derased.heliohost.org/cgi-bin/maop.cgi\?$mparam";
 	} # end else
 	#print "<br>$ipAddr<br><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< $url<br>";
+	# ------------------------------------------------------------------------------------------
 	my $c=<<A;
 <!DOCTYPE html>
 <html>
@@ -531,7 +532,8 @@ $mparam=~s/^\&//;
 
 <script>
 	var x=document.getElementById("wait");
-	x.innerHTML="Please wait while loading...";
+	//x.innerHTML="Please wait while loading...";
+	x.innerHTML="Error case 1 [lon,lat]=[$lon,$lat] not defined<br>Please wait while loading...";
 	window.location="$url";
 </script>
 </body>
@@ -541,14 +543,16 @@ A
 
 if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/){ # begin if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
 	print "Content-Type: text/html\n\n";
-	print $c;
+	&myrec("Case logfile format","../error.html","(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)");
+	print "-------". $c;
 	exit(0);
 } # end if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
 
 $logfile=~s/\_/\//g;
 if(!-f "$logfile"){ # begin if(!-f "$logfile")
 	print "Content-Type: text/html\n\n";
-	print $c;
+	&myrec("Case lofile exist as a file","../error.html","!-f $logfile");
+	print "++++++++++" . $c;
 	exit(0);
 } # end if(!-f "$logfile") 
 else{ # begin else
@@ -576,7 +580,8 @@ else{ # begin else
 
 if(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
 	print "Content-Type: text/html\n\n";
-	print $c;
+	&myrec("Case latitude exists and as proper format","../error.html","(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
+	print "XXXXXXXXXXXXXXXXX" . $c;
 	exit(0);
 } # end if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
 
@@ -600,37 +605,39 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin i
 
 	<script>
 		var x=document.getElementById("wait");
-		x.innerHTML="Please wait while loading...";
+		x.innerHTML="Error case 2 [lon,lat]=[$lon,$lat] not defined<br>Please wait while loading...";
 	window.location="$url";
 </script>
 </body>
 </html>
 A
+
+	&myrec("Case longitude exists and as proper format","../error.html","(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
 	print $c;
 	exit(0);
 } # end if(!defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)
-	else{ # begin else
-		my $wfcu="http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=$lat,$lon";
-		my $xml = new XML::Simple;
+else{ # begin else
+	my $wfcu="http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=$lat,$lon";
+	my $xml = new XML::Simple;
 
-		#print "Content-Type: text/html\n\n";
-		#print "--------------------->bef $locweaf rec<------<br>\n$wfcu<br>";
-		try { # begin try
-			# Weather center
-			my $wfc=get("$wfcu");
+	#print "Content-Type: text/html\n\n";
+	#print "--------------------->bef $locweaf rec<------<br>\n$wfcu<br>";
+	try { # begin try
+		# Weather center
+		my $wfc=get("$wfcu");
 
-			#print "--------------------->$locweaf rec<------<br>$wfc\n";
-			open(W,">$locweaf") or die("error $!");
-			print W $wfc;
-			close(W) or die("error $!");
-			my $data = $xml->XMLin("$locweaf") or die("error $locweaf $!");
-		} # end try
-		catch { # begin catch
-			if( -e "$locweaf"){ # begin if( -e "$locweaf")
-				unlink("$locweaf") or die("error $!");
-			} # end if( -e "$locweaf")
-		}; # end catch
-	} # end else
+		#print "--------------------->$locweaf rec<------<br>$wfc\n";
+		open(W,">$locweaf") or die("error $!");
+		print W $wfc;
+		close(W) or die("error $!");
+		my $data = $xml->XMLin("$locweaf") or die("error $locweaf $!");
+	} # end try
+	catch { # begin catch
+		if( -e "$locweaf"){ # begin if( -e "$locweaf")
+			unlink("$locweaf") or die("error $!");
+		} # end if( -e "$locweaf")
+	}; # end catch
+} # end else
 
 # Password for login
 my ( $login, $password )=io::MyUtilities::gets_private_stuff_for_administrator($an_action,
@@ -7273,6 +7280,17 @@ sub setGoogleID{# begin setGoogleID
 		close(W);
 	} # End else
 }# end setGoogleID
+
+sub myrec{
+	my ($c,$f,$m)=@_;
+		my $dt = DateTime->from_epoch( epoch => time() );# Current date format DateTime
+	open(W,">>$f")||die("error $!");
+	print W "<pre>\n";
+	print W "------------$dt---------------------\n";
+	print W "$c:\n$m\n\n";
+	print W "</pre><br><br>\n";
+	close(W)||die("error close$!");
+}
 
 =head1 AUTHOR
 
