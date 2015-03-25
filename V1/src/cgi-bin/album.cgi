@@ -543,7 +543,7 @@ A
 
 if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/){ # begin if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
 	print "Content-Type: text/html\n\n";
-	&myrec("Case logfile format","../error.html","(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)");
+	&myrec("Case logfile format <i>$url</i>","../error.html","(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)");
 	print "-------". $c;
 	exit(0);
 } # end if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
@@ -551,7 +551,7 @@ if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]
 $logfile=~s/\_/\//g;
 if(!-f "$logfile"){ # begin if(!-f "$logfile")
 	print "Content-Type: text/html\n\n";
-	&myrec("Case logfile exist as a file","../error.html","!-f $logfile");
+	&myrec("Case logfile exist as a file <i>$url</i>","../error.html","!-f $logfile");
 	print "++++++++++" . $c;
 	exit(0);
 } # end if(!-f "$logfile") 
@@ -580,7 +580,7 @@ else{ # begin else
 
 if(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
 	print "Content-Type: text/html\n\n";
-	&myrec("Case latitude exists and as proper format","../error.html","(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
+	&myrec("Case latitude exists and as proper format <i>$url</i>","../error.html","(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
 	print "XXXXXXXXXXXXXXXXX" . $c;
 	exit(0);
 } # end if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
@@ -612,7 +612,7 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin i
 </html>
 A
 
-	&myrec("Case longitude exists and as proper format","../error.html","(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
+	&myrec("Case longitude exists and as proper format <i>$url</i>","../error.html","(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
 	print $c;
 	exit(0);
 } # end if(!defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)
