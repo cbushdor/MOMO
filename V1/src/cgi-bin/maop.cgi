@@ -5,6 +5,8 @@ use strict;
 use warnings;
 use POSIX qw(strftime);
 use io::MyNav;
+use DateTime;
+use DateTime::Format::Strptime;
 
 my $now_string = strftime "%m %d %H:%M:%S UTC %Y", gmtime;
 
@@ -45,6 +47,7 @@ my $logfile="album/hist/log-$ipAddr-$$";
 
 if( -f "$logfile"){ # begin if( -f "$logfile")
 	unlink("$logfile");
+	&myrec("Case logfile format maop ","../error.html","-f $logfile");
 } # end if( -f "$logfile")
 open(FD,">$logfile") or die("$logfile error $!");
 print FD " ";
@@ -99,6 +102,19 @@ function showPosition(position) { // begin function showPosition(position)
 </body>
 </html>
 FORM
+
+&myrec("Case logfile format maop ","../error.html","logfile: $logfile ****** url: " . "$url?maop_lon=lon&maop_lat=lat+$mparam&maop_date=$now_string&maop_log=$logfile");
+
+sub myrec{
+	my ($c,$f,$m)=@_;
+		my $dt = DateTime->from_epoch( epoch => time() );# Current date format DateTime
+	open(W,">>$f")||die("error $!");
+	print W "<pre>\n";
+	print W "------------$dt---------------------\n";
+	print W "$c:\n$m\n\n";
+	print W "</pre><br><br>\n";
+	close(W)||die("error close$!");
+}
 
 print "Content-type: text/html\n\n";
 print $myform;
