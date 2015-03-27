@@ -13,12 +13,15 @@ my $now_string = strftime "%m %d %H:%M:%S UTC %Y", gmtime;
 my $doc = new CGI;
 my $url=();
 my $ip=io::MyNav::gets_ip_address;
-
+my $ipAddr=io::MyNav::gets_ip_address;
+my $logfile="album/hist/log-$ipAddr-$$";
 my $mparam=();# my parameter passed
 
 #print "Content-type: text/html\n\n";
 #print "---------". $doc->param('maop_lon') ."<br>";
 
+my $lo=();
+my $la=();
 foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 	#print ">>>>>>>$p<br>";
 	if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
@@ -28,9 +31,17 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 		   $p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 			$mparam.="&$p=".$doc->param($p);
 		}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
+		elsif ($p!~m/^maop_lat$/){ # begin elsif ($p!~m/^maop_lat$/)
+			$la=$doc->param($p);
+&myrec("Case logfile format maop ","../error.html","logfile: $logfile ****** $la" );
+		} # end elsif ($p!~m/^maop_lat$/)
+		elsif($p!~m/^maop_lon$/){ # begin elsif($p!~m/^maop_lon$/)
+			$lo=$doc->param($p);
+&myrec("Case logfile format maop ","../error.html","logfile: $logfile ****** $lo" );
+		} # end elsif($p!~m/^maop_lon$/)
 	} # end if($p=~m/^maop\_/)
 } # end foreach my $p ($doc->param)
-
+&myrec("Case logfile format maop ","../error.html","logfile: $logfile *****(lo, la)=($ lo,$la)" );
 #print "oooooooo>$mparam<br>";
 
 my $prog=(length($doc->param("maop_prog"))==0) ? "album.cgi" : $doc->param("maop_prog");
@@ -42,8 +53,7 @@ else{ # begin  else
 	$url="http://derased.heliohost.org/cgi-bin/$prog";
 } # end else
 
-my $ipAddr=io::MyNav::gets_ip_address;
-my $logfile="album/hist/log-$ipAddr-$$";
+
 
 if( -f "$logfile"){ # begin if( -f "$logfile")
 	unlink("$logfile");
@@ -103,7 +113,7 @@ function showPosition(position) { // begin function showPosition(position)
 </html>
 FORM
 
-&myrec("Case logfile format maop ","../error.html","logfile: $logfile ****** url: " . "$url?maop_lon=lon&maop_lat=lat+$mparam&maop_date=$now_string&maop_log=$logfile");
+&myrec("Case logfile format maop ","../error.html","logfile: $logfile ****** url: " . "$url?maop_lon= $lo & maop_lat= $la + $mparam & maop_date=$now_string&maop_log=$logfile");
 
 sub myrec{
 	my ($c,$f,$m)=@_;
