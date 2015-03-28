@@ -79,7 +79,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.101'; # Album release
+use constant ALBUM_REL               	=> '15.102'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -129,7 +129,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.101
+$VERSION=1.6.15.102
 
 =head1 ABSTRACT
 
@@ -543,7 +543,7 @@ A
 
 if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/){ # begin if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
 	print "Content-Type: text/html\n\n";
-	&myrec("Case ($lon - $lat) logfile format <i>$url</i>","../error.html","(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)");
+	&myrec("Case 1 ($lon - $lat) logfile format <i>$url</i>","../error.html","(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)");
 	print "-------". $c;
 	exit(0);
 } # end if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
@@ -551,7 +551,7 @@ if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]
 $logfile=~s/\_/\//g;
 if(!-f "$logfile"){ # begin if(!-f "$logfile")
 	print "Content-Type: text/html\n\n";
-	&myrec("Case ($lon - $lat) logfile exist as a file <i>$url</i>","../error.html","!-f $logfile");
+	&myrec("Case 2 ($lon - $lat) logfile exist as a file <i>$url</i>","../error.html","!-f $logfile");
 	print "++++++++++" . $c;
 	exit(0);
 } # end if(!-f "$logfile") 
@@ -580,7 +580,7 @@ else{ # begin else
 
 if(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
 	print "Content-Type: text/html\n\n";
-	&myrec("Case ($lon - $lat) latitude exists and as proper format <i>$url</i>","../error.html","(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
+	&myrec("Case 3 ($lon - $lat) latitude exists and as proper format <i>$url</i>","../error.html","(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
 	print "XXXXXXXXXXXXXXXXX" . $c;
 	exit(0);
 } # end if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
@@ -612,7 +612,7 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin i
 </html>
 A
 
-	&myrec("Case ($lon - $lat) longitude exists and as proper format <i>$url</i>","../error.html","(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
+	&myrec("Case 4 ($lon - $lat) longitude exists and as proper format <i>$url</i>","../error.html","(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
 	print $c;
 	exit(0);
 } # end if(!defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)
@@ -620,6 +620,7 @@ else{ # begin else
 	my $wfcu="http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=$lat,$lon";
 	my $xml = new XML::Simple;
 
+	&myrec("Case 9 ($lon - $lat) logfile format <i>$url</i>","../error.html","contact weather center");
 	#print "Content-Type: text/html\n\n";
 	#print "--------------------->bef $locweaf rec<------<br>\n$wfcu<br>";
 	try { # begin try
@@ -638,6 +639,8 @@ else{ # begin else
 		} # end if( -e "$locweaf")
 	}; # end catch
 } # end else
+
+&myrec("Case 10 ($lon - $lat) logfile format <i>$url</i>","../error.html","------------------everything is fine-----------------------------");
 
 # Password for login
 my ( $login, $password )=io::MyUtilities::gets_private_stuff_for_administrator($an_action,
@@ -7283,10 +7286,11 @@ sub setGoogleID{# begin setGoogleID
 
 sub myrec{
 	my ($c,$f,$m)=@_;
+	my $mainp=(split(/[\\\/]/,"$0"))[scalar(split(/[\\\/]/,"$0"))-1]; # gets program name
 		my $dt = DateTime->from_epoch( epoch => time() );# Current date format DateTime
 	open(W,">>$f")||die("error $!");
 	print W "<pre>\n";
-	print W "------------$dt---------------------\n";
+	print W "--------------------\n$mainp\n------------$dt---------------------\n";
 	print W "$c:\n$m\n\n";
 	print W "</pre><br><br>\n";
 	close(W)||die("error close$!");
