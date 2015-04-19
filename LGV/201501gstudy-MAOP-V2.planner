@@ -184,9 +184,9 @@
         <constraint type="must-start-on" time="20150310T000000Z"/>
       </task>
     </task>
-    <task id="47" name="Conf/Renc/Mati/Salo/Expo" note="" work="547200" start="20150103T000000Z" end="20150413T140000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="48" name="Cin&#xE9;ma" note="" work="320400" start="20150103T000000Z" end="20150408T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="49" name="Regular" note="" work="93600" start="20150112T000000Z" end="20150330T100000Z" work-start="20150112T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="47" name="Conf/Renc/Mati/Salo/Expo" note="" work="572400" start="20150103T000000Z" end="20150415T120000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="48" name="Cin&#xE9;ma" note="" work="331200" start="20150103T000000Z" end="20150413T110000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="49" name="Regular" note="" work="104400" start="20150112T000000Z" end="20150413T110000Z" work-start="20150112T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
           <task id="50" name="Luminor" note="Mon 12 Jan 2015, 21:51&#10;C'est dur d'etre aim&#xE9; par des cons" work="7200" duration="7200" start="20150112T000000Z" end="20150112T100000Z" work-start="20150112T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20150112T000000Z"/>
           </task>
@@ -226,136 +226,142 @@
           <task id="62" name="Le luminor" note="Sun 29 Mar 2015, 16:36&#10;David bowie museum / David bowie is" work="7200" duration="7200" start="20150329T000000Z" end="20150330T100000Z" work-start="20150330T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20150329T000000Z"/>
           </task>
+          <task id="63" name="Le luminor" note="Sun 12 Apr 2015, 21:25&#10;Carte blanche: Rambo (VO)" work="10800" duration="10800" start="20150412T000000Z" end="20150413T110000Z" work-start="20150413T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20150412T000000Z"/>
+          </task>
         </task>
-        <task id="63" name="Festival" note="" work="226800" start="20150103T000000Z" end="20150408T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="64" name="Festival cin&#xE9;ma T&#xE9;l&#xE9;rama" note="" work="36000" start="20150103T000000Z" end="20150122T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-            <task id="65" name="Le champo" note="Wed 21 Jan 2015, 20:24&#10;Le gar&#xE7;on et le monde" work="28800" start="20150103T000000Z" end="20150105T170000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-            <task id="66" name="Le Grand Action" note="Thu 22 Jan 2015, 20:28&#10;Mommy (2014)" work="7200" duration="7200" start="20150122T000000Z" end="20150122T100000Z" work-start="20150122T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="64" name="Festival" note="" work="226800" start="20150103T000000Z" end="20150408T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="65" name="Festival cin&#xE9;ma T&#xE9;l&#xE9;rama" note="" work="36000" start="20150103T000000Z" end="20150122T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <task id="66" name="Le champo" note="Wed 21 Jan 2015, 20:24&#10;Le gar&#xE7;on et le monde" work="28800" start="20150103T000000Z" end="20150105T170000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+            <task id="67" name="Le Grand Action" note="Thu 22 Jan 2015, 20:28&#10;Mommy (2014)" work="7200" duration="7200" start="20150122T000000Z" end="20150122T100000Z" work-start="20150122T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150122T000000Z"/>
             </task>
           </task>
-          <task id="67" name="Festival Du Film d'Asie du Sud Transgressif" note="" work="111600" start="20150103T000000Z" end="20150210T110000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-            <task id="68" name="Reflet Medicis" note="Thu 05 Feb 2015, 00:48&#10;Table ronde Pakistan" work="3600" duration="3600" start="20150204T000000Z" end="20150204T090000Z" work-start="20150204T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="68" name="Festival Du Film d'Asie du Sud Transgressif" note="" work="111600" start="20150103T000000Z" end="20150210T110000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <task id="69" name="Reflet Medicis" note="Thu 05 Feb 2015, 00:48&#10;Table ronde Pakistan" work="3600" duration="3600" start="20150204T000000Z" end="20150204T090000Z" work-start="20150204T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150204T000000Z"/>
             </task>
-            <task id="69" name="Reflet Medicis" note="Thu 05 Feb 2015, 00:50&#10;Zinda Bhaag" work="7200" duration="7200" start="20150204T000000Z" end="20150204T100000Z" work-start="20150204T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <task id="70" name="Reflet Medicis" note="Thu 05 Feb 2015, 00:50&#10;Zinda Bhaag" work="7200" duration="7200" start="20150204T000000Z" end="20150204T100000Z" work-start="20150204T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150204T000000Z"/>
             </task>
-            <task id="70" name="Reflet Medicis" note="Thu 05 Feb 2015, 23:32&#10;CAPITAL I" work="10800" duration="10800" start="20150103T000000Z" end="20150105T110000Z" work-start="20150105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
-            <task id="71" name="Reflet M&#xE9;dicis" note="Fri 06 Feb 2015, 21:17&#10;Vismayam (VO)" work="7200" duration="7200" start="20150206T000000Z" end="20150206T100000Z" work-start="20150206T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <task id="71" name="Reflet Medicis" note="Thu 05 Feb 2015, 23:32&#10;CAPITAL I" work="10800" duration="10800" start="20150103T000000Z" end="20150105T110000Z" work-start="20150105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
+            <task id="72" name="Reflet M&#xE9;dicis" note="Fri 06 Feb 2015, 21:17&#10;Vismayam (VO)" work="7200" duration="7200" start="20150206T000000Z" end="20150206T100000Z" work-start="20150206T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150206T000000Z"/>
             </task>
-            <task id="72" name="Reflet M&#xE9;dicis" note="Sun 08 Feb 2015, 02:49&#10;Lucia (VO)" work="10800" duration="10800" start="20150207T000000Z" end="20150209T110000Z" work-start="20150209T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <task id="73" name="Reflet M&#xE9;dicis" note="Sun 08 Feb 2015, 02:49&#10;Lucia (VO)" work="10800" duration="10800" start="20150207T000000Z" end="20150209T110000Z" work-start="20150209T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150207T000000Z"/>
             </task>
-            <task id="73" name="Reflet M&#xE9;dicis" note="Tue 10 Feb 2015, 02:19&#10;Lucia" work="7200" duration="7200" start="20150207T000000Z" end="20150209T100000Z" work-start="20150209T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <task id="74" name="Reflet M&#xE9;dicis" note="Tue 10 Feb 2015, 02:19&#10;Lucia" work="7200" duration="7200" start="20150207T000000Z" end="20150209T100000Z" work-start="20150209T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150207T000000Z"/>
             </task>
-            <task id="74" name="Reflet M&#xE9;dicis" note="Tue 10 Feb 2015, 02:21&#10;Red Swastik" work="7200" duration="7200" start="20150208T000000Z" end="20150209T100000Z" work-start="20150209T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <task id="75" name="Reflet M&#xE9;dicis" note="Tue 10 Feb 2015, 02:21&#10;Red Swastik" work="7200" duration="7200" start="20150208T000000Z" end="20150209T100000Z" work-start="20150209T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150208T000000Z"/>
             </task>
-            <task id="75" name="Reflet Medicis" note="Tue 10 Feb 2015, 02:22&#10;Akeli" work="10800" duration="10800" start="20150209T000000Z" end="20150209T110000Z" work-start="20150209T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <task id="76" name="Reflet Medicis" note="Tue 10 Feb 2015, 02:22&#10;Akeli" work="10800" duration="10800" start="20150209T000000Z" end="20150209T110000Z" work-start="20150209T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150209T000000Z"/>
             </task>
-            <task id="76" name="Reflet M&#xE9;dicis" note="Tue 10 Feb 2015, 02:23&#10;Teenkahon" work="10800" duration="10800" start="20150209T000000Z" end="20150209T110000Z" work-start="20150209T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <task id="77" name="Reflet M&#xE9;dicis" note="Tue 10 Feb 2015, 02:23&#10;Teenkahon" work="10800" duration="10800" start="20150209T000000Z" end="20150209T110000Z" work-start="20150209T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150209T000000Z"/>
             </task>
-            <task id="77" name="Reflet M&#xE9;dicis" note="Tue 10 Feb 2015, 02:24&#10;Q&amp;A Teenkahon" work="10800" duration="10800" start="20150209T000000Z" end="20150209T110000Z" work-start="20150209T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <task id="78" name="Reflet M&#xE9;dicis" note="Tue 10 Feb 2015, 02:24&#10;Q&amp;A Teenkahon" work="10800" duration="10800" start="20150209T000000Z" end="20150209T110000Z" work-start="20150209T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150209T000000Z"/>
             </task>
-            <task id="78" name="Reflet M&#xE9;dicis" note="Wed 11 Feb 2015, 06:09&#10;Titli" work="10800" duration="10800" start="20150210T000000Z" end="20150210T110000Z" work-start="20150210T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <task id="79" name="Reflet M&#xE9;dicis" note="Wed 11 Feb 2015, 06:09&#10;Titli" work="10800" duration="10800" start="20150210T000000Z" end="20150210T110000Z" work-start="20150210T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150210T000000Z"/>
             </task>
-            <task id="79" name="Reflet M&#xE9;dicis" note="Wed 11 Feb 2015, 06:10&#10;Q&amp;A titli" work="3600" duration="3600" start="20150210T000000Z" end="20150210T090000Z" work-start="20150210T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <task id="80" name="Reflet M&#xE9;dicis" note="Wed 11 Feb 2015, 06:10&#10;Q&amp;A titli" work="3600" duration="3600" start="20150210T000000Z" end="20150210T090000Z" work-start="20150210T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150210T000000Z"/>
             </task>
-            <task id="80" name="Reflet M&#xE9;dicis" note="Wed 11 Feb 2015, 06:11&#10;Queen (VO) film de cloture" work="10800" duration="10800" start="20150210T000000Z" end="20150210T110000Z" work-start="20150210T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <task id="81" name="Reflet M&#xE9;dicis" note="Wed 11 Feb 2015, 06:11&#10;Queen (VO) film de cloture" work="10800" duration="10800" start="20150210T000000Z" end="20150210T110000Z" work-start="20150210T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150210T000000Z"/>
             </task>
           </task>
-          <task id="81" name="1er Festival de cin&#xE9;ma V&#xE9;n&#xE9;zu&#xE9;lien &#xE0; Paris" note="" work="28800" start="20150304T000000Z" end="20150306T100000Z" work-start="20150304T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-            <task id="82" name="Reflet M&#xE9;dicis" note="Thu 05 Mar 2015, 09:56&#10;El manzano azul (VO)" work="7200" duration="7200" start="20150304T000000Z" end="20150304T100000Z" work-start="20150304T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="82" name="1er Festival de cin&#xE9;ma V&#xE9;n&#xE9;zu&#xE9;lien &#xE0; Paris" note="" work="28800" start="20150304T000000Z" end="20150306T100000Z" work-start="20150304T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <task id="83" name="Reflet M&#xE9;dicis" note="Thu 05 Mar 2015, 09:56&#10;El manzano azul (VO)" work="7200" duration="7200" start="20150304T000000Z" end="20150304T100000Z" work-start="20150304T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150304T000000Z"/>
             </task>
-            <task id="83" name="Reflet M&#xE9;dicis" note="Thu 05 Mar 2015, 09:57&#10;Dudamel, El Sonido de los Ni&#xF1;os" work="7200" duration="7200" start="20150304T000000Z" end="20150304T100000Z" work-start="20150304T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <task id="84" name="Reflet M&#xE9;dicis" note="Thu 05 Mar 2015, 09:57&#10;Dudamel, El Sonido de los Ni&#xF1;os" work="7200" duration="7200" start="20150304T000000Z" end="20150304T100000Z" work-start="20150304T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150304T000000Z"/>
             </task>
-            <task id="84" name="Reflet Medicis" note="Fri 06 Mar 2015, 05:53&#10;Habana Eva (vo)" work="7200" duration="7200" start="20150305T000000Z" end="20150305T100000Z" work-start="20150305T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <task id="85" name="Reflet Medicis" note="Fri 06 Mar 2015, 05:53&#10;Habana Eva (vo)" work="7200" duration="7200" start="20150305T000000Z" end="20150305T100000Z" work-start="20150305T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150305T000000Z"/>
             </task>
-            <task id="85" name="Reflet medicis" note="Fri 06 Mar 2015, 19:01&#10;Patas arriba (vo)" work="7200" duration="7200" start="20150306T000000Z" end="20150306T100000Z" work-start="20150306T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <task id="86" name="Reflet medicis" note="Fri 06 Mar 2015, 19:01&#10;Patas arriba (vo)" work="7200" duration="7200" start="20150306T000000Z" end="20150306T100000Z" work-start="20150306T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150306T000000Z"/>
             </task>
           </task>
-          <task id="86" name="15eme festival Terra di cinema 2015" note="" work="14400" start="20150321T000000Z" end="20150330T100000Z" work-start="20150323T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-            <task id="87" name="Cin&#xE9;ma Jacques Tati " note="Sat 21 Mar 2015, 20:09&#10;Lilliput-put" work="7200" duration="7200" start="20150321T000000Z" end="20150323T100000Z" work-start="20150323T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="87" name="15eme festival Terra di cinema 2015" note="" work="14400" start="20150321T000000Z" end="20150330T100000Z" work-start="20150323T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <task id="88" name="Cin&#xE9;ma Jacques Tati " note="Sat 21 Mar 2015, 20:09&#10;Lilliput-put" work="7200" duration="7200" start="20150321T000000Z" end="20150323T100000Z" work-start="20150323T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150321T000000Z"/>
             </task>
-            <task id="88" name="Cin&#xE9;ma Jacques Tati " note="" work="7200" duration="7200" start="20150330T000000Z" end="20150330T100000Z" work-start="20150330T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <task id="89" name="Cin&#xE9;ma Jacques Tati " note="" work="7200" duration="7200" start="20150330T000000Z" end="20150330T100000Z" work-start="20150330T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150330T000000Z"/>
             </task>
           </task>
-          <task id="89" name="17e festival du cin&#xE9;ma br&#xE9;silien de Paris" note="" work="36000" start="20150103T000000Z" end="20150408T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-            <task id="90" name="L'Arlequin" note="Wed 08 Apr 2015, 20:07&#10;Le gar&#xE7;on et le monde" work="28800" start="20150103T000000Z" end="20150105T170000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-            <task id="91" name="L'Arlequin" note="Wed 08 Apr 2015, 20:09&#10;Dona flor et ses deux maris" work="7200" duration="7200" start="20150408T000000Z" end="20150408T100000Z" work-start="20150408T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="90" name="17e festival du cin&#xE9;ma br&#xE9;silien de Paris" note="" work="36000" start="20150103T000000Z" end="20150408T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <task id="91" name="L'Arlequin" note="Wed 08 Apr 2015, 20:07&#10;Le gar&#xE7;on et le monde" work="28800" start="20150103T000000Z" end="20150105T170000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+            <task id="92" name="L'Arlequin" note="Wed 08 Apr 2015, 20:09&#10;Dona flor et ses deux maris" work="7200" duration="7200" start="20150408T000000Z" end="20150408T100000Z" work-start="20150408T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20150408T000000Z"/>
             </task>
           </task>
         </task>
       </task>
-      <task id="92" name="Peuf" note="" work="14400" start="20150312T000000Z" end="20150312T120000Z" work-start="20150312T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="93" name="Paris du vivre ensemble" note="Thu 12 Mar 2015, 10:53&#10;Juifs et musulmans: retissons les liens Palais du luxembiourg" work="14400" duration="14400" start="20150312T000000Z" end="20150312T120000Z" work-start="20150312T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="93" name="Peuf" note="" work="14400" start="20150312T000000Z" end="20150312T120000Z" work-start="20150312T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="94" name="Paris du vivre ensemble" note="Thu 12 Mar 2015, 10:53&#10;Juifs et musulmans: retissons les liens Palais du luxembiourg" work="14400" duration="14400" start="20150312T000000Z" end="20150312T120000Z" work-start="20150312T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150312T000000Z"/>
         </task>
       </task>
-      <task id="94" name="Rencontres Parlementaires" note="" work="187200" start="20150203T000000Z" end="20150408T120000Z" work-start="20150203T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="95" name="Maison de la chimie" note="Thu 05 Feb 2015, 00:52&#10;5es Rencontres parlementaires pour la Sant&#xE9; au travail" work="14400" duration="14400" start="20150203T000000Z" end="20150203T120000Z" work-start="20150203T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="95" name="Rencontres Parlementaires" note="" work="201600" start="20150203T000000Z" end="20150415T120000Z" work-start="20150203T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="96" name="Maison de la chimie" note="Thu 05 Feb 2015, 00:52&#10;5es Rencontres parlementaires pour la Sant&#xE9; au travail" work="14400" duration="14400" start="20150203T000000Z" end="20150203T120000Z" work-start="20150203T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150203T000000Z"/>
         </task>
-        <task id="96" name="Maison de la chimie" note="Thu 05 Feb 2015, 00:53&#10;Rencontres parlementaires sur la securit&#xE9; (annul&#xE9; car pb de dos)" work="14400" duration="14400" start="20150204T000000Z" end="20150204T120000Z" work-start="20150204T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+        <task id="97" name="Maison de la chimie" note="Thu 05 Feb 2015, 00:53&#10;Rencontres parlementaires sur la securit&#xE9; (annul&#xE9; car pb de dos)" work="14400" duration="14400" start="20150204T000000Z" end="20150204T120000Z" work-start="20150204T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150204T000000Z"/>
         </task>
-        <task id="97" name="BPI France" note="Wed 11 Feb 2015, 14:03&#10;Matinale  de l'&#xC9;conomie sur l'Investissement" work="14400" duration="14400" start="20150210T000000Z" end="20150210T120000Z" work-start="20150210T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="98" name="BPI France" note="Wed 11 Feb 2015, 14:03&#10;Matinale  de l'&#xC9;conomie sur l'Investissement" work="14400" duration="14400" start="20150210T000000Z" end="20150210T120000Z" work-start="20150210T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150210T000000Z"/>
         </task>
-        <task id="98" name="Maison de la chimie" note="Wed 18 Feb 2015, 20:04&#10;5es Rencontres parlementaires pour la Croissance et la Consommation" work="14400" duration="14400" start="20150217T000000Z" end="20150217T120000Z" work-start="20150217T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="99" name="Maison de la chimie" note="Wed 18 Feb 2015, 20:04&#10;5es Rencontres parlementaires pour la Croissance et la Consommation" work="14400" duration="14400" start="20150217T000000Z" end="20150217T120000Z" work-start="20150217T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150217T000000Z"/>
         </task>
-        <task id="99" name="Maison de la chimie" note="Wed 18 Feb 2015, 20:03&#10;24es Rencontres parlementaires sur l'Epargne" work="14400" duration="14400" start="20150218T000000Z" end="20150218T120000Z" work-start="20150218T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="100" name="Maison de la chimie" note="Wed 18 Feb 2015, 20:03&#10;24es Rencontres parlementaires sur l'Epargne" work="14400" duration="14400" start="20150218T000000Z" end="20150218T120000Z" work-start="20150218T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150218T000000Z"/>
         </task>
-        <task id="100" name="Maison de la chimie" note="Thu 05 Mar 2015, 09:53&#10;8es Rencontres parlementaires de la Se&#x301;curite&#x301;  Laposte.net" work="14400" duration="14400" start="20150303T000000Z" end="20150303T120000Z" work-start="20150303T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="101" name="Maison de la chimie" note="Thu 05 Mar 2015, 09:53&#10;8es Rencontres parlementaires de la Se&#x301;curite&#x301;  Laposte.net" work="14400" duration="14400" start="20150303T000000Z" end="20150303T120000Z" work-start="20150303T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150303T000000Z"/>
         </task>
-        <task id="101" name="Maison de la chimie" note="Thu 12 Mar 2015, 10:15&#10;Rencontres parlementaires pour la Croissance verte (20150311)" work="14400" duration="14400" start="20150311T000000Z" end="20150311T120000Z" work-start="20150311T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="102" name="Maison de la chimie" note="Thu 12 Mar 2015, 10:15&#10;Rencontres parlementaires pour la Croissance verte (20150311)" work="14400" duration="14400" start="20150311T000000Z" end="20150311T120000Z" work-start="20150311T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150311T000000Z"/>
         </task>
-        <task id="102" name="Palais Bourbon" note="" work="14400" duration="14400" start="20150312T000000Z" end="20150312T120000Z" work-start="20150312T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="103" name="Palais Bourbon" note="" work="14400" duration="14400" start="20150312T000000Z" end="20150312T120000Z" work-start="20150312T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150312T000000Z"/>
         </task>
-        <task id="103" name="Maison de la chimie" note="Tue 17 Mar 2015, 20:10&#10;10es Rencontres parlementaires sur l'Immobilier et l'Urbanisme" work="14400" duration="14400" start="20150317T000000Z" end="20150317T120000Z" work-start="20150317T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="104" name="Maison de la chimie" note="Tue 17 Mar 2015, 20:10&#10;10es Rencontres parlementaires sur l'Immobilier et l'Urbanisme" work="14400" duration="14400" start="20150317T000000Z" end="20150317T120000Z" work-start="20150317T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150317T000000Z"/>
         </task>
-        <task id="104" name="Maison de la chimie" note="Sun 05 Apr 2015, 11:33&#10;1res Rencontres parlementaires de l'ASF sur le financement des TPE-PME" work="14400" duration="14400" start="20150331T000000Z" end="20150331T120000Z" work-start="20150331T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="105" name="Maison de la chimie" note="Sun 05 Apr 2015, 11:33&#10;1res Rencontres parlementaires de l'ASF sur le financement des TPE-PME" work="14400" duration="14400" start="20150331T000000Z" end="20150331T120000Z" work-start="20150331T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150331T000000Z"/>
         </task>
-        <task id="105" name="Maison de la chimiee" note="Sun 05 Apr 2015, 11:34&#10;6es Rencontres parlementaires pour les Energies renouvelable" work="14400" duration="14400" start="20150401T000000Z" end="20150401T120000Z" work-start="20150401T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="106" name="Maison de la chimiee" note="Sun 05 Apr 2015, 11:34&#10;6es Rencontres parlementaires pour les Energies renouvelable" work="14400" duration="14400" start="20150401T000000Z" end="20150401T120000Z" work-start="20150401T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150401T000000Z"/>
         </task>
-        <task id="106" name="Maison de la chimie" note="Sat 11 Apr 2015, 21:24&#10;Matinales Sant&#xE9; et Num&#xE9;rique" work="14400" duration="14400" start="20150407T000000Z" end="20150407T120000Z" work-start="20150407T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="107" name="Maison de la chimie" note="Sat 11 Apr 2015, 21:24&#10;Matinales Sant&#xE9; et Num&#xE9;rique" work="14400" duration="14400" start="20150407T000000Z" end="20150407T120000Z" work-start="20150407T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150407T000000Z"/>
         </task>
-        <task id="107" name="Maison de la chimie" note="Sat 11 Apr 2015, 21:26&#10;3es Rencontres parlementaires de la Fiscalit&#xE9; " work="14400" duration="14400" start="20150408T000000Z" end="20150408T120000Z" work-start="20150408T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="108" name="Maison de la chimie" note="Sat 11 Apr 2015, 21:26&#10;3es Rencontres parlementaires de la Fiscalit&#xE9; " work="14400" duration="14400" start="20150408T000000Z" end="20150408T120000Z" work-start="20150408T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150408T000000Z"/>
         </task>
+        <task id="109" name="Maison de la chimie" note="Wed 15 Apr 2015, 13:53&#10;1res Rencontres parlementaires de la Mer et du Littoral" work="14400" duration="14400" start="20150415T000000Z" end="20150415T120000Z" work-start="20150415T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20150415T000000Z"/>
+        </task>
       </task>
-      <task id="108" name="Expo" note="" work="7200" start="20150112T000000Z" end="20150112T100000Z" work-start="20150112T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="109" name="Archives nationales" note="Mon 12 Jan 2015, 21:54&#10;La collaboration 1940-1945" work="7200" duration="7200" start="20150112T000000Z" end="20150112T100000Z" work-start="20150112T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="110" name="Expo" note="" work="7200" start="20150112T000000Z" end="20150112T100000Z" work-start="20150112T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="111" name="Archives nationales" note="Mon 12 Jan 2015, 21:54&#10;La collaboration 1940-1945" work="7200" duration="7200" start="20150112T000000Z" end="20150112T100000Z" work-start="20150112T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150112T000000Z"/>
         </task>
       </task>
-      <task id="110" name="Spectacles" note="" work="18000" start="20150411T000000Z" end="20150413T140000Z" work-start="20150413T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="111" name="Palais des congres" note="Sat 11 Apr 2015, 21:28&#10;3es Rencontres parlementaires de la Fiscalit&#xE9; " work="18000" duration="18000" start="20150411T000000Z" end="20150413T140000Z" work-start="20150413T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="112" name="Spectacles" note="" work="18000" start="20150411T000000Z" end="20150413T140000Z" work-start="20150413T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="113" name="Palais des congres" note="Sat 11 Apr 2015, 21:28&#10;3es Rencontres parlementaires de la Fiscalit&#xE9; " work="18000" duration="18000" start="20150411T000000Z" end="20150413T140000Z" work-start="20150413T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150411T000000Z"/>
         </task>
       </task>
@@ -382,30 +388,31 @@
   </resources>
   <allocations>
     <allocation task-id="28" resource-id="1" units="20"/>
-    <allocation task-id="102" resource-id="1" units="100"/>
+    <allocation task-id="103" resource-id="1" units="100"/>
     <allocation task-id="20" resource-id="1" units="100"/>
-    <allocation task-id="93" resource-id="1" units="100"/>
+    <allocation task-id="94" resource-id="1" units="100"/>
     <allocation task-id="41" resource-id="2" units="25"/>
     <allocation task-id="16" resource-id="2" units="50"/>
     <allocation task-id="35" resource-id="2" units="33"/>
     <allocation task-id="19" resource-id="2" units="100"/>
     <allocation task-id="26" resource-id="2" units="50"/>
     <allocation task-id="18" resource-id="2" units="50"/>
-    <allocation task-id="111" resource-id="3" units="100"/>
+    <allocation task-id="63" resource-id="3" units="100"/>
+    <allocation task-id="113" resource-id="3" units="100"/>
+    <allocation task-id="92" resource-id="3" units="100"/>
     <allocation task-id="91" resource-id="3" units="100"/>
-    <allocation task-id="90" resource-id="3" units="100"/>
-    <allocation task-id="88" resource-id="3" units="100"/>
+    <allocation task-id="89" resource-id="3" units="100"/>
     <allocation task-id="62" resource-id="3" units="100"/>
     <allocation task-id="40" resource-id="3" units="100"/>
     <allocation task-id="38" resource-id="3" units="25"/>
-    <allocation task-id="87" resource-id="3" units="100"/>
+    <allocation task-id="88" resource-id="3" units="100"/>
     <allocation task-id="16" resource-id="3" units="50"/>
     <allocation task-id="35" resource-id="3" units="33"/>
     <allocation task-id="61" resource-id="3" units="100"/>
+    <allocation task-id="86" resource-id="3" units="100"/>
     <allocation task-id="85" resource-id="3" units="100"/>
     <allocation task-id="84" resource-id="3" units="100"/>
     <allocation task-id="83" resource-id="3" units="100"/>
-    <allocation task-id="82" resource-id="3" units="100"/>
     <allocation task-id="15" resource-id="3" units="20"/>
     <allocation task-id="60" resource-id="3" units="100"/>
     <allocation task-id="18" resource-id="3" units="50"/>
@@ -413,6 +420,7 @@
     <allocation task-id="13" resource-id="3" units="25"/>
     <allocation task-id="14" resource-id="3" units="25"/>
     <allocation task-id="59" resource-id="3" units="100"/>
+    <allocation task-id="81" resource-id="3" units="100"/>
     <allocation task-id="80" resource-id="3" units="100"/>
     <allocation task-id="79" resource-id="3" units="100"/>
     <allocation task-id="78" resource-id="3" units="100"/>
@@ -425,7 +433,6 @@
     <allocation task-id="71" resource-id="3" units="100"/>
     <allocation task-id="70" resource-id="3" units="100"/>
     <allocation task-id="69" resource-id="3" units="100"/>
-    <allocation task-id="68" resource-id="3" units="100"/>
     <allocation task-id="58" resource-id="3" units="100"/>
     <allocation task-id="8" resource-id="3" units="100"/>
     <allocation task-id="57" resource-id="3" units="100"/>
@@ -438,11 +445,11 @@
     <allocation task-id="32" resource-id="3" units="25"/>
     <allocation task-id="11" resource-id="3" units="25"/>
     <allocation task-id="52" resource-id="3" units="100"/>
+    <allocation task-id="67" resource-id="3" units="100"/>
     <allocation task-id="66" resource-id="3" units="100"/>
-    <allocation task-id="65" resource-id="3" units="100"/>
     <allocation task-id="3" resource-id="3" units="125"/>
     <allocation task-id="51" resource-id="3" units="100"/>
-    <allocation task-id="109" resource-id="3" units="100"/>
+    <allocation task-id="111" resource-id="3" units="100"/>
     <allocation task-id="50" resource-id="3" units="100"/>
     <allocation task-id="38" resource-id="4" units="25"/>
     <allocation task-id="35" resource-id="4" units="33"/>
@@ -454,21 +461,22 @@
     <allocation task-id="25" resource-id="5" units="25"/>
     <allocation task-id="24" resource-id="5" units="100"/>
     <allocation task-id="23" resource-id="5" units="25"/>
+    <allocation task-id="109" resource-id="6" units="100"/>
+    <allocation task-id="108" resource-id="6" units="100"/>
     <allocation task-id="107" resource-id="6" units="100"/>
-    <allocation task-id="106" resource-id="6" units="100"/>
-    <allocation task-id="104" resource-id="6" units="100"/>
     <allocation task-id="105" resource-id="6" units="100"/>
+    <allocation task-id="106" resource-id="6" units="100"/>
     <allocation task-id="28" resource-id="6" units="20"/>
-    <allocation task-id="103" resource-id="6" units="100"/>
-    <allocation task-id="101" resource-id="6" units="100"/>
+    <allocation task-id="104" resource-id="6" units="100"/>
+    <allocation task-id="102" resource-id="6" units="100"/>
     <allocation task-id="27" resource-id="6" units="25"/>
+    <allocation task-id="101" resource-id="6" units="100"/>
+    <allocation task-id="99" resource-id="6" units="100"/>
     <allocation task-id="100" resource-id="6" units="100"/>
     <allocation task-id="98" resource-id="6" units="100"/>
-    <allocation task-id="99" resource-id="6" units="100"/>
-    <allocation task-id="97" resource-id="6" units="100"/>
     <allocation task-id="25" resource-id="6" units="25"/>
+    <allocation task-id="97" resource-id="6" units="100"/>
     <allocation task-id="96" resource-id="6" units="100"/>
-    <allocation task-id="95" resource-id="6" units="100"/>
     <allocation task-id="23" resource-id="6" units="25"/>
     <allocation task-id="28" resource-id="7" units="20"/>
     <allocation task-id="27" resource-id="7" units="25"/>
