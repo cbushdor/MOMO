@@ -21,10 +21,17 @@
   </calendars>
   <tasks>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <task id="1" name="Projects" note="" work="2282400" start="20150103T000000Z" end="20150513T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
 =======
     <task id="1" name="Projects" note="" work="2253600" start="20150103T000000Z" end="20150513T090000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
 >>>>>>> 266e5e6437f1e1f5d91956676feb289a60309981
+=======
+    <task id="1" name="Projects" note="" work="2253600" start="20150103T000000Z" end="20150513T090000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+=======
+    <task id="1" name="Projects" note="" work="2282400" start="20150103T000000Z" end="20150513T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+>>>>>>> 234eb2c756cb5eef89f3f10e6bdbc3526f0cc519
+>>>>>>> 626dd4560733f8261a477578b6e1dfbdb6a837ac
       <task id="2" name="Geolocation" note="" work="1609200" start="20150103T000000Z" end="20150501T090000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <task id="3" name="Tests" note="" work="1440000" duration="288000" start="20150103T000000Z" end="20150116T170000Z" work-start="20150105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150101T000000Z"/>
@@ -52,10 +59,17 @@
         </task>
       </task>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <task id="10" name="Adm" note="" work="673200" start="20150504T000000Z" end="20150513T100000Z" work-start="20150504T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
 =======
       <task id="10" name="Adm" note="" work="644400" start="20150504T000000Z" end="20150513T090000Z" work-start="20150504T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
 >>>>>>> 266e5e6437f1e1f5d91956676feb289a60309981
+=======
+      <task id="10" name="Adm" note="" work="644400" start="20150504T000000Z" end="20150513T090000Z" work-start="20150504T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+=======
+      <task id="10" name="Adm" note="" work="673200" start="20150504T000000Z" end="20150513T100000Z" work-start="20150504T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+>>>>>>> 234eb2c756cb5eef89f3f10e6bdbc3526f0cc519
+>>>>>>> 626dd4560733f8261a477578b6e1dfbdb6a837ac
         <task id="11" name="Study update f11-&gt;f21" note="Thu 07 May 2015, 10:41&#10;F11-&gt;F21 not good pb with repo obliged to install from scratch F21" work="144000" duration="144000" start="20150504T000000Z" end="20150508T170000Z" work-start="20150504T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20150504T000000Z"/>
         </task>
@@ -497,6 +511,125 @@
   </resource-groups>
   <resources>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    <resource group="5" id="1" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="2" name="Web servers" short-name="wse" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="3" name="Googlemap" short-name="gma" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="4" name="Tests" short-name="Tes" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="5" name="Perl" short-name="Per" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="6" name="Ubuntu" short-name="ubu" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="7" name="Fedora" short-name="fed" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="8" name="April" short-name="apr" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="9" name="Parinux" short-name="prx" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="10" name="Mongueurs de Perl" short-name="mdp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="11" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="12" name="Coffee shop" short-name="csh" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="13" name="Paris est une f&#xEA;te" short-name="PEUF" type="1" units="0" email="" note="" std-rate="0"/>
+  </resources>
+  <allocations>
+    <allocation task-id="13" resource-id="1" units="20"/>
+    <allocation task-id="12" resource-id="1" units="267"/>
+    <allocation task-id="13" resource-id="2" units="20"/>
+    <allocation task-id="12" resource-id="2" units="267"/>
+    <allocation task-id="13" resource-id="3" units="20"/>
+    <allocation task-id="12" resource-id="3" units="267"/>
+    <allocation task-id="11" resource-id="3" units="20"/>
+    <allocation task-id="9" resource-id="3" units="33"/>
+    <allocation task-id="57" resource-id="3" units="25"/>
+    <allocation task-id="143" resource-id="3" units="50"/>
+    <allocation task-id="29" resource-id="3" units="33"/>
+    <allocation task-id="28" resource-id="3" units="33"/>
+    <allocation task-id="27" resource-id="3" units="25"/>
+    <allocation task-id="25" resource-id="3" units="20"/>
+    <allocation task-id="24" resource-id="3" units="25"/>
+    <allocation task-id="56" resource-id="3" units="33"/>
+    <allocation task-id="55" resource-id="3" units="25"/>
+    <allocation task-id="54" resource-id="3" units="100"/>
+    <allocation task-id="52" resource-id="3" units="25"/>
+    <allocation task-id="51" resource-id="3" units="33"/>
+    <allocation task-id="50" resource-id="3" units="33"/>
+    <allocation task-id="22" resource-id="3" units="20"/>
+    <allocation task-id="48" resource-id="3" units="20"/>
+    <allocation task-id="20" resource-id="3" units="25"/>
+    <allocation task-id="47" resource-id="3" units="33"/>
+    <allocation task-id="45" resource-id="3" units="33"/>
+    <allocation task-id="44" resource-id="3" units="33"/>
+    <allocation task-id="21" resource-id="3" units="25"/>
+    <allocation task-id="7" resource-id="3" units="25"/>
+    <allocation task-id="46" resource-id="3" units="25"/>
+    <allocation task-id="18" resource-id="3" units="25"/>
+    <allocation task-id="5" resource-id="3" units="33"/>
+    <allocation task-id="6" resource-id="3" units="33"/>
+    <allocation task-id="4" resource-id="3" units="33"/>
+    <allocation task-id="3" resource-id="3" units="125"/>
+    <allocation task-id="14" resource-id="4" units="100"/>
+    <allocation task-id="13" resource-id="4" units="20"/>
+    <allocation task-id="12" resource-id="4" units="267"/>
+    <allocation task-id="11" resource-id="4" units="20"/>
+    <allocation task-id="9" resource-id="4" units="33"/>
+    <allocation task-id="57" resource-id="4" units="25"/>
+    <allocation task-id="143" resource-id="4" units="50"/>
+    <allocation task-id="29" resource-id="4" units="33"/>
+    <allocation task-id="28" resource-id="4" units="33"/>
+    <allocation task-id="27" resource-id="4" units="25"/>
+    <allocation task-id="25" resource-id="4" units="20"/>
+    <allocation task-id="56" resource-id="4" units="33"/>
+    <allocation task-id="55" resource-id="4" units="25"/>
+    <allocation task-id="54" resource-id="4" units="100"/>
+    <allocation task-id="52" resource-id="4" units="25"/>
+    <allocation task-id="51" resource-id="4" units="33"/>
+    <allocation task-id="50" resource-id="4" units="33"/>
+    <allocation task-id="22" resource-id="4" units="20"/>
+    <allocation task-id="48" resource-id="4" units="20"/>
+    <allocation task-id="20" resource-id="4" units="25"/>
+    <allocation task-id="47" resource-id="4" units="33"/>
+    <allocation task-id="45" resource-id="4" units="33"/>
+    <allocation task-id="44" resource-id="4" units="33"/>
+    <allocation task-id="21" resource-id="4" units="25"/>
+    <allocation task-id="7" resource-id="4" units="25"/>
+    <allocation task-id="46" resource-id="4" units="25"/>
+    <allocation task-id="18" resource-id="4" units="25"/>
+    <allocation task-id="5" resource-id="4" units="33"/>
+    <allocation task-id="6" resource-id="4" units="33"/>
+    <allocation task-id="4" resource-id="4" units="33"/>
+    <allocation task-id="3" resource-id="4" units="125"/>
+    <allocation task-id="13" resource-id="5" units="20"/>
+    <allocation task-id="11" resource-id="5" units="20"/>
+    <allocation task-id="9" resource-id="5" units="33"/>
+    <allocation task-id="29" resource-id="5" units="33"/>
+    <allocation task-id="28" resource-id="5" units="33"/>
+    <allocation task-id="27" resource-id="5" units="25"/>
+    <allocation task-id="25" resource-id="5" units="20"/>
+    <allocation task-id="24" resource-id="5" units="25"/>
+    <allocation task-id="56" resource-id="5" units="33"/>
+    <allocation task-id="55" resource-id="5" units="25"/>
+    <allocation task-id="54" resource-id="5" units="100"/>
+    <allocation task-id="51" resource-id="5" units="33"/>
+    <allocation task-id="50" resource-id="5" units="33"/>
+    <allocation task-id="61" resource-id="5" units="100"/>
+    <allocation task-id="22" resource-id="5" units="20"/>
+    <allocation task-id="48" resource-id="5" units="20"/>
+    <allocation task-id="20" resource-id="5" units="25"/>
+    <allocation task-id="47" resource-id="5" units="33"/>
+    <allocation task-id="45" resource-id="5" units="33"/>
+    <allocation task-id="44" resource-id="5" units="33"/>
+    <allocation task-id="21" resource-id="5" units="25"/>
+    <allocation task-id="7" resource-id="5" units="25"/>
+    <allocation task-id="46" resource-id="5" units="25"/>
+    <allocation task-id="18" resource-id="5" units="25"/>
+    <allocation task-id="5" resource-id="5" units="33"/>
+    <allocation task-id="6" resource-id="5" units="33"/>
+    <allocation task-id="4" resource-id="5" units="33"/>
+    <allocation task-id="3" resource-id="5" units="125"/>
+    <allocation task-id="42" resource-id="6" units="20"/>
+    <allocation task-id="26" resource-id="6" units="25"/>
+    <allocation task-id="41" resource-id="6" units="20"/>
+    <allocation task-id="40" resource-id="6" units="25"/>
+    <allocation task-id="38" resource-id="6" units="25"/>
+    <allocation task-id="36" resource-id="6" units="25"/>
+=======
+>>>>>>> 626dd4560733f8261a477578b6e1dfbdb6a837ac
     <resource group="3" id="1" name="Paris est une f&#xEA;te" short-name="PEUF" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="1" id="2" name="Coffee shop" short-name="csh" type="2" units="0" email="" note="" std-rate="0"/>
     <resource group="2" id="3" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
@@ -628,6 +761,7 @@
     <allocation task-id="126" resource-id="6" units="100"/>
     <allocation task-id="125" resource-id="6" units="100"/>
     <allocation task-id="37" resource-id="6" units="25"/>
+<<<<<<< HEAD
 =======
     <resource group="5" id="1" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="5" id="2" name="Web servers" short-name="wse" type="2" units="0" email="" note="" std-rate="0"/>
@@ -745,6 +879,9 @@
     <allocation task-id="38" resource-id="6" units="25"/>
     <allocation task-id="36" resource-id="6" units="25"/>
 >>>>>>> 266e5e6437f1e1f5d91956676feb289a60309981
+=======
+>>>>>>> 234eb2c756cb5eef89f3f10e6bdbc3526f0cc519
+>>>>>>> 626dd4560733f8261a477578b6e1dfbdb6a837ac
     <allocation task-id="14" resource-id="7" units="100"/>
     <allocation task-id="12" resource-id="7" units="267"/>
     <allocation task-id="11" resource-id="7" units="20"/>
@@ -758,6 +895,7 @@
     <allocation task-id="43" resource-id="8" units="20"/>
     <allocation task-id="27" resource-id="8" units="25"/>
     <allocation task-id="42" resource-id="8" units="20"/>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <allocation task-id="41" resource-id="8" units="25"/>
     <allocation task-id="39" resource-id="8" units="25"/>
@@ -860,6 +998,8 @@
     <allocation task-id="12" resource-id="13" units="267"/>
     <allocation task-id="16" resource-id="14" units="33"/>
 =======
+=======
+>>>>>>> 626dd4560733f8261a477578b6e1dfbdb6a837ac
     <allocation task-id="26" resource-id="8" units="25"/>
     <allocation task-id="137" resource-id="8" units="100"/>
     <allocation task-id="136" resource-id="8" units="100"/>
@@ -974,6 +1114,111 @@
     <allocation task-id="131" resource-id="13" units="100"/>
     <allocation task-id="33" resource-id="13" units="100"/>
     <allocation task-id="122" resource-id="13" units="100"/>
+<<<<<<< HEAD
 >>>>>>> 266e5e6437f1e1f5d91956676feb289a60309981
+=======
+=======
+    <allocation task-id="41" resource-id="8" units="25"/>
+    <allocation task-id="39" resource-id="8" units="25"/>
+    <allocation task-id="37" resource-id="8" units="25"/>
+    <allocation task-id="13" resource-id="9" units="20"/>
+    <allocation task-id="11" resource-id="9" units="20"/>
+    <allocation task-id="9" resource-id="9" units="33"/>
+    <allocation task-id="30" resource-id="9" units="33"/>
+    <allocation task-id="29" resource-id="9" units="33"/>
+    <allocation task-id="28" resource-id="9" units="25"/>
+    <allocation task-id="26" resource-id="9" units="20"/>
+    <allocation task-id="25" resource-id="9" units="25"/>
+    <allocation task-id="57" resource-id="9" units="33"/>
+    <allocation task-id="56" resource-id="9" units="25"/>
+    <allocation task-id="55" resource-id="9" units="100"/>
+    <allocation task-id="52" resource-id="9" units="33"/>
+    <allocation task-id="51" resource-id="9" units="33"/>
+    <allocation task-id="62" resource-id="9" units="100"/>
+    <allocation task-id="23" resource-id="9" units="20"/>
+    <allocation task-id="49" resource-id="9" units="20"/>
+    <allocation task-id="21" resource-id="9" units="25"/>
+    <allocation task-id="48" resource-id="9" units="33"/>
+    <allocation task-id="46" resource-id="9" units="33"/>
+    <allocation task-id="45" resource-id="9" units="33"/>
+    <allocation task-id="22" resource-id="9" units="25"/>
+    <allocation task-id="7" resource-id="9" units="25"/>
+    <allocation task-id="47" resource-id="9" units="25"/>
+    <allocation task-id="19" resource-id="9" units="25"/>
+    <allocation task-id="5" resource-id="9" units="33"/>
+    <allocation task-id="6" resource-id="9" units="33"/>
+    <allocation task-id="4" resource-id="9" units="33"/>
+    <allocation task-id="3" resource-id="9" units="125"/>
+    <allocation task-id="14" resource-id="10" units="100"/>
+    <allocation task-id="13" resource-id="10" units="20"/>
+    <allocation task-id="12" resource-id="10" units="267"/>
+    <allocation task-id="11" resource-id="10" units="20"/>
+    <allocation task-id="9" resource-id="10" units="33"/>
+    <allocation task-id="58" resource-id="10" units="25"/>
+    <allocation task-id="144" resource-id="10" units="50"/>
+    <allocation task-id="30" resource-id="10" units="33"/>
+    <allocation task-id="29" resource-id="10" units="33"/>
+    <allocation task-id="28" resource-id="10" units="25"/>
+    <allocation task-id="26" resource-id="10" units="20"/>
+    <allocation task-id="57" resource-id="10" units="33"/>
+    <allocation task-id="56" resource-id="10" units="25"/>
+    <allocation task-id="55" resource-id="10" units="100"/>
+    <allocation task-id="53" resource-id="10" units="25"/>
+    <allocation task-id="52" resource-id="10" units="33"/>
+    <allocation task-id="51" resource-id="10" units="33"/>
+    <allocation task-id="23" resource-id="10" units="20"/>
+    <allocation task-id="49" resource-id="10" units="20"/>
+    <allocation task-id="21" resource-id="10" units="25"/>
+    <allocation task-id="48" resource-id="10" units="33"/>
+    <allocation task-id="46" resource-id="10" units="33"/>
+    <allocation task-id="45" resource-id="10" units="33"/>
+    <allocation task-id="22" resource-id="10" units="25"/>
+    <allocation task-id="7" resource-id="10" units="25"/>
+    <allocation task-id="47" resource-id="10" units="25"/>
+    <allocation task-id="19" resource-id="10" units="25"/>
+    <allocation task-id="5" resource-id="10" units="33"/>
+    <allocation task-id="6" resource-id="10" units="33"/>
+    <allocation task-id="4" resource-id="10" units="33"/>
+    <allocation task-id="3" resource-id="10" units="125"/>
+    <allocation task-id="13" resource-id="11" units="20"/>
+    <allocation task-id="12" resource-id="11" units="267"/>
+    <allocation task-id="11" resource-id="11" units="20"/>
+    <allocation task-id="9" resource-id="11" units="33"/>
+    <allocation task-id="58" resource-id="11" units="25"/>
+    <allocation task-id="144" resource-id="11" units="50"/>
+    <allocation task-id="30" resource-id="11" units="33"/>
+    <allocation task-id="29" resource-id="11" units="33"/>
+    <allocation task-id="28" resource-id="11" units="25"/>
+    <allocation task-id="26" resource-id="11" units="20"/>
+    <allocation task-id="25" resource-id="11" units="25"/>
+    <allocation task-id="57" resource-id="11" units="33"/>
+    <allocation task-id="56" resource-id="11" units="25"/>
+    <allocation task-id="55" resource-id="11" units="100"/>
+    <allocation task-id="53" resource-id="11" units="25"/>
+    <allocation task-id="52" resource-id="11" units="33"/>
+    <allocation task-id="51" resource-id="11" units="33"/>
+    <allocation task-id="23" resource-id="11" units="20"/>
+    <allocation task-id="49" resource-id="11" units="20"/>
+    <allocation task-id="21" resource-id="11" units="25"/>
+    <allocation task-id="48" resource-id="11" units="33"/>
+    <allocation task-id="46" resource-id="11" units="33"/>
+    <allocation task-id="45" resource-id="11" units="33"/>
+    <allocation task-id="22" resource-id="11" units="25"/>
+    <allocation task-id="7" resource-id="11" units="25"/>
+    <allocation task-id="47" resource-id="11" units="25"/>
+    <allocation task-id="19" resource-id="11" units="25"/>
+    <allocation task-id="5" resource-id="11" units="33"/>
+    <allocation task-id="6" resource-id="11" units="33"/>
+    <allocation task-id="4" resource-id="11" units="33"/>
+    <allocation task-id="3" resource-id="11" units="125"/>
+    <allocation task-id="16" resource-id="12" units="33"/>
+    <allocation task-id="13" resource-id="12" units="20"/>
+    <allocation task-id="12" resource-id="12" units="267"/>
+    <allocation task-id="16" resource-id="13" units="33"/>
+    <allocation task-id="13" resource-id="13" units="20"/>
+    <allocation task-id="12" resource-id="13" units="267"/>
+    <allocation task-id="16" resource-id="14" units="33"/>
+>>>>>>> 234eb2c756cb5eef89f3f10e6bdbc3526f0cc519
+>>>>>>> 626dd4560733f8261a477578b6e1dfbdb6a837ac
   </allocations>
 </project>
