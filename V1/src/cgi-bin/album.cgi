@@ -454,7 +454,7 @@ my $url_demo="http://storm.prohosting.com/dorey/cgi-bin/${main_prog}";
 $|=1;
 
 use CGI;
-use CGI::Pretty qw( :html4 );
+#use CGI::Pretty qw( :html4 );
 
 $CGI::Pretty::LINEBREAK="\n\n";
 $CGI::Pretty::INDENT="\t\t";
@@ -578,16 +578,18 @@ else{ # begin else
 	chdir(".."); chdir("..");
 } # end else
 
-if(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
+if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	print "Content-Type: text/html\n\n";
 	&myrec("Case 3 ($lon - $lat) latitude exists and as proper format <i>$url</i>","../error.html","(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
 	print "XXXXXXXXXXXXXXXXX" . $c;
 	exit(0);
-} # end if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
+} # end if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 
 my $locweaf=ALBUM_INFO_HIST_DIRECTORY ."wfc_data.$lon.$lat.$$.".time().".xml";# file for local weather
 
-if(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)
+# ----------------------------------------------------------------------------------------------
+# format solved - missing but need to check if lon lat can have negative values
+if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
 	print "Content-Type: text/html\n\n";
 	#print "case 1<br>";exit(1);
@@ -615,7 +617,7 @@ A
 	&myrec("Case 4 ($lon - $lat) longitude exists and as proper format <i>$url</i>","../error.html","(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
 	print $c;
 	exit(0);
-} # end if(!defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)
+} # end if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 else{ # begin else
 	my $wfcu="http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=$lat,$lon";
 	my $xml = new XML::Simple;
