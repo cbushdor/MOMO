@@ -77,7 +77,7 @@ my $doc=new CGI;
 my $lon=$doc->param("maop_lon");
 my $lat=$doc->param("maop_lat");
 
-if(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
+if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
 	print "Content-Type: text/html\n\n";
 	#print "case 2<br>";exit(1);
@@ -102,9 +102,9 @@ if(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin i
 A
 	print $c;
 	exit(0);
-} # end if(!defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)
+} # end if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 
-if(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)
+if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
 	print "Content-Type: text/html\n\n";
 	#print "case 1<br>";exit(1);
@@ -129,7 +129,7 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/){ # begin i
 A
 	print $c;
 	exit(0);
-} # end if(!defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)
+} # end if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 
 
 my ($gmv,$prt)=split(/\-/,$doc->param("maop_gmv")); # Gets google map version
