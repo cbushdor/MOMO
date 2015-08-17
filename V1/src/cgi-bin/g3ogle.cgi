@@ -29,7 +29,7 @@ my $ipAddr=io::MyNav::gets_ip_address;
 
 g3ogle.cgi
 
-$VERSION=0.2.1.50
+$VERSION=0.2.1.55
 
 =head1 ABSTRACT
 
@@ -56,6 +56,9 @@ infoCenter
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v0.2.1.55> Jan 31 2015: added test below
+		$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/
 
 - I<Last modification:v0.2.1.50> Jan 31 2015: see infoCenter
 
