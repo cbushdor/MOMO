@@ -29,7 +29,7 @@ my $ipAddr=io::MyNav::gets_ip_address;
 
 g3ogle.cgi
 
-$VERSION=0.2.1.55
+$VERSION=0.2.1.65
 
 =head1 ABSTRACT
 
@@ -77,8 +77,82 @@ infoCenter
 
 my $doc=new CGI;
 
+my $lstlog=30*2; # that's seconds
 my $lon=$doc->param("maop_lon");
 my $lat=$doc->param("maop_lat");
+my $logfile= $doc->param("maop_log");
+$logfile=~s/\_/\//g;
+my $ui=time - (stat "$logfile")[9];
+my $statlastlogfile =($ui > $lstlog); # we check if log file is older that $lstlog seconds
+
+if($statlastlogfile){ # begin if($statlastlogfile)
+	my $mparam=();
+	print "Content-Type: text/html\n\n";
+#	print "<h1>Under construction</h1><br>$ui > $lstlog<br>";
+
+	foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
+#		print ">>>>>>>$p --->".$doc->param($p)."<br>";
+		if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
+			if($p!~m/^maop_lon$/&&
+			   $p!~m/^maop_lat$/&&
+			   $p!~m/^maop_prog$/&&
+			   $p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
+				$mparam.='&'."$p=".$doc->param($p);
+			}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
+			elsif ($p!~m/^maop_lat$/){ # begin elsif ($p!~m/^maop_lat$/)
+			#&myrec("Case logfile format maop ","../error.html","****** $la" );
+			} # end elsif ($p!~m/^maop_lat$/)
+			elsif($p!~m/^maop_lon$/){ # begin elsif($p!~m/^maop_lon$/)
+			#&myrec("Case logfile format maop ","../error.html","****** $lo" );
+			} # end elsif($p!~m/^maop_lon$/)
+		} # end if($p=~m/^maop\_/)
+	} # end foreach my $p ($doc->param)
+	my $url=();
+#	if(-e "$logfile") { print "file  $logfile exists<br>";}
+#	else { print "file  $logfile does not exists<br>";}
+	if( -e "$logfile"){ # begin if( -e "$logfile")
+		my ($foo) = ($logfile =~ /^(.*)$/g);
+		unlink("$foo");
+	} # end if( -e "$logfile")
+	chdir("album");chdir("hist");
+	my @lflb=split(/\//,$logfile);
+	my $lfl=$lflb[scalar(@lflb)-1];
+	$lfl=~/^(.*)$/g;$lfl=$1;
+#	print "<br><h2>this is the log file to use $lfl</h2>";
+#	print "<h1><br>- ". getcwd() ."</h1><br>";
+	open(W,">$lfl") || die("Error with $lfl $!");
+	print W " ";
+	close(W) || die("Error with $lfl $!");
+
+#	if(-e "$lfl") {print "<h3>------------>$lfl exist</h3><br>" ;}
+#	else { print "$lfl does not exist<br>";}
+
+	chdir("..");chdir("..");
+	$logfile=~s/\//\_/g;
+	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){
+		$url="http://localhost/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
+	}else{
+		$url="http://derased.heliohost.org/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_log=$logfile$mparam";
+	}
+#	print "ooooooooo>$url<br>";
+#	print "case 2-------($statlastlogfile)=======$logfile<br>";exit(1);
+	my $c=<<A;
+<!DOCTYPE html>
+<html>
+<body>
+<p id="wait"></p>
+
+<script>
+	var x=document.getElementById("wait");
+	x.innerHTML="Please wait while loading...";
+	window.location="$url";
+</script>
+</body>
+</html>
+A
+	print $c;
+	exit(0);
+} # end if($statlastlogfile)
 
 if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
@@ -135,7 +209,7 @@ A
 } # end if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 
 
-my ($gmv,$prt)=split(/\-/,$doc->param("maop_gmv")); # Gets google map version
+my ($gmv,$prt)=split(/\-/,$doc->param("maop_gmv")); # Gets google map version, googlemap option: 0,1,2
 my ($googid)=$doc->param("maop_googid"); # Gets google map version
 chomp($prt);chomp($googid);
 
