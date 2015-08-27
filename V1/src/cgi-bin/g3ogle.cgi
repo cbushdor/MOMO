@@ -5,6 +5,8 @@ $|=0;
 use warnings;
 use strict;
 
+use DateTime;
+use DateTime::Format::Strptime;
 BEGIN {
 	push @INC, '/Users/sdo/Sites/cgi-bin/';
 	push @INC, '/home1/derased/public_html/cgi-bin/';
@@ -29,7 +31,7 @@ my $ipAddr=io::MyNav::gets_ip_address;
 
 g3ogle.cgi
 
-$VERSION=0.2.1.65
+$VERSION=0.2.1.120
 
 =head1 ABSTRACT
 
@@ -534,16 +536,32 @@ sub getsPath{ # begin getsPath
 	#print "size of the array ". scalar(@qq) . "<<<<<<<<<<<<<<<<br>";
 	my $max=scalar(@qq);
 	my $cur=1;
+use constant PATH_GOOGLE_MAP_TRIP 	=> "album/trips/";
+use constant TRIP_NAME           	=> "trips"; # Album trips
+		my $mgidt=$doc->param("maop_googid"); #my google id  trip
+		chomp($mgidt);
+
+		my $tn=PATH_GOOGLE_MAP_TRIP.$mgidt ."-".TRIP_NAME; # Trip name
+
+		open(RTN,"$tn") or die ("$tn error $!");my @rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains begin and end of trip)
+		#open(W,">____test.txt");print W "$logfile °°°°°° $rtn[0]\n";close(W);
+		chomp($rtn[0]);my ($brtn,$ertn)=split(/\#/,$rtn[0]);
+		my $anal = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
+		my $dtb = $anal->parse_datetime( $brtn );
+		$logfile=~s/\//\_/g;
+
 	foreach(@qq){ # begin foreach(@qq)
 		my($ed,$ea)=split(/\@/,$_);
 		chomp($_);
 		chomp($ea);
 		$ea=~s/,$//;
 		if($cur<$max){ # Begin if($cur<$max)
-			if ($cur>1){
-				$markersTrip.=<<TRIP_MARKERS;
+			if ($cur>1){ # begin if ($cur>1)
+				#open(W,">>____test.txt");print W "cur($cur)<max($max) ---  dte($dte)<dt3($dt3)=".($dte<$dt3)."\n";close(W);
+			#	{ # begin if($dte<$dt3)
+					$markersTrip.=<<TRIP_MARKERS;
 
-			// --------------  $ea   ------------------
+				// --------------  $ea   ------------------
 				var contentString = "$infoWC[$cur]";
 
 				var infowindow = new google.maps.InfoWindow({
@@ -560,15 +578,16 @@ sub getsPath{ # begin getsPath
     
 				marker.setMap(map);
 				google.maps.event.addListener( marker, 'click', function( data){
-								// affichage position du marker
+								// displays marker position
 								infowindow.setContent( "$infoWC[$cur]" );
 								infowindow.open( this.getMap(), this);
 							}); 
 				// --------------------------------
 			// --------------------------------
 TRIP_MARKERS
-			}
-			else {
+				#} # end if($dte<$dt3)
+			} # end if ($cur>1)
+			else { # begin else
 				$markersTrip.=<<TRIP_MARKERS;
 
 			// --------------  $ea   ------------------
@@ -588,16 +607,50 @@ TRIP_MARKERS
     
 				marker.setMap(map);
 				google.maps.event.addListener( marker, 'click', function( data){
-				    // affichage position du marker
+				// displays marker position
 				    infowindow.setContent( "$cur==1 ---->$ea" );
 				    infowindow.open( this.getMap(), this);
 				  }); 
 				// --------------------------------
 			// --------------------------------
 TRIP_MARKERS
-			}
+			} # end else
 		} # end if($cur<$max)
 		else{
+			my $anal2 = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
+			my $dte = $anal2->parse_datetime( $ertn );
+			my $dt3 = DateTime->from_epoch( epoch => time() );# Current date format DateTime
+
+				if($dte<$dt3)
+				{
+					$markersTrip.=<<TRIP_MARKERS;
+
+			// --------------  $ea   ------------------
+				var contentString = "$infoWC[$cur]";
+
+				var infowindow = new google.maps.InfoWindow({
+						content: contentString
+					});
+
+				var marker = new google.maps.Marker({
+						position: $ea,
+						map: map,
+						icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|00FF00'
+					});
+
+				// --------------------------------
+    
+				marker.setMap(map);
+				google.maps.event.addListener( marker, 'click', function( data){
+				// displays marker position
+				    infowindow.setContent( "$cur==1 ---->$ea" );
+				    infowindow.open( this.getMap(), this);
+				  }); 
+				// --------------------------------
+			// --------------------------------
+TRIP_MARKERS
+				}
+				else{
 			$markersTrip.=<<TRIP_MARKERS;
 
 			// --------------------------------
@@ -609,6 +662,7 @@ TRIP_MARKERS
 				marker.setMap(map);
 			// --------------------------------
 TRIP_MARKERS
+			}
 		}
 		$cur++;
 		if(length($prev)!=0){ # Begin if(length($prev)!=0)
@@ -908,19 +962,19 @@ R
 	my $colo="CCCC00";
 	my $leng=<<A;
 				EtapeDebut: {
-					name: "Début d'étape/Stage starts",
+					name: "Début d'étape/Begining of stage",
 					icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|003300'
 				},
 				EtapeTerminée: {
-					name: 'Etape terminée/Stage over',
+					name: 'Etape terminée/Stage is over',
 					icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|00FF00'
 				},
 				EtapeEnCour: {
-					name: 'Etape en cour/Start',
+					name: 'Etape en cour/Stage processing',
 					icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|FF0000'
 				},
 				wyrrn: {
-					name: 'You are here',
+					name: 'Vous etes ici/You are here',
 					icon: "https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin|W|CCCC00"
 				}
 A
