@@ -79,7 +79,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.105'; # Album release
+use constant ALBUM_REL               	=> '15.124'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -129,7 +129,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.105
+$VERSION=1.6.15.124
 
 =head1 ABSTRACT
 
@@ -207,6 +207,9 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.15.124> Aug 29 2015 that's the line my $oppp=time(); #io::MyTime::gets_formated_date;
+		The bug came from that granularity was not goot with a formated date
 
 - I<Last modification:v1.6.15.105> Aug 17 2015 tests added on geo coordinate format 
 		if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
@@ -774,7 +777,7 @@ print "Pragma: no-cache \n\n";
 
 		#print "$tn mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm<br>";
 
-		open(RTN,"$tn") or die ("$td error");my @rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains begin and end of trip)
+		open(RTN,"$tn") or die ("$tn error $!");my @rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains begin and end of trip)
 		chomp($rtn[0]);my ($brtn,$ertn)=split(/\#/,$rtn[0]);
 		my $anal = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
 		my $dtb = $anal->parse_datetime( $brtn );
@@ -1087,7 +1090,7 @@ else { # Begin else
 	&main_help_menu_css("$u");
 #print "<!-- 1111115 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 	print $main_page;
-	my $oppp=io::MyTime::gets_formated_date;
+	my $oppp=time(); #io::MyTime::gets_formated_date;
 	my $llll_l=();
 	#print "------------weather----------------->$locweaf<br>";
 	my @llll_res=($lon,$lat,$mtfn,(-e "$locweaf") ? "$locweaf" : "-",$date_ticket);# from ip address gets geoloc coordinates, trip name,weather stuff
@@ -6574,7 +6577,7 @@ None.
 =cut
 
 sub set_history{ # begin set_history
-	my ($u,$d,$p,$f,$l,$hdf)=@_; # url,date,page,fields to store,history directory file
+	my ($u,$d,$p,$f,$l,$hdf)=@_; # ip|url,date,page,fields to store,history directory file
 
 	print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
 	io::MyUtilities::setUrlFile("$u#$d#$p#$l","$f",$hdf); 
