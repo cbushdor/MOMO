@@ -518,7 +518,7 @@ sub getsPath{ # begin getsPath
 		# we check country name below
 		if($q[5]=~m/$field/i){ # begin if($q[7]=~m/$field/i)
 			#print "oooooooooooooooo)$q[14] ------------ ";
-			print ")))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))$q[7]<br>";
+	#		print ")))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))$q[7]<br>";
 			my $dte=$q[7]; # Gets login date
 			my $l=$q[4]; # Gets Latitude
 			my $L=$q[3]; # Gets Longitude
