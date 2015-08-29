@@ -31,7 +31,7 @@ my $ipAddr=io::MyNav::gets_ip_address;
 
 g3ogle.cgi
 
-$VERSION=0.2.1.120
+$VERSION=0.2.1.154
 
 =head1 ABSTRACT
 
@@ -58,6 +58,9 @@ infoCenter
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v0.2.1.154> Aug 30 2015: removed test below
+			if(!("$ll" eq "$l" && "$LL" eq "$L")){ # begin if(!("$ll" eq "$l" && "$LL" eq "$L"))
 
 - I<Last modification:v0.2.1.55> Jan 31 2015: added test below
 		$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/
@@ -515,17 +518,18 @@ sub getsPath{ # begin getsPath
 		# we check country name below
 		if($q[5]=~m/$field/i){ # begin if($q[7]=~m/$field/i)
 			#print "oooooooooooooooo)$q[14] ------------ ";
+			print ")))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))$q[7]<br>";
 			my $dte=$q[7]; # Gets login date
 			my $l=$q[4]; # Gets Latitude
 			my $L=$q[3]; # Gets Longitude
 			@infoWC=(@infoWC,&infoCenter("$q[6]"));# Info Weather Center
 			# we remove same coordnitates that next to each ohers (line before)
-			if(!("$ll" eq "$l" && "$LL" eq "$L")){ # begin if(!("$ll" eq "$l" && "$LL" eq "$L"))
+			#if(!("$ll" eq "$l" && "$LL" eq "$L")){ # begin if(!("$ll" eq "$l" && "$LL" eq "$L"))
 				# checks here if we can mix array with weather forecast
 				# trig with vi a.s /new google.maps.LatLng
 				#print "------------------------------------------------------->$dte<br>";
 				@zz=(@zz,"$dte@ new google.maps.LatLng($l,$L),\n");
-			} # end if(!("$ll" eq "$l" && "$LL" eq "$L"))
+			#} # end if(!("$ll" eq "$l" && "$LL" eq "$L"))
 			$ll=$l;$LL=$L;
 #print "	
 		} # end if($q[7]=~m/$field/i)
@@ -550,9 +554,11 @@ use constant TRIP_NAME           	=> "trips"; # Album trips
 		my $dtb = $anal->parse_datetime( $brtn );
 		$logfile=~s/\//\_/g;
 
+	#print "Content-Type: text/html\n\n";
 	foreach(@qq){ # begin foreach(@qq)
 		my($ed,$ea)=split(/\@/,$_);
 		chomp($_);
+		#print "$_<br>\n";
 		chomp($ea);
 		$ea=~s/,$//;
 		if($cur<$max){ # Begin if($cur<$max)
@@ -688,6 +694,7 @@ ARROWS
 		} # End if(length($prev)!=0)
 		$prev="$ea";
 	} # end foreach(@qq)
+	#exit(-1);
 	$llL.=<<POLY;
 				// Begin polylines codes
 
