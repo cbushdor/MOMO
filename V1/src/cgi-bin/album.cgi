@@ -1090,7 +1090,7 @@ else { # Begin else
 	&main_help_menu_css("$u");
 #print "<!-- 1111115 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 	print $main_page;
-	my $oppp=time(); #io::MyTime::gets_formated_date;
+	my $oppp=io::MyTime::gets_formated_date;
 	my $llll_l=();
 	#print "------------weather----------------->$locweaf<br>";
 	my @llll_res=($lon,$lat,$mtfn,(-e "$locweaf") ? "$locweaf" : "-",$date_ticket);# from ip address gets geoloc coordinates, trip name,weather stuff
@@ -6579,7 +6579,9 @@ None.
 sub set_history{ # begin set_history
 	my ($u,$d,$p,$f,$l,$hdf)=@_; # ip|url,date,page,fields to store,history directory file
 
-	print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
+	#print "<br>----------->>($u,<br>$d,<br>$p,<br>$f,<br>$l,<br>$hdf<br>)<br>\n";
+
+#	print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
 	io::MyUtilities::setUrlFile("$u#$d#$p#$l","$f",$hdf); 
 	return;
 } # End sub set_history
