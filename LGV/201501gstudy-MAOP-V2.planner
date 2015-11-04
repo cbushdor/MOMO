@@ -49,19 +49,19 @@
         <task id="10" name="Tests geolocation cambo" note="" work="28800" duration="28800" start="20150819T170000Z" end="20150820T170000Z" work-start="20150820T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20150813T000000Z"/>
           <predecessors>
-            <predecessor id="1" predecessor-id="350" type="FS"/>
+            <predecessor id="1" predecessor-id="353" type="FS"/>
           </predecessors>
           <task id="11" name="Correction of bug" note="" work="28800" duration="28800" start="20150819T170000Z" end="20150820T170000Z" work-start="20150820T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="start-no-earlier-than" time="20150813T000000Z"/>
             <predecessors>
-              <predecessor id="1" predecessor-id="350" type="FS"/>
+              <predecessor id="1" predecessor-id="353" type="FS"/>
             </predecessors>
           </task>
         </task>
         <task id="12" name="Tests" note="Tue 18 Aug 2015, 22:26&#10;Many tests were driven outdoors and indoors" work="144000" duration="144000" start="20150819T170000Z" end="20150826T170000Z" work-start="20150820T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20150813T000000Z"/>
           <predecessors>
-            <predecessor id="1" predecessor-id="350" type="FS"/>
+            <predecessor id="1" predecessor-id="353" type="FS"/>
           </predecessors>
         </task>
         <task id="13" name="Debuging floating with signed and unsigned" note="Thu 27 Aug 2015, 23:43&#10;Bug 1 solved: https://github.com/doreys/MAOP/commit/5448b53e5a01cb49199326ca9e3d03016f5d0080&#10;Bug 2 solved: https://github.com/doreys/MAOP/commit/e8a3e0151c29884f22f69b64289d22e4e08bb660" work="10800" duration="10800" start="20150826T170000Z" end="20150827T110000Z" work-start="20150827T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
@@ -106,7 +106,7 @@
         <task id="20" name="Tests (with no gps connexion tests only spots)" note="" work="14400" duration="14400" start="20151005T120000Z" end="20151005T170000Z" work-start="20151005T120000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20151003T000000Z"/>
           <predecessors>
-            <predecessor id="1" predecessor-id="333" type="FS"/>
+            <predecessor id="1" predecessor-id="336" type="FS"/>
           </predecessors>
         </task>
       </task>
@@ -346,7 +346,7 @@
         <task id="77" name="Made a movie regarding a lightning talk" note="Tue 21 Jul 2015, 13:40&#10;_ Lightning talk regarding a wasteland and its high range temperatures (20150718)" work="28800" duration="28800" start="20150720T170000Z" end="20150721T170000Z" work-start="20150721T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20150718T000000Z"/>
           <predecessors>
-            <predecessor id="1" predecessor-id="323" type="FS"/>
+            <predecessor id="1" predecessor-id="326" type="FS"/>
           </predecessors>
         </task>
         <task id="78" name="Made a movie regarding a lightning talk" note="Tue 21 Jul 2015, 13:45&#10;_ Lightning talks regarding a wasteland (20150719)" work="28800" duration="28800" start="20150719T000000Z" end="20150720T170000Z" work-start="20150720T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
@@ -386,7 +386,7 @@
         <task id="89" name="Restaurant Jour" note="" work="3600" duration="3600" start="20150908T170000Z" end="20150909T090000Z" work-start="20150909T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20150908T000000Z"/>
           <predecessors>
-            <predecessor id="1" predecessor-id="326" type="FS"/>
+            <predecessor id="1" predecessor-id="329" type="FS"/>
           </predecessors>
         </task>
       </task>
@@ -548,8 +548,8 @@
         <constraint type="must-start-on" time="20150609T000000Z"/>
       </task>
     </task>
-    <task id="139" name="Conf/Renc/Mati/Salo/Expo" note="" work="2206800" start="20150103T000000Z" end="20151102T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="140" name="Cin&#xE9;ma" note="" work="1112400" start="20150103T000000Z" end="20151102T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="139" name="Conf/Renc/Mati/Salo/Expo" note="" work="2228400" start="20150103T000000Z" end="20151103T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="140" name="Cin&#xE9;ma" note="" work="1134000" start="20150103T000000Z" end="20151103T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <task id="141" name="Regular" note="" work="241200" start="20150112T000000Z" end="20150928T100000Z" work-start="20150112T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
           <task id="142" name="Luminor" note="Mon 12 Jan 2015, 21:51&#10;C'est dur d'etre aim&#xE9; par des cons" work="7200" duration="7200" start="20150112T000000Z" end="20150112T100000Z" work-start="20150112T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20150112T000000Z"/>
@@ -670,7 +670,7 @@
             <constraint type="must-start-on" time="20150517T000000Z"/>
           </task>
         </task>
-        <task id="182" name="Festival" note="" work="828000" start="20150103T000000Z" end="20151102T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="182" name="Festival" note="" work="849600" start="20150103T000000Z" end="20151103T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
           <task id="183" name="Festival cin&#xE9;ma T&#xE9;l&#xE9;rama" note="" work="36000" start="20150103T000000Z" end="20150122T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
             <task id="184" name="Le champo" note="Wed 21 Jan 2015, 20:24&#10;Le gar&#xE7;on et le monde" work="28800" start="20150103T000000Z" end="20150105T170000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
             <task id="185" name="Le Grand Action" note="Thu 22 Jan 2015, 20:28&#10;Mommy (2014)" work="7200" duration="7200" start="20150122T000000Z" end="20150122T100000Z" work-start="20150122T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
@@ -917,7 +917,7 @@
               <constraint type="must-start-on" time="20151027T000000Z"/>
             </task>
           </task>
-          <task id="272" name="10&#xE8; festival du film cor&#xE9;en &#xE0; paris" note="" work="187200" start="20150103T000000Z" end="20151102T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="272" name="10&#xE8; festival du film cor&#xE9;en &#xE0; paris" note="" work="208800" start="20150103T000000Z" end="20151103T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
             <task id="273" name="Publicis Cinema" note="Wed 28 Oct 2015, 23:47&#10;Alice in earnestland" work="57600" duration="57600" start="20151028T000000Z" end="20151029T170000Z" work-start="20151028T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20151028T000000Z"/>
             </task>
@@ -972,235 +972,244 @@
             <task id="290" name="Publicis Cin&#xE9;mas Champs &#xC9;lys&#xE9;es" note="Tue 03 Nov 2015, 02:06&#10;Short cuts #3" work="7200" duration="7200" start="20151102T000000Z" end="20151102T100000Z" work-start="20151102T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
               <constraint type="must-start-on" time="20151102T000000Z"/>
             </task>
+            <task id="291" name="Publicis Cin&#xE9;mas Champs &#xC9;lys&#xE9;es" note="Wed 04 Nov 2015, 01:15&#10;Father and sons" work="7200" duration="7200" start="20151103T000000Z" end="20151103T100000Z" work-start="20151103T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+              <constraint type="must-start-on" time="20151103T000000Z"/>
+            </task>
+            <task id="292" name="Publicis Cin&#xE9;mas Champs &#xC9;lys&#xE9;es" note="Wed 04 Nov 2015, 01:16&#10;Spellbound " work="7200" duration="7200" start="20151103T000000Z" end="20151103T100000Z" work-start="20151103T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+              <constraint type="must-start-on" time="20151103T000000Z"/>
+            </task>
+            <task id="293" name="Publicis Cin&#xE9;mas Champs &#xC9;lys&#xE9;es" note="Wed 04 Nov 2015, 01:17&#10;Right now, wrong then" work="7200" duration="7200" start="20151103T000000Z" end="20151103T100000Z" work-start="20151103T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+              <constraint type="start-no-earlier-than" time="20151103T000000Z"/>
+            </task>
           </task>
         </task>
       </task>
-      <task id="291" name="Peuf" note="" work="72000" start="20150312T000000Z" end="20150909T090000Z" work-start="20150312T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="292" name="Paris du vivre ensemble" note="Thu 12 Mar 2015, 10:53&#10;Juifs et musulmans: retissons les liens Palais du luxembiourg" work="14400" duration="14400" start="20150312T000000Z" end="20150312T120000Z" work-start="20150312T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="294" name="Peuf" note="" work="72000" start="20150312T000000Z" end="20150909T090000Z" work-start="20150312T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="295" name="Paris du vivre ensemble" note="Thu 12 Mar 2015, 10:53&#10;Juifs et musulmans: retissons les liens Palais du luxembiourg" work="14400" duration="14400" start="20150312T000000Z" end="20150312T120000Z" work-start="20150312T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150312T000000Z"/>
         </task>
-        <task id="293" name="Dinner d'anniversaire" note="Wed 13 May 2015, 15:52&#10;Restaurant Moment, Alesia" work="7200" duration="7200" start="20150313T000000Z" end="20150313T100000Z" work-start="20150313T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="296" name="Dinner d'anniversaire" note="Wed 13 May 2015, 15:52&#10;Restaurant Moment, Alesia" work="7200" duration="7200" start="20150313T000000Z" end="20150313T100000Z" work-start="20150313T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150313T000000Z"/>
         </task>
-        <task id="294" name="29 rue d'Ulm paris 75005" note="Sat 16 May 2015, 12:27&#10;Merleau-Ponty et le marxisme (annul&#xE9; pb sant&#xE9;)" work="7200" duration="7200" start="20150316T000000Z" end="20150316T100000Z" work-start="20150316T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="297" name="29 rue d'Ulm paris 75005" note="Sat 16 May 2015, 12:27&#10;Merleau-Ponty et le marxisme (annul&#xE9; pb sant&#xE9;)" work="7200" duration="7200" start="20150316T000000Z" end="20150316T100000Z" work-start="20150316T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150316T000000Z"/>
         </task>
-        <task id="295" name="Fondation entreprise Ricard 12 RUE BOISSY D'anglas 75008 paris" note="Sat 16 May 2015, 12:29&#10;Le devenir baroque du monde" work="7200" duration="7200" start="20150318T000000Z" end="20150318T100000Z" work-start="20150318T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="298" name="Fondation entreprise Ricard 12 RUE BOISSY D'anglas 75008 paris" note="Sat 16 May 2015, 12:29&#10;Le devenir baroque du monde" work="7200" duration="7200" start="20150318T000000Z" end="20150318T100000Z" work-start="20150318T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150318T000000Z"/>
         </task>
-        <task id="296" name="Salle 236, 29 Rue d'Ulm" note="Sat 16 May 2015, 12:31&#10;Lecture de Marx &#xE0; l'ENS" work="7200" duration="7200" start="20150323T000000Z" end="20150323T100000Z" work-start="20150323T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="299" name="Salle 236, 29 Rue d'Ulm" note="Sat 16 May 2015, 12:31&#10;Lecture de Marx &#xE0; l'ENS" work="7200" duration="7200" start="20150323T000000Z" end="20150323T100000Z" work-start="20150323T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150323T000000Z"/>
         </task>
-        <task id="297" name="Dinner" note="Wed 13 May 2015, 15:54&#10;Restaurant Momento Alesia" work="7200" duration="7200" start="20150513T000000Z" end="20150513T100000Z" work-start="20150513T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="300" name="Dinner" note="Wed 13 May 2015, 15:54&#10;Restaurant Momento Alesia" work="7200" duration="7200" start="20150513T000000Z" end="20150513T100000Z" work-start="20150513T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150513T000000Z"/>
         </task>
-        <task id="298" name="45 rue d&#x2019;Ulm 75005 Paris" note="Sat 16 May 2015, 12:18&#10;S&#xE9;ance avec Marcus Coelen dans le cadre du s&#xE9;minaire Roland Barthes (organis&#xE9; par l&#x2019;&#xE9;quipe Roland Barthes ITEM CNRS et L&#x2019;axe Pens&#xE9;e et cr&#xE9;ation contemporaines (C&#xE9;rilac, Universit&#xE9; Paris-Diderot)&#10;&#10;http://www.ens.fr/actualites/agenda/article/barthes-et-la-psychanalyse" work="7200" duration="7200" start="20150516T000000Z" end="20150518T100000Z" work-start="20150518T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="301" name="45 rue d&#x2019;Ulm 75005 Paris" note="Sat 16 May 2015, 12:18&#10;S&#xE9;ance avec Marcus Coelen dans le cadre du s&#xE9;minaire Roland Barthes (organis&#xE9; par l&#x2019;&#xE9;quipe Roland Barthes ITEM CNRS et L&#x2019;axe Pens&#xE9;e et cr&#xE9;ation contemporaines (C&#xE9;rilac, Universit&#xE9; Paris-Diderot)&#10;&#10;http://www.ens.fr/actualites/agenda/article/barthes-et-la-psychanalyse" work="7200" duration="7200" start="20150516T000000Z" end="20150518T100000Z" work-start="20150518T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150516T000000Z"/>
         </task>
-        <task id="299" name="Dinner table de Bezout" note="" work="10800" duration="10800" start="20150731T000000Z" end="20150731T110000Z" work-start="20150731T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="302" name="Dinner table de Bezout" note="" work="10800" duration="10800" start="20150731T000000Z" end="20150731T110000Z" work-start="20150731T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150731T000000Z"/>
         </task>
-        <task id="300" name="Salad bar - Restaunt Jour - Je suis tout seul" note="" work="3600" duration="3600" start="20150908T170000Z" end="20150909T090000Z" work-start="20150909T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="303" name="Salad bar - Restaunt Jour - Je suis tout seul" note="" work="3600" duration="3600" start="20150908T170000Z" end="20150909T090000Z" work-start="20150909T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20150908T000000Z"/>
           <predecessors>
-            <predecessor id="1" predecessor-id="326" type="FS"/>
+            <predecessor id="1" predecessor-id="329" type="FS"/>
           </predecessors>
         </task>
       </task>
-      <task id="301" name="Rencontres Parlementaires" note="" work="259200" start="20150203T000000Z" end="20150923T120000Z" work-start="20150203T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="302" name="Maison de la chimie" note="Thu 05 Feb 2015, 00:52&#10;5es Rencontres parlementaires pour la Sant&#xE9; au travail" work="14400" duration="14400" start="20150203T000000Z" end="20150203T120000Z" work-start="20150203T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="304" name="Rencontres Parlementaires" note="" work="259200" start="20150203T000000Z" end="20150923T120000Z" work-start="20150203T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="305" name="Maison de la chimie" note="Thu 05 Feb 2015, 00:52&#10;5es Rencontres parlementaires pour la Sant&#xE9; au travail" work="14400" duration="14400" start="20150203T000000Z" end="20150203T120000Z" work-start="20150203T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150203T000000Z"/>
         </task>
-        <task id="303" name="Maison de la chimie" note="Thu 05 Feb 2015, 00:53&#10;Rencontres parlementaires sur la securit&#xE9; (annul&#xE9; car pb de dos)" work="14400" duration="14400" start="20150204T000000Z" end="20150204T120000Z" work-start="20150204T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+        <task id="306" name="Maison de la chimie" note="Thu 05 Feb 2015, 00:53&#10;Rencontres parlementaires sur la securit&#xE9; (annul&#xE9; car pb de dos)" work="14400" duration="14400" start="20150204T000000Z" end="20150204T120000Z" work-start="20150204T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150204T000000Z"/>
         </task>
-        <task id="304" name="BPI France" note="Wed 11 Feb 2015, 14:03&#10;Matinale  de l'&#xC9;conomie sur l'Investissement" work="14400" duration="14400" start="20150210T000000Z" end="20150210T120000Z" work-start="20150210T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="307" name="BPI France" note="Wed 11 Feb 2015, 14:03&#10;Matinale  de l'&#xC9;conomie sur l'Investissement" work="14400" duration="14400" start="20150210T000000Z" end="20150210T120000Z" work-start="20150210T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150210T000000Z"/>
         </task>
-        <task id="305" name="Maison de la chimie" note="Wed 18 Feb 2015, 20:04&#10;5es Rencontres parlementaires pour la Croissance et la Consommation" work="14400" duration="14400" start="20150217T000000Z" end="20150217T120000Z" work-start="20150217T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="308" name="Maison de la chimie" note="Wed 18 Feb 2015, 20:04&#10;5es Rencontres parlementaires pour la Croissance et la Consommation" work="14400" duration="14400" start="20150217T000000Z" end="20150217T120000Z" work-start="20150217T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150217T000000Z"/>
         </task>
-        <task id="306" name="Maison de la chimie" note="Wed 18 Feb 2015, 20:03&#10;24es Rencontres parlementaires sur l'Epargne" work="14400" duration="14400" start="20150218T000000Z" end="20150218T120000Z" work-start="20150218T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="309" name="Maison de la chimie" note="Wed 18 Feb 2015, 20:03&#10;24es Rencontres parlementaires sur l'Epargne" work="14400" duration="14400" start="20150218T000000Z" end="20150218T120000Z" work-start="20150218T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150218T000000Z"/>
         </task>
-        <task id="307" name="Maison de la chimie" note="Thu 05 Mar 2015, 09:53&#10;8es Rencontres parlementaires de la Se&#x301;curite&#x301;  Laposte.net" work="14400" duration="14400" start="20150303T000000Z" end="20150303T120000Z" work-start="20150303T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="310" name="Maison de la chimie" note="Thu 05 Mar 2015, 09:53&#10;8es Rencontres parlementaires de la Se&#x301;curite&#x301;  Laposte.net" work="14400" duration="14400" start="20150303T000000Z" end="20150303T120000Z" work-start="20150303T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150303T000000Z"/>
         </task>
-        <task id="308" name="Maison de la chimie" note="Thu 12 Mar 2015, 10:15&#10;Rencontres parlementaires pour la Croissance verte (20150311)" work="14400" duration="14400" start="20150311T000000Z" end="20150311T120000Z" work-start="20150311T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="311" name="Maison de la chimie" note="Thu 12 Mar 2015, 10:15&#10;Rencontres parlementaires pour la Croissance verte (20150311)" work="14400" duration="14400" start="20150311T000000Z" end="20150311T120000Z" work-start="20150311T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150311T000000Z"/>
         </task>
-        <task id="309" name="Palais Bourbon" note="" work="14400" duration="14400" start="20150312T000000Z" end="20150312T120000Z" work-start="20150312T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="312" name="Palais Bourbon" note="" work="14400" duration="14400" start="20150312T000000Z" end="20150312T120000Z" work-start="20150312T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150312T000000Z"/>
         </task>
-        <task id="310" name="Maison de la chimie" note="Tue 17 Mar 2015, 20:10&#10;10es Rencontres parlementaires sur l'Immobilier et l'Urbanisme" work="14400" duration="14400" start="20150317T000000Z" end="20150317T120000Z" work-start="20150317T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="313" name="Maison de la chimie" note="Tue 17 Mar 2015, 20:10&#10;10es Rencontres parlementaires sur l'Immobilier et l'Urbanisme" work="14400" duration="14400" start="20150317T000000Z" end="20150317T120000Z" work-start="20150317T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150317T000000Z"/>
         </task>
-        <task id="311" name="Maison de la chimie" note="Sun 05 Apr 2015, 11:33&#10;1res Rencontres parlementaires de l'ASF sur le financement des TPE-PME" work="14400" duration="14400" start="20150331T000000Z" end="20150331T120000Z" work-start="20150331T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="314" name="Maison de la chimie" note="Sun 05 Apr 2015, 11:33&#10;1res Rencontres parlementaires de l'ASF sur le financement des TPE-PME" work="14400" duration="14400" start="20150331T000000Z" end="20150331T120000Z" work-start="20150331T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150331T000000Z"/>
         </task>
-        <task id="312" name="Maison de la chimiee" note="Sun 05 Apr 2015, 11:34&#10;6es Rencontres parlementaires pour les Energies renouvelable" work="14400" duration="14400" start="20150401T000000Z" end="20150401T120000Z" work-start="20150401T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="315" name="Maison de la chimiee" note="Sun 05 Apr 2015, 11:34&#10;6es Rencontres parlementaires pour les Energies renouvelable" work="14400" duration="14400" start="20150401T000000Z" end="20150401T120000Z" work-start="20150401T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150401T000000Z"/>
         </task>
-        <task id="313" name="Maison de la chimie" note="Sat 11 Apr 2015, 21:24&#10;Matinales Sant&#xE9; et Num&#xE9;rique" work="14400" duration="14400" start="20150407T000000Z" end="20150407T120000Z" work-start="20150407T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="316" name="Maison de la chimie" note="Sat 11 Apr 2015, 21:24&#10;Matinales Sant&#xE9; et Num&#xE9;rique" work="14400" duration="14400" start="20150407T000000Z" end="20150407T120000Z" work-start="20150407T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150407T000000Z"/>
         </task>
-        <task id="314" name="Maison de la chimie" note="Sat 11 Apr 2015, 21:26&#10;3es Rencontres parlementaires de la Fiscalit&#xE9; " work="14400" duration="14400" start="20150408T000000Z" end="20150408T120000Z" work-start="20150408T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="317" name="Maison de la chimie" note="Sat 11 Apr 2015, 21:26&#10;3es Rencontres parlementaires de la Fiscalit&#xE9; " work="14400" duration="14400" start="20150408T000000Z" end="20150408T120000Z" work-start="20150408T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150408T000000Z"/>
         </task>
-        <task id="315" name="Maison de la chimie" note="Wed 15 Apr 2015, 13:53&#10;1res Rencontres parlementaires de la Mer et du Littoral" work="14400" duration="14400" start="20150415T000000Z" end="20150415T120000Z" work-start="20150415T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="318" name="Maison de la chimie" note="Wed 15 Apr 2015, 13:53&#10;1res Rencontres parlementaires de la Mer et du Littoral" work="14400" duration="14400" start="20150415T000000Z" end="20150415T120000Z" work-start="20150415T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150415T000000Z"/>
         </task>
-        <task id="316" name="Maison de la chimie" note="Wed 27 May 2015, 21:18&#10;3&#xE8;me Conf&#xE9;rence Transports et Mobilit&#xE9; durable&#10;&quot;Quels enjeux et solutions pour moderniser notre syst&#xE8;me de transports ?&quot;&#10;Programme: http://www.rivington.fr/media/conference_pg_62.pdf" work="14400" duration="14400" start="20150527T000000Z" end="20150527T120000Z" work-start="20150527T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="319" name="Maison de la chimie" note="Wed 27 May 2015, 21:18&#10;3&#xE8;me Conf&#xE9;rence Transports et Mobilit&#xE9; durable&#10;&quot;Quels enjeux et solutions pour moderniser notre syst&#xE8;me de transports ?&quot;&#10;Programme: http://www.rivington.fr/media/conference_pg_62.pdf" work="14400" duration="14400" start="20150527T000000Z" end="20150527T120000Z" work-start="20150527T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150527T000000Z"/>
         </task>
-        <task id="317" name="Maison de ma chimie" note="Wed 10 Jun 2015, 19:40&#10;6es Rencontres parlementaires pour l'Economie num&#xE9;rique" work="14400" duration="14400" start="20150610T000000Z" end="20150610T120000Z" work-start="20150610T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="320" name="Maison de ma chimie" note="Wed 10 Jun 2015, 19:40&#10;6es Rencontres parlementaires pour l'Economie num&#xE9;rique" work="14400" duration="14400" start="20150610T000000Z" end="20150610T120000Z" work-start="20150610T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150610T000000Z"/>
         </task>
-        <task id="318" name="Maison de la chimie" note="Tue 22 Sep 2015, 17:21&#10;3es rencontres parlementaires pour l'Epargne salariale" work="14400" duration="14400" start="20150922T000000Z" end="20150922T120000Z" work-start="20150922T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="321" name="Maison de la chimie" note="Tue 22 Sep 2015, 17:21&#10;3es rencontres parlementaires pour l'Epargne salariale" work="14400" duration="14400" start="20150922T000000Z" end="20150922T120000Z" work-start="20150922T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150922T000000Z"/>
         </task>
-        <task id="319" name="Mison de la chimie" note="Wed 23 Sep 2015, 16:58&#10;Matinales sur la Propri&#xE9;t&#xE9; intellectuelle " work="14400" duration="14400" start="20150923T000000Z" end="20150923T120000Z" work-start="20150923T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="322" name="Mison de la chimie" note="Wed 23 Sep 2015, 16:58&#10;Matinales sur la Propri&#xE9;t&#xE9; intellectuelle " work="14400" duration="14400" start="20150923T000000Z" end="20150923T120000Z" work-start="20150923T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150923T000000Z"/>
         </task>
       </task>
-      <task id="320" name="Expo" note="" work="324000" start="20150103T000000Z" end="20151026T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="321" name="Archives nationales" note="Mon 12 Jan 2015, 21:54&#10;La collaboration 1940-1945" work="7200" duration="7200" start="20150112T000000Z" end="20150112T100000Z" work-start="20150112T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="323" name="Expo" note="" work="324000" start="20150103T000000Z" end="20151026T100000Z" work-start="20150105T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="324" name="Archives nationales" note="Mon 12 Jan 2015, 21:54&#10;La collaboration 1940-1945" work="7200" duration="7200" start="20150112T000000Z" end="20150112T100000Z" work-start="20150112T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150112T000000Z"/>
         </task>
-        <task id="322" name="DS wek expo" note="" work="57600" duration="57600" start="20150523T000000Z" end="20150526T170000Z" work-start="20150525T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="325" name="DS wek expo" note="" work="57600" duration="57600" start="20150523T000000Z" end="20150526T170000Z" work-start="20150525T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150523T000000Z"/>
         </task>
-        <task id="323" name="Bonnard exhibition - Mus&#xE9;e d'Orsay" note="" work="28800" duration="28800" start="20150718T000000Z" end="20150720T170000Z" work-start="20150720T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="326" name="Bonnard exhibition - Mus&#xE9;e d'Orsay" note="" work="28800" duration="28800" start="20150718T000000Z" end="20150720T170000Z" work-start="20150720T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150718T000000Z"/>
         </task>
-        <task id="324" name="TupperWare-Liberez la pression - Parives de la D&#xE9;fense" note="" work="3600" duration="3600" start="20150909T000000Z" end="20150909T090000Z" work-start="20150909T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="327" name="TupperWare-Liberez la pression - Parives de la D&#xE9;fense" note="" work="3600" duration="3600" start="20150909T000000Z" end="20150909T090000Z" work-start="20150909T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20150909T000000Z"/>
           <predecessors>
-            <predecessor id="1" predecessor-id="326" type="FS"/>
+            <predecessor id="1" predecessor-id="329" type="FS"/>
           </predecessors>
         </task>
-        <task id="325" name="Renault Kadjar - Parvis de la D&#xE9;fense" note="" work="3600" duration="3600" start="20150908T170000Z" end="20150909T090000Z" work-start="20150909T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="328" name="Renault Kadjar - Parvis de la D&#xE9;fense" note="" work="3600" duration="3600" start="20150908T170000Z" end="20150909T090000Z" work-start="20150909T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20150908T000000Z"/>
           <predecessors>
-            <predecessor id="1" predecessor-id="326" type="FS"/>
+            <predecessor id="1" predecessor-id="329" type="FS"/>
           </predecessors>
         </task>
-        <task id="326" name="AWSome - 2 Place Defense" note="Wed 09 Sep 2015, 12:02&#10;Could not go went to to the wrong address" work="28800" duration="28800" start="20150908T000000Z" end="20150908T170000Z" work-start="20150908T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="329" name="AWSome - 2 Place Defense" note="Wed 09 Sep 2015, 12:02&#10;Could not go went to to the wrong address" work="28800" duration="28800" start="20150908T000000Z" end="20150908T170000Z" work-start="20150908T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150908T000000Z"/>
         </task>
-        <task id="327" name="Techno parade" note="" work="14400" duration="14400" start="20150919T000000Z" end="20150921T120000Z" work-start="20150921T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="330" name="Techno parade" note="" work="14400" duration="14400" start="20150919T000000Z" end="20150921T120000Z" work-start="20150921T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150919T000000Z"/>
         </task>
-        <task id="328" name="Journees du Patrimoine" note="" work="28800" duration="28800" start="20150920T000000Z" end="20150921T170000Z" work-start="20150921T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="331" name="Journees du Patrimoine" note="" work="28800" duration="28800" start="20150920T000000Z" end="20150921T170000Z" work-start="20150921T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150920T000000Z"/>
         </task>
-        <task id="329" name="Porte de Versailles" note="Tue 22 Sep 2015, 17:22&#10;Enova" work="3600" duration="3600" start="20150922T000000Z" end="20150922T090000Z" work-start="20150922T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="332" name="Porte de Versailles" note="Tue 22 Sep 2015, 17:22&#10;Enova" work="3600" duration="3600" start="20150922T000000Z" end="20150922T090000Z" work-start="20150922T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150922T000000Z"/>
         </task>
-        <task id="330" name="Mus&#xE9;e de la contrefa&#xE7;on" note="" work="7200" duration="7200" start="20150923T000000Z" end="20150923T100000Z" work-start="20150923T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="333" name="Mus&#xE9;e de la contrefa&#xE7;on" note="" work="7200" duration="7200" start="20150923T000000Z" end="20150923T100000Z" work-start="20150923T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150923T000000Z"/>
         </task>
-        <task id="331" name="Street food temple #2" note="" work="7200" duration="7200" start="20150925T000000Z" end="20150925T100000Z" work-start="20150925T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="334" name="Street food temple #2" note="" work="7200" duration="7200" start="20150925T000000Z" end="20150925T100000Z" work-start="20150925T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150925T000000Z"/>
         </task>
-        <task id="332" name="Alternatiba" note="" work="57600" duration="57600" start="20150926T000000Z" end="20150929T170000Z" work-start="20150928T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="335" name="Alternatiba" note="" work="57600" duration="57600" start="20150926T000000Z" end="20150929T170000Z" work-start="20150928T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150926T000000Z"/>
         </task>
-        <task id="333" name="Zombie walk 2015" note="" work="14400" duration="14400" start="20151003T000000Z" end="20151005T120000Z" work-start="20151005T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="336" name="Zombie walk 2015" note="" work="14400" duration="14400" start="20151003T000000Z" end="20151005T120000Z" work-start="20151005T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20151003T000000Z"/>
         </task>
-        <task id="334" name="Paris Manga 2015" note="" work="14400" duration="14400" start="20151004T000000Z" end="20151005T120000Z" work-start="20151005T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="337" name="Paris Manga 2015" note="" work="14400" duration="14400" start="20151004T000000Z" end="20151005T120000Z" work-start="20151005T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20151004T000000Z"/>
         </task>
-        <task id="335" name="Porte de Versailles" note="Wed 07 Oct 2015, 00:57&#10;Mobility for business" work="7200" duration="7200" start="20150103T000000Z" end="20150105T100000Z" work-start="20150105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
-        <task id="336" name="Porte Maillot" note="Wed 07 Oct 2015, 00:59&#10;Salon des entrepreneurs" work="7200" duration="7200" start="20151006T000000Z" end="20151006T100000Z" work-start="20151006T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="338" name="Porte de Versailles" note="Wed 07 Oct 2015, 00:57&#10;Mobility for business" work="7200" duration="7200" start="20150103T000000Z" end="20150105T100000Z" work-start="20150105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
+        <task id="339" name="Porte Maillot" note="Wed 07 Oct 2015, 00:59&#10;Salon des entrepreneurs" work="7200" duration="7200" start="20151006T000000Z" end="20151006T100000Z" work-start="20151006T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20151006T000000Z"/>
         </task>
-        <task id="337" name="Porte de Versailles" note="Thu 08 Oct 2015, 00:08&#10;IBS event" work="3600" duration="3600" start="20151007T000000Z" end="20151007T090000Z" work-start="20151007T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="340" name="Porte de Versailles" note="Thu 08 Oct 2015, 00:08&#10;IBS event" work="3600" duration="3600" start="20151007T000000Z" end="20151007T090000Z" work-start="20151007T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20151007T000000Z"/>
         </task>
-        <task id="338" name="Mus&#xE9;e Mendjisky - Ecoles de Paris" note="Thu 08 Oct 2015, 00:04&#10;Exposition de peinture &#xE9;ph&#xE9;m&#xE8;re: Manessier Du cr&#xE9;puscule au matin clair" work="7200" duration="7200" start="20151007T000000Z" end="20151007T100000Z" work-start="20151007T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="341" name="Mus&#xE9;e Mendjisky - Ecoles de Paris" note="Thu 08 Oct 2015, 00:04&#10;Exposition de peinture &#xE9;ph&#xE9;m&#xE8;re: Manessier Du cr&#xE9;puscule au matin clair" work="7200" duration="7200" start="20151007T000000Z" end="20151007T100000Z" work-start="20151007T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20151007T000000Z"/>
         </task>
-        <task id="339" name="Invite friends to like F&#xEA;te des Vendanges de Montmartre" note="" work="3600" duration="3600" start="20151008T000000Z" end="20151008T090000Z" work-start="20151008T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="342" name="Invite friends to like F&#xEA;te des Vendanges de Montmartre" note="" work="3600" duration="3600" start="20151008T000000Z" end="20151008T090000Z" work-start="20151008T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20151008T000000Z"/>
         </task>
-        <task id="340" name="Invite friends to like F&#xEA;te des Vendanges de Montmartre" note="" work="10800" duration="10800" start="20151009T000000Z" end="20151009T110000Z" work-start="20151009T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="343" name="Invite friends to like F&#xEA;te des Vendanges de Montmartre" note="" work="10800" duration="10800" start="20151009T000000Z" end="20151009T110000Z" work-start="20151009T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20151009T000000Z"/>
           <predecessors>
-            <predecessor id="1" predecessor-id="339" type="FS"/>
+            <predecessor id="1" predecessor-id="342" type="FS"/>
           </predecessors>
         </task>
-        <task id="341" name="Foire d'automne 2015" note="" work="7200" duration="7200" start="20151026T000000Z" end="20151026T100000Z" work-start="20151026T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="344" name="Foire d'automne 2015" note="" work="7200" duration="7200" start="20151026T000000Z" end="20151026T100000Z" work-start="20151026T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20151026T000000Z"/>
         </task>
       </task>
-      <task id="342" name="Spectacles" note="" work="162000" start="20150411T000000Z" end="20150721T170000Z" work-start="20150413T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="343" name="Palais des congres" note="Sat 11 Apr 2015, 21:28&#10;3es Rencontres parlementaires de la Fiscalit&#xE9; " work="18000" duration="18000" start="20150411T000000Z" end="20150413T140000Z" work-start="20150413T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="345" name="Spectacles" note="" work="162000" start="20150411T000000Z" end="20150721T170000Z" work-start="20150413T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="346" name="Palais des congres" note="Sat 11 Apr 2015, 21:28&#10;3es Rencontres parlementaires de la Fiscalit&#xE9; " work="18000" duration="18000" start="20150411T000000Z" end="20150413T140000Z" work-start="20150413T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150411T000000Z"/>
         </task>
-        <task id="344" name="FNAC Concert" note="" work="144000" duration="144000" start="20150715T000000Z" end="20150721T170000Z" work-start="20150715T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="347" name="FNAC Concert" note="" work="144000" duration="144000" start="20150715T000000Z" end="20150721T170000Z" work-start="20150715T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150715T000000Z"/>
         </task>
       </task>
-      <task id="345" name="Parc" note="" work="277200" start="20150413T000000Z" end="20151014T170000Z" work-start="20150413T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="346" name="Disneyland Paris" note="" work="28800" duration="28800" start="20150413T000000Z" end="20150413T170000Z" work-start="20150413T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="348" name="Parc" note="" work="277200" start="20150413T000000Z" end="20151014T170000Z" work-start="20150413T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="349" name="Disneyland Paris" note="" work="28800" duration="28800" start="20150413T000000Z" end="20150413T170000Z" work-start="20150413T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150413T000000Z"/>
         </task>
-        <task id="347" name="Disneyland Paris" note="" work="28800" duration="28800" start="20150525T000000Z" end="20150525T170000Z" work-start="20150525T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="350" name="Disneyland Paris" note="" work="28800" duration="28800" start="20150525T000000Z" end="20150525T170000Z" work-start="20150525T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150525T000000Z"/>
         </task>
-        <task id="348" name="Disneyland Paris" note="" work="28800" duration="28800" start="20150714T000000Z" end="20150714T170000Z" work-start="20150714T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="351" name="Disneyland Paris" note="" work="28800" duration="28800" start="20150714T000000Z" end="20150714T170000Z" work-start="20150714T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150714T000000Z"/>
         </task>
-        <task id="349" name="Disneyland Paris" note="" work="18000" duration="18000" start="20150730T000000Z" end="20150730T140000Z" work-start="20150730T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="352" name="Disneyland Paris" note="" work="18000" duration="18000" start="20150730T000000Z" end="20150730T140000Z" work-start="20150730T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150730T000000Z"/>
         </task>
-        <task id="350" name="Cambo les bains" note="Fri 14 Aug 2015, 10:21&#10;Vacation" work="144000" duration="144000" start="20150813T000000Z" end="20150819T170000Z" work-start="20150813T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="353" name="Cambo les bains" note="Fri 14 Aug 2015, 10:21&#10;Vacation" work="144000" duration="144000" start="20150813T000000Z" end="20150819T170000Z" work-start="20150813T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20150813T000000Z"/>
         </task>
-        <task id="351" name="Disneyland Paris" note="" work="28800" duration="28800" start="20151014T000000Z" end="20151014T170000Z" work-start="20151014T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="354" name="Disneyland Paris" note="" work="28800" duration="28800" start="20151014T000000Z" end="20151014T170000Z" work-start="20151014T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20151014T000000Z"/>
         </task>
       </task>
     </task>
   </tasks>
   <resource-groups>
-    <group id="1" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
-    <group id="2" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
+    <group id="1" name="Admin" admin-name="" admin-phone="" admin-email=""/>
+    <group id="2" name="Programming" admin-name="" admin-phone="" admin-email=""/>
     <group id="3" name="Asso" admin-name="" admin-phone="" admin-email=""/>
-    <group id="4" name="Programming" admin-name="" admin-phone="" admin-email=""/>
-    <group id="5" name="Admin" admin-name="" admin-phone="" admin-email=""/>
+    <group id="4" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
+    <group id="5" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
   </resource-groups>
   <resources>
-    <resource group="5" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="4" name="Web servers" short-name="wse" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="5" name="Googlemap" short-name="gma" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="6" name="Tests" short-name="Tes" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="7" name="Perl" short-name="Per" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="4" name="Web servers" short-name="wse" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="5" name="Googlemap" short-name="gma" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="6" name="Tests" short-name="Tes" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="7" name="Perl" short-name="Per" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="8" name="Ubuntu" short-name="ubu" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="9" name="Fedora" short-name="fed" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="10" name="April" short-name="apr" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="11" name="Parinux" short-name="prx" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="12" name="Mongueurs de Perl" short-name="mdp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="13" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="14" name="Coffee shop" short-name="csh" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="13" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="14" name="Coffee shop" short-name="csh" type="2" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="15" name="Paris est une f&#xEA;te" short-name="PEUF" type="1" units="0" email="" note="" std-rate="0"/>
   </resources>
   <allocations>
     <allocation task-id="179" resource-id="1" units="50"/>
-    <allocation task-id="341" resource-id="1" units="33"/>
+    <allocation task-id="344" resource-id="1" units="33"/>
     <allocation task-id="106" resource-id="1" units="25"/>
-    <allocation task-id="351" resource-id="1" units="50"/>
+    <allocation task-id="354" resource-id="1" units="50"/>
     <allocation task-id="127" resource-id="1" units="25"/>
-    <allocation task-id="339" resource-id="1" units="100"/>
-    <allocation task-id="340" resource-id="1" units="100"/>
-    <allocation task-id="338" resource-id="1" units="20"/>
-    <allocation task-id="336" resource-id="1" units="33"/>
+    <allocation task-id="342" resource-id="1" units="100"/>
+    <allocation task-id="343" resource-id="1" units="100"/>
+    <allocation task-id="341" resource-id="1" units="20"/>
+    <allocation task-id="339" resource-id="1" units="33"/>
     <allocation task-id="20" resource-id="1" units="100"/>
-    <allocation task-id="333" resource-id="1" units="100"/>
+    <allocation task-id="336" resource-id="1" units="100"/>
     <allocation task-id="38" resource-id="1" units="50"/>
     <allocation task-id="126" resource-id="1" units="100"/>
     <allocation task-id="37" resource-id="1" units="50"/>
@@ -1211,16 +1220,16 @@
     <allocation task-id="18" resource-id="1" units="50"/>
     <allocation task-id="123" resource-id="1" units="100"/>
     <allocation task-id="172" resource-id="1" units="50"/>
+    <allocation task-id="335" resource-id="1" units="100"/>
+    <allocation task-id="334" resource-id="1" units="100"/>
     <allocation task-id="332" resource-id="1" units="100"/>
     <allocation task-id="331" resource-id="1" units="100"/>
+    <allocation task-id="330" resource-id="1" units="100"/>
     <allocation task-id="329" resource-id="1" units="100"/>
+    <allocation task-id="89" resource-id="1" units="100"/>
+    <allocation task-id="303" resource-id="1" units="100"/>
     <allocation task-id="328" resource-id="1" units="100"/>
     <allocation task-id="327" resource-id="1" units="100"/>
-    <allocation task-id="326" resource-id="1" units="100"/>
-    <allocation task-id="89" resource-id="1" units="100"/>
-    <allocation task-id="300" resource-id="1" units="100"/>
-    <allocation task-id="325" resource-id="1" units="100"/>
-    <allocation task-id="324" resource-id="1" units="100"/>
     <allocation task-id="103" resource-id="1" units="50"/>
     <allocation task-id="36" resource-id="1" units="14"/>
     <allocation task-id="166" resource-id="1" units="50"/>
@@ -1229,13 +1238,13 @@
     <allocation task-id="12" resource-id="1" units="17"/>
     <allocation task-id="11" resource-id="1" units="20"/>
     <allocation task-id="10" resource-id="1" units="23"/>
-    <allocation task-id="350" resource-id="1" units="14"/>
-    <allocation task-id="349" resource-id="1" units="100"/>
+    <allocation task-id="353" resource-id="1" units="14"/>
+    <allocation task-id="352" resource-id="1" units="100"/>
     <allocation task-id="81" resource-id="1" units="50"/>
     <allocation task-id="80" resource-id="1" units="50"/>
     <allocation task-id="79" resource-id="1" units="50"/>
     <allocation task-id="78" resource-id="1" units="100"/>
-    <allocation task-id="323" resource-id="1" units="25"/>
+    <allocation task-id="326" resource-id="1" units="25"/>
     <allocation task-id="77" resource-id="1" units="100"/>
     <allocation task-id="76" resource-id="1" units="100"/>
     <allocation task-id="75" resource-id="1" units="100"/>
@@ -1249,7 +1258,7 @@
     <allocation task-id="34" resource-id="1" units="25"/>
     <allocation task-id="160" resource-id="1" units="50"/>
     <allocation task-id="67" resource-id="1" units="50"/>
-    <allocation task-id="344" resource-id="1" units="100"/>
+    <allocation task-id="347" resource-id="1" units="100"/>
     <allocation task-id="47" resource-id="1" units="17"/>
     <allocation task-id="84" resource-id="1" units="20"/>
     <allocation task-id="36" resource-id="2" units="14"/>
@@ -1261,7 +1270,7 @@
     <allocation task-id="12" resource-id="2" units="17"/>
     <allocation task-id="11" resource-id="2" units="20"/>
     <allocation task-id="10" resource-id="2" units="23"/>
-    <allocation task-id="350" resource-id="2" units="14"/>
+    <allocation task-id="353" resource-id="2" units="14"/>
     <allocation task-id="35" resource-id="2" units="100"/>
     <allocation task-id="34" resource-id="2" units="25"/>
     <allocation task-id="33" resource-id="2" units="100"/>
@@ -1273,7 +1282,7 @@
     <allocation task-id="28" resource-id="2" units="100"/>
     <allocation task-id="25" resource-id="2" units="100"/>
     <allocation task-id="106" resource-id="3" units="25"/>
-    <allocation task-id="336" resource-id="3" units="33"/>
+    <allocation task-id="339" resource-id="3" units="33"/>
     <allocation task-id="36" resource-id="3" units="14"/>
     <allocation task-id="17" resource-id="3" units="17"/>
     <allocation task-id="16" resource-id="3" units="14"/>
@@ -1283,10 +1292,10 @@
     <allocation task-id="12" resource-id="3" units="17"/>
     <allocation task-id="11" resource-id="3" units="20"/>
     <allocation task-id="10" resource-id="3" units="23"/>
-    <allocation task-id="350" resource-id="3" units="14"/>
+    <allocation task-id="353" resource-id="3" units="14"/>
     <allocation task-id="34" resource-id="3" units="25"/>
     <allocation task-id="33" resource-id="3" units="100"/>
-    <allocation task-id="348" resource-id="3" units="17"/>
+    <allocation task-id="351" resource-id="3" units="17"/>
     <allocation task-id="47" resource-id="3" units="17"/>
     <allocation task-id="46" resource-id="3" units="50"/>
     <allocation task-id="49" resource-id="3" units="33"/>
@@ -1306,13 +1315,13 @@
     <allocation task-id="12" resource-id="4" units="17"/>
     <allocation task-id="11" resource-id="4" units="20"/>
     <allocation task-id="10" resource-id="4" units="23"/>
-    <allocation task-id="350" resource-id="4" units="14"/>
-    <allocation task-id="323" resource-id="4" units="25"/>
+    <allocation task-id="353" resource-id="4" units="14"/>
+    <allocation task-id="326" resource-id="4" units="25"/>
     <allocation task-id="32" resource-id="4" units="25"/>
     <allocation task-id="24" resource-id="4" units="20"/>
     <allocation task-id="23" resource-id="4" units="267"/>
     <allocation task-id="106" resource-id="5" units="25"/>
-    <allocation task-id="351" resource-id="5" units="50"/>
+    <allocation task-id="354" resource-id="5" units="50"/>
     <allocation task-id="127" resource-id="5" units="25"/>
     <allocation task-id="36" resource-id="5" units="14"/>
     <allocation task-id="17" resource-id="5" units="17"/>
@@ -1321,9 +1330,9 @@
     <allocation task-id="14" resource-id="5" units="17"/>
     <allocation task-id="13" resource-id="5" units="14"/>
     <allocation task-id="10" resource-id="5" units="23"/>
-    <allocation task-id="350" resource-id="5" units="14"/>
-    <allocation task-id="323" resource-id="5" units="25"/>
-    <allocation task-id="348" resource-id="5" units="17"/>
+    <allocation task-id="353" resource-id="5" units="14"/>
+    <allocation task-id="326" resource-id="5" units="25"/>
+    <allocation task-id="351" resource-id="5" units="17"/>
     <allocation task-id="47" resource-id="5" units="17"/>
     <allocation task-id="84" resource-id="5" units="20"/>
     <allocation task-id="24" resource-id="5" units="20"/>
@@ -1331,7 +1340,7 @@
     <allocation task-id="22" resource-id="5" units="20"/>
     <allocation task-id="9" resource-id="5" units="33"/>
     <allocation task-id="121" resource-id="5" units="25"/>
-    <allocation task-id="346" resource-id="5" units="50"/>
+    <allocation task-id="349" resource-id="5" units="50"/>
     <allocation task-id="64" resource-id="5" units="33"/>
     <allocation task-id="63" resource-id="5" units="33"/>
     <allocation task-id="62" resource-id="5" units="25"/>
@@ -1357,10 +1366,10 @@
     <allocation task-id="6" resource-id="5" units="33"/>
     <allocation task-id="4" resource-id="5" units="33"/>
     <allocation task-id="3" resource-id="5" units="125"/>
-    <allocation task-id="341" resource-id="6" units="33"/>
+    <allocation task-id="344" resource-id="6" units="33"/>
     <allocation task-id="106" resource-id="6" units="25"/>
     <allocation task-id="127" resource-id="6" units="25"/>
-    <allocation task-id="336" resource-id="6" units="33"/>
+    <allocation task-id="339" resource-id="6" units="33"/>
     <allocation task-id="38" resource-id="6" units="50"/>
     <allocation task-id="37" resource-id="6" units="50"/>
     <allocation task-id="19" resource-id="6" units="33"/>
@@ -1376,10 +1385,10 @@
     <allocation task-id="12" resource-id="6" units="17"/>
     <allocation task-id="11" resource-id="6" units="20"/>
     <allocation task-id="10" resource-id="6" units="23"/>
-    <allocation task-id="350" resource-id="6" units="14"/>
-    <allocation task-id="323" resource-id="6" units="25"/>
+    <allocation task-id="353" resource-id="6" units="14"/>
+    <allocation task-id="326" resource-id="6" units="25"/>
     <allocation task-id="34" resource-id="6" units="25"/>
-    <allocation task-id="348" resource-id="6" units="17"/>
+    <allocation task-id="351" resource-id="6" units="17"/>
     <allocation task-id="47" resource-id="6" units="17"/>
     <allocation task-id="46" resource-id="6" units="50"/>
     <allocation task-id="43" resource-id="6" units="50"/>
@@ -1393,7 +1402,7 @@
     <allocation task-id="22" resource-id="6" units="20"/>
     <allocation task-id="9" resource-id="6" units="33"/>
     <allocation task-id="121" resource-id="6" units="25"/>
-    <allocation task-id="346" resource-id="6" units="50"/>
+    <allocation task-id="349" resource-id="6" units="50"/>
     <allocation task-id="64" resource-id="6" units="33"/>
     <allocation task-id="63" resource-id="6" units="33"/>
     <allocation task-id="62" resource-id="6" units="25"/>
@@ -1419,7 +1428,7 @@
     <allocation task-id="4" resource-id="6" units="33"/>
     <allocation task-id="3" resource-id="6" units="125"/>
     <allocation task-id="127" resource-id="7" units="25"/>
-    <allocation task-id="338" resource-id="7" units="20"/>
+    <allocation task-id="341" resource-id="7" units="20"/>
     <allocation task-id="134" resource-id="7" units="50"/>
     <allocation task-id="19" resource-id="7" units="33"/>
     <allocation task-id="36" resource-id="7" units="14"/>
@@ -1429,8 +1438,8 @@
     <allocation task-id="14" resource-id="7" units="17"/>
     <allocation task-id="13" resource-id="7" units="14"/>
     <allocation task-id="12" resource-id="7" units="17"/>
-    <allocation task-id="350" resource-id="7" units="14"/>
-    <allocation task-id="348" resource-id="7" units="17"/>
+    <allocation task-id="353" resource-id="7" units="14"/>
+    <allocation task-id="351" resource-id="7" units="17"/>
     <allocation task-id="47" resource-id="7" units="17"/>
     <allocation task-id="131" resource-id="7" units="50"/>
     <allocation task-id="84" resource-id="7" units="20"/>
@@ -1500,32 +1509,32 @@
     <allocation task-id="95" resource-id="9" units="50"/>
     <allocation task-id="94" resource-id="9" units="25"/>
     <allocation task-id="92" resource-id="9" units="25"/>
-    <allocation task-id="319" resource-id="10" units="100"/>
-    <allocation task-id="318" resource-id="10" units="100"/>
+    <allocation task-id="322" resource-id="10" units="100"/>
+    <allocation task-id="321" resource-id="10" units="100"/>
     <allocation task-id="102" resource-id="10" units="25"/>
     <allocation task-id="101" resource-id="10" units="25"/>
-    <allocation task-id="317" resource-id="10" units="100"/>
+    <allocation task-id="320" resource-id="10" units="100"/>
     <allocation task-id="100" resource-id="10" units="25"/>
     <allocation task-id="99" resource-id="10" units="11"/>
-    <allocation task-id="316" resource-id="10" units="100"/>
+    <allocation task-id="319" resource-id="10" units="100"/>
     <allocation task-id="98" resource-id="10" units="20"/>
     <allocation task-id="61" resource-id="10" units="25"/>
-    <allocation task-id="315" resource-id="10" units="100"/>
+    <allocation task-id="318" resource-id="10" units="100"/>
+    <allocation task-id="317" resource-id="10" units="100"/>
+    <allocation task-id="316" resource-id="10" units="100"/>
     <allocation task-id="314" resource-id="10" units="100"/>
+    <allocation task-id="315" resource-id="10" units="100"/>
+    <allocation task-id="97" resource-id="10" units="20"/>
     <allocation task-id="313" resource-id="10" units="100"/>
     <allocation task-id="311" resource-id="10" units="100"/>
-    <allocation task-id="312" resource-id="10" units="100"/>
-    <allocation task-id="97" resource-id="10" units="20"/>
+    <allocation task-id="96" resource-id="10" units="25"/>
     <allocation task-id="310" resource-id="10" units="100"/>
     <allocation task-id="308" resource-id="10" units="100"/>
-    <allocation task-id="96" resource-id="10" units="25"/>
+    <allocation task-id="309" resource-id="10" units="100"/>
     <allocation task-id="307" resource-id="10" units="100"/>
-    <allocation task-id="305" resource-id="10" units="100"/>
-    <allocation task-id="306" resource-id="10" units="100"/>
-    <allocation task-id="304" resource-id="10" units="100"/>
     <allocation task-id="94" resource-id="10" units="25"/>
-    <allocation task-id="303" resource-id="10" units="100"/>
-    <allocation task-id="302" resource-id="10" units="100"/>
+    <allocation task-id="306" resource-id="10" units="100"/>
+    <allocation task-id="305" resource-id="10" units="100"/>
     <allocation task-id="92" resource-id="10" units="25"/>
     <allocation task-id="102" resource-id="11" units="25"/>
     <allocation task-id="101" resource-id="11" units="25"/>
@@ -1538,7 +1547,7 @@
     <allocation task-id="94" resource-id="11" units="25"/>
     <allocation task-id="93" resource-id="11" units="100"/>
     <allocation task-id="92" resource-id="11" units="25"/>
-    <allocation task-id="338" resource-id="12" units="20"/>
+    <allocation task-id="341" resource-id="12" units="20"/>
     <allocation task-id="134" resource-id="12" units="50"/>
     <allocation task-id="133" resource-id="12" units="100"/>
     <allocation task-id="132" resource-id="12" units="100"/>
@@ -1554,6 +1563,9 @@
     <allocation task-id="57" resource-id="12" units="20"/>
     <allocation task-id="112" resource-id="12" units="20"/>
     <allocation task-id="129" resource-id="12" units="100"/>
+    <allocation task-id="293" resource-id="13" units="100"/>
+    <allocation task-id="292" resource-id="13" units="100"/>
+    <allocation task-id="291" resource-id="13" units="100"/>
     <allocation task-id="290" resource-id="13" units="100"/>
     <allocation task-id="289" resource-id="13" units="100"/>
     <allocation task-id="288" resource-id="13" units="100"/>
@@ -1574,15 +1586,15 @@
     <allocation task-id="273" resource-id="13" units="100"/>
     <allocation task-id="271" resource-id="13" units="100"/>
     <allocation task-id="179" resource-id="13" units="50"/>
-    <allocation task-id="341" resource-id="13" units="33"/>
+    <allocation task-id="344" resource-id="13" units="33"/>
     <allocation task-id="268" resource-id="13" units="100"/>
     <allocation task-id="270" resource-id="13" units="100"/>
     <allocation task-id="269" resource-id="13" units="100"/>
     <allocation task-id="104" resource-id="13" units="100"/>
-    <allocation task-id="338" resource-id="13" units="20"/>
-    <allocation task-id="335" resource-id="13" units="100"/>
+    <allocation task-id="341" resource-id="13" units="20"/>
+    <allocation task-id="338" resource-id="13" units="100"/>
     <allocation task-id="248" resource-id="13" units="100"/>
-    <allocation task-id="334" resource-id="13" units="100"/>
+    <allocation task-id="337" resource-id="13" units="100"/>
     <allocation task-id="173" resource-id="13" units="100"/>
     <allocation task-id="172" resource-id="13" units="50"/>
     <allocation task-id="266" resource-id="13" units="100"/>
@@ -1614,7 +1626,7 @@
     <allocation task-id="161" resource-id="13" units="100"/>
     <allocation task-id="160" resource-id="13" units="50"/>
     <allocation task-id="67" resource-id="13" units="50"/>
-    <allocation task-id="348" resource-id="13" units="17"/>
+    <allocation task-id="351" resource-id="13" units="17"/>
     <allocation task-id="252" resource-id="13" units="100"/>
     <allocation task-id="159" resource-id="13" units="100"/>
     <allocation task-id="251" resource-id="13" units="100"/>
@@ -1653,13 +1665,13 @@
     <allocation task-id="45" resource-id="13" units="50"/>
     <allocation task-id="66" resource-id="13" units="50"/>
     <allocation task-id="65" resource-id="13" units="100"/>
-    <allocation task-id="347" resource-id="13" units="100"/>
-    <allocation task-id="322" resource-id="13" units="100"/>
+    <allocation task-id="350" resource-id="13" units="100"/>
+    <allocation task-id="325" resource-id="13" units="100"/>
     <allocation task-id="31" resource-id="13" units="100"/>
     <allocation task-id="122" resource-id="13" units="50"/>
     <allocation task-id="181" resource-id="13" units="100"/>
     <allocation task-id="178" resource-id="13" units="100"/>
-    <allocation task-id="297" resource-id="13" units="50"/>
+    <allocation task-id="300" resource-id="13" units="50"/>
     <allocation task-id="177" resource-id="13" units="100"/>
     <allocation task-id="176" resource-id="13" units="100"/>
     <allocation task-id="23" resource-id="13" units="267"/>
@@ -1674,7 +1686,7 @@
     <allocation task-id="214" resource-id="13" units="100"/>
     <allocation task-id="212" resource-id="13" units="100"/>
     <allocation task-id="155" resource-id="13" units="100"/>
-    <allocation task-id="343" resource-id="13" units="100"/>
+    <allocation task-id="346" resource-id="13" units="100"/>
     <allocation task-id="210" resource-id="13" units="100"/>
     <allocation task-id="209" resource-id="13" units="100"/>
     <allocation task-id="207" resource-id="13" units="100"/>
@@ -1725,11 +1737,11 @@
     <allocation task-id="184" resource-id="13" units="100"/>
     <allocation task-id="3" resource-id="13" units="125"/>
     <allocation task-id="143" resource-id="13" units="100"/>
-    <allocation task-id="321" resource-id="13" units="100"/>
+    <allocation task-id="324" resource-id="13" units="100"/>
     <allocation task-id="142" resource-id="13" units="100"/>
-    <allocation task-id="337" resource-id="14" units="100"/>
+    <allocation task-id="340" resource-id="14" units="100"/>
     <allocation task-id="33" resource-id="14" units="100"/>
-    <allocation task-id="348" resource-id="14" units="17"/>
+    <allocation task-id="351" resource-id="14" units="17"/>
     <allocation task-id="122" resource-id="14" units="50"/>
     <allocation task-id="22" resource-id="14" units="20"/>
     <allocation task-id="121" resource-id="14" units="25"/>
@@ -1741,19 +1753,19 @@
     <allocation task-id="87" resource-id="14" units="100"/>
     <allocation task-id="95" resource-id="14" units="50"/>
     <allocation task-id="86" resource-id="14" units="50"/>
-    <allocation task-id="338" resource-id="15" units="20"/>
-    <allocation task-id="299" resource-id="15" units="100"/>
+    <allocation task-id="341" resource-id="15" units="20"/>
+    <allocation task-id="302" resource-id="15" units="100"/>
     <allocation task-id="99" resource-id="15" units="11"/>
-    <allocation task-id="296" resource-id="15" units="100"/>
-    <allocation task-id="295" resource-id="15" units="100"/>
-    <allocation task-id="294" resource-id="15" units="100"/>
+    <allocation task-id="299" resource-id="15" units="100"/>
     <allocation task-id="298" resource-id="15" units="100"/>
-    <allocation task-id="293" resource-id="15" units="100"/>
-    <allocation task-id="297" resource-id="15" units="50"/>
+    <allocation task-id="297" resource-id="15" units="100"/>
+    <allocation task-id="301" resource-id="15" units="100"/>
+    <allocation task-id="296" resource-id="15" units="100"/>
+    <allocation task-id="300" resource-id="15" units="50"/>
     <allocation task-id="98" resource-id="15" units="20"/>
     <allocation task-id="97" resource-id="15" units="20"/>
-    <allocation task-id="309" resource-id="15" units="100"/>
+    <allocation task-id="312" resource-id="15" units="100"/>
     <allocation task-id="88" resource-id="15" units="100"/>
-    <allocation task-id="292" resource-id="15" units="100"/>
+    <allocation task-id="295" resource-id="15" units="100"/>
   </allocations>
 </project>
