@@ -555,7 +555,7 @@ A
 
 if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/){ # begin if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
 	print "Content-Type: text/html\n\n";
-	&myrec("Case 1 ($lon - $lat) logfile format <i>$url</i>","../error.html","(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)");
+	&myrec("Case 1 ($lon - $lat) logfile format does not exists or variable does not exist <i>$url</i>","../error.html","case===>(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)");
 	print "-------". $c;
 	exit(0);
 } # end if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
@@ -563,7 +563,7 @@ if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]
 $logfile=~s/\_/\//g;
 if(!-f "$logfile"){ # begin if(!-f "$logfile")
 	print "Content-Type: text/html\n\n";
-	&myrec("Case 2 ($lon - $lat) logfile exist as a file <i>[$url]</i>","../error.html","!-f $logfile");
+	&myrec("Case 2 ($lon - $lat) logfile cannot be found [$logfile] <i>[$url]</i>","../error.html","case ===>!-f $logfile");
 	print "++++++++++" . $c;
 	exit(0);
 } # end if(!-f "$logfile") 
