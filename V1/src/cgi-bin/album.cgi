@@ -7306,12 +7306,13 @@ sub myrec{
 		my $dt = DateTime->from_epoch( epoch => time() );# Current date format DateTime
 	open(W,">>$f")||die("error $!");
 	print W "<pre>\n";
-	print W "<b>********************************************<br>\n";
+	print W "<b>******************Begin**************************<br>\n";
 	print W "*******************\n$mgidt\n*************************<br>\n";
 	print W "********************************************</b><br>\n";
 	print W "--------------------\n$mainp\n------------$dt---------------------\n";
 	print W "$c:\n$m\n\n";
 	print W "<br>current path:".cwd()."\n\n<br>";
+	print W "<b>******************End**************************<br>\n";
 	print W "</pre><br><br>\n";
 	close(W)||die("error close$!");
 }
