@@ -16,6 +16,7 @@ use Time::localtime;
 #use File::stat;
 use Time::Local;
 use Try::Tiny;
+use Cwd;
 
 
 use DateTime;
@@ -79,7 +80,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.124'; # Album release
+use constant ALBUM_REL               	=> '15.129'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -129,7 +130,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.124
+$VERSION=1.6.15.129
 
 =head1 ABSTRACT
 
@@ -207,6 +208,9 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.15.129> Nov 06 2015 added extra info to myrec s.a current working directory path
+		Trip name is bolded
 
 - I<Last modification:v1.6.15.124> Aug 29 2015 that's the line my $oppp=time(); #io::MyTime::gets_formated_date;
 		The bug came from that granularity was not goot with a formated date
@@ -559,7 +563,7 @@ if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]
 $logfile=~s/\_/\//g;
 if(!-f "$logfile"){ # begin if(!-f "$logfile")
 	print "Content-Type: text/html\n\n";
-	&myrec("Case 2 ($lon - $lat) logfile exist as a file <i>$url</i>","../error.html","!-f $logfile");
+	&myrec("Case 2 ($lon - $lat) logfile exist as a file <i>[$url]</i>","../error.html","!-f $logfile");
 	print "++++++++++" . $c;
 	exit(0);
 } # end if(!-f "$logfile") 
@@ -7302,8 +7306,12 @@ sub myrec{
 		my $dt = DateTime->from_epoch( epoch => time() );# Current date format DateTime
 	open(W,">>$f")||die("error $!");
 	print W "<pre>\n";
+	print W "<b>********************************************<br>\n";
+	print W "*******************\n$mgidt\n*************************<br>\n";
+	print W "********************************************</b><br>\n";
 	print W "--------------------\n$mainp\n------------$dt---------------------\n";
 	print W "$c:\n$m\n\n";
+	print W "<br>current path:".cwd()."\n\n<br>";
 	print W "</pre><br><br>\n";
 	close(W)||die("error close$!");
 }
