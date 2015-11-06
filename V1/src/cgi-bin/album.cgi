@@ -634,7 +634,7 @@ else{ # begin else
 	my $wfcu="http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=$lat,$lon";
 	my $xml = new XML::Simple;
 
-	&myrec("Case 9 ($lon - $lat) logfile format <i>$url</i>","../error.html","contact weather center");
+	&myrec("Case 9.0 ($lon - $lat) logfile format <i>$url</i>","../error.html","try to contact weather center");
 	#print "Content-Type: text/html\n\n";
 	#print "--------------------->bef $locweaf rec<------<br>\n$wfcu<br>";
 	try { # begin try
@@ -650,8 +650,10 @@ else{ # begin else
 	catch { # begin catch
 		if( -e "$locweaf"){ # begin if( -e "$locweaf")
 			unlink("$locweaf") or die("error $!");
+			&myrec("Case 9.1 ($lon - $lat) logfile format <i>$url</i>","../error.html","once weather center contacted catch error and rem file $locweaf");
 		} # end if( -e "$locweaf")
 	}; # end catch
+	&myrec("Case 9.2 ($lon - $lat) logfile format <i>$url</i>","../error.html","weather center contacted");
 } # end else
 
 &myrec("Case 10 ($lon - $lat) logfile format <i>$url</i>","../error.html","------------------everything is fine-----------------------------");
