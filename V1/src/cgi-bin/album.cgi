@@ -80,7 +80,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.129'; # Album release
+use constant ALBUM_REL               	=> '15.145'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -130,7 +130,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.129
+$VERSION=1.6.15.145
 
 =head1 ABSTRACT
 
@@ -208,6 +208,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.15.145> Nov 06 2015 added extra info to myrec printed tests not inside the function but messages printed from outside
 
 - I<Last modification:v1.6.15.129> Nov 06 2015 added extra info to myrec s.a current working directory path
 		Trip name is bolded
@@ -555,7 +557,9 @@ A
 
 if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/){ # begin if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
 	print "Content-Type: text/html\n\n";
-	&myrec("Case 1 ($lon - $lat) logfile format does not exists or variable does not exist <i>$url</i>","../error.html","case===>(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)");
+	&myrec("Case 1 ($lon - $lat) logfile format does not exists or variable does not exist <i>$url</i>","../error.html","case===>" .
+	               ((! defined($logfile)) ? "$logfile not defined length:" . length($logfile)  : " $logfile defined length:" . length($logfile) ).
+		       (($logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/) ? " not reg format logfile" : " regular format logfile"). "<br>");
 	print "-------". $c;
 	exit(0);
 } # end if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
@@ -563,7 +567,7 @@ if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]
 $logfile=~s/\_/\//g;
 if(!-f "$logfile"){ # begin if(!-f "$logfile")
 	print "Content-Type: text/html\n\n";
-	&myrec("Case 2 ($lon - $lat) logfile cannot be found [$logfile] <i>[$url]</i>","../error.html","case ===>!-f $logfile");
+	&myrec("Case 2 ($lon - $lat) logfile cannot be found [$logfile] <i>[$url]</i>","../error.html","case ===>". ((!-f "$logfile") ? "file '$logfile' does not exist<br>" : "file '$logfile' exists<br>"));
 	print "++++++++++" . $c;
 	exit(0);
 } # end if(!-f "$logfile") 
