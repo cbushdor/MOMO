@@ -80,7 +80,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.145'; # Album release
+use constant ALBUM_REL               	=> '15.170'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -130,7 +130,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.145
+$VERSION=1.6.15.170
 
 =head1 ABSTRACT
 
@@ -208,6 +208,9 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.15.170> Dec 07 2015 due to add to maop_ infront of each var name in input tag some data were lost.
+		Try to debug and rmove these lack by adding maop_ to var name where they were missing.
 
 - I<Last modification:v1.6.15.145> Nov 06 2015 added extra info to myrec printed tests not inside the function but messages printed from outside
 
@@ -1989,12 +1992,12 @@ sub admin_menu { # begin admin_menu
 	&set_language(LANGUAGES);
 	print $doc->Tr(
 		$doc->td( {align=>'right'},
-			$doc->input({ type=>'hidden', name=>'upld', value=>'ok'}),
+			$doc->input({ type=>'hidden', name=>'maop_upld', value=>'ok'}),
 			$doc->input({ type=>'hidden', name=>'maop_login', value=>$doc->param("maop_login")}),
-			$doc->input({ type=>'hidden', name=>'Set_page_position_in_the_album', value=>"Page #$modify_page_position_in_album @ row #$modify_position_in_page"}),
+			$doc->input({ type=>'hidden', name=>'maop_Set_page_position_in_the_album', value=>"Page #$modify_page_position_in_album @ row #$modify_position_in_page"}),
 			$doc->input({ type=>'hidden', name=>'maop_service', value=>'check'}),
-			$doc->input({ type=>'hidden', name=>'ssection', value=>'adminPict'}),
-			$doc->input({ type=>'hidden', name=>'recording', value=>'check' }),
+			$doc->input({ type=>'hidden', name=>'maop_ssection', value=>'adminPict'}),
+			$doc->input({ type=>'hidden', name=>'maop_recording', value=>'check' }),
 			$doc->input({ type=>'submit', value=>'Envoyer la requete / Send query' } )),
 		$doc->td($doc->input({ type=>'reset', value=>'Annuler / Reset'})));
 	print "</table>\n";
@@ -2057,7 +2060,7 @@ sub set_upload { # begin set_upload
 	if ( $an_action ne "modify" ){ # Begin if ($an_action ne "modify")
 		print "<tr>\n<td>Enter file name to upload from\n" .
 															$doc->popup_menu(
-																	 -name=>'type_of_upload',
+																	 -name=>'maop_type_of_upload',
 																	 -values=>[
 																			'Local',
 																			'http:/'
@@ -2072,7 +2075,7 @@ sub set_upload { # begin set_upload
 		print "gti();";
 		print "</script>\n";
 		print "<tr>\n<td>Enter URL here if http option above is choosen<td><input type=\"text\" name='maop_file_name_img2' size='50' />\n";
-		print "Printed/Imprime<select name=\"youtubeln\"><option selected>normal</option><option>link/lien</option></select>";
+		print "Printed/Imprime<select name=\"maop_youtubeln\"><option selected>normal</option><option>link/lien</option></select>";
 	} # End if ($an_action ne "modify")
 } # End sub set_upload
 
@@ -2135,7 +2138,7 @@ sub set_link { # begin set_link
 	my ( $words,     $link )     = split( /\,/, $fr );
 	my ( $words_eng, $link_eng )=split( /\,/, $eng );
 
-	print "<tr>\n<td valign='top' aglign=left>Enter a name to link within the text for French comment </td><td><table><tr>\n<td><input name='maop_name_to_link' value='$words' /><td>Enter the related link<input type='text' name='link' value='$link' /></tr>\n</table>\n</tr>\n";
+	print "<tr>\n<td valign='top' aglign=left>Enter a name to link within the text for French comment </td><td><table><tr>\n<td><input name='maop_name_to_link' value='$words' /><td>Enter the related link<input type='text' name='maop_link' value='$link' /></tr>\n</table>\n</tr>\n";
 	print "<tr>\n<td valign='top' aglign=left>Enter a name to link within the text for English comment</td>\n<td>\n<table><tr>\n<td><input name='maop_name_to_link_eng' value='$words_eng' /></td><td>Enter the related link for eng<input type='text' name='maop_link_eng' value='$link_eng' /></tr>\n</table>\n</tr>\n";
 } # End sub set_link
 
@@ -6756,7 +6759,7 @@ sub accessToPicture{ # begin accessToPicture
 
 	return "How to view a picture:" .
 		$doc->popup_menu(
-				 -name=>'grantPicture',
+				 -name=>'maop_grantPicture',
 				 -values=>[
 						'Public granted',
 						'Public not granted',
