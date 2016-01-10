@@ -41,80 +41,84 @@
       </task>
     </task>
     <task id="10" name="Restaurants" note="" work="7200" start="20160101T000000Z" end="20160101T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-    <task id="11" name="Associations" note="" work="50400" start="20160101T000000Z" end="20160104T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="11" name="Associations" note="" work="61200" start="20160101T000000Z" end="20160111T140000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
       <task id="12" name="Journ&#xE9;es Perl 2016" note="" work="7200" start="20160104T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <task id="13" name="IRC" note="" work="7200" duration="7200" start="20160104T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20160104T000000Z"/>
         </task>
       </task>
       <task id="14" name="OSDC 2016" note="" work="7200" start="20160101T000000Z" end="20160101T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="15" name="Parties" note="" work="7200" start="20160101T000000Z" end="20160101T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="16" name="Meetups" note="" work="28800" start="20160101T000000Z" end="20160101T120000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="17" name="Numa (39 Rue du Caire, Paris, France)" note="Wed 06 Jan 2016, 00:46&#10; [#MaVoix] Rencontre exceptionnelle avec Dominique Cardon" work="28800" start="20160101T000000Z" end="20160101T120000Z" work-start="20160101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work"/>
+      <task id="15" name="Parties" note="" work="18000" start="20160109T000000Z" end="20160111T140000Z" work-start="20160111T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="16" name="RIPU" note="" work="18000" duration="18000" start="20160109T000000Z" end="20160111T140000Z" work-start="20160111T080000Z" percent-complete="0" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20160109T000000Z"/>
+        </task>
+      </task>
+      <task id="17" name="Meetups" note="" work="28800" start="20160101T000000Z" end="20160101T120000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="18" name="Numa (39 Rue du Caire, Paris, France)" note="Wed 06 Jan 2016, 00:46&#10; [#MaVoix] Rencontre exceptionnelle avec Dominique Cardon" work="28800" start="20160101T000000Z" end="20160101T120000Z" work-start="20160101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work"/>
       </task>
     </task>
-    <task id="18" name="Sports" note="" work="28800" start="20160101T000000Z" end="20160101T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="19" name="Hike" note="" work="28800" start="20160101T000000Z" end="20160101T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="19" name="Sports" note="" work="28800" start="20160101T000000Z" end="20160101T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="20" name="Hike" note="" work="28800" start="20160101T000000Z" end="20160101T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
     </task>
-    <task id="20" name="Conf/Renc/Mati/Salo/Expo" note="" work="234000" start="20160101T000000Z" end="20160111T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="21" name="Cin&#xE9;ma" note="" work="50400" start="20160102T000000Z" end="20160111T100000Z" work-start="20160104T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="22" name="Regular" note="" work="21600" start="20160102T000000Z" end="20160105T100000Z" work-start="20160104T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="23" name="Reflet Medicis" note="Sat 02 Jan 2016, 22:38&#10;Beliers - Rams" work="7200" duration="7200" start="20160102T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+    <task id="21" name="Conf/Renc/Mati/Salo/Expo" note="" work="234000" start="20160101T000000Z" end="20160111T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="22" name="Cin&#xE9;ma" note="" work="50400" start="20160102T000000Z" end="20160111T100000Z" work-start="20160104T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="23" name="Regular" note="" work="21600" start="20160102T000000Z" end="20160105T100000Z" work-start="20160104T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="24" name="Reflet Medicis" note="Sat 02 Jan 2016, 22:38&#10;Beliers - Rams" work="7200" duration="7200" start="20160102T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160102T000000Z"/>
           </task>
-          <task id="24" name="Le Desperado (ex Action Ecole)" note="Sun 03 Jan 2016, 21:44&#10;Family Jewels" work="7200" duration="7200" start="20160103T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="25" name="Le Desperado (ex Action Ecole)" note="Sun 03 Jan 2016, 21:44&#10;Family Jewels" work="7200" duration="7200" start="20160103T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160103T000000Z"/>
           </task>
-          <task id="25" name="La filmotheque de Paris" note="Wed 06 Jan 2016, 00:36&#10;A day in NY - Un jour a NY" work="7200" duration="7200" start="20160105T000000Z" end="20160105T100000Z" work-start="20160105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="26" name="La filmotheque de Paris" note="Wed 06 Jan 2016, 00:36&#10;A day in NY - Un jour a NY" work="7200" duration="7200" start="20160105T000000Z" end="20160105T100000Z" work-start="20160105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160105T000000Z"/>
           </task>
         </task>
-        <task id="26" name="Festival Comedies Anglaises  " note="" work="28800" start="20160102T000000Z" end="20160111T100000Z" work-start="20160104T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="27" name="Le Champo - Espace Jacque Tati" note="Sat 02 Jan 2016, 22:41&#10;Noblesse oblige" work="7200" duration="7200" start="20160102T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="27" name="Festival Comedies Anglaises  " note="" work="28800" start="20160102T000000Z" end="20160111T100000Z" work-start="20160104T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="28" name="Le Champo - Espace Jacque Tati" note="Sat 02 Jan 2016, 22:41&#10;Noblesse oblige" work="7200" duration="7200" start="20160102T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160102T000000Z"/>
           </task>
-          <task id="28" name="Le Champo - Espace Jacque Tati" note="Sun 03 Jan 2016, 21:41&#10;Maggie" work="7200" duration="7200" start="20160103T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="29" name="Le Champo - Espace Jacque Tati" note="Sun 03 Jan 2016, 21:41&#10;Maggie" work="7200" duration="7200" start="20160103T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160103T000000Z"/>
           </task>
-          <task id="29" name="Le Champo - Espace Jacque Tati" note="Wed 06 Jan 2016, 00:38&#10;Whisky a gogo - Whisky galore" work="7200" duration="7200" start="20160105T000000Z" end="20160105T100000Z" work-start="20160105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="30" name="Le Champo - Espace Jacque Tati" note="Wed 06 Jan 2016, 00:38&#10;Whisky a gogo - Whisky galore" work="7200" duration="7200" start="20160105T000000Z" end="20160105T100000Z" work-start="20160105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160105T000000Z"/>
           </task>
-          <task id="30" name="Le Champo - Espace Jacque Tati" note="Sat 09 Jan 2016, 20:51&#10;De l'or en barre" work="7200" duration="7200" start="20160109T000000Z" end="20160111T100000Z" work-start="20160111T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="31" name="Le Champo - Espace Jacque Tati" note="Sat 09 Jan 2016, 20:51&#10;De l'or en barre" work="7200" duration="7200" start="20160109T000000Z" end="20160111T100000Z" work-start="20160111T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160109T000000Z"/>
           </task>
         </task>
       </task>
-      <task id="31" name="Peuf" note="" work="3600" start="20160101T000000Z" end="20160101T090000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="32" name="Expo" note="" work="7200" start="20160101T000000Z" end="20160101T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="33" name="Spectacles" note="" work="144000" start="20160101T000000Z" end="20160107T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="34" name="Parc" note="" work="28800" start="20160101T000000Z" end="20160101T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="32" name="Peuf" note="" work="3600" start="20160101T000000Z" end="20160101T090000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="33" name="Expo" note="" work="7200" start="20160101T000000Z" end="20160101T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="34" name="Spectacles" note="" work="144000" start="20160101T000000Z" end="20160107T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="35" name="Parc" note="" work="28800" start="20160101T000000Z" end="20160101T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
     </task>
   </tasks>
   <resource-groups>
-    <group id="1" name="Admin" admin-name="" admin-phone="" admin-email=""/>
-    <group id="2" name="Programming" admin-name="" admin-phone="" admin-email=""/>
+    <group id="1" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
+    <group id="2" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
     <group id="3" name="Asso" admin-name="" admin-phone="" admin-email=""/>
-    <group id="4" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
-    <group id="5" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
+    <group id="4" name="Programming" admin-name="" admin-phone="" admin-email=""/>
+    <group id="5" name="Admin" admin-name="" admin-phone="" admin-email=""/>
   </resource-groups>
   <resources>
-    <resource group="1" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="4" name="Web servers" short-name="wse" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="5" name="Googlemap" short-name="gma" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="6" name="Tests" short-name="Tes" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="7" name="Perl" short-name="Per" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="4" name="Web servers" short-name="wse" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="5" name="Googlemap" short-name="gma" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="6" name="Tests" short-name="Tes" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="7" name="Perl" short-name="Per" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="8" name="Ubuntu" short-name="ubu" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="9" name="Fedora" short-name="fed" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="10" name="April" short-name="apr" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="11" name="Parinux" short-name="prx" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="12" name="Mongueurs de Perl" short-name="mdp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="13" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="14" name="Coffee shop" short-name="csh" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="13" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="14" name="Coffee shop" short-name="csh" type="2" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="15" name="Paris est une f&#xEA;te" short-name="PEUF" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="16" name="Python" short-name="Pyt" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="17" name="OpenOffice" short-name="OOf" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="16" name="Python" short-name="Pyt" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="17" name="OpenOffice" short-name="OOf" type="1" units="0" email="" note="" std-rate="0"/>
   </resources>
   <allocations>
     <allocation task-id="3" resource-id="1" units="17"/>
@@ -125,22 +129,26 @@
     <allocation task-id="3" resource-id="5" units="17"/>
     <allocation task-id="9" resource-id="6" units="13"/>
     <allocation task-id="3" resource-id="6" units="17"/>
+    <allocation task-id="16" resource-id="9" units="25"/>
     <allocation task-id="8" resource-id="9" units="100"/>
     <allocation task-id="9" resource-id="9" units="13"/>
+    <allocation task-id="16" resource-id="12" units="25"/>
     <allocation task-id="13" resource-id="12" units="100"/>
-    <allocation task-id="30" resource-id="13" units="100"/>
+    <allocation task-id="31" resource-id="13" units="100"/>
     <allocation task-id="8" resource-id="13" units="100"/>
     <allocation task-id="9" resource-id="13" units="13"/>
-    <allocation task-id="17" resource-id="13" units="100"/>
-    <allocation task-id="29" resource-id="13" units="100"/>
+    <allocation task-id="18" resource-id="13" units="100"/>
+    <allocation task-id="30" resource-id="13" units="100"/>
+    <allocation task-id="26" resource-id="13" units="100"/>
     <allocation task-id="25" resource-id="13" units="100"/>
-    <allocation task-id="24" resource-id="13" units="100"/>
+    <allocation task-id="29" resource-id="13" units="100"/>
     <allocation task-id="28" resource-id="13" units="100"/>
-    <allocation task-id="27" resource-id="13" units="100"/>
-    <allocation task-id="23" resource-id="13" units="100"/>
+    <allocation task-id="24" resource-id="13" units="100"/>
+    <allocation task-id="16" resource-id="14" units="25"/>
     <allocation task-id="8" resource-id="14" units="100"/>
     <allocation task-id="9" resource-id="14" units="13"/>
-    <allocation task-id="17" resource-id="14" units="100"/>
+    <allocation task-id="18" resource-id="14" units="100"/>
+    <allocation task-id="16" resource-id="15" units="25"/>
     <allocation task-id="8" resource-id="15" units="100"/>
     <allocation task-id="9" resource-id="15" units="13"/>
     <allocation task-id="9" resource-id="16" units="13"/>
