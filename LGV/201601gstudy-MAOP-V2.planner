@@ -137,7 +137,7 @@
       <task id="43" name="Spectacles" note="" work="144000" start="20160101T000000Z" end="20160107T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
       <task id="44" name="Parc" note="" work="28800" start="20160101T000000Z" end="20160101T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
       <task id="45" name="Games" note="" work="39600" start="20160116T000000Z" end="20160119T170000Z" work-start="20160118T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="46" name="Install King's Quest Abandonware" note="Sat 16 Jan 2016, 17:00&#10;http://www.topito.com/top-preuves-jeux-video-mieux-avant-vieux-cons-et-fiers-de-letre&#10;&#10;http://www.abandonware-france.org/ltf_abandon/ltf_jeu.php?id=240" work="7200" duration="28800" start="20160116T000000Z" end="20160118T170000Z" work-start="20160118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="46" name="Install King's Quest Abandonware" note="Sat 16 Jan 2016, 17:00&#10;http://www.topito.com/top-preuves-jeux-video-mieux-avant-vieux-cons-et-fiers-de-letre&#10;&#10;http://www.abandonware-france.org/ltf_abandon/ltf_jeu.php?id=240&#10;&#10;Sat 16 Jan 2016, 22:19&#10;http://www.emuparadise.me/Abandonware_Games/Kings_Quest_Vii_%281993%29%28Sierra_Online%29/93824" work="7200" duration="28800" start="20160116T000000Z" end="20160118T170000Z" work-start="20160118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20160116T000000Z"/>
         </task>
         <task id="47" name="Played King's Quest I with plauthrough" note="Sat 16 Jan 2016, 17:00&#10;https://www.youtube.com/watch?v=r0TLhR51uGY&#10;&#10;https://youtu.be/bvCewQQ9ePo" work="28800" duration="28800" start="20160118T170000Z" end="20160119T170000Z" work-start="20160119T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
@@ -146,7 +146,7 @@
             <predecessor id="1" predecessor-id="46" type="FS"/>
           </predecessors>
         </task>
-        <task id="48" name="Played King's Quest VII on Fedora 23" note="" work="3600" duration="3600" start="20160118T170000Z" end="20160119T090000Z" work-start="20160119T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="48" name="Played King's Quest VII on Fedora 23" note="Sat 16 Jan 2016, 22:26&#10;https://youtu.be/zgK-8LMK_uw" work="3600" duration="3600" start="20160118T170000Z" end="20160119T090000Z" work-start="20160119T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20160116T000000Z"/>
           <predecessors>
             <predecessor id="1" predecessor-id="46" type="FS"/>
@@ -156,30 +156,30 @@
     </task>
   </tasks>
   <resource-groups>
-    <group id="1" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
-    <group id="2" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
+    <group id="1" name="Admin" admin-name="" admin-phone="" admin-email=""/>
+    <group id="2" name="Programming" admin-name="" admin-phone="" admin-email=""/>
     <group id="3" name="Asso" admin-name="" admin-phone="" admin-email=""/>
-    <group id="4" name="Programming" admin-name="" admin-phone="" admin-email=""/>
-    <group id="5" name="Admin" admin-name="" admin-phone="" admin-email=""/>
+    <group id="4" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
+    <group id="5" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
   </resource-groups>
   <resources>
-    <resource group="5" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="4" name="Web servers" short-name="wse" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="5" name="Googlemap" short-name="gma" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="6" name="Tests" short-name="Tes" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="7" name="Perl" short-name="Per" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="4" name="Web servers" short-name="wse" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="5" name="Googlemap" short-name="gma" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="6" name="Tests" short-name="Tes" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="7" name="Perl" short-name="Per" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="8" name="Ubuntu" short-name="ubu" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="9" name="Fedora" short-name="fed" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="10" name="April" short-name="apr" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="11" name="Parinux" short-name="prx" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="12" name="Mongueurs de Perl" short-name="mdp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="13" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="14" name="Coffee shop" short-name="csh" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="13" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="14" name="Coffee shop" short-name="csh" type="2" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="15" name="Paris est une f&#xEA;te" short-name="PEUF" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="16" name="Python" short-name="Pyt" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="17" name="OpenOffice" short-name="OOf" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="16" name="Python" short-name="Pyt" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="17" name="OpenOffice" short-name="OOf" type="2" units="0" email="" note="" std-rate="0"/>
     <resource id="18" name="SCumm VM" short-name="SVM" type="2" units="0" email="" note="" std-rate="0"/>
     <resource id="19" name="Utilitaire/Tools 7z" short-name="c7z" type="2" units="0" email="" note="" std-rate="0"/>
   </resources>
