@@ -8,6 +8,7 @@ use POSIX qw(strftime);
 use io::MyNav;
 use DateTime;
 use DateTime::Format::Strptime;
+use URI::Escape;
 
 
 my $now_string = time(); # strftime "%m %d %H:%M:%S UTC %Y", gmtime;
@@ -16,26 +17,28 @@ my $doc = new CGI;
 my $url=();
 my $ip=io::MyNav::gets_ip_address;
 my $ipAddr=io::MyNav::gets_ip_address;
+#my $logfile="album-hist-log-$ipAddr-$$";
 my $logfile="album/hist/log-$ipAddr-$$";
 my $mparam=();# my parameter passed
 
-print "Content-type: text/html\n\n";
+#print "Content-type: text/html\n\n";
 my $leng=scalar $doc->param;
 #print "---|$leng|------". (defined($doc->param('maop_lon'))) ? "longitude defined" : "longitude not defined"  ;
-print "---$leng------". $doc->param('maop_lon') ."<br>";
+#print "---$leng------". $doc->param('maop_lon') ."<br>";
 
 #my $la=$doc->param("maop_lat");
 #my $lo=$doc->param("maop_lon");
 
 foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
-	print ">>>>>>>$p --->".$doc->param($p)."<br>";
+#	print ">>>>>>>$p --->".$doc->param($p)."<br>";
 	if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
 		if($p!~m/^maop_lon$/&&
 		   $p!~m/^maop_lat$/&&
 		   $p!~m/^maop_prog$/&&
 		   $p!~m/^maop_date$/&&
 		   $p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
-			$mparam.="&$p=".$doc->param($p);
+			my $mp=$doc->param($p);
+			$mparam.="&$p=".uri_escape("$mp");
 		}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 		elsif ($p!~m/^maop_lat$/){ # begin elsif ($p!~m/^maop_lat$/)
 #&myrec("Case logfile format maop ","../error.html","****** $la" );
@@ -51,7 +54,7 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 my $prog=(length($doc->param("maop_prog"))==0) ? "album.cgi" : $doc->param("maop_prog");
 
 
-print "<h1>>>>>ooooooooooooooooooooo>$prog<<<<<<<<<<<<</h1><br>";
+#print "<h1>>>>>ooooooooooooooooooooo>$prog<<<<<<<<<<<<</h1><u>$mparam</u><br>==========================================<br>";
 
 if(! defined($ip)||$ip=~m/^127\.0\.0\.1/i||$ip=~m!localhost!){ # begin if(! defined($ip)||$ip=~m/^127\.0\.0\.1/i||$ip=~m!localhost!)
 	$url="http://localhost/~sdo/cgi-bin/$prog";
@@ -61,12 +64,20 @@ else{ # begin  else
 } # end else
 
 if( -f "$logfile"){ # begin if( -f "$logfile")
+	#print "*maop.cgi logfile exists $logfile";
 	unlink("$logfile");
 	&myrec("Case logfile format maop ","../error.html","-f $logfile");
 } # end if( -f "$logfile")
+#else{
+#	print "*maop.cgi logfile does not exist $logfile"; exit(-1);
+#}
 open(FD,">$logfile") or die("$logfile error $!");
 print FD " ";
 close(FD) or die("$logfile error $!");
+
+#if( -f "$logfile"){ # begin if( -f "$logfile")
+#	print "file exists";exit(1);
+#}
 
 $logfile=~s/\//\_/g;
 #$logfile=~s/\_/\//g;
