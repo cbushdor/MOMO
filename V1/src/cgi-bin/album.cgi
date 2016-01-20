@@ -80,7 +80,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.170'; # Album release
+use constant ALBUM_REL               	=> '15.175'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -130,7 +130,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.170
+$VERSION=1.6.15.175
 
 =head1 ABSTRACT
 
@@ -560,10 +560,10 @@ A
 
 if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/){ # begin if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
 	print "Content-Type: text/html\n\n";
-	&myrec("Case 1 ($lon - $lat) logfile format does not exists or variable does not exist <i>$url</i>","../error.html","case===>" .
+	&myrec("Case 1 ($lon - $lat) logfile format($logfile) does not exists or variable does not exist <i>$url</i>","../error.html","case===>" .
 	               ((! defined($logfile)) ? "$logfile not defined length:" . length($logfile)  : " $logfile defined length:" . length($logfile) ).
 		       (($logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/) ? " not reg format logfile" : " regular format logfile"). "<br>");
-	print "-------". $c;
+	print $c;
 	exit(0);
 } # end if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
 
@@ -571,7 +571,7 @@ $logfile=~s/\_/\//g;
 if(!-f "$logfile"){ # begin if(!-f "$logfile")
 	print "Content-Type: text/html\n\n";
 	&myrec("Case 2 ($lon - $lat) logfile cannot be found [$logfile] <i>[$url]</i>","../error.html","case ===>". ((!-f "$logfile") ? "file '$logfile' does not exist<br>" : "file '$logfile' exists<br>"));
-	print "++++++++++" . $c;
+	print $c;
 	exit(0);
 } # end if(!-f "$logfile") 
 else{ # begin else
@@ -600,7 +600,7 @@ else{ # begin else
 if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	print "Content-Type: text/html\n\n";
 	&myrec("Case 3 ($lon - $lat) latitude exists and as proper format <i>$url</i>","../error.html","(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
-	print "XXXXXXXXXXXXXXXXX" . $c;
+	print $c;
 	exit(0);
 } # end if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 
@@ -682,6 +682,7 @@ chomp($my_pid);
 my $file_conf_to_save="$album_directory/$configuration_file";
 chomp($file_conf_to_save);
 
+	#print "Content-Type: text/html\n\n";
 # That's the service
 my $service=$doc->param("maop_service");
 chomp(${service});
@@ -689,8 +690,8 @@ chomp(${service});
 
 if( -f "album/debug_album_DO_NOT_REMOVE"){ # begin if( -f "album/debug_album_DO_NOT_REMOVE")
 	#print "Content-Type: text/html\n\n";
-	print "ooooooo)$service<br />";
-	print "-------->" . $ipAddr."\n<br />";
+	#print "ooooooo)$service<br />";
+	#print "-------->" . $ipAddr."\n<br />";
 	#print "oooooo->$name<br />";
 } # end if( -f "album/debug_album_DO_NOT_REMOVE")
 else{# begin else
@@ -713,7 +714,7 @@ if($service eq "verDoc"){ # Only entire documentation + version is asked
 	print "$res";
 	exit(OK);# Exit that's it
 }elsif($service eq "versioning"){ # Only version is asked
-	#print "Content-Type: text/html\n\n";
+	print "Content-Type: text/html\n\n";
 	my $cres=jcode(MPWD,ALBUM_VERSION);
 	#print "$cres(---------)<br />";
 	$res=encode_base64($cres);
@@ -780,8 +781,7 @@ my @images_used=(
 	);
 
 my $date_ticket=$doc->param("maop_date");
-print "Content-Type: text/html;charset=iso-8859-15;\n";
-print "Pragma: no-cache \n\n";
+print "Content-Type: text/html;charset=utf-8;\n"; print "Pragma: no-cache \n\n";
 	#------------------------------------------------------------------------
 	my $mtfn=();# my trip file name
 
@@ -796,7 +796,7 @@ print "Pragma: no-cache \n\n";
 		my $dtb = $anal->parse_datetime( $brtn );
 		if($dtb>$dt3){ # begin if($dtb>$dt3)
 			# date is not yet arrived
-			print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
+			#print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
 			$mtfn="_-" . TRIP_NAME; 
 		} # end if($dtb>$dt3)
 		else{ # begin else $dtb<=$dt3
@@ -804,11 +804,11 @@ print "Pragma: no-cache \n\n";
 			my $dte = $anal2->parse_datetime( $ertn );
 			if($dte<$dt3){ # begin if($dte<$dt3)
 				# date is passed
-				print "<<<<<<<<<<<<<<<<<<<<<<<<<<<< $dte<<u>$dt3</u> not passed\n";
+				#print "<<<<<<<<<<<<<<<<<<<<<<<<<<<< $dte<<u>$dt3</u> not passed\n";
 				$mtfn="_-" . TRIP_NAME; 
 			} # end if($dte<$dt3)
 			else { # begin  $dte>=$dt3
-				print "<====================> $dtb<=$dt3<=$dte in range\n";
+				#print "<====================> $dtb<=$dt3<=$dte in range\n";
 				$mtfn="${mgidt}-" . TRIP_NAME; 
 			} # end  $dte>=$dt3
 		} # end else $dtb<=$dt3
@@ -822,7 +822,8 @@ print "Pragma: no-cache \n\n";
 print "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n";
 print "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n";
 print $doc->start_head();
-print "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-15\" />\n";
+#print "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-15\" />\n";
+print "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n";
 print $doc->meta({
 			-name=>"title",
 			-content=>"Album of pictures/Album photos"
@@ -887,7 +888,7 @@ my ($resPing,$ipOk)=(0,0); # stub io::MySec::checksRevIpAdd($ipAddr,io::MySec::g
 print "<!-- 3.2 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 #print "<script>document.write(\"connected with\"+navigator.userAgent);</script>\n";
 if( -f "album/debug_album_DO_NOT_REMOVE"){ # begin if( -f "album/debug_album_DO_NOT_REMOVE")
-	print "<br />\n---->res ping($resPing,$ipOk) for $ipAddr<br />---$service---<br />";
+	#print "<br />\n---->res ping($resPing,$ipOk) for $ipAddr<br />---$service---<br />";
 } # end if( -f "album/debug_album_DO_NOT_REMOVE")
 use Net::Domain qw(hostname hostfqdn hostdomain);
          
@@ -909,9 +910,16 @@ my $locid="$co/$cn/$cr/$ct/$lo/$la";
 #print "The host name is $l --->$co-$cn-$cr-$ct-lo-la\n";
 
 
-#print "aaaaaa>check_password($my_pid,". $doc->param("maop_service").",check, $my_pid, $user_login, $login, $user_password, $password, $doc,album/pid);------>";
+#print "Content-Type: text/html\n\n";
+
+#print "aaaaaa>check_password($my_pid,maop_service=". $doc->param("maop_service").",check, $my_pid, $user_login, $login, $user_password, $password, $doc,album/pid);------>";
+
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+
 my $resAuth=io::MyUtilities::check_password($my_pid,$doc->param("maop_service"), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,"album/pid");
-#print ">>>>>>>>>>>>$resAuth<br>";
+#print ">>>>>+++++>>>>>>>$resAuth<br>";
 # print " ( ($resPing==0) && ($resAuth==0) ) \n<br />";
 # Check login & password if ok then access to extra services
 if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==0) ) 
@@ -1288,7 +1296,7 @@ MENU
 
 =head1 sub print_info_picture(...)
 
-This function is used to print information related to on picture.
+This function is used to print information related to picture.
 
 =head2 PARAMETER(S)
 
@@ -2071,7 +2079,7 @@ sub set_upload { # begin set_upload
 																       ) .
 															"<td><input type=\"file\" name='maop_file_name_img' size='50' />\n";
 
-		print "<script languagen'javascript' type='text/javascript'>\n";
+		print "<script language='javascript' type='text/javascript'>\n";
 		print "gti();";
 		print "</script>\n";
 		print "<tr>\n<td>Enter URL here if http option above is choosen<td><input type=\"text\" name='maop_file_name_img2' size='50' />\n";
@@ -7313,7 +7321,7 @@ sub myrec{
 	my ($c,$f,$m)=@_;
 	my $mainp=(split(/[\\\/]/,"$0"))[scalar(split(/[\\\/]/,"$0"))-1]; # gets program name
 		my $dt = DateTime->from_epoch( epoch => time() );# Current date format DateTime
-	open(W,">>$f")||die("error $!");
+	open(W,">>$f")||die("$f error $!");
 	print W "<pre>\n";
 	print W "<b>******************Begin**************************<br>\n";
 	print W "*******************\n$mgidt\n*************************<br>\n";
