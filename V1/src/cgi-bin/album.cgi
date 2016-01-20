@@ -72,7 +72,6 @@ use io::MyNav;
 use io::MySec;
 
 # Written by shark bait ###
-my $timsec=time();
 # new set of tests
 
 # +-----------------------------------------+
@@ -80,7 +79,7 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.175'; # Album release
+use constant ALBUM_REL               	=> '15.179'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -130,7 +129,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.175
+$VERSION=1.6.15.179
 
 =head1 ABSTRACT
 
@@ -478,6 +477,7 @@ $CGI::Pretty::INDENT="\t\t";
 
 use Fcntl qw( :DEFAULT :flock);
 
+
 # We define a boolean value OK=0
 use constant OK  => 0;
 use constant NOK => !(OK);
@@ -491,6 +491,8 @@ use constant MAX_COL_NUMBER => 10 ;
 
 # This is document which will help to deal with CGI information
 my $doc=new CGI;
+
+my $timsec=$doc->param("timsec");
 my $mgidt=$doc->param("maop_googid"); #my google id  trip
 chomp($mgidt);
 my $tn=PATH_GOOGLE_MAP_TRIP.$mgidt ."-".TRIP_NAME; # Trip name
@@ -878,7 +880,7 @@ my (
 
 
 print "<!-- 3 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
-my $rul=(); # return of my upload
+my $rul=$doc->param("rul"); # return of my upload
 
 print "<!-- 3.0 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 my @all_file=();
@@ -973,7 +975,7 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 #					print "ooooooo".ALLOWED_FILE_FORMAT_TYPE."<br />";
 					if(length($doc->param("maop_file_name_img"))>0){
 						# watch out case of youtube
-						$rul=my_upload($doc, $doc->param("maop_file_name_img"), DIRECTORY_DEPOSIT, "$timsec",ALLOWED_FILE_FORMAT_TYPE);
+						#$rul=my_upload($doc, $doc->param("maop_file_name_img"), DIRECTORY_DEPOSIT, "$timsec",ALLOWED_FILE_FORMAT_TYPE);
 	#					$file_name=~s!\&\#95;!g;
 					}
 				} # End if ($type_upload eq "Local")
