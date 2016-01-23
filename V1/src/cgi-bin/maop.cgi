@@ -38,16 +38,19 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 		   $p!~m/^maop_lat$/&&
 		   $p!~m/^maop_prog$/&&
 		   $p!~m/^maop_date$/&&
-		   $p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
+		   $p!~m/^maop_prev_id$/&&
+		   $p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m/^maop_prev_id$/&&$p!~m!maop_log!)
 			my $mp=$doc->param($p);
 			$mparam.="&$p=".uri_escape("$mp");
-		}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
+		}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m/^maop_prev_id$/&&$p!~m!maop_log!)
 		elsif ($p!~m/^maop_lat$/){ # begin elsif ($p!~m/^maop_lat$/)
 #&myrec("Case logfile format maop ","../error.html","****** $la" );
 		} # end elsif ($p!~m/^maop_lat$/)
 		elsif($p!~m/^maop_lon$/){ # begin elsif($p!~m/^maop_lon$/)
 #&myrec("Case logfile format maop ","../error.html","****** $lo" );
 		} # end elsif($p!~m/^maop_lon$/)
+		elsif($p=~m/^maop_prev_id$/){ # begin elsif($p=~m/^maop_pre_id$/)
+		} # end elsif($p=~m/^maop_pre_id$/)
 	} # end if($p=~m/^maop\_/)
 } # end foreach my $p ($doc->param)
 
@@ -65,21 +68,17 @@ my $user_password=$doc->param("maop_password");
 my $my_pid=$doc->param('maop_prev_id');
 chomp($my_pid);
 
-#
-#my ( $login, $password )=io::MyUtilities::gets_private_stuff_for_administrator($an_action,
-#									       PRIVATE_INFO_DIRECTORY,
-#									       $doc->param("maop_login"),
-#									       $doc->param("maop_password"));
-#
-# my $resAuth=io::MyUtilities::check_password($my_pid,$doc->param("maop_service"), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,"album/pid");
+my ( $login, $password )=io::MyUtilities::gets_private_stuff_for_administrator($an_action,
+									       PRIVATE_INFO_DIRECTORY,
+									       $doc->param("maop_login"),
+									       $doc->param("maop_password"));
+
+my $resAuth=io::MyUtilities::check_password($my_pid,$doc->param("maop_service"), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,"album/pid");
 
 my ($resPing,$ipOk)=(0,0); # stub io::MySec::checksRevIpAdd($ipAddr,io::MySec::getsAllIPReceived); # Checks ping address
 
 
-print "my $resAuth=io::MyUtilities::check_password($my_pid,$doc->param(\"maop_service\"), \"check\", \"$my_pid\", $user_login, $login, $user_password, $password, $doc,\"album/pid\");";
-#exit(1);
-
-#if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==0) ) 
+if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==0) ) 
 	if ( $an_action ne "record_modify" ){ # Begin if ($an_action ne "record_modify")
 		if ( $upload eq "ok" ){ # Begin if ($upload eq "ok")
 			if ( $type_upload eq "Local" ){ # Begin if ($type_upload eq "Local")
@@ -92,19 +91,10 @@ print "my $resAuth=io::MyUtilities::check_password($my_pid,$doc->param(\"maop_se
 			} # End if ($type_upload eq "Local")
 		} # End if ($upload eq "ok")
 	} # End if ($an_action ne "record_modify")
-#} # End if ( ($resPing==0) && ($resAuth==0) ) 
+} # End if ( ($resPing==0) && ($resAuth==0) ) 
 
 
-
-
-
-
-
-
-
-
-
-$mparam.="&timsec=$timsec";
+$mparam.="&timsec=$timsec&maop_prev_id=$$";
 
 my $prog=(length($doc->param("maop_prog"))==0) ? "album.cgi" : $doc->param("maop_prog");
 
