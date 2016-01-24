@@ -20,14 +20,14 @@
     </calendar>
   </calendars>
   <tasks>
-    <task id="1" name="Projects" note="" work="97200" start="20160101T000000Z" end="20160125T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="1" name="Projects" note="" work="104400" start="20160101T000000Z" end="20160125T120000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
       <task id="2" name="Geolocation" note="" work="28800" start="20160101T000000Z" end="20160101T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <task id="3" name="Tests geolocation cambo" note="" work="28800" duration="28800" start="20160101T000000Z" end="20160101T170000Z" work-start="20160101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20150813T000000Z"/>
         </task>
       </task>
-      <task id="4" name="Adm" note="" work="68400" start="20160118T000000Z" end="20160125T100000Z" work-start="20160118T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="5" name="Portage/Porting code" note="" work="68400" start="20160118T000000Z" end="20160125T100000Z" work-start="20160118T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="4" name="Adm" note="" work="75600" start="20160118T000000Z" end="20160125T120000Z" work-start="20160118T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="5" name="Portage/Porting code" note="" work="75600" start="20160118T000000Z" end="20160125T120000Z" work-start="20160118T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
           <task id="6" name="MAOP Mac OX=&gt;F23" note="" work="18000" duration="18000" start="20160118T000000Z" end="20160118T140000Z" work-start="20160118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160118T000000Z"/>
           </task>
@@ -52,310 +52,326 @@
           <task id="10" name="Try to correct misconfiguration in the behavior of album.cgi" note="Sun 24 Jan 2016, 03:06&#10;Behavior parcialy solved. Now when submit does not go to previous menu.&#10;Save is ok tested and misbehavior solved. Remove tested but not yet solved. It is buggy yet." work="7200" duration="7200" start="20160123T000000Z" end="20160125T100000Z" work-start="20160125T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160123T000000Z"/>
           </task>
+          <task id="11" name="Code revision" note="Mon 25 Jan 2016, 00:42&#10;Now the behavior of the hmi is ok." work="7200" duration="7200" start="20160125T100000Z" end="20160125T120000Z" work-start="20160125T100000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="start-no-earlier-than" time="20160124T000000Z"/>
+            <predecessors>
+              <predecessor id="1" predecessor-id="6" type="FS"/>
+              <predecessor id="1" predecessor-id="9" type="FS"/>
+              <predecessor id="1" predecessor-id="10" type="FS"/>
+            </predecessors>
+          </task>
         </task>
       </task>
     </task>
-    <task id="11" name="Production" note="" work="244800" start="20160101T000000Z" end="20160126T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="12" name="Movies" note="" work="115200" start="20160101T000000Z" end="20160106T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="13" name="Python" note="" work="129600" start="20160101T000000Z" end="20160126T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="14" name="Learning Python through OpenOffice macro" note="" work="28800" start="20160101T000000Z" end="20160101T092000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-        <task id="15" name="Macro &amp; Python &amp; OpenOffice" note="&#10;Fri 08 Jan 2016, 19:31&#10;Apres n temps passe sur le net j'avais opte (par le fichier de log) a utiliser LibreOffice.&#10;Apres n recherche sur le net je suis revenu a OpenOffice.&#10;La difference entre les deux: Il y a eu de bon tutoriaux sur OpenOffice et Fedora c'etait avant. Je suis sur Fedora.&#10;&#10;J'ai trouve un tutorial disant qu'ils etaient arrive a faire marche LibreOffice sur Ubuntu et non Fedora.&#10;J'ai l'impression que les gars de Fedora ont laisse tombe la chose apres n deception.&#10;&#10;Finalement j'ai opte pour OpenOffice car je me suis retrouve dans les repertoires d'acces.&#10;Voici deux videos qui comtrent comment j'y suis arrive sur mon ardinateur (attention ils sont en acces limite).&#10;&#10;https://www.youtube.com/watch?v=Wyu7wVjeOj4&amp;list=PLVQXX3XrpHlnLXQApNIs_oD-zEE49nXQj&amp;index=4&#10;&#10;https://www.youtube.com/watch?v=vi3zeWMGrfM&amp;list=PLVQXX3XrpHlnLXQApNIs_oD-zEE49nXQj&amp;index=5&#10;&#10;------------------------------------------------&#10;Fri 08 Jan 2016, 19:37Mon tutoriel&#10;http://christopher5106.github.io/office/2015/12/06/openoffice-libreoffice-automate-your-office-tasks-with-python-macros.html&#10;&#10;-------------------------------------------------&#10;Wed 13 Jan 2016, 11:59&#10;https://www.youtube.com/watch?v=Wyu7wVjeOj4&#10;&#10;https://www.youtube.com/watch?v=vi3zeWMGrfM" work="7200" duration="7200" start="20160108T000000Z" end="20160108T100000Z" work-start="20160108T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+    <task id="12" name="Production" note="" work="244800" start="20160101T000000Z" end="20160126T120000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="13" name="Movies" note="" work="115200" start="20160101T000000Z" end="20160106T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="14" name="Python" note="" work="129600" start="20160101T000000Z" end="20160126T120000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="15" name="Learning Python through OpenOffice macro" note="" work="28800" start="20160101T000000Z" end="20160101T092000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="16" name="Macro &amp; Python &amp; OpenOffice" note="&#10;Fri 08 Jan 2016, 19:31&#10;Apres n temps passe sur le net j'avais opte (par le fichier de log) a utiliser LibreOffice.&#10;Apres n recherche sur le net je suis revenu a OpenOffice.&#10;La difference entre les deux: Il y a eu de bon tutoriaux sur OpenOffice et Fedora c'etait avant. Je suis sur Fedora.&#10;&#10;J'ai trouve un tutorial disant qu'ils etaient arrive a faire marche LibreOffice sur Ubuntu et non Fedora.&#10;J'ai l'impression que les gars de Fedora ont laisse tombe la chose apres n deception.&#10;&#10;Finalement j'ai opte pour OpenOffice car je me suis retrouve dans les repertoires d'acces.&#10;Voici deux videos qui comtrent comment j'y suis arrive sur mon ardinateur (attention ils sont en acces limite).&#10;&#10;https://www.youtube.com/watch?v=Wyu7wVjeOj4&amp;list=PLVQXX3XrpHlnLXQApNIs_oD-zEE49nXQj&amp;index=4&#10;&#10;https://www.youtube.com/watch?v=vi3zeWMGrfM&amp;list=PLVQXX3XrpHlnLXQApNIs_oD-zEE49nXQj&amp;index=5&#10;&#10;------------------------------------------------&#10;Fri 08 Jan 2016, 19:37Mon tutoriel&#10;http://christopher5106.github.io/office/2015/12/06/openoffice-libreoffice-automate-your-office-tasks-with-python-macros.html&#10;&#10;-------------------------------------------------&#10;Wed 13 Jan 2016, 11:59&#10;https://www.youtube.com/watch?v=Wyu7wVjeOj4&#10;&#10;https://www.youtube.com/watch?v=vi3zeWMGrfM" work="7200" duration="7200" start="20160108T000000Z" end="20160108T100000Z" work-start="20160108T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20160108T000000Z"/>
           <predecessors>
-            <predecessor id="1" predecessor-id="14" type="FS"/>
+            <predecessor id="1" predecessor-id="15" type="FS"/>
           </predecessors>
         </task>
-        <task id="16" name="Macro &amp; Python &amp; OpenOffice" note="" work="14400" duration="14400" start="20160109T000000Z" end="20160111T120000Z" work-start="20160111T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="17" name="Macro &amp; Python &amp; OpenOffice" note="" work="14400" duration="14400" start="20160109T000000Z" end="20160111T120000Z" work-start="20160111T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20160109T000000Z"/>
           <predecessors>
-            <predecessor id="1" predecessor-id="15" type="FS"/>
+            <predecessor id="1" predecessor-id="16" type="FS"/>
           </predecessors>
         </task>
-        <task id="17" name="Macro &amp; Python &amp; OpenOffice" note="" work="14400" duration="14400" start="20160111T120000Z" end="20160111T170000Z" work-start="20160111T120000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="18" name="Macro &amp; Python &amp; OpenOffice" note="" work="14400" duration="14400" start="20160111T120000Z" end="20160111T170000Z" work-start="20160111T120000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20160110T000000Z"/>
-          <predecessors>
-            <predecessor id="1" predecessor-id="16" type="FS"/>
-            <predecessor id="1" predecessor-id="15" type="FS"/>
-          </predecessors>
-        </task>
-        <task id="18" name="Macro &amp; Python &amp; OpenOffice" note="" work="28800" duration="28800" start="20160125T100000Z" end="20160126T100000Z" work-start="20160125T100000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
-          <constraint type="start-no-earlier-than" time="20160111T000000Z"/>
-          <predecessors>
-            <predecessor id="1" predecessor-id="16" type="FS"/>
-            <predecessor id="1" predecessor-id="1" type="FS"/>
-            <predecessor id="1" predecessor-id="15" type="FS"/>
-          </predecessors>
-        </task>
-        <task id="19" name="Macro &amp; Python &amp; OpenOffice" note="Wed 13 Jan 2016, 11:58&#10;https://www.youtube.com/watch?v=gkVwQjkvH3I" work="14400" duration="14400" start="20160113T000000Z" end="20160113T120000Z" work-start="20160113T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
-          <constraint type="start-no-earlier-than" time="20160113T000000Z"/>
           <predecessors>
             <predecessor id="1" predecessor-id="17" type="FS"/>
             <predecessor id="1" predecessor-id="16" type="FS"/>
-            <predecessor id="1" predecessor-id="15" type="FS"/>
           </predecessors>
         </task>
-        <task id="20" name="Macro OpenOffice.org Basic" note="Sun 17 Jan 2016, 21:26&#10;Due to the multiplicity of OOOBasic I postpone studying Macro and Python OpenOffice.org" work="14400" duration="14400" start="20160116T000000Z" end="20160118T120000Z" work-start="20160118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
-          <constraint type="start-no-earlier-than" time="20160116T000000Z"/>
+        <task id="19" name="Macro &amp; Python &amp; OpenOffice" note="" work="28800" duration="28800" start="20160125T120000Z" end="20160126T120000Z" work-start="20160125T120000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="start-no-earlier-than" time="20160111T000000Z"/>
           <predecessors>
-            <predecessor id="1" predecessor-id="19" type="FS"/>
+            <predecessor id="1" predecessor-id="17" type="FS"/>
+            <predecessor id="1" predecessor-id="1" type="FS"/>
+            <predecessor id="1" predecessor-id="16" type="FS"/>
           </predecessors>
         </task>
-        <task id="21" name="Study macro with OpenOffice.org" note="" work="7200" duration="7200" start="20160118T120000Z" end="20160118T150000Z" work-start="20160118T120000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
-          <constraint type="start-no-earlier-than" time="20160117T000000Z"/>
+        <task id="20" name="Macro &amp; Python &amp; OpenOffice" note="Wed 13 Jan 2016, 11:58&#10;https://www.youtube.com/watch?v=gkVwQjkvH3I" work="14400" duration="14400" start="20160113T000000Z" end="20160113T120000Z" work-start="20160113T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="start-no-earlier-than" time="20160113T000000Z"/>
+          <predecessors>
+            <predecessor id="1" predecessor-id="18" type="FS"/>
+            <predecessor id="1" predecessor-id="17" type="FS"/>
+            <predecessor id="1" predecessor-id="16" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="21" name="Macro OpenOffice.org Basic" note="Sun 17 Jan 2016, 21:26&#10;Due to the multiplicity of OOOBasic I postpone studying Macro and Python OpenOffice.org" work="14400" duration="14400" start="20160116T000000Z" end="20160118T120000Z" work-start="20160118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="start-no-earlier-than" time="20160116T000000Z"/>
           <predecessors>
             <predecessor id="1" predecessor-id="20" type="FS"/>
           </predecessors>
         </task>
+        <task id="22" name="Study macro with OpenOffice.org" note="" work="7200" duration="7200" start="20160118T120000Z" end="20160118T150000Z" work-start="20160118T120000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="start-no-earlier-than" time="20160117T000000Z"/>
+          <predecessors>
+            <predecessor id="1" predecessor-id="21" type="FS"/>
+          </predecessors>
+        </task>
       </task>
     </task>
-    <task id="22" name="Restaurants" note="" work="7200" start="20160101T000000Z" end="20160101T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-    <task id="23" name="Associations" note="" work="136800" start="20160101T000000Z" end="20160125T120000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="24" name="Journ&#xE9;es Perl 2016" note="" work="7200" start="20160104T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="25" name="IRC" note="" work="7200" duration="7200" start="20160104T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+    <task id="23" name="Restaurants" note="" work="7200" start="20160101T000000Z" end="20160101T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="24" name="Associations" note="" work="136800" start="20160101T000000Z" end="20160125T120000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="25" name="Journ&#xE9;es Perl 2016" note="" work="7200" start="20160104T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="26" name="IRC" note="" work="7200" duration="7200" start="20160104T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20160104T000000Z"/>
         </task>
       </task>
-      <task id="26" name="Borsalinux-Fr" note="" work="14400" start="20160123T000000Z" end="20160125T120000Z" work-start="20160125T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="27" name="Assemblee generale" note="" work="14400" duration="14400" start="20160123T000000Z" end="20160125T120000Z" work-start="20160125T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="27" name="Borsalinux-Fr" note="" work="14400" start="20160123T000000Z" end="20160125T120000Z" work-start="20160125T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="28" name="Assemblee generale" note="" work="14400" duration="14400" start="20160123T000000Z" end="20160125T120000Z" work-start="20160125T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20160123T000000Z"/>
         </task>
       </task>
-      <task id="28" name="OSDC 2016" note="" work="7200" start="20160101T000000Z" end="20160101T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="29" name="Parties" note="" work="46800" start="20160109T000000Z" end="20160115T170000Z" work-start="20160111T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="30" name="RIPU" note="" work="18000" duration="18000" start="20160109T000000Z" end="20160111T140000Z" work-start="20160111T080000Z" percent-complete="0" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="29" name="OSDC 2016" note="" work="7200" start="20160101T000000Z" end="20160101T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="30" name="Parties" note="" work="46800" start="20160109T000000Z" end="20160115T170000Z" work-start="20160111T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="31" name="RIPU" note="" work="18000" duration="18000" start="20160109T000000Z" end="20160111T140000Z" work-start="20160111T080000Z" percent-complete="0" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20160109T000000Z"/>
         </task>
-        <task id="31" name="Editor" note="Sat 16 Jan 2016, 12:22&#10;production d'une maquette produisant du code HTML d'apres un patron." work="28800" duration="28800" start="20160115T000000Z" end="20160115T170000Z" work-start="20160115T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="32" name="Editor" note="Sat 16 Jan 2016, 12:22&#10;production d'une maquette produisant du code HTML d'apres un patron." work="28800" duration="28800" start="20160115T000000Z" end="20160115T170000Z" work-start="20160115T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20160115T000000Z"/>
         </task>
       </task>
-      <task id="32" name="Meetups" note="" work="61200" start="20160101T000000Z" end="20160113T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="33" name="Numa (39 Rue du Caire, Paris, France)" note="Wed 06 Jan 2016, 00:46&#10; [#MaVoix] Rencontre exceptionnelle avec Dominique Cardon" work="28800" start="20160101T000000Z" end="20160101T120000Z" work-start="20160101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work"/>
-        <task id="34" name="Le Troll" note="Wed 13 Jan 2016, 12:05&#10;[@AperoJS_Paris #22 &#x1F37B;] 2016 ? On s'attend &#xE0; tout, avec vous &#x272A; [2] FranceJS&#10;&#10;" work="3600" duration="3600" start="20160112T000000Z" end="20160112T090000Z" work-start="20160112T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="33" name="Meetups" note="" work="61200" start="20160101T000000Z" end="20160113T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="34" name="Numa (39 Rue du Caire, Paris, France)" note="Wed 06 Jan 2016, 00:46&#10; [#MaVoix] Rencontre exceptionnelle avec Dominique Cardon" work="28800" start="20160101T000000Z" end="20160101T120000Z" work-start="20160101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work"/>
+        <task id="35" name="Le Troll" note="Wed 13 Jan 2016, 12:05&#10;[@AperoJS_Paris #22 &#x1F37B;] 2016 ? On s'attend &#xE0; tout, avec vous &#x272A; [2] FranceJS&#10;&#10;" work="3600" duration="3600" start="20160112T000000Z" end="20160112T090000Z" work-start="20160112T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20160112T000000Z"/>
         </task>
-        <task id="35" name="SFEIR " note="Wed 13 Jan 2016, 12:06&#10;Meetup WebComponents #6&#10;http://www.meetup.com/paris-webComponents/events/227853356/?_locale=fr-FR" work="28800" start="20160113T000000Z" end="20160113T170000Z" work-start="20160113T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
+        <task id="36" name="SFEIR " note="Wed 13 Jan 2016, 12:06&#10;Meetup WebComponents #6&#10;http://www.meetup.com/paris-webComponents/events/227853356/?_locale=fr-FR" work="28800" start="20160113T000000Z" end="20160113T170000Z" work-start="20160113T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
           <constraint type="must-start-on" time="20160113T000000Z"/>
         </task>
       </task>
     </task>
-    <task id="36" name="Sports" note="" work="28800" start="20160101T000000Z" end="20160101T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="37" name="Hike" note="" work="28800" start="20160101T000000Z" end="20160101T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="37" name="Sports" note="" work="28800" start="20160101T000000Z" end="20160101T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="38" name="Hike" note="" work="28800" start="20160101T000000Z" end="20160101T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
     </task>
-    <task id="38" name="Conf/Renc/Mati/Salo/Expo" note="" work="367200" start="20160101T000000Z" end="20160125T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="39" name="Cin&#xE9;ma" note="" work="144000" start="20160101T000000Z" end="20160125T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="40" name="Regular" note="" work="28800" start="20160102T000000Z" end="20160113T100000Z" work-start="20160104T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="41" name="Reflet Medicis" note="Sat 02 Jan 2016, 22:38&#10;Beliers - Rams" work="7200" duration="7200" start="20160102T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+    <task id="39" name="Conf/Renc/Mati/Salo/Expo" note="" work="367200" start="20160101T000000Z" end="20160125T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="40" name="Cin&#xE9;ma" note="" work="144000" start="20160101T000000Z" end="20160125T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="41" name="Regular" note="" work="28800" start="20160102T000000Z" end="20160113T100000Z" work-start="20160104T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="42" name="Reflet Medicis" note="Sat 02 Jan 2016, 22:38&#10;Beliers - Rams" work="7200" duration="7200" start="20160102T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160102T000000Z"/>
           </task>
-          <task id="42" name="Le Desperado (ex Action Ecole)" note="Sun 03 Jan 2016, 21:44&#10;Family Jewels" work="7200" duration="7200" start="20160103T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="43" name="Le Desperado (ex Action Ecole)" note="Sun 03 Jan 2016, 21:44&#10;Family Jewels" work="7200" duration="7200" start="20160103T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160103T000000Z"/>
           </task>
-          <task id="43" name="La filmotheque de Paris" note="Wed 06 Jan 2016, 00:36&#10;A day in NY - Un jour a NY" work="7200" duration="7200" start="20160105T000000Z" end="20160105T100000Z" work-start="20160105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="44" name="La filmotheque de Paris" note="Wed 06 Jan 2016, 00:36&#10;A day in NY - Un jour a NY" work="7200" duration="7200" start="20160105T000000Z" end="20160105T100000Z" work-start="20160105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160105T000000Z"/>
           </task>
-          <task id="44" name="Le Desperado  (ex Action Ecole)" note="Wed 13 Jan 2016, 23:51&#10;Le famille Fenouillard" work="7200" duration="7200" start="20160113T000000Z" end="20160113T100000Z" work-start="20160113T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="45" name="Le Desperado  (ex Action Ecole)" note="Wed 13 Jan 2016, 23:51&#10;Le famille Fenouillard" work="7200" duration="7200" start="20160113T000000Z" end="20160113T100000Z" work-start="20160113T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160113T000000Z"/>
           </task>
         </task>
-        <task id="45" name="Festival Comedies Anglaises  " note="" work="36000" start="20160102T000000Z" end="20160111T100000Z" work-start="20160104T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="46" name="Le Champo - Espace Jacque Tati" note="Sat 02 Jan 2016, 22:41&#10;Noblesse oblige" work="7200" duration="7200" start="20160102T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="46" name="Festival Comedies Anglaises  " note="" work="36000" start="20160102T000000Z" end="20160111T100000Z" work-start="20160104T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="47" name="Le Champo - Espace Jacque Tati" note="Sat 02 Jan 2016, 22:41&#10;Noblesse oblige" work="7200" duration="7200" start="20160102T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160102T000000Z"/>
           </task>
-          <task id="47" name="Le Champo - Espace Jacque Tati" note="Sun 03 Jan 2016, 21:41&#10;Maggie" work="7200" duration="7200" start="20160103T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="48" name="Le Champo - Espace Jacque Tati" note="Sun 03 Jan 2016, 21:41&#10;Maggie" work="7200" duration="7200" start="20160103T000000Z" end="20160104T100000Z" work-start="20160104T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160103T000000Z"/>
           </task>
-          <task id="48" name="Le Champo - Espace Jacque Tati" note="Wed 06 Jan 2016, 00:38&#10;Whisky a gogo - Whisky galore" work="7200" duration="7200" start="20160105T000000Z" end="20160105T100000Z" work-start="20160105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="49" name="Le Champo - Espace Jacque Tati" note="Wed 06 Jan 2016, 00:38&#10;Whisky a gogo - Whisky galore" work="7200" duration="7200" start="20160105T000000Z" end="20160105T100000Z" work-start="20160105T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160105T000000Z"/>
           </task>
-          <task id="49" name="Le Champo - Espace Jacque Tati" note="Sat 09 Jan 2016, 20:51&#10;De l'or en barre" work="7200" duration="7200" start="20160109T000000Z" end="20160111T100000Z" work-start="20160111T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="50" name="Le Champo - Espace Jacque Tati" note="Sat 09 Jan 2016, 20:51&#10;De l'or en barre" work="7200" duration="7200" start="20160109T000000Z" end="20160111T100000Z" work-start="20160111T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160109T000000Z"/>
           </task>
-          <task id="50" name="Le Champo - Espace Jacque Tati" note="Sun 10 Jan 2016, 19:29&#10;Tueurs de dames" work="7200" duration="7200" start="20160110T000000Z" end="20160111T100000Z" work-start="20160111T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="51" name="Le Champo - Espace Jacque Tati" note="Sun 10 Jan 2016, 19:29&#10;Tueurs de dames" work="7200" duration="7200" start="20160110T000000Z" end="20160111T100000Z" work-start="20160111T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160110T000000Z"/>
           </task>
         </task>
-        <task id="51" name="Festival Telerama" note="" work="79200" start="20160101T000000Z" end="20160125T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="52" name="Le Champo - Espace Jacque Tati" note="Wed 20 Jan 2016, 21:45&#10;L'homme irrationel" work="28800" start="20160101T000000Z" end="20160101T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-          <task id="53" name="Le Luminor hotel de ville" note="Fri 22 Jan 2016, 00:26&#10;Trois souvenirs de ma jeunesse" work="7200" duration="7200" start="20160121T000000Z" end="20160121T100000Z" work-start="20160121T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="52" name="Festival Telerama" note="" work="79200" start="20160101T000000Z" end="20160125T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="53" name="Le Champo - Espace Jacque Tati" note="Wed 20 Jan 2016, 21:45&#10;L'homme irrationel" work="28800" start="20160101T000000Z" end="20160101T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+          <task id="54" name="Le Luminor hotel de ville" note="Fri 22 Jan 2016, 00:26&#10;Trois souvenirs de ma jeunesse" work="7200" duration="7200" start="20160121T000000Z" end="20160121T100000Z" work-start="20160121T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160121T000000Z"/>
           </task>
-          <task id="54" name="Le Luminor hotel de ville" note="Fri 22 Jan 2016, 00:27&#10;Back home" work="7200" duration="7200" start="20160121T000000Z" end="20160121T100000Z" work-start="20160121T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="55" name="Le Luminor hotel de ville" note="Fri 22 Jan 2016, 00:27&#10;Back home" work="7200" duration="7200" start="20160121T000000Z" end="20160121T100000Z" work-start="20160121T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160121T000000Z"/>
           </task>
-          <task id="55" name="Le Luminor hotel de ville" note="Fri 22 Jan 2016, 00:28&#10;Comme un avion" work="7200" duration="7200" start="20160121T000000Z" end="20160121T100000Z" work-start="20160121T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="56" name="Le Luminor hotel de ville" note="Fri 22 Jan 2016, 00:28&#10;Comme un avion" work="7200" duration="7200" start="20160121T000000Z" end="20160121T100000Z" work-start="20160121T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160121T000000Z"/>
           </task>
-          <task id="56" name="Cinemale Majestic Bastille" note="Fri 22 Jan 2016, 23:01&#10;Mustang" work="7200" duration="7200" start="20160122T000000Z" end="20160122T100000Z" work-start="20160122T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="57" name="Cinemale Majestic Bastille" note="Fri 22 Jan 2016, 23:01&#10;Mustang" work="7200" duration="7200" start="20160122T000000Z" end="20160122T100000Z" work-start="20160122T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160122T000000Z"/>
           </task>
-          <task id="57" name="Cinemale Majestic Bastille" note="Fri 22 Jan 2016, 23:02&#10;Phoenix" work="7200" duration="7200" start="20160122T000000Z" end="20160122T100000Z" work-start="20160122T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="58" name="Cinemale Majestic Bastille" note="Fri 22 Jan 2016, 23:02&#10;Phoenix" work="7200" duration="7200" start="20160122T000000Z" end="20160122T100000Z" work-start="20160122T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160122T000000Z"/>
           </task>
-          <task id="58" name="Cinema Theatre le Brady" note="Sun 24 Jan 2016, 21:05&#10;La loi du marche" work="7200" duration="7200" start="20160124T000000Z" end="20160125T100000Z" work-start="20160125T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="59" name="Cinema Theatre le Brady" note="Sun 24 Jan 2016, 21:05&#10;La loi du marche" work="7200" duration="7200" start="20160124T000000Z" end="20160125T100000Z" work-start="20160125T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160124T000000Z"/>
           </task>
-          <task id="59" name="Cinema Theatre le Brady" note="Sun 24 Jan 2016, 21:05&#10;Fatima" work="7200" duration="7200" start="20160124T000000Z" end="20160125T100000Z" work-start="20160125T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="60" name="Cinema Theatre le Brady" note="Sun 24 Jan 2016, 21:05&#10;Fatima" work="7200" duration="7200" start="20160124T000000Z" end="20160125T100000Z" work-start="20160125T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20160124T000000Z"/>
           </task>
         </task>
       </task>
-      <task id="60" name="Peuf" note="" work="3600" start="20160101T000000Z" end="20160101T090000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="61" name="Expo" note="" work="7200" start="20160101T000000Z" end="20160101T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="62" name="Spectacles" note="" work="144000" start="20160101T000000Z" end="20160107T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="63" name="Parc" note="" work="28800" start="20160101T000000Z" end="20160101T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="64" name="Games" note="" work="39600" start="20160116T000000Z" end="20160119T170000Z" work-start="20160118T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="65" name="Install King's Quest Abandonware" note="Sat 16 Jan 2016, 17:00&#10;http://www.topito.com/top-preuves-jeux-video-mieux-avant-vieux-cons-et-fiers-de-letre&#10;&#10;http://www.abandonware-france.org/ltf_abandon/ltf_jeu.php?id=240&#10;&#10;Sat 16 Jan 2016, 22:19&#10;http://www.emuparadise.me/Abandonware_Games/Kings_Quest_Vii_%281993%29%28Sierra_Online%29/93824" work="7200" duration="28800" start="20160116T000000Z" end="20160118T170000Z" work-start="20160118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="61" name="Peuf" note="" work="3600" start="20160101T000000Z" end="20160101T090000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="62" name="Expo" note="" work="7200" start="20160101T000000Z" end="20160101T100000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="63" name="Spectacles" note="" work="144000" start="20160101T000000Z" end="20160107T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="64" name="Parc" note="" work="28800" start="20160101T000000Z" end="20160101T170000Z" work-start="20160101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="65" name="Games" note="" work="39600" start="20160116T000000Z" end="20160119T170000Z" work-start="20160118T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="66" name="Install King's Quest Abandonware" note="Sat 16 Jan 2016, 17:00&#10;http://www.topito.com/top-preuves-jeux-video-mieux-avant-vieux-cons-et-fiers-de-letre&#10;&#10;http://www.abandonware-france.org/ltf_abandon/ltf_jeu.php?id=240&#10;&#10;Sat 16 Jan 2016, 22:19&#10;http://www.emuparadise.me/Abandonware_Games/Kings_Quest_Vii_%281993%29%28Sierra_Online%29/93824" work="7200" duration="28800" start="20160116T000000Z" end="20160118T170000Z" work-start="20160118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20160116T000000Z"/>
         </task>
-        <task id="66" name="Played King's Quest I with plauthrough" note="Sat 16 Jan 2016, 17:00&#10;https://www.youtube.com/watch?v=r0TLhR51uGY&#10;&#10;https://youtu.be/bvCewQQ9ePo" work="28800" duration="28800" start="20160118T170000Z" end="20160119T170000Z" work-start="20160119T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="67" name="Played King's Quest I with plauthrough" note="Sat 16 Jan 2016, 17:00&#10;https://www.youtube.com/watch?v=r0TLhR51uGY&#10;&#10;https://youtu.be/bvCewQQ9ePo" work="28800" duration="28800" start="20160118T170000Z" end="20160119T170000Z" work-start="20160119T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20160116T000000Z"/>
           <predecessors>
-            <predecessor id="1" predecessor-id="65" type="FS"/>
+            <predecessor id="1" predecessor-id="66" type="FS"/>
           </predecessors>
         </task>
-        <task id="67" name="Played King's Quest VII on Fedora 23" note="Sat 16 Jan 2016, 22:26&#10;https://youtu.be/zgK-8LMK_uw" work="3600" duration="3600" start="20160118T170000Z" end="20160119T090000Z" work-start="20160119T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="68" name="Played King's Quest VII on Fedora 23" note="Sat 16 Jan 2016, 22:26&#10;https://youtu.be/zgK-8LMK_uw" work="3600" duration="3600" start="20160118T170000Z" end="20160119T090000Z" work-start="20160119T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20160116T000000Z"/>
           <predecessors>
-            <predecessor id="1" predecessor-id="65" type="FS"/>
+            <predecessor id="1" predecessor-id="66" type="FS"/>
           </predecessors>
         </task>
       </task>
     </task>
   </tasks>
   <resource-groups>
-    <group id="1" name="Admin" admin-name="" admin-phone="" admin-email=""/>
-    <group id="2" name="Programming" admin-name="" admin-phone="" admin-email=""/>
+    <group id="1" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
+    <group id="2" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
     <group id="3" name="Asso" admin-name="" admin-phone="" admin-email=""/>
-    <group id="4" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
-    <group id="5" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
+    <group id="4" name="Programming" admin-name="" admin-phone="" admin-email=""/>
+    <group id="5" name="Admin" admin-name="" admin-phone="" admin-email=""/>
   </resource-groups>
   <resources>
-    <resource group="1" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="4" name="Web servers" short-name="wse" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="5" name="Googlemap" short-name="gma" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="6" name="Tests" short-name="Tes" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="7" name="Perl" short-name="Per" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="4" name="Web servers" short-name="wse" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="5" name="Googlemap" short-name="gma" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="6" name="Tests" short-name="Tes" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="7" name="Perl" short-name="Per" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="8" name="Ubuntu" short-name="ubu" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="9" name="Fedora" short-name="fed" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="10" name="April" short-name="apr" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="11" name="Parinux" short-name="prx" type="1" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="12" name="Mongueurs de Perl" short-name="mdp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="13" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="14" name="Coffee shop" short-name="csh" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="13" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="14" name="Coffee shop" short-name="csh" type="2" units="0" email="" note="" std-rate="0"/>
     <resource group="3" id="15" name="Paris est une f&#xEA;te" short-name="PEUF" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="16" name="Python" short-name="Pyt" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="17" name="OpenOffice" short-name="OOf" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="18" name="SCumm VM" short-name="SVM" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="19" name="Utilitaire/Tools 7z" short-name="c7z" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="20" name="Basic OpenOffice.org" short-name="boo.org" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="21" name="SELinux" short-name="SEL" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="22" name="Mac OS X" short-name="mox" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="16" name="Python" short-name="Pyt" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="17" name="OpenOffice" short-name="OOf" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="18" name="SCumm VM" short-name="SVM" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="19" name="Utilitaire/Tools 7z" short-name="c7z" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="20" name="Basic OpenOffice.org" short-name="boo.org" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="21" name="SELinux" short-name="SEL" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="22" name="Mac OS X" short-name="mox" type="2" units="0" email="" note="" std-rate="0"/>
     <resource id="23" name="github" short-name="ghu" type="2" units="0" email="" note="" std-rate="0"/>
   </resources>
   <allocations>
     <allocation task-id="3" resource-id="1" units="17"/>
+    <allocation task-id="11" resource-id="2" units="13"/>
     <allocation task-id="6" resource-id="2" units="11"/>
     <allocation task-id="3" resource-id="2" units="17"/>
+    <allocation task-id="11" resource-id="3" units="13"/>
     <allocation task-id="10" resource-id="3" units="17"/>
     <allocation task-id="6" resource-id="3" units="11"/>
     <allocation task-id="3" resource-id="3" units="17"/>
+    <allocation task-id="11" resource-id="4" units="13"/>
     <allocation task-id="10" resource-id="4" units="17"/>
     <allocation task-id="6" resource-id="4" units="11"/>
-    <allocation task-id="16" resource-id="4" units="33"/>
-    <allocation task-id="15" resource-id="4" units="13"/>
+    <allocation task-id="17" resource-id="4" units="33"/>
+    <allocation task-id="16" resource-id="4" units="13"/>
     <allocation task-id="3" resource-id="4" units="17"/>
     <allocation task-id="3" resource-id="5" units="17"/>
+    <allocation task-id="11" resource-id="6" units="13"/>
     <allocation task-id="10" resource-id="6" units="17"/>
     <allocation task-id="9" resource-id="6" units="25"/>
     <allocation task-id="8" resource-id="6" units="17"/>
     <allocation task-id="7" resource-id="6" units="33"/>
     <allocation task-id="6" resource-id="6" units="11"/>
-    <allocation task-id="65" resource-id="6" units="6"/>
-    <allocation task-id="31" resource-id="6" units="25"/>
-    <allocation task-id="15" resource-id="6" units="13"/>
+    <allocation task-id="66" resource-id="6" units="6"/>
+    <allocation task-id="32" resource-id="6" units="25"/>
+    <allocation task-id="16" resource-id="6" units="13"/>
     <allocation task-id="3" resource-id="6" units="17"/>
+    <allocation task-id="11" resource-id="7" units="13"/>
     <allocation task-id="10" resource-id="7" units="17"/>
     <allocation task-id="9" resource-id="7" units="25"/>
     <allocation task-id="8" resource-id="7" units="17"/>
     <allocation task-id="7" resource-id="7" units="33"/>
     <allocation task-id="6" resource-id="7" units="11"/>
+    <allocation task-id="11" resource-id="9" units="13"/>
     <allocation task-id="10" resource-id="9" units="17"/>
-    <allocation task-id="27" resource-id="9" units="100"/>
+    <allocation task-id="28" resource-id="9" units="100"/>
     <allocation task-id="8" resource-id="9" units="17"/>
     <allocation task-id="7" resource-id="9" units="33"/>
     <allocation task-id="6" resource-id="9" units="11"/>
+    <allocation task-id="22" resource-id="9" units="25"/>
     <allocation task-id="21" resource-id="9" units="25"/>
-    <allocation task-id="20" resource-id="9" units="25"/>
-    <allocation task-id="67" resource-id="9" units="25"/>
-    <allocation task-id="66" resource-id="9" units="33"/>
-    <allocation task-id="65" resource-id="9" units="6"/>
-    <allocation task-id="30" resource-id="9" units="25"/>
-    <allocation task-id="14" resource-id="9" units="100"/>
-    <allocation task-id="15" resource-id="9" units="13"/>
+    <allocation task-id="68" resource-id="9" units="25"/>
+    <allocation task-id="67" resource-id="9" units="33"/>
+    <allocation task-id="66" resource-id="9" units="6"/>
+    <allocation task-id="31" resource-id="9" units="25"/>
+    <allocation task-id="15" resource-id="9" units="100"/>
+    <allocation task-id="16" resource-id="9" units="13"/>
     <allocation task-id="6" resource-id="12" units="11"/>
+    <allocation task-id="32" resource-id="12" units="25"/>
     <allocation task-id="31" resource-id="12" units="25"/>
-    <allocation task-id="30" resource-id="12" units="25"/>
-    <allocation task-id="25" resource-id="12" units="100"/>
+    <allocation task-id="26" resource-id="12" units="100"/>
+    <allocation task-id="11" resource-id="13" units="13"/>
+    <allocation task-id="60" resource-id="13" units="100"/>
     <allocation task-id="59" resource-id="13" units="100"/>
-    <allocation task-id="58" resource-id="13" units="100"/>
     <allocation task-id="10" resource-id="13" units="17"/>
+    <allocation task-id="58" resource-id="13" units="100"/>
     <allocation task-id="57" resource-id="13" units="100"/>
     <allocation task-id="56" resource-id="13" units="100"/>
     <allocation task-id="55" resource-id="13" units="100"/>
     <allocation task-id="54" resource-id="13" units="100"/>
     <allocation task-id="53" resource-id="13" units="100"/>
-    <allocation task-id="52" resource-id="13" units="100"/>
+    <allocation task-id="22" resource-id="13" units="25"/>
     <allocation task-id="21" resource-id="13" units="25"/>
-    <allocation task-id="20" resource-id="13" units="25"/>
-    <allocation task-id="67" resource-id="13" units="25"/>
-    <allocation task-id="66" resource-id="13" units="33"/>
-    <allocation task-id="31" resource-id="13" units="25"/>
-    <allocation task-id="44" resource-id="13" units="100"/>
+    <allocation task-id="68" resource-id="13" units="25"/>
+    <allocation task-id="67" resource-id="13" units="33"/>
+    <allocation task-id="32" resource-id="13" units="25"/>
+    <allocation task-id="45" resource-id="13" units="100"/>
+    <allocation task-id="51" resource-id="13" units="100"/>
     <allocation task-id="50" resource-id="13" units="100"/>
+    <allocation task-id="15" resource-id="13" units="100"/>
+    <allocation task-id="16" resource-id="13" units="13"/>
+    <allocation task-id="34" resource-id="13" units="100"/>
     <allocation task-id="49" resource-id="13" units="100"/>
-    <allocation task-id="14" resource-id="13" units="100"/>
-    <allocation task-id="15" resource-id="13" units="13"/>
-    <allocation task-id="33" resource-id="13" units="100"/>
-    <allocation task-id="48" resource-id="13" units="100"/>
+    <allocation task-id="44" resource-id="13" units="100"/>
     <allocation task-id="43" resource-id="13" units="100"/>
-    <allocation task-id="42" resource-id="13" units="100"/>
+    <allocation task-id="48" resource-id="13" units="100"/>
     <allocation task-id="47" resource-id="13" units="100"/>
-    <allocation task-id="46" resource-id="13" units="100"/>
-    <allocation task-id="41" resource-id="13" units="100"/>
+    <allocation task-id="42" resource-id="13" units="100"/>
+    <allocation task-id="11" resource-id="14" units="13"/>
+    <allocation task-id="32" resource-id="14" units="25"/>
+    <allocation task-id="35" resource-id="14" units="50"/>
     <allocation task-id="31" resource-id="14" units="25"/>
-    <allocation task-id="34" resource-id="14" units="50"/>
-    <allocation task-id="30" resource-id="14" units="25"/>
-    <allocation task-id="14" resource-id="14" units="100"/>
-    <allocation task-id="15" resource-id="14" units="13"/>
-    <allocation task-id="33" resource-id="14" units="100"/>
-    <allocation task-id="34" resource-id="15" units="50"/>
-    <allocation task-id="30" resource-id="15" units="25"/>
-    <allocation task-id="14" resource-id="15" units="100"/>
-    <allocation task-id="15" resource-id="15" units="13"/>
+    <allocation task-id="15" resource-id="14" units="100"/>
+    <allocation task-id="16" resource-id="14" units="13"/>
+    <allocation task-id="34" resource-id="14" units="100"/>
+    <allocation task-id="35" resource-id="15" units="50"/>
+    <allocation task-id="31" resource-id="15" units="25"/>
+    <allocation task-id="15" resource-id="15" units="100"/>
+    <allocation task-id="16" resource-id="15" units="13"/>
+    <allocation task-id="20" resource-id="16" units="50"/>
     <allocation task-id="19" resource-id="16" units="50"/>
     <allocation task-id="18" resource-id="16" units="50"/>
-    <allocation task-id="17" resource-id="16" units="50"/>
-    <allocation task-id="16" resource-id="16" units="33"/>
-    <allocation task-id="15" resource-id="16" units="13"/>
-    <allocation task-id="14" resource-id="16" units="100"/>
+    <allocation task-id="17" resource-id="16" units="33"/>
+    <allocation task-id="16" resource-id="16" units="13"/>
+    <allocation task-id="15" resource-id="16" units="100"/>
+    <allocation task-id="22" resource-id="17" units="25"/>
     <allocation task-id="21" resource-id="17" units="25"/>
-    <allocation task-id="20" resource-id="17" units="25"/>
+    <allocation task-id="20" resource-id="17" units="50"/>
     <allocation task-id="19" resource-id="17" units="50"/>
     <allocation task-id="18" resource-id="17" units="50"/>
-    <allocation task-id="17" resource-id="17" units="50"/>
-    <allocation task-id="16" resource-id="17" units="33"/>
-    <allocation task-id="15" resource-id="17" units="13"/>
-    <allocation task-id="14" resource-id="17" units="100"/>
-    <allocation task-id="67" resource-id="18" units="25"/>
-    <allocation task-id="66" resource-id="18" units="33"/>
-    <allocation task-id="65" resource-id="18" units="6"/>
-    <allocation task-id="67" resource-id="19" units="25"/>
-    <allocation task-id="65" resource-id="19" units="6"/>
+    <allocation task-id="17" resource-id="17" units="33"/>
+    <allocation task-id="16" resource-id="17" units="13"/>
+    <allocation task-id="15" resource-id="17" units="100"/>
+    <allocation task-id="68" resource-id="18" units="25"/>
+    <allocation task-id="67" resource-id="18" units="33"/>
+    <allocation task-id="66" resource-id="18" units="6"/>
+    <allocation task-id="68" resource-id="19" units="25"/>
+    <allocation task-id="66" resource-id="19" units="6"/>
+    <allocation task-id="22" resource-id="20" units="25"/>
     <allocation task-id="21" resource-id="20" units="25"/>
-    <allocation task-id="20" resource-id="20" units="25"/>
     <allocation task-id="9" resource-id="21" units="25"/>
     <allocation task-id="8" resource-id="21" units="17"/>
     <allocation task-id="6" resource-id="21" units="11"/>
