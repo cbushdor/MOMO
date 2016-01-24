@@ -79,7 +79,7 @@ use io::MySec;
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.179'; # Album release
+use constant ALBUM_REL               	=> '15.188'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -129,7 +129,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.179
+$VERSION=1.6.15.188
 
 =head1 ABSTRACT
 
@@ -207,6 +207,9 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.15.188> Jan 24 2016 due to add to maop_ infront of each var name in input tag some data were lost.
+see sub menu_admin_GoogleMap_ID
 
 - I<Last modification:v1.6.15.170> Dec 07 2015 due to add to maop_ infront of each var name in input tag some data were lost.
 		Try to debug and rmove these lack by adding maop_ to var name where they were missing.
@@ -951,6 +954,7 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 		&firstChoicetMenuadmin ; # Create am pre admin first menu choice
 	} # End if(length($$section)==0)
 	elsif($ssection=~m/adminGroup/){ # Begin elsif($ssection=~m/adminGroup/)
+		&setGoogleID(PATH_GOOGLE_MAP_ID,$doc->param("maop_googid")) ; # Stuff about google ID map
 		&groupAndStuff ; # Stuff about groups
 	} # End elsif($ssection=~m/adminGroup/)
 	elsif($ssection=~m/adminGoogleID/){ # Begin elsif($ssection=~m/adminGoogleID/)
@@ -6089,6 +6093,8 @@ None.
 
 =over 4
 
+- I<Last modification:> Jan 24 2016: Due to to the add of prefix to variables to enhance geolocation coordinate value a regression bug was noticed. The maop_ prefix was not revised to all variables that were passed. Now it is done for this function.
+
 - I<Last modification:> Feb 24 2014: Deletion of trip name complete. Traces in files that contains coordinates are not yet removed.
 
 - I<Last modification:> Feb 23 2014: Infobox alert in deletion trip information added
@@ -6116,8 +6122,8 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 	closedir(ARD) || die(". $!");# close directory
 	chdir("../..");
 	my $lot="var lot= new Array('--',"; # List of trips
-	my $lotList="<select name='operationokdelete' onChange='listToDelete()'>"; # List of trips
-	my $lotList2="<select name='operationokdelete' onChange='listToList()'>"; # List of trips
+	my $lotList="<select name='maop_operationokdelete' onChange='listToDelete()'>"; # List of trips
+	my $lotList2="<select name='maop_operationokdelete' onChange='listToList()'>"; # List of trips
 	foreach my $i (@dr){ # begin foreach my $i (@dr)
 		$lot.="\"$i\",";
 		$i=~s/-trips$//;
@@ -6149,8 +6155,8 @@ Google ID:<input type='text' name='maop_googid' />
 </fieldset>	
 <script>
 	function listToDelete(){ // Begin function listToDelete()
-		var idx = document.myform.operationokdelete.selectedIndex;
-		var choice = document.myform.operationokdelete.options[idx].innerHTML;
+		var idx = document.myform.maop_operationokdelete.selectedIndex;
+		var choice = document.myform.maop_operationokdelete.options[idx].innerHTML;
 		var r=confirm("Press OK button to delete ["+choice+"] trip name.Press Cancel button to avoid ["+choice+"] deletion."); 
 		
 		if (r==true) { 
@@ -6181,7 +6187,7 @@ Google ID:<input type='text' name='maop_googid' />
 									"<input type='hidden' name='maop_login' value='$lok' />"+
 									"<input type='hidden' name='maop_recPid' value='ok' />"+
 									"<input type='hidden' name='maop_service' value='check' />"+
-									"<input type='hidden' name='maop_ssection' value='adminGoogleID' />"+
+									"<input type='hidden' name='maop_ssection' value='adminGroup' />"+
 									"<input type='hidden' name='maop_TRIP_ID' value='ok'>"+
 									"<input type='hidden' name='maop_TRIP_ID_DELETE' value='ok'>"+
 									"<input type='button' value='confirm' onClick='listToDelete()' >";
@@ -6192,7 +6198,7 @@ Google ID:<input type='text' name='maop_googid' />
 									"<input type='hidden' name='maop_login' value='$lok' />"+
 									"<input type='hidden' name='maop_recPid' value='ok' />"+
 									"<input type='hidden' name='maop_service' value='check' />"+
-									"<input type='hidden' name='maop_ssection' value='adminGoogleID' />"+
+									"<input type='hidden' name='maop_ssection' value='adminGroup' />"+
 									"<input type='hidden' name='maop_TRIP_ID' value='ok'>"+
 									"<input type='hidden' name='maop_lon' value='$lon' />"+
 									"<input type='hidden' name='maop_lat' value='$lat' />"+
@@ -6207,10 +6213,10 @@ Google ID:<input type='text' name='maop_googid' />
 									"<input type='hidden' name='maop_recPid' value='ok' />"+
 									"<input type='hidden' name='maop_service' value='check' />"+
 									"Trip name:<input type='text' name='maop_googid' /> "+
-									"<input type='hidden' name='maop_ssection' value='adminGoogleID' />"+
+									"<input type='hidden' name='maop_ssection' value='adminGroup' />"+
 									"<input type='hidden' name='maop_TRIP_ID' value='ok'>"+
 									"<br>Begining of the trip (2014-02-22T15:50)<input type='datetime-local' name='maop_bdaytime'>"+
-									"End of the trip (2014-02-23T05:50)<input type='datetime-local' name='maop_edaytime'>"+
+									"<br>End of the trip (2014-02-23T05:50)<input type='datetime-local' name='maop_edaytime'>"+
 									"<input type='button' onclick='calc()' value='Checks dates'>"+
 									'<div id="err"></div>';
 		} // End else if(choice.match("Add")) 
