@@ -79,7 +79,7 @@ use io::MySec;
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.188'; # Album release
+use constant ALBUM_REL               	=> '15.190'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -129,7 +129,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.188
+$VERSION=1.6.15.190
 
 =head1 ABSTRACT
 
@@ -207,6 +207,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.15.190> Jan 30 2016 see sub menu_admin_GoogleMap_ID
 
 - I<Last modification:v1.6.15.188> Jan 24 2016 due to add to maop_ infront of each var name in input tag some data were lost.
 see sub menu_admin_GoogleMap_ID
@@ -957,6 +959,10 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 		&setGoogleID(PATH_GOOGLE_MAP_ID,$doc->param("maop_googid")) ; # Stuff about google ID map
 		&groupAndStuff ; # Stuff about groups
 	} # End elsif($ssection=~m/adminGroup/)
+	elsif($ssection=~m/adminGroupModif/){ # Begin elsif($ssection=~m/adminGroup/)
+		&setGoogleID(PATH_GOOGLE_MAP_ID,$doc->param("maop_googid")) ; # Stuff about google ID map
+		&groupAndStuff ; # Stuff about groups
+	} # End elsif($ssection=~m/adminGroupModif/)
 	elsif($ssection=~m/adminGoogleID/){ # Begin elsif($ssection=~m/adminGoogleID/)
 		#print "toto 2 l er ret";
 		&setGoogleID(PATH_GOOGLE_MAP_ID,$doc->param("maop_googid")) ; # Stuff about google ID map
@@ -6093,6 +6099,8 @@ None.
 
 =over 4
 
+- I<Last modification:> Jan 30 2016: List feature completed and finished
+
 - I<Last modification:> Jan 24 2016: Due to to the add of prefix to variables to enhance geolocation coordinate value a regression bug was noticed. The maop_ prefix was not revised to all variables that were passed. Now it is done for this function.
 
 - I<Last modification:> Feb 24 2014: Deletion of trip name complete. Traces in files that contains coordinates are not yet removed.
@@ -6120,19 +6128,28 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 	opendir(ARD,".") || die(". $!");# open current directory
 	my @dr= grep { $_ =~ m/\-trips$/ } readdir(ARD);# parse current directory
 	closedir(ARD) || die(". $!");# close directory
-	chdir("../..");
+	# chdir("../..");
+	my $trips="var tripListJSON=[\n";
 	my $lot="var lot= new Array('--',"; # List of trips
 	my $lotList="<select name='maop_operationokdelete' onChange='listToDelete()'>"; # List of trips
 	my $lotList2="<select name='maop_operationokdelete' onChange='listToList()'>"; # List of trips
 	foreach my $i (@dr){ # begin foreach my $i (@dr)
 		$lot.="\"$i\",";
+		open(R,"$i") || die("error open $!");
+		my @ftr=<R>; # File trip read
+		my ($btd,$etd)=split(/\#/,$ftr[0]);# begin trip date,end trip date
 		$i=~s/-trips$//;
+		$trips.="\t\t\t{\"TripName\":\"$i\",\"btd\":\"$btd\",\"etd\":\"$etd\"},\n";
+		close(R) || die("error close $!");
 		$lotList.="<option>$i</option>";
 		$lotList2.="<option>$i</option>";
 	} # end foreach my $i (@dr)
+	$trips=~s/\,\n$//;
+	$trips.="];\n\n";
 	$lot=~s/,$/\)\;/; # They array is built of trips
 	$lotList.="</select>";
 	$lotList2.="</select>";
+	chdir("../..");
 	my $myuri="$ENV{SERVER_NAME}";
 	my $myport= ($ENV{SERVER_PORT}=~m/[0-9]+/) ? ":$ENV{SERVER_PORT}/" : "/";
 	my $myscript= $ENV{REQUEST_URI};
@@ -6154,6 +6171,7 @@ Google ID:<input type='text' name='maop_googid' />
 </form>
 </fieldset>	
 <script>
+
 	function listToDelete(){ // Begin function listToDelete()
 		var idx = document.myform.maop_operationokdelete.selectedIndex;
 		var choice = document.myform.maop_operationokdelete.options[idx].innerHTML;
@@ -6193,7 +6211,7 @@ Google ID:<input type='text' name='maop_googid' />
 									"<input type='button' value='confirm' onClick='listToDelete()' >";
 		} // End if(choice.match("Delete")) 
 		else if(choice.match("List")){ // Begin if(choice.match("List")) 
-			document.getElementById('tripList').innerHTML = "<!--zeub $lotList2 --> Trip list: $lotList2" +
+			document.getElementById('tripList').innerHTML = "Trip list: $lotList2" +
 									"<input type='hidden' name='maop_prev_id' value='$$' />"+
 									"<input type='hidden' name='maop_login' value='$lok' />"+
 									"<input type='hidden' name='maop_recPid' value='ok' />"+
@@ -6202,8 +6220,21 @@ Google ID:<input type='text' name='maop_googid' />
 									"<input type='hidden' name='maop_TRIP_ID' value='ok'>"+
 									"<input type='hidden' name='maop_lon' value='$lon' />"+
 									"<input type='hidden' name='maop_lat' value='$lat' />"+
-									"<input type='button' value='confirm' onClick='listToList()' >";
+									"<input type='button' value='confirm' onClick='listToList()' >"+
+									'<div id="err"></div>';
 		} // End if(choice.match("List")) 
+		else if(choice.match("Modification")){ // Begin if(choice.match("Modification")) 
+			document.getElementById('tripList').innerHTML = "<!--zeub $lotList2 --> Trip list: $lotList2" +
+									"<input type='hidden' name='maop_prev_id' value='$$' />"+
+									"<input type='hidden' name='maop_login' value='$lok' />"+
+									"<input type='hidden' name='maop_recPid' value='ok' />"+
+									"<input type='hidden' name='maop_service' value='check' />"+
+									"<input type='hidden' name='maop_ssection' value='adminGroupModif' />"+
+									"<input type='hidden' name='maop_TRIP_ID' value='ok'>"+
+									"<input type='hidden' name='maop_lon' value='$lon' />"+
+									"<input type='hidden' name='maop_lat' value='$lat' />"+
+									"<input type='button' value='confirm' onClick='listToModification()' >";
+		} // End if(choice.match("Modification")) 
 		else if(choice.match("Add")){ // Begin else if(choice.match("Add")) 
 			document.getElementById('tripList').innerHTML = 
 									"<input type='hidden' name='maop_lon' value='$lon' />"+
@@ -6224,6 +6255,23 @@ Google ID:<input type='text' name='maop_googid' />
 			document.getElementById('tripList').innerHTML = "";
 		} // End else
 	} // End function myList()
+
+	function listToModification(){ // Begining function listToModification()
+	$trips
+	//console.log("length of this object "+ obj.tripListText.length);
+	//console.log("length of this object ");
+		alert("hello world "+tripListJSON.length+" " +tripListJSON[1].TripName);
+	} // End function function listToModification()
+
+	function listToList(){ // Begining function listToList()
+	$trips
+		var e = document.myform.maop_operationokdelete.selectedIndex;
+		var i = 0;
+		var strUser = document.myform.maop_operationokdelete.options[e].text;
+		while(i<tripListJSON.length&&tripListJSON[i].TripName!=strUser)i++;
+		document.getElementById('err').innerHTML = "<br><b><u>Tip name:</u></b>"+tripListJSON[i].TripName+"<br><b><u>Begining of the trip:</u></b>"+tripListJSON[i].btd+"<br><b><u>End of the trip:</u></b>"+tripListJSON[i].etd;
+	} // End function listToList()
+
 
 	function calc(){ // Begin function calc()
 		$lot
@@ -6259,8 +6307,9 @@ Google ID:<input type='text' name='maop_googid' />
 	Operation <select name="operation" onChange="myList()">
 								<option default>--</option>
 								<option>Add</option>
-								<option>Delete</option>
+								<option>Modification</option>
 								<option>List</option>
+								<option>Delete</option>
 								</select> 
 	<div id="tripList"></div>
 </form>
