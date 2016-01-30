@@ -6184,6 +6184,7 @@ Google ID:<input type='text' name='maop_googid' />
 		}
 	} // End function listToDelete()
 
+	/*
 	function listToList(){ // Begin function listToList()
 		var idx = document.myform.operationokdelete.selectedIndex;
 		var choice = document.myform.operationokdelete.options[idx].innerHTML;
@@ -6192,6 +6193,7 @@ Google ID:<input type='text' name='maop_googid' />
 		
 		document.myform.submit(); 
 	} // End function listToList()
+	*/
 
 	function myList(){ // Begin function myList()
 		var idx = document.myform.operation.selectedIndex;
@@ -6266,10 +6268,20 @@ Google ID:<input type='text' name='maop_googid' />
 	function listToList(){ // Begining function listToList()
 	$trips
 		var e = document.myform.maop_operationokdelete.selectedIndex;
+		/*
+		var idx = document.myform.operationokdelete.selectedIndex;
+		*/
+		var choice = document.myform.maop_operationokdelete.options[e].innerHTML;
+		var myurl=new String("$myuri$myport/$myscript?maop_googid="+choice+"&maop_gmv=3-0");
+		var r="http://"+myurl.replace(/[\/]{2,}/g,"/"); // Regexp used to eliminate bugs while printing URL   ....
+
 		var i = 0;
 		var strUser = document.myform.maop_operationokdelete.options[e].text;
 		while(i<tripListJSON.length&&tripListJSON[i].TripName!=strUser)i++;
-		document.getElementById('err').innerHTML = "<br><b><u>Tip name:</u></b>"+tripListJSON[i].TripName+"<br><b><u>Begining of the trip:</u></b>"+tripListJSON[i].btd+"<br><b><u>End of the trip:</u></b>"+tripListJSON[i].etd;
+		document.getElementById('err').innerHTML = "<br><b><u>Tip name:</u></b>"+tripListJSON[i].TripName+
+                                                           "<br><b><u>Begining of the trip:</u></b>"+tripListJSON[i].btd+
+							   "<br><b><u>End of the trip:</u></b>"+tripListJSON[i].etd+
+							   "<br><b><u>URL to trace the trip:</u></b>"+r;
 	} // End function listToList()
 
 
