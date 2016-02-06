@@ -79,7 +79,7 @@ use io::MySec;
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.190'; # Album release
+use constant ALBUM_REL               	=> '15.199'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -129,7 +129,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.190
+$VERSION=1.6.15.199
 
 =head1 ABSTRACT
 
@@ -207,6 +207,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.15.197> Feb 06 2016 see sub menu_admin_GoogleMap_ID
 
 - I<Last modification:v1.6.15.190> Jan 30 2016 see sub menu_admin_GoogleMap_ID
 
@@ -6099,6 +6101,8 @@ None.
 
 =over 4
 
+- I<Last modification:> Feb 06 2016: Mail feature added when trip name created and sent to a user
+
 - I<Last modification:> Jan 30 2016: List feature completed and finished
 
 - I<Last modification:> Jan 24 2016: Due to to the add of prefix to variables to enhance geolocation coordinate value a regression bug was noticed. The maop_ prefix was not revised to all variables that were passed. Now it is done for this function.
@@ -6225,6 +6229,19 @@ Google ID:<input type='text' name='maop_googid' />
 									"<input type='button' value='confirm' onClick='listToList()' >"+
 									'<div id="err"></div>';
 		} // End if(choice.match("List")) 
+		else if(choice.match("Send")){ // Begin if(choice.match("Send")) 
+			document.getElementById('tripList').innerHTML = "Trip list: $lotList2" +
+									"<input type='hidden' name='maop_prev_id' value='$$' />"+
+									"<input type='hidden' name='maop_login' value='$lok' />"+
+									"<input type='hidden' name='maop_recPid' value='ok' />"+
+									"<input type='hidden' name='maop_service' value='check' />"+
+									"<input type='hidden' name='maop_ssection' value='adminGroup' />"+
+									"<input type='hidden' name='maop_TRIP_ID' value='ok'>"+
+									"<input type='hidden' name='maop_lon' value='$lon' />"+
+									"<input type='hidden' name='maop_lat' value='$lat' />"+
+									"<input type='button' value='confirm' onClick='listToListSend()' >"+
+									'<div id="err"></div>';
+		} // End if(choice.match("Send")) 
 		else if(choice.match("Modification")){ // Begin if(choice.match("Modification")) 
 			document.getElementById('tripList').innerHTML = "<!--zeub $lotList2 --> Trip list: $lotList2" +
 									"<input type='hidden' name='maop_prev_id' value='$$' />"+
@@ -6238,8 +6255,9 @@ Google ID:<input type='text' name='maop_googid' />
 									"<input type='button' value='confirm' onClick='listToModification()' >";
 		} // End if(choice.match("Modification")) 
 		else if(choice.match("Add")){ // Begin else if(choice.match("Add")) 
-			document.getElementById('tripList').innerHTML = 
-									"<input type='hidden' name='maop_lon' value='$lon' />"+
+			//var myurl=new String("$myuri$myport/$myscript?maop_googid="+choice+"&maop_gmv=3-0");
+			//var r="http://"+myurl.replace(/[\/]{2,}/g,"/"); // Regexp used to eliminate bugs while printing URL   ...
+			document.getElementById('tripList').innerHTML = "<input type='hidden' name='maop_lon' value='$lon' />"+
 									"<input type='hidden' name='maop_lat' value='$lat' />"+
 									"<input type='hidden' name='maop_prev_id' value='$$' />"+
 									"<input type='hidden' name='maop_login' value='$lok' />"+
@@ -6248,6 +6266,7 @@ Google ID:<input type='text' name='maop_googid' />
 									"Trip name:<input type='text' name='maop_googid' /> "+
 									"<input type='hidden' name='maop_ssection' value='adminGroup' />"+
 									"<input type='hidden' name='maop_TRIP_ID' value='ok'>"+
+									"<br>Email to send: <input type='email' name='maop_email' value='dorey_s\@laposte.net'>"+
 									"<br>Begining of the trip (2014-02-22T15:50)<input type='datetime-local' name='maop_bdaytime'>"+
 									"<br>End of the trip (2014-02-23T05:50)<input type='datetime-local' name='maop_edaytime'>"+
 									"<input type='button' onclick='calc()' value='Checks dates'>"+
@@ -6282,8 +6301,27 @@ Google ID:<input type='text' name='maop_googid' />
                                                            "<br><b><u>Begining of the trip:</u></b>"+tripListJSON[i].btd+
 							   "<br><b><u>End of the trip:</u></b>"+tripListJSON[i].etd+
 							   "<br><b><u>URL to trace the trip:</u></b>"+r;
+
 	} // End function listToList()
 
+	function listToListSend(){ // Begining function listToListSend()
+	$trips
+		var e = document.myform.maop_operationokdelete.selectedIndex;
+		/*
+		var idx = document.myform.operationokdelete.selectedIndex;
+		*/
+		var choice = document.myform.maop_operationokdelete.options[e].innerHTML;
+		var myurl=new String("$myuri$myport/$myscript?maop_googid="+choice+"&maop_gmv=3-0");
+		var r="http://"+myurl.replace(/[\/]{2,}/g,"/"); // Regexp used to eliminate bugs while printing URL   ....
+
+		var i = 0;
+		var strUser = document.myform.maop_operationokdelete.options[e].text;
+		while(i<tripListJSON.length&&tripListJSON[i].TripName!=strUser)i++;
+		document.getElementById('err').innerHTML = "<br><b><u>Tip name:</u></b>"+tripListJSON[i].TripName+
+                                                           "<br><b><u>Begining of the trip:</u></b>"+tripListJSON[i].btd+
+							   "<br><b><u>End of the trip:</u></b>"+tripListJSON[i].etd+
+							   "<br><b><u>URL to trace the trip:</u></b>"+r;
+	} // End function listToListSend()
 
 	function calc(){ // Begin function calc()
 		$lot
@@ -6292,6 +6330,8 @@ Google ID:<input type='text' name='maop_googid' />
 		var trip = document.myform.maop_googid.value;
 		var num1 = document.myform.maop_bdaytime.value;
 		var num2 = document.myform.maop_edaytime.value;
+		var myurl=new String("$myuri$myport/$myscript?maop_googid="+trip+"&maop_gmv=3-0");
+		var r="http://"+myurl.replace(/[\/]{2,}/g,"/"); // Regexp used to eliminate bugs while printing URL   ...
 
 		if(trip.length == 0){ // Begin if(trip.length == 0)
 			document.getElementById('err').innerHTML = "No trip name specified.";
@@ -6304,7 +6344,10 @@ Google ID:<input type='text' name='maop_googid' />
 				d1=new Date(num1);
 				d2=new Date(num2);
 				if ((d1 - d2) < 0){ // Begin if ((d1 - d2) < 0)
-					document.getElementById('err').innerHTML = "<input type='submit'>";
+			                //document.getElementById('maop_url').value = r; 
+					document.getElementById("err").innerHTML=r;
+					document.getElementById('err').innerHTML = "<input type='submit'>"+
+					                                           "<input type='hidden' name='maop_url' value='"+r+"'/>";
 				} // End if ((d1 - d2) < 0)
 				else{ // Begin else
 					document.getElementById('err').innerHTML = "d1 > d2 ..." + document.myform.maop_bdaytime.value + " iiiiii "+document.myform.maop_edaytime.value;
@@ -6319,8 +6362,9 @@ Google ID:<input type='text' name='maop_googid' />
 	Operation <select name="operation" onChange="myList()">
 								<option default>--</option>
 								<option>Add</option>
-								<option>Modification</option>
 								<option>List</option>
+								<option>Modification</option>
+								<option>Send</option>
 								<option>Delete</option>
 								</select> 
 	<div id="tripList"></div>
@@ -7358,6 +7402,26 @@ sub setGoogleID{# begin setGoogleID
 						open(W,">$tn");
 						print W $bdaytime . "#" . $edaytime;
 						close(W);
+my $to = $doc->param("maop_email");
+my $from = 'shark.b@laposte.net';
+my $subject = "Info regarding trip name:" . $doc->param('maop_googid'); 
+my $message = "<b><u>Trip name/Nom du voyage:</u></b>" . $doc->param('maop_googid') .  
+              "\n<br><b><u>Begining of the trip/Debut du voyage:</u></b>" . $doc->param('maop_bdaytime') . 
+	      "\n<br><b><u>End of the trip/Fin du voyage:</u></b>". $doc->param('maop_bdaytime').
+	      "\n<br><b><u>Trace trip/Trace du voyage:</u></b>".$doc->param('maop_url')."\n";
+
+open(MAIL, "|/usr/sbin/sendmail -t");
+# Email Header
+print MAIL "To: $to\n";
+print MAIL "From: $from\n";
+print MAIL "MIME-Version: 1.0\n";
+print MAIL "Content-Type: text/html\n";
+print MAIL "Subject: $subject\n\n";
+# Email Body
+print MAIL $message;
+close(MAIL);
+
+print "A mail to $to is being sent...\n";
 					} # End if(length($edaytime)!=0)
 					else{ # Begin else
 						#print "<br><br><BR><i>ERRROR<br>";
