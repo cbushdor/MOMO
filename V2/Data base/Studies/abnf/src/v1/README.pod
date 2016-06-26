@@ -1,0 +1,1388 @@
+=encoding utf8
+
+=head1 Index
+
+L<BASIC REPORT OF WHAT CAN DO PARSE.PL|/"BASIC REPORT OF WHAT CAN DO PARSE.PL">
+
+L<Features not fully but tested that seems to be working during parser phase|/"Features not fully but tested that seems to be working during parser phase">
+
+=over 3
+
+L<Tested on 20160508|/"Tested on 20160508">
+
+L<Tested on 20160510|/"Tested on 20160510">
+
+L<Tested on 20160511|/"Tested on 20160511">
+
+L<Tested on 20160513|/"Tested on 20160513">
+
+L<Tested on 20160516a|/"Tested on 20160516a">
+
+L<Tested on 20160516b|/"Tested on 20160516b">
+
+L<Tested on 20160519|/"Tested on 20160519">
+
+L<Tested on 20160522|/"Tested on 20160522">
+
+L<Tested on 20160523|/"Tested on 20160523">
+
+L<Tested on 20160524a|/"Tested on 20160524a">
+
+L<Tested on 20160524b|/"Tested on 20160524b">
+
+L<Tested on 20160525a|/"Tested on 20160525a">
+
+L<Tested on 20160526a|/"Tested on 20160526a">
+
+=back
+
+L<Documents used to do that|/"Documents used to do that">
+
+------------------------------------------------------------------------------------------------
+
+=head1 BASIC REPORT OF WHAT CAN DO PARSE.PL
+
+Tests with hashes and correspondings 
+
+Content of rules.abnf
+
+After the execution of this command:> cs;cat -n rules.abnf>README.pod;./parser.pl >>README.pod
+
+=head1 Features not fully but tested that seems to be working during parser phase
+
+=head2 Tested on 20160508
+
+	1	aaaaa= zzzzz eeeee rrrrr    			CRLF ; CRLF
+
+	2	zzzzz   = CR
+
+	3	eeeee=LF
+
+	4	         	CRLF	= 	%d13.10				       
+
+	5	         	CR = 	%d13
+
+	6		LF	= 	%d10				       
+
+	7		rulename    =  %d97 %d98 %d99
+
+	8	; qqq
+
+	9		; u
+
+	10	
+
+	11		            rulename    =  %d97.98.99; a
+
+	12	
+
+==========================================================================================================
+================================================1==========================================================
+==========================================================================================================
+
+
+=over 4
+
+=item * Details of rules and is correspondings with hash talbe to presenrve the order.
+
+	<CR> ------ 000000000005+<CR>
+
+	<CRLF> ------ 000000000004+<CRLF>
+
+	<LF> ------ 000000000006+<LF>
+
+	<aaaaa> ------ 000000000000+<aaaaa>
+
+	<eeeee> ------ 000000000002+<eeeee>
+
+	<rrrrr> ------ 000000000003+<rrrrr>
+
+	<rulename> ------ 000000000007+<rulename>
+
+	<zzzzz> ------ 000000000001+<zzzzz>
+
+=item * Details of the parsing
+
+	<aaaaa>------->zzzzz eeeee rrrrr CRLF 
+
+	<zzzzz>------->CR
+
+	<eeeee>------->LF
+
+	<rrrrr> not defined
+
+	<CRLF>------->%d13.10 
+
+	<CR>------->%d13
+
+	<LF>------->%d10 
+
+	<rulename>------->%d97.98.99
+
+=item * Some more examples
+
+	$ cs;cat -n rules.abnf;./parser.pl 
+
+	1	aaaaa= zzzzz eeeee "rrrrr "   			CRLF
+
+	2	zzzzz   = CR
+
+	3	eeeee=LF
+
+	4	         	CRLF	= 	%d13.10				       
+
+	5	         	CR = 	%d13
+
+	6		LF	= 	%d10				       
+
+	>>>>>>>>>>>>>>>>>>>>>000000+<aaaaa><<<<
+
+	<CR> ------ 000004+<CR>
+
+	<CRLF> ------ 000003+<CRLF>
+
+	<LF> ------ 000005+<LF>
+
+	<aaaaa> ------ 000000+<aaaaa>
+
+	<eeeee> ------ 000002+<eeeee>
+
+	<zzzzz> ------ 000001+<zzzzz>
+
+	==============================
+
+	<aaaaa>->zzzzz eeeee "rrrrr " CRLF
+
+	<zzzzz>->CR
+
+	<eeeee>->LF
+
+	<CRLF>->%d13.10 
+
+	<CR>->%d13
+
+	<LF>->%d10 
+
+	$ cat -n rules.abnf;./parser.pl 
+
+	1	aaaaa= zzzzz eeeee rrrrr    			CRLF
+
+	2	zzzzz   = CR
+
+	3	eeeee=LF
+
+	4	         	CRLF	= 	%d13.10				       
+
+	5	         	CR = 	%d13
+
+	6		LF	= 	%d10				       
+
+	>>>>>>>>>>>>>>>>>>>>>000000+<aaaaa><<<<
+
+	<CR> ------ 000005+<CR>
+
+	<CRLF> ------ 000004+<CRLF>
+
+	<LF> ------ 000006+<LF>
+
+	<aaaaa> ------ 000000+<aaaaa>
+
+	<eeeee> ------ 000002+<eeeee>
+
+	<rrrrr> ------ 000003+<rrrrr>
+
+	<zzzzz> ------ 000001+<zzzzz>
+
+	==============================
+
+	<aaaaa>->zzzzz eeeee rrrrr CRLF
+
+	<zzzzz>->CR
+
+	<eeeee>->LF
+
+	<rrrrr> not defined
+
+	<CRLF>->%d13.10 
+
+	<CR>->%d13
+
+	<LF>->%d10 
+
+=back
+
+=head2 Tested on 20160510
+
+=over 4
+
+=item * Accept creation of rules with or without <>.
+
+=item * Accept comments after ; .
+
+=item * Accept creation of terminals. 
+
+=item * Can mix terminal and non terminals.
+
+=item * Can create string.
+
+=item * Declaration of terminal rule simple form, concatenation form with the same base.
+
+=item * Removes empty lines.
+
+=item * TODO
+
+Rules that are declared on several lines.
+
+Management of errors (that's under study).
+
+The list is not over yet...
+
+=back
+
+
+=head2 Tested on 20160511
+
+=over 4
+
+=item * Implementation of the operator /
+
+=back
+
+=head2 Results on 20160511
+
+     1	zzzzz   = CR
+     2	eeeee=LF
+     3	         	CRLF	= 	%d13.10				       
+     4	         	CR = 	%d13
+     5		LF	= 	%d10				       
+     6		rulename    =  %d97 /  %d98 %d99;a zzeazeazea
+     7	; qqq
+     8		; u
+     9	
+    10	
+    11	aaaaa= zzzzz "       eee_ee " rrrrr    			CRLF ; CRLF
+    12	
+    13	
+    14	
+    15	foo         =  %x61           ; a
+    16	
+    17	bar         =  %x62           ; b
+    18	
+    19	mumble      =  foo bar foo
+    
+
+That's corresponding value within hash table.
+
+     Here we are making the rules (corresponding rules or rules corresponding ).
+			     \  /
+			      \/
+
+     >>>>>>>>>>>>>>>>>>>>>0000000000000000000+<zzzzz><<<<
+     >>>>>>>>>>>>>>>>>>>>>0000000000000000002+<eeeee><<<<
+     >>>>>>>>>>>>>>>>>>>>>0000000000000000004+<CRLF><<<<
+     >>>>>>>>>>>>>>>>>>>>>0000000000000000005+<rulename><<<<
+     >>>>>>>>>>>>>>>>>>>>>0000000000000000006+<aaaaa><<<<
+     >>>>>>>>>>>>>>>>>>>>>0000000000000000009+<foo><<<<
+     >>>>>>>>>>>>>>>>>>>>>0000000000000000010+<bar><<<<
+     >>>>>>>>>>>>>>>>>>>>>0000000000000000011+<mumble><<<<
+
+     <CR> ------ 0000000000000000001+<CR>
+     <CRLF> ------ 0000000000000000004+<CRLF>
+     <LF> ------ 0000000000000000003+<LF>
+     <aaaaa> ------ 0000000000000000006+<aaaaa>
+     <bar> ------ 0000000000000000010+<bar>
+
+B<     <eee_ee E<gt> ------ 0000000000000000007+<eee_eeE<gt>     <--- bug noticed here >
+
+     <eeeee> ------ 0000000000000000002+<eeeee>
+     <foo> ------ 0000000000000000009+<foo>
+     <mumble> ------ 0000000000000000011+<mumble>
+     <rrrrr> ------ 0000000000000000008+<rrrrr>
+     <rulename> ------ 0000000000000000005+<rulename>
+     <zzzzz> ------ 0000000000000000000+<zzzzz>
+
+==============================
+
+     <zzzzz>------->CR
+     <CR>------->%d13
+     <eeeee>------->LF
+     <LF>------->%d10 
+     <CRLF>------->%d13.10 
+     <rulename>------->%d97 / %d98 %d99
+     <aaaaa>------->zzzzz " eee_ee " rrrrr CRLF 
+
+B<     <eee_ee E<gt> not defined <----- this is supposed to be a bug :-) >
+
+     <rrrrr> not defined
+     <foo>------->%x61 
+     <bar>------->%x62 
+     <mumble>------->foo bar foo
+
+-----------------------------------------------------------------------------------------------------
+
+Correction of the bug see L<Tested on 20160513|/"Tested on 20160513">.
+
+
+=head2 Tested on 20160513
+
+After writing some peace of code to simulate the string problem (see notice on L</Results on 20160511>)was solved.
+
+=over 4
+
+=item * Some peace of code <EAT at JOE'S :)
+
+String with spaces inside reviewed.
+Now it is working.
+
+                $rd=~s/(\"[^\"]{0,}\")/store($1)/eg;
+		...
+
+		223 sub prt_store{
+		224         my ($v,$r)=@_;
+		225         print "\tString store in rule $r:$v-->$sht{$v}\n";
+		226         return $sht{$v};
+		227 }
+		228
+		229 sub store{ # Begin sub store
+		230         my ($s)=@_;
+		231         my $hi="_==STRINGREPLACED${cpt}==_";
+		232         $sht{"$hi"}=$s;
+		233         $cpt++;
+		234         return $hi;
+		235 } # End sub store
+
+
+=item * We have a simulation of the code integrated in the parser.
+
+
+     1	;zzzzz   = CR
+     2	;eeeee=LF
+     3	         	CRLF	= 	%d13.10				       
+     4	         	;CR = 	%d13
+     5		;LF	= 	%d10				       
+     6		;rulename    =  %d97 
+     7		;/  %d98 %d99;a zzeazeazea
+     8	;; qqq
+     9		;; u
+    10	
+    11	
+    12	aaaaa= zzzzz "       eee_ee " rrrrr   " e r t y y uuuuuud" 			CRLF ; CRLF
+    13	
+    14	
+    15	
+    16	;foo         =  %x61           ; a
+    17	;
+    18	;bar         =  %x62           ; b
+    19	;
+    20	;mumble      =  foo bar foo
+
+
+==============================
+
+     >>>>>>>>>>>>>>>>>>>>>00000000000000000000+<CRLF><<<<
+     )))))))))))))))))))))))))))))))))))))))))))))))))%d13.10  id_rn well formed
+     >>>>>>>>>>>>>>>>>>>>>00000000000000000001+<aaaaa><<<<
+     )))))))))))))))))))))))))))))))))))))))))))))))))zzzzz  id_rn well formed
+     )))))))))))))))))))))))))))))))))))))))))))))))))_==STRINGREPLACED0==_  id_rn well formed
+     )))))))))))))))))))))))))))))))))))))))))))))))))rrrrr  id_rn well formed
+     )))))))))))))))))))))))))))))))))))))))))))))))))_==STRINGREPLACED1==_  id_rn well formed
+     )))))))))))))))))))))))))))))))))))))))))))))))))CRLF  id_rn well formed
+     <CRLF> ------ 00000000000000000000+<CRLF>
+     <_==STRINGREPLACED0==_> ------ 00000000000000000003+<_==STRINGREPLACED0==_>
+     <_==STRINGREPLACED1==_> ------ 00000000000000000005+<_==STRINGREPLACED1==_>
+     <aaaaa> ------ 00000000000000000001+<aaaaa>
+     <rrrrr> ------ 00000000000000000004+<rrrrr>
+     <zzzzz> ------ 00000000000000000002+<zzzzz>
+
+==============================
+
+
+<CRLF>------->%d13.10 
+
+<aaaaa>------->zzzzz _==STRINGREPLACED0==_ rrrrr _==STRINGREPLACED1==_ CRLF 
+
+	Within definition of rule <aaaaa> matches at least a string...
+
+	String store in rule <aaaaa>:_==STRINGREPLACED0==_-->"       eee_ee "
+
+	String store in rule <aaaaa>:_==STRINGREPLACED1==_-->" e r t y y uuuuuud"
+
+<aaaaa>------->zzzzz "       eee_ee " rrrrr " e r t y y uuuuuud" CRLF 
+
+<zzzzz> not defined
+
+<_==STRINGREPLACED0==_> not defined
+
+<rrrrr> not defined
+
+<_==STRINGREPLACED1==_> not defined
+
+
+=back
+
+
+=head2 Tested on 20160516a
+
+File below that contains ABNF with revised rules for string. 
+
+File not interpreted yet it is just parser to check if rules are well formed.
+
+
+=over 4
+
+=item * File ABNF to parse with the exntension form string from rfc 7405
+
+		     1	;zzzzz   = CR
+		     2	;eeeee=LF
+		     3	         	CRLF	= 	%d13.10				       
+		     4	         	;CR = 	%d13
+		     5		;LF	= 	%d10				       
+		     6		;rulename    =  %d97 
+		     7		;/  %d98 %d99;a zzeazeazea
+		     8	;; qqq
+		     9		;; u
+		    10	
+		    11	
+		    12	aaaaa= zzzzz %i "       eee_ee " rrrrr  %s " e r t y y uuuuuud" 			CRLF ; CRLF
+		    13	
+		    14	
+		    15	
+		    16	;foo         =  %x61           ; a
+		    17	;
+		    18	;bar         =  %x62           ; b
+		    19	;
+		    20	;mumble      =  foo bar foo
+
+=item * Rules correspondances
+
+		<CRLF> ------ 00000000000000000000+<CRLF>
+		<_==STRINGREPLACED0==_> ------ 00000000000000000003+<_==STRINGREPLACED0==_>
+		<_==STRINGREPLACED1==_> ------ 00000000000000000005+<_==STRINGREPLACED1==_>
+		<aaaaa> ------ 00000000000000000001+<aaaaa>
+		<rrrrr> ------ 00000000000000000004+<rrrrr>
+		<zzzzz> ------ 00000000000000000002+<zzzzz>
+
+=item * Rules 
+
+		<CRLF>------->%d13.10 
+		<aaaaa>------->zzzzz _==STRINGREPLACED0==_ rrrrr _==STRINGREPLACED1==_ CRLF 
+			Within definition of rule <aaaaa> matches at least a string...
+			String store in rule <aaaaa>:_==STRINGREPLACED0==_-->%i "       eee_ee "
+			String store in rule <aaaaa>:_==STRINGREPLACED1==_-->%s " e r t y y uuuuuud"
+		<aaaaa>------->zzzzz %i "       eee_ee " rrrrr %s " e r t y y uuuuuud" CRLF 
+		<zzzzz> not defined
+		<_==STRINGREPLACED0==_> not defined
+		<rrrrr> not defined
+		<_==STRINGREPLACED1==_> not defined
+
+=back
+
+
+=head2 Tested on 20160516b
+
+Error management was improved. The L<rfc7405|https://tools.ietf.org/html/rfc7405> was integrated but not fully tested. Watchout about L<rfc5234|https://tools.ietf.org/html/rfc5234> not fully integrated hence not fully tested but peace of functionality tested wath the L<demo|https://youtu.be/8aJPvIvSCQA> that was made.
+
+=over 4
+
+=item * ABNF script used as a beta test
+
+     1	CRLF	= 	%d13.10				       
+     2	aaaaa= zzzzz %i"       eee_ee " rrrrr  %s" e r t y y uuuuuud" 			CRLF ; CRLF
+     3	zzzz="a"
+     4	zzzzz            =     "bhgga"
+     5	mumble      =  "%i" "foo bar" foo
+     6	foo=%i"azerty" "fff"
+     7	mumbles      =  %i"foo bar" foo
+     8	rrrrr= %d13;CR
+
+=item * That's the strings encoded see L<why on 20160511|/"Tested on 20160511"> it was done line that. Correction of the bug see L<Tested on 20160513|/"Tested on 20160513">.
+
+	<CRLF> ------ 00000000_1+<CRLF>
+	<_==STRINGREPLACED0==_> ------ 00000003_2+<_==STRINGREPLACED0==_>
+	<_==STRINGREPLACED1==_> ------ 00000005_2+<_==STRINGREPLACED1==_>
+	<_==STRINGREPLACED2==_> ------ 00000007_3+<_==STRINGREPLACED2==_>
+	<_==STRINGREPLACED3==_> ------ 00000008_4+<_==STRINGREPLACED3==_>
+	<_==STRINGREPLACED4==_> ------ 00000010_5+<_==STRINGREPLACED4==_>
+	<_==STRINGREPLACED5==_> ------ 00000011_5+<_==STRINGREPLACED5==_>
+	<_==STRINGREPLACED6==_> ------ 00000013_6+<_==STRINGREPLACED6==_>
+	<_==STRINGREPLACED7==_> ------ 00000014_6+<_==STRINGREPLACED7==_>
+	<_==STRINGREPLACED8==_> ------ 00000016_7+<_==STRINGREPLACED8==_>
+
+=item * The basic rules
+
+Some rules have their strings. We can see that they were replaced for ease of management. Hence some explanations are provided below with their correspondings.
+
+	<aaaaa> ------ 00000001_2+<aaaaa>
+	<foo> ------ 00000012_5+<foo>
+	<mumble> ------ 00000009_5+<mumble>
+	<mumbles> ------ 00000015_7+<mumbles>
+	<rrrrr> ------ 00000004_2+<rrrrr>
+	<zzzz> ------ 00000006_3+<zzzz>
+	<zzzzz> ------ 00000002_2+<zzzzz>
+
+=item * Initial ABNF sript after parser execution. At least that's what we've got to work now.
+
+	<CRLF>------->%d13.10 
+	<aaaaa>------->zzzzz _==STRINGREPLACED0==_ rrrrr _==STRINGREPLACED1==_ CRLF 
+		Within definition of rule <aaaaa> matches at least a string...
+		String store in rule <aaaaa>:_==STRINGREPLACED0==_-->%i"       eee_ee "
+		String store in rule <aaaaa>:_==STRINGREPLACED1==_-->%s" e r t y y uuuuuud"
+	<aaaaa>------->zzzzz %i"       eee_ee " rrrrr %s" e r t y y uuuuuud" CRLF 
+	<zzzzz>------->_==STRINGREPLACED3==_
+		Within definition of rule <zzzzz> matches at least a string...
+		String store in rule <zzzzz>:_==STRINGREPLACED3==_-->"bhgga"
+	<zzzzz>------->"bhgga"
+	<_==STRINGREPLACED0==_>------->
+	<rrrrr>------->%d13
+	<_==STRINGREPLACED1==_>------->
+	<zzzz>------->_==STRINGREPLACED2==_
+		Within definition of rule <zzzz> matches at least a string...
+		String store in rule <zzzz>:_==STRINGREPLACED2==_-->"a"
+	<zzzz>------->"a"
+	<_==STRINGREPLACED2==_>------->
+	<_==STRINGREPLACED3==_>------->
+	<mumble>------->_==STRINGREPLACED4==_ _==STRINGREPLACED5==_ foo
+		Within definition of rule <mumble> matches at least a string...
+		String store in rule <mumble>:_==STRINGREPLACED4==_-->"%i"
+		String store in rule <mumble>:_==STRINGREPLACED5==_-->"foo bar"
+	<mumble>------->"%i" "foo bar" foo
+	<_==STRINGREPLACED4==_>------->
+	<_==STRINGREPLACED5==_>------->
+	<foo>------->_==STRINGREPLACED6==_ _==STRINGREPLACED7==_
+		Within definition of rule <foo> matches at least a string...
+		String store in rule <foo>:_==STRINGREPLACED6==_-->%i"azerty"
+		String store in rule <foo>:_==STRINGREPLACED7==_-->"fff"
+	<foo>------->%i"azerty" "fff"
+	<_==STRINGREPLACED6==_>------->
+	<_==STRINGREPLACED7==_>------->
+	<mumbles>------->_==STRINGREPLACED8==_ foo
+		Within definition of rule <mumbles> matches at least a string...
+		String store in rule <mumbles>:_==STRINGREPLACED8==_-->%i"foo bar"
+	<mumbles>------->%i"foo bar" foo
+	<_==STRINGREPLACED8==_>------->
+
+=back
+
+
+=head2 Tested on 20160519
+
+The / operator witch represents or was already introduced L<here|/"Tested on 20160511">. The character / is also similar to | in other notations. 
+
+In this test multiple lines are used to define a rule.
+
+In our example we are working with B<the lines 2,3,4>.
+
+=over 4
+
+=item * ABNF script used as a beta test
+
+   1	CRLF	= 	%d13.10				       
+   2	aaaaa= zzzzz %i"       eee_ee " rrrrr  %s" e r t y y uuuuuud" 			CRLF ; CRLF
+   3	/ "zz e  e" /
+   4	thfghghg
+   5	thfghghg="m m "
+   6	zzzz="a"
+   7	zzzzz            =  "="   "bhgga"
+   8	mumble      =  "%i" "foo bar"/foo
+   9	foo=%i"azerty" "fff"
+   10	mumbles      =  %i"foo bar" foo
+   11	rrrrr= %d13;CR
+
+=item * Encodings and matchings in the hash table
+
+	<CRLF> ------ 00000000000_1+<CRLF>
+	<_==STRINGREPLACED0==_> ------ 00000000003_2+<_==STRINGREPLACED0==_>
+	<_==STRINGREPLACED1==_> ------ 00000000005_2+<_==STRINGREPLACED1==_>
+	<_==STRINGREPLACED2==_> ------ 00000000006_3+<_==STRINGREPLACED2==_>
+	<_==STRINGREPLACED3==_> ------ 00000000008_5+<_==STRINGREPLACED3==_>
+	<_==STRINGREPLACED4==_> ------ 00000000010_6+<_==STRINGREPLACED4==_>
+	<_==STRINGREPLACED5==_> ------ 00000000012_8+<_==STRINGREPLACED5==_>
+	<_==STRINGREPLACED6==_> ------ 00000000013_8+<_==STRINGREPLACED6==_>
+	<_==STRINGREPLACED7==_> ------ 00000000015_9+<_==STRINGREPLACED7==_>
+	<_==STRINGREPLACED8==_> ------ 00000000016_9+<_==STRINGREPLACED8==_>
+	<_==STRINGREPLACED9==_> ------ 00000000018_10+<_==STRINGREPLACED9==_>
+	<aaaaa> ------ 00000000001_2+<aaaaa>
+	<foo> ------ 00000000014_8+<foo>
+	<mumble> ------ 00000000011_8+<mumble>
+	<mumbles> ------ 00000000017_10+<mumbles>
+	<rrrrr> ------ 00000000004_2+<rrrrr>
+	<thfghghg> ------ 00000000007_4+<thfghghg>
+	<zzzz> ------ 00000000009_6+<zzzz>
+	<zzzzz> ------ 00000000002_2+<zzzzz>
+
+=item * Back to original script
+
+	<CRLF>------->%d13.10 
+
+<aaaaa>-->zzzzz _==STRINGREPLACED0==_ rrrrr _==STRINGREPLACED1==_ CRLF  / _==STRINGREPLACED2==_ / thfghghg
+                 Within definition of rule <aaaaa> matches at least a string...
+		 String store in rule <aaaaa>:_==STRINGREPLACED0==_-->%i"       eee_ee " 
+		 String store in rule <aaaaa>:_==STRINGREPLACED1==_-->%s" e r t y y uuuuuud" 
+		 String store in rule <aaaaa>:_==STRINGREPLACED2==_-->"zz e  e"
+
+	<aaaaa>------->zzzzz %i"       eee_ee " rrrrr %s" e r t y y uuuuuud" CRLF  / "zz e  e" / thfghghg
+	<zzzzz>------->"
+	<_==STRINGREPLACED0==_>------->
+	<rrrrr>------->%d13
+	<_==STRINGREPLACED1==_>------->
+	<_==STRINGREPLACED2==_>------->
+	<thfghghg>------->_==STRINGREPLACED3==_
+		Within definition of rule <thfghghg> matches at least a string...
+		String store in rule <thfghghg>:_==STRINGREPLACED3==_-->"m m "
+	<thfghghg>------->"m m "
+	<_==STRINGREPLACED3==_>------->
+	<zzzz>------->_==STRINGREPLACED4==_
+		Within definition of rule <zzzz> matches at least a string...
+		String store in rule <zzzz>:_==STRINGREPLACED4==_-->"a"
+	<zzzz>------->"a"
+	<_==STRINGREPLACED4==_>------->
+	<mumble>------->_==STRINGREPLACED5==_ _==STRINGREPLACED6==_ / foo
+		Within definition of rule <mumble> matches at least a string...
+		String store in rule <mumble>:_==STRINGREPLACED5==_-->"%i"
+		String store in rule <mumble>:_==STRINGREPLACED6==_-->"foo bar"
+	<mumble>------->"%i" "foo bar" / foo
+	<_==STRINGREPLACED5==_>------->
+	<_==STRINGREPLACED6==_>------->
+	<foo>------->_==STRINGREPLACED7==_ _==STRINGREPLACED8==_
+		Within definition of rule <foo> matches at least a string...
+		String store in rule <foo>:_==STRINGREPLACED7==_-->%i"azerty"
+		String store in rule <foo>:_==STRINGREPLACED8==_-->"fff"
+	<foo>------->%i"azerty" "fff"
+	<_==STRINGREPLACED7==_>------->
+	<_==STRINGREPLACED8==_>------->
+	<mumbles>------->_==STRINGREPLACED9==_ foo
+		Within definition of rule <mumbles> matches at least a string...
+		String store in rule <mumbles>:_==STRINGREPLACED9==_-->%i"foo bar"
+	<mumbles>------->%i"foo bar" foo
+	<_==STRINGREPLACED9==_>------->
+	Ok, it is over
+
+=back
+
+
+=head2 Tested on 20160522
+
+Bug noticed in the version of L<Tested on 20160519|/"Tested on 20160519">.
+
+    o          o                    o                               o                
+   <|\        /|>                  <|>                             <|>               
+   / \\o    o// \                  < >                             < >               
+   \o/ v\  /v \o/   o      o        |        o__  __o       __o__   |          __o__ 
+    |   <\/>   |   <|>    <|>       o__/_   /v      |>     />  \    o__/_     />  \  
+   / \        / \  < >    < >       |      />      //      \o       |         \o     
+   \o/        \o/   \o    o/        |      \o    o/         v\      |          v\    
+    |          |     v\  /v         o       v\  /v __o       <\     o           <\   
+   / \        / \     <\/>          <\__     <\/> __/>  _\o__</     <\__   _\o__</   
+                       /                                                             
+                      o                                                              
+                   __/>                                                              
+
+
+
+=over 4
+
+=item * ABNF script used as a beta test
+
+Simulation case with rule definition left side without <>
+
+     1	CRLF	= 	%d13.10				       
+          __________ Definition of the rule without <> in that's the original text definition
+         V           In the previous versions it was different.
+     2	aaaaa= zzzzz %i"       eee_ee " rrrrr  %s" e r t y y uuuuuud" 			CRLF ; CRLF
+     3	/ "zz e  e" /  ; azeazezaeezea
+     4	thfghghg / erty  ; azeazezaeezea
+     5	thfghghg="m m "  ; azeazezaeezea
+     6	zzzz="a"
+     7	zzzzz            =  "="   "bhgga"
+     8	mumble      =  "%i" "foo bar"/foo
+     9	foo=%i"azerty" "fff"
+    10	mumbles      =  %i"foo bar" foo
+    11	rrrrr= %d13;CR
+
+=item * Encodings and matchings in the hash table
+
+	<CRLF> ------ 00000000000_1+<CRLF>
+	<_==STRINGREPLACED0==_> ------ 00000000003_2+<_==STRINGREPLACED0==_>
+	<_==STRINGREPLACED1==_> ------ 00000000005_2+<_==STRINGREPLACED1==_>
+	<_==STRINGREPLACED2==_> ------ 00000000006_3+<_==STRINGREPLACED2==_>
+	<_==STRINGREPLACED3==_> ------ 00000000009_5+<_==STRINGREPLACED3==_>
+	<_==STRINGREPLACED4==_> ------ 00000000011_6+<_==STRINGREPLACED4==_>
+	<_==STRINGREPLACED5==_> ------ 00000000013_8+<_==STRINGREPLACED5==_>
+	<_==STRINGREPLACED6==_> ------ 00000000014_8+<_==STRINGREPLACED6==_>
+	<_==STRINGREPLACED7==_> ------ 00000000016_9+<_==STRINGREPLACED7==_>
+	<_==STRINGREPLACED8==_> ------ 00000000017_9+<_==STRINGREPLACED8==_>
+	<_==STRINGREPLACED9==_> ------ 00000000019_10+<_==STRINGREPLACED9==_>
+	<aaaaa> ------ 00000000001_2+<aaaaa>
+	<erty> ------ 00000000008_4+<erty>
+	<foo> ------ 00000000015_8+<foo>
+	<mumble> ------ 00000000012_8+<mumble>
+	<mumbles> ------ 00000000018_10+<mumbles>
+	<rrrrr> ------ 00000000004_2+<rrrrr>
+	<thfghghg> ------ 00000000007_4+<thfghghg>
+	<zzzz> ------ 00000000010_6+<zzzz>
+	<zzzzz> ------ 00000000002_2+<zzzzz>
+
+=item * Back to original script
+   
+ CRLF------->%d13.10 
+ 
+  __________Definition of the rule without <> in the original text definition in mem
+ V
+ aaaaa------->zzzzz _==STRINGREPLACED0==_ rrrrr _==STRINGREPLACED1==_ CRLF  / _==STRINGREPLACED2==_ / thfghghg / erty 
+ Within definition of rule aaaaa matches at least a string...
+ String store in rule aaaaa:_==STRINGREPLACED0==_-->%i"       eee_ee "
+ String store in rule aaaaa:_==STRINGREPLACED1==_-->%s" e r t y y uuuuuud"
+ String store in rule aaaaa:_==STRINGREPLACED2==_-->"zz e  e"
+  __________Definition of the rule without <> in the original text definition n mem
+ V
+ aaaaa------->zzzzz %i"       eee_ee " rrrrr %s" e r t y y uuuuuud" CRLF  / "zz e  e" / thfghghg / erty 
+ zzzzz------->"
+ _==STRINGREPLACED0==_------->
+ rrrrr------->%d13
+ _==STRINGREPLACED1==_------->
+ _==STRINGREPLACED2==_------->
+ thfghghg------->_==STRINGREPLACED3==_ 
+ Within definition of rule thfghghg matches at least a string...
+ String store in rule thfghghg:_==STRINGREPLACED3==_-->"m m "
+ thfghghg------->"m m " 
+ Line 4 erty not defined
+
+=item * ABNF script used as a beta test
+
+	Simulation case with rule definition left side with <>
+     1	CRLF	= 	%d13.10				       
+             ______________Definition of the rule with <> in that's the original text definition
+            V              In the previous versions it was different.
+     2	<aaaaa>= zzzzz %i"       eee_ee " rrrrr  %s" e r t y y uuuuuud" 			CRLF ; CRLF
+     3	/ "zz e  e" /  ; azeazezaeezea
+     4	thfghghg / erty  ; azeazezaeezea
+     5	thfghghg="m m "  ; azeazezaeezea
+     6	zzzz="a"
+     7	zzzzz            =  "="   "bhgga"
+     8	mumble      =  "%i" "foo bar"/foo
+     9	foo=%i"azerty" "fff"
+    10	mumbles      =  %i"foo bar" foo
+    11	rrrrr= %d13;CR
+
+=item * Encodings and matchings in the hash table
+
+	<CRLF> ------ 00000000000_1+<CRLF>
+	<_==STRINGREPLACED0==_> ------ 00000000003_2+<_==STRINGREPLACED0==_>
+	<_==STRINGREPLACED1==_> ------ 00000000005_2+<_==STRINGREPLACED1==_>
+	<_==STRINGREPLACED2==_> ------ 00000000006_3+<_==STRINGREPLACED2==_>
+	<_==STRINGREPLACED3==_> ------ 00000000009_5+<_==STRINGREPLACED3==_>
+	<_==STRINGREPLACED4==_> ------ 00000000011_6+<_==STRINGREPLACED4==_>
+	<_==STRINGREPLACED5==_> ------ 00000000013_8+<_==STRINGREPLACED5==_>
+	<_==STRINGREPLACED6==_> ------ 00000000014_8+<_==STRINGREPLACED6==_>
+	<_==STRINGREPLACED7==_> ------ 00000000016_9+<_==STRINGREPLACED7==_>
+	<_==STRINGREPLACED8==_> ------ 00000000017_9+<_==STRINGREPLACED8==_>
+	<_==STRINGREPLACED9==_> ------ 00000000019_10+<_==STRINGREPLACED9==_>
+
+	    _________Definition of the rule without <> in the original text definition
+	   V
+	<aaaaa> ------ 00000000001_2+<aaaaa>
+	<erty> ------ 00000000008_4+<erty>
+	<foo> ------ 00000000015_8+<foo>
+	<mumble> ------ 00000000012_8+<mumble>
+	<mumbles> ------ 00000000018_10+<mumbles>
+	<rrrrr> ------ 00000000004_2+<rrrrr>
+	<thfghghg> ------ 00000000007_4+<thfghghg>
+	<zzzz> ------ 00000000010_6+<zzzz>
+	<zzzzz> ------ 00000000002_2+<zzzzz>
+
+
+=item * Back to original script
+
+	CRLF------->%d13.10 
+
+	    ______Definition of the rule without <> in the original text definition in mem
+	   V
+	<aaaaa>------->zzzzz _==STRINGREPLACED0==_ rrrrr _==STRINGREPLACED1==_ CRLF  / _==STRINGREPLACED2==_ / thfghghg / erty 
+		     _______________		    
+				    \
+	                             |
+           Definition of the rule    |--+
+	   without <> in the original|  |
+	   text definition           |  |
+                     _______________/   V
+	   Within definition of rule <aaaaa> matches at least a string...
+	   String store in rule <aaaaa>:_==STRINGREPLACED0==_-->%i"       eee_ee "
+	   String store in rule <aaaaa>:_==STRINGREPLACED1==_-->%s" e r t y y uuuuuud"
+	   String store in rule <aaaaa>:_==STRINGREPLACED2==_-->"zz e  e"
+	      __Definition of the rule without <> in the original text definition in mem afyer modif
+	     V
+	<aaaaa>------->zzzzz %i"       eee_ee " rrrrr %s" e r t y y uuuuuud" CRLF  / "zz e  e" / thfghghg / erty 
+	zzzzz------->"
+	_==STRINGREPLACED0==_------->
+	rrrrr------->%d13
+	_==STRINGREPLACED1==_------->
+	_==STRINGREPLACED2==_------->
+	thfghghg------->_==STRINGREPLACED3==_ 
+		Within definition of rule thfghghg matches at least a string...
+		String store in rule thfghghg:_==STRINGREPLACED3==_-->"m m "
+	thfghghg------->"m m " 
+	Line 4 erty not defined
+
+=back
+
+=head2 Tested on 20160523
+
+This one time tests are on the format of the rule name. This time we check if the name of the rule name is well defined.
+
+B<Note regarding tests:> These tests were on left side of = character. After that some tests were added but on the right side?
+
+=over 4
+
+=item * An attack by the code that describes the rules may be?
+
+The heck during the tests was that it was not easy on the right side because there is a phase that transforms strings definition into rule names.
+
+The format is such like this: B< E<lt>_==STRINGREPLACED0==_E<gt> > it replaces the string B< %i"       eee_ee " > we can see that at the lines printed below:
+
+	<aaaaa>------->zzzzz _==STRINGREPLACED0==_ rrrrr _==STRINGREPLACED1==_ CRLF  / _==STRINGREPLACED2==_ / thfghghg / erty 
+		Within definition of rule <aaaaa> matches at least a string...
+		String store in rule <aaaaa>:_==STRINGREPLACED0==_-->%i"       eee_ee "
+		String store in rule <aaaaa>:_==STRINGREPLACED1==_-->%s" e r t y y uuuuuud"
+		String store in rule <aaaaa>:_==STRINGREPLACED2==_-->"zz e  e"
+
+The parser see B< E<lt>_==STRINGREPLACED0==_E<gt> > as a rule name and checks it as it is. It then raises an error even if there is no errors.
+
+To avoid this we need to introduce a new rule (for the right side) that checks this and, accept it as it is. Then we can say that there is hole in the parser then it can be hacked by there.
+
+The answer is NO because the proof of concept is we don't permit = character in the rule definition it is reserved to declare rule definition :-).
+
+Hence like it is done by the parser itself no problemo... But hacks can occurs despite this I can feel it any way. Now if we taint variables no more problems.
+
+We can say that once the parser is launched it creates an ecosystem and protect its vulnerbility with tainted variables. We need to put -T for tainted variable to the perl option see L<perlsec|http://perldoc.perl.org/perlsec.html>.
+
+=item * ABNF script used as a beta test
+
+Simulation case with rule definition left side with <> and that contains characters that are not allowed.
+
+     1	CRLF	= 	%d13.10				       
+     2	<aaaaa>= zzzzz %i"       eee_ee " rrrrr  %s" e r t y y uuuuuud" 			CRLF ; CRLF
+     3	/ "zz e  e" /  ; azeazezaeezea
+     4	thfghghg / erty  ; azeazezaeezea
+     5	thfghghg="m m "  ; azeazezaeezea
+     6	erty="e t y u u"; yuyuiyu
+     7	zzzz="a"
+     8	zzzzz            =  "="   "bhgga"
+     9	<mumble >     =  "%i" "foo bar"/foo
+    10	foo=%i"azerty" "fff"
+    11	mumbles      =  %i"foo bar" foo
+    12	rrrrr= %d13;CR
+
+=item * Error raised
+
+Line 9 the rule name <mumble > format not accepted.
+
+=item * Execution of the code after correction 
+
+	1	CRLF	= 	%d13.10				       
+	2	<aaaaa>= zzzzz %i"       eee_ee " rrrrr  %s" e r t y y uuuuuud" 			CRLF ; CRLF
+	3	/ "zz e  e" /  ; azeazezaeezea
+	4	thfghghg / erty  ; azeazezaeezea
+	5	thfghghg="m m "  ; azeazezaeezea
+	6	erty="e t y u u"; yuyuiyu
+	7	zzzz="a"
+	8	zzzzz            =  "="   "bhgga"
+	9	<mumble>     =  "%i" "foo bar"/foo
+	10	foo=%i"azerty" "fff"
+	11	mumbles      =  %i"foo bar" foo
+	12	rrrrr= %d13;CR
+
+	<CRLF> ------ 000000000000_1+<CRLF>
+	<_==STRINGREPLACED0==_> ------ 000000000003_2+<_==STRINGREPLACED0==_>
+	<_==STRINGREPLACED10==_> ------ 000000000020_11+<_==STRINGREPLACED10==_>
+	<_==STRINGREPLACED1==_> ------ 000000000005_2+<_==STRINGREPLACED1==_>
+	<_==STRINGREPLACED2==_> ------ 000000000006_3+<_==STRINGREPLACED2==_>
+	<_==STRINGREPLACED3==_> ------ 000000000009_5+<_==STRINGREPLACED3==_>
+	<_==STRINGREPLACED4==_> ------ 000000000010_6+<_==STRINGREPLACED4==_>
+	<_==STRINGREPLACED5==_> ------ 000000000012_7+<_==STRINGREPLACED5==_>
+	<_==STRINGREPLACED6==_> ------ 000000000014_9+<_==STRINGREPLACED6==_>
+	<_==STRINGREPLACED7==_> ------ 000000000015_9+<_==STRINGREPLACED7==_>
+	<_==STRINGREPLACED8==_> ------ 000000000017_10+<_==STRINGREPLACED8==_>
+	<_==STRINGREPLACED9==_> ------ 000000000018_10+<_==STRINGREPLACED9==_>
+	<aaaaa> ------ 000000000001_2+<aaaaa>
+	<erty> ------ 000000000008_4+<erty>
+	<foo> ------ 000000000016_9+<foo>
+	<mumble> ------ 000000000013_9+<mumble>
+	<mumbles> ------ 000000000019_11+<mumbles>
+	<rrrrr> ------ 000000000004_2+<rrrrr>
+	<thfghghg> ------ 000000000007_4+<thfghghg>
+	<zzzz> ------ 000000000011_7+<zzzz>
+	<zzzzz> ------ 000000000002_2+<zzzzz>
+
+	CRLF------->%d13.10 
+	<aaaaa>------->zzzzz _==STRINGREPLACED0==_ rrrrr _==STRINGREPLACED1==_ CRLF  / _==STRINGREPLACED2==_ / thfghghg / erty 
+		Within definition of rule <aaaaa> matches at least a string...
+		String store in rule <aaaaa>:_==STRINGREPLACED0==_-->%i"       eee_ee "
+		String store in rule <aaaaa>:_==STRINGREPLACED1==_-->%s" e r t y y uuuuuud"
+		String store in rule <aaaaa>:_==STRINGREPLACED2==_-->"zz e  e"
+	<aaaaa>------->zzzzz %i"       eee_ee " rrrrr %s" e r t y y uuuuuud" CRLF  / "zz e  e" / thfghghg / erty 
+	zzzzz------->"
+	_==STRINGREPLACED0==_------->
+	rrrrr------->%d13
+	_==STRINGREPLACED1==_------->
+	_==STRINGREPLACED2==_------->
+	thfghghg------->_==STRINGREPLACED3==_ 
+		Within definition of rule thfghghg matches at least a string...
+		String store in rule thfghghg:_==STRINGREPLACED3==_-->"m m "
+	thfghghg------->"m m " 
+	erty------->_==STRINGREPLACED4==_
+		Within definition of rule erty matches at least a string...
+		String store in rule erty:_==STRINGREPLACED4==_-->"e t y u u"
+	erty------->"e t y u u"
+	_==STRINGREPLACED3==_------->
+	_==STRINGREPLACED4==_------->
+	zzzz------->_==STRINGREPLACED5==_
+		Within definition of rule zzzz matches at least a string...
+		String store in rule zzzz:_==STRINGREPLACED5==_-->"a"
+	zzzz------->"a"
+	_==STRINGREPLACED5==_------->
+	<mumble>------->_==STRINGREPLACED6==_ _==STRINGREPLACED7==_ / foo
+		Within definition of rule <mumble> matches at least a string...
+		String store in rule <mumble>:_==STRINGREPLACED6==_-->"%i"
+		String store in rule <mumble>:_==STRINGREPLACED7==_-->"foo bar"
+	<mumble>------->"%i" "foo bar" / foo
+	_==STRINGREPLACED6==_------->
+	_==STRINGREPLACED7==_------->
+	foo------->_==STRINGREPLACED8==_ _==STRINGREPLACED9==_
+		Within definition of rule foo matches at least a string...
+		String store in rule foo:_==STRINGREPLACED8==_-->%i"azerty"
+		String store in rule foo:_==STRINGREPLACED9==_-->"fff"
+	foo------->%i"azerty" "fff"
+	_==STRINGREPLACED8==_------->
+	_==STRINGREPLACED9==_------->
+	mumbles------->_==STRINGREPLACED10==_ foo
+		Within definition of rule mumbles matches at least a string...
+		String store in rule mumbles:_==STRINGREPLACED10==_-->%i"foo bar"
+	mumbles------->%i"foo bar" foo
+	_==STRINGREPLACED10==_------->
+
+Ok, it is over
+
+=back
+
+=head2 Tested on 20160524a
+
+Problem is that the hashes for the string are to much predictable. Now they are less unpredictable.
+
+=over 4
+
+=item * Before, now 
+
+Before:
+
+	<aaaaa>------->zzzzz _==STRINGREPLACED0==_ rrrrr _==STRINGREPLACED1==_ CRLF  / _==STRINGREPLACED2==_ / thfghghg / erty 
+		Within definition of rule <aaaaa> matches at least a string...
+		String store in rule <aaaaa>:_==STRINGREPLACED0==_-->%i"       eee_ee "
+		String store in rule <aaaaa>:_==STRINGREPLACED1==_-->%s" e r t y y uuuuuud"
+		String store in rule <aaaaa>:_==STRINGREPLACED2==_-->"zz e  e"
+
+Now:
+
+	<aaaaa>------->zzzzz _==HULANwJv==_ rrrrr _==ZYefzSbp==_ CRLF  / _==xBSARuhU==_ / thfghghg / erty 
+		Within definition of rule <aaaaa> matches at least a string...
+		String store in rule <aaaaa>:_==HULANwJv==_-->%i"       eee_ee "
+		String store in rule <aaaaa>:_==ZYefzSbp==_-->%s" e r t y y uuuuuud"
+		String store in rule <aaaaa>:_==xBSARuhU==_-->"zz e  e"
+		<aaaaa>------->zzzzz %i"       eee_ee " rrrrr %s" e r t y y uuuuuud" CRLF  / "zz e  e" / thfghghg / erty 
+
+=back
+
+=head2 Tested on 20160524b
+
+No problem only solutions. this work is only done for the strings. A string is between two double cot (").
+
+In L<Tested on 20160524a|Tested on 20160524a> I randomised the name of the hash within a given alphabet.
+
+This time I randomized the size of the hash between a minimum given size and a maximum given size.
+
+=over 4
+
+=item * The result
+
+
+	     1	zzzz="a"
+	     2	CRLF	= 	%d13.10				       
+	     3	<aaaaa>= zzzzz %i"       eee_ee " rrrrr  %s" e r t y y uuuuuud" 			CRLF ; CRLF
+	     4	/ "zz e  e" /  ; azeaz*ezaeezea
+	     5	thfghghg / erty  ; azeazezaeezea
+	     6	thfghghg="m m "  ; azeazezaeezea
+	     7	erty="e t y u u"; yuyuiyu
+	     8	zzzzz            =  "="   "bhgga"
+	     9	<mumble>     =  "%i" "foo bar" / foo
+	    10	foo=%i"azerty" "fff"
+	    11	mumbles      =  %i"foo bar" foo
+	    12	rrrrr= %d13;CR
+
+	=========================================================================================================
+
+	<CRLF> ------ 000000000002_2+<CRLF>
+	<_==ChHxeWcZqSw==_> ------ 000000000011_6+<_==ChHxeWcZqSw==_>
+	<_==IDudBmyPT==_> ------ 000000000012_7+<_==IDudBmyPT==_>
+	<_==JLJzLfMvE==_> ------ 000000000008_4+<_==JLJzLfMvE==_>
+	<_==YRUwmRxrwgl==_> ------ 000000000017_10+<_==YRUwmRxrwgl==_>
+	<_==YTmMmhbBq==_> ------ 000000000001_1+<_==YTmMmhbBq==_>
+	<_==bhMjYAGMV==_> ------ 000000000018_10+<_==bhMjYAGMV==_>
+	<_==bxsYeNXXZyF==_> ------ 000000000020_11+<_==bxsYeNXXZyF==_>
+	<_==otQybJMhgzY==_> ------ 000000000007_3+<_==otQybJMhgzY==_>
+	<_==pKAqSmZTCF==_> ------ 000000000005_3+<_==pKAqSmZTCF==_>
+	<_==rFtbMHHTzS==_> ------ 000000000015_9+<_==rFtbMHHTzS==_>
+	<_==tHLpzYNKgN==_> ------ 000000000014_9+<_==tHLpzYNKgN==_>
+	<aaaaa> ------ 000000000003_3+<aaaaa>
+	<erty> ------ 000000000010_5+<erty>
+	<foo> ------ 000000000016_9+<foo>
+	<mumble> ------ 000000000013_9+<mumble>
+	<mumbles> ------ 000000000019_11+<mumbles>
+	<rrrrr> ------ 000000000006_3+<rrrrr>
+	<thfghghg> ------ 000000000009_5+<thfghghg>
+	<zzzz> ------ 000000000000_1+<zzzz>
+	<zzzzz> ------ 000000000004_3+<zzzzz>
+
+	=========================================================================================================
+
+	zzzz------->_==YTmMmhbBq==_
+		Within definition of rule zzzz matches at least a string...
+		String store in rule zzzz:_==YTmMmhbBq==_-->"a"
+	_==YTmMmhbBq==_------->
+	CRLF------->%d13.10 
+	<aaaaa>------->zzzzz _==pKAqSmZTCF==_ rrrrr _==otQybJMhgzY==_ CRLF / _==JLJzLfMvE==_ / thfghghg / erty 
+		Within definition of rule <aaaaa> matches at least a string...
+		String store in rule <aaaaa>:_==pKAqSmZTCF==_-->%i"       eee_ee "
+		String store in rule <aaaaa>:_==otQybJMhgzY==_-->%s" e r t y y uuuuuud"
+		String store in rule <aaaaa>:_==JLJzLfMvE==_-->"zz e  e"
+	zzzzz------->"      
+        ^^^^^^^^^^^^^^^^^^^^^^^^^<---- Missing stuff see line 8 above in paragrapgh Tested on 20160524b the results
+     +---------------^
+     |
+pb here
+
+	_==pKAqSmZTCF==_------->
+	rrrrr------->%d13
+	_==otQybJMhgzY==_------->
+	_==JLJzLfMvE==_------->
+	thfghghg------->_==ChHxeWcZqSw==_ 
+		Within definition of rule thfghghg matches at least a string...
+		String store in rule thfghghg:_==ChHxeWcZqSw==_-->"m m "
+	erty------->_==IDudBmyPT==_
+		Within definition of rule erty matches at least a string...
+		String store in rule erty:_==IDudBmyPT==_-->"e t y u u"
+	_==ChHxeWcZqSw==_------->
+	_==IDudBmyPT==_------->
+	<mumble>------->_==tHLpzYNKgN==_ _==rFtbMHHTzS==_ / foo
+		Within definition of rule <mumble> matches at least a string...
+		String store in rule <mumble>:_==tHLpzYNKgN==_-->"%i"
+		String store in rule <mumble>:_==rFtbMHHTzS==_-->"foo bar"
+	_==tHLpzYNKgN==_------->
+	_==rFtbMHHTzS==_------->
+	foo------->_==YRUwmRxrwgl==_ _==bhMjYAGMV==_
+		Within definition of rule foo matches at least a string...
+		String store in rule foo:_==YRUwmRxrwgl==_-->%i"azerty"
+		String store in rule foo:_==bhMjYAGMV==_-->"fff"
+	_==YRUwmRxrwgl==_------->
+	_==bhMjYAGMV==_------->
+	mumbles------->_==bxsYeNXXZyF==_ foo
+		Within definition of rule mumbles matches at least a string...
+		String store in rule mumbles:_==bxsYeNXXZyF==_-->%i"foo bar"
+	_==bxsYeNXXZyF==_------->
+
+	Ok, it is over
+
+=back
+
+=head2 Tested on 20160525a
+
+Some extra bugs were found. Errors due to the bugs are raised
+
+=over 4
+
+=item * Error raised
+
+
+	     1	zzzzz            =  "="   "bhgga"
+	     2	zzzz="a"
+	     3	CRLF	= 	%d13.10				       
+	     4	<aaaaa>= zzzzz %i"       eee_ee " rrrrr  %s" e r t y y uuuuuud" 			CRLF ; CRLF
+	     5	/ "zz e  e" /  ; azeaz*ezaeezea
+	     6	thfghghg / erty  ; azeazezaeezea
+	     7	thfghghg="m m "  ; azeazezaeezea
+	     8	erty="e t y u u"; yuyuiyu
+	     9	zzzzz            =  "="   "bhgga"
+	    10	<mumble>     =  "%i" "foo bar" / foo
+	    11	foo=%i"azerty" "fff"
+	    12	mumbles      =  %i"foo bar" foo
+	    13	rrrrr= %d13;CR
+
+	Line 9 error rule zzzzz already defined
+
+
+=item * After correction
+
+
+     1	zzzzz            =  "="   "bhgga"
+     2	zzzz="a"
+     3	CRLF	= 	%d13.10				       
+     4	<aaaaa>= zzzzz %i"       eee_ee " rrrrr  %s" e r t y y uuuuuud" 			CRLF ; CRLF
+     5	/ "zz e  e" /  ; azeaz*ezaeezea
+     6	thfghghg / erty  ; azeazezaeezea
+     7	thfghghg="m m "  ; azeazezaeezea
+     8	erty="e t y u u"; yuyuiyu
+     9	; zzzzz            =  "="   "bhgga"
+    10	<mumble>     =  "%i" "foo bar" / foo
+    11	foo=%i"azerty" "fff"
+    12	mumbles      =  %i"foo bar" foo
+    13	rrrrr= %d13;CR
+
+	---------------------------------------------------------------------
+	---------------------------------------------------------------------
+
+	<CRLF> ------ 0000000000005_3+<CRLF>
+	<_==DZwHLdvTUJ==_> ------ 0000000000004_2+<_==DZwHLdvTUJ==_>
+	<_==EMhjlidx==_> ------ 0000000000001_1+<_==EMhjlidx==_>
+	<_==EQWGHcsaYtW==_> ------ 0000000000021_12+<_==EQWGHcsaYtW==_>
+	<_==IYfEacOyN==_> ------ 0000000000002_1+<_==IYfEacOyN==_>
+	<_==MDvmtxjR==_> ------ 0000000000009_4+<_==MDvmtxjR==_>
+	<_==NcOoqgSJUta==_> ------ 0000000000016_10+<_==NcOoqgSJUta==_>
+	<_==OWTNMIMCcnf==_> ------ 0000000000007_4+<_==OWTNMIMCcnf==_>
+	<_==PtHoBZIyIm==_> ------ 0000000000015_10+<_==PtHoBZIyIm==_>
+	<_==WoJJQjIcE==_> ------ 0000000000013_8+<_==WoJJQjIcE==_>
+	<_==eaLcDzgmufVs==_> ------ 0000000000011_7+<_==eaLcDzgmufVs==_>
+	<_==efUIVOJBgw==_> ------ 0000000000019_11+<_==efUIVOJBgw==_>
+	<_==toOuRJfa==_> ------ 0000000000018_11+<_==toOuRJfa==_>
+	<aaaaa> ------ 0000000000006_4+<aaaaa>
+	<erty> ------ 0000000000012_8+<erty>
+	<foo> ------ 0000000000017_10+<foo>
+	<mumble> ------ 0000000000014_10+<mumble>
+	<mumbles> ------ 0000000000020_12+<mumbles>
+	<rrrrr> ------ 0000000000008_4+<rrrrr>
+	<thfghghg> ------ 0000000000010_7+<thfghghg>
+	<zzzz> ------ 0000000000003_2+<zzzz>
+	<zzzzz> ------ 0000000000000_1+<zzzzz>
+
+	---------------------------------------------------------------------
+	---------------------------------------------------------------------
+
+	zzzzz-------> _==EMhjlidx==_ _==IYfEacOyN==_
+		Within definition of rule zzzzz matches at least a string...
+			String stored in rule zzzzz:_==EMhjlidx==_-->"="
+			String stored in rule zzzzz:_==IYfEacOyN==_-->"bhgga"
+	zzzzz-------> "=" "bhgga" (original formated)
+
+	zzzz------->_==DZwHLdvTUJ==_
+		Within definition of rule zzzz matches at least a string...
+			String stored in rule zzzz:_==DZwHLdvTUJ==_-->"a"
+	zzzz------->"a" (original formated)
+
+	CRLF-------> %d13.10 
+
+	<aaaaa>-------> zzzzz _==OWTNMIMCcnf==_ rrrrr _==MDvmtxjR==_ CRLF 
+		Within definition of rule <aaaaa> matches at least a string...
+			String stored in rule <aaaaa>:_==OWTNMIMCcnf==_-->%i"       eee_ee "
+			String stored in rule <aaaaa>:_==MDvmtxjR==_-->%s" e r t y y uuuuuud"
+	<aaaaa>-------> zzzzz %i"       eee_ee " rrrrr %s" e r t y y uuuuuud" CRLF  (original formated)
+
+	rrrrr-------> %d13
+
+	thfghghg------->_==eaLcDzgmufVs==_ 
+		Within definition of rule thfghghg matches at least a string...
+			String stored in rule thfghghg:_==eaLcDzgmufVs==_-->"m m "
+	thfghghg------->"m m "  (original formated)
+
+	erty------->_==WoJJQjIcE==_
+		Within definition of rule erty matches at least a string...
+			String stored in rule erty:_==WoJJQjIcE==_-->"e t y u u"
+	erty------->"e t y u u" (original formated)
+
+	<mumble>-------> _==PtHoBZIyIm==_ _==NcOoqgSJUta==_ / foo
+		Within definition of rule <mumble> matches at least a string...
+			String stored in rule <mumble>:_==PtHoBZIyIm==_-->"%i"
+			String stored in rule <mumble>:_==NcOoqgSJUta==_-->"foo bar"
+	<mumble>-------> "%i" "foo bar" / foo (original formated)
+
+	foo------->_==toOuRJfa==_ _==efUIVOJBgw==_
+		Within definition of rule foo matches at least a string...
+			String stored in rule foo:_==toOuRJfa==_-->%i"azerty"
+			String stored in rule foo:_==efUIVOJBgw==_-->"fff"
+	foo------->%i"azerty" "fff" (original formated)
+
+	mumbles-------> _==EQWGHcsaYtW==_ foo
+		Within definition of rule mumbles matches at least a string...
+			String stored in rule mumbles:_==EQWGHcsaYtW==_-->%i"foo bar"
+	mumbles-------> %i"foo bar" foo (original formated)
+
+	Ok, it is over
+
+=back
+
+
+=head2 Tested on 20160526a
+
+We had a bug regression. It was solved but if came back again :-)
+
+=over 4
+
+=item The bug
+
+When we parse the script below (here it is working error is raised) we split the line in two. The separator is =.
+
+Now up to now we said left side was rn and put in a hash with the value spcae s.a this " ".
+
+The heck is this is ok if it is on the right side of = but not on the left side because we declare the rn.
+
+I changed " " with "rn" and now it seems working.
+
+
+	1	zzzzz            =  "="   "bhgga"
+	2	 zzzzz            =  "="   "bhgga"  <--------- here declared twice (impossible)
+	3	rulename    =  %d97.98.99
+	4	         aaa    =  %d97 %d98 %d99
+	5	zzzz="a"
+	6	CRLF	= 	%d13.10				       
+	7	<aaaaa>= zzzzz %i"       eee_ee " rrrrr  %s" e r t y y uuuuuud" 			CRLF ; CRLF
+	8	/ "zz e  e" /  ; azeaz*ezaeezea
+	9	thfghghg / erty  ; azeazezaeezea
+	10	thfghghg="m m "  ; azeazezaeezea
+	11	erty="e t y u u"; yuyuiyu
+	12	<mumble>     =  "%i" "foo bar" / foo
+	13	foo=%i"azerty" "fff"
+	14	mumbles      =  %i"foo bar" foo
+	15	rrrrr= %d13;CR
+
+	Line 2 error rule zzzzz already defined  <-------- an error is raised
+
+=item The peace of code
+
+B<Before modification:>
+
+	 108	if(!defined($osbr{"$rn"})){ # Begin if(!defined($osbr{"$rn"}))
+	 109		$osbr{"$rn"}=" "; # We create the reference in the hash but body is not yet defined
+	 110    } # End if(!defined($osbr{"$rn"}))
+
+
+B<After modification:>
+
+	 108	if(!defined($osbr{"$rn"})){ # Begin if(!defined($osbr{"$rn"}))
+	 109		$osbr{"$rn"}="rn"; # We create the reference in the hash but body is not yet defined
+	 110    } # End if(!defined($osbr{"$rn"}))
+
+=item * As you can watch its magic :-)
+
+Here are the codes and executions...
+
+	1	zzzzz            =  "="   "bhgga"
+	2	; zzzzz            =  "="   "bhgga" <---------------- the line is still there but I put a comment 
+
+( L<here|/"Tested on 20160510">)
+
+	3	rulename    =  %d97.98.99
+	4	         aaa    =  %d97 %d98 %d99
+	5	zzzz="a"
+	6	CRLF	= 	%d13.10				       
+	7	<aaaaa>= zzzzz %i"       eee_ee " rrrrr  %s" e r t y y uuuuuud" 			CRLF ; CRLF
+	8	/ "zz e  e" /  ; azeaz*ezaeezea
+	9	thfghghg / erty  ; azeazezaeezea
+	10	thfghghg="m m "  ; azeazezaeezea
+	11	erty="e t y u u"; yuyuiyu
+	12	<mumble>     =  "%i" "foo bar" / foo
+	13	foo=%i"azerty" "fff"
+	14	mumbles      =  %i"foo bar" foo
+	15	rrrrr= %d13;CR
+
+	---------------------------------------------------------------------
+	---------------------------------------------------------------------
+
+	<CRLF> ------ 000000000000007_6+<CRLF>
+	<_==BdosnJfOsxWzEe==_> ------ 000000000000001_1+<_==BdosnJfOsxWzEe==_>
+	<_==JOoUEnQvSjHRp==_> ------ 000000000000006_5+<_==JOoUEnQvSjHRp==_>
+	<_==KvgNHNbZExsjK==_> ------ 000000000000013_10+<_==KvgNHNbZExsjK==_>
+	<_==OBNLLLgbi==_> ------ 000000000000023_14+<_==OBNLLLgbi==_>
+	<_==TOlesEWXYu==_> ------ 000000000000011_7+<_==TOlesEWXYu==_>
+	<_==YiteiGfIpE==_> ------ 000000000000015_11+<_==YiteiGfIpE==_>
+	<_==ZZbQzlQYf==_> ------ 000000000000017_12+<_==ZZbQzlQYf==_>
+	<_==ZkuVREmi==_> ------ 000000000000018_12+<_==ZkuVREmi==_>
+	<_==lUtsnwnbADJIw==_> ------ 000000000000021_13+<_==lUtsnwnbADJIw==_>
+	<_==rLYwGcnnnrJgc==_> ------ 000000000000002_1+<_==rLYwGcnnnrJgc==_>
+	<_==vXPTmzBwEX==_> ------ 000000000000009_7+<_==vXPTmzBwEX==_>
+	<_==wewbogido==_> ------ 000000000000020_13+<_==wewbogido==_>
+	<aaa> ------ 000000000000004_4+<aaa>
+	<aaaaa> ------ 000000000000008_7+<aaaaa>
+	<erty> ------ 000000000000014_11+<erty>
+	<foo> ------ 000000000000019_12+<foo>
+	<mumble> ------ 000000000000016_12+<mumble>
+	<mumbles> ------ 000000000000022_14+<mumbles>
+	<rrrrr> ------ 000000000000010_7+<rrrrr>
+	<rulename> ------ 000000000000003_3+<rulename>
+	<thfghghg> ------ 000000000000012_10+<thfghghg>
+	<zzzz> ------ 000000000000005_5+<zzzz>
+	<zzzzz> ------ 000000000000000_1+<zzzzz>
+
+	---------------------------------------------------------------------
+	---------------------------------------------------------------------
+
+	zzzzz-------> _==BdosnJfOsxWzEe==_ _==rLYwGcnnnrJgc==_
+		Within definition of rule zzzzz matches at least a string...
+			String stored in rule zzzzz:_==BdosnJfOsxWzEe==_-->"="
+			String stored in rule zzzzz:_==rLYwGcnnnrJgc==_-->"bhgga"
+	zzzzz-------> "=" "bhgga" (original formated)
+
+	rulename-------> %d97.98.99
+
+	aaa-------> %d97 %d98 %d99
+
+	zzzz------->_==JOoUEnQvSjHRp==_
+		Within definition of rule zzzz matches at least a string...
+			String stored in rule zzzz:_==JOoUEnQvSjHRp==_-->"a"
+	zzzz------->"a" (original formated)
+
+	CRLF-------> %d13.10 
+
+	<aaaaa>-------> zzzzz _==vXPTmzBwEX==_ rrrrr _==TOlesEWXYu==_ CRLF 
+		Within definition of rule <aaaaa> matches at least a string...
+			String stored in rule <aaaaa>:_==vXPTmzBwEX==_-->%i"       eee_ee "
+			String stored in rule <aaaaa>:_==TOlesEWXYu==_-->%s" e r t y y uuuuuud"
+	<aaaaa>-------> zzzzz %i"       eee_ee " rrrrr %s" e r t y y uuuuuud" CRLF  (original formated)
+
+	rrrrr-------> %d13
+
+	thfghghg------->_==KvgNHNbZExsjK==_ 
+		Within definition of rule thfghghg matches at least a string...
+			String stored in rule thfghghg:_==KvgNHNbZExsjK==_-->"m m "
+	thfghghg------->"m m "  (original formated)
+
+	erty------->_==YiteiGfIpE==_
+		Within definition of rule erty matches at least a string...
+			String stored in rule erty:_==YiteiGfIpE==_-->"e t y u u"
+	erty------->"e t y u u" (original formated)
+
+	<mumble>-------> _==ZZbQzlQYf==_ _==ZkuVREmi==_ / foo
+		Within definition of rule <mumble> matches at least a string...
+			String stored in rule <mumble>:_==ZZbQzlQYf==_-->"%i"
+			String stored in rule <mumble>:_==ZkuVREmi==_-->"foo bar"
+	<mumble>-------> "%i" "foo bar" / foo (original formated)
+
+	foo------->_==wewbogido==_ _==lUtsnwnbADJIw==_
+		Within definition of rule foo matches at least a string...
+			String stored in rule foo:_==wewbogido==_-->%i"azerty"
+			String stored in rule foo:_==lUtsnwnbADJIw==_-->"fff"
+	foo------->%i"azerty" "fff" (original formated)
+
+	mumbles-------> _==OBNLLLgbi==_ foo
+		Within definition of rule mumbles matches at least a string...
+			String stored in rule mumbles:_==OBNLLLgbi==_-->%i"foo bar"
+	mumbles-------> %i"foo bar" foo (original formated)
+
+	Ok, it is over
+
+=back
+
+=head1 Documents used to do that
+
+Norm ABNF used from L<rfc5234|https://tools.ietf.org/html/rfc5234>.
+
+Case-Sensitive String Support in ABNF used from L<rfc7405|https://tools.ietf.org/html/rfc7405>.
+
+Wikipedia L<ABNF|https://en.wikipedia.org/wiki/Augmented_Backus%E2%80%93Naur_Form>.
+
+L<perlsec|http://perldoc.perl.org/perlsec.html>.

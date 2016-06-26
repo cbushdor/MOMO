@@ -1,0 +1,168 @@
+http://dorey.heliohost.org//cgi-bin/weat...
+
+--->NA
+----ooo)heat_index_f:NA is a string
+----ooo)pressure_in:30.30 is a string
+----ooo)termsofservice:HASH(0xd923508) is an hash
+----ooo)credit_URL:http://wunderground.com/ is a string
+----ooo)icons:HASH(0xd926f58) is an hash
+----ooo)wind_gust_mph:HASH(0xd926628) is an hash
+----ooo)local_epoch:1324300489 is a string
+----ooo)wind_degrees:310 is a string
+----ooo)visibility_km:N/A is a string
+----ooo)observation_time_rfc822:Mon, 19 Dec 2011 13:00:00 GMT is a string
+----ooo)history_url:http://www.wunderground.com/history/airport/LEAB/2011/12/19
+/DailyHistory.html is a string
+----ooo)observation_epoch:1324299600 is a string
+----ooo)windchill_f:39 is a string
+----ooo)pressure_string:30.30 in (1026 mb) is a string
+----ooo)heat_index_c:NA is a string
+----ooo)wind_string:From the NW at 10 MPH is a string
+----ooo)local_time_rfc822:Mon, 19 Dec 2011 13:14:49 GMT is a string
+----ooo)wind_dir:NW is a string
+----ooo)icon:clear is a string
+----ooo)visibility_mi:N/A is a string
+----ooo)relative_humidity:53% is a string
+----ooo)observation_time:Last Updated on December 19, 2:00 PM CET is a string
+----ooo)heat_index_string:NA is a string
+----ooo)station_id:LEAB is a string
+----ooo)temperature_string:45 F (7 C) is a string
+----ooo)dewpoint_string:28 F (-2 C) is a string
+----ooo)local_time:December 19, 2:14 PM CET is a string
+----ooo)weather:Clear is a string
+----ooo)ob_url:http://www.wunderground.com/cgi-bin/findweather
+/getForecast?query=38.95000076,-1.85000002 is a string
+----ooo)forecast_url:http://www.wunderground.com/global/stations/08280.html is a string
+----ooo)windchill_c:4 is a string
+----ooo)display_location:HASH(0xd9237c8) is an hash
+----ooo)temp_f:45 is a string
+----ooo)wind_mph:10 is a string
+----ooo)icon_url_base:http://icons-ak.wxug.com/graphics/conds/ is a string
+----ooo)windchill_string:39 F (4 C) is a string
+----ooo)credit:Weather Underground NOAA Weather Station is a string
+----ooo)dewpoint_f:28 is a string
+----ooo)image:HASH(0xd923468) is an hash
+----ooo)pressure_mb:1026 is a string
+----ooo)dewpoint_c:-2 is a string
+----ooo)temp_c:7 is a string
+----ooo)observation_location:HASH(0xd5dce98) is an hash
+----ooo)icon_url_name:.GIF is a string
+$VAR1 = {
+
+'heat_index_f' => 'NA',
+'pressure_in' => '30.30',
+'termsofservice' => {
+'link' => 'http://www.wunderground.com/weather/api/d/terms.html',
+'content' => 'This feed will be deprecated. Please switch to http://www.wunderground.com/weather/a
+},
+'credit_URL' => 'http://wunderground.com/',
+'icons' => {
+'icon_set' => {
+'Helen' => {
+'icon_url' => 'http://icons-ak.wxug.com/i/c/i/clear.gif'
+},
+'Default' => {
+'icon_url' => 'http://icons-ak.wxug.com/i/c/a/clear.gif'
+},
+'Simple' => {
+'icon_url' => 'http://icons-ak.wxug.com/i/c/g/clear.gif'
+},
+'Old School' => {
+'icon_url' => 'http://icons-ak.wxug.com/i/c/d/clear.gif'
+},
+'Mobile' => {
+'icon_url' => 'http://icons-ak.wxug.com/i/c/f/clear.gif'
+},
+'Generic' => {
+'icon_url' => 'http://icons-ak.wxug.com/i/c/c/clear.gif'
+},
+
+1 of 2
+
+12/19/11 2:19 PM
+
+http://dorey.heliohost.org//cgi-bin/weat...
+'Smiley' => {
+'icon_url' => 'http://icons-ak.wxug.com/i/c/b/clear.gif'
+},
+'Incredible' => {
+'icon_url' => 'http://icons-ak.wxug.com/i/c/k/clear.gif'
+},
+'Cartoon' => {
+'icon_url' => 'http://icons-ak.wxug.com/i/c/e/clear.gif'
+},
+'Contemporary' => {
+'icon_url' => 'http://icons-ak.wxug.com/i/c/h/clear.gif'
+}
+}
+},
+'wind_gust_mph' => {},
+'local_epoch' => '1324300489',
+'wind_degrees' => '310',
+'visibility_km' => 'N/A',
+'observation_time_rfc822' => 'Mon, 19 Dec 2011 13:00:00 GMT',
+'history_url' => 'http://www.wunderground.com/history/airport/LEAB/2011/12/19/DailyHistory.html',
+'observation_epoch' => '1324299600',
+'windchill_f' => '39',
+'pressure_string' => '30.30 in (1026 mb)',
+'heat_index_c' => 'NA',
+'wind_string' => 'From the NW at 10 MPH ',
+'local_time_rfc822' => 'Mon, 19 Dec 2011 13:14:49 GMT',
+'wind_dir' => 'NW',
+'icon' => 'clear',
+'visibility_mi' => 'N/A',
+'relative_humidity' => '53%',
+'observation_time' => 'Last Updated on December 19, 2:00 PM CET',
+'heat_index_string' => 'NA',
+'station_id' => 'LEAB',
+'temperature_string' => '45 F (7 C)',
+'dewpoint_string' => '28 F (-2 C)',
+'local_time' => 'December 19, 2:14 PM CET',
+'weather' => 'Clear',
+'ob_url' => 'http://www.wunderground.com/cgi-bin/findweather/getForecast?query=38.95000076,-1.85000002',
+'forecast_url' => 'http://www.wunderground.com/global/stations/08280.html',
+'windchill_c' => '4',
+'display_location' => {
+'country' => 'SP',
+'longitude' => '-2.460938',
+'elevation' => '1057.00000000 ft',
+'state_name' => 'Spain',
+'country_iso3166' => 'ES',
+'full' => 'El Bonillo, Spain',
+'state' => {},
+'city' => 'El Bonillo',
+'zip' => '00000',
+'latitude' => '38.822591'
+},
+'temp_f' => '45',
+'wind_mph' => '10',
+'icon_url_base' => 'http://icons-ak.wxug.com/graphics/conds/',
+'windchill_string' => '39 F (4 C)',
+'credit' => 'Weather Underground NOAA Weather Station',
+'dewpoint_f' => '28',
+'image' => {
+'link' => 'http://wunderground.com/',
+'url' => 'http://icons-ak.wxug.com/graphics/wu2/logo_130x80.png',
+'title' => 'Weather Underground'
+},
+'pressure_mb' => '1026',
+'dewpoint_c' => '-2',
+'temp_c' => '7',
+'observation_location' => {
+'country' => 'SP',
+'longitude' => '-1.85000002',
+'elevation' => '2310 ft',
+'country_iso3166' => 'ES',
+'full' => 'Albacete, ',
+'state' => {},
+'city' => 'Albacete',
+'latitude' => '38.95000076'
+},
+'icon_url_name' => '.GIF'
+};
+
+2 of 2
+
+12/19/11 2:19 PM
+
+

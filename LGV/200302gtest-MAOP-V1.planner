@@ -1,0 +1,376 @@
+<?xml version="1.0"?>
+<project name="Modeling" company="" manager="SDO" phase="Testing" project-start="20030203T000000Z" mrproject-version="2" calendar="1">
+  <properties/>
+  <phases>
+    <phase name="Modeling"/>
+    <phase name="Testing"/>
+  </phases>
+  <calendars>
+    <day-types>
+      <day-type id="0" name="Working" description="A default working day"/>
+      <day-type id="1" name="Nonworking" description="A default non working day"/>
+      <day-type id="2" name="Use base" description="Use day from base calendar"/>
+      <day-type id="3" name="Leisure" description=""/>
+    </day-types>
+    <calendar id="1" name="Default">
+      <default-week mon="0" tue="0" wed="0" thu="0" fri="0" sat="0" sun="0"/>
+      <overridden-day-types>
+        <overridden-day-type id="0">
+          <interval start="0800" end="1200"/>
+          <interval start="1300" end="1800"/>
+        </overridden-day-type>
+      </overridden-day-types>
+      <days>
+        <day date="20101204" type="day-type" id="0"/>
+        <day date="20101010" type="day-type" id="0"/>
+        <day date="20101009" type="day-type" id="0"/>
+      </days>
+    </calendar>
+  </calendars>
+  <tasks>
+    <task id="1" name="Projects" note="" work="17348400" start="20030203T000000Z" end="20101125T090000Z" work-start="20030203T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="2" name="Administration" note="" work="1911600" start="20030205T000000Z" end="20100906T180000Z" work-start="20030205T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="3" name="Operating system / Servers" note="" work="1911600" start="20030205T000000Z" end="20100906T180000Z" work-start="20030205T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="4" name="Installation" note="FreeBSD 4.2" work="324000" duration="324000" start="20030205T000000Z" end="20030214T180000Z" work-start="20030205T080000Z" percent-complete="80" priority="4" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20030205T000000Z"/>
+          </task>
+          <task id="5" name="Settings" note="" work="486000" duration="486000" start="20030228T000000Z" end="20030314T180000Z" work-start="20030228T080000Z" percent-complete="30" priority="3" type="normal" scheduling="fixed-duration">
+            <constraint type="start-no-earlier-than" time="20030228T000000Z"/>
+            <predecessors>
+              <predecessor id="1" predecessor-id="39" type="FS"/>
+            </predecessors>
+          </task>
+          <task id="6" name="Installation" note="FreeBSD 5.0" work="324000" duration="324000" start="20041107T000000Z" end="20041116T180000Z" work-start="20041107T080000Z" percent-complete="100" priority="2" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20041107T000000Z"/>
+          </task>
+          <task id="7" name="Settings" note="" work="486000" duration="486000" start="20041207T000000Z" end="20041221T180000Z" work-start="20041207T080000Z" percent-complete="70" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="start-no-earlier-than" time="20041207T000000Z"/>
+            <predecessors>
+              <predecessor id="1" predecessor-id="6" type="FS"/>
+            </predecessors>
+          </task>
+          <task id="8" name="Installation " note="FreeBSD 6.0" work="97200" duration="97200" start="20060107T000000Z" end="20060109T180000Z" work-start="20060107T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20060107T000000Z"/>
+          </task>
+          <task id="9" name="Settings" note="" work="162000" duration="162000" start="20060201T000000Z" end="20060205T180000Z" work-start="20060201T080000Z" percent-complete="60" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="start-no-earlier-than" time="20060201T000000Z"/>
+            <predecessors>
+              <predecessor id="1" predecessor-id="8" type="FS"/>
+            </predecessors>
+          </task>
+          <task id="10" name="Installing" note="Mac OS X Snow leopard" work="0" duration="0" start="20070407T000000Z" end="20070407T000000Z" work-start="20070407T080000Z" percent-complete="100" priority="1" type="milestone" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20070407T000000Z"/>
+          </task>
+          <task id="11" name="Installing" note="" work="32400" duration="32400" start="20100906T000000Z" end="20100906T180000Z" work-start="20100906T080000Z" percent-complete="100" priority="4" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20100906T000000Z"/>
+          </task>
+        </task>
+      </task>
+      <task id="12" name="Album of pictures" note="" work="12229200" start="20030203T000000Z" end="20101125T090000Z" work-start="20030203T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="13" name="Feasability" note="" work="194400" start="20030314T180000Z" end="20030320T133000Z" work-start="20030315T080000Z" percent-complete="100" priority="2" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20030307T000000Z"/>
+          <task id="14" name="Basic structure" note="" work="162000" duration="162000" start="20030314T180000Z" end="20030319T180000Z" work-start="20030315T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="start-no-earlier-than" time="20030302T000000Z"/>
+            <predecessors>
+              <predecessor id="1" predecessor-id="5" type="FS"/>
+              <predecessor id="1" predecessor-id="3" type="SS"/>
+            </predecessors>
+          </task>
+          <task id="15" name="Interfaces" note="Basic shape" work="32400" start="20030319T180000Z" end="20030320T133000Z" work-start="20030320T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
+            <predecessors>
+              <predecessor id="1" predecessor-id="14" type="FS"/>
+            </predecessors>
+          </task>
+        </task>
+        <task id="16" name="+Modeling" note="" work="2624400" start="20030203T000000Z" end="20030509T133000Z" work-start="20030203T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="17" name="Perl basic interface" note="" work="972000" duration="972000" start="20030330T133000Z" end="20030429T133000Z" work-start="20030330T133000Z" percent-complete="100" priority="4" type="normal" scheduling="fixed-duration">
+            <predecessors>
+              <predecessor id="1" predecessor-id="15" type="FS" lag="864000"/>
+            </predecessors>
+          </task>
+          <task id="18" name="Perl basic security 03" note="Authentication interface&#10;Session id" work="1620000" start="20030429T133000Z" end="20030509T133000Z" work-start="20030429T133000Z" percent-complete="100" priority="3" type="normal" scheduling="fixed-work">
+            <predecessors>
+              <predecessor id="1" predecessor-id="17" type="FS"/>
+            </predecessors>
+          </task>
+          <task id="19" name="Perl security test 04" note="" work="32400" start="20030203T000000Z" end="20030203T180000Z" work-start="20030203T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+        </task>
+        <task id="20" name="Testing" note="Security" work="9410400" start="20030512T133000Z" end="20101125T090000Z" work-start="20030512T133000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="21" name="Tests internet cafe 1" note="Interface&#10;Installation&#10;Bugs still resides" work="1620000" start="20030512T133000Z" end="20030524T180000Z" work-start="20030512T133000Z" percent-complete="30" priority="2" type="normal" scheduling="fixed-work">
+            <predecessors>
+              <predecessor id="1" predecessor-id="18" type="FS" lag="259200"/>
+              <predecessor id="1" predecessor-id="17" type="FS"/>
+            </predecessors>
+          </task>
+          <task id="22" name="Tests during summer vacation 03" note="" work="972000" duration="972000" start="20030709T000000Z" end="20030807T180000Z" work-start="20030709T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="start-no-earlier-than" time="20030709T000000Z"/>
+          </task>
+          <task id="23" name="Tests during summer vacation 04" note="" work="972000" duration="972000" start="20040709T000000Z" end="20040807T180000Z" work-start="20040709T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="start-no-earlier-than" time="20040709T000000Z"/>
+          </task>
+          <task id="24" name="Tests during summer vacation 05" note="" work="972000" duration="972000" start="20050709T000000Z" end="20050807T180000Z" work-start="20050709T080000Z" percent-complete="50" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="start-no-earlier-than" time="20050709T000000Z"/>
+          </task>
+          <task id="25" name="Tests during summer vacation 06" note="" work="972000" duration="972000" start="20060709T000000Z" end="20060807T180000Z" work-start="20060709T080000Z" percent-complete="50" priority="0" type="normal" scheduling="fixed-duration">
+            <constraint type="start-no-earlier-than" time="20060709T000000Z"/>
+          </task>
+          <task id="26" name="Tests during summer vacation 07" note="" work="972000" duration="972000" start="20070701T000000Z" end="20070730T180000Z" work-start="20070701T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="start-no-earlier-than" time="20070701T000000Z"/>
+          </task>
+          <task id="27" name="Nightly winter tests 07" note="" work="3600" duration="3600" start="20071025T000000Z" end="20071025T090000Z" work-start="20071025T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="start-no-earlier-than" time="20071025T000000Z"/>
+          </task>
+          <task id="28" name="Tests during summer vacation 08" note="" work="972000" duration="972000" start="20080714T000000Z" end="20080812T180000Z" work-start="20080714T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="start-no-earlier-than" time="20080714T000000Z"/>
+          </task>
+          <task id="29" name="Nightly fall tests 1" note="" work="3600" duration="3600" start="20081028T000000Z" end="20081028T090000Z" work-start="20081028T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="start-no-earlier-than" time="20081028T000000Z"/>
+          </task>
+          <task id="30" name="Nightly fall tests 2" note="" work="3600" duration="3600" start="20081215T000000Z" end="20081215T090000Z" work-start="20081215T080000Z" percent-complete="30" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="start-no-earlier-than" time="20081215T000000Z"/>
+          </task>
+          <task id="31" name="Tests during summer vacation 09" note="" work="972000" duration="972000" start="20090705T000000Z" end="20090803T180000Z" work-start="20090705T080000Z" percent-complete="70" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="start-no-earlier-than" time="20090705T000000Z"/>
+          </task>
+          <task id="32" name="Tests during summer vacation 10" note="" work="972000" duration="972000" start="20100709T000000Z" end="20100807T180000Z" work-start="20100709T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="start-no-earlier-than" time="20100709T000000Z"/>
+          </task>
+          <task id="33" name="Nightly winter tests" note="Fri 10 Dec 2010, 12:18&#10;Meeting and tests" work="3600" duration="3600" start="20101125T000000Z" end="20101125T090000Z" work-start="20101125T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+            <constraint type="start-no-earlier-than" time="20101125T000000Z"/>
+          </task>
+        </task>
+      </task>
+      <task id="34" name="Security issues" note="" work="2592000" start="20040207T000000Z" end="20100916T180000Z" work-start="20040207T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="35" name="Algorithm 1: RSA" note="Just for fun" work="810000" duration="810000" start="20040207T000000Z" end="20040302T180000Z" work-start="20040207T080000Z" percent-complete="40" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20040207T000000Z"/>
+        </task>
+        <task id="36" name="Algorithm 2: Jangada v1" note="Book of Jules Vernes Jangada" work="486000" duration="486000" start="20040307T000000Z" end="20040321T180000Z" work-start="20040307T080000Z" percent-complete="70" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="start-no-earlier-than" time="20040307T000000Z"/>
+          <predecessors>
+            <predecessor id="1" predecessor-id="35" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="37" name="Algorithm 3: Jangada v2" note="Mac os X&#10;" work="1296000" start="20100907T000000Z" end="20100916T180000Z" work-start="20100907T080000Z" percent-complete="75" priority="2" type="normal" scheduling="fixed-work">
+          <constraint type="start-no-earlier-than" time="20100907T000000Z"/>
+          <predecessors>
+            <predecessor id="1" predecessor-id="10" type="FS"/>
+          </predecessors>
+        </task>
+      </task>
+      <task id="38" name="Update knowledge" note="" work="615600" start="20030214T180000Z" end="20030329T180000Z" work-start="20030215T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="39" name="Apache" note="v1.3" work="129600" duration="129600" start="20030214T180000Z" end="20030218T180000Z" work-start="20030215T080000Z" percent-complete="70" priority="2" type="normal" scheduling="fixed-duration">
+          <predecessors>
+            <predecessor id="1" predecessor-id="4" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="40" name="Perl" note="" work="486000" duration="486000" start="20030314T180000Z" end="20030329T180000Z" work-start="20030315T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <predecessors>
+            <predecessor id="1" predecessor-id="5" type="FS"/>
+          </predecessors>
+        </task>
+      </task>
+    </task>
+    <task id="41" name="Meetings" note="" work="529200" start="20030203T000000Z" end="20110402T120000Z" work-start="20030203T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20101204T000000Z"/>
+      <task id="42" name="Con prep" note="" work="57600" start="20070210T000000Z" end="20101116T100000Z" work-start="20070210T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="43" name="Ordinary general assembly of share holders" note="" work="7200" duration="7200" start="20070210T000000Z" end="20070210T100000Z" work-start="20070210T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20070210T000000Z"/>
+        </task>
+        <task id="44" name="Ordinary general assembly of share holders" note="" work="7200" duration="7200" start="20080209T000000Z" end="20080209T100000Z" work-start="20080209T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20080209T000000Z"/>
+        </task>
+        <task id="45" name="Ordinary general assembly of share holders" note="" work="7200" duration="7200" start="20090214T000000Z" end="20090214T100000Z" work-start="20090214T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20090214T000000Z"/>
+        </task>
+        <task id="46" name="Ordinary general assembly of share holders" note="" work="7200" duration="7200" start="20100213T000000Z" end="20100213T100000Z" work-start="20100213T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20100213T000000Z"/>
+        </task>
+        <task id="47" name="Meeting" note="" work="7200" duration="7200" start="20101004T000000Z" end="20101004T100000Z" work-start="20101004T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20101004T000000Z"/>
+        </task>
+        <task id="48" name="Meeting" note="" work="7200" duration="7200" start="20101011T000000Z" end="20101011T100000Z" work-start="20101011T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20101011T000000Z"/>
+        </task>
+        <task id="49" name="Meeting" note="" work="7200" duration="7200" start="20101108T000000Z" end="20101108T100000Z" work-start="20101108T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20101108T000000Z"/>
+        </task>
+        <task id="50" name="Meeting" note="" work="7200" duration="7200" start="20101116T000000Z" end="20101116T100000Z" work-start="20101116T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20101116T000000Z"/>
+        </task>
+      </task>
+      <task id="51" name="Conference" note="" work="471600" start="20030203T000000Z" end="20110402T120000Z" work-start="20030203T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="52" name="Conference/Workshop" note="" work="64800" duration="64800" start="20061125T000000Z" end="20061126T180000Z" work-start="20061125T080000Z" percent-complete="100" priority="2" type="normal" scheduling="fixed-duration">
+          <constraint type="start-no-earlier-than" time="20061125T000000Z"/>
+        </task>
+        <task id="53" name="Conference" note="" work="32400" start="20030203T000000Z" end="20030203T180000Z" work-start="20030203T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="54" name="Conference" note="" work="32400" start="20030203T000000Z" end="20030203T180000Z" work-start="20030203T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="55" name="Conference/Wokshop" note="" work="64800" duration="64800" start="20090530T000000Z" end="20090531T180000Z" work-start="20090530T080000Z" percent-complete="100" priority="2" type="normal" scheduling="fixed-duration">
+          <constraint type="start-no-earlier-than" time="20090530T000000Z"/>
+        </task>
+        <task id="56" name="Conference" note="" work="14400" duration="14400" start="20100102T000000Z" end="20100102T120000Z" work-start="20100102T080000Z" percent-complete="75" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20100102T000000Z"/>
+        </task>
+        <task id="57" name="Conference" note="" work="14400" duration="14400" start="20100206T000000Z" end="20100206T120000Z" work-start="20100206T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20100206T000000Z"/>
+        </task>
+        <task id="58" name="Conference" note="" work="14400" duration="14400" start="20100306T000000Z" end="20100306T120000Z" work-start="20100306T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20100306T000000Z"/>
+        </task>
+        <task id="59" name="Conference" note="" work="14400" duration="14400" start="20110402T000000Z" end="20110402T120000Z" work-start="20110402T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20110402T000000Z"/>
+        </task>
+        <task id="60" name="Conference" note="" work="14400" duration="14400" start="20100501T000000Z" end="20100501T120000Z" work-start="20100501T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20100501T000000Z"/>
+        </task>
+        <task id="61" name="Conference/Workshop" note="" work="64800" duration="64800" start="20090611T000000Z" end="20090612T180000Z" work-start="20090611T080000Z" percent-complete="100" priority="2" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20090611T000000Z"/>
+        </task>
+        <task id="62" name="Conference/Workshop" note="bpw" work="32400" duration="32400" start="20100626T000000Z" end="20100626T180000Z" work-start="20100626T080000Z" percent-complete="50" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="start-no-earlier-than" time="20100626T000000Z"/>
+        </task>
+        <task id="63" name="Conference" note="" work="14400" duration="14400" start="20100703T000000Z" end="20100703T120000Z" work-start="20100703T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20100703T000000Z"/>
+        </task>
+        <task id="64" name="Conference" note="" work="14400" duration="14400" start="20100904T000000Z" end="20100904T120000Z" work-start="20100904T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20100904T000000Z"/>
+        </task>
+        <task id="65" name="Conference/Workshop" note="" work="64800" duration="64800" start="20101009T000000Z" end="20101010T180000Z" work-start="20101009T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20101009T000000Z"/>
+        </task>
+        <task id="66" name="Conference" note="" work="14400" duration="14400" start="20101204T000000Z" end="20101204T120000Z" work-start="20101204T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20101204T000000Z"/>
+        </task>
+      </task>
+    </task>
+  </tasks>
+  <resource-groups>
+    <group id="1" name="Community" admin-name="" admin-phone="" admin-email=""/>
+    <group id="2" name="Assoctiation" admin-name="" admin-phone="" admin-email=""/>
+    <group id="3" name="Administration" admin-name="" admin-phone="" admin-email=""/>
+    <group id="4" name="Development" admin-name="" admin-phone="" admin-email=""/>
+    <group id="5" name="Research" admin-name="" admin-phone="" admin-email=""/>
+    <group id="6" name="Operating system" admin-name="" admin-phone="" admin-email=""/>
+    <group id="7" name="Visitor" admin-name="" admin-phone="" admin-email=""/>
+    <group id="8" name="Actor" admin-name="" admin-phone="" admin-email=""/>
+    <group id="9" name="Spectator" admin-name="" admin-phone="" admin-email=""/>
+    <group id="10" name="Communication" admin-name="" admin-phone="" admin-email=""/>
+    <group id="11" name="Programming" admin-name="" admin-phone="" admin-email=""/>
+  </resource-groups>
+  <resources>
+    <resource group="10" id="1" name="Inernet cafe" short-name="ikfe" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="7" id="2" name="vegetable fiber" short-name="vgi" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="11" id="3" name="Shell" short-name="she" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="11" id="4" name="Php" short-name="php" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="5" name="OSDC" short-name="osdc" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="6" name="Parinux" short-name="pari" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="7" name="Fedora" short-name="fedo" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="7" id="8" name="knot" short-name="kno" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="9" name="Monger" short-name="mong" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="11" id="10" name="Perl base and CGI" short-name="perl" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="11" name="Apache" short-name="apa" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="12" name="Unix" short-name="uni" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="13" name="Linux" short-name="lin" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="14" name="Mac OS X" short-name="mox" type="2" units="0" email="" note="" std-rate="0"/>
+  </resources>
+  <allocations>
+    <allocation task-id="28" resource-id="1" units="25"/>
+    <allocation task-id="26" resource-id="1" units="33"/>
+    <allocation task-id="25" resource-id="1" units="33"/>
+    <allocation task-id="24" resource-id="1" units="33"/>
+    <allocation task-id="23" resource-id="1" units="100"/>
+    <allocation task-id="22" resource-id="1" units="33"/>
+    <allocation task-id="21" resource-id="1" units="100"/>
+    <allocation task-id="30" resource-id="2" units="50"/>
+    <allocation task-id="29" resource-id="2" units="50"/>
+    <allocation task-id="27" resource-id="2" units="33"/>
+    <allocation task-id="33" resource-id="2" units="50"/>
+    <allocation task-id="31" resource-id="3" units="33"/>
+    <allocation task-id="28" resource-id="3" units="25"/>
+    <allocation task-id="18" resource-id="3" units="100"/>
+    <allocation task-id="39" resource-id="3" units="33"/>
+    <allocation task-id="36" resource-id="3" units="33"/>
+    <allocation task-id="37" resource-id="4" units="100"/>
+    <allocation task-id="65" resource-id="5" units="100"/>
+    <allocation task-id="54" resource-id="6" units="100"/>
+    <allocation task-id="53" resource-id="6" units="100"/>
+    <allocation task-id="60" resource-id="6" units="100"/>
+    <allocation task-id="59" resource-id="6" units="50"/>
+    <allocation task-id="58" resource-id="6" units="100"/>
+    <allocation task-id="56" resource-id="6" units="100"/>
+    <allocation task-id="66" resource-id="7" units="100"/>
+    <allocation task-id="64" resource-id="7" units="100"/>
+    <allocation task-id="63" resource-id="7" units="100"/>
+    <allocation task-id="59" resource-id="7" units="50"/>
+    <allocation task-id="30" resource-id="8" units="50"/>
+    <allocation task-id="29" resource-id="8" units="50"/>
+    <allocation task-id="27" resource-id="8" units="33"/>
+    <allocation task-id="33" resource-id="8" units="50"/>
+    <allocation task-id="32" resource-id="8" units="33"/>
+    <allocation task-id="26" resource-id="8" units="33"/>
+    <allocation task-id="25" resource-id="8" units="33"/>
+    <allocation task-id="24" resource-id="8" units="33"/>
+    <allocation task-id="22" resource-id="8" units="33"/>
+    <allocation task-id="18" resource-id="8" units="100"/>
+    <allocation task-id="62" resource-id="9" units="100"/>
+    <allocation task-id="52" resource-id="9" units="100"/>
+    <allocation task-id="55" resource-id="9" units="100"/>
+    <allocation task-id="43" resource-id="9" units="100"/>
+    <allocation task-id="44" resource-id="9" units="100"/>
+    <allocation task-id="45" resource-id="9" units="100"/>
+    <allocation task-id="46" resource-id="9" units="100"/>
+    <allocation task-id="61" resource-id="9" units="100"/>
+    <allocation task-id="48" resource-id="9" units="100"/>
+    <allocation task-id="47" resource-id="9" units="100"/>
+    <allocation task-id="50" resource-id="9" units="100"/>
+    <allocation task-id="49" resource-id="9" units="100"/>
+    <allocation task-id="32" resource-id="10" units="33"/>
+    <allocation task-id="31" resource-id="10" units="33"/>
+    <allocation task-id="28" resource-id="10" units="25"/>
+    <allocation task-id="27" resource-id="10" units="33"/>
+    <allocation task-id="26" resource-id="10" units="33"/>
+    <allocation task-id="25" resource-id="10" units="33"/>
+    <allocation task-id="24" resource-id="10" units="33"/>
+    <allocation task-id="22" resource-id="10" units="33"/>
+    <allocation task-id="21" resource-id="10" units="100"/>
+    <allocation task-id="18" resource-id="10" units="100"/>
+    <allocation task-id="17" resource-id="10" units="50"/>
+    <allocation task-id="40" resource-id="10" units="33"/>
+    <allocation task-id="37" resource-id="10" units="100"/>
+    <allocation task-id="36" resource-id="10" units="33"/>
+    <allocation task-id="35" resource-id="10" units="50"/>
+    <allocation task-id="16" resource-id="10" units="100"/>
+    <allocation task-id="21" resource-id="11" units="100"/>
+    <allocation task-id="18" resource-id="11" units="100"/>
+    <allocation task-id="15" resource-id="11" units="100"/>
+    <allocation task-id="39" resource-id="11" units="33"/>
+    <allocation task-id="40" resource-id="11" units="33"/>
+    <allocation task-id="37" resource-id="11" units="100"/>
+    <allocation task-id="11" resource-id="11" units="33"/>
+    <allocation task-id="16" resource-id="11" units="100"/>
+    <allocation task-id="5" resource-id="11" units="100"/>
+    <allocation task-id="9" resource-id="11" units="50"/>
+    <allocation task-id="7" resource-id="11" units="100"/>
+    <allocation task-id="14" resource-id="11" units="50"/>
+    <allocation task-id="32" resource-id="12" units="33"/>
+    <allocation task-id="31" resource-id="12" units="33"/>
+    <allocation task-id="28" resource-id="12" units="25"/>
+    <allocation task-id="21" resource-id="12" units="100"/>
+    <allocation task-id="18" resource-id="12" units="100"/>
+    <allocation task-id="17" resource-id="12" units="50"/>
+    <allocation task-id="15" resource-id="12" units="100"/>
+    <allocation task-id="39" resource-id="12" units="33"/>
+    <allocation task-id="40" resource-id="12" units="33"/>
+    <allocation task-id="37" resource-id="12" units="100"/>
+    <allocation task-id="36" resource-id="12" units="33"/>
+    <allocation task-id="35" resource-id="12" units="50"/>
+    <allocation task-id="11" resource-id="12" units="33"/>
+    <allocation task-id="10" resource-id="12" units="100"/>
+    <allocation task-id="16" resource-id="12" units="100"/>
+    <allocation task-id="9" resource-id="12" units="50"/>
+    <allocation task-id="8" resource-id="12" units="100"/>
+    <allocation task-id="6" resource-id="12" units="100"/>
+    <allocation task-id="14" resource-id="12" units="50"/>
+    <allocation task-id="4" resource-id="12" units="100"/>
+    <allocation task-id="11" resource-id="14" units="33"/>
+  </allocations>
+</project>
