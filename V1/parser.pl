@@ -299,4 +299,8 @@ sub store{ # Begin sub store
 	$sht{"$hi"}=$s;
 	return $hi;
 } # End sub store
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> 54b6715ebe40d157e381f5a2695191b52d22e53f
