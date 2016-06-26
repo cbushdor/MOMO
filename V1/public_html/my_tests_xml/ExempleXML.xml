@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE annuaire SYSTEM "ExempleDTD.dtd" >
+<annuaire xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ExempleXSD.xsd">
+    <personne miseajour="2009-06-18T20:57:57">
+            <prenom>djibril</prenom>
+	            <role>rédacteur</role>
+		            <email>djibril@monmail.com</email>
+			            <telephone>+33102030405</telephone>
+				            <langage name="perl">
+					              <ModulePreferes>XML::Twig</ModulePreferes>
+						                <ModulePreferes>XML::Writer</ModulePreferes>
+								          <ModulePreferes>Config::Std</ModulePreferes>
+									          </langage>
+										          <commentaire>
+											            Personne assez active sur le forum, et
+												              responsable d'un forum.
+													              </commentaire>
+														           </personne>
+															       <personne miseajour="2009-06-14T20:57:57">
+															               <prenom>gorgonite</prenom>
+																               <role>rédacteur</role>
+																	               <email>gorgonite@mon.mail.com</email>
+																		               <telephone>+33112131415</telephone>
+																			               <langage name="perl">
+																				                 <ModulePreferes>XML::Simple</ModulePreferes>
+																						         </langage>
+																							         <commentaire>
+																								           Personne assez active sur le forum, et
+																									             rédacteur d'articles.
+																										             </commentaire>
+																											          </personne>
+																												      <personne miseajour="2009-06-18T21:30:12">
+																												              <prenom>stoyak</prenom>
+																													              <role>rédacteur</role>
+																														              <email>stoyak@monmail.com</email>
+																															              <langage name="perl">
+																																                <ModulePreferes>XML::LibXML</ModulePreferes>
+																																		          <ModulePreferes>DBI</ModulePreferes>
+																																			          </langage>
+																																				          <commentaire>
+																																					            Personne assez active sur le forum, et
+																																						              en charge de corrections d'articles.
+																																							              </commentaire>
+																																								          </personne>
+																																									      <!-- Il n'aime rien et/ou ne connait rien -->
+																																									          <personne  miseajour="2009-06-20">
+																																										          <prenom>jean</prenom>
+																																											          <role>lecteur</role>
+																																												          <email>jean@monmail.com</email>
+																																													          <commentaire>
+																																														            Personne assez..., bah en fait, ne fait rien :-) .
+																																															              Et oui malheureusement, ça existe.
+																																																              </commentaire>
+																																																	          </personne>
+																																																		  </annuaire>

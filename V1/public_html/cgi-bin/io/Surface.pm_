@@ -1,0 +1,1379 @@
+package Surface;
+use CGI::Carp qw(fatalsToBrowser); 
+
+# +-------------------------------+
+# | Surface.cgi                   |
+# | Written     on 10/2004        |
+# | Last update on Apr 2005       |
+# +-------------------------------+
+
+
+use Exporter;
+our @ISA = qw(Exporter);
+our @EXPORT = qw(&create_surface_stat_file
+		 &get_welcome_message_for_surface
+		 &print_image_surface_page
+		 &print_image_hit_page
+		 &look_year_base
+		 &get_first_and_last_date
+		 );
+use packages::Conf_File;
+use FileHandle;
+
+=head1 ABSTRACT
+
+This file creates a graph with gnuplot.
+
+=head2 LIST OF FUNCTIONS
+
+=over 4
+
+calculate_below_any_current_given_year
+calculate_min_max_for_xy
+coordinates_calculated
+create_file_img_surface
+create_functions
+create_functions_to_help_plotting
+create_surface_stat_file
+get_first_and_last_date
+get_stat_file
+get_welcome_message_for_surface
+is_surface_image_exists
+look_year_base
+print_image_hit_page
+print_image_surface_page
+remove_surface_tmp
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF MODIFICATIONS
+
+=over 4
+
+- I<Last modification:> Jul 2004
+
+- I<Starting date Nov:> Jun 2004
+
+=back
+
+=cut
+
+
+# We get any year except current one (see get_stat_file comments) stored in this variable.
+# @l_y means last years before the current one.
+my @l_y = ();
+my @axes = ();
+my @labels = ();
+
+=head1 FUNCTION create_surface_stat_file
+
+This function generates final output: image.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+None.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+0: ok.
+
+-1: nok.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:>  Jul 2004
+
+- I<Created on:> Jul 2004
+
+=back
+
+=cut
+
+sub create_surface_stat_file { # Begin sub create_surface_stat_file
+    my @my_file_stat  = ();
+    my $l_y_cpt = 0;
+
+    &create_functions_to_help_plotting;
+    @my_file_stat = &get_stat_file();
+    # We return list of years except curent year.
+    &calculate_below_any_current_given_year(@my_file_stat);
+    $l_y_cpt = @l_y;
+    # print "--->@{l_y}:";
+
+    if ($l_y_cpt == 0) { # Begin if ($l_y_cpt == 0)
+      # if nothing is stored in array then the files tmp_* are removed.
+	&remove_surface_tmp;
+	return -1;
+    } # End if ($l_y_cpt == 0)
+    elsif ($l_y_cpt > 1) { # Begin elsif ($l_y_cpt > 1)
+      # if more than one year then functions are created
+	&create_functions(1,@my_file_stat);
+	&create_file_img_surface();
+	&remove_surface_tmp;
+    }  # End elsif ($l_y_cpt > 1)
+    return 0;
+}  # End sub create_surface_stat_file
+
+
+=head1 FUNCTION calculate_below_any_current_given_year
+
+Calculates year to print except current year
+
+=head2 PARAMETER(S)
+
+=over 4
+
+@file_base: that's the DB.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+We get any year except current one (see get_stat_file comments). WATCHOUT: @l_y is a global variable.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:>  Jul 2004
+
+- I<Created on:> Jul 2004
+
+=back
+
+=cut
+
+sub calculate_below_any_current_given_year { # Begin sub calculate_below_any_current_given_year
+  my @file_base = @_;
+  my $start_y = -1;
+  
+  # We get any year except current one (see get_stat_file comments).
+  # WATCHOUT: @l_y is a global variable.
+  @l_y = &look_year_base(@file_base);
+  
+  foreach my $y (@l_y) { # Begin foreach my $y (@l_y)
+    # Case check if we have one year in DB. If so, nothing will be done after loop.
+    if ($Conf_File::ye  > $y) { # Begin if ($Conf_File::ye  > $y)
+      # case we get more than one year in DB. This variable will be used to get information from array where years are stored.
+      $start_y++;
+    } # End if ($Conf_File::ye  > $y)
+  } # End foreach my $y (@l_y)
+  
+  if ($start_y != -1) { # Begin if ($start_y != -1)
+    # We get all info
+    @l_y = @l_y[0..$start_y];
+  }  # End if ($start_y != -1)
+  # We return list of years except curent year.
+  return @l_y;
+} # End sub calculate_below_any_current_given_year
+
+
+=head1 FUNCTION get_stat_file
+
+Get stat file (DB) content. &cwe get information recorded below a given year (that's the current year, that's automatic nothing needed to set).
+
+=head2 PARAMETER(S)
+
+=over 4
+
+None.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+List of months of a given year except the current year.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:>  Jul 2004
+
+- I<Created on:> Jul 2004
+
+=back
+
+=cut
+
+sub get_stat_file { # Begin sub get_stat_file
+  my @list_year = ();
+  my $current_year = 0;
+  my @other = ();
+  my @my_file_stat = ();
+  
+  #    print "::::${Conf_File::stub}/${Conf_File::file_stat }....biboune\n<br>";
+  
+  open(FILE_STAT,"$Conf_File::stub/$Conf_File::file_stat") || die("file $Conf_File::stub$Conf_File::file_stat  doesn't exist: $!");
+  @my_file_stat = <FILE_STAT>;
+  close(FILE_STAT);
+  
+  foreach my $i (@my_file_stat) { # Begin foreach my $i (@my_file_stat)
+    ($current_year,@other) = split(/\ /,$i);
+    if ( $current_year < $Conf_File::ye ) { # Begin if ( $current_year < $Conf_File::ye )
+      @list_year = (@list_year,$i);
+    } # End if ( $current_year < $Conf_File::ye )
+  } # End foreach my $i (@my_file_stat)
+  return  @list_year;
+} # End sub get_stat_file
+
+
+=head1 FUNCTION create_functions
+
+From stat file we generate a new file that help to calculate new values according to formula.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$subj: that's the subject.
+
+@file_stat: that's DB.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:>  Jul 2004
+
+- I<Created on:> Jul 2004
+
+=back
+
+=cut
+
+sub create_functions { # Begin sub create_functions
+  my ($subj,@file_stat) = @_;
+  my $j = 0; # Rank of the subjects
+  my @script_formula = ();
+  my @script_formula2 = ();
+  my $rank_list = 0;
+  my $l_rank = 0;
+  my $j = 0;
+  my $num_line_file_stat = @file_stat;
+  my $local_num_line_file_stat;
+  my $year = " ";
+  my $month = " ";
+  my $hit = " ";
+  my $hit_average = 0;
+  my $first_passage = "";
+  my $k = ();
+  my @axe_script = ();
+  my @script_final_axe = ();
+  my @max_plot_axe = ();
+  
+  # We store in $l_rank number of element stored in the array.
+  # This array contains all years from the begining except current year.
+  $l_rank = @l_y;
+  
+  # We store script with formula within array @script_formula.
+  open(F2,"$Conf_File::script_contains_formula_for_surface ") || die("file $Conf_File::script_contains_formula_for_surface  doesn't exist");
+  @script_formula = <F2>;
+  close(F2);
+  
+  # We fix in this loop period over PI according to data stored in array @l_y
+  foreach my $cosine_sine_def (@script_formula) { # Begin foreach my $cosine_sine_def (@script_formula)
+    if ($l_rank == 2) { # Begin if ($l_rank == 2)
+      # case where we have two years stored in the DB. Calculate over pi/3
+      $cosine_sine_def =~ s/\_\&angle\&\_/pi\/3/g;
+    } # End if ($l_rank == 2)
+    else { # Begin else
+      # Case we have more than two years Circle is 2pi.
+      $cosine_sine_def =~ s/\_\&angle\&\_/2\*pi/g;
+    } # End else
+  } # End foreach my $cosine_sine_def (@script_formula)
+  $j = 0; # that's the rank on the subject
+  
+  # We process calculus according to subjects
+  foreach my $sbj (@Conf_File::subject) { # Begin foreach my $sbj (@Conf_File::subject)
+    $sbj =~ s/[\ \/]//g;
+    
+    # We return the list of hits in one year according to a given year and a given subject.
+    my @list_of_hists_of_one_subject_in_a_given_year = &coordinates_calculated(($j+1),@file_stat);
+    
+    my $rank_of_hits_in_one_month_of_one_year = 0;
+    foreach my $hits_in_one_month_in_one_year (@list_of_hists_of_one_subject_in_a_given_year) { # Begin foreach my $hits_in_one_month_in_one_year (@list_of_hists_of_one_subject_in_a_given_year)
+      if ( $first_passage eq "") { # Begin if ( $first_passage eq "") 
+	# it is done to loop the end of the graph with the begining of the graph
+	$first_passage = "print calc_x($hits_in_one_month_in_one_year,".scalar(@list_of_hists_of_one_subject_in_a_given_year).",($rank_of_hits_in_one_month_of_one_year+1)),\"	\" , calc_y($hits_in_one_month_in_one_year,".scalar(@list_of_hists_of_one_subject_in_a_given_year).",($rank_of_hits_in_one_month_of_one_year+1))\n";
+      } # End if ( $first_passage eq "")
+      if (!exists($axe_script[$rank_of_hits_in_one_month_of_one_year])) { # Begin if (!exists($axe_script[$rank_of_hits_in_one_month_of_one_year])
+	# case we set center of graph coord (0,0)
+	$axe_script[$rank_of_hits_in_one_month_of_one_year] = "print calc_x(0,".scalar(@list_of_hists_of_one_subject_in_a_given_year).",($rank_of_hits_in_one_month_of_one_year+1)),\"	\" , calc_y(0,".scalar(@list_of_hists_of_one_subject_in_a_given_year).",($rank_of_hits_in_one_month_of_one_year+1))\n" . "print calc_x($hits_in_one_month_in_one_year,".scalar(@list_of_hists_of_one_subject_in_a_given_year).",($rank_of_hits_in_one_month_of_one_year+1)),\"	\" , calc_y($hits_in_one_month_in_one_year,".scalar(@list_of_hists_of_one_subject_in_a_given_year).",($rank_of_hits_in_one_month_of_one_year+1))\n";
+	$max_plot_axe[$rank_of_hits_in_one_month_of_one_year] = 0;
+      } # End if (!exists($axe_script[$rank_of_hits_in_one_month_of_one_year])
+      else { # Begin else
+	$axe_script[$rank_of_hits_in_one_month_of_one_year] = "$axe_script[$rank_of_hits_in_one_month_of_one_year]" . "print calc_x($hits_in_one_month_in_one_year,".scalar(@list_of_hists_of_one_subject_in_a_given_year).",($rank_of_hits_in_one_month_of_one_year+1)),\"	\" , calc_y($hits_in_one_month_in_one_year,".scalar(@list_of_hists_of_one_subject_in_a_given_year).",($rank_of_hits_in_one_month_of_one_year+1))\n";
+	$max_plot_axe[$rank_of_hits_in_one_month_of_one_year] = ($max_plot_axe[$rank_of_hits_in_one_month_of_one_year] < $hits_in_one_month_in_one_year) ? $hits_in_one_month_in_one_year : $max_plot_axe[$rank_of_hits_in_one_month_of_one_year];
+      } # End else
+      @script_formula2 = (@script_formula2,
+			  "print calc_x($hits_in_one_month_in_one_year,".scalar(@list_of_hists_of_one_subject_in_a_given_year).",($rank_of_hits_in_one_month_of_one_year+1)),\"	\" , calc_y($hits_in_one_month_in_one_year,".scalar(@list_of_hists_of_one_subject_in_a_given_year).",($rank_of_hits_in_one_month_of_one_year+1))\n"
+			 );
+      $rank_of_hits_in_one_month_of_one_year++;
+    } # End foreach my $hits_in_one_month_in_one_year (@list_of_hists_of_one_subject_in_a_given_year)
+    for (my $m = 0; $m < $rank_of_hits_in_one_month_of_one_year;$m++) { # Begin for (my $m = 0; $m < $rank_of_hits_in_one_month_of_one_year;$m++)
+      $axe_script[$m] = "$axe_script[$m]" . "print calc_x(($max_plot_axe[$m]+15),".scalar(@list_of_hists_of_one_subject_in_a_given_year).",($m+1)),\"	\" , calc_y(($max_plot_axe[$m]+15),".scalar(@list_of_hists_of_one_subject_in_a_given_year).",($m+1))\n";
+    } # End for (my $m = 0; $m < $rank_of_hits_in_one_month_of_one_year;$m++)
+    @script_formula2 = (@script_formula2,$first_passage);
+    $first_passage = "";
+    $j++;
+    open(W,">$Conf_File::stub/$Conf_File::tmp_surface_stat.${sbj}") or die("file $Conf_File::stub/$Conf_File::tmp_surface_stat.${sbj}");
+    print W "@script_formula\n@script_formula2\n\n";
+    close(W);
+    @script_formula2 = ();
+  } # End foreach my $sbj (@Conf_File::subject)
+  $rank_of_hits_in_one_month_of_one_year = 0;
+  
+  foreach my $y (@l_y) { # Begin foreach my $y (@l_y)
+    @script_final_axe = (@script_formula2,$axe_script[$rank_of_hits_in_one_month_of_one_year]);
+    open(W,">${Conf_File::stub}$Conf_File::tmp_surface_stat.axe.${y}") || die("${Conf_File::stub}$Conf_File::tmp_surface_stat.axe.${y}: $!");
+    print W "@script_formula\n@script_final_axe";
+    close(W);
+    $rank_of_hits_in_one_month_of_one_year++;
+  } # End foreach my $y (@l_y)
+} # End sub create_functions
+
+
+=head1 FUNCTION create_surface_stat_file
+
+We need to calculate min and max for x and y.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+None.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+$min_x: minimum for x.
+
+$min_y: minimum for y.
+
+$max_x: maximum for x.
+
+$max_y: maximum for y.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:>  Jul 2004
+
+- I<Created on:> Jul 2004
+
+=back
+
+=cut
+
+sub calculate_min_max_for_xy { # Begin sub calculate_min_max_for_xy
+  my $tmp_x = 0;
+  my $tmp_y = 0;
+  my $min_x = 0;
+  my $max_x = 0;
+  my $min_y = 0;
+  my $max_y = 0;
+  my @file = ();
+  
+  foreach my $y (@Conf_File::subject) { # Begin foreach my $y (@Conf_File::subject)
+    chomp $y;
+    open(R,"${Conf_File::stub}$Conf_File::img_surface_stat.${y}.stat");
+    @file = <R>;
+    close(R);
+    foreach my $l (@file) { # Begin foreach my $l (@file)
+      chomp $l;
+      ($tmp_x,$tmp_y) = split(/\ /,$l);
+      if ($tmp_x > $max_x) { # Begin if ($tmp_x > $max_x)
+	$max_x = $tmp_x ;
+      } # End if ($tmp_x > $max_x)
+      elsif ($tmp_x < $min_x) { # Begin elsif ($tmp_x < $min_x)
+	$min_x = $tmp_x;
+      }  # End elsif ($tmp_x < $min_x)
+      elsif ($tmp_y < $max_y) { # Begin elsif ($tmp_y < $max_y)
+	$max_y = $tmp_y;
+      } # End elsif ($tmp_y < $max_y)
+      elsif ($tmp_y < $min_y) { # Begin elsif ($tmp_y < $min_y)
+	$min_y = $tmp_y;
+      } # End elsif ($tmp_y < $min_y)
+	} # End foreach my $l (@file)
+  } # End foreach my $y (@Conf_File::subject)
+  return ($min_x,$min_y,$max_x,$max_y);
+} # End sub calculate_min_max_for_xy
+
+
+=head1 FUNCTION create_surface_stat_file
+
+We create img to from file $Conf_File::stub/$Conf_File::tmp_surface_stat.$y.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+None.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+0: ok.
+
+-1: nok.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:>  Jul 2004
+
+- I<Created on:> Jul 2004
+
+=back
+
+=cut
+
+sub create_file_img_surface { # Begin sub create_file_img_surface
+  my $l_rank = @l_y;
+  my @my_l_y = @l_y;
+  my @script = ("set term pbm color\n","set multiplot\n","set noxtics\n","set noytics\n");
+  my $plotting_script = "plot ";
+  my @f = ();
+  my $k = 0;
+  my @label = ();
+  my $min_x = 0;
+  my $min_y = 0;
+  my $max_x = 0;
+  my $max_y = 0;
+  my $label_year = ();
+  my $min_year_plotting = 0;
+  my $max_year_plotting = 0;
+  
+  if ($l_rank == 1) { # Begin if ($l_rank == 1)
+    @script = (@script,"set boxwidth 0.5 relative \n");
+  } # End if ($l_rank == 1)
+  else { # Begin else
+    # calculate drawing 
+    foreach my $y (@l_y) { # Begin foreach my $y (@l_y)
+      my $x_coord;
+	    my $y_coord;
+      my @stat_f;
+      
+      chomp($y);
+      open(RF,"${Conf_File::stub}$Conf_File::tmp_surface_stat.axe.${y}") || die ("create file img  ${Conf_File::stub}$Conf_File::tmp_surface_stat.axe.${y}");
+      @f = <RF>;
+      close(RF);
+      open(GNUPLOT,"|${Conf_File::gnuplot_exe} -persist 2>  ${Conf_File::stub}$Conf_File::img_surface_stat.axe.${y}.stat") || die ("create file img  ${Conf_File::stub}$Conf_File::img_surface_stat.axe.${y}.stat");
+      print GNUPLOT "@f\n";
+      close(GNUPLOT);
+      open(RRR,"${Conf_File::stub}$Conf_File::img_surface_stat.axe.${y}.stat");
+      @stat_f = <RRR>;
+      close(RRR);
+      # we calculate min year value and max year value plotting in order to make the drawing better
+      foreach my $line_calculated (@stat_f) { # Begin foreach my $line_calculated (@stat_f)
+	my $xval = ();
+	my $yval = ();
+	chomp($line_calculated);
+	($xval,$yval) = split(/\t/,$line_calculated);
+	if ($min_year_plotting < $yval) { # Begin if ($min_year_plotting < $yval)
+	  $min_year_plotting = $yval;
+	} # End if ($min_year_plotting < $yval)
+	elsif ($max_year_plotting > $yval) { # Begin elsif ($max_year_plotting > $yval)
+	  $max_year_plotting = $yval;
+	} # End elsif ($max_year_plotting > $yval)
+      } # End foreach my $line_calculated (@stat_f)
+      
+      # we keep calculating
+      foreach my $l (@stat_f) { #  Begin foreach my $l (@stat_f)
+	#                         We get last line (that's max to be used for labelling axe).
+	$labels[$k] = $l;
+	chomp $labels[$k];
+	$labels[$k] =~ s/\ /\,/g;
+      } # End foreach my $l (@stat_f)
+      ($x_coord,$y_coord) = split(/\,/, $labels[$k]);
+      $x_coord = ($x_coord > 0) ? ($x_coord-10):($x_coord+10);
+      $y_coord = ($y_coord > 0) ? ($y_coord-10):($y_coord+10);
+      $y_coord = ($y_coord == 0) ? ($y_coord-20):($y_coord);
+      $label[$k] = "set label \"$l_y[$k]\" at  $x_coord,$y_coord\n";
+      open(GET_LAST_COORD_LABEL_YEAR,"${Conf_File::stub}$Conf_File::img_surface_stat.axe.${y}.stat");
+      my @list_coord_year = <GET_LAST_COORD_LABEL_YEAR>;
+      close(GET_LAST_COORD_LABEL_YEAR);
+      
+      open(GET_LAST_COORD_LABEL_YEAR,">${Conf_File::stub}$Conf_File::img_surface_stat.axe.${y}.stat");
+      print GET_LAST_COORD_LABEL_YEAR @list_coord_year[0..(scalar(@list_coord_year)-4)] ;
+      close(GET_LAST_COORD_LABEL_YEAR);
+      
+      my @rev = reverse(@list_coord_year);
+      chomp(@rev);
+      my ($x_lbel_year,$y_lbel_year) = split(/\t/,$rev[0]);
+      $label_year = "$label_year set label \"$l_y[$k]\" at $x_lbel_year,$y_lbel_year\n";
+      $plotting_script = "$plotting_script '${Conf_File::stub}$Conf_File::img_surface_stat.axe.${y}.stat' notitle with lines lw 5 , ";
+      #	    $plotting_script = "$plotting_script '${Conf_File::stub}$Conf_File::img_surface_stat.axe.${y}.stat' title \"Year $my_l_y[$k]\" with lines lw 5 , ";
+      $k++;
+    } # End foreach my $y (@l_y)
+  } # End else
+  #    print "----->$label_year<---\n";
+  $plotting_script =~ s/\ *$//g;
+  $k = 0;
+  
+  foreach my $y (@{Conf_File::subject}) { # Begin foreach my $y (@{Conf_File::subject})
+    open(RF,"$Conf_File::stub/$Conf_File::tmp_surface_stat.${y}") || die("file $Conf_File::stub/$Conf_File::tmp_surface_stat.${y} in create_file_img doesn't exist");
+    @f = <RF>;
+    close(RF);
+    open(GNUPLOT,"|${Conf_File::gnuplot_exe} -persist 2>  ${Conf_File::stub}$Conf_File::img_surface_stat.${y}.stat") || die ("create file img  ${Conf_File::stub}$Conf_File::img_surface_stat.${y}.stat");
+    print GNUPLOT "@f\n";
+    close(GNUPLOT);
+    $plotting_script = "$plotting_script '${Conf_File::stub}$Conf_File::img_surface_stat.${y}.stat' title \"Hits in $y\" with lines , ";
+    $k++;
+  }  # End foreach my $y (@{Conf_File::subject})
+  $plotting_script =~ s/\ *\,\ *$//g;
+  
+  # next few operations are used to center graphic in the image with x coordinates
+  
+  ($min_x,$min_y,$max_x,$max_y) = &calculate_min_max_for_xy();
+  $min_x = ($min_x + (($min_x > 0) ? +50.0: -50.0));
+  $max_x = ($max_x + (($max_x > 0) ? +100.0: -100.0));
+  $min_y = ($min_y + (($min_y > 0) ? +50.0: -50.0));
+  $max_y = ($max_y + (($max_y > 0) ? +50.0: -50.0)) ;
+  
+  $min_year_plotting = (($min_year_plotting < 0) ? ($min_year_plotting - 10) : ($min_year_plotting + 10));
+  $max_year_plotting = (($max_year_plotting < 0) ? ($max_year_plotting - 10) : ($max_year_plotting + 10));
+  
+  @script = (@script,
+	     &Conf_File::set_title("Most visited modules successfully\\nover ".@l_y." year(s)",
+				   $Conf_File::SURFACE,$min_x,
+				   ($max_year_plotting+60),
+				   $max_x,($min_year_plotting+60)),
+	     "set xrange [$min_x:($max_x)]\n");
+  
+  # end for centering graph in image
+  
+  $plotting_script =~ s/\,\ *$//g;
+  
+  @script = (@script,"$label_year\n","set yrange [($min_year_plotting):($max_year_plotting)]\n"," $plotting_script\n");
+  
+  print "Content-type: image/gif\n\n";
+  binmode STDOUT;
+  open(GP,"|$Conf_File::gnuplot_exe -raise -persist | $Conf_File::ppmtogif_exe") or die "no gnuplot   |$Conf_File::gnuplot_exe -raise -persist | $Conf_File::ppmtogif_exe $!";
+  print GP "@script";
+  close(GP);
+} # End sub create_file_img_surface
+
+
+=head1 FUNCTION remove_surface_tmp
+
+Remove temporary files.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+None.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:>  Jul 2004
+
+- I<Created on:> Jul 2004
+
+=back
+
+=cut
+
+sub remove_surface_tmp { # Begin sub remove_surface_tmp
+  system("rm -f ${Conf_File::stub}$Conf_File::img_surface_stat*.stat ${Conf_File::stub}/${Conf_File::tmp_surface_stat}.*");
+} # End sub remove_surface_tmp
+
+
+=head1 FUNCTION create_functions_to_help_plotting
+
+We create a function that help to plot: calc_x(), calc_y.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+None.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:>  Jul 2004
+
+- I<Created on:> Jul 2004
+
+=back
+
+=cut
+
+sub create_functions_to_help_plotting { # Begin sub create_functions_to_help_plotting
+  open(F2,">$Conf_File::script_contains_formula_for_surface ") ||
+    die("file $Conf_File::script_contains_formula_for_surface  doesn't exist");
+  print F2 "calc_x(x,list_of_subject,k) = x * cos((_&angle&_)/list_of_subject*(k))\n";
+  print F2 "calc_y(y,list_of_subject,k) = y * sin((_&angle&_)/list_of_subject*(k))";
+  close(F2);
+} # End sub create_functions_to_help_plotting
+
+
+=head1 FUNCTION look_year_base
+
+Look years in stat file (function is redundant already done).
+
+=head2 PARAMETER(S)
+
+=over 4
+
+None.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+Returns the peace of file that contains the given year and data.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:>  Jul 2004
+
+- I<Created on:> Jul 2004
+
+=back
+
+=cut
+
+sub look_year_base { # Begin sub look_year_base
+  my @file_stat = @_;
+  my @list_year = ();
+  my $last_year_stored = 0;
+  my $current_year = 0;
+  my @other = ();
+  
+  foreach my $i (@file_stat) { # Begin foreach my $i (@file_stat)
+    ($current_year,@other) = split(/\ /,$i);
+    if ( $last_year_stored < $current_year) { # Begin if ( $last_year_stored < $current_year)
+      $last_year_stored = $current_year;
+      @list_year = (@list_year,$current_year);
+    }  # End if ( $last_year_stored < $current_year)
+  } # End foreach my $i (@file_stat)
+  return  @list_year;
+}  # End sub look_year_base
+
+
+=head1 FUNCTION sub coordinates_calculated
+
+Calculates new coordinate according to stat_file that's according to one subject in one year (set by array @file_stat).
+to sum up: we return the list of hits in one year according to a given year and a given subject.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$subj: that's the subject.
+
+@file_stat: that's the file that contains stats (hits) about connexions.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:>  Jul 2004
+
+- I<Created on:> Jul 2004
+
+=back
+
+=cut
+
+sub coordinates_calculated { # Begin sub coordinates_calculated
+  my ($subj,@file_stat) = @_;
+  my @list_of_hits_of_one_subject_in_a_given_year = ();
+  my $last_year_stored = 0;
+  my $current_year = 0;
+  my @other = ();
+  my $temp_field = 0;
+  my $month_cpt = 1;
+  my $hits = ();
+  my $month = ();
+  
+  foreach my $one_line_file_stat (@file_stat) { # Begin foreach my $one_line_file_stat (@file_stat)
+    chomp($one_line_file_stat);
+    ($current_year,$month,$hits,@hits_by_subjects) = split(/\ /,$one_line_file_stat);
+    if ($last_year_stored == 0) { # Begin if ($last_year_stored == 0)
+      $last_year_stored = $current_year;
+      $temp_field = $hits_by_subjects[$subj-1];
+    }  # End if ($last_year_stored == 0)
+    elsif ($last_year_stored < $current_year) { # Begin elsif ($last_year_stored < $current_year)
+      $month_cpt = 1;
+      $last_year_stored = $current_year;
+      @list_of_hits_of_one_subject_in_a_given_year = (@list_of_hits_of_one_subject_in_a_given_year,$temp_field);
+      $temp_field = $hits_by_subjects[$subj-1];
+    } # End elsif ($last_year_stored < $current_year)
+    else { # Begin else
+      $month_cpt++;
+      $temp_field += $hits_by_subjects[$subj-1];
+    }  # End else
+  } # End foreach my $one_line_file_stat (@file_stat)
+  # We return list of info within a year.
+  @list_of_hits_of_one_subject_in_a_given_year = (@list_of_hits_of_one_subject_in_a_given_year,$temp_field);
+  return  @list_of_hits_of_one_subject_in_a_given_year;
+} # End sub coordinates_calculated
+
+
+=head1 FUNCTION sub get_welcome_message_for_surface
+
+Prints message that welcomes user. The message changes when image is created or not.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+None.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:>  Oct 19th 2006
+
+- I<Last modification:>  Jul 2004
+
+- I<Created on:> Jul 2004
+
+=back
+
+=cut
+
+sub get_welcome_message_for_surface { # Begin sub get_welcome_message_for_surface
+  return "Get <a href=\"counter.cgi?service=printSurface\" style='cursor: help'>graph</a> for surface\n";
+} # End sub get_welcome_message_for_surface
+
+
+=head1 FUNCTION sub print_image_surface_page
+
+This function prints image. If image exists then a page is printed with graphic.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+None.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:>  Jul 2004
+
+- I<Created on:> Jul 2004
+
+=back
+
+=cut
+
+sub print_image_surface_page { # Begin sub print_image_surface_page
+  if (&is_surface_image_exists() == 0) { # Begin if (&is_surface_image_exists() == 0)
+    &Counter::my_header;
+    print "<center>\n<img src=\"./../.gnuplot/surface_image_stat.gif\">\n</center>\n<br><br>\nGo <a href='JavaScript:history.back()'>back</a>\n</body>\n";
+  } # end if (&is_surface_image_exists() == 0)
+} # End sub print_image_surface_page
+
+
+=head1 FUNCTION sub print_image_hit_page
+
+This function prints image. If image exists then a page is printed with graphic.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+None.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:>  Jul 2004
+
+- I<Created on:> Jul 2004
+
+=back
+
+=cut
+
+sub print_image_hit_page { # Begin sub print_image_hit_page
+  if (&is_surface_image_exists() == 0) { # Begin if (&is_surface_image_exists() == 0)
+    &Counter::my_header;
+    print "<center>\n<img src=\"./../.gnuplot/current_stat.gif\">\n</center>\n<br><br>\nGo <a href='JavaScript:history.back()'>back</a>\n</body>\n";
+  } # End if (&is_surface_image_exists() == 0)
+} # End sub print_image_hit_page
+
+
+=head1 FUNCTION sub is_surface_image_exists
+
+This function looks if image $Conf_File::img_surface_stat.gif exists ok = 0 ko -1
+
+=head2 PARAMETER(S)
+
+=over 4
+
+None.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+0: ok.
+
+-1: ko.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:>  Jul 2004
+
+- I<Created on:> Jul 2004
+
+=back
+
+=cut
+
+sub is_surface_image_exists { # Begin sub is_surface_image_exists
+  return (-f "${Conf_File::stub}$Conf_File::img_surface_stat.gif") ? 0 : -1;
+}  # End sub is_surface_image_exists
+
+
+=head1 FUNCTION sub get_first_and_last_date
+
+This function looks in DB and rreturn first year and last year recorded.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+None.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+First and last year.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:>  Sep 21st 2006
+
+- I<Created on:> Sep 21st 2006
+
+=back
+
+=cut
+
+sub get_first_and_last_date { # Begin sub get_first_and_last_date
+  open(FILE_STAT,"$Conf_File::stub/$Conf_File::file_stat") || die("file $Conf_File::stub$Conf_File::file_stat  doesn't exist: $!");
+  my @my_file_stat = <FILE_STAT>;
+  close(FILE_STAT);
+
+  return (
+	  (split(/\ /,$my_file_stat[0]))[0],
+	  (split(/\ /,$my_file_stat[((scalar(@my_file_stat)-1) > 0) ? (scalar(@my_file_stat)-1) : 0]))[0]
+	 );
+} # End sub get_first_and_last_date
+
+
+=head1 SEE ALSO
+
+Look packages packages::Conf_File, FileHandle.
+
+=cut
+
+=head1 AUTHOR
+
+Current maintainer: M. Flotilla Reindeer, <flotilla.reindeer@laposte.net>
+
+=cut
+
+1;

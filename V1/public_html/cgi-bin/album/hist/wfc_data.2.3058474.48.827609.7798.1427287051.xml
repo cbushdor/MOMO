@@ -1,0 +1,105 @@
+	<current_observation>
+		<credit>Weather Underground NOAA Weather Station</credit>
+		<credit_URL>http://wunderground.com/</credit_URL>
+<termsofservice link="http://www.wunderground.com/weather/api/d/terms.html">This feed will be deprecated. Please switch to http://www.wunderground.com/weather/api/</termsofservice>
+		<image>
+		<url>http://icons.wxug.com/graphics/wu2/logo_130x80.png</url>
+		<title>Weather Underground</title>
+		<link>http://wunderground.com/</link>
+		</image>
+  <display_location>
+  <full>Malakoff, France</full>
+  <city>Malakoff</city>
+  <state></state>
+  <state_name>France</state_name>
+  <country>FR</country>
+  <country_iso3166>FR</country_iso3166>
+  <zip>00000</zip>
+  <latitude>48.827609</latitude>
+  <longitude>2.305847</longitude>
+  <elevation>72.00000000 ft</elevation>
+  </display_location>
+		<observation_location>
+		<full>Paris Orly, </full>
+		<city>Paris Orly</city>
+		<state></state>
+		<country>FR</country>
+		<country_iso3166>FR</country_iso3166>
+		<latitude>48.71694565</latitude>
+		<longitude>2.38444400</longitude>
+		<elevation>289 ft</elevation>
+		</observation_location>
+		<station_id>LFPO</station_id>
+		<observation_time>Last Updated on March 25, 1:30 PM CET</observation_time>
+		<observation_time_rfc822>Wed, 25 Mar 2015 12:30:00 GMT</observation_time_rfc822>
+		<observation_epoch>1427286600</observation_epoch>
+		<local_time>March 25, 1:37 PM CET</local_time>
+		<local_time_rfc822>Wed, 25 Mar 2015 12:37:08 GMT</local_time_rfc822>
+		<local_epoch>1427287028</local_epoch>
+		<weather>Mostly Cloudy</weather>
+		<temperature_string>48 F (9 C)</temperature_string>
+		<temp_f>48</temp_f>
+		<temp_c>9</temp_c>
+		<relative_humidity>58%</relative_humidity>
+		<wind_string>From the North at 10 MPH </wind_string>
+		<wind_dir>North</wind_dir>
+		<wind_degrees>360</wind_degrees>
+		<wind_mph>10</wind_mph>
+		<wind_gust_mph></wind_gust_mph>
+		<pressure_string>29.83 in (1010 mb)</pressure_string>
+		<pressure_mb>1010</pressure_mb>
+		<pressure_in>29.83</pressure_in>
+		<dewpoint_string>34 F (1 C)</dewpoint_string>
+		<dewpoint_f>34</dewpoint_f>
+		<dewpoint_c>1</dewpoint_c>
+		
+		<heat_index_string>NA</heat_index_string>
+		<heat_index_f>NA</heat_index_f>
+		<heat_index_c>NA</heat_index_c>
+		
+		
+		<windchill_string>NA</windchill_string>
+		<windchill_f>NA</windchill_f>
+		<windchill_c>NA</windchill_c>
+		
+		<visibility_mi>6.2</visibility_mi>
+		<visibility_km>10.0</visibility_km>
+		<icons>
+			<icon_set name="Default">
+				<icon_url>http://icons.wxug.com/i/c/a/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Smiley">
+				<icon_url>http://icons.wxug.com/i/c/b/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Generic">
+				<icon_url>http://icons.wxug.com/i/c/c/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Old School">
+				<icon_url>http://icons.wxug.com/i/c/d/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Cartoon">
+				<icon_url>http://icons.wxug.com/i/c/e/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Mobile">
+				<icon_url>http://icons.wxug.com/i/c/f/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Simple">
+				<icon_url>http://icons.wxug.com/i/c/g/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Contemporary">
+				<icon_url>http://icons.wxug.com/i/c/h/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Helen">
+				<icon_url>http://icons.wxug.com/i/c/i/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Incredible">
+				<icon_url>http://icons.wxug.com/i/c/k/mostlycloudy.gif</icon_url>
+			</icon_set>
+		</icons>
+		<icon_url_base>http://icons.wxug.com/graphics/conds/</icon_url_base>
+		<icon_url_name>.GIF</icon_url_name>
+		<icon>mostlycloudy</icon>
+		<forecast_url>http://www.wunderground.com/global/stations/07156.html</forecast_url>
+		<history_url>http://www.wunderground.com/history/airport/LFPO/2015/3/25/DailyHistory.html</history_url>
+		<ob_url>http://www.wunderground.com/cgi-bin/findweather/getForecast?query=48.71694565,2.38444400</ob_url>
+	</current_observation>

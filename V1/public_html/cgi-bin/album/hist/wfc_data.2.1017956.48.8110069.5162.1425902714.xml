@@ -1,0 +1,105 @@
+	<current_observation>
+		<credit>Weather Underground NOAA Weather Station</credit>
+		<credit_URL>http://wunderground.com/</credit_URL>
+<termsofservice link="http://www.wunderground.com/weather/api/d/terms.html">This feed will be deprecated. Please switch to http://www.wunderground.com/weather/api/</termsofservice>
+		<image>
+		<url>http://icons.wxug.com/graphics/wu2/logo_130x80.png</url>
+		<title>Weather Underground</title>
+		<link>http://wunderground.com/</link>
+		</image>
+  <display_location>
+  <full>Versailles, France</full>
+  <city>Versailles</city>
+  <state></state>
+  <state_name>France</state_name>
+  <country>FR</country>
+  <country_iso3166>FR</country_iso3166>
+  <zip>00000</zip>
+  <latitude>48.811007</latitude>
+  <longitude>2.101796</longitude>
+  <elevation>141.00000000 ft</elevation>
+  </display_location>
+		<observation_location>
+		<full>Toussus Le Noble, </full>
+		<city>Toussus Le Noble</city>
+		<state></state>
+		<country>FR</country>
+		<country_iso3166>FR</country_iso3166>
+		<latitude>48.75055695</latitude>
+		<longitude>2.11361098</longitude>
+		<elevation>528 ft</elevation>
+		</observation_location>
+		<station_id>LFPN</station_id>
+		<observation_time>Last Updated on March 9, 1:00 PM CET</observation_time>
+		<observation_time_rfc822>Mon, 09 Mar 2015 12:00:00 GMT</observation_time_rfc822>
+		<observation_epoch>1425902400</observation_epoch>
+		<local_time>March 9, 1:04 PM CET</local_time>
+		<local_time_rfc822>Mon, 09 Mar 2015 12:04:51 GMT</local_time_rfc822>
+		<local_epoch>1425902691</local_epoch>
+		<weather>Overcast</weather>
+		<temperature_string>52 F (11 C)</temperature_string>
+		<temp_f>52</temp_f>
+		<temp_c>11</temp_c>
+		<relative_humidity>76%</relative_humidity>
+		<wind_string>From the SE at 6 MPH </wind_string>
+		<wind_dir>SE</wind_dir>
+		<wind_degrees>130</wind_degrees>
+		<wind_mph>6</wind_mph>
+		<wind_gust_mph></wind_gust_mph>
+		<pressure_string>30.33 in (1027 mb)</pressure_string>
+		<pressure_mb>1027</pressure_mb>
+		<pressure_in>30.33</pressure_in>
+		<dewpoint_string>45 F (7 C)</dewpoint_string>
+		<dewpoint_f>45</dewpoint_f>
+		<dewpoint_c>7</dewpoint_c>
+		
+		<heat_index_string>NA</heat_index_string>
+		<heat_index_f>NA</heat_index_f>
+		<heat_index_c>NA</heat_index_c>
+		
+		
+		<windchill_string>NA</windchill_string>
+		<windchill_f>NA</windchill_f>
+		<windchill_c>NA</windchill_c>
+		
+		<visibility_mi>6.2</visibility_mi>
+		<visibility_km>10.0</visibility_km>
+		<icons>
+			<icon_set name="Default">
+				<icon_url>http://icons.wxug.com/i/c/a/cloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Smiley">
+				<icon_url>http://icons.wxug.com/i/c/b/cloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Generic">
+				<icon_url>http://icons.wxug.com/i/c/c/cloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Old School">
+				<icon_url>http://icons.wxug.com/i/c/d/cloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Cartoon">
+				<icon_url>http://icons.wxug.com/i/c/e/cloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Mobile">
+				<icon_url>http://icons.wxug.com/i/c/f/cloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Simple">
+				<icon_url>http://icons.wxug.com/i/c/g/cloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Contemporary">
+				<icon_url>http://icons.wxug.com/i/c/h/cloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Helen">
+				<icon_url>http://icons.wxug.com/i/c/i/cloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Incredible">
+				<icon_url>http://icons.wxug.com/i/c/k/cloudy.gif</icon_url>
+			</icon_set>
+		</icons>
+		<icon_url_base>http://icons.wxug.com/graphics/conds/</icon_url_base>
+		<icon_url_name>.GIF</icon_url_name>
+		<icon>cloudy</icon>
+		<forecast_url>http://www.wunderground.com/global/stations/07146.html</forecast_url>
+		<history_url>http://www.wunderground.com/history/airport/LFPN/2015/3/9/DailyHistory.html</history_url>
+		<ob_url>http://www.wunderground.com/cgi-bin/findweather/getForecast?query=48.75055695,2.11361098</ob_url>
+	</current_observation>

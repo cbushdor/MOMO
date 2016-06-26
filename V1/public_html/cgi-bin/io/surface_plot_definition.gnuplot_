@@ -1,0 +1,2 @@
+calc_x(x,list_of_subject,k) = x * cos((_&angle&_)/list_of_subject*(k))
+calc_y(y,list_of_subject,k) = y * sin((_&angle&_)/list_of_subject*(k))

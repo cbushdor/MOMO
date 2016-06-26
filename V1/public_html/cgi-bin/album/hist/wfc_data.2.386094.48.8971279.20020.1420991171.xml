@@ -1,0 +1,105 @@
+	<current_observation>
+		<credit>Weather Underground NOAA Weather Station</credit>
+		<credit_URL>http://wunderground.com/</credit_URL>
+<termsofservice link="http://www.wunderground.com/weather/api/d/terms.html">This feed will be deprecated. Please switch to http://www.wunderground.com/weather/api/</termsofservice>
+		<image>
+		<url>http://icons.wxug.com/graphics/wu2/logo_130x80.png</url>
+		<title>Weather Underground</title>
+		<link>http://wunderground.com/</link>
+		</image>
+  <display_location>
+  <full>Paris, France</full>
+  <city>Paris</city>
+  <state></state>
+  <state_name>France</state_name>
+  <country>FR</country>
+  <country_iso3166>FR</country_iso3166>
+  <zip>00000</zip>
+  <latitude>48.897128</latitude>
+  <longitude>2.386094</longitude>
+  <elevation>48.00000000 ft</elevation>
+  </display_location>
+		<observation_location>
+		<full>Paris Le Bourget, </full>
+		<city>Paris Le Bourget</city>
+		<state></state>
+		<country>FR</country>
+		<country_iso3166>FR</country_iso3166>
+		<latitude>48.96722031</latitude>
+		<longitude>2.42722201</longitude>
+		<elevation>217 ft</elevation>
+		</observation_location>
+		<station_id>LFPB</station_id>
+		<observation_time>Last Updated on January 11, 4:30 PM CET</observation_time>
+		<observation_time_rfc822>Sun, 11 Jan 2015 15:30:00 GMT</observation_time_rfc822>
+		<observation_epoch>1420990200</observation_epoch>
+		<local_time>January 11, 4:45 PM CET</local_time>
+		<local_time_rfc822>Sun, 11 Jan 2015 15:45:48 GMT</local_time_rfc822>
+		<local_epoch>1420991148</local_epoch>
+		<weather>Mostly Cloudy</weather>
+		<temperature_string>46 F (8 C)</temperature_string>
+		<temp_f>46</temp_f>
+		<temp_c>8</temp_c>
+		<relative_humidity>66%</relative_humidity>
+		<wind_string>From the West at 9 MPH </wind_string>
+		<wind_dir>West</wind_dir>
+		<wind_degrees>260</wind_degrees>
+		<wind_mph>9</wind_mph>
+		<wind_gust_mph></wind_gust_mph>
+		<pressure_string>30.39 in (1029 mb)</pressure_string>
+		<pressure_mb>1029</pressure_mb>
+		<pressure_in>30.39</pressure_in>
+		<dewpoint_string>36 F (2 C)</dewpoint_string>
+		<dewpoint_f>36</dewpoint_f>
+		<dewpoint_c>2</dewpoint_c>
+		
+		<heat_index_string>NA</heat_index_string>
+		<heat_index_f>NA</heat_index_f>
+		<heat_index_c>NA</heat_index_c>
+		
+		
+		<windchill_string>42 F (6 C)</windchill_string>
+		<windchill_f>42</windchill_f>
+		<windchill_c>6</windchill_c>
+		
+		<visibility_mi>6.2</visibility_mi>
+		<visibility_km>10.0</visibility_km>
+		<icons>
+			<icon_set name="Default">
+				<icon_url>http://icons.wxug.com/i/c/a/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Smiley">
+				<icon_url>http://icons.wxug.com/i/c/b/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Generic">
+				<icon_url>http://icons.wxug.com/i/c/c/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Old School">
+				<icon_url>http://icons.wxug.com/i/c/d/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Cartoon">
+				<icon_url>http://icons.wxug.com/i/c/e/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Mobile">
+				<icon_url>http://icons.wxug.com/i/c/f/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Simple">
+				<icon_url>http://icons.wxug.com/i/c/g/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Contemporary">
+				<icon_url>http://icons.wxug.com/i/c/h/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Helen">
+				<icon_url>http://icons.wxug.com/i/c/i/mostlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Incredible">
+				<icon_url>http://icons.wxug.com/i/c/k/mostlycloudy.gif</icon_url>
+			</icon_set>
+		</icons>
+		<icon_url_base>http://icons.wxug.com/graphics/conds/</icon_url_base>
+		<icon_url_name>.GIF</icon_url_name>
+		<icon>mostlycloudy</icon>
+		<forecast_url>http://www.wunderground.com/global/stations/07150.html</forecast_url>
+		<history_url>http://www.wunderground.com/history/airport/LFPB/2015/1/11/DailyHistory.html</history_url>
+		<ob_url>http://www.wunderground.com/cgi-bin/findweather/getForecast?query=48.96722031,2.42722201</ob_url>
+	</current_observation>

@@ -1,0 +1,1001 @@
+package GraphMonthly;
+use CGI::Carp qw(fatalsToBrowser); 
+
+# +-------------------------------+
+# | GraphMothly.pm                |
+# | Written     on 10/2003        |
+# | Last update on May 2006       |
+# +-------------------------------+
+
+use Exporter;
+our @ISA = qw (Exporter);
+our @Export = qw ( &create_stat_bar );
+
+# use strict;
+use packages::Conf_File;
+#use strict;
+use CGI::Carp;
+
+=head1 ABSTRACT
+
+This package is used to count monthly hits.
+
+=head2 LIST OF FUNCTIONS
+
+=over 4
+
+create_stat_bar
+date_choice
+fillBlank
+isAlreadyHitsIn
+isAlreadyIn
+returnMaxXToPlot
+returnMaxYToPlot
+setLabelsOnGraphics
+sumUp
+update
+xtics_set
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF MODIFICATIONS
+
+=over 4
+
+- I<Last modification:> Jul 2004
+
+- I<Created on:> Jan 2003
+
+=back
+
+=cut
+
+my @months = ("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec");
+
+=head1 FUNCTION create_stat_bar
+
+This function an image that draw statistic bar.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$name: that's the name.
+
+$name_script_gnuplot: that's the name of the script.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub create_stat_bar { # Begin sub create_stat_bar
+	my @gnuplot = ();
+	my $name = $_[0];
+	my $name_script_gnuplot = $_[1];
+	my $year_asked = $_[2];
+	my @list_all_years = &update("$name");
+	
+	print "Content-type: image/gif\n\n";
+	binmode OUTPUT;
+	for $one_year (reverse @list_all_years) { # Begin for $one_year (reverse @list_all_years)
+		my $max_plot_x = 0;
+		chomp($one_year);
+		if ($year_asked == $one_year) { # Begin if ($year_asked == $one_year)
+		  @gnuplot = &xtics_set("$name","$name_script_gnuplot",2,"$one_year");
+		  open(G,"|${Conf_File::gnuplot_exe}|${Conf_File::ppmtogif_exe}");
+		  print G "set term pbm color\n";
+		  print G @gnuplot;
+		  print G "quit";
+		  close(G);
+		  $debug++;
+		} # End if ($year_asked == $one_year)
+		system("chmod 755 $Conf_File::root_gnuplot_stat/monthly$one_year.gif");
+	#		system("mv $Conf_File::root_gnuplot_stat/monthly$one_year.gif $Conf_File::root_gnuplot_stat");
+		$plot_x = 0;
+		$max_plot_x = 0;
+	} # End for $one_year (reverse @list_all_years)
+} # End sub create_stat_bar
+
+
+=head1 FUNCTION update
+
+This function do updates.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$name: that's the name of the file to load and, to update.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+Returns the list of the year.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub update { # Begin sub update
+	local ($name,@list_years,@o,$prev,$my_line,$my_new_year,@oth);
+	$name = $_[0];
+	
+	@list_years = ();
+	open(R,"$name");
+	@o = <R>;
+	close(R);
+	$prev = 0;
+	for $my_line (@o) { # Begin for $my_line (@o)
+			chomp($my_line);
+			($my_new_year,@oth) = split(/\ +/,$my_line);
+			if ($my_new_year != $prev) { # Begin if ($my_new_year != $prev)
+				@list_years = ($my_new_year,@list_years);
+				$prev = $my_new_year;
+			} # End if ($my_new_year != $prev)
+	} # End for $my_line (@o)
+	return @list_years;
+} # End sub update
+
+
+=head1 FUNCTION sumUp
+
+This function do sum over DB.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$name: That's the name of DB to load.
+
+$precision: precision advised when stats are calculated.
+
+$local_year: that's the year where  the sum up as to be done.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+Returns the list of the year.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub sumUp { # Begin sub sumUp
+	$name = $_[0];
+	$precision = $_[1];
+	$local_year = $_[2];
+	
+	open(R,"$name");
+	@o = <R>;
+	close(R);
+	$sum = 0;
+	for $m (@o){ # Begin for $m (@o)
+		chomp($m);
+		($y,$f,$t,@k) = split(/\ +/,$m);
+		if ($local_year == $y) { # Begin if ($local_year == $y)
+		    $sum += $t;
+		} # End if ($local_year == $y)
+	} # End for $m (@o)
+	open(R,">$name.tmp");
+	for $m (@o){ # Begin for $m (@o)
+		chomp($m);
+		($y,$f,$t,@k) = split(/\ +/,$m);
+		$res = "$y $f $t ";
+		for $l (@k) { # Begin for $l (@k)
+		    if ($sum == 0) { # Begin if ($sum == 0)
+			$res = "$res 0 ";
+		    } # End if ($sum == 0)
+		    else { # Begin else
+			$st = (($l*100) / $sum);
+			$st = sprintf "%.${precision}f",$st;
+			$res = "$res $st ";
+		    } # End else
+		} # End for $l (@k)
+		print R "$res\n";
+	} # End for $m (@o)
+	close(R);
+} # End sub sumUp
+
+
+
+=head1 FUNCTION xtics_set
+
+This function sets xtics according to DB.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$name: That's the name of DB to load.
+
+$script: that's the script.
+
+$precision: precision advised when stats are calculated.
+
+$xtics_year: that's the year where  the sum up as to be done.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+Returns the list inorder to set xtics.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub xtics_set { # Begin sub xtics_set
+	local ($name,$script,$precision,$xtics_year,$label_absice_ord,$counter,$xtiqs,$labels,$c,$first_pass,$num_subj);
+	local ($counter_label, $newlab,$using_plot,$using_plot2,$loc, @boxes_arr);
+	local ($newlab,$labels,$boxes,$count,$loc,@boxes_arr,$dat);
+
+	$name = $_[0];
+	$script = $_[1];
+	$precision = $_[2];
+	$xtics_year = $_[3];
+	
+	$label_absice_ord = "set xlabel \"Months during year $xtics_year\\n\\n\"\nset ylabel \"Percentage on hits for each months\\nduring year $xtics_year\"\n";
+	unlink("$name.tmp2");   
+	
+	@rr = ( "set multiplot\n", "set boxwidth 1.0\n", "set ytics 0,10\n" );
+	&sumUp($name,$precision,$xtics_year);
+	
+	$counter = 1;
+	$xtiqs = ();
+	$labels = ();
+	$c = 1;
+	$labels = ();
+	$first_pass = 1;
+	$num_subj = @Conf_File::subject;
+	$counter_label = 1.5;
+	for $i (@months) { # Begin for $i (@months)
+		$newlab = &setLabelsOnGraphics($name,$xtics_year,$i);
+		$labels = "$labels\n$newlab";
+		
+		$xtiqs = "$xtiqs,\"$i\" " . $counter_label;
+		$counter_label += ($num_subj+1);
+		$counter++;
+	} # End for $i (@months)
+	$using_plot = ();
+	$using_plot2 = ();
+	$count = 2;
+	$boxes = ();
+	$loc = 0;
+	@boxes_arr = ();
+	for $pp (@Conf_File::subject) { # Begin for $pp (@Conf_File::subject)
+		    $using_plot2 = "$using_plot2:$count";
+		    $boxes = "$boxes,\"$name.tmp2\" using 2:".($count+1)." title \"".$Conf_File::subject[$loc]."\" with boxes"; 
+		    $loc++;
+		$count++;
+	} # End for $pp (@Conf_File::subject)
+	$boxes =~ s/^\,//g;
+	$using_plot = "$using_plot+\$$count";
+	$xtiqs =~ s/^\,//g;
+	$xtiqs = "set xtics ($xtiqs)\n";
+	$using_plot =~ s/^\+//g;
+	$using_plot2 =~ s/^\://g;
+	$using_plot = "plot [0:".(&returnMaxXToPlot("$name")+5)."] [0:".(&returnMaxYToPlot("$name")+10)."] $boxes\n";
+		$ymax = (&returnMaxYToPlot("$name")+10);
+	$dat = `date`;
+	chomp($dat);
+	return (@rr, &Conf_File::set_title("\\nStats on web hit frequencies\\non different subjects over one year\\n","$Conf_File::BAR","-6","$ymax",0,0),"$label_absice_ord","$xtiqs","$using_plot");
+} # End sub xtics_set
+
+
+=head1 FUNCTION date_choice
+
+This function sets dates that can be choosen.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+None.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub date_choice { # Begin sub date_choice
+	local ($choice,$counter);
+	$counter = 1;
+	$choice = $_[0];
+	for $i (@months) { # Begin for $i (@months)
+		if ($i eq $choice) { # Begin if ($i eq $choice)
+		    return $counter;
+		} # End if ($i eq $choice)
+		$counter++;
+	} # End for $i (@months)
+} # End sub date_choice
+ 
+
+=head1 FUNCTION setLabelsOnGraphics
+
+This function sets labels for the screen according to some specific settings.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$file_stat_name: that's the name of DB.
+
+$cur_year: tyhat's current year.
+
+$rank_month: that's the rank of the month in a given year.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub setLabelsOnGraphics {
+	local ($file_stat_name, $file_stat_name,$m,@file,$y,$m,$t,@o,$max,$lab,@percent_in_month_hit,@percent_in_month);
+	
+	@percent_in_month = ();
+	@percent_in_month_hit = ();
+	
+	#    unlink("$name.tmp2");   
+	$file_stat_name = $_[0];
+#    print "=====>>>>$file_stat_name<<<<<<<<<\n";
+	$cur_year = $_[1];
+	$rank_month = &date_choice($_[2]);
+	
+	open(W,">>$file_stat_name.tmp2");
+	open(R,"$file_stat_name.tmp"); 
+	@file = <R>;
+	close(R);
+	$lab = ();
+	
+	for $l (@file) {
+			chomp($l);
+			($y,$m2,$t,@o) = split(/\ +/,$l);
+		#	$plot_x++;
+			$max = 0;
+			$c = 0;
+	
+			if ($cur_year == $y) {
+				for $percent (@o) {
+					if ($rank_month == $m2) {
+			#		print  "=$c===>$y ".($plot_x+$m)." ".(&fillBlank($c)) ."$percent\n";
+						print W "$y ".($plot_x+$m2)." ".&fillBlank($c) ."$percent\n";
+						if (&isAlreadyIn($percent,@percent_in_month) < 0) {
+							@percent_in_month = (@percent_in_month,$percent);
+							if ($percent > 3) {
+								$lab = "set label \"$percent\%\" at ($plot_x+$m2),($percent+4) right rotate\n$lab";
+							}
+						}
+						if (&isAlreadyHitsIn($t,@percent_in_month_hit) < 0) {
+							@percent_in_month_hit = (@percent_in_month_hit,$t);
+							if ($percent > 0) {
+								$lab = "set label \"$t\" at ($plot_x+$m2+3),($percent+6) right\n$lab";
+							}
+						}
+	
+						$c++;
+						$plot_x++;
+					}
+				}
+			}
+	}
+	# print "$lab";
+	close(W);# $max_plot_x = 0;
+	return $lab;
+}
+
+
+=head1 FUNCTION fillBlanck
+
+This function fills blancks with a zero (number of zero is closely tie to the number of subjects) in DB. This is used when DB is created or new year begins. This is only one line.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$number_of_subjects: that's number of subjects.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+Returns one line of zero. Each zeros must be seperated by a space character.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub fillBlank {
+	local ($blanck_lack,$j,$return_value);
+
+	$blanck_lack = $_[0];
+	$j=1;
+	$return_value = ();
+	while ($j <= $blanck_lack) {
+		$return_value = "0 $return_value";
+		$j++;
+	}
+	return $return_value;
+}
+
+
+=head1 FUNCTION returnMaxXToPlot
+
+This function calcultes max X to plot.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$file_stat_name: that's DB file.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+Returns monthly hit.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub returnMaxXToPlot {
+	local ($max,$max_y,$yrs,$month_tmp,@tmp_rst,@file, $file_stat_name);
+	$file_stat_name = $_[0];
+	
+	open(R,"$file_stat_name.tmp2"); 
+	@file = <R>;
+	close(R);
+	
+	for $line_tmp (@file) {
+		chomp($line_tmp);
+		($yrs,$month_tmp,@tmp_rst) = split(/\ +/,$line_tmp);
+	}
+	return $month_tmp;
+}
+
+
+=head1 FUNCTION returnMaxYToPlot
+
+This function calcultes max Y to plot.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$file_stat_name: that's DB file.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+Returns monthly hit max (this sentence needs to be teared down).
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub returnMaxYToPlot {
+	local ($max,$max_y,$yrs,$month_tmp,@tmp_rst,@file, $file_stat_name);
+		local ($yrs,$month_tmp,@tmp_rst);
+	
+	$file_stat_name = $_[0];
+	
+	open(R,"$file_stat_name.tmp2"); 
+	@file = <R>;
+	close(R);
+	$max = 0;
+	
+	for $line_tmp (@file) {
+			chomp($line_tmp);
+			($yrs,$month_tmp,@tmp_rst) = split(/\ +/,$line_tmp);
+			for $max_y (@tmp_rst) {
+				if ($max < $max_y) {
+				$max = $max_y;
+				}
+			}
+	}
+	return $max;
+}
+	
+	# We store statistics in array to avoid printing twice on screen same value in month
+	# This function check value stored
+	
+	
+=head1 FUNCTION isAlreadyIn
+
+This function that stores statistics in array to avoid printing twice on screen same value in month. This function check value stored.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+None.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+0: if ok.
+
+-1: if ko.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub isAlreadyIn { # Begin sub isAlreadyIn
+	local ($current_per,@rest_per);
+
+	($current_per,@rest_per) = @_;
+	for $cur_per (@rest_per) { # Begin for $cur_per (@rest_per)
+		if ($cur_per == $current_per) { # Begin if ($cur_per == $current_per)
+			return 0;
+		} # End if ($cur_per == $current_per)
+	 } # End for $cur_per (@rest_per)
+	return -1;
+} # End sub isAlreadyIn
+
+# We store hits in array to avoid printing twice on screen same value in month
+# This function check value stored
+
+
+=head1 FUNCTION isAlreadyIn
+
+This function that stores statistics in array to avoid printing twice on screen same value in month. This function check value stored.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+None.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+0: if ok.
+
+-1: if ko.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub isAlreadyHitsIn { # Begin sub isAlreadyHitsIn
+	local ($current_per,@rest_per);
+	
+	($current_per,@rest_per) = @_;
+	for $cur_per (@rest_per) { # Begin for $cur_per (@rest_per)
+		if ($cur_per == $current_per) { # Begin if ($cur_per == $current_per)
+			return 0;
+		} # End if ($cur_per == $current_per)
+	} # End for $cur_per (@rest_per)
+	return -1;
+} # End sub isAlreadyHitsIn
+
+
+1;
+
+

@@ -1,0 +1,105 @@
+	<current_observation>
+		<credit>Weather Underground NOAA Weather Station</credit>
+		<credit_URL>http://wunderground.com/</credit_URL>
+<termsofservice link="http://www.wunderground.com/weather/api/d/terms.html">This feed will be deprecated. Please switch to http://www.wunderground.com/weather/api/</termsofservice>
+		<image>
+		<url>http://icons.wxug.com/graphics/wu2/logo_130x80.png</url>
+		<title>Weather Underground</title>
+		<link>http://wunderground.com/</link>
+		</image>
+  <display_location>
+  <full>Paris-8E-Arrondissement, France</full>
+  <city>Paris-8E-Arrondissement</city>
+  <state></state>
+  <state_name>France</state_name>
+  <country>FR</country>
+  <country_iso3166>FR</country_iso3166>
+  <zip>00000</zip>
+  <latitude>48.886940</latitude>
+  <longitude>2.315208</longitude>
+  <elevation>47.00000000 ft</elevation>
+  </display_location>
+		<observation_location>
+		<full>Paris Orly, </full>
+		<city>Paris Orly</city>
+		<state></state>
+		<country>FR</country>
+		<country_iso3166>FR</country_iso3166>
+		<latitude>48.71694565</latitude>
+		<longitude>2.38444400</longitude>
+		<elevation>289 ft</elevation>
+		</observation_location>
+		<station_id>LFPO</station_id>
+		<observation_time>Last Updated on February 18, 3:00 PM CET</observation_time>
+		<observation_time_rfc822>Thu, 18 Feb 2016 14:00:00 GMT</observation_time_rfc822>
+		<observation_epoch>1455804000</observation_epoch>
+		<local_time>February 18, 3:15 PM CET</local_time>
+		<local_time_rfc822>Thu, 18 Feb 2016 14:15:22 GMT</local_time_rfc822>
+		<local_epoch>1455804922</local_epoch>
+		<weather>light rain snow</weather>
+		<temperature_string>36 F (2 C)</temperature_string>
+		<temp_f>36</temp_f>
+		<temp_c>2</temp_c>
+		<relative_humidity>93%</relative_humidity>
+		<wind_string>From the SSW at 7 MPH </wind_string>
+		<wind_dir>SSW</wind_dir>
+		<wind_degrees>210</wind_degrees>
+		<wind_mph>7</wind_mph>
+		<wind_gust_mph></wind_gust_mph>
+		<pressure_string>29.95 in (1014 mb)</pressure_string>
+		<pressure_mb>1014</pressure_mb>
+		<pressure_in>29.95</pressure_in>
+		<dewpoint_string>34 F (1 C)</dewpoint_string>
+		<dewpoint_f>34</dewpoint_f>
+		<dewpoint_c>1</dewpoint_c>
+		
+		<heat_index_string>NA</heat_index_string>
+		<heat_index_f>NA</heat_index_f>
+		<heat_index_c>NA</heat_index_c>
+		
+		
+		<windchill_string>30 F (-1 C)</windchill_string>
+		<windchill_f>30</windchill_f>
+		<windchill_c>-1</windchill_c>
+		
+		<visibility_mi>3.7</visibility_mi>
+		<visibility_km>6.0</visibility_km>
+		<icons>
+			<icon_set name="Default">
+				<icon_url>http://icons.wxug.com/i/c/a/snow.gif</icon_url>
+			</icon_set>
+			<icon_set name="Smiley">
+				<icon_url>http://icons.wxug.com/i/c/b/snow.gif</icon_url>
+			</icon_set>
+			<icon_set name="Generic">
+				<icon_url>http://icons.wxug.com/i/c/c/snow.gif</icon_url>
+			</icon_set>
+			<icon_set name="Old School">
+				<icon_url>http://icons.wxug.com/i/c/d/snow.gif</icon_url>
+			</icon_set>
+			<icon_set name="Cartoon">
+				<icon_url>http://icons.wxug.com/i/c/e/snow.gif</icon_url>
+			</icon_set>
+			<icon_set name="Mobile">
+				<icon_url>http://icons.wxug.com/i/c/f/snow.gif</icon_url>
+			</icon_set>
+			<icon_set name="Simple">
+				<icon_url>http://icons.wxug.com/i/c/g/snow.gif</icon_url>
+			</icon_set>
+			<icon_set name="Contemporary">
+				<icon_url>http://icons.wxug.com/i/c/h/snow.gif</icon_url>
+			</icon_set>
+			<icon_set name="Helen">
+				<icon_url>http://icons.wxug.com/i/c/i/snow.gif</icon_url>
+			</icon_set>
+			<icon_set name="Incredible">
+				<icon_url>http://icons.wxug.com/i/c/k/snow.gif</icon_url>
+			</icon_set>
+		</icons>
+		<icon_url_base>http://icons.wxug.com/graphics/conds/</icon_url_base>
+		<icon_url_name>.GIF</icon_url_name>
+		<icon>snow</icon>
+		<forecast_url>http://www.wunderground.com/global/stations/07156.html</forecast_url>
+		<history_url>http://www.wunderground.com/history/airport/LFPO/2016/2/18/DailyHistory.html</history_url>
+		<ob_url>http://www.wunderground.com/cgi-bin/findweather/getForecast?query=48.71694565,2.38444400</ob_url>
+	</current_observation>

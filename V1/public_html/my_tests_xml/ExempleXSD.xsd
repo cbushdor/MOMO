@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<xs:schema 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- http://xformsinstitute.com/essentials/email.xsd -->
+     <xs:simpleType name="my-email-type">
+           <xs:restriction base="xs:string">
+	            <xs:pattern value="[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*@[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+(\.[A-Za-z0-9!#-'\*\+\-/=\?\^_`\{-~]+)*" />
+		          </xs:restriction>
+			     </xs:simpleType>
+			        <xs:simpleType name="my-phone-number-type">
+				      <xs:restriction base="xs:string">
+				               <xs:pattern value="[+]?\d+" />
+					             </xs:restriction>
+						        </xs:simpleType>
+							   <xs:simpleType name="date-or-datetime">
+							         <xs:union memberTypes="xs:date xs:dateTime" />
+								    </xs:simpleType>
+								       <xs:element name="annuaire">
+								             <xs:complexType>
+									              <xs:sequence>
+										                  <xs:element name="personne" minOccurs="0" maxOccurs="unbounded">
+												                 <xs:complexType>
+														                   <xs:sequence>
+																                        <xs:element name="prenom" type="xs:string" maxOccurs="1" />
+																			                     <xs:element name="role" type="xs:string" maxOccurs="1" />
+																					                          <xs:element name="email" type="my-email-type" maxOccurs="1" />
+																								                       <xs:element name="telephone" type="my-phone-number-type" minOccurs="0" maxOccurs="1" />
+																										                            <xs:element name="langage" minOccurs="0" maxOccurs="unbounded">
+																													                            <xs:complexType>
+																																                               <xs:sequence>
+																																			                                     <xs:element name="ModulePreferes" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+																																							                                </xs:sequence>
+																																											                           <xs:attribute name="name" type="xs:string" use="required" />
+																																														                           </xs:complexType>
+																																																	                        </xs:element>
+																																																				                     <xs:element name="commentaire" type="xs:string" maxOccurs="1" />
+																																																						                       </xs:sequence>   
+																																																								                         <xs:attribute name="miseajour" type="date-or-datetime" />
+																																																											                </xs:complexType>
+																																																													            </xs:element>
+																																																														             </xs:sequence>
+																																																															           </xs:complexType>
+																																																																      </xs:element>
+																																																																      </xs:schema>

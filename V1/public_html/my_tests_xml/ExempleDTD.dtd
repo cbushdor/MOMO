@@ -1,0 +1,15 @@
+<!ELEMENT annuaire (personne*) >
+<!ATTLIST annuaire 
+  xmlns:xsi CDATA #FIXED "http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation CDATA #IMPLIED
+> 
+<!ELEMENT personne (prenom,role,email,telephone?,langage?,commentaire)>
+<!ATTLIST personne miseajour CDATA #IMPLIED>
+<!ELEMENT langage ((ModulePreferes*)? | EMPTY)>
+<!ATTLIST langage name CDATA #REQUIRED>
+<!ELEMENT prenom (#PCDATA)>
+<!ELEMENT role (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT telephone (#PCDATA)>
+<!ELEMENT commentaire (#PCDATA)>
+<!ELEMENT ModulePreferes (#PCDATA)>

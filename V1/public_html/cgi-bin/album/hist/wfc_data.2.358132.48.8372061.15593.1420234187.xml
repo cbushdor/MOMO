@@ -1,0 +1,105 @@
+	<current_observation>
+		<credit>Weather Underground NOAA Weather Station</credit>
+		<credit_URL>http://wunderground.com/</credit_URL>
+<termsofservice link="http://www.wunderground.com/weather/api/d/terms.html">This feed will be deprecated. Please switch to http://www.wunderground.com/weather/api/</termsofservice>
+		<image>
+		<url>http://icons.wxug.com/graphics/wu2/logo_130x80.png</url>
+		<title>Weather Underground</title>
+		<link>http://wunderground.com/</link>
+		</image>
+  <display_location>
+  <full>Paris, France</full>
+  <city>Paris</city>
+  <state></state>
+  <state_name>France</state_name>
+  <country>FR</country>
+  <country_iso3166>FR</country_iso3166>
+  <zip>00000</zip>
+  <latitude>48.837206</latitude>
+  <longitude>2.358132</longitude>
+  <elevation>60.00000000 ft</elevation>
+  </display_location>
+		<observation_location>
+		<full>Paris Orly, </full>
+		<city>Paris Orly</city>
+		<state></state>
+		<country>FR</country>
+		<country_iso3166>FR</country_iso3166>
+		<latitude>48.71694565</latitude>
+		<longitude>2.38444400</longitude>
+		<elevation>289 ft</elevation>
+		</observation_location>
+		<station_id>LFPO</station_id>
+		<observation_time>Last Updated on January 2, 10:00 PM CET</observation_time>
+		<observation_time_rfc822>Fri, 02 Jan 2015 21:00:00 GMT</observation_time_rfc822>
+		<observation_epoch>1420232400</observation_epoch>
+		<local_time>January 2, 10:29 PM CET</local_time>
+		<local_time_rfc822>Fri, 02 Jan 2015 21:29:24 GMT</local_time_rfc822>
+		<local_epoch>1420234164</local_epoch>
+		<weather>shallow fog</weather>
+		<temperature_string>34 F (1 C)</temperature_string>
+		<temp_f>34</temp_f>
+		<temp_c>1</temp_c>
+		<relative_humidity>93%</relative_humidity>
+		<wind_string>From the West at 4 MPH </wind_string>
+		<wind_dir>West</wind_dir>
+		<wind_degrees>260</wind_degrees>
+		<wind_mph>4</wind_mph>
+		<wind_gust_mph></wind_gust_mph>
+		<pressure_string>30.63 in (1037 mb)</pressure_string>
+		<pressure_mb>1037</pressure_mb>
+		<pressure_in>30.63</pressure_in>
+		<dewpoint_string>32 F (0 C)</dewpoint_string>
+		<dewpoint_f>32</dewpoint_f>
+		<dewpoint_c>0</dewpoint_c>
+		
+		<heat_index_string>NA</heat_index_string>
+		<heat_index_f>NA</heat_index_f>
+		<heat_index_c>NA</heat_index_c>
+		
+		
+		<windchill_string>31 F (-1 C)</windchill_string>
+		<windchill_f>31</windchill_f>
+		<windchill_c>-1</windchill_c>
+		
+		<visibility_mi>6.2</visibility_mi>
+		<visibility_km>10.0</visibility_km>
+		<icons>
+			<icon_set name="Default">
+				<icon_url>http://icons.wxug.com/i/c/a/fog.gif</icon_url>
+			</icon_set>
+			<icon_set name="Smiley">
+				<icon_url>http://icons.wxug.com/i/c/b/fog.gif</icon_url>
+			</icon_set>
+			<icon_set name="Generic">
+				<icon_url>http://icons.wxug.com/i/c/c/fog.gif</icon_url>
+			</icon_set>
+			<icon_set name="Old School">
+				<icon_url>http://icons.wxug.com/i/c/d/fog.gif</icon_url>
+			</icon_set>
+			<icon_set name="Cartoon">
+				<icon_url>http://icons.wxug.com/i/c/e/fog.gif</icon_url>
+			</icon_set>
+			<icon_set name="Mobile">
+				<icon_url>http://icons.wxug.com/i/c/f/fog.gif</icon_url>
+			</icon_set>
+			<icon_set name="Simple">
+				<icon_url>http://icons.wxug.com/i/c/g/fog.gif</icon_url>
+			</icon_set>
+			<icon_set name="Contemporary">
+				<icon_url>http://icons.wxug.com/i/c/h/fog.gif</icon_url>
+			</icon_set>
+			<icon_set name="Helen">
+				<icon_url>http://icons.wxug.com/i/c/i/fog.gif</icon_url>
+			</icon_set>
+			<icon_set name="Incredible">
+				<icon_url>http://icons.wxug.com/i/c/k/fog.gif</icon_url>
+			</icon_set>
+		</icons>
+		<icon_url_base>http://icons.wxug.com/graphics/conds/</icon_url_base>
+		<icon_url_name>.GIF</icon_url_name>
+		<icon>fog</icon>
+		<forecast_url>http://www.wunderground.com/global/stations/07156.html</forecast_url>
+		<history_url>http://www.wunderground.com/history/airport/LFPO/2015/1/2/DailyHistory.html</history_url>
+		<ob_url>http://www.wunderground.com/cgi-bin/findweather/getForecast?query=48.71694565,2.38444400</ob_url>
+	</current_observation>
