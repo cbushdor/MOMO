@@ -1,11 +1,10 @@
-#!/usr/bin/perl
+#!/home1/derased/public_html/my_link_perl
 
 # +-------------------------------+
 # | album.cgi                     |
 # +-------------------------------+
 
 use Socket;
-use JSON;
 use File::stat;
 use locale;
 use MIME::Base64;
@@ -18,42 +17,40 @@ use Time::localtime;
 use Time::Local;
 use Try::Tiny;
 use Cwd;
-#use POSIX;
 
 
 use DateTime;
-use DateTime::TimeZone;
 use DateTime::Format::Strptime;
+use Data::Validate::IP qw(is_ipv4 is_ipv6);
 
 my $debug=0;# 0=false for no debug;1=true for debug
-my $id=();
 
-if($debug==1){ # Begin if($debug==true)
+if($debug==1){ # begin if($debug==true)
 	#print "case 1";
-	if( !-f "album/_debug_album_DO_NOT_REMOVE"){ # Begin if( !-f "album/_debug_album_DO_NOT_REMOVE")
-		if( !-f "album/debug_album_DO_NOT_REMOVE"){ # Begin if( -f "album/debug_album_DO_NOT_REMOVE")
+	if( !-f "album/_debug_album_DO_NOT_REMOVE"){ # begin if( !-f "album/_debug_album_DO_NOT_REMOVE")
+		if( !-f "album/debug_album_DO_NOT_REMOVE"){ # begin if( -f "album/debug_album_DO_NOT_REMOVE")
 			open(W,">album/debug_album_DO_NOT_REMOVE") or die("error $!");
 			close(W) or die("error $!");
-		} # End if( -f "album/debug_album_DO_NOT_REMOVE")
-	} # End if( !-f "album/_debug_album_DO_NOT_REMOVE")
-	else{ # Begin else
+		} # end if( -f "album/debug_album_DO_NOT_REMOVE")
+	} # end if( !-f "album/_debug_album_DO_NOT_REMOVE")
+	else{ # begin else
 		rename("album/_debug_album_DO_NOT_REMOVE","album/debug_album_DO_NOT_REMOVE");
-	} # End else
-} # End if($debug==true)
-else{ # Begin else
+	} # end else
+} # end if($debug==true)
+else{ # begin else
 	#print "case 2";
-	if( !-f "album/debug_album_DO_NOT_REMOVE"){ # Begin if( !-f "album/debug_album_DO_NOT_REMOVE")
-		if( !-f "album/_debug_album_DO_NOT_REMOVE"){ # Begin if( !-f "album/_debug_album_DO_NOT_REMOVE")
+	if( !-f "album/debug_album_DO_NOT_REMOVE"){ # begin if( !-f "album/debug_album_DO_NOT_REMOVE")
+		if( !-f "album/_debug_album_DO_NOT_REMOVE"){ # begin if( !-f "album/_debug_album_DO_NOT_REMOVE")
 			open(W,">album/_debug_album_DO_NOT_REMOVE") or die("error $!");
 			close(W) or die("error $!");
-		} # End if( -f "album/_debug_album_DO_NOT_REMOVE")
-	} # End if( !-f "album/debug_album_DO_NOT_REMOVE")
-	else{ # Begin else
-		if( !-f "album/_debug_album_DO_NOT_REMOVE"){ # Begin if( !-f "album/debug_album_DO_NOT_REMOVE")
+		} # end if( -f "album/_debug_album_DO_NOT_REMOVE")
+	} # end if( !-f "album/debug_album_DO_NOT_REMOVE")
+	else{ # begin else
+		if( !-f "album/_debug_album_DO_NOT_REMOVE"){ # begin if( !-f "album/debug_album_DO_NOT_REMOVE")
 			rename("album/debug_album_DO_NOT_REMOVE","album/_debug_album_DO_NOT_REMOVE");
-		} # End if( !-f "album/debug_album_DO_NOT_REMOVE")
-	} # End else
-} # End else
+		} # end if( !-f "album/debug_album_DO_NOT_REMOVE")
+	} # end else
+} # end else
 
 my $MyFile=();
 my $locdep="album";# where are stored informations
@@ -76,6 +73,7 @@ use io::MyNav;
 use io::MySec;
 
 # Written by shark bait ###
+my $timsec=time();
 # new set of tests
 
 # +-----------------------------------------+
@@ -83,7 +81,7 @@ use io::MySec;
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.238'; # Album release
+use constant ALBUM_REL               	=> '15.170'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
@@ -133,7 +131,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.15.238
+$VERSION=1.6.15.179
 
 =head1 ABSTRACT
 
@@ -212,31 +210,8 @@ under_construction_prompt
 
 =over 4
 
-- I<Last modification:v1.6.15.238> Apr 8 2016 minor bug noticed during tests at the public place. Spaces in the trip name was bathering the map printings. Regexp was added to remove this checks sub setGoogleID
-
-- I<Last modification:v1.6.15.234> Mar 3 2016 minor bug noticed during tests at the public place. Byug solved. Tested merely need some more tests see <DATETIME>.
-
-- I<Last modification:v1.6.15.233> Feb 26 2016 minor bug noticed during tests at the theatre. Bug event occur before it was expected 
-s.a lon lat calculated
-
-- I<Last modification:v1.6.15.230> Feb 26 2016 minor bug noticed. If trip name is Test 6 #20160225 trip is not recorded
-
-- I<Last modification:v1.6.15.219> Feb 26 2016 weird behavior lost param value due to order of input tag
-
-- I<Last modification:v1.6.15.215> Feb 15 2016 html page title enhanced now trip name added if one exists
-
-- I<Last modification:v1.6.15.214> Feb 15 2016 see sub setGoogleID
-
-- I<Last modification:v1.6.15.210> Feb 11 2016 see sub menu_admin_GoogleMap_ID
-
-- I<Last modification:v1.6.15.200> Feb 11 2016 see sub menu_admin_GoogleMap_ID
-
-- I<Last modification:v1.6.15.197> Feb 06 2016 see sub menu_admin_GoogleMap_ID
-
-- I<Last modification:v1.6.15.190> Jan 30 2016 see sub menu_admin_GoogleMap_ID
-
-- I<Last modification:v1.6.15.188> Jan 24 2016 due to add to maop_ infront of each var name in input tag some data were lost.
-see sub menu_admin_GoogleMap_ID
+- I<Last modification:v1.6.15.179> Jul 14 2016 global set done. Now manage IPv4 and IPv6 for local host.
+		When test with localhost. Need to check with canonical addresses with Apache 1.4.18 under El Capitan (Mac Os X v10.11.5)
 
 - I<Last modification:v1.6.15.170> Dec 07 2015 due to add to maop_ infront of each var name in input tag some data were lost.
 		Try to debug and rmove these lack by adding maop_ to var name where they were missing.
@@ -250,7 +225,7 @@ see sub menu_admin_GoogleMap_ID
 		The bug came from that granularity was not goot with a formated date
 
 - I<Last modification:v1.6.15.105> Aug 17 2015 tests added on geo coordinate format 
-		if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # Begin if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
+		if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 		                                               ^^^^
 
 
@@ -507,7 +482,6 @@ $CGI::Pretty::INDENT="\t\t";
 
 use Fcntl qw( :DEFAULT :flock);
 
-
 # We define a boolean value OK=0
 use constant OK  => 0;
 use constant NOK => !(OK);
@@ -521,10 +495,8 @@ use constant MAX_COL_NUMBER => 10 ;
 
 # This is document which will help to deal with CGI information
 my $doc=new CGI;
-
-my $timsec=$doc->param("timsec");
 my $mgidt=$doc->param("maop_googid"); #my google id  trip
-$mgidt=~s/[\n\t\ ]*$//g;
+chomp($mgidt);
 my $tn=PATH_GOOGLE_MAP_TRIP.$mgidt ."-".TRIP_NAME; # Trip name
 my $an_action=();
 my $lok=$doc->param("maop_login");
@@ -534,59 +506,55 @@ my $param_trip=$doc->param("maop_TRIP_ID");
 my $bdaytime=$doc->param("maop_bdaytime");
 my $edaytime=$doc->param("maop_edaytime");
 my $logfile=$doc->param("maop_log");
-
 chomp($logfile);
 #print "Content-type:text/html\n\n";
 #print "---->$bdaytime<br>========>$edaytime<br>";
 
-if(-f "debug"){ # Begin if(-f "debug")
-	$id="AIzaSyDoz8j1983lLAncsYMjXLeemy5ks3DkfM8";
-} # End if(-f "debug")
-else{ # Begin else
-	$id=io::MyUtilities::loadFile("private/id.googlemap.v3");	
-} # End else
-
+# -----------------------------------------------------------------------------------------------------------------
+# --------------------------------- begin ground check ------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------------
 my $mparam=();
 
-	my $gurl =();# google url get data time zone name for instance
-	my $gjson=();# json object return from get with $gurl
-	my $json_obj = ();# json object
-	my $pperl = ();# gjson decoded to perl hash
-	my $mtzg=();
-
 # Saving parametters
-foreach my $p ($doc->param){ # Begin foreach my $p ($doc->param)
+foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 	#print ">>>>>>>$p<br>";
-	if($p=~m/^maop\_/){ # Begin if($p=~m/^maop\_/)
+	if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
 		if($p!~m/^maop_lon$/&&
 		   $p!~m/^maop_lat$/&&
 		   $p!~m/^maop_prog$/&&
-		   $p!~m/^maop_log$/){ # Begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
+		   $p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 			my $ull=$doc->param($p);
 			#print "<br>PARAMS-------------->$p:$ull<br>";
 			$mparam.="&$p=".$ull;
-		}  # End if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
-	} # End if($p=~m/^maop\_/)
-} # End foreach my $p ($doc->param)
+		}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
+	} # end if($p=~m/^maop\_/)
+} # end foreach my $p ($doc->param)
 #print "iiiiiioooooooooo>$mparam<br>";
 $mparam=~s/^\&//;
-#print "oooooooooo>$mparam<br>";
+print "Content-Type: text/html\n\n";
+#open(W,">aaaaaaaaaaaaa");
+#print W "oooooooooo>$mparam ==== $lon ..... $lat .... $logfile<br>";
+#close(W);
+
 #exit(1);
 
-	my $url=();
-	#print "Content-Type: text/html\n\n";
-	#print "case 2<br>";exit(1);
-	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){ # Begin if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
-		#print "iiiiiiii>case 1-";
-		$url="http://localhost/~sdo/cgi-bin/maop.cgi\?$mparam";
-		#print "$url<br>";
-	} # End if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
-	else{ # Begin else
-		#print "iiiiiiii>case 2-";
-		$url="http://derased.heliohost.org/cgi-bin/maop.cgi\?$mparam"; # url where website is hosted
-	} # End else
-	#print "<br>$ipAddr<br><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< $url<br>";
-	# ------------------------------------------------------------------------------------------
+my $url=();
+#if(!$lanok){
+
+	$url = 'http';
+	if ("$ENV{HTTPS}" eq "on") {
+		$url .= "s";
+	}
+	$url .= "://";
+	if ("$ENV{SERVER_PORT}" ne "80") {
+		$url .= $ENV{SERVER_NAME}.":".$ENV{SERVER_PORT}.$ENV{REQUEST_URI};
+	} 
+	else {
+		$url .= $ENV{SERVER_NAME}.$ENV{REQUEST_URI};
+	}
+	$url=~s/(\/)[^\/]+$/$1/;
+	$url.="maop.cgi\?$mparam";
+	
 	my $c=<<A;
 <!DOCTYPE html>
 <html>
@@ -604,66 +572,99 @@ $mparam=~s/^\&//;
 A
 	#exit(0);
 
-if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/){ # Begin if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
-	print "Content-Type: text/html\n\n";
-	&myrec("Case 1 ($lon - $lat) logfile format($logfile) does not exists or variable does not exist <i>$url</i>","../error.html","case===>" .
-	               ((! defined($logfile)) ? "$logfile not defined length:" . length($logfile)  : " $logfile defined length:" . length($logfile) ).
-		       (($logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/) ? " not reg format logfile" : " regular format logfile"). "<br>");
-	print $c;
-	exit(0);
-} # End if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
+	# ====================================================================================================
+	# ================================= begin work here to check logfile =================================
+	# ====================================================================================================
 
-$logfile=~s/\_/\//g;
-if(!-f "$logfile"){ # Begin if(!-f "$logfile")
-	print "Content-Type: text/html\n\n";
-	&myrec("Case 2 ($lon - $lat) logfile cannot be found [$logfile] <i>[$url]</i>","../error.html","case ===>". ((!-f "$logfile") ? "file '$logfile' does not exist<br>" : "file '$logfile' exists<br>"));
-	print $c;
-	exit(0);
-} # End if(!-f "$logfile") 
-else{ # Begin else
-	if( -e "$logfile"){ # Begin if( -e "$logfile")
-		unlink("$logfile");
-	} # End if( -e "$logfile")
-	chdir("album");chdir("hist");
-	opendir(ARD,".") || die(". $!");# open current directory
-	my @dr= grep { $_ ne '.' and $_ ne '..' and $_ !~ m/pl$/i and $_ !~ m/cgi$/i and $_=~m!^log-!} readdir(ARD);# parse current directory
-	closedir(ARD) || die(". $!");# close directory
-	#print "Content-Type: text/html\n\n";
-	my $c=0;
-	for my $o (@dr){ # Begin for my $o (@dr)
-		my $uuu= time - stat($o)->ctime;
-		if( $uuu > 5*60*60){ # Begin if( $uuu > 5*60*60)
-			#print ">".$c++ . "--------------ooo)" . ( time - $uuu )  ;
-			if( -e "$o"){ # Begin if( -e "$o")
-				#print "removing $o<br>";
-				unlink("$o");
-			} # End if( -e "$o")
-		} # End if( $uuu > 5*60*60)
-	} # End for my $o (@dr)
-	chdir(".."); chdir("..");
-} # End else
+chomp($logfile);
+my ($nme,$ipa,$ran)=split(/\-/,$logfile); # logfile name,ip address, random number (pid)
+# here is where the tests will start but now it is time to go to bed :-)
+	if(! defined($logfile)
+		|| length($logfile)==0
+		|| $nme!~m/^album\_hist\_log$/
+		|| (! is_ipv4($ipa) && ! is_ipv6($ipa))
+		|| $ran!~m/^[0-9]{3,}$/
+		){ 
 
-if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # Begin if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
+		print "<br>not defined <br>" if(! defined($logfile));
+		print "length logfile is 0<br>" if(length($logfile)==0);
+		print "$nme not ok <br>" if( $nme!~m/^album\_hist\_log$/);
+		print "not ipv4 $ipa<br>" if( ! is_ipv4($ipa));
+		print "not ipv6 $ipa<br>" if( ! is_ipv6($ipa));
+		print "$ran not ok<br> " if($ran!~m/^[0-9]{3,}$/);
+	# begin if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/||$logfile!~m/^album\_hist\_log-([0-9a-fA-F]{0,4}|0)(\:([0-9a-fA-F]{0,4}|0)){7}$/) 
+		print "Content-Type: text/html\n\n";
+		print "<br>1.....|${logfile}|...... ok<br>" if( -f "$logfile") ;
+		print "<br>2.....|${logfile}|...... does not exist<br>" if( ! -f "$logfile") ;
+print "my ($nme,$ipa,$ran)=====>$logfile)</br>"; # logfile name,ip address, random number (pid)
+		#exit(0);
+
+		&myrec("Case 1 ($lon - $lat) logfile format does not exists or variable does not exist <i>$url</i>","../error.html","case===>" .
+			       ((! defined($logfile)) ? "$logfile not defined length:" . length($logfile)  : " $logfile defined length:" . length($logfile) ).
+			       (($logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/) ? " not reg format logfile" : " regular format logfile"). "<br>");
+		print "-------". $c;
+		exit(0);
+	} # end 
+	# ====================================================================================================
+	# ================================= end work here to check logfile ===================================
+	# ====================================================================================================
+
+	$logfile=~s/\_/\//g;
+	if(!-f "$logfile"){ # begin if(!-f "$logfile")
+		print "Content-Type: text/html\n\n";
+		print "2...........<br>";
+		#exit(0);
+		&myrec("Case 2 ($lon - $lat) logfile cannot be found [$logfile] <i>[$url]</i>","../error.html","case ===>". ((!-f "$logfile") ? "file '$logfile' does not exist<br>" : "file '$logfile' exists<br>"));
+		print "++++++++++" . $c;
+		exit(0);
+	} # end if(!-f "$logfile") 
+	else{ # begin else
+		print "3 ok...........<br>";
+		#exit(0);
+		if( -e "$logfile"){ # begin if( -e "$logfile")
+			unlink("$logfile");
+		} # end if( -e "$logfile")
+		chdir("album");chdir("hist");
+		opendir(ARD,".") || die(". $!");# open current directory
+		my @dr= grep { $_ ne '.' and $_ ne '..' and $_ !~ m/pl$/i and $_ !~ m/cgi$/i and $_=~m!^log-!} readdir(ARD);# parse current directory
+		closedir(ARD) || die(". $!");# close directory
+		#print "Content-Type: text/html\n\n";
+		my $c=0;
+		for my $o (@dr){ # begin for my $o (@dr)
+			my $uuu= time - stat($o)->ctime;
+			if( $uuu > 5*60*60){ # begin if( $uuu > 5*60*60)
+				#print ">".$c++ . "--------------ooo)" . ( time - $uuu )  ;
+				if( -e "$o"){ # begin if( -e "$o")
+					#print "removing $o<br>";
+					unlink("$o");
+				} # end if( -e "$o")
+			} # end if( $uuu > 5*60*60)
+		} # end for my $o (@dr)
+		chdir(".."); chdir("..");
+	} # end else
+#}
+
+if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	print "Content-Type: text/html\n\n";
 	&myrec("Case 3 ($lon - $lat) latitude exists and as proper format <i>$url</i>","../error.html","(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
-	print $c;
+	print "XXXXXXXXXXXXXXXXX" . $c;
 	exit(0);
-} # End if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
+} # end if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 
 my $locweaf=ALBUM_INFO_HIST_DIRECTORY ."wfc_data.$lon.$lat.$$.".time().".xml";# file for local weather
 
 # ----------------------------------------------------------------------------------------------
 # format solved - missing but need to check if lon lat can have negative values
-if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # Begin if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
+if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
 	print "Content-Type: text/html\n\n";
 	#print "case 1<br>";exit(1);
-	#if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){ # Begin if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
+	#if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){ # begin if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
 		#$url="http://localhost/~sdo/cgi-bin/maop.cgi";
-	#} # End if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
-	#else{ # Begin else
+	#} # end if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
+	#else{ # begin else
 		#$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
-	#} # End else
+	#} # end else
 	my $c=<<A;
 	<!DOCTYPE html>
 	<html>
@@ -682,15 +683,15 @@ A
 	&myrec("Case 4 ($lon - $lat) longitude exists and as proper format <i>$url</i>","../error.html","(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
 	print $c;
 	exit(0);
-} # End if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
-else{ # Begin else
+} # end if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
+else{ # begin else
 	my $wfcu="http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=$lat,$lon";
 	my $xml = new XML::Simple;
 
 	&myrec("Case 9.0 ($lon - $lat) logfile format <i>$url</i>","../error.html","try to contact weather center");
 	#print "Content-Type: text/html\n\n";
 	#print "--------------------->bef $locweaf rec<------<br>\n$wfcu<br>";
-	try { # Begin try
+	try { # begin try
 		# Weather center
 		my $wfc=get("$wfcu");
 
@@ -699,24 +700,21 @@ else{ # Begin else
 		print W $wfc;
 		close(W) or die("error $!");
 		my $data = $xml->XMLin("$locweaf") or die("error $locweaf $!");
-	} # End try
-	catch { # Begin catch
-		if( -e "$locweaf"){ # Begin if( -e "$locweaf")
+	} # end try
+	catch { # begin catch
+		if( -e "$locweaf"){ # begin if( -e "$locweaf")
 			unlink("$locweaf") or die("error $!");
 			&myrec("Case 9.1 ($lon - $lat) logfile format <i>$url</i>","../error.html","once weather center contacted catch error and rem file $locweaf");
-		} # End if( -e "$locweaf")
-	}; # End catch
+		} # end if( -e "$locweaf")
+	}; # end catch
 	&myrec("Case 9.2 ($lon - $lat) logfile format <i>$url</i>","../error.html","weather center contacted");
-} # End else
+} # end else
 
-if($url=~m/derased/){ # Begin if($url=~m/derased/)
-	$gurl = "https://maps.googleapis.com/maps/api/timezone/json?location=$lat,$lon&timestamp=1331161200&key=$id"; # google url
-	$gjson=get("$gurl"); # google json
-	$json_obj = new JSON;# create json object
-	$pperl = $json_obj->decode($gjson);# decode result from previous get
-	$mtzg=$pperl->{timeZoneId};# my time zone from google
-} # End if($url=~m/derased/)
 &myrec("Case 10 ($lon - $lat) logfile format <i>$url</i>","../error.html","------------------everything is fine-----------------------------");
+
+# -----------------------------------------------------------------------------------------------------------------
+# --------------------------------- end ground check --------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------------------
 
 # Password for login
 my ( $login, $password )=io::MyUtilities::gets_private_stuff_for_administrator($an_action,
@@ -735,28 +733,27 @@ chomp($my_pid);
 my $file_conf_to_save="$album_directory/$configuration_file";
 chomp($file_conf_to_save);
 
-	#print "Content-Type: text/html\n\n";
 # That's the service
 my $service=$doc->param("maop_service");
 chomp(${service});
 #print "eeeeeeeeeeeee)$service<br />";
 
-if( -f "album/debug_album_DO_NOT_REMOVE"){ # Begin if( -f "album/debug_album_DO_NOT_REMOVE")
+if( -f "album/debug_album_DO_NOT_REMOVE"){ # begin if( -f "album/debug_album_DO_NOT_REMOVE")
 	#print "Content-Type: text/html\n\n";
-	#print "ooooooo)$service<br />";
-	#print "-------->" . $ipAddr."\n<br />";
+	print "ooooooo)$service<br />";
+	print "-------->" . $ipAddr."\n<br />";
 	#print "oooooo->$name<br />";
-} # End if( -f "album/debug_album_DO_NOT_REMOVE")
-else{# Begin else
-	if( !-f "album/_debug_album_DO_NOT_REMOVE"){ # Begin if( -f "album/debug_album_DO_NOT_REMOVE")
+} # end if( -f "album/debug_album_DO_NOT_REMOVE")
+else{# begin else
+	if( !-f "album/_debug_album_DO_NOT_REMOVE"){ # begin if( -f "album/debug_album_DO_NOT_REMOVE")
 		open(W,">album/_debug_album_DO_NOT_REMOVE") or die("error $!");
 		close(W) or die("error $!");
-	} # End if( -f "album/debug_album_DO_NOT_REMOVE")
+	} # end if( -f "album/debug_album_DO_NOT_REMOVE")
 	#print "Content-Type: text/html;charset=iso-8859-15;\n";
 #	print "Content-type: text/html\n";
 	#print "Pragma: no-cache \n\n";
 	#print "oooooo->$name<br />";
-} # End else
+} # end else
 
 if($service eq "verDoc"){ # Only entire documentation + version is asked
 	print "Content-Type: text/html\n\n";
@@ -767,7 +764,7 @@ if($service eq "verDoc"){ # Only entire documentation + version is asked
 	print "$res";
 	exit(OK);# Exit that's it
 }elsif($service eq "versioning"){ # Only version is asked
-	print "Content-Type: text/html\n\n";
+	#print "Content-Type: text/html\n\n";
 	my $cres=jcode(MPWD,ALBUM_VERSION);
 	#print "$cres(---------)<br />";
 	$res=encode_base64($cres);
@@ -781,10 +778,10 @@ if($service eq "verDoc"){ # Only entire documentation + version is asked
 }elsif($service=~m/geoLoc/){ # only history is asked
 	my $u=ALBUM_INFO_DIRECTORY . ALBUM_HISTORY_INFO_FILE;
 	print "Content-Type: text/html\n\n";
-	if(  -f "$u" ){ # Begin if(  -f "$u" )
+	if(  -f "$u" ){ # begin if(  -f "$u" )
 		print "error";
 		exit(OK);
-	} # End if(  -f "$u" )
+	} # end if(  -f "$u" )
 	open(R,$u) || die("error $u $!"); 
 	my $hist=<R>;
 	close(R)|| die("error ".ALBUM_INFO_DIRECTORY . ALBUM_HISTORY_INFO_FILE);
@@ -792,7 +789,7 @@ if($service eq "verDoc"){ # Only entire documentation + version is asked
 	$res=encode_base64($cres);
 	print "$res";
 	exit(OK);
-}# End elsif($service=~m/geoLoc/)
+}# end elsif($service=~m/geoLoc/)
 
 # That's the pid to record
 my $recPid=$doc->param("maop_recPid");
@@ -834,50 +831,38 @@ my @images_used=(
 	);
 
 my $date_ticket=$doc->param("maop_date");
-print "Content-Type: text/html;charset=utf-8;\n"; print "Pragma: no-cache \n\n";
-
+print "Content-Type: text/html;charset=iso-8859-15;\n";
+print "Pragma: no-cache \n\n";
 	#------------------------------------------------------------------------
 	my $mtfn=();# my trip file name
 
 	if(-f "$tn"){ # Begin if(-f "$tn")
-		# =================================================================================================
-		# ============================ We calculate if the trip is on schedule ============================
-		# ===================== We have the name of the trip dates: begining and, end of the trip =========
-		# ===================== We have the time zone where the trip starts and end =======================
-		# ===================== <DATETIME> ================================================================
-		# =================================================================================================
-
 		my $dt3 = DateTime->from_epoch( epoch => time() );# Current date format DateTime
 
-		open(RTN,"$tn") or die ("$tn error $!");my @rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains Begin and end of trip)
-		chomp($rtn[0]);my ($brtn,$ertn,$tntz_b,$tntz_e)=split(/\#/,$rtn[0]); # begining r... trip name,end r... trip name,trip name (time) zone begining,trip name (time) zone end
+		#print "$tn mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm<br>";
+
+		open(RTN,"$tn") or die ("$tn error $!");my @rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains begin and end of trip)
+		chomp($rtn[0]);my ($brtn,$ertn)=split(/\#/,$rtn[0]);
 		my $anal = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
 		my $dtb = $anal->parse_datetime( $brtn );
-
-		# We set intenal clock as the same time zone as the begining of the trip time zone
-		$dt3->set_time_zone($tntz_b);
-
-		if($dtb>$dt3){ # Begin if($dtb>$dt3)
+		if($dtb>$dt3){ # begin if($dtb>$dt3)
 			# date is not yet arrived
-			#print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
+			print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
 			$mtfn="_-" . TRIP_NAME; 
-		} # End if($dtb>$dt3)
-		else{ # Begin else $dtb<=$dt3
+		} # end if($dtb>$dt3)
+		else{ # begin else $dtb<=$dt3
 			my $anal2 = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
 			my $dte = $anal2->parse_datetime( $ertn );
-
-			# We set intenal clock as the same time zone as the end of the trip time zone
-			$dt3->set_time_zone($tntz_e);
-
-			if($dte<$dt3){ # Begin if($dte<$dt3)
+			if($dte<$dt3){ # begin if($dte<$dt3)
 				# date is passed
+				print "<<<<<<<<<<<<<<<<<<<<<<<<<<<< $dte<<u>$dt3</u> not passed\n";
 				$mtfn="_-" . TRIP_NAME; 
-			} # End if($dte<$dt3)
-			else { # Begin  $dte>=$dt3
-				print "<h1>We record $dtb<$dt3<$dte</h1></br>";
+			} # end if($dte<$dt3)
+			else { # begin  $dte>=$dt3
+				print "<====================> $dtb<=$dt3<=$dte in range\n";
 				$mtfn="${mgidt}-" . TRIP_NAME; 
-			} # End  $dte>=$dt3
-		} # End else $dtb<=$dt3
+			} # end  $dte>=$dt3
+		} # end else $dtb<=$dt3
 	} # End if(-f "$tn")
 	else{ # Begin else
 		#print $doc->param("maop_date")." usual record\n<br>";
@@ -888,8 +873,7 @@ print "Content-Type: text/html;charset=utf-8;\n"; print "Pragma: no-cache \n\n";
 print "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n";
 print "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n";
 print $doc->start_head();
-#print "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-15\" />\n";
-print "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n";
+print "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-15\" />\n";
 print $doc->meta({
 			-name=>"title",
 			-content=>"Album of pictures/Album photos"
@@ -944,7 +928,7 @@ my (
 
 
 print "<!-- 3 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
-my $rul=$doc->param("rul"); # return of my upload
+my $rul=(); # return of my upload
 
 print "<!-- 3.0 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 my @all_file=();
@@ -953,9 +937,9 @@ my ($resPing,$ipOk)=(0,0); # stub io::MySec::checksRevIpAdd($ipAddr,io::MySec::g
 
 print "<!-- 3.2 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 #print "<script>document.write(\"connected with\"+navigator.userAgent);</script>\n";
-if( -f "album/debug_album_DO_NOT_REMOVE"){ # Begin if( -f "album/debug_album_DO_NOT_REMOVE")
-	#print "<br />\n---->res ping($resPing,$ipOk) for $ipAddr<br />---$service---<br />";
-} # End if( -f "album/debug_album_DO_NOT_REMOVE")
+if( -f "album/debug_album_DO_NOT_REMOVE"){ # begin if( -f "album/debug_album_DO_NOT_REMOVE")
+	print "<br />\n---->res ping($resPing,$ipOk) for $ipAddr<br />---$service---<br />";
+} # end if( -f "album/debug_album_DO_NOT_REMOVE")
 use Net::Domain qw(hostname hostfqdn hostdomain);
          
 my @resa=split(/\n/,io::MySec::getsCoordinates(${ipAddr}));# from ip address gets geoloc coordinates
@@ -976,16 +960,11 @@ my $locid="$co/$cn/$cr/$ct/$lo/$la";
 #print "The host name is $l --->$co-$cn-$cr-$ct-lo-la\n";
 
 
-#print "Content-Type: text/html\n\n";
+print "Content-Type: text/html\n\n";
 
 #print "aaaaaa>check_password($my_pid,maop_service=". $doc->param("maop_service").",check, $my_pid, $user_login, $login, $user_password, $password, $doc,album/pid);------>";
-
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------
-
 my $resAuth=io::MyUtilities::check_password($my_pid,$doc->param("maop_service"), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,"album/pid");
-#print ">>>>>+++++>>>>>>>$resAuth<br>";
+#print ">>>>>>>>>>>>$resAuth<br>";
 # print " ( ($resPing==0) && ($resAuth==0) ) \n<br />";
 # Check login & password if ok then access to extra services
 if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==0) ) 
@@ -1012,18 +991,11 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 	my $ssection=$doc->param("maop_ssection") ; # Gets login
 	chomp($ssection);
 	if(length($ssection)==0){ # Begin if(length($$section)==0)
-		#print "1111111111111111111111111></br>";
 		&firstChoicetMenuadmin ; # Create am pre admin first menu choice
 	} # End if(length($$section)==0)
 	elsif($ssection=~m/adminGroup/){ # Begin elsif($ssection=~m/adminGroup/)
-		#print "00000000000000000000></br>";
-		&setGoogleID(PATH_GOOGLE_MAP_ID,$doc->param("maop_googid")) ; # Stuff about google ID map
 		&groupAndStuff ; # Stuff about groups
 	} # End elsif($ssection=~m/adminGroup/)
-	elsif($ssection=~m/adminGroupModif/){ # Begin elsif($ssection=~m/adminGroup/)
-		&setGoogleID(PATH_GOOGLE_MAP_ID,$doc->param("maop_googid")) ; # Stuff about google ID map
-		&groupAndStuff ; # Stuff about groups
-	} # End elsif($ssection=~m/adminGroupModif/)
 	elsif($ssection=~m/adminGoogleID/){ # Begin elsif($ssection=~m/adminGoogleID/)
 		#print "toto 2 l er ret";
 		&setGoogleID(PATH_GOOGLE_MAP_ID,$doc->param("maop_googid")) ; # Stuff about google ID map
@@ -1046,7 +1018,7 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 #					print "ooooooo".ALLOWED_FILE_FORMAT_TYPE."<br />";
 					if(length($doc->param("maop_file_name_img"))>0){
 						# watch out case of youtube
-						#$rul=my_upload($doc, $doc->param("maop_file_name_img"), DIRECTORY_DEPOSIT, "$timsec",ALLOWED_FILE_FORMAT_TYPE);
+						$rul=my_upload($doc, $doc->param("maop_file_name_img"), DIRECTORY_DEPOSIT, "$timsec",ALLOWED_FILE_FORMAT_TYPE);
 	#					$file_name=~s!\&\#95;!g;
 					}
 				} # End if ($type_upload eq "Local")
@@ -1117,7 +1089,7 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 		print $doc->end_table($doc->end_Tr());
 		print "</tr>\n</table>\n";
 	} # End elsif($ssection=~m/adminPict/)
-} # End if ( ($resPing==0) && ($resAuth==0) )
+} # end if ( ($resPing==0) && ($resAuth==0) )
 elsif ( 
 	    ($resPing==0) && 
 	(${service} eq "auth")
@@ -1171,7 +1143,7 @@ else { # Begin else
 	#print $doc->script( { -language => "javascript" ,
 	print "<script language=\"javascript\" type=\"text/javascript\" >";
 	print "//<![CDATA[\nfunction listOfPages(){\n".'document.write("' . $a . '");'."\n}\n//]]>\n".
-	      "\n</script>\n" . $doc->title("album's page ".$doc->param('maop_googid')) ; # . (($doc->param("maop_page")=~m/[0-9]+/) ? $doc->param("maop_page") : 1 )
+	      "\n</script>\n" . $doc->title("album's page") ; # . (($doc->param("maop_page")=~m/[0-9]+/) ? $doc->param("maop_page") : 1 )
 #	) .
 	#$doc->end_head() .
 	#print "\n</script>";
@@ -1188,15 +1160,15 @@ else { # Begin else
 	my $llll_l=();
 	#print "------------weather----------------->$locweaf<br>";
 	my @llll_res=($lon,$lat,$mtfn,(-e "$locweaf") ? "$locweaf" : "-",$date_ticket);# from ip address gets geoloc coordinates, trip name,weather stuff
-	foreach (@llll_res){ # Begin foreach (@llll_res)
+	foreach (@llll_res){ # begin foreach (@llll_res)
 		chomp($_);# must desapeared (non sense due to previous split
-		if (length($llll_l)==0){ # Begin if (length($llll_l)==0) 
+		if (length($llll_l)==0){ # begin if (length($llll_l)==0) 
 			$llll_l.="$_";# fill fields + concatenation with previous data
-		} # End if (length($llll_l)==0) 
-		else{ # Begin else
+		} # end if (length($llll_l)==0) 
+		else{ # begin else
 			$llll_l.="#$_";# fill fields + concatenation with previous data
-		} # End else
-	} # End foreach (@llll_res)
+		} # end else
+	} # end foreach (@llll_res)
 	#$llll_res[6]=~s/[^:]*://g;
 	#$llll_res[7]=~s/[^:]*://g;
 	set_history(${ipAddr}, $oppp,$locpa ,"$ipAddr",$llll_l,ALBUM_INFO_HIST_DIRECTORY);
@@ -1204,8 +1176,8 @@ else { # Begin else
 	#my $llll_inf="[$llll_res[6],$llll_res[7]]";
 	#system("`pwd`/tweet.sh \"Sh4rkb41t\" \"lakpwr\"  \"[album] $oppp page:$locpa $llll_inf\""); 
 	if("$authorized" eq "ok"){ # Begin if("$authorized" eq "ok")
-		print DateTime::TimeZone->new( name => 'local' )->name();
-		print "<script type=\"text/javascript\">\nvar d = new Date();\ndocument.write(d+' '+d.getTimezoneOffset());\n</script>\n";
+		print io::MyTime::gets_formated_date."<br />\n";
+		print "<script type=\"text/javascript\">\nvar d = new Date();\ndocument.write(d);\n</script>\n";
 	} # End if("$authorized" eq "ok")
 } # End else
 
@@ -1296,7 +1268,7 @@ None.
 
 =cut
 
-sub raised_upload_window { # Begin raised_upload_window
+sub raised_upload_window { # begin raised_upload_window
 	print "<script>\nwindow.open('bar.cgi','smallwin','bgcolor=blue,width=550,height=200,status=no,resizable=no');\n</script >\n";
 } # End sub raised_upload_window
 
@@ -1352,7 +1324,7 @@ None.
 
 =cut
 
-sub menu_leave_admin { # Begin menu_leave_admin
+sub menu_leave_admin { # begin menu_leave_admin
 	my $login=$doc->param("maop_login") ; # Gets login
 	my $password=$doc->param("maop_password") ; # Gets login
 
@@ -1369,7 +1341,7 @@ MENU
 
 =head1 sub print_info_picture(...)
 
-This function is used to print information related to picture.
+This function is used to print information related to on picture.
 
 =head2 PARAMETER(S)
 
@@ -1417,7 +1389,7 @@ None.
 
 =cut
 
-sub print_info_picture { # Begin print_info_picture
+sub print_info_picture { # begin print_info_picture
 	my ($rank,$img)=@_;
 	return "";
 	my $comment=$doc->param('maop_comments');
@@ -1487,7 +1459,7 @@ None.
 
 =cut
 
-sub print_pictures { # Begin print_pictures
+sub print_pictures { # begin print_pictures
 	my $img     = $doc->param('maop_pict');
 	my $comment=$doc->param('maop_comments');
 	my ( $french, $english )=split( /SEPARATOR/, $comment );
@@ -1566,7 +1538,7 @@ None.
 
 =cut
 
-sub create_new_page { # Begin create_new_page
+sub create_new_page { # begin create_new_page
 	open( R, "$file_conf_to_save" ) or error_raised("File $file_conf_to_save does not exists");
 	my @f=<R>;
 	close(R) or error_raised("File $file_conf_to_save does not exists");
@@ -1638,7 +1610,7 @@ None.
 
 =cut
 
-sub add_new_col { # Begin add_new_col
+sub add_new_col { # begin add_new_col
 	my $col;
 	if( ! -f "$file_conf_to_save.nb_col" ){ # Begin if( ! -f "$file_conf_to_save.nb_col" )
 		open( W, ">$file_conf_to_save.nb_col" ) or error_raised("File $file_conf_to_save does not exists");
@@ -1737,7 +1709,7 @@ None.
 
 =cut
 
-sub number_of_pages { # Begin number_of_pages
+sub number_of_pages { # begin number_of_pages
 	open( R, "$file_conf_to_save" );
 	my @all_file=<R>;
 	close(R);
@@ -1797,7 +1769,7 @@ None.
 
 =cut
 
-sub go_back { # Begin go_back
+sub go_back { # begin go_back
 	print <<MNU;
 	<form action='${main_prog}' method='post'>
 		<input type='hidden' name='maop_prev_id' value='$$' />
@@ -1861,7 +1833,7 @@ None.
 
 =cut
 
-sub menu_page_title { # Begin menu_page_title
+sub menu_page_title { # begin menu_page_title
 	my ( $title, $num_page )=@_;
 
 	return $doc->center(
@@ -1927,7 +1899,7 @@ Name's changed from menu_admin to menu_admin_title.
 
 =cut
 
-sub menu_admin_title { # Begin menu_admin_title
+sub menu_admin_title { # begin menu_admin_title
 	print &menu_page_title( $doc->br() . "ADMINISTRATION DES PHOTOS" . $doc->br() . $doc->font( { -color => 'blue' } , "ADMINISTRATION OF PICTURES") . $doc->br );
 } # End sub menu_admin_title
 
@@ -1983,7 +1955,7 @@ None.
 
 =cut
 
-sub admin_menu { # Begin admin_menu
+sub admin_menu { # begin admin_menu
 	my (@line_title)=@_;
 	my ($num_of_pict,$size_of_all_picture_gathered)=&gets_current_images_information_from_current_album("$file_conf_to_save");
 
@@ -2137,7 +2109,7 @@ None.
 
 =cut
 
-sub set_upload { # Begin set_upload
+sub set_upload { # begin set_upload
 	if ( $an_action ne "modify" ){ # Begin if ($an_action ne "modify")
 		print "<tr>\n<td>Enter file name to upload from\n" .
 															$doc->popup_menu(
@@ -2152,7 +2124,7 @@ sub set_upload { # Begin set_upload
 																       ) .
 															"<td><input type=\"file\" name='maop_file_name_img' size='50' />\n";
 
-		print "<script language='javascript' type='text/javascript'>\n";
+		print "<script languagen'javascript' type='text/javascript'>\n";
 		print "gti();";
 		print "</script>\n";
 		print "<tr>\n<td>Enter URL here if http option above is choosen<td><input type=\"text\" name='maop_file_name_img2' size='50' />\n";
@@ -2212,7 +2184,7 @@ None.
 
 =cut
 
-sub set_link { # Begin set_link
+sub set_link { # begin set_link
 	chomp( $info_on_picture[11] );
 	$info_on_picture[11]=~s/[\(\)]//g;
 	my ( $fr, $eng )=split( /\;/, $info_on_picture[11] ); # we take last field (french and english comment and link)
@@ -2271,7 +2243,7 @@ None.
 
 =cut
 
-sub set_language { # Begin set_language
+sub set_language { # begin set_language
 	my @languages=@_;
 	my $comment   = ();
 
@@ -2358,7 +2330,7 @@ None.
 
 =cut
 
-sub manage_position { # Begin manage_position
+sub manage_position { # begin manage_position
 	my (
 		$number_of_page,
 		$line,
@@ -2498,7 +2470,7 @@ None.
 
 =cut
 
-sub set_select_tag { # Begin set_select_tag
+sub set_select_tag { # begin set_select_tag
 	my ($val1,$val2)=@_;
 	chomp($val1);
 	chomp($val2);
@@ -2560,7 +2532,7 @@ None.
 
 =cut
 
-sub auth_menu { # Begin auth_menu
+sub auth_menu { # begin auth_menu
 	my $color='red';
 	print $doc->br
 		. &menu_page_title(
@@ -2678,7 +2650,7 @@ None.
 
 =cut
 
-sub numbers { # Begin numbers
+sub numbers { # begin numbers
 	my @la=split( /\|\|/, $a );
 	my @lb=split( /\|\|/, $b );
 
@@ -2766,7 +2738,7 @@ Transtypage added
 
 =cut
 
-sub record { # Begin record
+sub record { # begin record
 	my (
 		$file_name,               $page_position_in_album,
 		$valign,                  $halign,
@@ -2799,13 +2771,13 @@ sub record { # Begin record
 	print "<br>------------------>record($grantPictur):$grantPicture<br>";
 	my $type_upload=$doc->param("maop_type_of_upload");
 	my @save_result=();
-	if($file_name=~m/www.youtube.com/){ # Begin if($file_name=~m/www.youtube.com/)
+	if($file_name=~m/www.youtube.com/){ # begin if($file_name=~m/www.youtube.com/)
 		print "<!-- oCROCOoooooooooooooooooooooo)$file_name(mmmmmmmmmmm=======>$file_name<br -->";
 		if($file_name=~m/\<iframe/){
 			$file_name=~s/width\=\"\d+\"/width\=\"200\"/;
 			$file_name=~s/height\=\"\d+\"/height\=\"180\"/;
 		}
-		elsif($file_name=~m/\/watch\?/){ # Begin elsif($file_name=~m/www.youtube.com\/watch\?/)
+		elsif($file_name=~m/\/watch\?/){ # begin elsif($file_name=~m/www.youtube.com\/watch\?/)
 				$tmp="<iframe width=\"200\" height=\"180\" src=\"";
 				$file_name=~s/\/watch\?v\=/\/embed\//;
 				$file_name=~s/\&feature\=related//;
@@ -2813,8 +2785,8 @@ sub record { # Begin record
 				$tmp.=$file_name . " frameborder=\"0\" allowfullscreen></iframe>";
 				#print "<!-- ZOZOZIZOZO $file_name \n\n $tmp -------->";
 				$file_name=$tmp;
-		} # End elsif($file_name=~m/www.youtube.com\/watch\?/)
-	} # End if($file_name=~m/www.youtube.com/)
+		} # end elsif($file_name=~m/www.youtube.com\/watch\?/)
+	} # end if($file_name=~m/www.youtube.com/)
 	
 	print $doc->p( "<br /><br /><br /><br />Information recorded. granted:  $grantPicture" .  $doc->br );
 
@@ -2831,9 +2803,9 @@ sub record { # Begin record
 
 	my @l_file_scat=split( /\//, io::gut::machine::MyFile::reformat($file_name) );
 	my $file_name_saved_at_server_side=();
-	if(scalar(@l_file_scat)>0){# Begin if(scalar(@l_file_scat)>0)
+	if(scalar(@l_file_scat)>0){# begin if(scalar(@l_file_scat)>0)
 		io::gut::machine::MyFile::reformat($l_file_scat[ scalar(@l_file_scat) - 1 ]);
-	}# End if(scalar(@l_file_scat)>0)
+	}# end if(scalar(@l_file_scat)>0)
 	# We create a file into a path where to store new image file
 	my $file_to_upload=DIRECTORY_DEPOSIT . "/${suffix_for_image_file}${file_name_saved_at_server_side}";
 
@@ -2912,12 +2884,12 @@ sub record { # Begin record
 		$file_name=~s!\_!\&\#95;!g;
 		
 		my $obj=();
-		if($file_name!~m!www.youtube.com!i){ # Begin if($file_name!~m!www.youtube.com!i)
+		if($file_name!~m!www.youtube.com!i){ # begin if($file_name!~m!www.youtube.com!i)
 			$obj="${suffix_for_image_file}$file_name_saved_at_server_side";
-		} # End if($file_name!~m!www.youtube.com!i)
-		else{ # Begin else
+		} # end if($file_name!~m!www.youtube.com!i)
+		else{ # begin else
 			$obj="${suffix_for_image_file}${file_name}";
-		} # End else
+		} # end else
 		
                 #print "before --------------------->file name:$obj<br>";
 		if($commFr=~m!http://www.youtube.com!){$obj=();}
@@ -2942,10 +2914,10 @@ sub record { # Begin record
 			. "||$grantPicture"
 			. "||" . $doc->param("maop_youtubeln");
 		#print "oooo)$line_pos<br />";
-		if($line_pos!~m/^\|\|/){# Begin if($line_pos!~m/^\|\|/)
+		if($line_pos!~m/^\|\|/){# begin if($line_pos!~m/^\|\|/)
 				@save_result = (@save_result,$line_pos);
 				@save_result = sort numbers @save_result;
-		}# End if($line_pos!~m/^\|\|/)
+		}# end if($line_pos!~m/^\|\|/)
 	} # End if ($an_action ne "record_modify")
 	else { # Begin else
 		#    Else record modify action requested
@@ -2992,9 +2964,9 @@ sub record { # Begin record
 							. $doc->param("maop_name_to_link_eng") . "," . $doc->param("maop_link_eng") 
 						. ")"
 						. "||$grantPicture||$my_tag";
-					if($l!~m/^\|\|/){# Begin if($l!~m/^\|\|/)
+					if($l!~m/^\|\|/){# begin if($l!~m/^\|\|/)
 						$_=$l;
-					}# End if($l!~m/^\|\|/)
+					}# end if($l!~m/^\|\|/)
 				} # End if ( $position_in_page eq $local_line )
 				else { # Else of if ( $position_in_page eq $local_line )
 					@tmp = ( @tmp, "$_" );
@@ -3063,7 +3035,7 @@ None.
 
 =cut
 
-sub create_dir { # Begin create_dir
+sub create_dir { # begin create_dir
 	my @o=(); # no comments
 	if ( !-d "$album_directory" ){ # Begin if (!-d "$album_directory")
 		#       mkdir("$album_directory",0700) || die("Cannot create $album_directory\n");
@@ -3143,7 +3115,7 @@ None.
 
 =cut
 
-sub under_construction_prompt { # Begin under_construction_prompt
+sub under_construction_prompt { # begin under_construction_prompt
 	print "<br /><br /><br /><br /><center>\n";
 	print "<table border=\"0\">\n<tr>\n<td align='right'>\n";
 	&look_for_images_used;
@@ -3216,7 +3188,7 @@ None.
 
 =cut
 
-sub error_raised_visit { # Begin error_raised_visit
+sub error_raised_visit { # begin error_raised_visit
 	my ( $doc, $explaination ) = @_;
 	print $doc->start_html("Error"),
 		$doc->h1("Error"),
@@ -3282,7 +3254,7 @@ None.
 
 =cut
 
-sub shows_page_not_taken_yet { # Begin shows_page_not_taken_yet
+sub shows_page_not_taken_yet { # begin shows_page_not_taken_yet
 	my @line=(); #no comments
 	my $add=(); #no comments
 	open( SHOW, "$file_conf_to_save" ) or error_raised("File $file_conf_to_save does not exists");
@@ -3324,12 +3296,12 @@ sub shows_page_not_taken_yet { # Begin shows_page_not_taken_yet
 		} # End else
 	} # End foreach (split(/\;/,$s))
 
-	if($script_page_taken=~m!<option selected>!i){ # Begin if($script_page_taken=~m!<option selected>!i)
+	if($script_page_taken=~m!<option selected>!i){ # begin if($script_page_taken=~m!<option selected>!i)
 		$script_page_taken .= "<option>\nCreate a new page\n</option>\n</select></tr>\n</table>\n";
-	} # End if($script_page_taken=~m!<option selected>!i)
-	else{ # Begin else
+	} # end if($script_page_taken=~m!<option selected>!i)
+	else{ # begin else
 		$script_page_taken .= "<option selected>\nCreate a new page\n</option>\n</select></tr>\n</table>\n";
-	} # End else
+	} # end else
 
 	print $script_page_taken;
 } # End sub shows_page_not_taken_yet
@@ -3394,7 +3366,7 @@ None.
 
 =cut
 
-sub shows_list_pictures { # Begin shows_list_pictures
+sub shows_list_pictures { # begin shows_list_pictures
 	open( SHOW, "$file_conf_to_save" ) or error_raised("File $file_conf_to_save does not exists");
 	my @save_info = <SHOW>;
 	close(SHOW) or error_raised("File $file_conf_to_save does not exists");
@@ -3421,7 +3393,7 @@ sub shows_list_pictures { # Begin shows_list_pictures
 	my ( $word, $link, $word_eng, $link_eng) = ();
 	my $counter_p=1;
 	foreach my $one_line (@save_info){ # Begin foreach my $one_line (@save_info)
-		if($counter_p>1){ # Begin if($counter_p>1)
+		if($counter_p>1){ # begin if($counter_p>1)
 			@line = split( /\|\|/, $one_line );
 			( $word, $link, $word_eng, $link_eng) = &split_links( $line[11] );
 			my $granted=$line[12] ; # granted
@@ -3437,19 +3409,19 @@ sub shows_list_pictures { # Begin shows_list_pictures
 			print "<td align='center' valign='top'>\n$line[4]/$line[5]</td>\n";# field 6
 
 			if ( $line[3] !~ m/^http\:\/\//i ){ # Begin if ($line[3] !~ m/^http\:\/\//i)
-				if(SHOW_PICTURES_ADMIN!=0){ # Begin if(SHOW_PICTURES_ADMIN!=0)
+				if(SHOW_PICTURES_ADMIN!=0){ # begin if(SHOW_PICTURES_ADMIN!=0)
 					print "<td align='center' valign='middle'>\n";
 					print "<img src='"
 						. DIRECTORY_DEPOSIT
 						. "$line[3]' width='75'  height='75' alt='xx' />\n</td>";# field 7
-				} # End if(SHOW_PICTURES_ADMIN!=0)
-				else { # Begin else
+				} # end if(SHOW_PICTURES_ADMIN!=0)
+				else { # begin else
 					print "<td align='left' valign='top'>\n";# field 7
 					
 					#-------------------------------------
 					# get info from file
 					chdir("../img");
-					if(-f "$line[3]"){ # Begin if(-f "$line[3]")
+					if(-f "$line[3]"){ # begin if(-f "$line[3]")
 						#print "----------ooooo)$line[3]";
 						open(R,"$line[3]");
 						my $dta=stat(R);
@@ -3457,24 +3429,24 @@ sub shows_list_pictures { # Begin shows_list_pictures
 						print scalar localtime $dta->mtime ;
 						close(R);
 						print "\n<br />";
-					} # End if(-f "$line[3]")
+					} # end if(-f "$line[3]")
 					chdir("../cgi-bin");
 					print "<u><b>IP/IP:</b></u>$line[2]\n<br />";
-					if($line[3]=~m/www.youtube.com/i){ # Begin if($line[2]=~m/www.youtube.com/i)
+					if($line[3]=~m/www.youtube.com/i){ # begin if($line[2]=~m/www.youtube.com/i)
 							$line[3]=~s!_!\&\#95;!g;# _ transformed in &#95; because of date format $line[2]
 							$line[3]=~s!'!\&\#39;!g;
 							$line[3]=~s!\"!\&\#34;!g;
 							$line[3]=~s!\<!\&\#60;!g;
 							$line[3]=~s!\>!\&\#62;!g;
 							$line[3]=~s!_!&#95;!g;
-					} # End if($line[2]=~m/www.youtube.com/i)
+					} # end if($line[2]=~m/www.youtube.com/i)
 					if($line[3]=~m/(jpg|jpeg|gif|png)$/i){ # Begin if($line[3]=~m/(jpg|jpeg|gif|png)$/i)
 						print "<u><b>Img:</b></u>$line[3]\n<br />";
-					} # End if($line[3]=~m/(jpg|jpeg|gif|png)$/i)
-					else{ # Begin else
+					} # end if($line[3]=~m/(jpg|jpeg|gif|png)$/i)
+					else{ # begin else
 						print "<u><b>Video:</b></u>$line[3]\n<br />";
-					} # End else
-				} # End else
+					} # end else
+				} # end else
 			} # End if ($line[2] !~ m/^http\:\/\//i)
 			else { # Begin else
 				print "<td align='center' valign='middle'>\n<img src='$line[3]' width='75'  height='75' alt='bbb' />\n";
@@ -3513,10 +3485,10 @@ sub shows_list_pictures { # Begin shows_list_pictures
 			print "<input type='hidden' name='maop_service' value='check' />\n";
 			print "<input type='submit'  value='Soumettre :) / Submit :)' />\n";
 			print "</form></tr>\n";
-		} # End if($counter_p>1)
-		else{ # Begin else
+		} # end if($counter_p>1)
+		else{ # begin else
 			$counter_p++;
-		} # End else
+		} # end else
 	} # End foreach my $one_line (@save_info)
 	print "</table>\n\n</fieldset>\n";
 	print "</table>\n";
@@ -3576,7 +3548,7 @@ None.
 
 =cut
 
-sub split_links { # Begin split_links
+sub split_links { # begin split_links
 	my ( $fr_l,             $en_l )     = split( /\;/, $_[0] );
 	my ( $word_to_link,     $link )     = split( /\,/, $fr_l );
 	my ( $word_to_link_eng, $link_eng ) = split( /\,/, $en_l );
@@ -3644,7 +3616,7 @@ None.
 
 =cut
 
-sub remove_picture { # Begin remove_picture
+sub remove_picture { # begin remove_picture
 	my @tmp            = ();
 	my @all_file       = ();
 	#my $local_page     = $doc->param("maop_page");
@@ -3708,7 +3680,7 @@ sub remove_picture { # Begin remove_picture
 		print "+ File $local_dir removed from the disk<br />\n";
 		print "--->File removed from the disk<br />\n";
 	} # End if (-f "$local_dir")
-	elsif ($local_dir=~m/frame/){ # Begin elsif ($local_dir=~m/frame/)
+	elsif ($local_dir=~m/frame/){ # begin elsif ($local_dir=~m/frame/)
 		#unlink("$local_dir") || die("$local_dir cannot be removed");
 		$local_dir=~s/^[^<]*//g;
 		$local_dir=~s/\</&#60;/g;
@@ -3716,13 +3688,13 @@ sub remove_picture { # Begin remove_picture
 		$local_dir=~s/\"/&#34;/g;
 		print "+ Link $local_dir removed from the table<br />\n";
 		#print "Picture removed from the disk<br />\n";
-	} # End elsif ($local_dir=~m/frame/)
-	else{ # Begin else
+	} # end elsif ($local_dir=~m/frame/)
+	else{ # begin else
 		$local_dir=~s/\</&#60;/g;
 		$local_dir=~s/\>/&#62;/g;
 		$local_dir=~s/\"/&#34;/g;
 		print "+ File $local_dir cannot be removed from the disk<br />\n";
-	} # End else
+	} # end else
 	&clean_pictures(@list_file);
 } # End sub remove_picture
 
@@ -3776,7 +3748,7 @@ None.
 
 =cut
 
-sub clean_pictures { # Begin clean_pictures
+sub clean_pictures { # begin clean_pictures
 	my (@list) = @_;
 	my $dir =  DIRECTORY_DEPOSIT . "200*";
 	my @l = `ls $dir`;
@@ -3850,7 +3822,7 @@ None.
 
 =cut
 
-sub return_info_picture { # Begin return_info_picture
+sub return_info_picture { # begin return_info_picture
 	my @tmp            = ();
 	my @all_file       = ();
 	my $local_page     = $doc->param("maop_page");
@@ -3936,7 +3908,7 @@ None.
 
 =cut
 
-sub put_url_line { # Begin put_url_line
+sub put_url_line { # begin put_url_line
 	my $word_to_link = $_[0];
 	my $line         = $_[1];
 	my $url          = $_[2];
@@ -4064,7 +4036,7 @@ Transtypage added
 
 =cut
 
-sub print_page { # Begin print_page
+sub print_page { # begin print_page
 	my $page_asked                = $doc->param("maop_page");
 	my $print_my_page_script_head = ();
 	my $print_my_page_script   = ();
@@ -4107,7 +4079,7 @@ sub print_page { # Begin print_page
 	# Begin Creates navigator menu
 	my $cpt_l=1;
 	foreach (@all_file){ # Begin foreach (@all_file)
-		if($cpt_l!=0){ # Begin if($cpt_l!=0)
+		if($cpt_l!=0){ # begin if($cpt_l!=0)
 			chomp($_);
 			# next line to be removed in the near future
 			$_=~s/\&\#95\;/\_/g;# Transforms data in order not to be delete later
@@ -4117,30 +4089,30 @@ sub print_page { # Begin print_page
 
 			#my ($date_se,@other) = split(/\-/,$d);
 			# case we want to print link to youtube video and not the video itself
-			if( $line[3]=~m!www.youtube.com!i){ # Begin if( $line[3]=~m!www.youtube.com!i)
-				if($line[13]=~m/link\/lien/){ # Begin if($line[13]=~m/link\/lien/)
+			if( $line[3]=~m!www.youtube.com!i){ # begin if( $line[3]=~m!www.youtube.com!i)
+				if($line[13]=~m/link\/lien/){ # begin if($line[13]=~m/link\/lien/)
 					if($line[3]=~m/src=\"([^\"]*)\"/){
 						$line[3]="Lien vers/Link to <a href=\"$1\"  >Youtube</a>";
 					}
-					else{ # Begin else
+					else{ # begin else
 						my $ppin=$line[3];# save link
 
 						$line[3]="Lien vers/Link to <a href='${ppin}' >Youtube</a>";# modify printing
-					} # End else
+					} # end else
 					#print "encounter youtube $line[3] $cpt_l<br />";
-				} # End if($line[13]=~m/link\/lien/)
-			} # End if( $line[3]=~m!www.youtube.com!i)
-			if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i){ # Begin if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
+				} # end if($line[13]=~m/link\/lien/)
+			} # end if( $line[3]=~m!www.youtube.com!i)
+			if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i){ # begin if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
 				# do some cleaning in case that something went wrong during delete picture
-				if(-f DIRECTORY_DEPOSIT . "$line[3]"){ # Begin if(-f DIRECTORY_DEPOSIT . "$line[3]")
+				if(-f DIRECTORY_DEPOSIT . "$line[3]"){ # begin if(-f DIRECTORY_DEPOSIT . "$line[3]")
 					#print "------>$line[3]<br />";
 					open(R, DIRECTORY_DEPOSIT . "$line[3]");
 					my $dta=stat(R);
 					$ppj= scalar localtime $dta->mtime ;
 					close(R);
-				} # End if(-f DIRECTORY_DEPOSIT . "$line[3]")
-				else{ # Begin else
-					if( $line[3]!~m!www.youtube.com!i){ # Begin if( $line[3]!~m!www.youtube.com!i)
+				} # end if(-f DIRECTORY_DEPOSIT . "$line[3]")
+				else{ # begin else
+					if( $line[3]!~m!www.youtube.com!i){ # begin if( $line[3]!~m!www.youtube.com!i)
 						my $o=$line[3];
 						$o=~s!\;!\&\#59;!g;
 						$o=~s!\'!\&\#39;!g;
@@ -4150,13 +4122,13 @@ sub print_page { # Begin print_page
 						$o=~s!\>!\&\#62;!g;
 
 						#print "oooooooooooooo>$o<br />";
-						if($line[0]=~/^[0-9]+$/ && $line[1]=~/^[0-9]+$/){ # Begin if($line[0]=~/^[0-9]+$/ && $line[1]=~/^[0-9]+$/)
+						if($line[0]=~/^[0-9]+$/ && $line[1]=~/^[0-9]+$/){ # begin if($line[0]=~/^[0-9]+$/ && $line[1]=~/^[0-9]+$/)
 							print "does not exist ------>$line[3]<br />";
 							&remove_picture($line[0],$line[1]);
-						} # End if($line[0]=~/^[0-9]+$/ && $line[1]=~/^[0-9]+$/)
-					} # End if( $line[3]!~m!www.youtube.com!i)
-				} # End else
-			} # End if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
+						} # end if($line[0]=~/^[0-9]+$/ && $line[1]=~/^[0-9]+$/)
+					} # end if( $line[3]!~m!www.youtube.com!i)
+				} # end else
+			} # end if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
 
 			# checks if it is not a fake number, page does not exists, ...
 			# if it can be seen from ip address ...
@@ -4231,7 +4203,7 @@ sub print_page { # Begin print_page
 						#		print "bboboboobooooooo:io::MySec::urlsAllowed)[1]<br />";
 								
 								if($line[3]!~/.(mp4|3gp|mpeg|mov|dat|mp3|avi|www.youtube.com)$/i){ # Begin if($line[3]!~/.(mp4|3gp|mpeg|mov|dat|mp3|avi)/i)
-									if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i){ # Begin if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
+									if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i){ # begin if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
 										$print_my_page_script .= 
 											"\n<!-- momo and toto --><a  href='${main_prog}?maop_service=showPict&maop_pict="
 											. DIRECTORY_DEPOSIT
@@ -4239,11 +4211,11 @@ sub print_page { # Begin print_page
 											. &switch_from_a_specified_character_to_tag(
 														"$line[6]SEPARATOR$line[7]")
 										. "'>\n";
-									} # End if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
-									else { # Begin else
+									} # end if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
+									else { # begin else
 										#$print_my_page_script .= $line[3]. "<!-- carotttttttttttttte -->";
 										$print_my_page_script .=  "<!-- carotttttttttttttte -->";
-									} # End else
+									} # end else
 								} # End if($line[3]!~/.(mp4|3gp|mpeg|mov|dat|mp3|avi)/i)
 							} # End if((io::MySec::urlsAllowed)[1] eq "ok" )
 							if($line[3]=~/.(mp4|3gp|mpeg|mov|dat|avi)$/i){ # Begin if($line[3]=~/.(mp4|3gp|mpeg|mov|dat|avi)/i)
@@ -4262,13 +4234,13 @@ sub print_page { # Begin print_page
 										. "$line[3]'  height='72' border='0' alt='knn' />\n";
 										#. "$line[3]'  height='72' border='0' alt='knn' />\n</td></tr>";
 								} # End if($line[3]!~/.(mp3)$/i&&$line[3]!~/www.youtube.com/)
-								elsif($line[3]=~m!www.youtube.com!){ # Begin elsif($line[3]=~m!www.youtube.com!)
+								elsif($line[3]=~m!www.youtube.com!){ # begin elsif($line[3]=~m!www.youtube.com!)
 									#print "eeeeeeeeeeeeeeeeeqqqq<br />";
 									#my $loca= (split(/\-/,$line[3]))[1];
 
 									#$print_my_page_script .= $loca . "<!-- azer qwer -->";
 									$print_my_page_script .= $line[3] . "<!-- azer qwer -->";
-								}# End elsif($line[3]=~m!www.youtube.com!)
+								}# end elsif($line[3]=~m!www.youtube.com!)
 							#print "endend<br />";
 							} # End else
 							if((io::MySec::urlsAllowed)[1] eq "ok" ){ # Begin if((io::MySec::urlsAllowed)[1] eq "ok" )
@@ -4283,10 +4255,10 @@ sub print_page { # Begin print_page
 												. DIRECTORY_DEPOSIT
 												. "$line[3]'  height=100 width=200 border=0 autoplay=false>\n";
 								} # End if($line[3]=~/.(mp3)$/i)
-								elsif($line[3]=~m!www.youtube.com!i){# Begin elsif($line[3]=~m!www.youtube.com!)
+								elsif($line[3]=~m!www.youtube.com!i){# begin elsif($line[3]=~m!www.youtube.com!)
 							#		print "uuuuuuuuuu$line[3]<br />";
 									$print_my_page_script .= $line[3]. "<!-- bobobobobozo le clown -->";
-								}# End elsif($line[3]=~m!www.youtube.com!)
+								}# end elsif($line[3]=~m!www.youtube.com!)
 								$print_my_page_script .= 
 											 &extra_comments("left",
 													"left",
@@ -4298,9 +4270,9 @@ sub print_page { # Begin print_page
 										       ) ."</td><!-- vouiiiii --></tr>\n";
 									$print_my_page_script .= "</td></tr>";
 							} # End if((io::MySec::urlsAllowed)[1] eq "ok" )
-							else{ # Begin else
+							else{ # begin else
 								#$print_my_page_script .= "<br />$ppj<!-- date of first time --></td></tr>";
-							} # End else
+							} # end else
 							$my_image_per_page += 2;
 						} # End if ($line[scalar(@line)-1]=~m/left/i)
 					else { # Begin else
@@ -4323,9 +4295,9 @@ sub print_page { # Begin print_page
 							my ($loca)=$line[3];
 	#print "OOOOOOOO>$loca<br />";
 							$print_my_page_script.=$loca;
-						}  # End if($line[3]=~/www.youtube.com/i)
+						}  # end if($line[3]=~/www.youtube.com/i)
 						else { # BEGIN else
-							if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i){ # Begin if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
+							if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i){ # begin if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
 								if((io::MySec::urlsAllowed)[1] eq "ok" ){ # Begin if((io::MySec::urlsAllowed)[1] eq "ok" )
 									$print_my_page_script.="<a   href='${main_prog}?maop_service=showPict&maop_pict="
 										. DIRECTORY_DEPOSIT
@@ -4342,10 +4314,10 @@ sub print_page { # Begin print_page
 								if((io::MySec::urlsAllowed)[1] eq "ok" ){ # Begin if((io::MySec::urlsAllowed)[1] eq "ok" )
 									$print_my_page_script.="</a>\n";
 								} # End if((io::MySec::urlsAllowed)[1] eq "ok" )
-							} # End if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
-							else{ # Begin else
+							} # end if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
+							else{ # begin else
 								$print_my_page_script .= "<!-- clearfield -->\n" ;
-							} # End else
+							} # end else
 						} # End else
 						$print_my_page_script .=
 							&extra_comments("left",
@@ -4370,11 +4342,11 @@ sub print_page { # Begin print_page
 				} # End if ($page_asked eq $line[0])
 				$my_image++;
 			} # End if(&look_if_page_authorized($line[0])==0)
-		} # Begin if($cpt_l!=0)
-		else{ # Begin else
+		} # begin if($cpt_l!=0)
+		else{ # begin else
 			print "not authorize<br />";
 			$cpt_l++;
-		} # End else
+		} # end else
 	} # End foreach (@all_file)
 	$print_my_page_script .= "</table>\n";
 	if ( &is_ok_page_num( $page_asked, @list_of_existing_pages ) == NOK )  { # Begin if ( &is_ok_page_num($page_asked,@list_of_existing_pages) == NOK)
@@ -4432,10 +4404,10 @@ sub print_page { # Begin print_page
 					    -valign => 'top',
 					} , $allow , "\n"
 				), "\n"
-				), # End of one line
+				), # end of one line
 				"\n"
 				)
-			) # End of one column
+			) # end of one column
 			)
 			)
 			. "\n"
@@ -4548,7 +4520,7 @@ extra_comments
 
 =cut
 
-sub print_date_of_picture_put_on_album { # Begin print_date_of_picture_put_on_album
+sub print_date_of_picture_put_on_album { # begin print_date_of_picture_put_on_album
 	my ($date_set,$date_of_picture_put_on_css,$file_name_dt,$ok,$ipa,$nap) = @_;
 	my @local_proc = gmtime($file_name_dt);
 	my ($num_of_pict,$size_of_all_picture_gathered) = &gets_current_images_information_from_current_album("$file_conf_to_save");
@@ -4609,7 +4581,7 @@ None.
 
 =cut
 
-sub rank_right_navigator_bar_range { # Begin rank_right_navigator_bar_range
+sub rank_right_navigator_bar_range { # begin rank_right_navigator_bar_range
 	my ${rank_max} = $_[0];
 
 	while ( ( ${rank_max} % MAX_IMAGES_PER_PAGE ) != 0 ){ # Begin while ((${rank_max} % MAX_IMAGES_PER_PAGE) != 0)
@@ -4670,7 +4642,7 @@ None.
 
 =cut
 
-sub is_ok_page_num { # Begin is_ok_page_num
+sub is_ok_page_num { # begin is_ok_page_num
 	my ( $page_asked, @list_of_existing_pages ) = @_;
 
 	if ( $page_asked !~ m/^\d+$/ ){ # Begin  if ($page_asked !~ m/^\d+$/)
@@ -4738,8 +4710,8 @@ None.
 
 =cut
 
-sub create_table_for_navigator { # Begin create_table_for_navigator
-print "<!-- Beginint-->\n";
+sub create_table_for_navigator { # begin create_table_for_navigator
+print "<!-- beginint-->\n";
 	return $doc->table(
 		$doc->Tr(
 			$doc->td(
@@ -4845,7 +4817,7 @@ None.
 
 =cut
 
-sub cascade_style_sheet_definition { # Begin cascade_style_sheet_definition
+sub cascade_style_sheet_definition { # begin cascade_style_sheet_definition
 	return &javaScript($_[0]) . "\n".
 		$doc->style({ -type=>'text/css' },
 		"\n/*<![CDATA[*/\n<!--\n" . 
@@ -4904,7 +4876,7 @@ None.
 
 =cut
 
-sub javaScript { # Begin javaScript
+sub javaScript { # begin javaScript
 	my $u=<<R;
 //<![CDATA[
 		<!--
@@ -5009,7 +4981,7 @@ None.
 
 =cut
 
-sub general_css_def { # Begin general_css_def
+sub general_css_def { # begin general_css_def
 	return "body {\n"
 		. "color: #07396E;\n"
 		. "font-family: Courier New;\n"
@@ -5168,9 +5140,6 @@ sub general_css_def { # Begin general_css_def
 		. "top: 5px;\n"
 		. "width: 80px;\n"
 		. "}\n"
-		. "#err {\n"
-		. "width: 40\%;\n"
-		. "}\n"
 		.
 
 		#	"dl {display: block;}".
@@ -5239,7 +5208,7 @@ None.
 
 =cut
 
-sub main_menu { # Begin main_menu
+sub main_menu { # begin main_menu
 	my ( $title, @help_feature ) = @_;
 
 	#print "<![CDATA[\n";
@@ -5309,7 +5278,7 @@ None.
 
 =cut
 
-sub help_menu_with_css { # Begin help_menu_with_css
+sub help_menu_with_css { # begin help_menu_with_css
 	my ( $title, @info ) = @_;
 	@info = (
 	"Suivre attentivement les instructions dessous. / Follow carefully instructions below.",
@@ -5392,7 +5361,7 @@ None.
 
 =cut
 
-sub switch_from_a_specified_character_to_tag { # Begin switch_from_a_specified_character_to_tag
+sub switch_from_a_specified_character_to_tag { # begin switch_from_a_specified_character_to_tag
 	my ($string) = @_;
 print "<!-- ZOZO $string -->";
 	#$string=~s/\'/\_\_TAG\_COT\_\_/g;
@@ -5460,7 +5429,7 @@ None.
 
 =cut
 
-sub switch_from_a_specified_tag_to_characters { # Begin switch_from_a_specified_tag_to_characters
+sub switch_from_a_specified_tag_to_characters { # begin switch_from_a_specified_tag_to_characters
 	my ($string) = @_;
 
 	#$string=~s/\_\_TAG\_COT\_\_/\'/g;
@@ -5529,7 +5498,7 @@ None.
 
 =cut
 
-sub look_for_images_used { # Begin look_for_images_used
+sub look_for_images_used { # begin look_for_images_used
 	if ( !-f "private/image_checked" )
 	{ # Begin if (!-f "private/image_checked")
 		my $counter = 0;
@@ -5614,7 +5583,7 @@ None.
 
 =cut
 
-sub gets_first_page_number { # Begin gets_first_page_number
+sub gets_first_page_number { # begin gets_first_page_number
 	my @line =(); # Initialize
 	open( R, "$file_conf_to_save" ) or error_raised("File $file_conf_to_save does not exists");
 	my @f = <R>;
@@ -5671,7 +5640,7 @@ None.
 
 =cut
 
-sub main_help_menu_css { # Begin main_help_menu_css
+sub main_help_menu_css { # begin main_help_menu_css
 	&main_menu(
 		"Aide / Help",
 		"Les liens apparaissent en foncé. Des qu'ont les survolent ils changent de couleur. Cliquez dessus pour suivre le lien. / Links show up in dark color. As soon as mouse is over, color changes hence click on it to follow the link.",
@@ -5750,7 +5719,7 @@ None.
 
 =cut
 
-sub gets_current_images_information_from_current_album { # Begin gets_current_images_information_from_current_album
+sub gets_current_images_information_from_current_album { # begin gets_current_images_information_from_current_album
 	my ($file_album) = @_;
 	my $size_within_album_of_all_images = 0;
 	open( R, "$file_album" ) || error_raised( $doc, "File [$file_album] not found!!!" );
@@ -5846,7 +5815,7 @@ None.
 
 =cut
 
-sub extra_comments { # Begin extra_comments
+sub extra_comments { # begin extra_comments
 	if((io::MySec::urlsAllowed)[1] eq "ok" ){ # Begin if((io::MySec::urlsAllowed)[1] eq "ok" )
 		if("$authorized" eq "ok"){ # Begin if("$authorized" eq "ok")
 			my ($current_horizontal_pos,$check_with_horizontal_pos,$page,$line,$comment) = @_;
@@ -5932,7 +5901,7 @@ None.
 
 =cut
 
-sub tag_div_comment { # Begin tag_div_comment
+sub tag_div_comment { # begin tag_div_comment
 	my ($page,$line) = @_;
 
 	return 	 '<div style="width=150;height=10;background:#F9FFE5" id="expl_'. $page . "_" . $line . '"></div>';
@@ -6029,7 +5998,7 @@ sub ipAddressGranted{ # Begin ipAddressGranted
 		$recPid="";
 		my $url=join(/\n/,io::MyUtilities::getUrlFromFile); # pick up url from the file
 		#print "zozozo$ipad<br />$url<br />";
-		if($url!~/$ipad\|/){ # Begin if($url!~/$ipad\|/)
+		if($url!~/$ipad\|/){ # begin if($url!~/$ipad\|/)
 			chomp($ipad); # Remove crlf
 			$ipad.="||" ; # Separator
 			my $pad=$doc->param("maop_locIdName"); 
@@ -6051,7 +6020,7 @@ sub ipAddressGranted{ # Begin ipAddressGranted
 			open(W,">album/$furls") or die("album/$furls $!");
 			print W "$ipad";
 			close(W) or die("album/$furls $!");
-		} # End if($url!~/$ipad\|/)
+		} # end if($url!~/$ipad\|/)
 		@urlAllowed=split(/\,/, io::MyUtilities::getUrlFromFile); # refresh list
 	} # End if($recPid=~m/ok/)
 
@@ -6079,7 +6048,7 @@ MENU
 	</fieldset>
 </td></tr><tr><td valign=top algin=left>Log book/Journal de log
 MENU
-	if( -d "album/hist"){ # Begin if(-d "album/hist")
+	if( -d "album/hist"){ # begin if(-d "album/hist")
 		chdir("album");chdir("hist");
 		
 		opendir(ARD,".") || die(". $!");
@@ -6089,20 +6058,20 @@ MENU
 		#print "<select name=\"access\" size=10>\n";
 		print "<select name=\"access\">\n";
 #		my @nr=();
-		foreach (@dr){ # Begin foreach (@dr)
-			if(length("$_")>0){# Begin if(length("$_")>0)
+		foreach (@dr){ # begin foreach (@dr)
+			if(length("$_")>0){# begin if(length("$_")>0)
 				#print "---->$_<<br />";
 				open(R,"$_") || die("$_ $!"); my $b=<R>;close(R) || die("$_ $!");
 				
-				foreach my $m (reverse split(/\,/,$b)){ # Begin foreach my $m (reverse split(/\,/,$b))
+				foreach my $m (reverse split(/\,/,$b)){ # begin foreach my $m (reverse split(/\,/,$b))
 					$m=~s!#!\n<br />\&nbsp\;<br />!g;
 					print "<option>$m</option>\n";
-				} # End foreach my $m (reverse split(/\,/,$b))
-			}# End if(length("$_")>0)
-		} # End foreach (@dr)
+				} # end foreach my $m (reverse split(/\,/,$b))
+			}# end if(length("$_")>0)
+		} # end foreach (@dr)
 		chdir("..");chdir("..");
 		print "</select>\n";
-	} # End if(-d "album/hist")
+	} # end if(-d "album/hist")
 } # End ipAddressGranted
 
 =head1 sub menu_admin_GoogleMap_ID(...)
@@ -6163,14 +6132,6 @@ None.
 
 =over 4
 
-- I<Last modification:> Feb 11 2016: encodeURIComponent() added to encode trip name
-
-- I<Last modification:> Feb 06 2016: Mail feature added when trip name created and sent to a user
-
-- I<Last modification:> Jan 30 2016: List feature completed and finished
-
-- I<Last modification:> Jan 24 2016: Due to to the add of prefix to variables to enhance geolocation coordinate value a regression bug was noticed. The maop_ prefix was not revised to all variables that were passed. Now it is done for this function.
-
 - I<Last modification:> Feb 24 2014: Deletion of trip name complete. Traces in files that contains coordinates are not yet removed.
 
 - I<Last modification:> Feb 23 2014: Infobox alert in deletion trip information added
@@ -6196,56 +6157,25 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 	opendir(ARD,".") || die(". $!");# open current directory
 	my @dr= grep { $_ =~ m/\-trips$/ } readdir(ARD);# parse current directory
 	closedir(ARD) || die(". $!");# close directory
-	# chdir("../..");
-	my $trips="var tripListJSON=[\n";
+	chdir("../..");
 	my $lot="var lot= new Array('--',"; # List of trips
-	my $lotList="<select name='maop_operationokdelete' onChange='listToDelete()'>"; # List of trips
-	my $lotList2="<select name='maop_operationokdelete' onChange='listToList()'>"; # List of trips
-	foreach my $i (@dr){ # Begin foreach my $i (@dr)
+	my $lotList="<select name='operationokdelete' onChange='listToDelete()'>"; # List of trips
+	my $lotList2="<select name='operationokdelete' onChange='listToList()'>"; # List of trips
+	foreach my $i (@dr){ # begin foreach my $i (@dr)
 		$lot.="\"$i\",";
-		open(R,"$i") || die("error open $!");
-		my @ftr=<R>; # File trip read
-		my ($btd,$etd,$btzn,$etzn)=split(/\#/,$ftr[0]);# Begin trip date,end trip date
 		$i=~s/-trips$//;
-		$trips.="\t\t\t{\"TripName\":\"$i\",\"btd\":\"$btd\",\"etd\":\"$etd\",\"btzn\":\"$btzn\",\"etzn\":\"$etzn\"},\n";
-		close(R) || die("error close $!");
 		$lotList.="<option>$i</option>";
 		$lotList2.="<option>$i</option>";
-	} # End foreach my $i (@dr)
-	$trips=~s/\,\n$//;
-	$trips.="];\n\n";
+	} # end foreach my $i (@dr)
 	$lot=~s/,$/\)\;/; # They array is built of trips
 	$lotList.="</select>";
 	$lotList2.="</select>";
-	chdir("../..");
 	my $myuri="$ENV{SERVER_NAME}";
 	my $myport= ($ENV{SERVER_PORT}=~m/[0-9]+/) ? ":$ENV{SERVER_PORT}/" : "/";
 	my $myscript= $ENV{REQUEST_URI};
 	$myscript=~s/\?.*$//;
 	$myscript=~s/album.cgi/maop.cgi/;
-	#if(-f "debug"){ # Begin if(-f "debug")
-		#$gurl = "https://maps.googleapis.com/maps/api/timezone/json?location=$lat,$lon&timestamp=1331161200&key=$id"; # google url
-		#$gjson=get("$gurl"); # google json
-		#$json_obj = new JSON;
-		#$pperl = $json_obj->decode($gjson);
-		#$mtzg=$pperl->{timeZoneId};# my time zone from google
-	#}
-	#chomp($mtzg);
-	my $ltznb=" Time zone <select name='maop_ltzn_b'>"; # List of time zone names for the begining of the trip
-	my $ltzne=" Time zone <select name='maop_ltzn_e'>"; # List of time zone names for the end of the trip
-	foreach (@{DateTime::TimeZone->all_names}){
-		chomp($_);
-		if($_=~m/$mtzg/){
-			$ltznb.="<option value='$_' selected>$_</option>";
-			$ltzne.="<option value='$_' selected>$_</option>";
-		}
-		else{
-			 $ltznb.="<option value='$_'>$_</option>";
-			 $ltzne.="<option value='$_'>$_</option>";
-		}
-	}
-	$ltznb.="</select>";
-	$ltzne.="</select>";
+	#$myuri=~s/\?.*$//;
 	print <<MENU;
 <fieldset>
 <legend>Google</legend>
@@ -6261,10 +6191,9 @@ Google ID:<input type='text' name='maop_googid' />
 </form>
 </fieldset>	
 <script>
-
 	function listToDelete(){ // Begin function listToDelete()
-		var idx = document.myform.maop_operationokdelete.selectedIndex;
-		var choice = document.myform.maop_operationokdelete.options[idx].innerHTML;
+		var idx = document.myform.operationokdelete.selectedIndex;
+		var choice = document.myform.operationokdelete.options[idx].innerHTML;
 		var r=confirm("Press OK button to delete ["+choice+"] trip name.Press Cancel button to avoid ["+choice+"] deletion."); 
 		
 		if (r==true) { 
@@ -6274,7 +6203,6 @@ Google ID:<input type='text' name='maop_googid' />
 		}
 	} // End function listToDelete()
 
-	/*
 	function listToList(){ // Begin function listToList()
 		var idx = document.myform.operationokdelete.selectedIndex;
 		var choice = document.myform.operationokdelete.options[idx].innerHTML;
@@ -6283,7 +6211,6 @@ Google ID:<input type='text' name='maop_googid' />
 		
 		document.myform.submit(); 
 	} // End function listToList()
-	*/
 
 	function myList(){ // Begin function myList()
 		var idx = document.myform.operation.selectedIndex;
@@ -6297,65 +6224,37 @@ Google ID:<input type='text' name='maop_googid' />
 									"<input type='hidden' name='maop_login' value='$lok' />"+
 									"<input type='hidden' name='maop_recPid' value='ok' />"+
 									"<input type='hidden' name='maop_service' value='check' />"+
-									"<input type='hidden' name='maop_ssection' value='adminGroup' />"+
-									"<input type='hidden' name='maop_TRIP_ID' value='ok' />"+
-									"<input type='hidden' name='maop_TRIP_ID_DELETE' value='ok' />"+
+									"<input type='hidden' name='maop_ssection' value='adminGoogleID' />"+
+									"<input type='hidden' name='maop_TRIP_ID' value='ok'>"+
+									"<input type='hidden' name='maop_TRIP_ID_DELETE' value='ok'>"+
 									"<input type='button' value='confirm' onClick='listToDelete()' >";
 		} // End if(choice.match("Delete")) 
 		else if(choice.match("List")){ // Begin if(choice.match("List")) 
-			document.getElementById('tripList').innerHTML = "Trip list: $lotList2" +
-									"<input type='hidden' name='maop_prev_id' value='$$' />"+
-									"<input type='hidden' name='maop_login' value='$lok' />"+
-									"<input type='hidden' name='maop_recPid' value='ok' />"+
-									"<input type='hidden' name='maop_service' value='check' />"+
-									"<input type='hidden' name='maop_ssection' value='adminGroup' />"+
-									"<input type='hidden' name='maop_TRIP_ID' value='ok'>"+
-									"<input type='hidden' name='maop_lon' value='$lon' />"+
-									"<input type='hidden' name='maop_lat' value='$lat' />"+
-									"<input type='button' value='confirm' onClick='listToList()' >"+
-									'<div id="err"></div>';
-		} // End if(choice.match("List")) 
-		else if(choice.match("Send")){ // Begin if(choice.match("Send")) 
-			document.getElementById('tripList').innerHTML = "Trip list: $lotList2" +
-									"<input type='hidden' name='maop_prev_id' value='$$' />"+
-									"<input type='hidden' name='maop_login' value='$lok' />"+
-									"<input type='hidden' name='maop_recPid' value='ok' />"+
-									"<input type='hidden' name='maop_service' value='check' />"+
-									"<input type='hidden' name='maop_ssection' value='adminGroup' />"+
-									"<input type='hidden' name='maop_TRIP_ID' value='ok'>"+
-									"<input type='hidden' name='maop_lon' value='$lon' />"+
-									"<input type='hidden' name='maop_lat' value='$lat' />"+
-									"<input type='button' value='confirm' onClick='listToListSend()' >"+
-									'<div id="err"></div>';
-		} // End if(choice.match("Send")) 
-		else if(choice.match("Modification")){ // Begin if(choice.match("Modification")) 
 			document.getElementById('tripList').innerHTML = "<!--zeub $lotList2 --> Trip list: $lotList2" +
 									"<input type='hidden' name='maop_prev_id' value='$$' />"+
 									"<input type='hidden' name='maop_login' value='$lok' />"+
 									"<input type='hidden' name='maop_recPid' value='ok' />"+
 									"<input type='hidden' name='maop_service' value='check' />"+
-									"<input type='hidden' name='maop_ssection' value='adminGroupModif' />"+
+									"<input type='hidden' name='maop_ssection' value='adminGoogleID' />"+
 									"<input type='hidden' name='maop_TRIP_ID' value='ok'>"+
 									"<input type='hidden' name='maop_lon' value='$lon' />"+
 									"<input type='hidden' name='maop_lat' value='$lat' />"+
-									"<input type='button' value='confirm' onClick='listToModification()' >";
-		} // End if(choice.match("Modification")) 
+									"<input type='button' value='confirm' onClick='listToList()' >";
+		} // End if(choice.match("List")) 
 		else if(choice.match("Add")){ // Begin else if(choice.match("Add")) 
-			//var myurl=new String("$myuri$myport/$myscript?maop_googid="+choice+"&maop_gmv=3-0");
-			//var r="http://"+myurl.replace(/[\/]{2,}/g,"/"); // Regexp used to eliminate bugs while printing URL   ...
-			document.getElementById('tripList').innerHTML = "<input type='hidden' name='maop_lon' value='$lon' />"+
+			document.getElementById('tripList').innerHTML = 
+									"<input type='hidden' name='maop_lon' value='$lon' />"+
 									"<input type='hidden' name='maop_lat' value='$lat' />"+
 									"<input type='hidden' name='maop_prev_id' value='$$' />"+
 									"<input type='hidden' name='maop_login' value='$lok' />"+
 									"<input type='hidden' name='maop_recPid' value='ok' />"+
 									"<input type='hidden' name='maop_service' value='check' />"+
-									"<input type='hidden' name='maop_ssection' value='adminGroup' />"+
-									"<input type='hidden' name='maop_TRIP_ID' value='ok' />"+
 									"Trip name:<input type='text' name='maop_googid' /> "+
-									"<br>Email to send: <input type='email' name='maop_email' value='dorey_s\@laposte.net'>"+
-									"<br>Begining of the trip (2014-02-22T15:50)<input type='datetime-local' name='maop_bdaytime'>$ltznb"+
-									"<br>End of the trip (2014-02-23T05:50)<input type='datetime-local' name='maop_edaytime'>$ltzne"+
-									"<br><input type='button' onclick='calc()' value='Checks dates'>"+
+									"<input type='hidden' name='maop_ssection' value='adminGoogleID' />"+
+									"<input type='hidden' name='maop_TRIP_ID' value='ok'>"+
+									"<br>Begining of the trip (2014-02-22T15:50)<input type='datetime-local' name='maop_bdaytime'>"+
+									"End of the trip (2014-02-23T05:50)<input type='datetime-local' name='maop_edaytime'>"+
+									"<input type='button' onclick='calc()' value='Checks dates'>"+
 									'<div id="err"></div>';
 		} // End else if(choice.match("Add")) 
 		else{ // Begin else
@@ -6363,64 +6262,13 @@ Google ID:<input type='text' name='maop_googid' />
 		} // End else
 	} // End function myList()
 
-	function listToModification(){ // Begining function listToModification()
-	$trips
-	//console.log("length of this object "+ obj.tripListText.length);
-	//console.log("length of this object ");
-		alert("hello world "+tripListJSON.length+" " +tripListJSON[1].TripName);
-	} // End function function listToModification()
-
-	function listToList(){ // Begining function listToList()
-	$trips
-		var e = document.myform.maop_operationokdelete.selectedIndex;
-		/*
-		var idx = document.myform.operationokdelete.selectedIndex;
-		*/
-		var choice = document.myform.maop_operationokdelete.options[e].innerHTML;
-		var myurl=new String("$myuri$myport/$myscript?maop_googid="+choice+"&maop_gmv=3-0");
-		var r="http://"+myurl.replace(/[\/]{2,}/g,"/"); // Regexp used to eliminate bugs while printing URL   ....
-
-		var i = 0;
-		var strUser = document.myform.maop_operationokdelete.options[e].text;
-		while(i<tripListJSON.length&&tripListJSON[i].TripName!=strUser)i++;
-		document.getElementById('err').innerHTML = "<br><b><u>Tip name:</u></b>"+tripListJSON[i].TripName+
-                                                           "<br><b><u>Begining of the trip:</u></b>"+tripListJSON[i].btd+" --- "+tripListJSON[i].btzn+
-							   "<br><b><u>End of the trip:</u></b>"+tripListJSON[i].etd+" --- "+tripListJSON[i].etzn+
-							   "<br><b><u>URL to trace the trip:</u></b><a href='"+encodeURI(r)+"'>"+encodeURI(r)+"</a>";
-	} // End function listToList()
-
-	function listToListSend(){ // Begining function listToListSend()
-	$trips
-		var e = document.myform.maop_operationokdelete.selectedIndex;
-		/*
-		var idx = document.myform.operationokdelete.selectedIndex;
-		*/
-		var choice = document.myform.maop_operationokdelete.options[e].innerHTML;
-		var myurl=new String("$myuri$myport/$myscript?maop_googid="+choice+"&maop_gmv=3-0");
-		var r="http://"+myurl.replace(/[\/]{2,}/g,"/"); // Regexp used to eliminate bugs while printing URL   ....
-
-		var i = 0;
-		var strUser = document.myform.maop_operationokdelete.options[e].text;
-		while(i<tripListJSON.length&&tripListJSON[i].TripName!=strUser)i++;
-		document.getElementById('err').innerHTML = "<br><b><u>Tip name:</u></b>"+tripListJSON[i].TripName+
-                                                           "<br><b><u>Begining of the trip:</u></b>"+tripListJSON[i].btd+
-							   "<br><b><u>End of the trip:</u></b>"+tripListJSON[i].etd+
-							   "<br><b><u>URL to trace the trip:</u></b>"+r;
-	} // End function listToListSend()
-
-	function getTimeZone() {
-		return /\((.*)\)/.exec(new Date().toString())[1];
-	}
-
 	function calc(){ // Begin function calc()
 		$lot
 		var d1;
 		var d2;
-		var trip = encodeURI(document.myform.maop_googid.value);
+		var trip = document.myform.maop_googid.value;
 		var num1 = document.myform.maop_bdaytime.value;
 		var num2 = document.myform.maop_edaytime.value;
-		var myurl=new String("$myuri$myport/$myscript?maop_googid="+trip+"&maop_gmv=3-0");
-		var r="http://"+myurl.replace(/[\/]{2,}/g,"/"); // Regexp used to eliminate bugs while printing URL   ...
 
 		if(trip.length == 0){ // Begin if(trip.length == 0)
 			document.getElementById('err').innerHTML = "No trip name specified.";
@@ -6433,17 +6281,10 @@ Google ID:<input type='text' name='maop_googid' />
 				d1=new Date(num1);
 				d2=new Date(num2);
 				if ((d1 - d2) < 0){ // Begin if ((d1 - d2) < 0)
-			                //document.getElementById('maop_url').value = r; 
-					// document.getElementById("err").innerHTML=r;
-					var lag=d1.getTimezoneOffset()
-					
-					document.getElementById('err').innerHTML = "<input type='submit'>"+
-					                                           "<input type='hidden' name='maop_url' value='"+r+"'/>"+
-											getTimeZone()+
-					                                           "<input type='hidden' name='maop_tz_offset' value='"+lag+"'/>";
+					document.getElementById('err').innerHTML = "<input type='submit'>";
 				} // End if ((d1 - d2) < 0)
 				else{ // Begin else
-					document.getElementById('err').innerHTML = "d1 > d2 ..." + document.myform.maop_bdaytime.value + " "+document.myform.maop_edaytime.value;
+					document.getElementById('err').innerHTML = "d1 > d2 ..." + document.myform.maop_bdaytime.value + " iiiiii "+document.myform.maop_edaytime.value;
 				} // End else
 			} // End else
 		} // End else
@@ -6455,10 +6296,8 @@ Google ID:<input type='text' name='maop_googid' />
 	Operation <select name="operation" onChange="myList()">
 								<option default>--</option>
 								<option>Add</option>
-								<option>List</option>
-								<option>Modification</option>
-								<option>Send</option>
 								<option>Delete</option>
+								<option>List</option>
 								</select> 
 	<div id="tripList"></div>
 </form>
@@ -6582,7 +6421,7 @@ None.
 
 =cut
 
-sub ipAddressRemoved{ # Begin ipAddressRemoved
+sub ipAddressRemoved{ # begin ipAddressRemoved
 	if("$remPid" eq "ok"){ # Begin if("$remPid" eq "ok") remove ip address if user agreed
 		my $locRemIpInf=$doc->param("maop_remAddrIp");
 		chomp($locRemIpInf);
@@ -6700,7 +6539,7 @@ None.
 
 =cut
 
-sub showsStats{ # Begin showsStats
+sub showsStats{ # begin showsStats
 	if("$authorized" eq "ok"){ # Begin if("$authorized" eq "ok")
 		print '<!-- Start of StatCounter Code -->' . "\n";
 		print '<script type="text/javascript">' . "\n";
@@ -6803,7 +6642,7 @@ None.
 
 =cut
 
-sub set_history{ # Begin set_history
+sub set_history{ # begin set_history
 	my ($u,$d,$p,$f,$l,$hdf)=@_; # ip|url,date,page,fields to store,history directory file
 
 	#print "<br>----------->>($u,<br>$d,<br>$p,<br>$f,<br>$l,<br>$hdf<br>)<br>\n";
@@ -6881,7 +6720,7 @@ None.
 
 =cut
 
-sub accessAdminPicture{ # Begin accessAdminPicture
+sub accessAdminPicture{ # begin accessAdminPicture
 	print <<MENU
 <br />Administrer album/Administrate Album:
 <select name="maop_grantAdministration">
@@ -6889,7 +6728,7 @@ sub accessAdminPicture{ # Begin accessAdminPicture
 	<option>Administration autorisee/Administration granted</option>
 </select>
 MENU
-} # End accessAdminPicture
+} # end accessAdminPicture
 
 =head1 sub accessToPicture(...)
 
@@ -6965,7 +6804,7 @@ None.
 
 =cut
 
-sub accessToPicture{ # Begin accessToPicture
+sub accessToPicture{ # begin accessToPicture
 	my $grantPicture=($grant=~m!ko!) ? "Public not granted" 
 		: (($grant=~m!adm!) ? "Admin granted" : "Public granted") ;
 	
@@ -6983,7 +6822,7 @@ sub accessToPicture{ # Begin accessToPicture
 						"$grantPicture"
 					    ]
 			       ) ; 
-} # End accessToPicture
+} # end accessToPicture
 
 =head1 sub look_if_page_authorized(...)
 
@@ -7053,7 +6892,7 @@ None.
 
 =cut
 
-sub look_if_page_authorized { # Begin look_if_page_authorized
+sub look_if_page_authorized { # begin look_if_page_authorized
 	my ($pgnu)=@_; # page number
 	my ($allow,$authorized)=io::MySec::urlsAllowed;
 	if($authorized=~m/ok/){ return 0; }
@@ -7061,15 +6900,15 @@ sub look_if_page_authorized { # Begin look_if_page_authorized
 	my @f = <R>;
 	close(R) or error_raised("File $file_conf_to_save does not exists");
 	#print "<br />==============<br />";
-	foreach my $i (@f){ # Begin foreach my $i (@f)
+	foreach my $i (@f){ # begin foreach my $i (@f)
 		my @z=split(/\|\|/,${i});
 		# case page asked exist
-		if(${i}=~m/^${pgnu}\|\|/){ # Begin if(${i}=~m/^${pgnu}-/)
-			if($z[12]=~m/ok/){ # Begin if($z[12]=~m/ok/)
+		if(${i}=~m/^${pgnu}\|\|/){ # begin if(${i}=~m/^${pgnu}-/)
+			if($z[12]=~m/ok/){ # begin if($z[12]=~m/ok/)
 				return 0; 
-			} # End if($z[12]=~m/ok/)
-		} # End if(${i}=~m/^${pgnu}-/)
-	} # End foreach my $i (@f)
+			} # end if($z[12]=~m/ok/)
+		} # end if(${i}=~m/^${pgnu}-/)
+	} # end foreach my $i (@f)
 	return -1 ; # everything is ok
 } # End sub look_if_page_authorized
 
@@ -7141,21 +6980,21 @@ None.
 
 =cut
 
-sub get_first_page_authorized { # Begin look_if_page_authorized
+sub get_first_page_authorized { # begin look_if_page_authorized
 	my ($pgnu)=@_; # page number
 	my ($allow,$authorized)=io::MySec::urlsAllowed;
 	if($authorized=~m/ok/){ return ${pgnu}; }
 	open( R, "$file_conf_to_save" ) or error_raised("File $file_conf_to_save does not exists");
 	my @f = <R>;
 	close(R) or error_raised("File $file_conf_to_save does not exists");
-	foreach my $i (@f){ # Begin foreach my $i (@f)
+	foreach my $i (@f){ # begin foreach my $i (@f)
 		#print "00000000000)$i<br />\n";
 		my @z=split(/\|\|/,${i}); # splits fields
 		# case page asked exist
-		if($z[12]=~m/ok/){ # Begin if($z[12]=~m/ok/)
+		if($z[12]=~m/ok/){ # begin if($z[12]=~m/ok/)
 			return $z[0];
-		} # End if($z[12]=~m/ok/)
-	} # End foreach my $i (@f)
+		} # end if($z[12]=~m/ok/)
+	} # end foreach my $i (@f)
 	return 0 ; # everything is ok
 } # End sub look_if_page_authorized
 
@@ -7229,7 +7068,7 @@ None.
 
 =cut
 
-sub firstChoicetMenuadmin{ # Begin firstChoicetMenuadmin
+sub firstChoicetMenuadmin{ # begin firstChoicetMenuadmin
 	my $login=$doc->param("maop_login") ; # Gets login
 	my $password=$doc->param("maop_password") ; # Gets login
 	print &menu_page_title( "<br /><br />MENU PRINCIPAL<br /><font color='blue'>MAIN MENU</font>" . $doc->br );
@@ -7355,7 +7194,7 @@ None.
 =cut
 
 # attention work here to check if address can be recorded
-sub groupAndStuff{ # Begin groupAndStuff
+sub groupAndStuff{ # begin groupAndStuff
 	print &menu_page_title( "<br /><br />ADMINISTRATION DES GROUPES/ADRESSES IP<br /><font color='blue'>ADMINISTRATION OF GROUPS/IP ADDRESSES</font>" . $doc->br );
 	print <<MENU;
 <table border="0">
@@ -7440,10 +7279,6 @@ None.
 
 =over 4
 
-- I<Last modification:> Apr 8 2016 regexp added $tn=~s/[\ \n\t]*\-trip/\-trip/; now it seems to be ok
-
-- I<Last modification:> Feb 15 2016 now send email in html form.
-
 - I<Last modification:> Dec 24 2014 bug cleared. d1#d1 recorded instread of d1#d2 s.a d1<d2 where dn is a date and 0<=n<=inf n is an integer inf is the infinite
 
 - I<Last modification:> Jan 18 2014 put the trip name
@@ -7458,106 +7293,47 @@ None.
 
 =cut
 
-sub setGoogleID{# Begin setGoogleID
+sub setGoogleID{# begin setGoogleID
 	my ($fname,$googleid)=@_;# $fname: file name where to save google id map;$goohleid: that's the google id
 	my $method = $ENV{'REQUEST_METHOD'} ;
-	#if($googlid=~m/[\n\t\ ]*$/){ print "</br></br></br><b>>>>>>>>>>>>>>>$googleid<".length($googleid).">>>>>>>>>>>>>>>>>..there is a match in the trip name</b></br>";}
-	#$googlid=~s/[\n\t\ ]*$/\_space/;
-	#if($googlid=~m/[\n\t\ ]*$/){ print "</br></br></br><b>test 2>>>>>>>>>>>$googlid<".length($googleid).">>>>>>>>>>>>>>>>>>>>..there is a match in the trip name</b></br>";}
 	chomp($method);
 
-#	print "We go in param googoid<br>";
-	if($method ne "POST"){ # Begin if($method ne "POST")
+	print "We go in param googoid<br>";
+	if($method ne "POST"){
 		my $param_trip_delete=$doc->param("maop_TRIP_ID_DELETE");
 		chomp($param_trip_delete);
 		if($param_trip_delete=~m/^ok$/){ # Begin if($param_trip_delete=~m/^ok$/)
 			chdir(PATH_GOOGLE_MAP_TRIP);
 			#print "file to delete " . PATH_GOOGLE_MAP_TRIP . "/" . $doc->param("maop_operationokdelete") . "-trips <br>";
 			unlink($doc->param("maop_operationokdelete") . "-trips");
-			if( ! -f $doc->param("maop_operationokdelete") . "-trips"){ # Begin if( ! -f $doc->param("maop_operationokdelete") . "-trips")
+			if( ! -f $doc->param("maop_operationokdelete") . "-trips"){
 				print "<br><br><br><br>Trip " . $doc->param("maop_operationokdelete") . " removed<br>";
-			} # End if( ! -f $doc->param("maop_operationokdelete") . "-trips")
+			}
 
 			chdir("../..");
 		
-		} # End if($param_trip_delete=~m/^ok$/)
-	} # End if($method ne "POST")
+		}
+	}
 
 	print "Stge 1<br>";
-	chomp($fname);#chomp($googleid);
-#	print "if($param_trip=~m/^ok$/)\n<br>";
-#exit(-1);
+	chomp($fname);chomp($googleid);
 	if($param_trip=~m/^ok$/){ # Begin if($param_trip=~m/^ok$/)
 		my $tn=PATH_GOOGLE_MAP_TRIP.$googleid ."-".TRIP_NAME; # Trip name
-		$tn=~s/[\ \n\t]*\-trip/\-trip/;
-		print "Stge 2 [$googleid]".length($googleid)."<br>";
+		print "Stge 2<br>";
 
 		if(length($googleid)!=0){ # Begin if(length($googleid)!=0)
 			if( ! -f "$tn" ){ # Begin if( ! -f "$tn" )
 				my $bdaytime=$doc->param("maop_bdaytime");
 				my $edaytime=$doc->param("maop_edaytime");
-				my $ltzn_b=$doc->param('maop_ltzn_b');
-				my $ltzn_e=$doc->param('maop_ltzn_e');
 
 				print "record in $tn<br>";
 				if(length($bdaytime)!=0){ # Begin if(length($bdaytime)!=0)
 					if(length($edaytime)!=0){ # Begin if(length($edaytime)!=0)
-						#print $bdaytime . "#" . $edaytime.'<br>';
+						print $bdaytime . "#" . $edaytime.'<br>';
 						# We create the file that contains data related to trip s.a name, bdate,edate of trip
-						print "</br>where we store data [$tn]</br>";
-						
 						open(W,">$tn");
-						print W $bdaytime . "#" . $edaytime . "#" . $ltzn_b . "#" . $ltzn_e;
+						print W $bdaytime . "#" . $edaytime;
 						close(W);
-						# ---------------------------------------------------
-						# format received yyyy-mm-ddThh:mm for params received in maop_bdaytime, maop_edaytime
-						my ($bdp,$bhp)=split(/T/,$doc->param('maop_bdaytime'));# Begin date trip param,begin hour trip param
-						# prune out info from $bdp and $bhp
-						my ($bdy,$bdm,$bdd)=split(/\-/,$bdp);# Begin day year, begin day month, begin day day
-						my ($bhh,$bhm)=split(/\:/,$bhp);# Begin hour hour,begin hour minute
-						my ($edy,$edm,$edd)=split(/\-/,$bdp);# End day year, end day month, end day day
-						my ($ehh,$ehm)=split(/\:/,$bhp);# End hour hour,end hour minute
-						my $dtb= DateTime->new( year       => $bdy,
-									month      => $bdm,
-									day        => $bdd,
-									hour       => $bhh,
-									minute     => $bhm,
-									second     => 0,
-								); # creates object date time for begining of the trip
-						my $dte= DateTime->new( year       => $edy,
-									month      => $edm,
-									day        => $edd,
-									hour       => $ehh,
-									minute     => $ehm,
-									second     => 0,
-								); # creates object date time for end of the trip
-						# ---------------------------------------------------
-						my $tzbt=DateTime::TimeZone->new( name => $doc->param('maop_ltzn_b') ); # Time zone begining of the trip
-						my $tzet=DateTime::TimeZone->new( name => $doc->param('maop_ltzn_e') ); # Time zone end of the trip
-						my $to = $doc->param("maop_email");
-						my $from = 'shark.b@laposte.net';
-						my $maop_url_loc = $doc->param('maop_url'); $maop_url_loc=~s/[\n\t\ ]*$//; # watch out there is a variable that already contains that value it is $mgidt
-						my $subject = "Info regarding trip name:" . $doc->param('maop_googid'); 
-						my $message = "<b><u>Trip name/Nom du voyage:</u></b>" . $doc->param('maop_googid') .  
-							      "\n<br><b><u>Begining of the trip/Debut du voyage:</u></b>" . $doc->param('maop_bdaytime') . " " . $tzbt->name . " " . $tzbt->offset_for_local_datetime( $dtb ) .
-							      "\n<br><b><u>End of the trip/Fin du voyage:</u></b>". $doc->param('maop_edaytime'). " " . $tzet->name . " " . $tzet->offset_for_local_datetime( $dte ) .
-							      "\n<br><b><u>Trace trip/Trace du voyage:</u></b><a href='".$maop_url_loc."'>trip</a>\n".
-							      "\n<br><b><u>Watch map regarding trip/Regarder le voyage sur une carte:</u></b><a href='".$maop_url_loc.
-								"\&maop_gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
-								"\&maop_prog=g3ogle.cgi'>trip</a>\n" ;
-
-						open(MAIL, "|/usr/sbin/sendmail -t");
-						# Email Header
-						print MAIL "To: $to\n";
-						print MAIL "From: $from\n";
-						print MAIL "MIME-Version: 1.0\n";
-						print MAIL "Content-Type: text/html\n";
-						print MAIL "Subject: $subject\n\n";
-						# Email Body
-						print MAIL $message;
-						close(MAIL);
-
-						print "A mail to $to is being sent...\n";
 					} # End if(length($edaytime)!=0)
 					else{ # Begin else
 						#print "<br><br><BR><i>ERRROR<br>";
@@ -7584,19 +7360,19 @@ sub setGoogleID{# Begin setGoogleID
 		print W "$googleid";
 		close(W);
 	} # End else
-}# End setGoogleID
+}# end setGoogleID
 
 sub myrec{
 	my ($c,$f,$m)=@_;
 	my $mainp=(split(/[\\\/]/,"$0"))[scalar(split(/[\\\/]/,"$0"))-1]; # gets program name
 		my $dt = DateTime->from_epoch( epoch => time() );# Current date format DateTime
-	open(W,">>$f")||die("$f error $!");
+	open(W,">>$f")||die("error $!");
 	print W "<pre>\n";
 	print W "<b>******************Begin**************************<br>\n";
 	print W "*******************\n$mgidt\n*************************<br>\n";
 	print W "********************************************</b><br>\n";
-	print W "--------------------\n$mainp\n------------$dt---------------------\n";
-	print W "$c:\n$m\n\n";
+	print W "--------------------\n$mainp\n------------$dt---------------------\n<br>";
+	print W "$c:\n$m\n\n<br>";
 	print W "<br>current path:".cwd()."\n\n<br>";
 	print W "<b>******************End**************************<br>\n";
 	print W "</pre><br><br>\n";
