@@ -1035,18 +1035,9 @@ None.
 
 sub getsCoordinates{ # Begin sub getsCoordinates
 	my ($ip)=@_;
-	#my $mm="http://bitsnoop.com/avh-alien-versus-hunter-dvdrip-xvid-q1446688.html";
-	#my $mmmm=get $mm;
-	#print "Content-Type: text/html\n\n";
-	#print "$ip ooooo)$mmmm<oooooo<br>";
 	my @content=split(/\n/,&myget($ip));
-	#my @res=();
 	my $line=();
-	#open(R,"my_server.php.html");
-	#@content=<R>;
-	#close(R);
 
-	#print "pppp>". scalar(@content) . "<br>";
 	foreach my $k (@content){ # Begin foreach my $k (split(/\n/,$content))
 		chomp($k);
 		if($k=~m/td_var/i){ # Begin if($k=~m!td_var!i)

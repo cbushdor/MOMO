@@ -2,7 +2,7 @@ package io::MyUtilities;
 
 # +-------------------------------+
 # | MyUtilities.pm                |
-# | Last update on Dec 21st 2008  |
+# | Last update on Oct 1st  2016  |
 # | Created     on Oct 13rd 2005  |
 # +-------------------------------+
 
@@ -42,7 +42,7 @@ use constant ROOT_DEPOSIT  => '../'; # To store information
 
 io::MyUtilities.pm
 
-$VERSION    = '1.1.25.24'
+$VERSION    = '1.1.25.25'
 
 =head1 ABSTRACT
 
@@ -79,6 +79,8 @@ In used.
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification: v1.1.25.25> 20161001 see googHead 
 
 - I<Last modification: v1.1.25.24> 20142230 see setUrlFile
 
@@ -685,7 +687,7 @@ sub check_password {    # begin sub check_password
 	if ( "$service_from_param" eq "$service_value" ) { # begin if ( "$service_from_param" eq "$service_value" )
 		#print "ok 1<br>";
 		if ( "$prev_pid_from_param" eq "" ) { # begin if ( $doc->param('prev_pid_from_param') eq "")
-			#print "ok 2<br>";
+			#print "ok 2 ---|$user_login---$login<<<<<br>";
 			if ( "$user_login" eq "$login" ) { # begin if ( "$user_login" eq "$login" )
 				#print "ok 3<br>";
 				if ( "$user_password" eq "$password" ) { # begin if ("$user_password" eq "$password")
@@ -912,7 +914,6 @@ None.
 
 sub setUrlFile{ # begin setUrlFile
 	my ($p,$f,$locdep)=@_;#$p:line,$f:file where to store;path
-	#my $locdep="album/hist";
 	my $d=();
 
 #	print "Content-type: txt/html\n\n";
@@ -928,12 +929,6 @@ sub setUrlFile{ # begin setUrlFile
 		}# end for (split(/\//,$locdep))
 	}# end if( !-d "$locdep")
 	else{# begin else
-		#my (@col)=split(/\#/,$p);
-		#my $aip=$col[0]; # Gets  ip address
-		#my $cn=$col[7]; # Gets  country name
-		#if(length("$cna")==0){$cna="localhost";}
-		#my ($c,$cna)=split(/\:/,$cn);
-				
 		open(URL,">>$locdep/maop-$f") or die("$locdep/maop-$f");
 		print URL "$p," ;
 		close(URL); 
@@ -1326,6 +1321,9 @@ None.
 
 =over 4
 
+- I<Modified on:1.1.25.14> Oct 1st 2016
+added $ilws parameter which tells if it is local website or not
+
 - I<Modified on:1.1.25.13> Feb 6th 2014
 added the param $gmv
 
@@ -1338,16 +1336,27 @@ added the param $gmv
 =cut
 
 sub googHead{ # begin sub googHead
-	my ($idgoog,$gmv)=@_;
+	my ($idgoog,$gmv,$ilws)=@_; # $idgoog: $idgoog: Google id for one page, $gmv: google map version used,$ilws: is local web site (thats for tests)
 	my $r=();# that's for the header
 
 	#print "parameters ($idgoog,\n$gmv)\n<br>";
 	if($gmv == 3){
-		$r=<<R;
-		<script type="text/javascript"
-			src="https://maps.googleapis.com/maps/api/js?sensor=true">
-		</script>
+		if($ilws==1){ # Begin if($ilws==1)
+			# Distant website case
+			$r=<<R;
+			<script type="text/javascript"
+				src="https://maps.googleapis.com/maps/api/js?sensor=true">
+			</script>
 R
+		} # End if($ilws==1)
+		else{ # Begin else
+			# Local website case
+			$r=<<R;
+			<script type="text/javascript"
+				src="https://maps.googleapis.com/maps/api/js?sensor=false">
+			</script>
+R
+		} # End else
 #		<script type="text/javascript"
 #		      src="https://maps.googleapis.com/maps/api/js?key=${idgoog}&sensor=false">
 #		</script>
