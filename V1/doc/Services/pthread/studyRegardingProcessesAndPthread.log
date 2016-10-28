@@ -1,0 +1,57 @@
+This is pdfTeX, Version 3.1415926-1.40.11 (TeX Live 2010/MacPorts 2010_4) (format=latex 2011.7.17)  3 MAR 2012 00:56
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**studyRegardingProcessesAndPthread.tex
+(./studyRegardingProcessesAndPthread.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, cz
+ech, slovak, dutch, ukenglish, usenglishmax, basque, french, german-x-2009-06-1
+9, ngerman-x-2009-06-19, german, ngerman, swissgerman, italian, polish, portugu
+ese, spanish, catalan, galician, loaded.
+(/opt/local/share/texmf-texlive-dist/tex/latex/base/book.cls
+Document Class: book 2007/10/19 v1.4h Standard LaTeX document class
+(/opt/local/share/texmf-texlive-dist/tex/latex/base/bk10.clo
+File: bk10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+No file studyRegardingProcessesAndPthread.aux.
+\openout1 = `studyRegardingProcessesAndPthread.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+[1
+
+] (./studyRegardingProcessesAndPthread.aux) ) 
+Here is how much of TeX's memory you used:
+ 221 strings out of 494771
+ 2569 string characters out of 3171426
+ 46908 words of memory out of 3000000
+ 3531 multiletter control sequences out of 15000+200000
+ 3993 words of font info for 15 fonts, out of 3000000 for 9000
+ 134 hyphenation exceptions out of 8191
+ 23i,4n,17p,178b,141s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on studyRegardingProcessesAndPthread.dvi (1 page, 276 bytes).
