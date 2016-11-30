@@ -8,3 +8,11 @@ Directory
 
 
 * MyNavBase: this contains a program to include in a directory and it prints pod files at the bottom of the listing (if README.pod exists) [execution](http://derased.heliohost.org/).
+
+Branches:
+=========
+* dev: dedicated to future dev and present dev
+
+* master: current
+
+* old: old dev before year 2007. Under it there is the version V0 which is the first version. That was found on old disks...
