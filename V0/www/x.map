@@ -1,5 +1,0 @@
-base referer
-default http://www.research.att.com/base.html
-rect http://www.research.att.com/command.html 7,7 113,55
-rect colors.html 56,51 64,59
-rect colors.html 56,99 64,107
