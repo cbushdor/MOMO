@@ -1,0 +1,18 @@
+=head1 Introduction
+
+This directory contains Perl programs made till 2006.
+
+Perl version was 5.8.8 then 5.10 then back to 5.8.9 to maintains.
+
+=head1 Instructions
+
+To unpack use these instructions: tar xpvf SourceWWW.tar
+
+
+=head1 Branches
+
+* dev: dedicated to future dev and present dev
+
+* master: current
+
+* old: old dev before year 2007. Under it there is the version V0 which is the first version. That was found on old disks...
