@@ -1,0 +1,10 @@
+=head1 Introduction
+
+Repository was set as it was started back in 20030201
+
+This is the state of the art of the project back in year 2006.
+
+=head1 Notice
+
+Nothing much to declare.
+
