@@ -1,0 +1,548 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0050)http://www.dil.univ-mrs.fr/~chris/Perl/Chaines.htm -->
+<HTML><HEAD><TITLE>Cours Perl, Les chaînes de caractères.</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1"><LINK 
+href="Cours Perl, Les chaînes de caractères_fichiers/Messtyles.css" 
+type=text/css rel=stylesheet>
+<META content="MSHTML 6.00.2900.3243" name=GENERATOR></HEAD>
+<BODY>
+<H1>Les chaînes de caractères.</H1>
+<H2>Rappel sur la représentation des chaînes.</H2>
+<H3>Ainsi qu'il a déjà été dit, il existe en Perl (comme en Unix) deux types de 
+chaines de caractères différenciées par le type de guillemets qui les 
+encadre.<BR>Une chaîne encadrée par des " (doubles guillemets) possède la 
+particularité de valider le mecanisme de substitution pour tous les objets 
+qu'elle contient.<BR>Considérons les instructions suivantes : </H3>
+<DIV class=centre>
+<DIV class=prog>$a = "Bonjour";<BR>$b = "$a tout le monde."; </DIV></DIV>
+<H3>La variable b se voit affecter le contenu d'une chaîne de caractères qui 
+contient une référence vers une autre variable $a.<BR>La chaîne étant encadrée 
+par des doubles guillemets, le mécanisme de substitution est activé et la 
+référence à la variable $a sera remplacée pas sa valeur.<BR>En définitive, la 
+variable $b va contenir la valeur : </H3>
+<DIV class=centre>
+<DIV class=prog>"Bonjour tout le monde." </DIV></DIV>
+<H3>Modifions maintenant les instructions en remplaçant, dans l'affectation de 
+la variable $b les doubles guillemets par des simples guillemets : </H3>
+<DIV class=centre>
+<DIV class=prog>$a = "Bonjour";<BR>$b = '$a tout le monde.'; </DIV></DIV>
+<H3>La variable $b se voit à nouveau affecter le contenu d'une chaîne de 
+caractères qui contient une référence vers une autre variable $a.<BR>Mais, étant 
+encadrée par des simples guillemets, le mécanisme de substitution a été 
+désactivé et la suite decaractères $a ne représente plus une référence à une 
+variable mais simplement les deux caractères $ et a.<BR>En définitive, la 
+variable $b va contenir la valeur : </H3>
+<DIV class=centre>
+<DIV class=prog>"$a tout le monde." </DIV></DIV>
+<H2>Les opérateurs de chaîne.</H2>
+<H3>L'opérateur de concaténation est le point (.), il va permettre de lier, bout 
+à bout, deux chaînes distinctes. </H3>
+<DIV class=centre style="WIDTH: 30em">
+<DIV class=prog>"Bonjour"."la"."compagnie" = "Bonjourlacompagnie"<BR>"Salut"." " 
+. " tout le monde" = "Salut tout le monde"<BR>"Salut" . "\n" = "Salut\n" 
+</DIV></DIV>
+<H3>Il existe un second opérateur, l'opérateur de répétition (x) qui permet de 
+répéter n fois la même suite de caractères. </H3>
+<DIV class=centre style="WIDTH: 30em">
+<DIV class=prog>"Christian." x 3 = "Christian.Christian.Christian."<BR>"Chris-" 
+x (6 - 2) = " Chris-Chris-Chris-Chris-"<BR>(3 + 9) x 5 = "1212121212" 
+</DIV></DIV>
+<H2>Les conversions.</H2>
+<H3>L'interpréteur convertit automatiquement le type des variables impliquées 
+dans une expression en fonction de l'opérateur qui les sépare.<BR>Les opérateurs 
+de traitement, comme les opérateurs de comparaison, sont clairement identifiés 
+comme devant agir sur un type particulier d'objet.<BR>Ainsi, si nous considérons 
+deux variables $a et $b.<BR>Quel que soit leur type :<BR>Si l'opération qui est 
+effectuée est arithmetique (+, -, *, /, % etc...) elles seront automatiquement 
+converties en numérique.<BR>Si l'opération qui est effectuée est une opération 
+sur les chaînes (.) elles seront automatiquement converties en chaînes de 
+caractères.<BR>Ainsi, soient quatre variables : </H3>
+<DIV class=centre>
+<DIV class=prog># Deux variables numériques<BR>$n1 = 123;<BR>$n2 = 456;<BR># 
+Deux chaines de caractères<BR>$c1 = "567";<BR>$c2 = "897"; </DIV></DIV><BR>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Opération</TH>
+    <TH>Résultat</TH></TR>
+  <TR>
+    <TD>$n1 + $n2</TD>
+    <TD>579</TD></TR>
+  <TR>
+    <TD>$n1 + $c1</TD>
+    <TD>690</TD></TR>
+  <TR>
+    <TD>$c1 + $c2</TD>
+    <TD>1464</TD></TR>
+  <TR>
+    <TD>$c1 . $c2</TD>
+    <TD>"567897</TD></TR>
+  <TR>
+    <TD>$n1 . $c1</TD>
+    <TD>"123567"</TD></TR>
+  <TR>
+    <TD>$n1 . $n2</TD>
+    <TD>"123456"</TD></TR></TBODY></TABLE>
+<H3>Dans le cas spécifique de l'opérateur de répétition, il est indispensable de 
+trouver à sa gauche une chaîne de caractères et à sa droite une valeur 
+numérique. Les conversions nécessaires seront donc effectuées pour obtenir cette 
+configuration. </H3>
+<H2>Méthodes de conversion.</H2>
+<H3>Si convertir une valeur numérique ne une chaîne de caractères ne pose 
+absolument aucun problème, la transformation inverse peut en présenter.<BR>Pour 
+l'interpréteur, la méthode est simple.<BR>On commence a convertir à partir cu 
+caractère le plus à gauche en appliquant le traditionnel schéma de 
+horner.<BR>Tant que les caractères rencontrés font partie de l'ensemble 
+représentatif des valeurs numérique, la conversion se poursuit.<BR>Au premier 
+caractère non convertible, elle cesse. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Chaîne</TH>
+    <TH>conversion</TH></TR>
+  <TR>
+    <TD>"5475"</TD>
+    <TD>5475</TD></TR>
+  <TR>
+    <TD>"4593.76"</TD>
+    <TD>4593.76</TD></TR>
+  <TR>
+    <TD>"397r45.x"</TD>
+    <TD>397</TD></TR>
+  <TR>
+    <TD>"Bonjour"</TD>
+    <TD>0</TD></TR>
+  <TR>
+    <TD>$n1 . $c1</TD>
+    <TD>"123567"</TD></TR>
+  <TR>
+    <TD>$n1 . $n2</TD>
+    <TD>"123456"</TD></TR></TBODY></TABLE>
+<H2>Les caractères de contrôle.</H2>
+<H3>Une chaîne de caractères peut contenir un certain nombre de caractères 
+spéciaux.<BR>Ils permettent d'effectuer la mise en page ou de représenter 
+certains caractères spécifiques.<BR>Ils sont identifiés par un \ (antislash). 
+</H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>caractère</TH>
+    <TH>signification</TH></TR>
+  <TR>
+    <TD>\n</TD>
+    <TD>Nouvelle ligne.</TD></TR>
+  <TR>
+    <TD>\r</TD>
+    <TD>Retour en début de ligne.</TD></TR>
+  <TR>
+    <TD>\t</TD>
+    <TD>Tabulation.</TD></TR>
+  <TR>
+    <TD>\f</TD>
+    <TD>Aller à la page suivante.</TD></TR>
+  <TR>
+    <TD>\b</TD>
+    <TD>Retour arrière d'un caractère.</TD></TR>
+  <TR>
+    <TD>\v</TD>
+    <TD>Tabulation verticale.</TD></TR>
+  <TR>
+    <TD>\a</TD>
+    <TD>Sonnerie.</TD></TR>
+  <TR>
+    <TD>\e</TD>
+    <TD>Echappement.</TD></TR>
+  <TR>
+    <TD>\007</TD>
+    <TD>Spécifie une valeur octale (007 = sonnerie).</TD></TR>
+  <TR>
+    <TD>\X7f</TD>
+    <TD>Spécifie une valeur hexadécimale (7f = efface).</TD></TR>
+  <TR>
+    <TD>\cZ</TD>
+    <TD>Caractère de contrôle (ctrl Z).</TD></TR>
+  <TR>
+    <TD>\\</TD>
+    <TD>L'anti slash.</TD></TR>
+  <TR>
+    <TD>\"</TD>
+    <TD>La double quote.</TD></TR>
+  <TR>
+    <TD>\l</TD>
+    <TD>Force la lettre suivante en minuscule.</TD></TR>
+  <TR>
+    <TD>\L</TD>
+    <TD>Force en minuscules jusquà l'ocurence d'un \E.</TD></TR>
+  <TR>
+    <TD>\u</TD>
+    <TD>Force la lettre suivante en majuscules.</TD></TR>
+  <TR>
+    <TD>\U</TD>
+    <TD>Force en majuscules jusquà l'ocurence d'un \E.</TD></TR>
+  <TR>
+    <TD>\E</TD>
+    <TD>Fin de \U ou de \L</TD></TR></TBODY></TABLE>
+<H2>L'opérateur chop.</H2>
+<H3>L'opérateurchop() est indispensable dans l'acquisition des données.<BR>La 
+lecture d'une information (toujours une chaîne de caractères se fait par 
+affectation du périphérique standard d'entrée(le clavier) à la variable 
+concernée.<BR>Comme dans Unix, le periphérique en question est référencé 
+&lt;STDIN&gt;. </H3>
+<DIV class=centre>
+<DIV class=prog>$a = &lt;STDIN&gt;; </DIV></DIV>
+<H3>Tous les caractères frappés au clavier seront retransmis à la variable, y 
+compris retour (\n) qui la termine.<BR>L'opérateur chop() va permettre, si 
+besoin est, de supprimer ce dernier caractère. </H3>
+<DIV class=centre>
+<DIV class=prog># Lecture d'une chaine de caractères<BR># dans la variable 
+$a.<BR>$a = &lt;STDIN&gt;;<BR># Suppression du dernier caractère<BR>chop($a); 
+</DIV></DIV>
+<H3>La variable $a contient maintenant la chaîne de caractères sans son dernier 
+caractère.<BR>Ainsi que nous le verrons dans le chapitre consacré aux fonctions, 
+l'interpréteur renvoie toujours une valeur pour chaque action qu'on lui demande. 
+Il est donc parfaitement licite d'écrire : </H3>
+<DIV class=centre>
+<DIV class=prog>$b = chop($a); </DIV></DIV>
+<H3>La variable $b permet de récupérer le caractère qui vient d'être retiré de 
+la chaîne $a. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Variable.</TH>
+    <TH>Instruction.</TH>
+    <TH>Résultat.</TH></TR>
+  <TR>
+    <TD>$a = "Bonjour\n";</TD>
+    <TD>$b = chop($a);</TD>
+    <TD>$a = "Bonjour"<BR>$b = "\n"</TD></TR>
+  <TR>
+    <TD>$a = "Bonjour";</TD>
+    <TD>$b = chop($a);</TD>
+    <TD>$a = "Bonjou"<BR>$b = "r"</TD></TR>
+  <TR>
+    <TD>$a = "x";</TD>
+    <TD>$b = chop($a);</TD>
+    <TD>$a = ""<BR>$b = "x"</TD></TR>
+  <TR>
+    <TD>$a = "";</TD>
+    <TD>$b = chop($a);</TD>
+    <TD>$a = ""<BR>$b = "" </TD></TR>
+  <TR>
+    <TD>$a = 3.14159;</TD>
+    <TD>$b = chop($a);</TD>
+    <TD>$a = "3.1415"<BR>$b = "9"</TD></TR>
+  <TR>
+    <TD>$a = 1;</TD>
+    <TD>$b = chop($a);</TD>
+    <TD>$a = ""<BR>$b = "1"</TD></TR></TBODY></TABLE>
+<H2>L'opérateur chomp.</H2>
+<H3>L'opérateur chop() que nous venons de voir supprime le dernier caractère 
+d'une chaîne de caractères, quel que soit ce caractère. Ceci peut présenter un 
+certain danger.<BR>On dispose d'une variable. Nous ignorons si la chaîne de 
+caractère qu'elle contient a été lue ou générée d'une manière quelconque. Nous 
+ne désirons en retirer le dernier caractère que si ce caractère est un 
+\n.<BR>C'est cette fonction qui est assurée par l'opération chomp(). </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Variable.</TH>
+    <TH>Instruction.</TH>
+    <TH>Résultat.</TH></TR>
+  <TR>
+    <TD>$a = "Bonjour\n";</TD>
+    <TD>$b = chomp($a);</TD>
+    <TD>&lt;$a = "Bonjour"<BR>$b = "\n"</TD></TR>
+  <TR>
+    <TD>$a = "Bonjour";</TD>
+    <TD>$b = chomp($a);</TD>
+    <TD>$a = "Bonjour"<BR>$b = ""</TD></TR>
+  <TR>
+    <TD>$a = "\n";</TD>
+    <TD>$b = chomp($a);</TD>
+    <TD>$a = ""<BR>$b = "\n"</TD></TR>
+  <TR>
+    <TD>$a = "";</TD>
+    <TD>$b = chomp($a);</TD>
+    <TD>$a = ""<BR>$b = ""</TD></TR>
+  <TR>
+    <TD>$a = 3.14159;</TD>
+    <TD>$b = chomp($a);</TD>
+    <TD>$a = "3.14159"<BR>$b = ""</TD></TR>
+  <TR>
+    <TD>$a = 1;</TD>
+    <TD>$b = chomp($a);</TD>
+    <TD>$a = "1"<BR>$b = ""</TD></TR></TBODY></TABLE>
+<H3>Nous présiserons ultérieurement que le fonctionnement de chomp(). Pour 
+déterminer si le caractère doit être retiré ou non, il se refère au contenu 
+d'une variable prédéfinie($/) </H3>
+<H2>Plus loin avec les entrées/sorties.</H2>
+<H3>Ainsi que nous l'avons expliqué, acquérir une information et en éliminer 
+séléctivement le \n, se fait simplement au moyen de l'instruction : </H3>
+<DIV class=centre>
+<DIV class=prog>$a = &lt;STDIN&gt;; chomp($a); </DIV></DIV>
+<H3>Ces deux instructions se réécrivent de manière plus concise : </H3>
+<DIV class=centre>
+<DIV class=prog>chomp($a = &lt;STDIN&gt;); </DIV></DIV>
+<H3>Les chaînes de caractères en provenance de l'extérieur (un fichier entre 
+autre) et auxquelles accéde le programme ont une particularité.<BR>Une ligne 
+blanche ne contient aucun caractère visible, mais elle contient le caractère de 
+fin de ligne (\n).<BR>La seule ligne vide, celle qui ne contient aucun caractère 
+est la dernière ligne, celle qui indique la fin de fichier, représentée par le 
+caractère 'ctrlD'.<BR>Cette constation, ainsi que les remarques qui ont été 
+faites à propos des variables booléennes permet une programmation aisée des 
+échanges.<BR>Dans les exemples qui suivent<BR><SPAN class=rouge>ent</SPAN> 
+représentera la fin de ligne (touche enter du clavier).<BR><SPAN 
+class=rouge>CtrlD</SPAN> représentera l'action simultanée sur les touches Ctrl 
+et D du clavier. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme ch1.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>while ($a = &lt;stdin&gt;) {
+  chomp ($a);
+  print "Ligne lue : $a\n";
+}
+print "Fin du programme.";
+    </PRE></TD>
+    <TD class=prog>c:\progs&gt; perl ch1.pl<BR>Premiere ligne<SPAN 
+      class=rouge>ent</SPAN> <BR>Ligne lue : Premiere ligne<BR>Bonjour a 
+      tous.<SPAN class=rouge>ent</SPAN> <BR>Ligne lue : Bonjour a tous.<BR><SPAN 
+      class=rouge>CtrlD</SPAN> Fin du programme.<BR>c:\progs&gt; 
+</TD></TR></TBODY></TABLE>
+<H3>Explication : </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=source>while ($a = &lt;stdin&gt;) { </TD>
+    <TD>Dans le test de la boucle, la variable $a effectue une lecture sur le 
+      clavier (&lt;STDIN&gt;). Si la valeur lue n'est pas "", alors l'évaluation 
+      du test donnera'vrai' et le corps de la boucle sera exécuté.<BR>Une ligne 
+      vide contiendra au moins un \n. Seul le caractère CtrlD renverra 
+      physiquement une ligne ne contenant aucun caractère ("") évaluée à 'faux'. 
+    </TD></TR>
+  <TR>
+    <TD class=source>chomp ($a); </TD>
+    <TD>Si la ligne n'était pas égale à "", on peut éffectuer un 
+      traitement.<BR>Ici, il consiste à retirer le dernier caractère (\n). 
+</TD></TR>
+  <TR>
+    <TD class=source>print "Ligne lue : $a\n"; </TD>
+    <TD>En imprimer le contenu, par exemple. </TD></TR>
+  <TR>
+    <TD class=source>} </TD>
+    <TD>Ici, c'est la fin du bloc while. </TD></TR>
+  <TR>
+    <TD class=source>print "Fin du programme."; </TD>
+    <TD>C'est donc à cette instruction que le programme donnera le contrôle 
+      lorsque la condition aura été évaluée à 'faux'. </TD></TR></TBODY></TABLE>
+<H3>Juste une remarque concernant le programme précédent. La ligne qui a été lue 
+dans la variable $a contenait le caractère de fin de ligne (\n). Ce caractère a 
+été retiré (seconde instruction) pour être réintroduit au moment de l'impression 
+(troisième instruction).<BR>En fait, le programme ecrit sous la forme : </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>while ($a = &lt;STDIN&gt;) {
+  print "Ligne lue : $a";
+}
+print "Fin du programme.";
+    </PRE></DIV></DIV>
+<H3>Aurait tout aussi bien fonctionné en donnant des résultats strictement 
+identiques. </H3>
+<H2>La variable d'entrée prédéfinie.</H2>
+<H3>Ce qui nous amène à la notion de variable prédéfinie.<BR>Lorsque le 
+programme doit retourner une valeur et que rien n'est spécifié quand à la 
+destination, il utilisera systématiquement une variable prédéfinie qui est 
+référencée $_ et sur laquelle l'utilisateur a un contrôle total. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>L'instruction</TH>
+    <TH>Equivaut à</TH></TR>
+  <TR>
+    <TD>&lt;STDIN&gt;;</TD>
+    <TD>$_ = &lt;STDIN&gt;</TD></TR>
+  <TR>
+    <TD>chop($a);</TD>
+    <TD>$_ = chop($a);</TD></TR>
+  <TR>
+    <TD>print;</TD>
+    <TD>print ("$_");</TD></TR></TBODY></TABLE>
+<H3>Et la liste n'est pas close...<BR>Notre programme de lecture en série se 
+transforme donc en : </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme ch2.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>while (&lt;STDIN&gt;) {
+  print "Ligne lue : ";
+  print;
+}
+print "Fin du programme.";
+      <PRE>    </PRE></PRE></TD>
+    <TD class=prog>c:\progs&gt; perl ch2.pl<BR>Premiere ligne<SPAN 
+      class=rouge>ent</SPAN> <BR>Ligne lue : Premiere ligne<BR>Bonjour a 
+      tous.<SPAN class=rouge>ent</SPAN> <BR>Ligne lue : Bonjour a tous.<BR><SPAN 
+      class=rouge>CtrlD</SPAN> Fin du programme.<BR>c:\progs&gt; 
+</TD></TR></TBODY></TABLE>
+<H3>C'est lorsque nous aurons accés aux fichiers que cette particularité 
+présentara tout son intéret. </H3>
+<H2>Exemples.</H2>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme ch3.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!usr/bin/perl
+$prenom="Jessica";
+$nom=Rabbit;
+print ("Bonjour $prenom $nom\n");
+      </PRE></TD>
+    <TD class=prog>c:\progs&gt; perl ch3.pl<SPAN 
+      class=rouge>ent</SPAN><BR>Bonjour Jessica Rabbit<BR>c:\progs&gt; 
+  </TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme ch4.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl
+print ("Quel est ton prenom? ");
+chomp($prenom = &lt;STDIN&gt;);
+print ("Quel est ton nom? ");
+print ("Bonjour $prenom $nom");
+      </PRE></TD>
+    <TD class=prog>c:\progs&gt; perl ch4.pl<SPAN 
+      class=rouge>ent</SPAN><BR>Quel est ton prenom? Jessicae<SPAN 
+      class=rouge>ent</SPAN><BR>Quel est ton nom? Rabbit<SPAN 
+      class=rouge>ent</SPAN><BR>Bonjour Jessica Rabbit c:\progs&gt; 
+  </TD></TR></TBODY></TABLE>
+<H2>Les opérateurs de comparaison.</H2>
+<H3>Ce sont les mêmes que dans le cas des nombres, mais leur expression stipule 
+que la comparaison doit avoir lieu sur des chaînes de daractères. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD>Lexicographiquement avant.</TD>
+    <TD>lt</TD></TR>
+  <TR>
+    <TD>Lexicographiquement après.</TD>
+    <TD>gt</TD></TR>
+  <TR>
+    <TD>Identiques</TD>
+    <TD>eq</TD></TR>
+  <TR>
+    <TD>lexicographiquement avant ou identiques.</TD>
+    <TD>le</TD></TR>
+  <TR>
+    <TD>lexicographiquement après ou identiques</TD>
+    <TD>ge</TD></TR>
+  <TR>
+    <TD>Non identiques</TD>
+    <TD>ne</TD></TR></TBODY></TABLE>
+<H3>Ainsi qu'il a été dit, l'interpréteur convertit automatiquement le type des 
+variables impliquées dans une expression en fonction de l'opérateur qui les 
+sépare.<BR>Cette remarque s'applique également dans le cas de la comparaison. 
+</H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Comparaison</TH>
+    <TH>résultat</TH></TR>
+  <TR>
+    <TD>7 lt 30</TD>
+    <TD>faux</TD></TR>
+  <TR>
+    <TD>7 &lt; 30</TD>
+    <TD>vrai</TD></TR></TBODY></TABLE>
+<H3>En effet, la chaîne de caractères "7" est lexicographiquement située après 
+la chaîne de caractères "30", de la même manière que "b" est lexicographiquement 
+après "ac". </H3>
+<H2>L'opérateur cmp.</H2>
+<H3>C'est, pour les chaînes, l'équivalent du spaceship pour les numériques. Un 
+opérateur spécifique qui va permettre d'établir une relation d'ordre entre deux 
+suites de caractères.<BR>Il trouvera lui aussi toute son utilité dans les 
+opérations de tri. Appliqué à deux chaînes de caractères $a et $b, il donne les 
+résultats suivants. </H3>
+<TABLE <tr>
+  <TBODY>
+  <TR>
+    <TH>Relation entre $a et $b.</TH>
+    <TH>Opération.</TH>
+    <TH>Valeur de $x</TH></TR>
+  <TR>
+    <TD>$a suit lexicographiquement $b </TD>
+    <TD>$x = $a cmp $b;</TD>
+    <TD>+1</TD></TR>
+  <TR>
+    <TD>$a est identique à$b</TD>
+    <TD>$x = $a cmp $b;</TD>
+    <TD>0</TD></TR>
+  <TR>
+    <TD>$a précède lexicographiquement $b</TD>
+    <TD>$x = $a cmp $b;</TD>
+    <TD>-1</TD></TR></TBODY></TABLE>
+<H2>Quelques fonctions.</H2>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Fonction</TH>
+    <TH>Action</TH>
+    <TH>Exemple</TH>
+    <TH>Résultat</TH></TR>
+  <TR>
+    <TD>$ch = lc ($chaine);</TD>
+    <TD>Renvoie une chaîne de caractères dans laquelle tous les caractères de 
+      la chaîne passée en paramètre sont en minuscule.</TD>
+    <TD>$a = lc ("ABCD");</TD>
+    <TD>$a = "abcd"</TD></TR>
+  <TR>
+    <TD>$ch = lcfirst ($chaine);</TD>
+    <TD>Renvoie une chaîne de caractères dans laquelle le premier caractère de 
+      la chaîne passée en paramètre est en minuscule.</TD>
+    <TD>$a = lcfirst ("ABCD");</TD>
+    <TD>$a = "aBCD"</TD></TR>
+  <TR>
+    <TD>$a = uc ($chaine);</TD>
+    <TD>Renvoie une chaîne de caractères dans laquelle tous les caractères de 
+      la chaîne passée en paramètre sont en majuscule.</TD>
+    <TD>a = uc ("abcd");</TD>
+    <TD>$a = "ABCD"</TD></TR>
+  <TR>
+    <TD>$ch = ucfirst ($chaine);</TD>
+    <TD>Renvoie une chaîne de caractères dans laquelle le premier caractère de 
+      la chaîne passée en paramètre est en majuscule.</TD>
+    <TD>$a = lcfirst ("abcd");</TD>
+    <TD>$a = "Abcd"</TD></TR></TBODY></TABLE>
+<H2>Les longues chaînes.</H2>
+<H3>C'est un moyen pratique de définir des chaines particulièrement longues au 
+moyen d'un délimiteur spécifique permettant d'en spécifier le début : 
+&lt;&lt;<BR>La fin est alors indiquée par une ligne blanche. </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog>$une_longue_chaine = &lt;&lt;<BR>En voici la premiere 
+ligne.<BR>En voici la seconde ligne.<BR>Et voici la derniere ligne.<BR><BR>Ici, 
+on trouve l'instruction suivante. </DIV></DIV>
+<H3>Si le caractère permettant de spécifier le début de la longue chaîne est 
+fixé : &lt;&lt;<BR>L'utilisateur a toute lattitude pour choisir la balise qui en 
+indiquera la fin.</H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog>$une_longue_chaine = &lt;&lt;FIN<BR>En voici la premiere 
+ligne.<BR>En voici la seconde ligne.<BR>Et voici la derniere 
+ligne.<BR>FIN<BR>Ici, on trouve l'instruction suivante. </DIV></DIV>
+<H3>Dans l'exemple ci dessus, tous les caractères compris entre &lt;&lt; et FIN 
+font partie de la chaîne. </H3>
+<H2 style="POSITION: relative; HEIGHT: 5em">
+<DIV class=lieng><A 
+href="http://www.dil.univ-mrs.fr/~chris/Perl/InstBase.htm"><IMG 
+style="VERTICAL-ALIGN: middle" 
+src="Cours Perl, Les chaînes de caractères_fichiers/prec.gif"> </A>Précédent 
+</DIV>
+<DIV class=liend>Suivant <A 
+href="http://www.dil.univ-mrs.fr/~chris/Perl/Listes.htm"><IMG 
+style="VERTICAL-ALIGN: middle" 
+src="Cours Perl, Les chaînes de caractères_fichiers/suiv.gif"> 
+</A></DIV></H2></BODY></HTML>

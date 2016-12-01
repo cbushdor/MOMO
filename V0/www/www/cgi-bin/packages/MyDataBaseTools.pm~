@@ -1,0 +1,38 @@
+#!/usr/bin/perl
+
+my @file = &open_log_book("loguser");
+
+foreach (@file) {
+    print &rearange($_);
+}
+
+# Get file
+sub open_log_book {
+    my ($file_name) = @_;
+
+    sysopen(R_LOG_BOOK,"$file_name",O_RDONLY);
+    my @file_content = 	<R_LOG_BOOK>;
+    close(R_LOG_BOOK);
+    return @file_content;
+}
+
+# rearange line
+sub rearange {
+    my ($line) = @_;
+
+    $line =~ s/Logged\ on\ //g;
+    $line =~ s/\ by\ user\ with\ address\ /\*/g;
+    $line =~ s/Menu\ choosen\ /\*/g;
+    $line =~ s/[\ ]+/\ /g;
+    $line =~ s/(\ )([0-9])(\ )/${1}0$2$3/g;
+    $line =~ s/\ logged\ /\*/g;
+    $line =~ s/\ time\(s\)//;
+    $line =~ s/\ at\ this\ address\ //g;
+    $line =~ s/([0-9]+)\-/${1}\*/;
+    $line =~ s/TAG.*ADDRESS/\*/g;
+    $line =~ s/TAG/\*/g;
+    $line =~ s/\ ID/\*/g;
+    $line =~ s/\ WEB_ACCESS_GRANT/\*/;
+    $line =~ s/PID\ at\ this\ address//g;
+    return $line;
+}

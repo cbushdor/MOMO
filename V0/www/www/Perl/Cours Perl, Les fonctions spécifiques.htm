@@ -1,0 +1,885 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0049)http://www.dil.univ-mrs.fr/~chris/Perl/Fnspec.htm -->
+<HTML><HEAD><TITLE>Cours Perl, Les fonctions spécifiques.</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1"><LINK 
+href="Cours Perl, Les fonctions spécifiques_fichiers/Messtyles.css" 
+type=text/css rel=stylesheet>
+<META content="MSHTML 6.00.2900.3243" name=GENERATOR></HEAD>
+<BODY>
+<H1>Les fonctions spécifiques.</H1>
+<H2>split().</H2>
+<H3>Cette fonction a déjà été évoquée brièvement. Nous y revenons car elle 
+présente un certain nombre de particularités qui la lient aux expresions 
+régulières.<BR>Les paramètres de l'opérateur split() sont une 
+expressionrégulière et une chaîne de caractères. Les portions de la chaîne qui 
+ne correspondent pas à l'expression régulière sont retournées séquentiellement 
+comme une liste de valeurs.<BR>La coupure entre les divers éléments de la liste 
+étant gérée par l'expression régulière. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fns1.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>$cible = "Un Deux Trois Quatre";
+print "$cible\n";
+@table = split(/ /g,$cible);
+print "$table[0]\n";
+print "$table[1]\n";
+print "$table[2]\n";
+print "$table[3]\n";
+print "$table[4]\n";
+print "$table[5]\n";
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fns1.pl<SPAN class=rouge>ent</SPAN>
+Un Deux Trois Quatre
+Un
+Deux
+Trois
+Quatre
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Dans le cas le plus simple, l'expression régulière se réduit à un unique 
+espace.<BR>Rappelons ces exemples qui ont déjà été vus dans le chapitre sur les 
+listes. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list33.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>$l = "chris::120:50:C. Aperghis:/home/chris:/bin/csh";
+($nom,$pass,$uid,$gid,$gcos,$rep,$sh) = split(/:/,$l);
+print "nom : $nom";
+print " mot de passe : $pass\n";
+print "uid : $uid";
+print " gid : $gid\n";
+print "gcos : $gcos";
+print " repertoire : $rep\n";
+print "shell : $shell\n";
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list33.pl<SPAN class=rouge>ent</SPAN>
+nom : chris
+mot de passe :
+uid : 120
+gid : 50
+gcos : C. Aperghis
+repertoire : /home/chris
+shell : /bin/csh
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list34.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>$l = "chris::120:50:C. Aperghis:/home/chris:/bin/csh";
+@liste = split(/:/,$l);
+for ($i=0;$i&lt;=$#liste;$i++) {
+  print ("$liste[$i]\n");
+}
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list34.pl<SPAN class=rouge>ent</SPAN>
+chris
+
+120
+50
+C. Aperghis
+/home/chris
+/bin/csh
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list35.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>$l = "Hello.";
+@liste = split(//,$l);
+for ($i=0;$i&lt;=$#liste;$i++) {
+  print ("$liste[$i]\n");
+}
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list35.pl<SPAN class=rouge>ent</SPAN> <BR>
+H
+e
+l
+l
+o
+.
+c:\progs&gt;
+    </PRE></TD></TR>
+  <H3>Et le petit problème consistant à lire une chaîne de caractères qui 
+  comporte exclusivement des 1 et des 0 et dans laquelle on désire compter le 
+  nombre de 1 et le nombre de 0. </H3></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list36.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>$ligne = &lt;stdin&gt;;
+$z = split(/0/,$ligne) -1;
+$u = split(/1/,$ligne) -1;
+print ("La chaîne $ligne,\n");
+print ("contient\n");
+print ("$z fois le chiffre 0.\n");
+print ("$u fois le chiffre 1.\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list36.pl<SPAN class=rouge>ent</SPAN>
+10101011001011111000101011010<SPAN class=rouge>ent</SPAN>
+La chaîne 10101011001011111000101011010,
+contient
+13 fois le chiffre 0.
+16 fois le chiffre 1.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Il est important que la chaîne soit lue afin de se terminer par un caractère 
+qui ne soit ni 1 ni 0, dans ce cas, le caractère \n.<BR>Pour le reste, il faut 
+faire appel aux vieux souvenirs du primaire lorsqu'on comptait les piquets et 
+les intervalles. </H3>
+<H3>Voyons maintenant un exercice un peu plus évolué. Dans un certain nombre de 
+fichiers passés par l'intermédiaire de la liste @ARGV, on désire compter le 
+nombre d'occurences d'un mot donné.<BR>Le critère de recherche sera lu sur 
+&lt;STDIN&gt; </H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type compte.pl<SPAN class=rouge>ent</SPAN>
+#!usr/bin/perl
+@ARGV =("Poeme.txt","Darwin.txt");
+$nf = @ARGV;
+print "Quel est le mot à rechercher ? ";
+chop($critere = &lt;stdin&gt;);
+print ("On recherche le mot : $critere.\n\n");
+$total = $compt = 0;
+$fichier = $ARGV[0];
+while ($ligne =&lt;&gt;) {
+  chop ($ligne);
+  @mots = split (/ /,$ligne);
+  $w = 0;
+  while ($w &lt;= @mots) {
+    if ($mots[$w] eq $critere) {
+      $compt += 1;
+    }
+  $w++;
+  }
+  if (eof) {
+    print ("Dans le fichier $fichier ");
+    print ("Il y a $compt");
+    print ("occurences du mot $critere\n\n");
+    $total += $compt;
+    $compt = 0;
+    $fichier = $ARGV[0];
+  }
+}
+print ("Le mombre total d'occurences pour ");
+print ("les $nf fichiers est de $total\n");
+c:\progs&gt; perl compte.pl<SPAN class=rouge>ent</SPAN>
+Quel est le mot à rechercher ? la<SPAN class=rouge>ent</SPAN>
+On recherche le mot : la.
+
+Dans le fichier Poeme.txt Il y a 2 occurences du mot la
+
+Dans le fichier Darwin.txt Il y a 61 occurences du mot la
+
+Le mombre total d'occurences pour les 2 fichiers est de 63
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H3>Quelques commentaires sur le programme qui vient d'être présenté. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=comment>@ARGV = ("Poeme.txt","Darwin.txt"); </TD>
+    <TD class=comment>Affectation des noms de fichiers à la liste @ARGV. 
+      L'accés aux fichiers sera séquentiel,tout d'abord Poeme.txt puis 
+      Darwin.txt. </TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=comment>$nf = @ARGV; </TD>
+    <TD class=comment>Le scalaire $nf contient le nombre de fichiers à lire 
+      (nombre d'éléments de la liste@ARGV. </TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=comment>print "Quel est le mot à rechercher ? ";<BR>chop($mot = 
+      &lt;stdin&gt;);<BR>print ("On recherche le mot : 
+      $critere.\n\n");<BR>$total = $compt = 0; </TD>
+    <TD class=comment>Aucune difficulté.<BR>On initialise les deux compteurs 
+      pour le décompte fichier par fichier et le décompte total. 
+</TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=comment>$fichier = $ARGV[0]; </TD>
+    <TD class=comment>Afin de pouvoir identifier le fichier au moment de 
+      l'impression, on récupère son nom.<BR>Le fichier en cours de traitement 
+      est le premier de la liste ($ARGV[0]). </TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=comment>while ($ligne =&lt;&gt;) {<BR>chop ($ligne);<BR>} </TD>
+    <TD class=comment>Opérateur diamand et boucle sur l'ensemble des lignes 
+      des fichiers dont le nom se trouve dans @ARGV. </TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=comment>@mots = split (/ /,$ligne);<BR>$w = 0;<BR>while ($w 
+      &lt;= @mots) {<BR>if ($mots[$w] eq $critere) {<BR>$compt += 
+      1;<BR>}<BR>$w++;<BR>} </TD>
+    <TD class=comment>Découpage de la chaîne pour créer une liste dont chaque 
+      élément représente un mot. Puis parcours de la liste et décompte. 
+  </TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=comment>if (eof) {<BR>print ("Dans le fichier $fichier 
+      ");<BR>print ("Il y a $compt");<BR>print ("occurences du mot 
+      $critere\n\n");<BR>$total += $compt;<BR>$compt = 0;<BR>$fichier = 
+      $ARGV[0];<BR>} </TD>
+    <TD class=comment>La fonction eof permet de tester le passage d'un fichier 
+      de la liste à l'autre. Le fichier qui vient d'être traité est alors retiré 
+      de la liste @ARGV. Le premier élément de cette liste est ainsi à nouveau 
+      le fichier en cours de traitement. </TD></TR></TBODY></TABLE>
+<H2>join().</H2>
+<H3>C'est l'opérateur dual de l'opérateur split qui a lui aussi été présenté 
+dans le chapitre sur les listes. Il permet de réunir les éléments d'une liste en 
+une chaîne de caractères. Un caractère passé en paramètre fera le joint entre 
+les divers éléments. </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog>$ch = join("-",@liste); </DIV></DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme list37.pl sur l'écran</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>@liste = ("Programmer","en","Perl");
+for ($i=0;$i&lt;=$#liste;$i++) {
+  print ("$liste[$i]\n");
+}
+$c1 = join(" ",@liste);
+print ("$c1\n");
+$c2 = join(" - ",@liste);
+print ("$c2\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl list37.pl<SPAN class=rouge>ent</SPAN>
+Programmer
+en
+Perl
+Programmer en Perl
+Programmer - en - Perl
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2>La fonction splice() .</H2>
+<H3>La fonction splice permet de modifier des éléments d'une liste. Il y a de 
+multiples manières d'utiliser cette fonction. Sa forme générale est : </H3>
+<DIV class=centre style="WIDTH: 40em">
+<DIV class=prog>@retour = splice (@variable, $decalage, $longueur, 
+@nouvelle_liste); </DIV></DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD>@variable</TD>
+    <TD>nom de la variable contenant la liste.</TD></TR>
+  <TR>
+    <TD>$decalage&gt;</TD>
+    <TD>nombre d'éléments à sauter avant de commencer l'opération.</TD></TR>
+  <TR>
+    <TD>$longueur</TD>
+    <TD>Si cette valeur est supérieure à zéro, @retour contiendra la liste des 
+      éléments remplacés. </TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fns2.pl sur l'écran</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl
+@liste = ("Nbs","un","deux","trois","quatre","cinq");
+@valeurs =("1","2","3","4","5");
+@retour = splice (@liste,1,2,@valeurs);
+print ("Liste des élémentsremplacés :\n@retour\n");
+print ("\nNouvelleliste d'éléments:\n@liste\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fns2.pl<SPAN class=rouge>ent</SPAN>
+Liste d'éléments qui ont été remplacés :
+un deux
+
+Nouvelle liste d'éléments :
+Nbs 1 2 3 4 5 trois quatre cinq
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Dans la liste @liste, on remplace 2 éléments (troisième paramètre) àpartir 
+du second (on en saute 1, second paramètre) par les éléments de la liste 
+@valeur. Les éléments de la liste @liste quisont concernés se retrouvent dans la 
+liste @retour. </H3>
+<H3>Voici un poème de Ronsard qui va nous permettre de mettre en application un 
+certain nombre de fonctions de traitement des chaînes de caractères. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD>Terre,ouvre-moi ton sein, et me laisse reprendre<BR>Mon tresor, que ta 
+      parque a cache dessous toi;<BR>Ou bien, si tu ne peux, o terre, cache 
+      moi<BR>Sous meme sepulture, avec sa belle cendre.<BR><BR>Le trait qui la 
+      tua devait faire descendre<BR>Mon corps aupres du sien pour finir mon 
+      emoi;<BR>Aussi bien, vu le mal qu'en sa mort je recoit,<BR>Je ne saurais 
+      plus vivre, et me fache d'attendre.<BR><BR>Quand ses yeux m'eclairaient, 
+      et qu'en terre j'avais<BR>Le bonheur de les voir, a l'heure je 
+      vivais,<BR>Ayant de leurs rayons mon ame gouvernee.<BR><BR>Maintenant je 
+      suis mort : la Mort qui s'en alla<BR>Loger dedans ses yeux, en parlant 
+      m'appela,<BR>Et me fit de ses pieds accomplir ma journee.<BR><BR>Ronsard, 
+      (Sur la mort de Marie, 1578). </TD></TR></TBODY></TABLE>
+<H3>Dans ce texte nous désirons isoler tous les mots dont la longueur est 
+comprise entre 3 et 5. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fns3.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl
+@ARGV =("Poeme.txt");
+&gt;while ($ligne = &lt;&gt;) {
+  @mots = split (/\s+/,$ligne);
+  $i = 0;
+  while (defined ($mots[$i])) {
+    $word[$i] = ~s/[,.;:]$///;
+    if ((length($mots[$i])&gt;5)or(length($mots[$i])&lt;=2)) {
+      splice (@mots,$i,1);
+    } else { 
+      $i++;
+    }
+  }
+$ligne = join (" ",@mots);
+print ("$ligne\n");
+}
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fns3.pl<SPAN class=rouge>ent</SPAN>
+ton sein,
+Mon que cache toi;
+bien, peux, cache moi
+Sous meme avec belle
+
+trait qui tua faire
+Mon corps sien pour finir mon emoi;
+Aussi bien, mal qu'en mort
+plus fache
+
+Quand ses yeux qu'en terre
+les voir,
+Ayant leurs mon ame
+
+suis mort Mort qui s'en alla
+Loger ses yeux,
+fit ses pieds
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2>L'opérateur map().</H2>
+<H3>L'opérateur map va permettre de considérer tour à tour chaque élément d'une 
+liste comme opérande d'une expression donnée. </H3>
+<DIV class=centre style="WIDTH: 30em">
+<DIV class=prog>@liste_de_resultats = map(expression,@liste); </DIV></DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fns4.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl
+@liste =("1","2","3","4","5");
+@resultat = map($_*$_,@liste);
+print ("Liste d'origine :\n");
+print ("@liste\n");
+print ("\nListe aprés calcul :\n");
+print ("@resultat\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fns4.pl<SPAN class=rouge>ent</SPAN>
+Liste d'origine :
+1 2 3 4 5
+
+Liste aprés calcul :
+1 4 9 16 25
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2>La fonction index().</H2>
+<H3>Cette fonction permet de déterminer si une sous chaîne est ou n'est pas 
+présente dans une chaîne donnée, et à quel emplacement elle se trouve. </H3>
+<DIV class=centre style="WIDTH: 25em">
+<DIV class=prog>&gt;$x = index ($chaine,$sschaine) </DIV></DIV>
+<H3>Si la chaîne débute par la sous chaîne, la réponse est 0.<BR>Si la chaîne 
+débute par un caractère suivi de la sous chaîne, la réponse est 1.<BR>Si la 
+chaîne débute par deux caractère suivi de la sous chaîne, la réponse est 
+2.<BR>etc ...<BR>Si la sous chaîne est absente de la chaîne de référence, la 
+réponse est -1.<BR>Si plusieurs occurences de la sous chaîne sont présentes dans 
+la chaîne de référence, seule celle située la plus à gauche sera considérée. 
+</H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fns5.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl
+$x = index ("Bonjour","n");
+print "Valeur dex : $x\n";
+$y = "beau";
+$x = index ("Il fait beau",$y);
+print "Valeur de x : $x\n";
+@z = ("lundi","mardi");
+$y = "mardi";
+$x = index ($z,$y);
+$x = index (join ( " ",@z),$y);
+print "Valeur de x : $x\n";
+@z =("lundi","mardi");
+$y = "jeudi";
+$x = index($z,$y);
+$x = index ( join ( " ",@z),$y);
+print "Valeur dex : $x\n";
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fns5.pl<SPAN class=rouge>ent</SPAN>
+Valeur de x : 2
+Valeur de x : 8
+Valeur de x : 6
+Valeur de x : -1
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Autre exemple d'utilisation de la fonction index().<BR>Lire le fichier 
+"poeme.txt" ligne par ligne et compter pour chacune d'elle le nombre d'ocurences 
+d'un modèle donné. </H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type fns6.pl<SPAN class=rouge>ent</SPAN>
+#!usr/bin/perl
+@ARGV =("poeme.txt");
+# Modèle recherche, la lettre l en minuscule.
+$c = "l";
+$nl =$e= $n = 0;
+$ligne = &lt;&gt;;
+while ($ligne ne "") {
+  $nl++;<BR> while (1) {
+  $e = index($ligne, $c, $e);
+  last if ($e == -1);
+  $n++;
+  $e++;
+}
+print ("Ligne $nl, la chaîne $c aété trouvée $n fois.\n") if($n != 0);
+print("Ligne $nl, lachaîne $c n'est pas présente.\n") if ($n ==0);
+$ligne = &lt;&gt;;
+$e = 0;
+$n = 0;
+c:\progs&gt; perl xxxx.pl<SPAN class=rouge>ent</SPAN>
+Ligne 1, la chaîne 'l' a été trouvée 1 fois.
+Ligne 2, la chaîne l n'est pas présente.
+Ligne 3, la chaîne l n'est pas présente.
+Ligne 4, la chaîne 'l' a été trouvée 3 fois.
+Ligne 5, la chaîne l n'est pas présente.
+Ligne 6, la chaîne 'l' a été trouvée 1 fois.
+Ligne 7, la chaîne l n'est pas présente.
+Ligne 8, la chaîne 'l' a été trouvée 2 fois.
+Ligne 9, la chaîne 'l' a été trouvée 1 fois.
+Ligne 10, la chaîne l n'est pas présente.
+Ligne 11, la chaîne 'l' a été trouvée 1 fois.
+Ligne 12, la chaîne 'l' a été trouvée 2 fois.
+Ligne 13, la chaîne 'l' a été trouvée 1 fois.
+Ligne 14, la chaîne l n'est pas présente.
+Ligne 15, la chaîne 'l' a été trouvée 3 fois.
+Ligne 16, la chaîne 'l' a été trouvée 2 fois.
+Ligne 17, la chaîne 'l' a été trouvée 1 fois.
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H2>La fonction length().</H2>
+<H3>Cette fonction permet de connaitre la longueur d'une chaîne. </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog>$x = length ($chaîne); </DIV></DIV>
+<H3>Un exemple d'utilisation de la fonction length().<BR>Lire le fichier 
+"poeme.txt";<BR>Compter le nombre de mots, le nombre total de caractères et en 
+déduire la longueur moyenne des mots du poème. </H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type fns7.pl<SPAN class=rouge>ent</SPAN>
+#!usr/bin/perl
+@ARGV =("Poeme.txt");
+$nbmots = 0;
+$nbcar = 0;
+while ($ligne = &lt;&gt;) {
+  @mots = split(/\s+/,$ligne);
+  foreach $mot (@mots) {
+    next if ($mot =~/^d+\.?\d+$/);
+    $mot =~s/[,.;:]$//;<BR> $nbmots ++;
+    $nbcar += length($mot);
+  }
+}
+print ("Nombre total de mots :$nbmots\n");
+print ("Nombre total de caractères :$nbcar\n");
+$moyenne = $nbcar / $nbmots;
+print ("Longueur moyenne d'un mot :$moyenne\n");
+c:\progs&gt; perl fns7.pl<SPAN class=rouge>ent</SPAN>
+Nombre total de mots : 120
+Nombre total de caractères : 503
+Longueur moyenne d'un mot : 4.19166666666667
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H2>La fonction tr().</H2>
+<H3>Cette fonction est identique à celle de Unix. </H3>
+<DIV class=centre style="WIDTH: 25em">
+<DIV class=prog>$x = tr/recherche/remplacement/; </DIV></DIV>
+<H3>Elle va balayer la chaîne decaractères cible qui lui est spécifiée par 
+l'intermédiaire de l'opérateur =~ ou celle contenue dans la variable d'entrée 
+standard $_ si aucune cible n'est explicitement spécifiée<BR>Elle rremplace tous 
+les caractères de la liste 'recherche' par le caractère correspondant de la 
+liste 'remplacement'. En retour, elle renvoie le nombre de caractères concernés 
+par l'opération.<BR>Par exemple, compter le nombre de signes de ponctuation et 
+le nombre d'espaces présents dans le poème. </H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type fns8.pl<SPAN class=rouge>ent</SPAN>
+#!usr/bin/perl
+@ARGV =("Poeme.txt");
+while ($ligne = &lt;&gt;) {
+  chomp ($ligne);
+  $total_caracteres +=length($ligne);
+  $_ = $ligne;
+  $ponctuation += tr/,:;./,:;./;
+  $espaces +=tr/ / /;
+}
+print ("Nombre total de caracteres : $total_caracteres\n");
+print ("Nombre de signes de ponctuation : $ponctuation\n");
+print ("Nombre d'espaces : $espaces\n");
+c:\progs&gt; perl fns8.pl<SPAN class=rouge>ent</SPAN>
+Nombre total de caracteres : 631
+Nombre de signes de ponctuation : 22
+Nombre d'espaces : 106
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H3>L'astuce consiste a remplacer chaque caractère par lui même et a compter le 
+nombre de remplacements effectués. </H3>
+<H2>Extraction de chaînes.</H2>
+<H3>La fonction substr() permet d'extraire une sous chaîne d'une chaîne 
+donnée.<BR>La sous chaîne est repérée par son emplacement et sa longueur dans la 
+chaîne de référence. </H3>
+<DIV class=centre style="WIDTH: 25em">
+<DIV class=prog>$x = substr($chaîne,$debut,$longueur); </DIV></DIV>
+<H3>La valeur de la position de début répond aux critères définis pour la 
+fonction index ().<BR>La longueur indique le nombre de caractères à extraire à 
+partir de cet emplacement.<BR>Si le second paramètre dépasse la longueur 
+résiduelle ou si il est tout simplement absent, la totalité de la fin de la 
+chaîne sera extraite. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fns9.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl
+$x = "0123456789";
+$debut = 3;
+$longueur = 5;
+$x =substr($chaîne,$debut,$longueur);
+print "Valeur de x : $x\n";
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fns9.pl<SPAN class=rouge>ent</SPAN>
+Valeur de x 34567
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fns9bis.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl
+$x = "0123456789";
+$debut = 3;
+$longueur = 1000;
+$x =substr($chaîne,$debut,$longueur);
+print "Valeur de x : $x\n";
+    </PRE></TD>
+    <TD class=prog>c:\progs&gt; perl fns9bis.pl<SPAN class=rouge>ent</SPAN> 
+      <BR>Valeur de x 3456789<BR>c:\progs&gt; </TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fns9ter.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl
+$x = "0123456789";
+$debut = 3;
+$x = substr($chaîne,$debut);
+print "Valeur de x : $x\n";
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fns9ter.pl<SPAN class=rouge>ent</SPAN>
+Valeur de x 3456789
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fns10.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl
+$exp = 0;
+while ($e&lt; 10) {
+  print "10 ^ $exp est egal a ";
+  $p = substr("10000000000",0,(++$e));
+  print "$p\n";
+}
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fns10.pl<SPAN class=rouge>ent</SPAN>
+10 ^ 0 est egal a 1
+10 ^ 1 est egal a 10
+10 ^ 2 est egal a 100
+10 ^ 3 est egal a 1000
+10 ^ 4 est egal a 10000
+10 ^ 5 est egal a 100000
+10 ^ 6 est egal a 1000000
+10 ^ 7 est egal a 10000000
+10 ^ 8 est egal a 100000000
+10 ^ 9 est egal a 1000000000
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>De manière assez surprenante, la fonction substr() peut apparaitre à gauche 
+d'une affectation. Dans ce cas, on procède a la s ubstitution de la sous chaîne 
+en question par le contenu de la partie droite de l'affectation. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fns11.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl
+$x = "0123456789";
+$debut = 6;
+$longueur = 2;
+substr($chaîne,$debut)= " six sept ;
+print "Valeur de x : $x\n";
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fns11.pl<SPAN class=rouge>ent</SPAN> 
+Valeur de x 012345 six sept 89
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2>La fonction grep().</H2>
+<H3>Il s'agit ici aussi d'une fonction en provenance du monde Unix. </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog>grep(Expression, @liste); </DIV></DIV>
+<H3>Elle va récupérer chacun des éléments de la liste dans la variable $_.<BR>La 
+variable standard sera alors évaluée en fonction de l'expression, et une 
+nouvelle liste sera alors construite. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fns11.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@chiffres = (0,1,2,3,4,5,6,7,8,9);
+@impairs = grep($_ % 2,@chiffres);
+print join(", ",@impairs),"\n";
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fns11.pl<SPAN class=rouge>ent</SPAN>
+1, 3, 5, 7, 9
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2>Les variables prédéfinies.</H2>
+<H3>Nous avons souvent évoqué la notion de variable prédéfinie. Ce sont des 
+variables qui sont automatiquement positionnées par l'interpréteur afin de fixer 
+un certain nombre de paramètres ou de renvoyer des informations.<BR>En voici 
+quelques unes. </H3>
+<TABLE width="84%" align=center border=2>
+  <TBODY>
+  <TR>
+    <TH>Variable</TH>
+    <TH>Utilisation</TH></TR>
+  <TR>
+    <TD>$_</TD>
+    <TD>Variable scalaire standard.</TD></TR>
+  <TR>
+    <TD>@_ </TD>
+    <TD>Variable liste standard. </TD></TR>
+  <TR>
+    <TD>$&amp;</TD>
+    <TD>chaîne qui couvre le modèle dans une expression régulière.</TD></TR>
+  <TR>
+    <TD>$`</TD>
+    <TD>Couvre toute la partie de la chaîne qui précède le modèle.</TD></TR>
+  <TR>
+    <TD>$'</TD>
+    <TD>Couvre toute la partie de la chaîne qui suit le modèle.</TD></TR>
+  <TR>
+    <TD>$n</TD>
+    <TD>Numéro de lavariable mémorisée dans l'expression régulière.</TD></TR>
+  <TR>
+    <TD>$~</TD>
+    <TD>Variable de définition de format. </TD></TR>
+  <TR>
+    <TD>$|</TD>
+    <TD>Variable contrôlant la bufférisation des données. </TD></TR>
+  <TR>
+    <TD>$@</TD>
+    <TD>Message d'erreur retourné par l'appel de eval. </TD></TR>
+  <TR>
+    <TD>$]</TD>
+    <TD>Variable contenant le numéro de version. </TD></TR>
+  <TR>
+    <TD>$/</TD>
+    <TD>Variable contenant le séparateur standard de fin de ligne en 
+  entrée.</TD></TR>
+  <TR>
+    <TD>$\</TD>
+    <TD>Variable contenant le séparateur standard de fin de ligne en 
+  sortie.</TD></TR>
+  <TR>
+    <TD>$,</TD>
+    <TD>Séquence de caractères imprimée entre chaque élément d'un print.</TD></TR>
+  <TR>
+    <TD>$"</TD>
+    <TD>Séparateur d'éléments d'une liste dans une impression globale.</TD></TR>
+  <TR>
+    <TD>$#</TD>
+    <TD>Format par défaut pourl'impression d'un flotant. </TD></TR>
+  <TR>
+    <TD>$?</TD>
+    <TD>Code d'erreur du système.</TD></TR>
+  <TR>
+    <TD>$.</TD>
+    <TD>Numéro de ligne courante du fichier en lecture.</TD></TR>
+  <TR>
+    <TD>$[</TD>
+    <TD>Premier indice d'une liste.</TD></TR>
+  <TR>
+    <TD>$;</TD>
+    <TD>Pour travailler sur des hashs à plus d'une 
+dimension.</TD></TR></TBODY></TABLE>
+<H3>Comme il n'est pas toujours évident de se souvenir de tous ces noms 
+barbares. Il existe pour en simplifier l'utilisation une bibliothèque (English) 
+qui permet d'utiliser des noms symboliques. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme eng.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+use English;
+print ("$PERL_VERSION")
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl eng.pl<SPAN class=rouge>ent</SPAN>
+5.004
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Variable</TH>
+    <TH>Nom symbolique</TH></TR>
+  <TR>
+    <TD>$_</TD>
+    <TD>$ARG</TD></TR>
+  <TR>
+    <TD>$0<BR></TD>
+    <TD>$PROGRAM_NAME</TD></TR>
+  <TR>
+    <TD>$]</TD>
+    <TD>$PERL_VERSION</TD></TR>
+  <TR>
+    <TD>$@</TD>
+    <TD>$EVAL_ERROR</TD></TR>
+  <TR>
+    <TD>$.</TD>
+    <TD>$INPUT_LINE_NUMBER ou $NR</TD></TR>
+  <TR>
+    <TD>$:</TD>
+    <TD>$FORMAT_LINE_BREAK_CHARACTERS</TD></TR>
+  <TR>
+    <TD>$"</TD>
+    <TD>$LIST_SEPARATOR</TD></TR>
+  <TR>
+    <TD>$~</TD>
+    <TD>$FORMAT_NAME</TD></TR>
+  <TR>
+    <TD>$|</TD>
+    <TD>$OUTPUT_AUTOFLUSH</TD></TR>
+  <TR>
+    <TD>$&amp;</TD>
+    <TD>$MATCH</TD></TR>
+  <TR>
+    <TD>$`</TD>
+    <TD>$PREMATCH</TD></TR>
+  <TR>
+    <TD>$'<BR></TD>
+    <TD>$POSTMATCH</TD></TR>
+  <TR>
+    <TD>$/</TD>
+    <TD>$INPUT_RECORD_SEPARATOR ou $RS</TD></TR>
+  <TR>
+    <TD>$\</TD>
+    <TD>$OUTPUT_RECORD_SEPARATOR ou $ORS</TD></TR>
+  <TR>
+    <TD>$,</TD>
+    <TD>$OUTPUT_FIELD_SEPARATOR ou $OFS</TD></TR></TBODY></TABLE>
+<H2>Utilisaton des variables prédéfinies.</H2>
+<H3>Voici un exemple de l'utilisation de la variable $@ (message d'erreur 
+retourné par un eval) pour verifier avant un appel de fonction que cette 
+dernière existe bien. Nous verrons ultérieurement en detail le fonctionnement de 
+"eval". Dans un premier temps, nous allons l'utiliser pour evaluer, en tant que 
+programme, la valeur d'une chaîne de caractères qui lui est passée en paramètre. 
+</H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme eval.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+eval('print "Bonjour\n";);
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl eval.pl<SPAN class=rouge>ent</SPAN>
+Bonjour
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme evalbis.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+open (POEME, "Poeme.txt");
+eval ("\$debut = tell(POEME);");
+print ("La fonction tell existe\n")if ($@ eq "");
+print ("La fonction tell n'existe pas\n")if ($@ ne "");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perlevalbis.pl<SPAN class=rouge>ent</SPAN>
+La fonction tell existe
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme evalter.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+open (POEME, "Poeme.txt");
+eval ("\$debut = talk(POEME);");
+print ("La fonction talk existe\n") if ($@ eq "");
+print ("La fonction talk n\'existe pas\n") if ($@ ne "");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl evalter.pl<SPAN class=rouge>ent</SPAN>
+La fonction talk n'existe pas
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Explications :<BR>On demande à appliquer la fonction sur un fichier.<BR>Si 
+tout s'est bien déroulé (fonction tell), aucune erreur n'aété générée et la 
+variable $@ contient la valeur undef.<BR>Dans le cas contraire (fonction talk) 
+il y a eu génération d'une erreur et la variable $@ n'est pas vide. </H3>
+<H2 style="POSITION: relative; HEIGHT: 5em">
+<DIV class=lieng><A href="http://www.dil.univ-mrs.fr/~chris/Perl/Regex.htm"><IMG 
+style="VERTICAL-ALIGN: middle" 
+src="Cours Perl, Les fonctions spécifiques_fichiers/prec.gif"> </A>Précédent 
+</DIV>
+<DIV class=liend>Suivant <A 
+href="http://www.dil.univ-mrs.fr/~chris/Perl/Fonctions.htm"><IMG 
+style="VERTICAL-ALIGN: middle" 
+src="Cours Perl, Les fonctions spécifiques_fichiers/suiv.gif"> 
+</A></DIV></H2></BODY></HTML>

@@ -1,0 +1,722 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0053)http://www.dil.univ-mrs.fr/~chris/Perl/References.htm -->
+<HTML><HEAD><TITLE>Cours Perl, Les références.</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1"><LINK 
+href="Cours Perl, Les références_fichiers/Messtyles.css" type=text/css 
+rel=stylesheet>
+<META content="MSHTML 6.00.2900.3243" name=GENERATOR></HEAD>
+<BODY>
+<H1>Les références.</H1>
+<H2>Les références.</H2>
+<H3>Une référence n'est jamais que ce que l'on appelle généralement un 
+pointeur.<BR>Il est possible de référencer un scalaire, une liste, un hash, et 
+même une fonction.<BR>Exemple simple. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme ref.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+$valeur = 100;
+$pointeur = \$valeur;
+print ("\nLe pointeur d'adresse $pointeur,\n");
+print ("désigne la variable $valeur.\n");
+print ("\nLa référence *($pointeur),\n");
+print ("pointe sur la variable $$pointeur.\n");
+
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl ref.pl<SPAN class=rouge>ent</SPAN>
+Le pointeur d'adresse SCALAR(0xa463be4),
+désigne la variable 100.
+
+La référence *(SCALAR(0xa463be4)),
+pointe sur la variable 100.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>En résumé, un pointeur $pointeur réfère à une variable 
+\$valeur.<BR>$pointeur contient alors la référence (l'adresse de la variable) 
+qui peut alors être atteinte par l'intermédiaire du pointeur $$pointeur. </H3>
+<H3>Il y a 5 types de références qui sont :<BR>Référence à un 
+scalaire.<BR>Référence à une liste.<BR>Référence à un hash.<BR>Référence à une 
+fonction.<BR>Référence à une autre référence </H3>
+<H3>Il existe de plus la référence à un global, le "typeglob" (type global). 
+C'est un type interne qui permet de représenter toute une table se 
+symboles.<BR>Le préfixe d'un typeglob est * car il représente tous les 
+types.<BR>C'est une bonne manière de passer des listes et des hash par référence 
+à une fonction. Toutefois, comme il est possible d'utiliser les vraies 
+références, ce mécanisme n'est pas très utile.<BR></H3>
+<H2>Quelques mots sur le type global.</H2>
+<H3>On utilise le type global pour passer ou stocker les noms de 
+fichiers.<BR>Ainsi, la sauvegarde s'un descripteur de fichier peut se faire par 
+: 
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>$fichier = *ENTREE;
+  </PRE></DIV></DIV>
+<H3>Ou comme une vraie référence : </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>$fichier =\*ENTREE;
+  </PRE></DIV></DIV>
+<H3>C'est aussi un moyen facile pour créer un descripteur de fichier local : 
+</H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog><PRE>Sub ouvrir {
+  my $chemin = shift;
+  local *DESC;
+  open (DESC, $chemin);
+  return \*DESC;
+}
+$desc = ouvrir ('/usr/bin/perl');
+  </PRE></DIV></DIV>
+<H3>Le "typeglob" est aussi utilisé pour déclarer un alias entre deux entrées 
+symboliques. Ainsi. 
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>*objet = *outil;
+  </PRE></DIV></DIV>
+<H3>Permet d'établir une relation entre tout ce qui s'appelle objet et tout ce 
+qui s'appelle outil. Les deux noms deviennent ainsi des synonymes. </H3>
+<H3>Il est aussi possible de limiter l'alias à un seul type de variable. Ainsi : 
+</H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>*objet = *outil;
+  </PRE></DIV></DIV>
+<H3>Permet d'établir la synonymie entre $objet et $outil, par contre @objet et 
+%objet respectivement sont différents de @outil et %outil. </H3>
+<H2>Les références.</H2>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD>$RefScal = \$scalaire</TD>
+    <TD>${RefScal} est une valeur scalaire.</TD></TR>
+  <TR>
+    <TD>$RefLis = \@liste</TD>
+    <TD>${RefLis} est une valeur de liste.</TD></TR>
+  <TR>
+    <TD>$RefHash = \%hash</TD>
+    <TD>${RefHash} est une valeur de hash.</TD></TR>
+  <TR>
+    <TD>$RefGlobl = \*Desc</TD>
+    <TD>Juste pour mémoire.</TD></TR>
+  <TR>
+    <TD>$RefFunc = \&amp;fonct</TD>
+    <TD>${RefFunc} est l'emplacement d'une fonction.</TD></TR>
+  <TR>
+    <TD>$RefRef = \$sRefer</TD>
+    <TD>${${RefScal}} est une valeur scalaire.</TD></TR></TBODY></TABLE>
+<H2>Référence à une liste</H2>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type ref2.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+@liste = ("Zero","Un","Deux","Trois","Quatre");
+$pointeur = \@liste;
+print ("\nLe pointeur d'adresse $pointeur,\n");
+$nb_elements = @$pointeur;
+print ("Pointe sur une liste de $nb_elements éléments.\n");
+$i = 0;
+foreach (@$pointeur) {
+  print ("L'élément $i vaut $$pointeur[$i++].\n");
+}
+c:\progs&gt; perl ref2.pl<SPAN class=rouge>ent</SPAN>
+Le pointeur d'adresse ARRAY(0xa461600),
+Pointe sur une liste de 5 éléments.
+L'élément 0 vaut Zero.
+L'élément 1 vaut Un.
+L'élément 2 vaut Deux.
+L'élément 3 vaut Trois.
+L'élément 4 vaut Quatre.
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H2>Référence à un hash.</H2>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type ref3.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+%mois = (
+  '01', 'Janvier',
+  '02', 'Fevrier',
+  '03', 'Mars',
+  '04', 'Avril',
+  '05', 'Mai',
+  '06', 'Juin',
+  '07', 'Juillet',
+  '08', 'Aout',
+  '09', 'Septembre',
+  '10', 'Octobre',
+  '11', 'Novembre',
+  '12', 'Decembre' );
+$pointeur = ¥%mois;
+print ("¥nLe pointeur d'adresse $pointeur,¥n");
+print ("Fait reference a un hash.¥n");
+print ("En voici le contenu trie par rapport aux cles.¥n");
+foreach $i (sort keys %$pointeur) {
+  if ($$pointeur{$i} =~ /^[aeiou]/i ){
+    $article = "d¥'"
+  } else {
+    $article = "de "
+  }
+  printf ("$i est le mois $article$$pointeur{$i} ¥n");
+}
+c:\progs&gt; perl ref3.pl<SPAN class=rouge>ent</SPAN>
+
+Le pointeur d'adresse HASH(0x80a27c),
+Fait reference a un hash.
+En voici le contenu trie par rapport aux cles.
+01 est le mois de Janvier 
+02 est le mois de Fevrier 
+03 est le mois de Mars 
+04 est le mois d'Avril 
+05 est le mois de Mai 
+06 est le mois de Juin 
+07 est le mois de Juillet 
+08 est le mois d'Aout 
+09 est le mois de Septembre 
+10 est le mois d'Octobre 
+11 est le mois de Novembre 
+12 est le mois de Decembre
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H2>L'opérateur =&gt;.</H2>
+<H3>Cet opérateur est d'une utilisation plus claire pour représenter l'accès à 
+un hash. </H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type ref4.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+%semaine = (
+'01' =&gt; 'Lundi',
+'02' =&gt; 'Mardi',
+'03' =&gt; 'Mercredi',
+'04' =&gt; 'Jeudi',
+'05' =&gt; 'Vendredi',
+'06' =&gt; 'Samedi',
+'07' =&gt; 'Dimanche' );
+$pointeur = \%semaine;
+$i = 0;
+print ("\n========== Début du test ==========\n");
+foreach $i (sort keys %$pointeur) {
+printf ("$i represente le $$pointeur{$i} \n");
+}
+print ("\n=========== Fin du test ===========\n");
+c:\progs&gt; perl ref4.pl<SPAN class=rouge>ent</SPAN>
+
+========== Début du test ==========
+01 represente le Lundi 
+02 represente le Mardi 
+03 represente le Mercredi 
+04 represente le Jeudi 
+05 represente le Vendredi 
+06 represente le Samedi 
+07 represente le Dimanche
+
+=========== Fin du test ===========
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H2>L'opérateur -&gt;.</H2>
+<H3>On appelle cet opérateur l'opérateur flèche. Il représente une troisième 
+méthode de déréférencement pour les hash et pour les tables de référence. </H3>
+<H3>Cet opérateur facilite l'accés aux éléments individuels de listes. Ceci est 
+d'autant plus vrai que l'expression de référence est plus compliquée. 
+<H3>
+<H3>Ainsi, les notations suivantes sont parfaitement équivalentes. </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>$$semaine[3] = "Mercredi";
+${$semaine}[3] = "Mercredi";
+$semaine-&gt;[3] = "Mercredi";
+
+$$nb_jours{"Aout"} = 31;
+${nb_jours}{"Aout"} = 31;
+$ nb_jours-&gt;{"Aout"} = 31;
+  </PRE></DIV></DIV>
+<H3>Il faut noter que, dans la dernière notation, le premier $ manque, il est 
+implicite. ceci interdit l'utilisation de cette notation pour référencer autre 
+chose que des valeurs scalaires.<BR>Toutefois, comme pour la seconde notation, 
+il est possible d'utiliser, à gauche de l'opérateur flèche (-&gt;) n'importe 
+quelle expression, y compris un autre déréférencement.<BR>Dans ce cas, les 
+opérateurs flèche associent de gauche à droite. </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog><PRE>print ("$table[5]-&gt;{"matiere"}-&gt;[2]");
+  </PRE></DIV></DIV>
+<H3>Remarquons qu'il ne revient pas au même d'écrire </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>$table[5];
+  </PRE></DIV></DIV>
+<H3>et </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>$table-&gt;[5]";
+  </PRE></DIV></DIV>
+<H3>En effet, $table[5] représente le sixième élément (0 .. 5) de la liste 
+@table. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD>@table</TD>
+    <TD>$table[0]</TD></TR>
+  <TR>
+    <TD></TD>
+    <TD>$table[1]</TD></TR>
+  <TR>
+    <TD></TD>
+    <TD>$table[2]</TD></TR>
+  <TR>
+    <TD></TD>
+    <TD>$table[3]</TD></TR>
+  <TR>
+    <TD></TD>
+    <TD>$table[4</TD></TR>
+  <TR>
+    <TD></TD>
+    <TD><SPAN class=rouge>$table[5]</SPAN></TD></TR></TBODY></TABLE>
+<H3>Alors que $table-&gt;[5] représente le sixième élément (0 .. 5) d'un tableau 
+dont la référence se trouve dans le scalaire $table </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD>$table(ARRAY(0xa461600)</TD>
+    <TD>$vecteur[0]</TD></TR>
+  <TR>
+    <TD></TD>
+    <TD>$vecteur[1]</TD></TR>
+  <TR>
+    <TD></TD>
+    <TD>$vecteur[2]</TD></TR>
+  <TR>
+    <TD></TD>
+    <TD>$vecteur[3]</TD></TR>
+  <TR>
+    <TD></TD>
+    <TD>$vecteur[4]</TD></TR>
+  <TR>
+    <TD></TD>
+    <TD><SPAN class=rouge>$vecteur[5]</SPAN></TD></TR></TBODY></TABLE>
+<H3>La référence $table[5]-&gt;{"matiere"}-&gt;[2] est légale même si $table[5] 
+n'existe pas.<BR>On se touve dans un contexte spécial ou la référence n'en est 
+pas vraiment une.<BR>Elle ne se mettra à exister que si on la déréférence dans 
+un contexte qui suppose son existence.<BR>On appelle cette méthode "Ce à quoi on 
+s'attend". </H3>
+<H3>Si $table[5] n'existe pas, il sera automatiquement défini par une référence 
+de hach afin de pouvoir y chercher "matiere".<BR>De même, 
+$table[5]-&gt;{"matiere"} sera automatiquement défini par une référence vers un 
+tableau afin de pouvoir aller rechercher le troisième élément (2).<BR>Tout ceci 
+ne se produit que lorsqu'on tente de créer l'élément.<BR>Si on se contente d'y 
+faire référence, on trouvera la valeur "undef".<BR></H3><IMG alt=Références 
+src=""> 
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>$table[5]-&gt;{"matiere"}-&gt;[2]
+  </PRE></DIV></DIV>
+<H3>Peut aussi s'écrire </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>$table[5] {"matiere"}-&gt;[2]
+  </PRE></DIV></DIV>
+<H3>L'opérateur flèche est en effet optionnel entre les indices délimités par 
+des accolades ou des crochets. </H3>
+<H2>Les Tableaux à plusieurs dimensions.</H2>
+<H3>Dans une liste, chacun des éléments de la liste peut être un scalaire ou une 
+liste. C'est de cette manière que l'on définira des tables à plus d'une 
+dimension.<BR>La référence à chacun des éléments s'écrit : </H3>
+<DIV class=centre style="WIDTH: 30em">
+<DIV class=prog><PRE>$Nom_de_la_table -&gt; [$Index];
+$Nom_de_la_table -&gt; [$Index1] [$Index2];
+$Nom_de_la_table -&gt; [$Index1] [$Index2] [Index3];
+. . . .
+  </PRE></DIV></DIV>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type ref5.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+$table = ['Initiale',['1','2','3'] , ['4', '5', '6'], 'Finale'];
+print ("\n========== Début du test ==========\n");
+print "\$table-&gt;[0] = $table-&gt;[0] \n";
+print "\$table-&gt;[1][0] = $table-&gt;[1][0] \n";
+print "\$table-&gt;[1][1] = $table-&gt;[1][1] \n";
+print "\$table-&gt;[1][2] = $table-&gt;[1][2] \n";
+print "\$table-&gt;[2][0] = $table-&gt;[2][0] \n";
+print "\$table-&gt;[2][1] = $table-&gt;[2][1] \n";
+print "\$table-&gt;[2][2] = $table-&gt;[2][2] \n";
+print "\$table-&gt;[3] = $table-&gt;[3] \n";
+print ("=========== Fin du test ===========\n");
+c:\progs&gt; perl ref5.pl<SPAN class=rouge>ent</SPAN>
+
+========== Début du test ==========
+$table-&gt;[0] = Initiale 
+$table-&gt;[1][0] = 1 
+$table-&gt;[1][1] = 2 
+$table-&gt;[1][2] = 3 
+$table-&gt;[2][0] = 4 
+$table-&gt;[2][1] = 5 
+$table-&gt;[2][2] = 6 
+$table-&gt;[3] = Finale 
+=========== Fin du test ===========
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H3>Autre exemple. </H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type ref6.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+$table = ['Initiale',['1','2','3',['4', '5', '6']], 'Finale'];
+print ("\n========== Début du test ==========\n");
+print "\$table-&gt;[0] = $table-&gt;[0] \n";
+print "\$table-&gt;[1][0] = $table-&gt;[1][0] \n";
+print "\$table-&gt;[1][1] = $table-&gt;[1][1] \n";
+print "\$table-&gt;[1][2] = $table-&gt;[1][2] \n";
+print "\$table-&gt;[1][3][0] = $table-&gt;[1][3][0] \n";
+print "\$table-&gt;[1][3][1] = $table-&gt;[1][3][1] \n";
+print "\$table-&gt;[1][3][2] = $table-&gt;[1][3][2] \n";
+print "\$table-&gt;[2] = $table-&gt;[2] \n";
+print ("=========== Fin du test ===========\n");
+c:\progs&gt; perl ref6.pl<SPAN class=rouge>ent</SPAN>
+
+========== Début du test ==========
+$table-&gt;[0] = Initiale 
+$table-&gt;[1][0] = 1 
+$table-&gt;[1][1] = 2 
+$table-&gt;[1][2] = 3 
+$table-&gt;[1][3][0] = 4 
+$table-&gt;[1][3][1] = 5 
+$table-&gt;[1][3][2] = 6 
+$table-&gt;[2] = Finale 
+=========== Fin du test ===========
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H2>Définition d'un cube.</H2>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type ref7.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+%cube = (
+'0', ['0', '0', '0'],
+'1', ['0', '0', '1'],
+'2', ['0', '1', '0'],
+'3', ['0', '1', '1'],
+'4', ['1', '0', '0'],
+'5', ['1', '0', '1'],
+'6', ['1', '1', '0'],
+'7', ['1', '1', '1']
+);
+$pointeur = \%cube;
+print "\n Un Cube \n";
+foreach $i (sort keys %$pointeur) {
+$x = $$pointeur{$i}-&gt;[0];
+$y = $$pointeur{$i}-&gt;[1];
+$z = $$pointeur{$i}-&gt;[2];
+printf " Point $i = $x,$y,$z \n";
+}
+c:\progs&gt; perl ref7.pl<SPAN class=rouge>ent</SPAN>
+
+Un Cube
+Point 0 = 0,0,0 
+Point 1 = 0,0,1 
+Point 2 = 0,1,0 
+Point 3 = 0,1,1 
+Point 4 = 1,0,0 
+Point 5 = 1,0,1 
+Point 6 = 1,1,0 
+Point 7 = 1,1,1
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H2>Explications.</H2>
+<H3>Dans un hash, on définit un espace vectoriel (0,1)**3. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD>%cube = (</TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>'0', ['0', '0', '0'],</TD>
+    <TD>Coordonnée du point 0 (x = 0, y = 0, z = 0)</TD></TR>
+  <TR>
+    <TD>'1', ['0', '0', '1'],</TD>
+    <TD>Coordonnée du point 1 (x = 0, y = 0, z = 1)</TD></TR>
+  <TR>
+    <TD>'2', ['0', '1', '0'],</TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>'3', ['0', '1', '1'],</TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>'4', ['1', '0', '0'], </TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>'5', ['1', '0', '1']</TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>'6', ['1', '1', '0'],</TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>'7', ['1', '1', '1']</TD>
+    <TD>Coordonnée du point 7 (x = 1, y = 1, z = 1)</TD></TR>
+  <TR>
+    <TD>);</TD>
+    <TD></TD></TR>
+  <TR>
+    <TD>$pointeur = \%cube;</TD>
+    <TD>On définit un HASH pointeur vers le cube que<BR>l'on vient de 
+  créer.</TD></TR>
+  <TR>
+    <TD>foreach $i (sort keys %$pointeur) {<BR>$x = 
+      $$pointeur{$i}-&gt;[0];<BR>$y = $$pointeur{$i}-&gt;[1];<BR>$z = 
+      $$pointeur{$i}-&gt;[2];<BR></TD>
+    <TD>Il est maintenant possible pour chacun des 8<BR>éléments du cube de 
+      récupérer (via le pointeur)<BR>chacun des scalaires composant la ligne. 
+  </TD></TR></TBODY></TABLE>
+<H2>Passage de paramètres.</H2>
+<H3>Lors de l'étude des fonctions, nous avons vu qu'il n'était pas possible de 
+passer plus d'une liste en paramètre, car la fonction n'est capable de se 
+référer qu'à la liste standard @_ pour récupérer ses valeurs de travail. </H3>
+<H3>Il est bien entendu possible au moyen des références de s'affranchir de 
+cette contrainte. </H3>
+<H3>Une mauvaise solution. </H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type ref8.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+#Une solution qui ne marche pas.
+@a = (1..9);
+@b = ("A" .. "J");
+sub fonc {
+  my (@chiffres,@lettres) = @_;
+  print ("Les chiffres sont @chiffres. \n");
+  print ("Les lettres sont @lettres. \n");
+}
+Fonc (@a, @b);
+c:\progs&gt; perl ref8.pl<SPAN class=rouge>ent</SPAN>
+Les chiffres sont 1 2 3 4 5 6 7 8 9 A B C D E F G H I J.
+Les lettres sont . 
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H3>La bonne solution. </H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type ref9.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+#la bonne manière d'opérer.
+@a = (1..9);
+@b = ("A" .. "J");
+sub fonc {
+  my ($RefCh,$RefLe) = @_;
+  print ("Les chiffres sont @{$RefCh}. \n");
+  print ("Les lettres sont @{$RefLe}. \n");
+}
+fonc (\@a, \@b);
+c:\progs&gt; perl ref9.pl<SPAN class=rouge>ent</SPAN>
+Les chiffres sont 1 2 3 4 5 6 7 8 9.
+Les lettres sont A B C D E F G H I J 
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H2>Le déréférencement.</H2>
+<H3>Il est aise, nous venons de le voir, d'utiliser des références.<BR>Ceci peut 
+être une source d'erreurs car Perl (contrairement à d'autres langages moins 
+regardants) n'acceptera de substituera aucune substitution de type à lors d'un 
+déréférencement. </H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type ref10.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+@a = (1..9);
+@b = ("A" .. "J");
+sub fonc {
+  my ($RefCh,$RefLe) = @_;
+  # Je tente de déréférencer en un scalaire ce que j'ai référencé en liste.
+  print ("Les chiffres sont ${$RefCh}. \n");
+  print ("Les lettres sont @{$RefLe}. \n");
+}
+fonc (\@a, \@b);
+c:\progs&gt; perl ref10.pl<SPAN class=rouge>ent</SPAN>
+Not a SCALAR reference at ./test.txt line 8.
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H2>La fonction ref().</H2>
+<H3>Afin de connaître le type de l'objet qui a été référencé, l'interpréteur met 
+à la disposition du programmeur la fonction ref().<BR>Elle permet de tester le 
+type de l'objet qui a été référence et, de ce fait, de le déréférencer sans 
+problèmes. </H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type ref11.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+$a = 10;
+@b = ("A" .. "J");
+%c = (A,1,B,2,C,3,D,4,E,5);
+sub d {
+  my ($RefCh,$RefLe) = @_;
+  print ("Hello \n");
+}
+$A=\$a;
+$B=\@b;
+$C=\%c;
+$D=\&amp;d;
+print ("Reference a un scalaire : $A.\n");
+print ("Reference a une liste : $B.\n");
+print ("Reference a un hash : $C.\n");
+print ("Reference a une fonction : $D.\n");
+c:\progs&gt; perl ref11.pl<SPAN class=rouge>ent</SPAN>
+Reference a un scalaire : SCALAR(0xd944).
+Reference a une liste : ARRAY(0xd974).
+Reference a un hash : HASH(0x11a5c).
+Reference a une fonction : CODE(0x11b04)
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H3>Et avec une expression régulière. </H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type ref12.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+$a = 10;
+@b = ("A" .. "J");
+%c = (A,1,B,2,C,3,D,4,E,5);
+sub d {
+my ($RefCh,$RefLe) = @_;
+print ("Hello \n");
+}
+$A = \$a;$A=~ s/\(.*\)//;
+$B = \@b;$B=~ s/\(.*\)//;
+$C = \%c;$C=~ s/\(.*\)//;
+$D = \&amp;d;$D=~ s/\(.*\)//;
+print ("Reference a un scalaire : $A.\n");
+print ("Reference a une liste : $B.\n");
+print ("Reference a un hash : $C.\n");
+print ("Reference a une fonction : $D.\n");
+c:\progs&gt; perl ref12.pl<SPAN class=rouge>ent</SPAN>
+Reference a un scalaire : SCALAR.
+Reference a une liste : ARRAY.
+Reference a un hash : HASH.
+Reference a une fonction : CODE.
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H2>Les références vers des procédures.</H2>
+<H3>Pour construire une référence vers une procédure, on crée un pointeur sous 
+la forme : </H3>
+<DIV class=centre style="WIDTH: 30em">
+<DIV class=prog><PRE>
+$Pointeur_vers_la_procedure = \&amp;Nom_de_la_procedure;
+  </PRE></DIV></DIV>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type ref14.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+#Déclaration de la procédure.
+sub dire_bonjour {
+  print ("Bonjour tout le monde.\n");
+}
+#Définition du pointeur vers la procédure.
+$rs = \&amp;dire_bonjour;
+Appel de la procédure par l'intermédiaire du pointeur.
+&amp;$rs;
+c:\progs&gt; perl ref14.pl<SPAN class=rouge>ent</SPAN>
+Bonjour tout le monde.
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H2>Interpolation de fonctions.</H2>
+<H3>Il est possible grace aux références de contraindre l'interpréteur à 
+interpoler la valeur de retour d'une fonction lorsque celle ci se trouve dans 
+une chaîne de caractères, à condition que la substitution soit active (" " et 
+pas ' '). </H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type ref15.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+sub aster { return ("*" x $_[0])}
+@a = (1..9);
+print ("Voici un triangle d'asterisques :\n");
+foreach (@a) {
+print ("$_ ${\aster($_)}\n");
+}
+c:\progs&gt; perl ref15.pl<SPAN class=rouge>ent</SPAN>
+Voici un triangle d'asterisques :
+1 *
+2 **
+3 ***
+4 ****
+5 *****
+6 ******
+7 *******
+8 ********
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H3>Dans cet exemple, l'astuce utilisée tient au fait que l'antislash transforme 
+la valeur de retour en une référence, le dollar et les accolades déréférencent 
+en un scalaire que le print peut interpréter sans difficulté.<BR>Sans 
+l'antislash pour créer la référence à une valeur scalaire, l'opération de 
+déréférencement ${} n'aurait rien eu à déréférencer et une erreur aurait 
+étégénérée ("initialized value") </H3>
+<H2>Le sous programme anonyme.</H2>
+<H3>On appelle sous programme anonyme un sous programme qui ne peut être appelé 
+que par l'intermédiaire de la variable à partir de laquelle il a été construit. 
+</H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type ref16.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+#Déclaration de la procédure.
+$reference = sub {
+print ("Bonjour tout le monde.\n");
+};
+#Important, ne pas oublier le point virgule.
+#Appel de la procédure.
+&amp;$reference;
+c:\progs&gt; perl ref16.pl<SPAN class=rouge>ent</SPAN>
+Bonjour tout le monde.
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H3>En fait, un sous programme anonyme agit comme une fermeture (closure) sur 
+une variable déclarée my, c'est à dire, en fait, sur des variables lexicalement 
+visibles dans la portée courante (revoir les propriétés de la déclaration my par 
+rapport à celles de la déclaration local).<BR>La fermeture spécifie que si on 
+définit une fonctionanonyme dans un contexte lexical donné, elle tournera dans 
+ce contexte et dans ce contexte seulement, même si elle est appelée en dehors de 
+celui ci.<BR>Ce qui signifie que l'on est certain de conserver la même copie 
+d'une variable lexicale, alors que d'autres instances de cette variable auront 
+été créées préalablement ou postérieurement. </H3>
+<H2>Les fermetures.</H2>
+<H3>Cette particularité va nous permettre de passer des arguments à un sous 
+programme, aussi bien au moment de la définition que de l'appel, et de plus, 
+nous pourrons déclarer des petits bouts de code dont l'exécution sera reportée à 
+une date ultérieure. </H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type ref17.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+sub affiche {
+  my $x = shift;
+  return sub {my $y = shift; print "$x$y !\n";};
+}
+$h = affiche ("Ligne 1 du premier message,\n");
+$g = affiche ("Ligne 1 du second message\n");
+&amp;$h ("Ligne 2 du premier message");
+&amp;$g ("Ligne 2 du second message..");
+c:\progs&gt; perl ref18.pl<SPAN class=rouge>ent</SPAN>
+Ligne 1 du premier message,
+Ligne 2 du premier message !
+Ligne 1 du second message
+Ligne 2 du second message.. !
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H2>Les références symboliques.</H2>
+<H3>Une référence qui n'est pas une référence 'en dur' représente une 
+référencesymbolique. C'est une référence qui a une valeur scalaire et qui est 
+prise pour un nom de<BR>variable et non pas pour un lien direct vers une valeur. 
+</H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type ref19.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+$a = 3.14159;
+$b = "a";
+print ("La valeur de \$b est : $b\n");
+print ("La référence symbolique \${\$b} réfère \$a, c'est à dire à ${$b}\n");
+c:\progs&gt; perl ref19.pl<SPAN class=rouge>ent</SPAN>
+La valeur de $b est : a
+La référence symbolique ${$b} réfère $a, c'est à dire à 3.14159
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type ref20.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+$un = 1;
+$deux = 2;
+$trois = 3;
+$quatre = 4;
+$cinq = 5;
+print ("Nom de la variable à lire : ");
+chop ($nom = <STDIN>);
+print ("La variable $nom contient la valeur ${$nom}\n");
+c:\progs&gt; perl ref20.pl<SPAN class=rouge>ent</SPAN>
+Nom de la variable à lire : quatre
+La variable quatre contient la valeur 4
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H2 style="POSITION: relative; HEIGHT: 5em">
+<DIV class=lieng><A 
+href="http://www.dil.univ-mrs.fr/~chris/Perl/Sockets.htm"><IMG 
+style="VERTICAL-ALIGN: middle" 
+src="Cours Perl, Les références_fichiers/prec.gif"> </A>Précédent </DIV>
+<DIV class=liend>Suivant <A 
+href="http://www.dil.univ-mrs.fr/~chris/Perl/Packages.htm"><IMG 
+style="VERTICAL-ALIGN: middle" 
+src="Cours Perl, Les références_fichiers/suiv.gif"> 
+</A></DIV></H2></H3></H3></H3></H3></BODY></HTML>

@@ -1,0 +1,2221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0088)http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>[PERL] lecture/écriture sur une socket</TITLE>
+<META content=index,follow name=ROBOTS>
+<META content="Comment ça marche? [L'informatique] - Forum programmation" 
+name=subject>
+<META 
+content="Bonjour, <br> <br>J&amp;apos;aimerais faire du client-serveur intéractif en Perl. <br> <br>J&amp;apos;ai un serveur.pl qui fonctionne correctement, j&amp;apos;ai repris ce script : <a href=&amp;apos;http://perl.enstimac.fr/DocFr/perlipc.html#serveurs%20tcp%20avec%20io::socket&amp;apos;..." 
+name=description>
+<META content="[PERL] lecture/écriture sur une socket" name=keywords>
+<META content="[PERL] lecture/écriture sur une socket" name=title>
+<META content="[PERL] lecture/écriture sur une socket" name=dc.title>
+<META content="[PERL] lecture/écriture sur une socket" name=dc.subject>
+<META 
+content="[PERL] lecture/écriture sur une socket : Bonjour, J&amp;apos;aimerais faire du client-serveur intéractif en Perl. J&amp;apos;ai un serveur.pl qui fonctionne correctement, j&amp;apos;ai repris ce script : <a href=&amp;apos;http://perl.enstimac.fr/DocFr/perlipc.html#serveurs%20tcp%20avec%20io::socket&amp;apos; target=&amp;apos;_" 
+name=dc.description>
+<META content=DOCUMENT name=RESOURCE-TYPE>
+<META content=GLOBAL name=DISTRIBUTION>
+<META content=20071220 name=Date-Creation-yyyymmdd>
+<META http-equiv=Content-Type content="text/html; charset=ISO-8859-1">
+<META http-equiv=Content-Language content=fr>
+<META content=http://www.commentcamarche.net name=site><LINK href="/favicon.ico" 
+rel="SHORTCUT ICON"><LINK 
+href="[PERL] lecture-écriture sur une socket_fichiers/ccm.css" type=text/css 
+rel=stylesheet><LINK 
+href="[PERL] lecture-écriture sur une socket_fichiers/forum.css" type=text/css 
+rel=stylesheet>
+<META http-equiv=expires content=0>
+<META http-equiv=pragma content=no-cache>
+<META http-equiv=cache-control content="no-cache, must-revalidate"><LINK 
+title="CCM: Forum programmation" 
+href="https://secure.commentcamarche.net/rss/rss_forum.php3?cat=3" 
+type=application/rss+xml rel=alternate><LINK title="CCM: Actualité" 
+href="http://www.commentcamarche.net/rss/actualite.php3" 
+type=application/rss+xml rel=alternate><LINK 
+title="CCM: Actualités du site CommentCaMarche.net" 
+href="http://www.commentcamarche.net/rss/rss.php3" type=application/rss+xml 
+rel=alternate>
+<SCRIPT src="[PERL] lecture-écriture sur une socket_fichiers/ccm.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--
+//configuration
+OAS_url ='http://horyzonix.sdv.fr/RealMedia/ads/';
+OAS_listpos = 'Top,Middle,TopRight';
+OAS_query = '?';
+OAS_sitepage = 'www.commentcamarche.com/Professionnels';
+//end of configuration
+OAS_version = 10;
+OAS_rn = '001234567890'; 
+OAS_rns = '1234567890';
+OAS_rn = new String (Math.random()); 
+OAS_rns = OAS_rn.substring (2, 11);
+function OAS_NORMAL(pos) { 
+document.write('<' + 'A HREF="' + OAS_url + 'click_nx.ads/' + OAS_sitepage + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + OAS_query + '" TARGET="_top">');
+document.write('<' + 'IMG SRC="' + OAS_url + 'adstream_nx.ads/' + OAS_sitepage + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + OAS_query + '" BORDER=0 ALT="Click!">' + '<' + '/A>');
+}
+
+document.write('<'+'SCR'+'IPT LANGUAGE=JavaScript1.1 SRC="' + OAS_url + 'adstream_mjx.ads/' + OAS_sitepage + '/1' + OAS_rns + '@' + OAS_listpos + OAS_query + '"><' + '\/SCR'+'IPT>');
+OAS_version = 11;
+if (navigator.userAgent.indexOf('Mozilla/3') != -1)
+OAS_version = 10;
+if (OAS_version >= 11)
+document.write('<'+'SCR'+'IPT LANGUAGE=JavaScript1.1 SRC="' + OAS_url + 'adstream_mjx.ads/' + OAS_sitepage + '/1' + OAS_rns + '@' + OAS_listpos + OAS_query + '"><' + '\/SCR'+'IPT>');document.write('');
+function OAS_AD(pos)
+{
+if (OAS_version >= 11)
+OAS_RICH(pos);
+else
+OAS_NORMAL(pos);
+}
+//-->
+</SCRIPT>
+
+<SCRIPT src="[PERL] lecture-écriture sur une socket_fichiers/prototype.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="[PERL] lecture-écriture sur une socket_fichiers/effects.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="[PERL] lecture-écriture sur une socket_fichiers/window.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="[PERL] lecture-écriture sur une socket_fichiers/forum.js" 
+type=text/javascript></SCRIPT>
+<LINK href="[PERL] lecture-écriture sur une socket_fichiers/default.css" 
+type=text/css rel=stylesheet>
+<META content="MSHTML 6.00.2900.3243" name=GENERATOR></HEAD>
+<BODY>
+<SCRIPT type=text/javascript>
+<!--
+var Html;
+Html ='<div id="Bulle" style="position:absolute; left:auto; top:auto; width:auto; height:auto; z-index:0; visibility:hidden"></div>';
+if(bSELECT) {
+Html +='<iframe id="FBulle" style="position:absolute;visibility:hidden;border:0px;" frameborder="0" scrolling="no">&nbsp;</iframe>';
+}
+document.write( Html);
+//-->
+</SCRIPT>
+
+<DIV id=bloc_14>
+<SCRIPT type=text/javascript>
+<!-- 
+OAS_AD('Top'); 
+//-->
+</SCRIPT>
+</DIV>
+<DIV id=preglobal>
+<DIV id=ccm><SPAN class=inscription><A 
+href="http://www.commentcamarche.net/communaute/inscription.php3">Inscrivez-vous, 
+c'est gratuit !</A></SPAN>
+<UL>
+  <LI><A class=ccm_01_on href="http://www.commentcamarche.net/">High-Tech</A> 
+  <LI><A class=ccm_02 
+  href="http://droit-finances.commentcamarche.net/">Droit/Finances</A> 
+</LI></UL></DIV></DIV>
+<DIV id=global>
+<DIV id=container>
+<DIV id=header>
+<DIV id=top_head>
+<TABLE cellSpacing=0 cellPadding=0 border=0>
+  <TBODY>
+  <TR>
+    <TD class=pic_01><IMG title="Nombre de Membres" height=14 
+      alt="Nombre de Membres" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/top_head_01.png" 
+      width=10></TD>
+    <TD><SPAN class=coul_01>&nbsp;549308</SPAN><SPAN 
+      class=coul_02>&nbsp;membres</SPAN></TD>
+    <TD class=pic_01><IMG title="Nombre de Connectés" height=14 
+      alt="Nombre de Connectés" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/top_head_02.png" 
+      width=10></TD>
+    <TD><SPAN class=coul_01>&nbsp;27670</SPAN><SPAN 
+      class=coul_02>&nbsp;connectés</SPAN></TD>
+    <TD class=pic_01><IMG title="Nombre de Questions par Jour" height=14 
+      alt="Nombre de Questions par Jour" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/top_head_03.png" 
+      width=10></TD>
+    <TD><SPAN class=coul_01>&nbsp;2970</SPAN><SPAN 
+      class=coul_02>&nbsp;questions/jour</SPAN></TD>
+    <TD class=pic_01><IMG title="Taux de Réponse" height=14 
+      alt="Taux de Réponse" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/top_head_04.png" 
+      width=10></TD>
+    <TD><SPAN class=coul_02>&nbsp;Taux de réponse:</SPAN><SPAN 
+      class=coul_01>&nbsp;86.87%</SPAN></TD>
+    <TD><SPAN class=date>Jeudi 20 décembre 2007 - 18:57:21</SPAN></TD>
+    <TD class=pic_01><IMG height=12 alt="" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/top_head_pus.png" 
+      width=6></TD>
+    <TD><A 
+      href="http://www.commentcamarche.net/communaute/motdepasse.php3">&nbsp;Mot 
+      de passe oublié ?</A></TD></TR></TBODY></TABLE></DIV>
+<DIV id=head>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD><A href="http://www.commentcamarche.net/"><IMG class=logo 
+      title="CommentCaMarche.net - Communauté informatique" 
+      alt="CommentCaMarche.net - Communauté informatique" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/logonoel.png"></A></TD>
+    <TD>
+      <FORM id=search name=search 
+      action=http://www.commentcamarche.net/search/search.php3 method=get>
+      <TABLE id=search_01 cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD>
+            <TABLE cellSpacing=0 cellPadding=0 border=0>
+              <TBODY>
+              <TR>
+                <TD rowSpan=2><STRONG>Rechercher :&nbsp;</STRONG><BR><A 
+                  href="http://www.exalead.fr/" rel=nofollow><IMG class=moteur 
+                  title="avec Exalead" alt="avec Exalead" 
+                  src="[PERL] lecture-écriture sur une socket_fichiers/exalead.png"></A></TD>
+                <TD><INPUT class=mots_cle id=Mot name=Mot></TD></TR>
+              <TR>
+                <TD><SELECT class=list_rech name=dest> <OPTION value="" 
+                    selected>Sur CommentCaMarche.net</OPTION> <OPTION 
+                    value=web>Sur le web avec Exalead</OPTION> <OPTION 
+                    value=forum>Dans le forum</OPTION> <OPTION 
+                    value=astuces>Dans les astuces</OPTION> <OPTION 
+                    value=telecharger>Dans les téléchargements</OPTION> <OPTION 
+                    value=actualites>Dans les actualités</OPTION> <OPTION 
+                    value=livre>Dans les livres</OPTION> <OPTION 
+                    value=guide-achat>Dans le guide 
+              d'achat</OPTION></SELECT></TD></TR></TBODY></TABLE></TD>
+          <TD class=btn_search_01><INPUT id=btn_search 
+            onmouseover="BulleWrite('Lancer la recherche',event);" 
+            onmouseout="BulleHide ();" type=image 
+            src="[PERL] lecture-écriture sur une socket_fichiers/btn_search_01.png" 
+            value=ccm name=cible></TD></TR></TBODY></TABLE></FORM></TD>
+    <TD class=connexion>
+      <FORM action=# method=post>
+      <TABLE id=connexion cellSpacing=0 cellPadding=1 border=0>
+        <TBODY>
+        <TR>
+          <TD>Identifiant :&nbsp;</TD>
+          <TD><INPUT type=hidden value=Identification name=Identification> 
+            <INPUT class=champs tabIndex=1 name=login></TD></TR>
+        <TR>
+          <TD>Pass :&nbsp;</TD>
+          <TD><INPUT class=champs tabIndex=2 type=password name=pass></TD></TR>
+        <TR>
+          <TD align=right colSpan=2><INPUT class=btn_cnx 
+            onmouseover="BulleWrite('Connectez-vous à votre compte',event);" 
+            tabIndex=3 onmouseout="BulleHide ();" type=image 
+            src="[PERL] lecture-écriture sur une socket_fichiers/btn_cnx.png" 
+            value=Identification 
+    name=Identification></TD></TR></TBODY></TABLE></FORM></TD></TR></TBODY></TABLE></DIV>
+<DIV id=mainMenu1>
+<UL id=menuList1>
+  <LI><A href="http://www.commentcamarche.net/">Accueil</A> 
+  <LI><A class=actuator href="http://www.commentcamarche.net/forum/">Forum</A> 
+  <UL class=menux>
+    <LI><A href="http://www.commentcamarche.net/forum/forum-11-windows">Forum 
+    windows</A> 
+    <LI><A href="http://www.commentcamarche.net/forum/forum-13-linux-unix">Forum 
+    linux</A> 
+    <LI><A href="http://www.commentcamarche.net/forum/forum-14-macos">Forum 
+    mac</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/forum/forum-2-materiel-hardware">Forum 
+    matériel</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/forum/forum-1-logiciels-pilotes">Forum 
+    logiciel</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/forum/forum-19-jeux-videos">Forum jeux 
+    vidéos</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/forum/forum-20-audio-numerique">Forum 
+    audio numérique</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/forum/forum-22-graphisme-photo-numerique">Forum 
+    graphisme</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/forum/forum-21-video-numerique-tv-dvd">Forum 
+    vidéo</A> 
+    <LI><A href="http://www.commentcamarche.net/forum/forum-23-gravure">Forum 
+    gravure</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/forum/forum-3-programmation-developpement">Forum 
+    programmation</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/forum/forum-24-webmastering">Forum 
+    webmastering</A> 
+    <LI><A href="http://www.commentcamarche.net/forum/forum-5-reseaux">Forum 
+    réseaux</A> 
+    <LI><A href="http://www.commentcamarche.net/forum/forum-10-internet">Forum 
+    internet</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/forum/forum-7-virus-securite">Forum 
+    sécurité</A> </LI></UL>
+  <LI><A class=actuator href="http://www.commentcamarche.net/faq/">Astuces</A> 
+  <UL class=menux>
+    <LI><A href="http://www.commentcamarche.net/faq/8-bureautique">Astuces 
+    bureautique</A> 
+    <LI><A href="http://www.commentcamarche.net/faq/3-materiel">Astuces 
+    hardware</A> 
+    <LI><A href="http://www.commentcamarche.net/faq/7-logiciels">Astuces 
+    logiciels</A> 
+    <LI><A href="http://www.commentcamarche.net/faq/178-multimedia">Astuces 
+    multimédia</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/faq/434-mythes-et-legendes">Astuces 
+    mythes et légendes</A> 
+    <LI><A href="http://www.commentcamarche.net/faq/169-organisation">Astuces 
+    organisation</A> 
+    <LI><A href="http://www.commentcamarche.net/faq/2-programmation">Astuces 
+    programmation</A> 
+    <LI><A href="http://www.commentcamarche.net/faq/11-reseaux">Astuces 
+    réseaux</A> 
+    <LI><A href="http://www.commentcamarche.net/faq/12-securite">Astuces 
+    sécurité</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/faq/4-systemes-d-exploitation">Astuces 
+    systèmes</A> 
+    <LI><A href="http://www.commentcamarche.net/faq/9-webmaster">Astuces 
+    webmaster</A> </LI></UL>
+  <LI><A href="http://www.commentcamarche.net/emploi/">Emploi</A> 
+  <LI><A class=actuator 
+  href="http://www.commentcamarche.net/professionnels/">Professionnels</A> 
+  <UL class=menux>
+    <LI><A 
+    href="http://www.commentcamarche.net/entreprise/e-business.php3">E-business</A> 
+
+    <LI><A href="http://www.commentcamarche.net/projet/projetintro.php3">Gestion 
+    de projet</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/surete-fonctionnement/haute-disponibilite.php3">Infrastructures</A> 
+
+    <LI><A 
+    href="http://www.commentcamarche.net/qualite/qualite-introduction.php3">Qualité</A> 
+
+    <LI><A href="http://www.commentcamarche.net/secu/secuintro.php3">Sécurité 
+    informatique</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/telecharger/logiciel-100-professionnel">Logiciels 
+    professionnels</A> </LI></UL>
+  <LI><A class=actuator 
+  href="http://www.commentcamarche.net/telecharger/">Télécharger</A> 
+  <UL class=menux>
+    <LI><A 
+    href="http://www.commentcamarche.net/telecharger/logiciel-8-audio">Logiciels 
+    audio</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/telecharger/logiciel-5-bureautique">Logiciels 
+    bureautique</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/telecharger/logiciel-2-developpement">Logiciels 
+    de développement</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/telecharger/logiciel-9-graphisme">Logiciels 
+    de graphisme</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/telecharger/logiciel-3-internet">Logiciels 
+    internet</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/telecharger/logiciel-100-professionnel">Logiciels 
+    professionnels</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/telecharger/logiciel-4-securite">Logiciels 
+    de sécurité</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/telecharger/logiciel-6-systeme">Logiciels 
+    système</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/telecharger/logiciel-7-video">Logiciels 
+    vidéo</A> </LI></UL>
+  <LI><A href="http://www.commentcamarche.net/pilotes/">Pilotes</A> 
+  <LI><A href="http://www.commentcamarche.net/actualites/">Actualités</A> 
+  <LI><A href="http://www.commentcamarche.net/livre/">Livres</A> 
+  <LI><A class=actuator href="http://www.commentcamarche.net/guide-achat/">Guide 
+  d'achat</A> 
+  <UL class=menux>
+    <LI><A 
+    href="http://www.commentcamarche.net/guide-achat/jeux-et-consoles-10009-prix">Jeux 
+    vidéos</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/guide-achat/logiciel-47-prix">Logiciels</A> 
+
+    <LI><A 
+    href="http://www.commentcamarche.net/guide-achat/ordinateur-pda-10005-prix">Ordinateur/PDA</A> 
+
+    <LI><A 
+    href="http://www.commentcamarche.net/guide-achat/peripheriques-10002-prix">Périphériques</A> 
+
+    <LI><A 
+    href="http://www.commentcamarche.net/guide-achat/photo-numerique-10010-prix">Photo</A> 
+
+    <LI><A 
+    href="http://www.commentcamarche.net/guide-achat/pieces-detachees-10001-prix">Pièces 
+    détachées</A> 
+    <LI><A 
+    href="http://www.commentcamarche.net/guide-achat/reseau-10006-prix">Réseau</A> 
+
+    <LI><A 
+    href="http://www.commentcamarche.net/guide-achat/son-baladeur-mp3-cd-k7-10013-prix">Son/baladeur</A> 
+
+    <LI><A 
+    href="http://www.commentcamarche.net/guide-achat/son-hi-fi-10011-prix">Son/hi-fi</A> 
+
+    <LI><A 
+    href="http://www.commentcamarche.net/guide-achat/stockage-10007-prix">Stockage</A> 
+
+    <LI><A 
+    href="http://www.commentcamarche.net/guide-achat/telephonie-10003-prix">Téléphonie</A> 
+
+    <LI><A 
+    href="http://www.commentcamarche.net/guide-achat/video-10012-prix">Vidéo</A> 
+    </LI></UL>
+  <LI><A class=actuator 
+  href="http://www.commentcamarche.net/communaute/">Outils</A> 
+  <UL class=menux>
+    <LI><A class=msg 
+    href="http://www.commentcamarche.net/forum/messagerie">Messages privés</A> 
+    <LI><A class=disc 
+    href="http://www.commentcamarche.net/forum/mes-discussions">Mes 
+    discussions</A> 
+    <LI><A class=interv 
+    href="http://www.commentcamarche.net/forum/mes-interventions">Mes 
+    interventions</A> 
+    <LI><A class=stat 
+    href="http://www.commentcamarche.net/forum/stats.php3">Statistiques</A> 
+    <LI><A class=pref href="http://www.commentcamarche.net/communaute/">Mes 
+    Préférences</A> </LI></UL></LI></UL></DIV>
+<SCRIPT type=text/javascript>
+<!--
+if(isMenu)
+{
+	loadMenu(0);
+}
+//-->
+</SCRIPT>
+</DIV>
+<DIV id=tit_nav>
+<H1>[PERL] lecture/écriture sur une socket</H1></DIV>
+<DIV id=col_right>
+<TABLE id=shortcuts cellSpacing=0 cellPadding=0 border=0>
+  <TBODY>
+  <TR>
+    <TD><IMG height=1 alt="" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/space.png" 
+    width=20></TD>
+    <TD><A 
+      onmouseover="BulleWrite('Glossaire',event);MM_swapImage('short_01','','/img/short_01b.png',1)" 
+      onmouseout=BulleHide();MM_swapImgRestore() 
+      href="http://www.commentcamarche.net/glossaire/"><IMG id=short_01 
+      height=28 alt="" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/short_01a.png" 
+      width=27 border=0 name=short_01></A></TD>
+    <TD><A 
+      onmouseover="BulleWrite('Aller à l\'Accueil',event);MM_swapImage('short_02','','/img/short_02b.png',1)" 
+      onmouseout=BulleHide();MM_swapImgRestore() 
+      href="http://www.commentcamarche.net/"><IMG id=short_02 alt="" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/short_02a.png" 
+      border=0 name=short_02></A></TD>
+    <TD><A 
+      onmouseover="BulleWrite('Ajouter CommentCaMarche.net à vos favoris',event);MM_swapImage('short_04','','/img/short_04b.png',1)" 
+      onmouseout=BulleHide();MM_swapImgRestore() 
+      href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#"><IMG 
+      id=short_04 height=28 alt="" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/short_04a.png" 
+      width=27 border=0 name=short_04></A></TD>
+    <TD><A 
+      onmouseover="BulleWrite('Signaler une erreur',event);MM_swapImage('short_05','','/img/short_05b.png',1)" 
+      onmouseout=BulleHide();MM_swapImgRestore() 
+      href="http://www.commentcamarche.net/ccmbugs/?bug_url=/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket"><IMG 
+      id=short_05 height=28 alt="" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/short_05a.png" 
+      width=27 border=0 name=short_05></A></TD>
+    <TD><A 
+      onmouseover="BulleWrite('Format imprimable',event);MM_swapImage('short_06','','/img/short_06b.png',1)" 
+      onmouseout=BulleHide();MM_swapImgRestore() 
+      href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket?imprim=1"><IMG 
+      id=short_06 height=28 alt="" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/short_06a.png" 
+      width=27 border=0 name=short_06></A></TD>
+    <TD><A 
+      onmouseover="BulleWrite('Ecrire à l\'équipe de CommentCaMarche.net',event);MM_swapImage('short_07','','/img/short_07b.png',1)" 
+      onmouseout=BulleHide();MM_swapImgRestore() 
+      href="http://www.commentcamarche.net/contact/"><IMG id=short_07 height=28 
+      alt="" src="[PERL] lecture-écriture sur une socket_fichiers/short_07a.png" 
+      width=27 border=0 name=short_07></A></TD></TR></TBODY></TABLE>
+<DIV class=bloc_08>
+<DIV class=cadre><SPAN class=titre>Ils ont besoin de votre aide</SPAN> 
+<UL>
+  <LI><SPAN>18:57</SPAN> <A 
+  href="http://www.commentcamarche.net/forum/affich-4372999-probleme-reseau-sans-fil-windows-xp#0">Problème 
+  réseau sans fil (windows XP)</A> (<A 
+  href="http://www.commentcamarche.net/forum/forum-10-internet">Internet</A>)
+  <LI><SPAN>18:57</SPAN> <A 
+  href="http://www.commentcamarche.net/forum/affich-4372997-probleme-synchronisation-contact#0">Problème 
+  synchronisation contact</A> (<A 
+  href="http://www.commentcamarche.net/forum/forum-26-telephonie-pda-gps">Téléphonie/PDA/GPS</A>)
+  <LI><SPAN>18:56</SPAN> <A 
+  href="http://www.commentcamarche.net/forum/affich-4372996-remplacer-carte-mere-abit-kd7a#0">Remplacer 
+  carte mère ABIT KD7A</A> (<A 
+  href="http://www.commentcamarche.net/forum/forum-2-materiel-hardware">Matériel/Hardware</A>)
+  <LI><SPAN>18:56</SPAN> <A 
+  href="http://www.commentcamarche.net/forum/affich-4372994-son#0">son</A> (<A 
+  href="http://www.commentcamarche.net/forum/forum-26-telephonie-pda-gps">Téléphonie/PDA/GPS</A>)
+  <LI><SPAN>18:56</SPAN> <A 
+  href="http://www.commentcamarche.net/forum/affich-4372991-defaut-code-8007007b#0">defaut 
+  code 8007007b</A> (<A 
+  href="http://www.commentcamarche.net/forum/forum-11-windows">Windows</A>)
+  <LI><SPAN>18:56</SPAN> <A 
+  href="http://www.commentcamarche.net/forum/affich-4372984-probleme-connexion-interenet-orange#0">probleme 
+  connexion interenet orange</A> (<A 
+  href="http://www.commentcamarche.net/forum/forum-10-internet">Internet</A>)
+  <LI><SPAN>18:56</SPAN> <A 
+  href="http://www.commentcamarche.net/forum/affich-4372983-inserer-un-diaporama-sur-un-forum-dans-une-p#0">insérer 
+  un diaporama sur un forum,...</A> (<A 
+  href="http://www.commentcamarche.net/forum/forum-24-webmastering">Webmastering</A>)
+  <LI><SPAN>18:54</SPAN> <A 
+  href="http://www.commentcamarche.net/forum/affich-4372966-securite-reseau-domestique-peur-svp#0">Securite 
+  reseau domestique, peur svp</A> (<A 
+  href="http://www.commentcamarche.net/forum/forum-7-virus-securite">Virus/Sécurité</A>)
+  <LI><SPAN>18:54</SPAN> <A 
+  href="http://www.commentcamarche.net/forum/affich-4372964-souci-connexion-free#0">souci 
+  connexion free</A> (<A 
+  href="http://www.commentcamarche.net/forum/forum-10-internet">Internet</A>)
+  <LI><SPAN>18:51</SPAN> <A 
+  href="http://www.commentcamarche.net/forum/affich-4372933-controleur-video-compatible-vga#0">contrôleur 
+  vidéo (compatible vga)</A> (<A 
+  href="http://www.commentcamarche.net/forum/forum-1-logiciels-pilotes">Logiciels/Pilotes</A>)</LI></UL><SPAN 
+class=bdb><SPAN class=btn><A class=more 
+href="http://www.commentcamarche.net/forum/sans-reponses?">Tous les messages 
+sans réponse</A></SPAN> </SPAN></DIV><SPAN class=shadow></SPAN></DIV>
+<DIV class=bloc_09>
+<SCRIPT type=text/javascript> OAS_AD('Middle'); </SCRIPT>
+</DIV>
+<DIV class=bloc_11>
+<DIV class=cadre><SPAN class=titre>Ressources autour de ce sujet </SPAN><A 
+class=discusplus 
+onmouseover="BulleWrite('Discussion du forum avec réponses',event);" 
+onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/forum/affich-2569458-caractere-chinois-et-japonais-de-windows">Comment 
+lire ecriture chinoise</A> <A class=discusplus 
+onmouseover="BulleWrite('Discussion du forum avec réponses',event);" 
+onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/forum/affich-3483942-pokemon-diamant-ou-trouver-poke-et-objet">Comment 
+lire giratina dans pokémon version perle</A> <A class=article 
+onmouseover="BulleWrite('Article / Dossier',event);" onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/sockets/sockfonc.php3">Ecriture socket en 
+attente de reception</A> <A class=discusplus 
+onmouseover="BulleWrite('Discussion du forum avec réponses',event);" 
+onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/forum/affich-2778841-probleme-avec-filezila">Erreur 
+2 à l'écriture sur le socket</A> <A class=discusplusr 
+onmouseover="BulleWrite('Discussion du forum résolue',event);" 
+onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/forum/affich-922090-page-internet-trop-grande"><STRONG>Page 
+impossible a lire ecriture trop petite</STRONG></A> <A class=article 
+onmouseover="BulleWrite('Article / Dossier',event);" onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/perl/perlintro.php3">Perl</A> <A 
+class=discusplus 
+onmouseover="BulleWrite('Discussion du forum avec réponses',event);" 
+onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket">Perl 
+io::socket</A> <A class=discusplus 
+onmouseover="BulleWrite('Discussion du forum avec réponses',event);" 
+onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/forum/affich-1712632-perl-lecture-et-ecriture-ds-1-fichier">Perl 
+lecture ecriture</A> <A class=discusplusr 
+onmouseover="BulleWrite('Discussion du forum résolue',event);" 
+onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/forum/affich-1745059-lire-la-derniere-entree-sur-une-bdd"><STRONG>Perl 
+lire dernière ligne</STRONG></A> <A class=discusplusr 
+onmouseover="BulleWrite('Discussion du forum résolue',event);" 
+onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/forum/affich-1498882-perl-lire-contenu-fichier-xls"><STRONG>Perl 
+lire fichier excel</STRONG></A> <A class=discusplus 
+onmouseover="BulleWrite('Discussion du forum avec réponses',event);" 
+onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/forum/affich-3326256-ouverture-fichier-dossier-zip-sous-perl">Perl 
+lire fichier zipper</A> <A class=discusplus 
+onmouseover="BulleWrite('Discussion du forum avec réponses',event);" 
+onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/forum/affich-3609154-perl-file-handler-et-command-system">Perl 
+lire resultat commande système</A> <A class=article 
+onmouseover="BulleWrite('Article / Dossier',event);" onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/perl/perlfich.php3">Perl lire un 
+fichier</A> <A class=astuce onmouseover="BulleWrite('Astuce',event);" 
+onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/faq/sujet-5027-comment-lire-un-fichier-ligne-par-ligne"><STRONG>Perl 
+lire un fichier dans un tableau</STRONG></A> <A class=discusplusr 
+onmouseover="BulleWrite('Discussion du forum résolue',event);" 
+onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/forum/affich-4347208-perl-tableaux-lire-un-fichier-texte"><STRONG>Perl 
+lire un fichier sur disque</STRONG></A> <A class=discusplus 
+onmouseover="BulleWrite('Discussion du forum avec réponses',event);" 
+onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/forum/affich-328333-utiliser-des-sockets-non-bloquants">Perl 
+socket non bloquant</A> <A class=produit 
+onmouseover="BulleWrite('Fiche produit',event);" onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/guide-achat/socket-constructeur">Pilote 
+socket</A> <A class=article onmouseover="BulleWrite('Article / Dossier',event);" 
+onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/internet/port.php3">Socket</A> <A 
+class=discus onmouseover="BulleWrite('Discussion du forum sans réponse',event);" 
+onmouseout=BulleHide(); 
+href="http://www.commentcamarche.net/forum/affich-4212643-port-socket-pour-connexion-mysql">Xampp 
+perl local mysql socket</A></DIV><SPAN class=shadow>&nbsp;</SPAN></DIV>
+<DIV class=bloc_09>
+<SCRIPT type=text/javascript>
+<!--
+google_ad_client = "pub-6969989765125400";
+google_ad_width = 300;
+google_ad_height = 250;
+google_ad_format = "300x250_as";
+google_ad_type = "text";
+google_ad_channel = "";
+google_color_border = "FFFFFF";
+google_color_bg = "FFFFFF";
+google_color_link = "000000";
+google_color_text = "000000";
+google_color_url = "485E9E";
+//-->
+</SCRIPT>
+
+<SCRIPT src="[PERL] lecture-écriture sur une socket_fichiers/show_ads.js" 
+type=text/javascript>
+</SCRIPT>
+</DIV>
+<DIV id=bloc_10>
+<DIV class=cadre><SPAN class=titre>Actualité</SPAN> 
+<UL>
+  <LI><SPAN class=rouge>14:10</SPAN> <A 
+  href="http://www.commentcamarche.net/actualites/air-france-lance-son-service-de-telephonie-mobile-sur-des-vols-internationaux-4370460-actualite.php3">Air 
+  France lance son service de téléphonie mobile sur des vols internationaux</A>
+  <LI><SPAN class=rouge>13:10</SPAN> <A 
+  href="http://www.commentcamarche.net/actualites/sfr-rachete-neuf-cegetel-4369807-actualite.php3">SFR 
+  rachète Neuf Cegetel</A>
+  <LI><SPAN class=rouge>09:25</SPAN> <A 
+  href="http://www.commentcamarche.net/actualites/les-grandes-menaces-du-net-en-2008-4367922-actualite.php3">Les 
+  grandes menaces du Net en 2008</A>
+  <LI><SPAN class=rouge>19/12</SPAN> <A 
+  href="http://www.commentcamarche.net/actualites/breve-creer-sa-propre-chaine-tv-4364143-actualite.php3">[Brève] 
+  Créer sa propre chaîne TV</A>
+  <LI><SPAN class=rouge>19/12</SPAN> <A 
+  href="http://www.commentcamarche.net/actualites/breve-videos-immersives-4364144-actualite.php3">[Brève] 
+  Vidéos immersives</A></LI></UL><SPAN class=bdb><SPAN class=btn><A class=more 
+style="TEXT-ALIGN: center" 
+href="http://www.commentcamarche.net/actualites/">Toutes les 
+actualités</A></SPAN></SPAN></DIV><SPAN class=shadow>&nbsp;</SPAN></DIV>
+<DIV class=bloc_23>
+<DIV class=cadre><SPAN class=titre>Les règles à respecter</SPAN> 
+<TABLE cellSpacing=2 cellPadding=3 border=0>
+  <TBODY>
+  <TR>
+    <TD><IMG alt="" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/pic_01.jpg"></TD>
+    <TD><A 
+      href="http://www.commentcamarche.net/ccmguide/ccmcharte-respect-autrui.php3#respect">Réserver 
+      un accueil cordial aux nouveaux utilisateurs.</A></TD></TR>
+  <TR>
+    <TD><IMG alt="" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/pic_02.jpg"></TD>
+    <TD><A href="http://www.commentcamarche.net/ccmguide/ccmforum.php3">Poster 
+      son message dans le thème le plus approprié.</A></TD></TR>
+  <TR>
+    <TD><IMG alt="" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/pic_03.jpg"></TD>
+    <TD><A 
+      href="http://www.commentcamarche.net/ccmguide/ccmcharte-legislation.php3#legislation">Respecter 
+      la législation en vigueur.</A></TD></TR>
+  <TR>
+    <TD><IMG alt="" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/pic_04.jpg"></TD>
+    <TD><A 
+      href="http://www.commentcamarche.net/ccmguide/ccmcharte-respect-autrui.php3#politesse">Faire 
+      usage de formule de politesse et échanger avec courtoisie.</A></TD></TR>
+  <TR>
+    <TD><IMG alt="" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/pic_05.jpg"></TD>
+    <TD><A 
+      href="http://www.commentcamarche.net/ccmguide/ccmcharte-neutralite.php3#neutralite">Ne 
+      pas poster de message à vocation commerciale.</A></TD></TR>
+  <TR>
+    <TD><IMG alt="" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/pic_06.jpg"></TD>
+    <TD><A 
+      href="http://www.commentcamarche.net/ccmguide/ccmcharte-ecriture.php3#ecriture">Rédiger 
+      les messages dans un langage clair sans abréviations, style télégraphique 
+      ou mode SMS</A></TD></TR>
+  <TR>
+    <TD><IMG alt="" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/pic_07.jpg"></TD>
+    <TD><A 
+      href="http://www.commentcamarche.net/ccmguide/ccmcharte.php3#avant-propos">Le 
+      cas échéant, expliquer de manière pédagogique les règles du 
+  forum</A></TD></TR></TBODY></TABLE><SPAN class=bdb><SPAN class=btn><A class=more 
+href="http://www.commentcamarche.net/ccmguide/ccmcharte.php3">Lire le texte 
+complet de la charte</A></SPAN> </SPAN></DIV><SPAN class=shadow></SPAN></DIV>
+<DIV class=bloc_09>
+<SCRIPT type=text/javascript>
+<!--
+OAS_AD('TopRight'); 
+//-->
+</SCRIPT>
+</DIV>
+<DIV class=bloc_avis>
+<DIV class=cadre><SPAN class=titre>Avis de la communauté</SPAN> 
+<UL>
+  <LI><SPAN>16:48</SPAN> <A 
+  href="http://www.commentcamarche.net/guide-achat/asus-a7m-7s054c-amd-turion-64-mk-38-2-2-ghz-1024-mo-120-go-tft17-0-dvdrw-win-vista-home-premium-1013150-avis-opinions.php3#avis">ASUS 
+  A7M-7S054C AMD Turion 64 MK-38</A> (<A 
+  href="http://www.commentcamarche.net/guide-achat/asus-a7m-7s054c-amd-turion-64-mk-38-2-2-ghz-1024-mo-120-go-tft17-0-dvdrw-win-vista-home-premium-1013150-avis-opinions.php3#avis-anthonygarin0">anthonygarin0</A>)
+  <LI><SPAN>13:02</SPAN> <A 
+  href="http://www.commentcamarche.net/guide-achat/htc-p3350-201-mhz-192-mo-802-11b-g-bluetooth-898804-avis-opinions.php3#avis">HTC 
+  P3350</A> (<A 
+  href="http://www.commentcamarche.net/guide-achat/htc-p3350-201-mhz-192-mo-802-11b-g-bluetooth-898804-avis-opinions.php3#avis-Figure+2+Poulpe">Figure 
+  2 Poulpe</A>)
+  <LI><SPAN>07:26</SPAN> <A 
+  href="http://www.commentcamarche.net/guide-achat/resident-evil-dead-aim-159385-avis-opinions.php3#avis">Resident 
+  Evil : Dead Aim</A> (<A 
+  href="http://www.commentcamarche.net/guide-achat/resident-evil-dead-aim-159385-avis-opinions.php3#avis-hercules03">hercules03</A>)
+  <LI><SPAN>19/12</SPAN> <A 
+  href="http://www.commentcamarche.net/guide-achat/eset-antivirus-nod32-223834268-avis-opinions.php3#avis">Eset 
+  Antivirus Nod32</A> (<A 
+  href="http://www.commentcamarche.net/guide-achat/eset-antivirus-nod32-223834268-avis-opinions.php3#avis-joluax">joluax</A>)
+  <LI><SPAN>19/12</SPAN> <A 
+  href="http://www.commentcamarche.net/guide-achat/hyundai-imagequest-vvoun-q400-560158-avis-opinions.php3#avis">Hyundai 
+  ImageQuest Vvoun Q400</A> (<A 
+  href="http://www.commentcamarche.net/guide-achat/hyundai-imagequest-vvoun-q400-560158-avis-opinions.php3#avis-crazyded">crazyded</A>)
+  <LI><SPAN>19/12</SPAN> <A 
+  href="http://www.commentcamarche.net/guide-achat/eset-antivirus-nod32-223834268-avis-opinions.php3#avis">Eset 
+  Antivirus Nod32 2.7</A> (<A 
+  href="http://www.commentcamarche.net/guide-achat/eset-antivirus-nod32-223834268-avis-opinions.php3#avis-jailapaix">jailapaix</A>)
+  <LI><SPAN>19/12</SPAN> <A 
+  href="http://www.commentcamarche.net/guide-achat/kingston-module-512-mo-pour-dell-poweredge-1800-poweredge-1850-poweredge-1855-poweredge-2800-poweredge-2850-poweredge-sc1420-poweredge-sc1425-precision-workstation-470-470n-precision-workstation-67-274870951-avis-opinions.php3#avis">Kingston 
+  Module 512 Mo, pour Dell:...</A> (<A 
+  href="http://www.commentcamarche.net/guide-achat/kingston-module-512-mo-pour-dell-poweredge-1800-poweredge-1850-poweredge-1855-poweredge-2800-poweredge-2850-poweredge-sc1420-poweredge-sc1425-precision-workstation-470-470n-precision-workstation-67-274870951-avis-opinions.php3#avis-software-attitude">software-attitude</A>)
+  <LI><SPAN>19/12</SPAN> <A 
+  href="http://www.commentcamarche.net/guide-achat/dell-dell-memoire-512-mo-4x128-ddr-ecc-pour-poweredge-6600-6650-51564747-avis-opinions.php3#avis">DELL 
+  Dell Memoire 512 Mo (4x128) DDR...</A> (<A 
+  href="http://www.commentcamarche.net/guide-achat/dell-dell-memoire-512-mo-4x128-ddr-ecc-pour-poweredge-6600-6650-51564747-avis-opinions.php3#avis-software-attitude">software-attitude</A>)
+  <LI><SPAN>19/12</SPAN> <A 
+  href="http://www.commentcamarche.net/guide-achat/dell-dell-cordon-d-alimentation-pe6650-pour-poweredge-6650-51564778-avis-opinions.php3#avis">DELL 
+  Dell Cordon d´alimentation...</A> (<A 
+  href="http://www.commentcamarche.net/guide-achat/dell-dell-cordon-d-alimentation-pe6650-pour-poweredge-6650-51564778-avis-opinions.php3#avis-software-attitude">software-attitude</A>)
+  <LI><SPAN>19/12</SPAN> <A 
+  href="http://www.commentcamarche.net/guide-achat/samsung-syncmaster-2232bw-black-972502-avis-opinions.php3#avis">Samsung 
+  SyncMaster 2232BW Black</A> (<A 
+  href="http://www.commentcamarche.net/guide-achat/samsung-syncmaster-2232bw-black-972502-avis-opinions.php3#avis-Lissothus">Lissothus</A>)</LI></UL><SPAN 
+class=bdb><SPAN class=btn><A class=more 
+href="http://www.commentcamarche.net/guide-achat/">Autres avis</A></SPAN> 
+</SPAN></DIV><SPAN class=shadow></SPAN></DIV>
+<DIV class=bloc_avis_dl>
+<DIV class=cadre><SPAN class=titre>Avis / Logiciels</SPAN> 
+<UL>
+  <LI><SPAN>18:50</SPAN> <A 
+  href="http://www.commentcamarche.net/telecharger/telecharger-168-ccleaner">Ccleaner</A> 
+  (<A 
+  href="http://www.commentcamarche.net/telecharger/ccleaner-168-avis-opinions.php3#avis-momo54">momo54</A>)
+  <LI><SPAN>18:44</SPAN> <A 
+  href="http://www.commentcamarche.net/telecharger/telecharger-125-thunderbird">Thunderbird</A> 
+  (<A 
+  href="http://www.commentcamarche.net/telecharger/thunderbird-125-avis-opinions.php3#avis-plouf+plouf">plouf 
+  plouf</A>)
+  <LI><SPAN>17:54</SPAN> <A 
+  href="http://www.commentcamarche.net/telecharger/telecharger-115-gimp">Gimp</A> 
+  (<A 
+  href="http://www.commentcamarche.net/telecharger/gimp-115-avis-opinions.php3#avis-Dora+The+Explorer">Dora 
+  The Explorer</A>)
+  <LI><SPAN>17:28</SPAN> <A 
+  href="http://www.commentcamarche.net/telecharger/telecharger-151-avast">Avast</A> 
+  (<A 
+  href="http://www.commentcamarche.net/telecharger/avast-151-avis-opinions.php3#avis-Jirachi">Jirachi</A>)
+  <LI><SPAN>17:09</SPAN> <A 
+  href="http://www.commentcamarche.net/telecharger/telecharger-34055223-limewire">LimeWire</A> 
+  (<A 
+  href="http://www.commentcamarche.net/telecharger/limewire-34055223-avis-opinions.php3#avis-douaisien">douaisien</A>)
+  <LI><SPAN>16:57</SPAN> <A 
+  href="http://www.commentcamarche.net/telecharger/telecharger-152-msn-8">MSN 
+  8</A> (<A 
+  href="http://www.commentcamarche.net/telecharger/msn-8-152-avis-opinions.php3#avis-earthwind">earthwind</A>)
+  <LI><SPAN>16:53</SPAN> <A 
+  href="http://www.commentcamarche.net/telecharger/telecharger-169-dvd-shrink">DVD 
+  Shrink</A> (<A 
+  href="http://www.commentcamarche.net/telecharger/dvd-shrink-169-avis-opinions.php3#avis-ziggourat">ziggourat</A>)
+  <LI><SPAN>16:51</SPAN> <A 
+  href="http://www.commentcamarche.net/telecharger/telecharger-125-thunderbird">Thunderbird</A> 
+  (<A 
+  href="http://www.commentcamarche.net/telecharger/thunderbird-125-avis-opinions.php3#avis-earthwind">earthwind</A>)
+  <LI><SPAN>16:02</SPAN> <A 
+  href="http://www.commentcamarche.net/telecharger/telecharger-168-ccleaner">Ccleaner</A> 
+  (<A 
+  href="http://www.commentcamarche.net/telecharger/ccleaner-168-avis-opinions.php3#avis-sc62">sc62</A>)
+  <LI><SPAN>15:59</SPAN> <A 
+  href="http://www.commentcamarche.net/telecharger/telecharger-111-firefox">Firefox</A> 
+  (<A 
+  href="http://www.commentcamarche.net/telecharger/firefox-111-avis-opinions.php3#avis-sc62">sc62</A>)</LI></UL><SPAN 
+class=bdb><SPAN class=btn><A class=more 
+href="http://www.commentcamarche.net/telecharger/">Autres avis</A></SPAN> 
+</SPAN></DIV><SPAN class=shadow></SPAN></DIV>
+<DIV class=bloc_12>
+<DIV class=cadre><SPAN class=titre>Le Kit CommentCaMarche</SPAN> <SPAN 
+class=centre><IMG alt="Kit CCM" 
+src="[PERL] lecture-écriture sur une socket_fichiers/kit.jpg"> Téléchargez le 
+contenu de CommentCaMarche, pour une consultation illimitée hors ligne.<BR><A 
+class=download href="http://www.commentcamarche.net/encyclopedie/">Télécharger 
+CommentCaMarche.kit v2.0.7</A> </SPAN><SPAN class=bdb></SPAN></DIV><SPAN 
+class=shadow></SPAN></DIV>
+<DIV class=bloc_09>
+<SCRIPT type=text/javascript><!--
+						google_ad_client = "pub-6969989765125400";
+						google_ad_width = 125;
+						google_ad_height = 125;
+						google_ad_format = "125x125_as_rimg";
+						google_cpa_choice = "CAAQv87nzwEaCPNb_H0GemsCKNm493M";
+						google_ad_channel = "5704541620";
+						//-->
+	</SCRIPT>
+
+<SCRIPT src="[PERL] lecture-écriture sur une socket_fichiers/show_ads.js" 
+type=text/javascript>
+	</SCRIPT>
+</DIV></DIV>
+<DIV id=col_left>
+<DIV id=contenu><!-- Th&egrave;mes du forum + Discussions -->
+<DIV id=bloc_21><A name=haut></A><SPAN class=titre>Thèmes du Forum 
+d'Assistance</SPAN> 
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD width="33%">
+      <TABLE class=themes cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=11"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-11-windows">Windows</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=13"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-13-linux-unix">Linux/Unix</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=14"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-14-macos">MacOS</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=2"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-2-materiel-hardware">Matériel/Hardware</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=1"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-1-logiciels-pilotes">Logiciels/Pilotes</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=25"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-25-bureautique">Bureautique</A></TD></TR></TBODY></TABLE></TD>
+    <TD width="33%">
+      <TABLE class=themes cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=19"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-19-jeux-videos">Jeux 
+            vidéos</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=20"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-20-audio-numerique">Audio 
+            numérique</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=22"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-22-infographie-photo">Infographie/Photo</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=21"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-21-video-numerique">Vidéo 
+            numérique</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=23"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-23-gravure">Gravure</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=26"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-26-telephonie-pda-gps">Téléphonie/PDA/GPS</A></TD></TR></TBODY></TABLE></TD>
+    <TD width="33%">
+      <TABLE class=themes cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=3"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-3-programmation"><B>Programmation</B></A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=24"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-24-webmastering">Webmastering</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=5"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-5-reseaux">Réseaux</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=10"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-10-internet">Internet</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=27"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-27-messagerie-chat">Messagerie/Chat</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=7"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=forum 
+            href="http://www.commentcamarche.net/forum/forum-7-virus-securite">Virus/Sécurité</A></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE><SPAN 
+class=titre>Discussions &amp; Opinions des Communautés</SPAN> <!-- Th&egrave;mes du forum -->
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD width="33%">
+      <TABLE class=themes cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=8"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=discopi 
+            onmouseover="BulleWrite('Discussions autour de l\'actualité. N\'hésitez pas à soumettre vos brèves.',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/forum-8-actualites">Actualités</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=16"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=discopi 
+            onmouseover="BulleWrite('Discussions autour de la formation aux nouvelles technologies.',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/forum-16-etudes-formation">Etudes/Formation</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=17"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=discopi 
+            onmouseover="BulleWrite('Discussions autour des droits et lois de la Société de l\'Information.',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/forum-17-droit-libertes">Droit/Libertés</A></TD></TR></TBODY></TABLE></TD>
+    <TD width="33%">
+      <TABLE class=themes cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=18"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=discopi 
+            onmouseover="BulleWrite('Discussions autour des films et séries.',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/forum-18-cinema-tele">Cinéma/Télé</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=28"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=discopi 
+            onmouseover="BulleWrite('Discussions à propos de la musique.',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/forum-28-musique-radio">Musique/Radio</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=29"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=discopi 
+            onmouseover="BulleWrite('Discussions à propos de vos divertissements, voyages, sorties, etc.',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/forum-29-loisirs-divertissement">Loisirs/Divertissement</A></TD></TR></TBODY></TABLE></TD>
+    <TD width="33%">
+      <TABLE class=themes cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=9"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=discopi 
+            onmouseover="BulleWrite('Espace permettant d\'améliorer CommentCaMarche (bugs et propositions).',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/forum-9-suggestions">Suggestions</A></TD></TR>
+        <TR>
+          <TD width=15><A 
+            onmouseover="BulleWrite('Ajouter ce fil RSS',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/rss/rss_forum.php3?cat=4"><IMG 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_rss.png"></A></TD>
+          <TD><A class=discopi 
+            onmouseover="BulleWrite('Lieu d\'échange sur tout et n\'importe quoi. Humour et bonne humeur sont de rigueur.',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/forum-4-cafe-des-membres">Café 
+            des membres</A></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV><!-- Moteur de Recherche -->
+<DIV id=bloc_forum_actions>
+<FORM id=form1 name=form1 action=/forum/index.php3 method=get>
+<TABLE id=search cellSpacing=0 cellPadding=0 border=0>
+  <TBODY>
+  <TR>
+    <TD class=b1></TD>
+    <TD align=middle rowSpan=3>
+      <TABLE cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD align=right><STRONG>Rechercher :</STRONG></TD>
+          <TD><INPUT class=mots_cle id=Mot 
+            onfocus="javascript:getElementById('search_options').className='';" 
+            name=Mot></TD>
+          <TD align=middle>dans</TD>
+          <TD><SELECT class=list_rech name=forum_num> <OPTION value=themes 
+              selected>Tous les forums</OPTION> <OPTION value=11>Forum 
+              Windows</OPTION> <OPTION value=13>Forum Linux/Unix</OPTION> 
+              <OPTION value=14>Forum MacOS</OPTION> <OPTION value=2>Forum 
+              Matériel</OPTION> <OPTION value=1>Forum Logiciels/Pilotes</OPTION> 
+              <OPTION value=25>Forum Bureautique</OPTION> <OPTION value=19>Forum 
+              Jeux vidéos</OPTION> <OPTION value=20>Forum Audio 
+              numérique</OPTION> <OPTION value=22>Forum infographie</OPTION> 
+              <OPTION value=21>Forum vidéo numérique</OPTION> <OPTION 
+              value=23>Forum gravure</OPTION> <OPTION value=26>Forum 
+              Téléphonie/PDA/GPS</OPTION> <OPTION value=3>Forum 
+              programmation</OPTION> <OPTION value=24>Forum 
+              webmastering</OPTION> <OPTION value=5>Forum réseau</OPTION> 
+              <OPTION value=10>Forum internet</OPTION> <OPTION value=27>Forum 
+              Messagerie/Chat</OPTION> <OPTION value=7>Forum 
+              virus/sécurité</OPTION> <OPTION value=8>Forum Actualités</OPTION> 
+              <OPTION value=16>Forum Etudes/Formation</OPTION> <OPTION 
+              value=17>Forum Droit et libertés individuelles</OPTION> <OPTION 
+              value=18>Forum Cinéma/TV</OPTION> <OPTION value=28>Forum 
+              Musique/Radio</OPTION> <OPTION value=29>Forum 
+              Loisirs/Divertissement</OPTION> <OPTION value=9>Forum 
+              Suggestions</OPTION> <OPTION value=4>Café des 
+            membres</OPTION></SELECT></TD>
+          <TD vAlign=bottom align=middle><INPUT class=search id=imageField 
+            onmouseover="BulleWrite('Lancer la recherche',event);" 
+            onmouseout="BulleHide ();" type=image 
+            src="[PERL] lecture-écriture sur une socket_fichiers/bnt_search.png" 
+            name=imageField></TD></TR>
+        <TR class=hidden id=search_options>
+          <TD align=right height=20><STRONG>Par :</STRONG></TD>
+          <TD align=left colSpan=4 height=20><INPUT class=radio id=radio 
+            type=radio CHECKED value=byPert name=searchType> Pertinence<INPUT 
+            class=radio id=searchType type=radio value=byDate name=searchType> 
+            Date<INPUT class=radio id=searchType type=radio value=byUser 
+            name=searchType> Nom d'utilisateur</TD></TR></TBODY></TABLE></TD>
+    <TD class=b2></TD></TR>
+  <TR>
+    <TD></TD>
+    <TD></TD></TR>
+  <TR>
+    <TD class=b4></TD>
+    <TD class=b3></TD></TR></TBODY></TABLE></FORM></DIV>
+<DIV class=bloc_forum_actions2><A class=sans-reponses 
+href="http://www.commentcamarche.net/forum/sans-reponses?forum_num=3">Messages 
+sans réponse</A> <A class=ecrir 
+href="http://www.commentcamarche.net/forum/forum-3?Acces=1#ecrire" 
+rel=nofollow>Créer une nouvelle discussion dans le Forum programmation</A> 
+</DIV><!-- Fin Moteur de Recherche -->
+<DIV id=bloc_24><SPAN id=bhead><A name=0></A>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD><SPAN class=titre>[PERL] lecture/écriture sur une socket</SPAN><BR>par 
+      <A class=pseudo 
+      onmouseover="BulleWrite('<'+'img src=\'/template/blocs/bloc_54/xphoto.jpg\' alt=\'sephiburp\'/ style=\'float:left\'><b>4</b> message(s) posté(s) depuis le <b>lundi 29 octobre 2001</b>',event);" 
+      onmouseout="BulleHide ();" 
+      href="http://www.commentcamarche.net/forum/profil-sephiburp">sephiburp</A></TD>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD>&nbsp;</TD>
+          <TD vAlign=center width=15><IMG title="" height=11 
+            alt="Fil de Discussions" 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_discuss.png" 
+            width=14></TD>
+          <TD width=10><A class=next 
+            onmouseover="BulleWrite('Discussion suivante',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#1"><IMG 
+            alt="" 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_empty.png" 
+            border=0></A></TD></TR></TBODY></TABLE><SPAN class=info_msg><STRONG>Statut 
+      : <SPAN class=wait>Non résolu</SPAN></STRONG><BR>samedi 11 août 2007 à 
+      12:47:26</SPAN></TD></TR></TBODY></TABLE></SPAN><SPAN class=bcontent>Bonjour, 
+<BR><BR>J'aimerais faire du client-serveur intéractif en Perl. <BR><BR>J'ai un 
+serveur.pl qui fonctionne correctement, j'ai repris ce script : <A 
+href="http://perl.enstimac.fr/DocFr/perlipc.html#serveurs%20tcp%20avec%20io::socket" 
+target=_blank 
+rel=nofollow>http://perl.enstimac.fr/DocFr/perlipc.html#serveurs%20tcp%20avec%20io::socket</A> 
+<BR><BR><BR>Et j'ai un client.pl dont voici le code : <BR><BR><PRE class=code>use IO::Socket;
+use warnings;
+use strict;
+
+my ($sock, $kidpid);
+
+$sock = IO::Socket::INET-&gt;new(Proto     =&gt; "tcp",
+                              PeerAddr  =&gt; "192.168.0.11",
+                              PeerPort  =&gt; 9000)
+                        || die "Failed : $!";
+$sock-&gt;autoflush(1);
+
+$kidpid = fork();
+die "can't fork: $!" if ! defined($kidpid);
+
+if ($kidpid) {
+    # PERE : Ecoute des entrées clavier et envoi à la socket
+    while (&lt;STDIN&gt;) { print $sock $_; }
+} else {
+    # FILS : Ecoute de la socket et affichage à l'écran
+    while (&lt;$sock&gt;) { print STDOUT $_; }
+}
+
+close $sock;</PRE><BR><BR>Mon problème : <BR>La connexion réussie, et le client 
+reçoit et affiche les messages d'accueil du serveur. <BR>Mais après la première 
+ligne rentrée au clavier, çà se "bloque". Et le serveur ne recoit même pas cette 
+ligne. <BR><BR>Après un déboggage "approfondi", j'en ai conclu que le processus 
+père n'arrive pas à écrire sur la socket tant que le fils boucle sur cette même 
+socket pour écouter. <BR>En effet, si je ne fais que écrire ou que écouter, cà 
+fonctionne très bien. <BR><BR>J'ai essayer plusieurs scripts client trouvés sur 
+le net et j'en arrive toujours au même problème. <BR>Même celui proposé ici 
+réagit pareil : <A 
+href="http://perl.enstimac.fr/DocFr/perlipc.html#client%20interactif%20avec%20io::socket" 
+target=_blank 
+rel=nofollow>http://perl.enstimac.fr/DocFr/perlipc.html#client%20interactif%20avec%20io::socket</A> 
+<BR><BR>Je suis sous Windows 2000 et j'utilise Perl 5.8.8 <BR>Est-ce à cause de 
+Windows qui gère mal le fork() ou les sockets ? <BR><BR>Merci d'avance pour 
+votre aide !!<PRE class=Code><B>Configuration: </B>Windows 2000
+Firefox 2.0.0.6</PRE><SPAN class=stats><B>4</B> message(s) posté(s) depuis le 
+<B>lundi 29 octobre 2001</B></SPAN></SPAN><SPAN id=bfoot> 
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR vAlign=top>
+    <TD>
+      <TABLE id=actions cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD class=sep_01>&nbsp;</TD>
+          <TD><A class=action_01 
+            onmouseover="BulleWrite('Dernier Message',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#dernier" 
+            rel=nofollow>&nbsp;</A><SPAN>Dernier Message</SPAN></TD>
+          <TD class=sep>&nbsp;</TD>
+          <TD><A class=action_02 
+            onmouseover="BulleWrite('Autres messages de <b>sephiburp</b>',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/p/sephiburp">&nbsp;</A><SPAN>Autres 
+            messages de sephiburp</SPAN></TD>
+          <TD class=sep>&nbsp;</TD>
+          <TD><A class=action_03 
+            onmouseover="BulleWrite('Signaler ce message aux modérateurs',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/alert.php3?ID=3380432&amp;Acces=1" 
+            rel=nofollow>&nbsp;</A><SPAN>Signaler ce message aux 
+            modérateurs</SPAN></TD>
+          <TD class=sep>&nbsp;</TD>
+          <TD><A class=action_04 
+            onmouseover="BulleWrite('Retour au forum <b>Forum programmation</b>',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/forum-3-forum-programmation">&nbsp;</A><SPAN>Retour 
+            au thème du forum Forum programmation</SPAN></TD>
+          <TD class=sep>&nbsp;</TD>
+          <TD class=sep_02>&nbsp;</TD></TR></TBODY></TABLE></TD>
+    <TD align=right>
+      <TABLE id=actions cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD class=sep_01>&nbsp;</TD>
+          <TD><A class=action_06 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket?Acces=1#ecrire">Répondre 
+            à sephiburp</A></TD>
+          <TD 
+class=sep_02>&nbsp;</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></SPAN></DIV>
+<DIV class=bloc_25>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR vAlign=top>
+    <TD class=actions>
+      <P class=num><A 
+      onmouseover="BulleWrite('Numéro de réponse par ordre chronologique<br>Cliquer ici et copier l\'adresse pour faire un lien vers cette réponse',event);" 
+      onmouseout=BulleHide() 
+      href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#1" 
+      name=1>1</A></P>
+      <UL id=v_actions>
+        <LI class=sep_01></LI>
+        <LI><A class=action_01 
+        onmouseover="BulleWrite('Répondre à <b>sephiburp</b>',event);" 
+        onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/forum/affich-3415989#ecrire"></A><SPAN>Répondre 
+        à sephiburp</SPAN></LI>
+        <LI class=sep></LI>
+        <LI><A class=action_02 id=3415989t 
+        onmouseover="BulleWrite('Ce message vous semble utile, votez !',event);" 
+        onclick="showPop(3415989);return false;" onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/forum/evaluer.php3?ID=3415989"><BR><B 
+        id=3415989n></B></A><SPAN>Ce message vous semble utile, votez 
+        !</SPAN></LI>
+        <LI class=sep></LI>
+        <LI><A class=action_03 
+        onmouseover="BulleWrite('Autres messages de <b>sephiburp</b>',event);" 
+        onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/p/sephiburp"></A><SPAN>Autres 
+        messages de sephiburp</SPAN></LI>
+        <LI class=sep></LI>
+        <LI><A class=action_04 
+        onmouseover="BulleWrite('Signaler ce message aux modérateurs',event);" 
+        onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/forum/alert.php3?ID=3415989&amp;Acces=1&amp;subID=1" 
+        rel=nofollow></A><SPAN>Signaler ce message aux modérateurs</SPAN></LI>
+        <LI class=sep></LI>
+        <LI><A class=action_05 
+        onmouseover="BulleWrite('Retour au forum <b>Forum programmation</b>',event);" 
+        onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/forum/forum-3-forum-programmation"></A><SPAN>Revenir 
+        au forum Forum programmation</SPAN></LI>
+        <LI class=sep_02></LI></UL></TD>
+    <TD class=answer_1><SPAN id=bhead>
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD><A name=2007-08-19%252011%253A44%253A22>&nbsp;</A>Par <A 
+            class=pseudo 
+            onmouseover="BulleWrite('<'+'img src=\'/template/blocs/bloc_54/xphoto.jpg\' alt=\'sephiburp\'/ style=\'float:left\'><b>4</b> message(s) posté(s) depuis le <b>lundi 29 octobre 2001</b>',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/profil-sephiburp">sephiburp</A>, 
+            le <SPAN>dimanche 19 août 2007 à 11:44:22</SPAN></TD>
+          <TD width=10><A class=back 
+            onmouseover="BulleWrite('Discussion précédente',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#0"><IMG 
+            alt="" 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_empty.png" 
+            border=0></A></TD>
+          <TD vAlign=center width=15><IMG height=11 alt="Fil de Discussions" 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_discuss.png" 
+            width=14></TD>
+          <TD width=10><A class=next 
+            onmouseover="BulleWrite('Discussion suivante',event);" 
+            onmouseout=BulleHide(); 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#2" 
+            rel=nofollow><IMG alt="" 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_empty.png" 
+            border=0></A></TD></TR></TBODY></TABLE></SPAN><SPAN class=bcontent 
+      id=3415989c>Je relance ma question, <BR>Une idée chez quelqu'un ?<SPAN 
+      class=stats><B>4</B> message(s) posté(s) depuis le <B>lundi 29 octobre 
+      2001</B></SPAN></SPAN></TD></TR></TBODY></TABLE><SPAN id=bfoot>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR vAlign=top>
+    <TD>&nbsp;</TD>
+    <TD align=right>
+      <TABLE id=actions cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD class=sep_01>&nbsp;</TD>
+          <TD><A class=action_06 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#ecrire">Continuer 
+            la discussion</A></TD>
+          <TD><A class=action_07 
+            onmouseover="BulleWrite('Haut de la page',event);" 
+            onmouseout=BulleHide(); 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#haut">&nbsp;</A></TD>
+          <TD 
+class=sep_02>&nbsp;</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></SPAN></DIV>
+<DIV class=bloc_25>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR vAlign=top>
+    <TD class=actions>
+      <P class=num><A 
+      onmouseover="BulleWrite('Numéro de réponse par ordre chronologique<br>Cliquer ici et copier l\'adresse pour faire un lien vers cette réponse',event);" 
+      onmouseout=BulleHide() 
+      href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#2" 
+      name=2>2</A></P>
+      <UL id=v_actions>
+        <LI class=sep_01></LI>
+        <LI><A class=action_01 
+        onmouseover="BulleWrite('Répondre à <b>lami20j</b>',event);" 
+        onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/forum/affich-3417445#ecrire"></A><SPAN>Répondre 
+        à lami20j</SPAN></LI>
+        <LI class=sep></LI>
+        <LI><A class=action_02 id=3417445t 
+        onmouseover="BulleWrite('Ce message vous semble utile, votez !',event);" 
+        onclick="showPop(3417445);return false;" onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/forum/evaluer.php3?ID=3417445"><BR><B 
+        id=3417445n></B></A><SPAN>Ce message vous semble utile, votez 
+        !</SPAN></LI>
+        <LI class=sep></LI>
+        <LI><A class=action_03 
+        onmouseover="BulleWrite('Autres messages de <b>lami20j</b>',event);" 
+        onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/p/lami20j"></A><SPAN>Autres 
+        messages de lami20j</SPAN></LI>
+        <LI class=sep></LI>
+        <LI><A class=action_04 
+        onmouseover="BulleWrite('Signaler ce message aux modérateurs',event);" 
+        onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/forum/alert.php3?ID=3417445&amp;Acces=1&amp;subID=2" 
+        rel=nofollow></A><SPAN>Signaler ce message aux modérateurs</SPAN></LI>
+        <LI class=sep></LI>
+        <LI><A class=action_05 
+        onmouseover="BulleWrite('Retour au forum <b>Forum programmation</b>',event);" 
+        onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/forum/forum-3-forum-programmation"></A><SPAN>Revenir 
+        au forum Forum programmation</SPAN></LI>
+        <LI class=sep_02></LI></UL></TD>
+    <TD class=answer_2><SPAN id=bhead>
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD><A name=2007-08-19%252016%253A02%253A32>&nbsp;</A>Par <A 
+            class=pseudo 
+            onmouseover="BulleWrite('<'+'img src=\'/template/blocs/bloc_54/xphoto.jpg\' alt=\'lami20j\'/ style=\'float:left\'><b>8234</b> message(s) posté(s) depuis le <b>dimanche 14 novembre 2004</b><hr> c\'est sympa d\'être important, mais c\'est plus important d\'être sympa.',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/profil-lami20j">lami20j</A>, 
+            le <SPAN>dimanche 19 août 2007 à 16:02:32</SPAN></TD>
+          <TD width=10><A class=back 
+            onmouseover="BulleWrite('Discussion précédente',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#1" 
+            rel=nofollow><IMG alt="" 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_empty.png" 
+            border=0></A></TD>
+          <TD vAlign=center width=15><IMG height=11 alt="Fil de Discussions" 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_discuss.png" 
+            width=14></TD>
+          <TD width=10><A class=next 
+            onmouseover="BulleWrite('Discussion suivante',event);" 
+            onmouseout=BulleHide(); 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#3" 
+            rel=nofollow><IMG alt="" 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_empty.png" 
+            border=0></A></TD></TR></TBODY></TABLE></SPAN><SPAN class=bcontent 
+      id=3417445c>Salut, <BR><BR>voici un exemple, à toi d'adapter <BR><SPAN 
+      style="TEXT-DECORATION: underline">server</SPAN><PRE class=code>#!/usr/bin/perl
+use strict;use warnings;
+use IO::Socket;
+
+my $serveur = IO::Socket::INET-&gt;new(LocalPort =&gt; 10000,
+                                    Type      =&gt; SOCK_STREAM,
+                                    Reuse     =&gt; 1,
+                                    Listen    =&gt; 10)
+or die "Impossible serveur tcp sur le port 10000 : $@\n";
+
+while (my $client = $serveur-&gt;accept()) {
+  next if my $pid = fork;
+  close($serveur);
+  print "*** Debut de connexion ***\n";
+  print $client "Bienvenu sur le SERVER !\n--- Je suis PID $$ ---\n";
+  while( my $rep = &lt;$client&gt;) {
+    print $rep;
+    if ( $rep =~ /^QUIT/i) {
+      close($client);
+    }
+    print "*** Fin de connexion sur PID $$ ***\n";
+    exit;
+  }continu {
+    close($client);
+  }
+}
+$SIG{CHLD} = 'IGNORE';
+__END__
+</PRE><SPAN style="TEXT-DECORATION: underline">le client</SPAN><PRE class=code>#!/usr/bin/perl
+use strict;use warnings;
+use IO::Socket;
+
+my $socket = IO::Socket::INET-&gt;new(Proto    =&gt; "tcp",
+                                   PeerAddr =&gt; "10.0.0.5",
+                                   PeerPort =&gt; 10000)
+or die "Failed : $@\n";
+
+print "*** Debut de connexion ***\n";
+while(my $reponse=&lt;$socket&gt;){
+  print "Le serveur a dit : $reponse";
+  print $socket "Au revoir SERVEUR!!!\n";
+}
+print "*** Fin de connexion ***\n";
+__END__
+</PRE><SPAN style="TEXT-DECORATION: underline">Sur le serveur</SPAN><PRE class=code>lami20j@deb:~$ perl ccm.pl
+*** Debut de connexion ***
+Au revoir SERVEUR!!!
+*** Fin de connexion sur PID 12855 ***
+</PRE><SPAN style="TEXT-DECORATION: underline">Sur le client</SPAN><PRE class=code>lami20j@debian:~$ perl ccm.pl
+*** Debut de connexion ***
+Le serveur a dit : Bienvenu sur le SERVER !
+Le serveur a dit : --- Je suis PID 12855 ---
+*** Fin de connexion ***
+lami20j@debian:~$
+</PRE><BR><SPAN class=signature>lami20j</SPAN><SPAN 
+      class=stats><B>8234</B> message(s) posté(s) depuis le <B>dimanche 14 
+      novembre 2004</B>
+      <HR>
+       c'est sympa d'être important, mais c'est plus important d'être 
+      sympa.</SPAN></SPAN></TD></TR></TBODY></TABLE><SPAN id=bfoot>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR vAlign=top>
+    <TD>&nbsp;</TD>
+    <TD align=right>
+      <TABLE id=actions cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD class=sep_01>&nbsp;</TD>
+          <TD><A class=action_06 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#ecrire">Continuer 
+            la discussion</A></TD>
+          <TD><A class=action_07 
+            onmouseover="BulleWrite('Haut de la page',event);" 
+            onmouseout=BulleHide(); 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#haut">&nbsp;</A></TD>
+          <TD 
+class=sep_02>&nbsp;</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></SPAN></DIV>
+<DIV class=bloc_25>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR vAlign=top>
+    <TD class=actions>
+      <P class=num><A 
+      onmouseover="BulleWrite('Numéro de réponse par ordre chronologique<br>Cliquer ici et copier l\'adresse pour faire un lien vers cette réponse',event);" 
+      onmouseout=BulleHide() 
+      href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#3" 
+      name=3>3</A></P>
+      <UL id=v_actions>
+        <LI class=sep_01></LI>
+        <LI><A class=action_01 
+        onmouseover="BulleWrite('Répondre à <b>sephiburp</b>',event);" 
+        onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/forum/affich-3419444#ecrire"></A><SPAN>Répondre 
+        à sephiburp</SPAN></LI>
+        <LI class=sep></LI>
+        <LI><A class=action_02 id=3419444t 
+        onmouseover="BulleWrite('Ce message vous semble utile, votez !',event);" 
+        onclick="showPop(3419444);return false;" onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/forum/evaluer.php3?ID=3419444"><BR><B 
+        id=3419444n></B></A><SPAN>Ce message vous semble utile, votez 
+        !</SPAN></LI>
+        <LI class=sep></LI>
+        <LI><A class=action_03 
+        onmouseover="BulleWrite('Autres messages de <b>sephiburp</b>',event);" 
+        onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/p/sephiburp"></A><SPAN>Autres 
+        messages de sephiburp</SPAN></LI>
+        <LI class=sep></LI>
+        <LI><A class=action_04 
+        onmouseover="BulleWrite('Signaler ce message aux modérateurs',event);" 
+        onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/forum/alert.php3?ID=3419444&amp;Acces=1&amp;subID=3" 
+        rel=nofollow></A><SPAN>Signaler ce message aux modérateurs</SPAN></LI>
+        <LI class=sep></LI>
+        <LI><A class=action_05 
+        onmouseover="BulleWrite('Retour au forum <b>Forum programmation</b>',event);" 
+        onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/forum/forum-3-forum-programmation"></A><SPAN>Revenir 
+        au forum Forum programmation</SPAN></LI>
+        <LI class=sep_02></LI></UL></TD>
+    <TD class=answer_1><SPAN id=bhead>
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD><A name=2007-08-19%252022%253A03%253A52>&nbsp;</A>Par <A 
+            class=pseudo 
+            onmouseover="BulleWrite('<'+'img src=\'/template/blocs/bloc_54/xphoto.jpg\' alt=\'sephiburp\'/ style=\'float:left\'><b>4</b> message(s) posté(s) depuis le <b>lundi 29 octobre 2001</b>',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/profil-sephiburp">sephiburp</A>, 
+            le <SPAN>dimanche 19 août 2007 à 22:03:52</SPAN></TD>
+          <TD width=10><A class=back 
+            onmouseover="BulleWrite('Discussion précédente',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#2" 
+            rel=nofollow><IMG alt="" 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_empty.png" 
+            border=0></A></TD>
+          <TD vAlign=center width=15><IMG height=11 alt="Fil de Discussions" 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_discuss.png" 
+            width=14></TD>
+          <TD width=10><A class=next 
+            onmouseover="BulleWrite('Discussion suivante',event);" 
+            onmouseout=BulleHide(); 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#4" 
+            rel=nofollow><IMG alt="" 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_empty.png" 
+            border=0></A></TD></TR></TBODY></TABLE></SPAN><SPAN class=bcontent 
+      id=3419444c>bonsoir lami, merci pour ta réponse. <BR>Mais le client que tu 
+      proposes ne fait que lire la socket. <BR><BR>J'aimerais avoir un client 
+      qui écrit et lit simultanément sur une socket, d'où l'utilisation d'un 
+      fork avec un père qui écrit et un fils qui lit. <BR>Rappel du problème : 
+      le père bloque sur l'écriture de la socket tant que le fils boucle pour la 
+      lire. <BR><BR>J'essaierai tout de même les paramètres de ton exemple que 
+      je n'ai jamais utilisé (Type=&gt;SOCK_STREAM pour la création de l'objet 
+      et $SIG{CHLD}='IGNORE' ...)<SPAN class=stats><B>4</B> message(s) posté(s) 
+      depuis le <B>lundi 29 octobre 
+2001</B></SPAN></SPAN></TD></TR></TBODY></TABLE><SPAN id=bfoot>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR vAlign=top>
+    <TD>&nbsp;</TD>
+    <TD align=right>
+      <TABLE id=actions cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD class=sep_01>&nbsp;</TD>
+          <TD><A class=action_06 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#ecrire">Continuer 
+            la discussion</A></TD>
+          <TD><A class=action_07 
+            onmouseover="BulleWrite('Haut de la page',event);" 
+            onmouseout=BulleHide(); 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#haut">&nbsp;</A></TD>
+          <TD 
+class=sep_02>&nbsp;</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></SPAN></DIV>
+<DIV class=bloc_25>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR vAlign=top>
+    <TD class=actions>
+      <P class=numlast><A 
+      onmouseover="BulleWrite('Numéro de réponse par ordre chronologique<br>Cliquer ici et copier l\'adresse pour faire un lien vers cette réponse',event);" 
+      onmouseout=BulleHide() 
+      href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#4" 
+      name=4>4</A></P>
+      <UL id=v_actions>
+        <LI class=sep_01></LI>
+        <LI><A class=action_01 
+        onmouseover="BulleWrite('Répondre à <b>lami20j</b>',event);" 
+        onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/forum/affich-3419639#ecrire"></A><SPAN>Répondre 
+        à lami20j</SPAN></LI>
+        <LI class=sep></LI>
+        <LI><A class=action_02 id=3419639t 
+        onmouseover="BulleWrite('Ce message vous semble utile, votez !',event);" 
+        onclick="showPop(3419639);return false;" onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/forum/evaluer.php3?ID=3419639"><BR><B 
+        id=3419639n></B></A><SPAN>Ce message vous semble utile, votez 
+        !</SPAN></LI>
+        <LI class=sep></LI>
+        <LI><A class=action_03 
+        onmouseover="BulleWrite('Autres messages de <b>lami20j</b>',event);" 
+        onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/p/lami20j"></A><SPAN>Autres 
+        messages de lami20j</SPAN></LI>
+        <LI class=sep></LI>
+        <LI><A class=action_04 
+        onmouseover="BulleWrite('Signaler ce message aux modérateurs',event);" 
+        onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/forum/alert.php3?ID=3419639&amp;Acces=1&amp;subID=4" 
+        rel=nofollow></A><SPAN>Signaler ce message aux modérateurs</SPAN></LI>
+        <LI class=sep></LI>
+        <LI><A class=action_05 
+        onmouseover="BulleWrite('Retour au forum <b>Forum programmation</b>',event);" 
+        onmouseout="BulleHide ();" 
+        href="http://www.commentcamarche.net/forum/forum-3-forum-programmation"></A><SPAN>Revenir 
+        au forum Forum programmation</SPAN></LI>
+        <LI class=sep_02></LI></UL></TD>
+    <TD class=answer_2><SPAN id=bhead>
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD><A name=2007-08-19%252022%253A46%253A55>&nbsp;</A>Par <A 
+            class=pseudo 
+            onmouseover="BulleWrite('<'+'img src=\'/template/blocs/bloc_54/xphoto.jpg\' alt=\'lami20j\'/ style=\'float:left\'><b>8234</b> message(s) posté(s) depuis le <b>dimanche 14 novembre 2004</b><hr> c\'est sympa d\'être important, mais c\'est plus important d\'être sympa.',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/profil-lami20j">lami20j</A>, 
+            le <SPAN>dimanche 19 août 2007 à 22:46:55</SPAN></TD>
+          <TD width=10><A class=back 
+            onmouseover="BulleWrite('Discussion précédente',event);" 
+            onmouseout="BulleHide ();" 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#3" 
+            rel=nofollow name=dernier><IMG alt="" 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_empty.png" 
+            border=0></A></TD>
+          <TD vAlign=center width=15><IMG height=11 alt="Fil de Discussions" 
+            src="[PERL] lecture-écriture sur une socket_fichiers/pic_discuss.png" 
+            width=14></TD>
+          <TD width=10><SPAN 
+      class=vide>&nbsp;</SPAN></TD></TR></TBODY></TABLE></SPAN><SPAN 
+      class=bcontent id=3419639c>Re, <BR><BR><I>Mais le client que tu proposes 
+      ne fait que lire la socket.</I> <BR>Il écrit aussi <I>Au revoir SERVEUR 
+      !!!</I> <BR><I><BR>J'aimerais avoir un client qui écrit et lit 
+      simultanément sur une socket, d'où l'utilisation d'un fork avec un père 
+      qui écrit et un fils qui lit. <BR>Rappel du problème : le père bloque sur 
+      l'écriture de la socket tant que le fils boucle pour la lire. 
+      </I><BR><BR>Ok, je vais voir ça ;-) <SPAN 
+      class=signature>lami20j</SPAN><SPAN class=stats><B>8234</B> message(s) 
+      posté(s) depuis le <B>dimanche 14 novembre 2004</B>
+      <HR>
+       c'est sympa d'être important, mais c'est plus important d'être 
+      sympa.</SPAN></SPAN></TD></TR></TBODY></TABLE><SPAN id=bfoot>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR vAlign=top>
+    <TD>&nbsp;</TD>
+    <TD align=right>
+      <TABLE id=actions cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD class=sep_01>&nbsp;</TD>
+          <TD><A class=action_06 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#ecrire">Continuer 
+            la discussion</A></TD>
+          <TD><A class=action_07 
+            onmouseover="BulleWrite('Haut de la page',event);" 
+            onmouseout=BulleHide(); 
+            href="http://www.commentcamarche.net/forum/affich-3380432-perl-lecture-ecriture-sur-une-socket#haut">&nbsp;</A></TD>
+          <TD 
+class=sep_02>&nbsp;</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></SPAN></DIV>
+<CENTER>
+<SCRIPT type=text/javascript><!--
+			google_ad_client = "pub-6969989765125400";
+			google_ad_width = 468;
+			google_ad_height = 15;
+			google_ad_format = "468x15_0ads_al";
+			google_ad_channel = "";
+			google_color_border = "FFFFFF";
+			google_color_bg = "FFFFFF";
+			google_color_link = "000000";
+			google_color_text = "000000";
+			google_color_url = "485E9E";
+			//--></SCRIPT>
+
+<SCRIPT src="[PERL] lecture-écriture sur une socket_fichiers/show_ads.js" 
+type=text/javascript>
+</SCRIPT>
+</CENTER>
+<DIV id=bloc_22><A name=ecrire></A>
+<FORM name=ajout action=/forum/ajout.php3 method=post><INPUT type=hidden value=1 
+name=Acces><INPUT type=hidden value=3380432 name=inputparent><SPAN 
+class=titre>Répondre</SPAN> 
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR vAlign=top>
+    <TD><SPAN class=sub_tit>Titre du message :</SPAN></TD>
+    <TD><INPUT class=sujet id=titreinput 
+      onmouseover="BulleWrite('Merci de donner un titre décrivant votre problème',event);" 
+      onmouseout="BulleHide ();" maxLength=45 size=100 
+      value="[PERL] lecture/écriture sur une socket" name=titre></TD></TR>
+  <TR>
+    <TD><SPAN class=sub_tit>Votre pseudo:</SPAN></TD>
+    <TD><INPUT class=sujet 
+      onmouseover="BulleWrite('<b>Conseil</b>: Ce pseudonyme sera affiché dans le forum, pensez à choisir un pseudo anonyme ',event);" 
+      style="BORDER-TOP-WIDTH: 1px; BORDER-LEFT-WIDTH: 1px; BORDER-LEFT-COLOR: red; BORDER-BOTTOM-WIDTH: 1px; BORDER-BOTTOM-COLOR: red; BORDER-TOP-COLOR: red; BORDER-RIGHT-WIDTH: 1px; BORDER-RIGHT-COLOR: red" 
+      onmouseout="BulleHide ();" maxLength=64 name=nom> </TD></TR>
+  <TR vAlign=top>
+    <TD><SPAN class=sub_tit>Votre email&nbsp;:</SPAN></TD>
+    <TD><INPUT class=sujet 
+      onmouseover="BulleWrite('L\'adresse électronique sert à recevoir les réponses. Elle ne sera pas affichée sur le site.<br>Vous pouvez arrêter les envois à tout moment grâce au lien présent dans chaque mail reçu !',event);" 
+      onmouseout="BulleHide ();" maxLength=64 name=email> </TD></TR><INPUT 
+  type=hidden value=3 name=cat>
+  <TR vAlign=top>
+    <TD><SPAN class=sub_tit>Message:</SPAN></TD>
+    <TD>&nbsp;</TD></TR>
+  <TR vAlign=top>
+    <TD class=value colSpan=2>
+      <UL id=fonctions>
+        <LI class=sep_01> 
+        <LI><A class=fonc_01 onmouseover="BulleWrite('Gras',event);" 
+        onclick="javascript:insertTag('document.ajout.message','gras',true);return true;" 
+        onmouseout="BulleHide ();" href="javascript:;"><IMG height=21 
+        src="[PERL] lecture-écriture sur une socket_fichiers/space.png" 
+        width=22></A> 
+        <LI><A class=fonc_02 onmouseover="BulleWrite('Italique',event);" 
+        onclick="javascript:insertTag('document.ajout.message','ital',true);return true;" 
+        onmouseout="BulleHide ();" href="javascript:;"><IMG height=21 
+        src="[PERL] lecture-écriture sur une socket_fichiers/space.png" 
+        width=20></A> 
+        <LI><A class=fonc_03 onmouseover="BulleWrite('Souligné',event);" 
+        onclick="javascript:insertTag('document.ajout.message','souligne',true);return true;" 
+        onmouseout="BulleHide ();" href="javascript:;"><IMG height=21 
+        src="[PERL] lecture-écriture sur une socket_fichiers/space.png" 
+        width=22></A> 
+        <LI><A class=fonc_04 
+        onmouseover="BulleWrite('Conserver la mise en forme du texte sélectionné',event);" 
+        onclick="javascript:insertTag('document.ajout.message','code',true);return true;" 
+        onmouseout="BulleHide ();" href="javascript:;"><IMG height=21 
+        src="[PERL] lecture-écriture sur une socket_fichiers/space.png" 
+        width=28></A> 
+        <LI><A class=fonc_07 onmouseover="BulleWrite('Insérer un lien',event);" 
+        onclick="showAddLink();return false;" onmouseout="BulleHide ();" 
+        href="javascript:;"><IMG height=21 
+        src="[PERL] lecture-écriture sur une socket_fichiers/space.png" 
+        width=28></A> </LI>
+        <LI class=sep_02> </LI></UL><TEXTAREA id=message onmouseover="BulleWrite('Merci de répondre à la question du demandeur.<br>Si vous avez le même problème, veuillez créer une nouvelle discussion.<br><b>Conseil:</b> Evitez de donner des informations personnelles (email, téléphone, etc.).',event);" style="BORDER-TOP-WIDTH: 1px; BORDER-LEFT-WIDTH: 1px; BORDER-LEFT-COLOR: red; BORDER-BOTTOM-WIDTH: 1px; BORDER-BOTTOM-COLOR: red; BORDER-TOP-COLOR: red; BORDER-RIGHT-WIDTH: 1px; BORDER-RIGHT-COLOR: red" onmouseout="BulleHide ();" name=message></TEXTAREA></TD></TR>
+  <TR vAlign=top>
+    <TD><SPAN class=sub_tit>Options:</SPAN></TD>
+    <TD class=value><INPUT class=options type=checkbox name=auto> Recevoir les 
+      réponses par mail.<BR></SPAN></TD></TR>
+  <TR>
+    <TD>&nbsp;</TD>
+    <TD>
+      <P class=submit><INPUT class=submit type=submit value=Ajouter name=Ajouter> <INPUT class=submit type=submit value=Previsualiser name=Previsualiser> <A 
+      class=submit href="http://www.commentcamarche.net/ccmguide/ccmforum.php3" 
+      target=_blank>Aide</A></P></FORM></TD></TR></SPAN></TD></TR></TBODY></TABLE>
+<CENTER></CENTER></TD></TR></TABLE></DIV>
+<DIV id=bloc_27><SPAN class=titre>Trucs &amp; astuces pertinents trouvés dans la 
+base de connaissances</SPAN> 
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD class=date_time>20/03&nbsp;10h17</TD>
+    <TD><A class=sujet 
+      href="http://www.commentcamarche.net/faq/sujet-5544-lire-et-ecrire-les-partitions-windows-ntfs">Lire 
+      et écrire les partitions Windows (NTFS)</A></TD>
+    <TD><SPAN class=ico_01 
+      onmouseover="BulleWrite('Thème de l\'astuce',event);" 
+      onmouseout=BulleHide();><A 
+      href="http://www.commentcamarche.net/faq/477-ubuntu">Ubuntu</A></SPAN></TD></TR>
+  <TR>
+    <TD class=date_time>27/01&nbsp;18h36</TD>
+    <TD><A class=sujet 
+      href="http://www.commentcamarche.net/faq/sujet-5027-comment-lire-un-fichier-ligne-par-ligne">Comment 
+      lire un fichier ligne par ligne</A></TD>
+    <TD><SPAN class=ico_01 
+      onmouseover="BulleWrite('Thème de l\'astuce',event);" 
+      onmouseout=BulleHide();><A 
+      href="http://www.commentcamarche.net/faq/372-bash">Bash</A></SPAN></TD></TR>
+  <TR>
+    <TD class=date_time>21/12&nbsp;00h16</TD>
+    <TD><A class=sujet 
+      href="http://www.commentcamarche.net/faq/sujet-2382-python-lire-et-ecrire-des-fichiers-csv">Lire 
+      et écrire des fichiers CSV</A></TD>
+    <TD><SPAN class=ico_01 
+      onmouseover="BulleWrite('Thème de l\'astuce',event);" 
+      onmouseout=BulleHide();><A 
+      href="http://www.commentcamarche.net/faq/84-python">Python</A></SPAN></TD></TR>
+  <TR>
+    <TD class=date_time>19/09&nbsp;14h12</TD>
+    <TD><A class=sujet 
+      href="http://www.commentcamarche.net/faq/sujet-626-comment-lire-un-fichier-rmvb">Comment 
+      lire un fichier RMVB</A></TD>
+    <TD><SPAN class=ico_01 
+      onmouseover="BulleWrite('Thème de l\'astuce',event);" 
+      onmouseout=BulleHide();><A 
+      href="http://www.commentcamarche.net/faq/179-video">Vidéo</A></SPAN></TD></TR>
+  <TR>
+    <TD class=date_time>27/06&nbsp;14h16</TD>
+    <TD><A class=sujet 
+      href="http://www.commentcamarche.net/faq/sujet-1735-unix-lire-le-synopsis-d-un-man">Lire 
+      le synopsis d'un man</A></TD>
+    <TD><SPAN class=ico_01 
+      onmouseover="BulleWrite('Thème de l\'astuce',event);" 
+      onmouseout=BulleHide();><A 
+      href="http://www.commentcamarche.net/faq/101-unix">Unix</A></SPAN></TD></TR>
+  <TR>
+    <TD class=date_time>15/02&nbsp;16h55</TD>
+    <TD><A class=sujet 
+      href="http://www.commentcamarche.net/faq/sujet-2963-gravure-graver-ou-lire-un-fichier-bin-cue">Graver 
+      ou lire un fichier .BIN / .CUE</A></TD>
+    <TD><SPAN class=ico_01 
+      onmouseover="BulleWrite('Thème de l\'astuce',event);" 
+      onmouseout=BulleHide();><A 
+      href="http://www.commentcamarche.net/faq/404-gravure">Gravure</A></SPAN></TD></TR>
+  <TR>
+    <TD class=date_time>22/05&nbsp;11h52</TD>
+    <TD><A class=sujet 
+      href="http://www.commentcamarche.net/faq/sujet-3349-gravure-graver-ou-lire-un-fichier-img-ccd-sub">Graver 
+      ou lire un fichier .IMG / .CCD / .SUB</A></TD>
+    <TD><SPAN class=ico_01 
+      onmouseover="BulleWrite('Thème de l\'astuce',event);" 
+      onmouseout=BulleHide();><A 
+      href="http://www.commentcamarche.net/faq/404-gravure">Gravure</A></SPAN></TD></TR>
+  <TR>
+    <TD class=date_time>22/05&nbsp;11h58</TD>
+    <TD><A class=sujet 
+      href="http://www.commentcamarche.net/faq/sujet-3350-gravure-graver-ou-lire-un-fichier-nrg">Graver 
+      ou lire un fichier .NRG</A></TD>
+    <TD><SPAN class=ico_01 
+      onmouseover="BulleWrite('Thème de l\'astuce',event);" 
+      onmouseout=BulleHide();><A 
+      href="http://www.commentcamarche.net/faq/404-gravure">Gravure</A></SPAN></TD></TR>
+  <TR>
+    <TD class=date_time>09/06&nbsp;16h47</TD>
+    <TD><A class=sujet 
+      href="http://www.commentcamarche.net/faq/sujet-3423-linux-acceder-a-ntfs-en-ecriture">Accéder 
+      à NTFS en écriture</A></TD>
+    <TD><SPAN class=ico_01 
+      onmouseover="BulleWrite('Thème de l\'astuce',event);" 
+      onmouseout=BulleHide();><A 
+      href="http://www.commentcamarche.net/faq/97-linux">Linux</A></SPAN></TD></TR>
+  <TR>
+    <TD class=date_time>31/08&nbsp;17h03</TD>
+    <TD><A class=sujet 
+      href="http://www.commentcamarche.net/faq/sujet-3826-audio-lecteur-cd-n-arrive-plus-a-lire-les-cd-audio">Lecteur 
+      CD n'arrive plus à lire les CD audio</A></TD>
+    <TD><SPAN class=ico_01 
+      onmouseover="BulleWrite('Thème de l\'astuce',event);" 
+      onmouseout=BulleHide();><A 
+      href="http://www.commentcamarche.net/faq/180-audio">Audio</A></SPAN></TD></TR></TBODY></TABLE><SPAN 
+class=foot><SPAN class=more>Plus d'astuces sur «&nbsp;<STRONG><A 
+href="http://www.commentcamarche.net/astuces/perl-lecture-ecriture-sur-une-socket">[PERL] 
+lecture/écriture sur une socket</A></STRONG>&nbsp;»</SPAN></SPAN></DIV>
+<DIV id=bloc_28><SPAN class=titre>Discussions pertinentes trouvées dans le 
+forum</SPAN> 
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD class=date_time>06/05&nbsp;14h45</TD>
+    <TD><A class=disc_ok 
+      onmouseover="BulleWrite('Statut : <b>Problème résolu</b>',event);" 
+      onmouseout=BulleHide(); 
+      href="http://www.commentcamarche.net/forum/affich-1498882-perl-lire-contenu-fichier-xls">[PERL] 
+      lire contenu fichier .xls</A></TD>
+    <TD class=theme><A 
+      href="http://www.commentcamarche.net/forum/forum-3-programmation">Programmation</A></TD>
+    <TD><SPAN class=disc_time 
+      onmouseover="BulleWrite('Date et heure de la dernière réponse',event);" 
+      onmouseout=BulleHide();>17/12&nbsp;14h20</SPAN></TD>
+    <TD><SPAN class=disc_num 
+      onmouseover="BulleWrite('Nombre de discussions',event);" 
+      onmouseout=BulleHide();>24</SPAN></TD></TR>
+  <TR>
+    <TD class=date_time>21/03&nbsp;11h55</TD>
+    <TD><A class=disc_reg 
+      href="http://www.commentcamarche.net/forum/affich-2156279-perl-lire-un-nombre-d-octet-d-un-fichier">[PERL] 
+      Lire un nombre d'octet d'un fichier</A></TD>
+    <TD class=theme><A 
+      href="http://www.commentcamarche.net/forum/forum-3-programmation">Programmation</A></TD>
+    <TD><SPAN class=disc_time 
+      onmouseover="BulleWrite('Date et heure de la dernière réponse',event);" 
+      onmouseout=BulleHide();>21/03&nbsp;19h58</SPAN></TD>
+    <TD><SPAN class=disc_num 
+      onmouseover="BulleWrite('Nombre de discussions',event);" 
+      onmouseout=BulleHide();>7</SPAN></TD></TR>
+  <TR>
+    <TD class=date_time>18/11&nbsp;16h17</TD>
+    <TD><A class=disc_ok 
+      onmouseover="BulleWrite('Statut : <b>Problème résolu</b>',event);" 
+      onmouseout=BulleHide(); 
+      href="http://www.commentcamarche.net/forum/affich-1126131-perl-lire-un-fichier-son">Perl 
+      lire un fichier son</A></TD>
+    <TD class=theme><A 
+      href="http://www.commentcamarche.net/forum/forum-3-programmation">Programmation</A></TD>
+    <TD><SPAN class=disc_time 
+      onmouseover="BulleWrite('Date et heure de la dernière réponse',event);" 
+      onmouseout=BulleHide();>04/02&nbsp;15h59</SPAN></TD>
+    <TD><SPAN class=disc_num 
+      onmouseover="BulleWrite('Nombre de discussions',event);" 
+      onmouseout=BulleHide();>3</SPAN></TD></TR>
+  <TR>
+    <TD class=date_time>08/06&nbsp;23h47</TD>
+    <TD><A class=disc_reg 
+      href="http://www.commentcamarche.net/forum/affich-101388-perl-lire-date-acces-au-fichier">perl 
+      lire date acces au fichier</A></TD>
+    <TD class=theme><A 
+      href="http://www.commentcamarche.net/forum/forum-3-programmation">Programmation</A></TD>
+    <TD><SPAN class=disc_time 
+      onmouseover="BulleWrite('Date et heure de la dernière réponse',event);" 
+      onmouseout=BulleHide();>08/06&nbsp;23h47</SPAN></TD>
+    <TD><SPAN class=disc_num 
+      onmouseover="BulleWrite('Nombre de discussions',event);" 
+      onmouseout=BulleHide();>0</SPAN></TD></TR>
+  <TR>
+    <TD class=date_time>03/08&nbsp;13h22</TD>
+    <TD><A class=disc_reg 
+      href="http://www.commentcamarche.net/forum/affich-1712632-perl-lecture-et-ecriture-ds-1-fichier">Perl: 
+      lecture et ecriture ds 1 fichier</A></TD>
+    <TD class=theme><A 
+      href="http://www.commentcamarche.net/forum/forum-3-programmation">Programmation</A></TD>
+    <TD><SPAN class=disc_time 
+      onmouseover="BulleWrite('Date et heure de la dernière réponse',event);" 
+      onmouseout=BulleHide();>08/08&nbsp;01h44</SPAN></TD>
+    <TD><SPAN class=disc_num 
+      onmouseover="BulleWrite('Nombre de discussions',event);" 
+      onmouseout=BulleHide();>7</SPAN></TD></TR>
+  <TR>
+    <TD class=date_time>23/02&nbsp;00h18</TD>
+    <TD><A class=disc_reg 
+      href="http://www.commentcamarche.net/forum/affich-2701977-post-en-perl-sur-localhost-via-socket">POST 
+      en perl sur localhost via Socket</A></TD>
+    <TD class=theme><A 
+      href="http://www.commentcamarche.net/forum/forum-3-programmation">Programmation</A></TD>
+    <TD><SPAN class=disc_time 
+      onmouseover="BulleWrite('Date et heure de la dernière réponse',event);" 
+      onmouseout=BulleHide();>24/02&nbsp;21h53</SPAN></TD>
+    <TD><SPAN class=disc_num 
+      onmouseover="BulleWrite('Nombre de discussions',event);" 
+      onmouseout=BulleHide();>1</SPAN></TD></TR>
+  <TR>
+    <TD class=date_time>27/03&nbsp;15h17</TD>
+    <TD><A class=disc_reg 
+      href="http://www.commentcamarche.net/forum/affich-2165682-perl-extraction-de-donnees-d-un-fichier-text">Perl: 
+      Extraction de données d'un fichier text</A></TD>
+    <TD class=theme><A 
+      href="http://www.commentcamarche.net/forum/forum-3-programmation">Programmation</A></TD>
+    <TD><SPAN class=disc_time 
+      onmouseover="BulleWrite('Date et heure de la dernière réponse',event);" 
+      onmouseout=BulleHide();>28/03&nbsp;14h35</SPAN></TD>
+    <TD><SPAN class=disc_num 
+      onmouseover="BulleWrite('Nombre de discussions',event);" 
+      onmouseout=BulleHide();>6</SPAN></TD></TR>
+  <TR>
+    <TD class=date_time>22/11&nbsp;12h43</TD>
+    <TD><A class=disc_reg 
+      href="http://www.commentcamarche.net/forum/affich-1932669-lire-un-gros-fichier-texte">lire 
+      un gros fichier texte</A></TD>
+    <TD class=theme><A 
+      href="http://www.commentcamarche.net/forum/forum-3-programmation">Programmation</A></TD>
+    <TD><SPAN class=disc_time 
+      onmouseover="BulleWrite('Date et heure de la dernière réponse',event);" 
+      onmouseout=BulleHide();>22/11&nbsp;15h23</SPAN></TD>
+    <TD><SPAN class=disc_num 
+      onmouseover="BulleWrite('Nombre de discussions',event);" 
+      onmouseout=BulleHide();>3</SPAN></TD></TR>
+  <TR>
+    <TD class=date_time>01/10&nbsp;17h01</TD>
+    <TD><A class=disc_reg 
+      href="http://www.commentcamarche.net/forum/affich-1828656-perl-recuperer-10-last-lignes-d-un-fichier">Perl: 
+      recuperer 10 last lignes d'un fichier</A></TD>
+    <TD class=theme><A 
+      href="http://www.commentcamarche.net/forum/forum-3-programmation">Programmation</A></TD>
+    <TD><SPAN class=disc_time 
+      onmouseover="BulleWrite('Date et heure de la dernière réponse',event);" 
+      onmouseout=BulleHide();>04/10&nbsp;00h26</SPAN></TD>
+    <TD><SPAN class=disc_num 
+      onmouseover="BulleWrite('Nombre de discussions',event);" 
+      onmouseout=BulleHide();>2</SPAN></TD></TR></TBODY></TABLE><SPAN class=foot><SPAN 
+class=more>Plus de discussions sur « <A 
+href="http://www.commentcamarche.net/f/perl-lecture-ecriture-sur-une-socket">[PERL] 
+lecture/écriture sur une socket</A> »</SPAN> <SPAN class=disc_reg>Discussion en 
+cours</SPAN> <SPAN class=close>Discussion fermée</SPAN> <SPAN class=ok>Problème 
+résolu</SPAN></SPAN></DIV>
+<DIV id=bloc_29><SPAN class=titre>Logiciels pertinents trouvés dans les 
+téléchargements</SPAN> 
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD><A 
+      href="http://www.commentcamarche.net/telecharger/telecharger-3673528-kidz-protection"><IMG 
+      alt="Télécharger Kidz protection 1.0" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/3673528t.jpg"></A></TD>
+    <TD class=sujet><STRONG><A 
+      href="http://www.commentcamarche.net/telecharger/telecharger-3673528-kidz-protection">Kidz 
+      protection</A></STRONG> - Kidz Protection est un logiciel conçu pour tous 
+      les parents, afin de gérer l’utilisation des logiciels qui communiquent 
+      avec...</TD>
+    <TD class=cat><B>Catégorie</B>: <A 
+      href="http://www.commentcamarche.net/telecharger/logiciel-94-controle-parental">Contrôle 
+      parental</A><BR><B>Licence</B>: Freeware/gratuit</TD></TR>
+  <TR>
+    <TD><A 
+      href="http://www.commentcamarche.net/telecharger/telecharger-127-vlc"><IMG 
+      alt="Télécharger VLC 0.8.6b" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/127t.jpg"></A></TD>
+    <TD class=sujet><STRONG><A 
+      href="http://www.commentcamarche.net/telecharger/telecharger-127-vlc">VLC</A></STRONG> 
+      - VLC media player est un lecteur multimedia capable de lire de nombreux 
+      formats audio et vidéo (MPEG-1, MPEG-2, MPEG-4, ...</TD>
+    <TD class=cat><B>Catégorie</B>: <A 
+      href="http://www.commentcamarche.net/telecharger/logiciel-12-lecteurs-video">Lecteurs 
+      vidéo</A><BR><B>Licence</B>: Open Source</TD></TR>
+  <TR>
+    <TD><A 
+      href="http://www.commentcamarche.net/telecharger/telecharger-275-ds-monkey-audio-filtre-ape"><IMG 
+      alt="Télécharger DS Monkey Audio - Filtre APE 1.00" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/275t.jpg"></A></TD>
+    <TD class=sujet><STRONG><A 
+      href="http://www.commentcamarche.net/telecharger/telecharger-275-ds-monkey-audio-filtre-ape">DS 
+      Monkey Audio - Filtre APE</A></STRONG> - Le format MonkeysAudio (extension 
+      *.ape) est un format de compression audio lossless (sans pertes) 
+      permettant de réduire la...</TD>
+    <TD class=cat><B>Catégorie</B>: <A 
+      href="http://www.commentcamarche.net/telecharger/logiciel-17-plugins-audio">Plugins 
+      audio</A><BR><B>Licence</B>: Freeware/gratuit</TD></TR>
+  <TR>
+    <TD><A 
+      href="http://www.commentcamarche.net/telecharger/telecharger-3673497-gom-player"><IMG 
+      alt="Télécharger GOM Player 2.1.1" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/3673497t.jpg"></A></TD>
+    <TD class=sujet><STRONG><A 
+      href="http://www.commentcamarche.net/telecharger/telecharger-3673497-gom-player">GOM 
+      Player</A></STRONG> - GOM Player est un lecteur vidéo léger et rapide. 
+      Tout comme VLC , il inclue déjà la plupart des codecs nécessaires à 
+    la...</TD>
+    <TD class=cat><B>Catégorie</B>: <A 
+      href="http://www.commentcamarche.net/telecharger/logiciel-12-lecteurs-video">Lecteurs 
+      vidéo</A><BR><B>Licence</B>: Freeware/gratuit</TD></TR></TBODY></TABLE><SPAN 
+class=foot><SPAN class=more>Plus de logiciels gratuits sur «&nbsp;<STRONG><A 
+href="http://www.commentcamarche.net/telecharger/logiciels-perl-lecture-ecriture-sur-une-socket">[PERL] 
+lecture/écriture sur une socket</A></STRONG>&nbsp;»</SPAN></SPAN></DIV>
+<DIV id=bloc_30><SPAN class=titre>Produits relatifs</SPAN>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD><SPAN class=img_prod><A 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon-64-3200-2-ghz-socket939-1000-mhz-bus-355038-fiche-technique"><IMG 
+      alt="AMD Athlon 64 3200+" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/355038t.jpg"></A></SPAN></TD>
+    <TD class=prod><A class=sujet 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon-64-3200-2-ghz-socket939-1000-mhz-bus-355038-fiche-technique">AMD 
+      Athlon 64 3200+</A></TD>
+    <TD class=cat><STRONG>Catégorie</STRONG>: <A 
+      href="http://www.commentcamarche.net/guide-achat/processeur-40-prix">Processeur</A>
+    <TD class=note>Aucun avis<BR><A class=note 
+      onmouseover="BulleWrite('Donnez votre opinion',event);" 
+      onmouseout="BulleHide ();" 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon-64-3200-2-ghz-socket939-1000-mhz-bus-355038-avis-opinions.php3"><SPAN>Donnez 
+      votre opinion sur AMD Athlon 64 3200+ 2 GHz Socket939 1000 MHz 
+      bus</SPAN></A></TD>
+    <TD class=achat></TD></TR>
+  <TR>
+    <TD><SPAN class=img_prod><A 
+      href="http://www.commentcamarche.net/guide-achat/amd-sempron-2800-1-6-ghz-socket754-800-mhz-bus-in-a-box-474866-fiche-technique"><IMG 
+      alt="AMD Sempron 2800+ 1.6" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/474866t.jpg"></A></SPAN></TD>
+    <TD class=prod><A class=sujet 
+      href="http://www.commentcamarche.net/guide-achat/amd-sempron-2800-1-6-ghz-socket754-800-mhz-bus-in-a-box-474866-fiche-technique">AMD 
+      Sempron 2800+ 1.6</A></TD>
+    <TD class=cat><STRONG>Catégorie</STRONG>: <A 
+      href="http://www.commentcamarche.net/guide-achat/processeur-40-prix">Processeur</A>
+    <TD class=note>Aucun avis<BR><A class=note 
+      onmouseover="BulleWrite('Donnez votre opinion',event);" 
+      onmouseout="BulleHide ();" 
+      href="http://www.commentcamarche.net/guide-achat/amd-sempron-2800-1-6-ghz-socket754-800-mhz-bus-in-a-box-474866-avis-opinions.php3"><SPAN>Donnez 
+      votre opinion sur AMD Sempron 2800+ 1.6 GHz Socket754 800 MHz bus In a 
+      Box</SPAN></A></TD>
+    <TD class=achat></TD></TR>
+  <TR>
+    <TD><SPAN class=img_prod><A 
+      href="http://www.commentcamarche.net/guide-achat/intel-core-2-quad-q6600-2-4-ghz-socket-775-1066-mhz-bus-in-a-box-864567-fiche-technique"><IMG 
+      alt="Intel Core 2 Quad" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/photo-non-disponible.png"></A></SPAN></TD>
+    <TD class=prod><A class=sujet 
+      href="http://www.commentcamarche.net/guide-achat/intel-core-2-quad-q6600-2-4-ghz-socket-775-1066-mhz-bus-in-a-box-864567-fiche-technique">Intel 
+      Core 2 Quad</A></TD>
+    <TD class=cat><STRONG>Catégorie</STRONG>: <A 
+      href="http://www.commentcamarche.net/guide-achat/processeur-40-prix">Processeur</A>
+    <TD class=note>Aucun avis<BR><A class=note 
+      onmouseover="BulleWrite('Donnez votre opinion',event);" 
+      onmouseout="BulleHide ();" 
+      href="http://www.commentcamarche.net/guide-achat/intel-core-2-quad-q6600-2-4-ghz-socket-775-1066-mhz-bus-in-a-box-864567-avis-opinions.php3"><SPAN>Donnez 
+      votre opinion sur Intel Core 2 Quad Q6600 2.4 GHz Socket 775 1066 MHz bus 
+      In a Box</SPAN></A></TD>
+    <TD class=achat><A class=achat 
+      href="http://feedpartnerfr.pricerunner.fr/ref-site=Commentcamarche_feed/exec/Redirect?retLinkType=2&amp;w=direct&amp;targeturl=http%3A%2F%2Faffiliation.rueducommerce.fr%2FAffilient%2FTracking%2Fclic.asp%3Faf%3D1%26partner%3Dmarchand%26p1%3Dr%255ELg%26p2%3Dr%255EEC%26p3%3Drbfe%26url%3Dhttp%253A%252F%252Fwww%252Erueducommerce%252Efr%252Fcomposant%252Fshowdetl%252Ecfm%253Fproduct%255Fid%253D396878&amp;t=prdmdl&amp;prdcat=40&amp;ret=1123&amp;id=864567" 
+      rel=nofollow>228.85&nbsp;€<BR>Rue du Commerce</A></TD></TR>
+  <TR>
+    <TD><SPAN class=img_prod><A 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon-64-x2-4800-2-4-ghz-socket-939-1000-mhz-bus-in-a-box-578943-fiche-technique"><IMG 
+      alt="AMD Athlon 64 X2" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/578943t.jpg"></A></SPAN></TD>
+    <TD class=prod><A class=sujet 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon-64-x2-4800-2-4-ghz-socket-939-1000-mhz-bus-in-a-box-578943-fiche-technique">AMD 
+      Athlon 64 X2</A></TD>
+    <TD class=cat><STRONG>Catégorie</STRONG>: <A 
+      href="http://www.commentcamarche.net/guide-achat/processeur-40-prix">Processeur</A>
+    <TD class=note>Aucun avis<BR><A class=note 
+      onmouseover="BulleWrite('Donnez votre opinion',event);" 
+      onmouseout="BulleHide ();" 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon-64-x2-4800-2-4-ghz-socket-939-1000-mhz-bus-in-a-box-578943-avis-opinions.php3"><SPAN>Donnez 
+      votre opinion sur AMD Athlon 64 X2 4800+ 2.4 GHz Socket 939 1000 MHz bus 
+      In a Box</SPAN></A></TD>
+    <TD class=achat></TD></TR>
+  <TR>
+    <TD><SPAN class=img_prod><A 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon-64-x2-dual-core-4600-2-2-ghz-socket-939-2000-mhz-bus-614634-fiche-technique"><IMG 
+      alt="AMD Athlon 64 X2" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/photo-non-disponible.png"></A></SPAN></TD>
+    <TD class=prod><A class=sujet 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon-64-x2-dual-core-4600-2-2-ghz-socket-939-2000-mhz-bus-614634-fiche-technique">AMD 
+      Athlon 64 X2</A></TD>
+    <TD class=cat><STRONG>Catégorie</STRONG>: <A 
+      href="http://www.commentcamarche.net/guide-achat/processeur-40-prix">Processeur</A>
+    <TD class=note>Aucun avis<BR><A class=note 
+      onmouseover="BulleWrite('Donnez votre opinion',event);" 
+      onmouseout="BulleHide ();" 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon-64-x2-dual-core-4600-2-2-ghz-socket-939-2000-mhz-bus-614634-avis-opinions.php3"><SPAN>Donnez 
+      votre opinion sur AMD Athlon 64 X2 Dual-Core 4600+ 2.2 GHz Socket 939 2000 
+      MHz bus</SPAN></A></TD>
+    <TD class=achat></TD></TR>
+  <TR>
+    <TD><SPAN class=img_prod><A 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon-64-x2-4400-2-3-ghz-socket-am2-2000-mhz-bus-868768-fiche-technique"><IMG 
+      alt="AMD Athlon 64 X2" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/photo-non-disponible.png"></A></SPAN></TD>
+    <TD class=prod><A class=sujet 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon-64-x2-4400-2-3-ghz-socket-am2-2000-mhz-bus-868768-fiche-technique">AMD 
+      Athlon 64 X2</A></TD>
+    <TD class=cat><STRONG>Catégorie</STRONG>: <A 
+      href="http://www.commentcamarche.net/guide-achat/processeur-40-prix">Processeur</A>
+    <TD class=note>Aucun avis<BR><A class=note 
+      onmouseover="BulleWrite('Donnez votre opinion',event);" 
+      onmouseout="BulleHide ();" 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon-64-x2-4400-2-3-ghz-socket-am2-2000-mhz-bus-868768-avis-opinions.php3"><SPAN>Donnez 
+      votre opinion sur AMD Athlon 64 X2 4400+ 2.3 GHz Socket AM2 2000 MHz 
+      bus</SPAN></A></TD>
+    <TD class=achat></TD></TR>
+  <TR>
+    <TD><SPAN class=img_prod><A 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon-64-x2-be-2400-ee-2-3-ghz-socket-am2-in-a-box-1017923-fiche-technique"><IMG 
+      alt="AMD Athlon 64 X2" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/photo-non-disponible.png"></A></SPAN></TD>
+    <TD class=prod><A class=sujet 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon-64-x2-be-2400-ee-2-3-ghz-socket-am2-in-a-box-1017923-fiche-technique">AMD 
+      Athlon 64 X2</A></TD>
+    <TD class=cat><STRONG>Catégorie</STRONG>: <A 
+      href="http://www.commentcamarche.net/guide-achat/processeur-40-prix">Processeur</A>
+    <TD class=note>Aucun avis<BR><A class=note 
+      onmouseover="BulleWrite('Donnez votre opinion',event);" 
+      onmouseout="BulleHide ();" 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon-64-x2-be-2400-ee-2-3-ghz-socket-am2-in-a-box-1017923-avis-opinions.php3"><SPAN>Donnez 
+      votre opinion sur AMD Athlon 64 X2 BE-2400 EE 2.3 GHz Socket AM2 in a 
+      Box</SPAN></A></TD>
+    <TD class=achat></TD></TR>
+  <TR>
+    <TD><SPAN class=img_prod><A 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon64-x2-3800-2-0-ghz-socket-am2-in-a-box-893325-fiche-technique"><IMG 
+      alt="AMD Athlon64 X2 3800+" 
+      src="[PERL] lecture-écriture sur une socket_fichiers/photo-non-disponible.png"></A></SPAN></TD>
+    <TD class=prod><A class=sujet 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon64-x2-3800-2-0-ghz-socket-am2-in-a-box-893325-fiche-technique">AMD 
+      Athlon64 X2 3800+</A></TD>
+    <TD class=cat><STRONG>Catégorie</STRONG>: <A 
+      href="http://www.commentcamarche.net/guide-achat/processeur-40-prix">Processeur</A>
+    <TD class=note>Aucun avis<BR><A class=note 
+      onmouseover="BulleWrite('Donnez votre opinion',event);" 
+      onmouseout="BulleHide ();" 
+      href="http://www.commentcamarche.net/guide-achat/amd-athlon64-x2-3800-2-0-ghz-socket-am2-in-a-box-893325-avis-opinions.php3"><SPAN>Donnez 
+      votre opinion sur AMD Athlon64 X2 3800+ 2.0 GHz Socket AM2 in a 
+      BOX</SPAN></A></TD>
+    <TD class=achat></TD></TR></TBODY></TABLE><SPAN class=foot><SPAN class=more>Plus 
+de produits sur «&nbsp;<A 
+href="http://www.commentcamarche.net/guide-achat/?Mot=perl-lecture-ecriture-sur-une-socket">[PERL] 
+lecture/écriture sur une socket</A>&nbsp;»</SPAN></SPAN></DIV></DIV></DIV>
+<DIV id=footer>
+<SCRIPT type=text/javascript>
+<!--
+xtnv = document;           //affiliation frameset : document, parent.document ou top.document
+xtsd = "http://logc15";
+xtsite = "254140";
+xtn2 = "";           //utiliser le numero du niveau 2 dans lequel vous souhaitez ranger la page
+xtpage = "forum::affich-3380432-perl-lecture-ecriture-sur-une-socket";             //placer un libellé de page pour les rapports Xiti
+xtdmc = ".commentcamarche.net";           //Domaine cookie en ".monsite.fr" (optionnel)
+xtprm = "";           //Paramètres supplémentaires (optionnel)
+//-->
+</SCRIPT>
+
+<SCRIPT src="[PERL] lecture-écriture sur une socket_fichiers/xiti.js" 
+type=text/javascript></SCRIPT>
+<NOSCRIPT><IMG height=1 alt="" 
+src="[PERL] lecture-écriture sur une socket_fichiers/hit.gif" width=1> 
+</NOSCRIPT><SPAN class=glossaire>Glossaire <A 
+href="http://www.commentcamarche.net/glossaire/0">0-9</A> <A 
+href="http://www.commentcamarche.net/glossaire/a">A</A> <A 
+href="http://www.commentcamarche.net/glossaire/b">B</A> <A 
+href="http://www.commentcamarche.net/glossaire/c">C</A> <A 
+href="http://www.commentcamarche.net/glossaire/d">D</A> <A 
+href="http://www.commentcamarche.net/glossaire/e">E</A> <A 
+href="http://www.commentcamarche.net/glossaire/f">F</A> <A 
+href="http://www.commentcamarche.net/glossaire/g">G</A> <A 
+href="http://www.commentcamarche.net/glossaire/h">H</A> <A 
+href="http://www.commentcamarche.net/glossaire/i">I</A> <A 
+href="http://www.commentcamarche.net/glossaire/j">J</A> <A 
+href="http://www.commentcamarche.net/glossaire/k">K</A> <A 
+href="http://www.commentcamarche.net/glossaire/l">L</A> <A 
+href="http://www.commentcamarche.net/glossaire/m">M</A> <A 
+href="http://www.commentcamarche.net/glossaire/n">N</A> <A 
+href="http://www.commentcamarche.net/glossaire/o">O</A> <A 
+href="http://www.commentcamarche.net/glossaire/p">P</A> <A 
+href="http://www.commentcamarche.net/glossaire/q">Q</A> <A 
+href="http://www.commentcamarche.net/glossaire/r">R</A> <A 
+href="http://www.commentcamarche.net/glossaire/s">S</A> <A 
+href="http://www.commentcamarche.net/glossaire/t">T</A> <A 
+href="http://www.commentcamarche.net/glossaire/u">U</A> <A 
+href="http://www.commentcamarche.net/glossaire/v">V</A> <A 
+href="http://www.commentcamarche.net/glossaire/w">W</A> <A 
+href="http://www.commentcamarche.net/glossaire/x">X</A> <A 
+href="http://www.commentcamarche.net/glossaire/y">Y</A> <A 
+href="http://www.commentcamarche.net/glossaire/z">Z</A> </SPAN><SPAN 
+class=sub_nav><A href="http://www.commentcamarche.net/ccmguide/ccmintro.php3">A 
+propos</A> | <A 
+href="http://www.commentcamarche.net/ccmguide/cgu-conditions-generales.php3">Conditions 
+générales</A> | <A href="http://www.commentcamarche.net/plan/">Plan</A> | <A 
+href="http://www.commentcamarche.net/partenaires/">Partenaires</A> | <A 
+href="http://www.commentcamarche.net/contact/">Contact</A> | <A 
+href="http://www.commentcamarche.net/guide-achat/constructeurs.php3">Index des 
+marques</A> | © Tous droits réservés 2007</SPAN></DIV></DIV></DIV></BODY></HTML>

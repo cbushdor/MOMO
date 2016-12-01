@@ -1,0 +1,501 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0055)http://www.dil.univ-mrs.fr/~chris/Perl/Specificites.htm -->
+<HTML><HEAD><TITLE>Cours Perl, Fonctions avancées.</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1"><LINK 
+href="Cours Perl, Fonctions avancées_fichiers/Messtyles.css" type=text/css 
+rel=stylesheet>
+<META content="MSHTML 6.00.2900.3243" name=GENERATOR></HEAD>
+<BODY>
+<H1>Les spécificités.</H1>
+<H2>Les blocs spécifiques.</H2>
+<H3>Il existe en Perl un certain npmbre de blocs spécifiques auxquels ont été 
+attribués des noms prédéfinis. Les conditions d'exécution de ces blocs sont 
+régis par des régles simples. </H3>
+<H2>Le bloc BEGIN.</H2>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>BEGIN {
+  Instruction_1;
+  Instruction_2;
+  . . . . .
+  Instruction_n;
+}
+  </PRE></DIV></DIV>
+<H3>Il sera exécuté dés que possible. En fait, dés qu'il aura été complètement 
+défini et avant même que la totalité du fichier qui le contient soit totalement 
+analysé. </H3>
+<H3>Il n'est pas interdit de trouver plusieurs blocs BEGIN dans un même fichier. 
+Si tel est le cas, ils seront exécutés dans l'ordre de leur définition.<BR>Le 
+fait que le bloc BEGIN s'exécute immédiatement permet de définir des fonctions 
+en provenance d'autres fichiers suffisament rapidement pour qu'elles soient 
+visibles au moment de la compilation du reste du fichier.<BR>Ceci doit être pris 
+en compte car la maniére dont le reste du fichier sera analysé depend de la 
+déclaration des fonctions. </H3>
+<H2>Le bloc END.</H2>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>END {
+  Instruction_1;
+  Instruction_2;
+  . . . . .
+  Instruction_n;
+}
+  </PRE></DIV></DIV>
+<H3>C'est le pendant du bloc BEGIN, il sera exécuté le plus tardivement 
+possible. En fait, lorsque l'interpréteur finit son travail, même si cette 
+sortie résulte d'une fonction (die) ou d'une exeption interne (fonction 
+inexistante). </H3>
+<H3>Il n'est pas interdit de trouver plusieurs blocs END dans un même fichier. 
+Si tel est le cas, ils seront exécutés dans l'ordre inverse de leur définition. 
+</H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fs1.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+BEGIN{
+  print ("Ligne imprimee par BEGIN.\n")
+}
+END{
+  print ("Ligne imprimee par END.\n")
+}
+die ("Ligne imprimee par die.\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fs1.pl<SPAN class=rouge>ent</SPAN>
+Ligne imprimee par BEGIN.
+Ligne imprimee par die.
+Ligne imprimee par END.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2>Le bloc AUTOLOAD.</H2>
+<H3>Il est normalement interdit de faire référence à une fonction inexistante. 
+Toutefois, si ce désagrément se produit, il peut être géré au moyen de procédure 
+spécifique AUTOLOAD qui sera activée lorsqu'une référence sera faite é une 
+procédure inexistante.<BR>Le nom de la procédure en question sera passé dans une 
+variable spécifique $AUTOLOAD et la liste d'arguments de cette procédure se 
+trouvera dans la liste standard @_. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fs2.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+BEGIN {
+  print ("Soyez les bienvenus.\n\n");
+}
+END {
+  print ("Merci de votre visite.\n\n");
+}
+AUTOLOAD {
+  print ("La fonction $AUTOLOAD\n");
+  print ("Dont les arguments sont :\n");
+  print ("@_\n");
+  print ("n'existe pas.\n\n");
+}
+print ("Debut du programme.\n");
+print ("Appeler d'une fonction inexistante :\n");
+print ("Nulle_Part(\"Ici\",\"et\",\"la\");\n\n");
+do Nulle_Part("Ici","et","la");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fs2.pl<SPAN class=rouge>ent</SPAN>
+Soyez les bienvenus.
+
+Debut du programme.
+Appel d'une fonction inexistante :
+Nulle_Part("Ici","et","la");
+
+La fonction main::Nulle_Part
+Dont les arguments sont :
+Ici et la
+n'existe pas.
+
+Merci de votre visite.
+
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2>La liste @INC.</H2>
+<H3>C'est une liste prédéfinie qui contient les répertoires dans lesquels 
+s'effectuera une recherche lancée par la fonction spécifique require. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fs3.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+foreach $a (@INC) {
+  print ("$a\n");
+}
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fs3.pl<SPAN class=rouge>ent</SPAN>
+c:\perl\lib
+c:\perl\site\lib
+.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Il est possible, si besoin est, d'ajouter des chemins dans cette liste. 
+</H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>push (@INC,"c:\progs\perl);
+  </PRE></DIV></DIV>
+<H3>Ajoute mon chemin personnel en fin de liste. </H3>
+<DIV class=centre style="WIDTH: 16em">
+<DIV class=prog><PRE>unshift (@INC,"c:\progs\perl);
+  </PRE></DIV></DIV>
+<H3>Ajoute mon chemin personnel en début de liste. </H3>
+<H2>La fonction require().</H2>
+<H3>Cette fonction va permettre de découper un programme en fichiers disjoints 
+permettant ainsi de créer des bibliothéques de fonctions.<BR>Par exemple, 
+considérons le programme suivant. </H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type chchain.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+$critere = "l";
+$nl = 0;
+$emplacement = 0;
+$noccurences = 0;
+$ligne = &lt;&gt;;
+while ($ligne ne "") {
+  $nl++;
+  while (1) {
+    $emplacement = index($ligne, $critere, $emplacement);
+    last if ($emplacement == -1);
+    $noccurences++;
+    $emplacement++;
+  }
+  if ($noccurences != 0){
+    print ("Sur la ligne $nl\n");
+    print ("la chaine '$critere'\n");
+    print ("a été trouvée $noccurences fois.\n")
+  } else {
+    print ("Sur la ligne $nl\n");
+    print ("la chaine '$critere'\n"); 
+    print ("n'est pas présente.\n")
+  }
+$ligne = &lt;&gt;;
+$emplacement = 0;
+$noccurences = 0;
+}
+"vrai";
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H3>Il a été édité et stocké sous le nom chchain.pl à un emplacement dont le 
+chemin apparaît parmis ceux listés dans la variable @INC.<BR>Voyons maintenant 
+comment nous allons lui faire référence à partir d'un autre programme. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fs4.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+@ARGV =("Poeme.txt");
+require ("chchain.pl");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fs4.pl<SPAN class=rouge>ent</SPAN>
+Sur la ligne 1, la chaine 'l' a été trouvée 1 fois.
+Sur la ligne 2, la chaine 'l' n'est pas présente.
+Sur la ligne 3, la chaine 'l' n'est pas présente.
+Sur la ligne 4, la chaine 'l' a été trouvée 3 fois.
+Sur la ligne 5, la chaine 'l' n'est pas présente.
+Sur la ligne 6, la chaine 'l' a été trouvée 1 fois.
+Sur la ligne 7, la chaine 'l' n'est pas présente.
+Sur la ligne 8, la chaine 'l' a été trouvée 2 fois.
+Sur la ligne 9, la chaine 'l' a été trouvée 1 fois.
+Sur la ligne 10, la chaine 'l' n'est pas présente.
+Sur la ligne 11, la chaine 'l' a été trouvée 1 fois.
+Sur la ligne 12, la chaine 'l' a été trouvée 2 fois.
+Sur la ligne 13, la chaine 'l' a été trouvée 1 fois.
+Sur la ligne 14, la chaine 'l' n'est pas présente.
+Sur la ligne 15, la chaine 'l' a été trouvée 3 fois.
+Sur la ligne 16, la chaine 'l' a été trouvée 2 fois.
+Sur la ligne 17, la chaine 'l' a été trouvée 1 fois.'
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Si le code de retour n'avait pas été positionné a "vrai", le message suivant 
+aurait été imprimé. </H3>
+<DIV class=centre style="WIDTH: 30em">
+<DIV class=prog><PRE># chchain.pl did not return a true value, &lt;&gt; chunk 17.
+File 'Home:Christian:Perl:MacPerl:CAT:req'; Line 3
+  </PRE></DIV></DIV>
+<H3>Mais tout se serait normalement déroulé. </H3>
+<H3>Il est ainsi possible dans un programme de faire référence é la liste de 
+fichiers externes dont il a besoin pour son exécution. </H3>
+<DIV class=centre style="WIDTH: 25em">
+<DIV class=prog><PRE>push (@INC,"c:\progs\perl);
+@requis = ("p1.pl", "p2.pl","p3.pl", "p4.pl");
+foreach (@requis) {
+    require ($_);
+}
+  </PRE></DIV></DIV>
+<H2>La construction dynamique de programmes.</H2>
+<H3>L'utilisation simultanée de AUTOLOAD et de require peut permettre de gérer 
+dynamiquement des parties de code. <BR>Mettons en place les données du 
+programme.<BR>Dans un premier temps, déclarons un repertoire "prpl" dans lequel 
+nous allons stocker deux fichiers. </H3>
+<H3>Le premier est appelé code1.pl et contient. </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog><PRE>print ("Code 1\n");
+print ("Parametres transmis\n");
+print ("@_\n");
+"retour de code 1";
+  </PRE></DIV></DIV>
+<H3>Le second est appelé code2.pl et contient. </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog><PRE>print ("Code 2\n");
+print ("Parametres transmis\n");
+print ("@_\n");
+"retour de code 2";
+  </PRE></DIV></DIV>
+<H3>Ecrivons maintenant le programme. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fs5.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+AUTOLOAD {
+  $AUTOLOAD =~ s/main:://;
+  require ($AUTOLOAD.".pl");
+}
+unshift (@INC, "C:/prpl");
+print ("Quel code execute-t-on 1 ou 2?\n");
+chomp($n = <STDIN>);
+if ($n==1) {
+  print ("On appelle le code 1.\n\n");
+  $ret = &amp;code1 (1 .. 9)
+} else {
+  print ("On appelle le code.\n\n");
+  $ret = &amp;code2 (a .. j)
+}
+print ("Message : $ret\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fs5.pl<SPAN class=rouge>ent</SPAN>
+Quel code execute-t-on 1 ou 2?
+1<SPAN class=rouge>ent</SPAN>
+On appelle le code 1.
+
+Code 1
+Parametres transmis
+1 2 3 4 5 6 7 8 9
+Message : retour de code 1
+
+c:\progs&gt; perl fs5.pl<SPAN class=rouge>ent</SPAN>
+Quel code execute-t-on 1 ou 2?
+2<SPAN class=rouge>ent</SPAN>
+On appelle le code 2.
+
+Code 2
+Parametres transmis
+a b c d e f g h i j
+Message : retour de code 2
+
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Attention, la fonction require va chercher du code é exécuter. Le code 
+considéré ne doit donc pas être représentatif d'un sous programme, bien que, 
+afin d'activer le bloc AUTOLOAD, l'appel soit un appel de sous programme... 
+</H3>
+<H2>Comment spécifier la version requise de Perl.</H2>
+<H3>Si on désire spécifier une version bien précise de perl pour exécuter un 
+programme donné, il est possible d'utiliser la fonction require sous la forme. 
+</H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>require numero_de_version;
+  </PRE></DIV></DIV>
+<H3>Si le numéro de la version est supérieur ou égal au numéro spécifié, le 
+programme se poursuit.<BR>Si le numéro de la version est inférieur au numéro 
+spécifié, le programme s'interromp et un message d'erreur est imprimé. </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fs6.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl
+require 5;
+print ("La version est la bonne.");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fs6.pl<SPAN class=rouge>ent</SPAN>
+La version est la bonne
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fs7.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl
+require 6;
+print ("La version est la bonne.");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fs7.pl<SPAN class=rouge>ent</SPAN>
+Perl v6.0.0 required (did you mean v6.000?)
+--this is only v5.8.0, stoped at fs7.pl line 2.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2>Un exemple de récursivité en Perl.</H2>
+<H3>Perl n'est pas, à priori, destiné à gérer des fonctions récursives. 
+Toutefois, il est possible si le besoin s'en fait sentir de mettre en place du 
+code récursif. Une bonne application pour ce type de programme serait l'analyse 
+d'une expression en notation polonaise préfixée. Rappelons que l'expression 
+polonaise préfixée. </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>- 98 * 4 + 12 11;
+  </PRE></DIV></DIV>
+<H3>Equivaut à l'expression parenthésée. </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>(98 - (4 * (12 + 11)))
+  </PRE></DIV></DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fs8.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+sub calcul_droit {
+  my ($index) = @_;
+  my ($resultat, $o1, $o2);
+  if ($index + 3 == @liste) {
+    $o2 = $liste[$index + 2];
+  } else {
+    $o2 = &amp;calcul_droit ($index + 2);
+  }
+  $o1 = $liste[$index + 1];
+  if ($liste[$index] eq "+") {
+    $resultat = $o1 + $o2;
+  } elsif ($liste[$index] eq "*") {
+    $resultat = $o1 * $o2;
+  } elsif ($liste[$index] eq "-") {
+    $resultat = $o1 - $o2;
+  } else {
+    $resultat = $o1 / $o2;
+  }
+}
+$ligne = <STDIN>;
+$ligne =~ s/^\s+|\s+$//g;
+@liste = split (/\s+/, $ligne);
+$resultat = &amp;calcul_droit (0);
+print ("Resultat du calcul : $resultat.\n");
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fs8.pl<SPAN class=rouge>ent</SPAN>
+- 98 * 4 + 12 11<SPAN class=rouge>ent</SPAN>
+Resultat du calcul : 6
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H2>Les aliases.</H2>
+<H3>Ainsi que nous venons de le voir, le passage d'arguments dans la procédure 
+se fait par l'intermédiaire de la liste prédéfinie @_ </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog><PRE>&amp;Ma_Procedure (@La_liste_effective);
+. . . . .
+sub Ma_Procedure {
+  my (@Liste_locale) = @_;
+. . . . .
+}
+  </PRE></DIV></DIV>
+<H3>Un probléme risque de se poser si la liste é transmettre est trés grande. Il 
+sera long et couteux d'en créer une copie.<BR>Dans ce cas, la liste peut être 
+passée en donnant la référence de son nom. </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog><PRE>@Liste_effective = (1 .. 1000000)
+&amp;Ma_Procedure (*Liste_effective);
+      . . . . .
+sub Ma_Procedure {
+  my (*Liste_locale) = @_;
+  . . . .
+  $longueur = @Liste_locale;
+}
+  </PRE></DIV></DIV>
+<H3>Le fait de spécifier </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>*Liste_effective
+  </PRE></DIV></DIV>
+<H3>En lieu et place de </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>@Liste_effective
+  </PRE></DIV></DIV>
+<H3>Permet d'indiquer que le contenu actuel de </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>@Liste_effective
+  </PRE></DIV></DIV>
+<H3>Doit être utilisé et si besoin modifié dans la procédure </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>Ma_Procedure
+  </PRE></DIV></DIV>
+<H3>De fait, pendant l'exécution de la procédure, le nom </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>@Liste_locale
+  </PRE></DIV></DIV>
+<H3>S'identifie au nom </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>@Liste_effective
+  </PRE></DIV></DIV>
+<H3>C'est cette création d'un nouveau nom pour référencer un élément déjà 
+existant qui s'appelle l'aliasing. </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>@Liste_effective
+  </PRE></DIV></DIV>
+<H3>Devient maintenant un alias de </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>@Liste_effective
+  </PRE></DIV></DIV>
+<H3>A la fin de l'exécution de la procédure </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>@Liste_locale
+  </PRE></DIV></DIV>
+<H3>Cesse d'être un alias de </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>@Liste_effective
+  </PRE></DIV></DIV>
+<H3>Mais deviendra l'alias d'un nouvel élément lors d'un appel ultérieur. </H3>
+<H3>Ceci n'est pas sans danger comme nous allons le montrer sur l'exemple qui 
+suit </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>Programme fs9.pl</TH>
+    <TH>Exécution sur l'écran</TH></TR>
+  <TR>
+    <TD class=source><PRE>#!/usr/bin/perl;
+$v = 0;
+@v = ("Voici","une","longue","liste");
+&amp;ma_procedure (*v);
+print ("Ici, la valeur de \$v est $v.\n");
+sub ma_procedure {
+  local (*ligne) = @_;
+  foreach $element (@ligne) {
+    print ("$element ");
+  }
+  print ("\n");
+  $ligne = 1000;
+}
+    </PRE></TD>
+    <TD class=prog><PRE>c:\progs&gt; perl fs9.pl<SPAN class=rouge>ent</SPAN>
+Voici une longue liste
+
+Ici, la valeur de $variable est 1000.
+c:\progs&gt;
+    </PRE></TD></TR></TBODY></TABLE>
+<H3>Dans l'exemple qui précède, on a déclaré le scalaire $v et la liste @v. 
+Chose qui, nous l'avons précisé ne pose aucun probléme.<BR>La liste @v est 
+passée par un alias *ligne à la procédure appelée.<BR>Ainsi donc, @ligne devient 
+identique é @variable par le biais de l'aliasing.<BR>Le probléme est que l'alias 
+affecte TOUTES les variables du même nom, quel que soit leur type. Ainsi, 
+l'alias *ligne agit bien sur la liste @v lorsqu'on lui demande de se référer é 
+une liste (@ligne), mais il réfère aussi le scalaire $v si, pour une raison 
+quelconque, on lui demande de référer le scalaire $ligne.<BR></H3>
+<H2 style="POSITION: relative; HEIGHT: 5em">
+<DIV class=lieng><A 
+href="http://www.dil.univ-mrs.fr/~chris/Perl/Fonctions.htm"><IMG 
+style="VERTICAL-ALIGN: middle" 
+src="Cours Perl, Fonctions avancées_fichiers/prec.gif"> </A>Précédent </DIV>
+<DIV class=liend>Suivant <A 
+href="http://www.dil.univ-mrs.fr/~chris/Perl/Fichiers.htm"><IMG 
+style="VERTICAL-ALIGN: middle" 
+src="Cours Perl, Fonctions avancées_fichiers/suiv.gif"> 
+</A></DIV></H2></BODY></HTML>

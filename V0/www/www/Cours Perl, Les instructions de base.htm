@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0051)http://www.dil.univ-mrs.fr/~chris/Perl/InstBase.htm -->
+<HTML><HEAD><TITLE>Cours Perl, Les instructions de base.</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1"><LINK 
+href="Cours Perl, Les instructions de base_fichiers/Messtyles.css" type=text/css 
+rel=stylesheet>
+<META content="MSHTML 6.00.2900.3243" name=GENERATOR></HEAD>
+<BODY>
+<H1>Les instructions de base.</H1>
+<H2>Le programme.</H2>
+<H3>Afin de pouvoir réaliser quelques petites applications, nous allons voir 
+rapidement les principales caractéristiqued d'un programme Perl. </H3>
+<H2>La notion de bloc.</H2>
+<H3>En Perl, toute instruction doit impérativement se terminer par un ; (point 
+virgule). Un bloc sera donc une suite d'instructions encadrées par des 
+accolades. </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>{
+  Instruction 1;
+  Instruction 2;
+  . . . .;
+  Instruction n;
+}
+  </PRE></DIV></DIV>
+<H3>Les instructions sont éxécutées dans l'ordre de la première à la 
+dernière.<BR>Syntaxiquement un bloc d'instructions peut être placé n'importe où 
+dans le programme. </H3>
+<H2>L'instruction conditionnelle.</H2>
+<H3>Ce sont les instructions "if/then/else" et "unless". </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>if(expression) {
+  instruction-vraie_1;
+  instruction-vraie_2;
+  instruction-vraie_3;
+} else {
+  instruction-fausse_1;
+  instruction-fausse_2;
+  instruction-fausse_3;
+} 
+  </PRE></DIV></DIV>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>unless (expression) {
+  instruction-fausse_1;
+  instruction-fausse_2;
+  instruction-fausse_3;
+} 
+  </PRE></DIV></DIV>
+<H3>La règle d'évaluation de l'expression est la suivante :<BR>L'expression est 
+évaluée comme une chaîne de caractère.<BR>C'est une chaine, elle ne sera pas 
+modifiée.<BR>C'est une valeur numérique, elle sera convertie en une chaîne de 
+caractères.<BR>Si la chaîne obtenue est vide ("") ou ne contient que le 
+caractère 0 ("0") alors la valeur de l'expression est "faux".<BR>Par définition 
+pour toute autre chaîne la valeur de l'expression est "vrai". </H3>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH>La valeur</TH>
+    <TH>Est convertie en</TH>
+    <TH>Donnant le résultat</TH></TR>
+  <TR>
+    <TD>0</TD>
+    <TD>"0"</TD>
+    <TD>faux</TD></TR>
+  <TR>
+    <TD>1-1 = 0</TD>
+    <TD>"0"</TD>
+    <TD>faux</TD></TR>
+  <TR>
+    <TD>1</TD>
+    <TD>"1"</TD>
+    <TD>vrai</TD></TR>
+  <TR>
+    <TD>""</TD>
+    <TD>N'est pas convertie</TD>
+    <TD>faux</TD></TR>
+  <TR>
+    <TD>"1"</TD><TDN'EST td convertie< pas>
+    <TD>vrai</TD></TR>
+  <TR>
+    <TD>"0"</TD>
+    <TD>N'est pas convertie</TD>
+    <TD>faux</FONT></TD></TR>
+  <TR>
+    <TD>"00"</TD>
+    <TD>N'est pas convertie</TD>
+    <TD>vrai</TD></TR>
+  <TR>
+    <TD>"0.00"</TD>
+    <TD>N'est pas convertie</TD>
+    <TD>vrai</TD></TR>
+  <TR>
+    <TD>undef</TD>
+    <TD>""</TD>
+    <TD>&gt;faux</TD></TR></TBODY></TABLE>
+<H2>L'instruction répétitive.</H2>
+<H3>Ce sont les instructions "while" et "until". </H3>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>while (expression) {
+  instruction_1;
+  instruction_2;
+  instruction_3;
+}
+  </PRE></DIV></DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=comment>Règle d'évaluationde l'expression.<BR>Si le résultat est 
+      "vrai" alors le corps du while est exécuté une fois, cette opération est 
+      ensuite répétée jusqu'à ce que l'expression prenne la valeur "faux". Le 
+      contrôle passe alors à l'instruction qui suit le corps du while. 
+  </TD></TR></TBODY></TABLE>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>until (expression) {
+  instruction_1;
+  instruction_2;
+  instruction_3;
+}
+  </PRE></DIV></DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=comment>Règle d'évaluationde l'expression.<BR>Si le résultat est 
+      "faux" alors le corps du until est exécuté une fois, cette opération est 
+      ensuite répétée jusqu'à ce que l'expression prenne la valeur "vrai". Le 
+      contrôle passe alors à l'instruction qui suit le corps du until. 
+  </TD></TR></TBODY></TABLE>
+<H3>La règle d'évaluation de l'expression est la même que dans le cas du if. 
+</H3>
+<H2>La boucle for.</H2>
+<DIV class=centre style="WIDTH: 15em">
+<DIV class=prog><PRE>for (initial;test;increment) {
+  instruction_1;
+  instruction_2;
+  instruction_3;
+}
+  </PRE></DIV></DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=comment>- 1 - Evaluation de l'expression "initial". Cette 
+      expression est généralement une affectation initiale à une variable 
+      d'itération. Il n'y a toutefois aucune restriction sur son contenu. </TD></TR>
+  <TR>
+    <TD class=comment>- 2 - Evaluation de l'expression "test" procurant un 
+      réssultat "vrai" ou "faux. </TD></TR></TBODY></TABLE>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=comment>Si le résultat de l'évaluation est "vrai", le corps de 
+      l'itération est exécuté suivi de l'evaluation de l'expression "increment" 
+      (généralement une opération sur la variable d'incrément), puis retour en 
+      2. </TD>
+    <TD class=comment>Si le résultat est "faux" alors on passe à l'instruction 
+      qui suit le bloc d'itération. </TD></TR></TBODY></TABLE>
+<H2>L'instruction print.</H2>
+<H3>Cette instruction va nous permettre de présenter les résultats.<BR>Sa forme 
+générale est. </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog><PRE>print ("chaîne de caractères");
+  </PRE></DIV></DIV>
+<H3>Ainsi que nous le verrons ultérieurement dans le chapitre consacré aux 
+chaines de caractères, cette dernière peut être contenue dans une variable ou 
+définie explicitement. </H3>
+<DIV class=centre style="WIDTH: 20em">
+<DIV class=prog><PRE>print("Bonjour tout le monde.");
+  </PRE></DIV></DIV>
+<H3>Donne le résultat. </H3>
+<DIV class=prog><PRE>c:\progs&gt; type bonjour.pl<SPAN class=rouge>ent</SPAN> 
+#!usr/bin/perl
+print("Bonjour tout le monde.");
+c:\progs&gt; perl bonjour.pl<SPAN class=rouge>ent</SPAN>
+Bonjour tout le monde.
+c:\progs&gt;
+  </PRE></DIV>
+<DIV></DIV>
+<H3>La présentation de résultats se fera aussi de manière simple. </H3>
+<DIV class=centre style="WIDTH: 45em">
+<DIV class=prog><PRE>c:\progs&gt; type pres.pl<SPAN class=rouge>ent</SPAN> 
+#!/usr/bin/perl
+$a = 10;
+$b = 5;
+$c = $a * *b;
+print ("Le produit de $a par $b\n");
+print ("est egal a $c/n");
+c:\progs&gt; perl pres.pl<SPAN class=rouge>ent</SPAN>
+Le produit de 10 par 5
+est egal a 50
+c:\progs&gt;
+  </PRE></DIV></DIV>
+<H3>Surprenant?<BR>Mais non, rappelez vous ce que nous avons dit à propos du 
+mécanisme de substitution. </H3>
+<H3>Par ailleurs, nous venons aussi d'introduire le caractère \n permettant de 
+forcer l'impression sur une nouvelle ligne. </H3>
+<H2 style="POSITION: relative; HEIGHT: 5em">
+<DIV class=lieng><A 
+href="http://www.dil.univ-mrs.fr/~chris/Perl/Scalaires.htm"><IMG 
+style="VERTICAL-ALIGN: middle" 
+src="Cours Perl, Les instructions de base_fichiers/prec.gif"> </A>Précédent 
+</DIV>
+<DIV class=liend>Suivant <A 
+href="http://www.dil.univ-mrs.fr/~chris/Perl/Chaines.htm"><IMG 
+style="VERTICAL-ALIGN: middle" 
+src="Cours Perl, Les instructions de base_fichiers/suiv.gif"> 
+</A></DIV></H2></BODY></HTML>

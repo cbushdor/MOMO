@@ -1,0 +1,40 @@
+<html>
+<head>
+<script>
+document.write("hello word");
+
+function print_login_prompt {
+  document.write("Enter login<input type=text name=login>");
+}
+
+function print_passwd_prompt {
+  document.write("Enter password <input type=text name=password>");
+}
+</script>
+</head>
+<body>
+hello
+<br>
+<form name="toto">
+<script>
+print_login_prompt
+</script>
+</form>
+
+<img src="final.gif">
+<br>
+<iframe src="final.svgz"
+	width="872pt" height="514pt"
+	    frameborder="0" marginwidth="0" marginheight="0">
+<object	    data="final.svgz"
+    width="872pt" height="514pt"
+    type="image/svg+xml">
+<embed src="final.svgz"
+    type="image/svg+xml"
+    coding="gzip"
+    palette="foreground">
+</embed>
+</object>
+</iframe>
+</body>
+</html>

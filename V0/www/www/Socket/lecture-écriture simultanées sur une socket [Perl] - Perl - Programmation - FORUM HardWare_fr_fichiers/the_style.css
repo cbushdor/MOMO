@@ -1,0 +1,660 @@
+#mesdiscussions .ligne_sticky {
+	
+}
+#mesdiscussions .ligne_sticky .sujetCase3 {
+	PADDING-LEFT: 10px; FONT-WEIGHT: bold
+}
+#mesdiscussions .ligne_booleen0 .sujetCase3 {
+	
+}
+#mesdiscussions .ligne_booleen1 .sujetCase3 {
+	
+}
+#mesdiscussions .topic_moins_24h {
+	FONT-WEIGHT: bold
+}
+#mesdiscussions .avatar_center {
+	TEXT-ALIGN: center
+}
+#mesdiscussions .u {
+	TEXT-DECORATION: underline
+}
+IMG {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; MARGIN: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+#mesdiscussions .copyright {
+	CLEAR: both
+}
+#mesdiscussions A {
+	TEXT-DECORATION: none
+}
+#mesdiscussions A:hover {
+	TEXT-DECORATION: underline
+}
+#mesdiscussions UL {
+	MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px
+}
+#mesdiscussions OL {
+	MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px
+}
+#mesdiscussions LABEL {
+	CURSOR: pointer
+}
+#mesdiscussions TABLE {
+	WIDTH: 100%
+}
+#mesdiscussions TR {
+	VERTICAL-ALIGN: top
+}
+#mesdiscussions TH {
+	VERTICAL-ALIGN: middle; TEXT-ALIGN: left
+}
+#mesdiscussions TABLE.main TH {
+	TEXT-ALIGN: center
+}
+#mesdiscussions .none TR {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+#mesdiscussions .none TD {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+#mesdiscussions FORM {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+#mesdiscussions IMG {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; MARGIN: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+#mesdiscussions .reponse {
+	TEXT-ALIGN: left
+}
+.profil {
+	TEXT-ALIGN: left
+}
+#mesdiscussions .arbo {
+	MARGIN-TOP: 10px; FLOAT: left; TEXT-ALIGN: left
+}
+#mesdiscussions .arbo IMG {
+	MARGIN-TOP: 3px
+}
+#mesdiscussions .cat {
+	VERTICAL-ALIGN: middle; TEXT-ALIGN: center
+}
+#mesdiscussions .catCase1 {
+	WIDTH: 60%; TEXT-ALIGN: left
+}
+#mesdiscussions .catCase1bis {
+	WIDTH: 75%; TEXT-ALIGN: left
+}
+#mesdiscussions .catCase2 {
+	WIDTH: 10%
+}
+#mesdiscussions .catCase3 {
+	WIDTH: 15%
+}
+#mesdiscussions .catCase4 {
+	WIDTH: 15%
+}
+#mesdiscussions .center {
+	MARGIN: auto; TEXT-ALIGN: center
+}
+#mesdiscussions .centerfull {
+	VERTICAL-ALIGN: middle; TEXT-ALIGN: center
+}
+.container {
+	WIDTH: 100%; TEXT-ALIGN: center
+}
+#mesdiscussions .left {
+	FLOAT: left; TEXT-ALIGN: left
+}
+#mesdiscussions .legende {
+	FLOAT: left; TEXT-ALIGN: left
+}
+#mesdiscussions .logo {
+	PADDING-RIGHT: 40px; FLOAT: left; TEXT-ALIGN: left
+}
+#mesdiscussions .nombres {
+	FLOAT: right; TEXT-ALIGN: right
+}
+#mesdiscussions .menu {
+	FLOAT: right; TEXT-ALIGN: right
+}
+#mesdiscussions TEXTAREA {
+	FONT-FAMILY: Verdana, Arial, Sans-serif, Helvetica
+}
+#mesdiscussions {
+	MARGIN: auto; FONT-FAMILY: Verdana, Arial, Sans-serif, Helvetica; TEXT-ALIGN: center
+}
+.mesdiscussions {
+	WIDTH: 98%
+}
+.mesdiscussions33 {
+	WIDTH: 33%
+}
+.mesdiscussions50 {
+	WIDTH: 50%
+}
+.mesdiscussions700 {
+	WIDTH: 700px
+}
+.mesdiscussions750 {
+	WIDTH: 750px
+}
+#mesdiscussions .message {
+	TEXT-ALIGN: left
+}
+#mesdiscussions .displaymessage {
+	WHITE-SPACE: pre
+}
+#mesdiscussions .messCase1 {
+	WIDTH: 180px
+}
+#mesdiscussions .messCase1bis {
+	WIDTH: 160px
+}
+#mesdiscussions .messCase2 {
+	TEXT-ALIGN: left
+}
+#mesdiscussions .padding {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 4px; PADDING-TOP: 4px
+}
+#mesdiscussions .pagepresuiv {
+	FONT-WEIGHT: bold; FLOAT: right; MARGIN-LEFT: 15px; TEXT-ALIGN: right
+}
+#mesdiscussions .red {
+	FONT-WEIGHT: bold; COLOR: #ff0000
+}
+#mesdiscussions A.red {
+	COLOR: #ff0000
+}
+#mesdiscussions .plop {
+	FLOAT: left; WIDTH: 50%; TEXT-ALIGN: center
+}
+#mesdiscussions .repCase1 {
+	VERTICAL-ALIGN: top; WIDTH: 160px
+}
+#mesdiscussions .right {
+	FLOAT: right; TEXT-ALIGN: right
+}
+#mesdiscussions .spacer {
+	CLEAR: both; FONT-SIZE: 0px; MARGIN: 0px; HEIGHT: 0px
+}
+#mesdiscussions .sujet {
+	VERTICAL-ALIGN: middle; TEXT-ALIGN: center
+}
+#mesdiscussions .sujetCase1 {
+	WIDTH: 2%
+}
+#mesdiscussions .sujetCase2 {
+	WIDTH: 2%
+}
+#mesdiscussions .sujetCase3 {
+	WIDTH: 52%; TEXT-ALIGN: left
+}
+#mesdiscussions .sujetCase4 {
+	WIDTH: 4%
+}
+#mesdiscussions .sujetCase5 {
+	WIDTH: 2%
+}
+#mesdiscussions .sujetCase6 {
+	FONT-WEIGHT: bold; WIDTH: 15%
+}
+#mesdiscussions .sujetCase7 {
+	WIDTH: 4%
+}
+#mesdiscussions .sujetCase8 {
+	WIDTH: 4%
+}
+#mesdiscussions .sujetCase9 {
+	WIDTH: 17%
+}
+#mesdiscussions .sujetCase10 {
+	WIDTH: 2%
+}
+#mesdiscussions .rightbutton {
+	FLOAT: right; TEXT-ALIGN: right
+}
+#mesdiscussions .toberead {
+	FLOAT: left; TEXT-ALIGN: left
+}
+#mesdiscussions .toolbar {
+	MARGIN-BOTTOM: 6px; PADDING-BOTTOM: 2px; WIDTH: 100%; BORDER-BOTTOM: #777777 1px solid
+}
+#mesdiscussions .toolbarM {
+	MARGIN-TOP: 6px; FONT-SIZE: 10px; WIDTH: 100%; PADDING-TOP: 2px
+}
+#mesdiscussions .toolbarA {
+	MARGIN-TOP: 2px; FONT-SIZE: 10px; MARGIN-BOTTOM: 6px; PADDING-BOTTOM: 2px; WIDTH: 100%; PADDING-TOP: 2px
+}
+#mesdiscussions .toolbarA IMG {
+	MARGIN-BOTTOM: 4px
+}
+#mesdiscussions .toolbarB {
+	BORDER-TOP: #777777 1px solid; MARGIN-TOP: 6px; FONT-SIZE: 10px; WIDTH: 100%; PADDING-TOP: 2px
+}
+#mesdiscussions .toolbarB .left IMG {
+	MARGIN-LEFT: 4px; MARGIN-RIGHT: 4px
+}
+#mesdiscussions .toolbarB .right IMG {
+	MARGIN-LEFT: 4px; MARGIN-RIGHT: 4px
+}
+#mesdiscussions .toolbarM .left IMG {
+	MARGIN-LEFT: 4px; MARGIN-RIGHT: 4px
+}
+#mesdiscussions .toolbarA .left IMG {
+	MARGIN-LEFT: 4px; MARGIN-RIGHT: 4px
+}
+#mesdiscussions .toolbar .left IMG {
+	MARGIN-LEFT: 4px; MARGIN-RIGHT: 4px
+}
+#mesdiscussions .toolbar .right IMG {
+	MARGIN-LEFT: 4px; MARGIN-RIGHT: 4px
+}
+#mesdiscussions .toolbarbottom {
+	BORDER-TOP: #777777 1px solid; MARGIN-TOP: 6px; WIDTH: 100%; PADDING-TOP: 2px
+}
+#mesdiscussions .toolbarbottom .right IMG {
+	MARGIN-LEFT: 6px; MARGIN-RIGHT: 6px
+}
+#mesdiscussions .toolbarbottom .left IMG {
+	MARGIN-LEFT: 6px; MARGIN-RIGHT: 6px
+}
+#mesdiscussions .toolbarprofil {
+	MARGIN-TOP: 6px; VERTICAL-ALIGN: bottom; WIDTH: 100%; PADDING-TOP: 2px
+}
+#mesdiscussions .toolbarprofil .center IMG {
+	MARGIN-LEFT: 6px; MARGIN-RIGHT: 6px
+}
+#mesdiscussions .barre {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 2px; FLOAT: left; PADDING-BOTTOM: 3px; COLOR: black; PADDING-TOP: 2px; BACKGROUND-REPEAT: repeat-x
+}
+#mesdiscussions .sondage {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 5px; MARGIN: 0px auto; WIDTH: 80%; PADDING-TOP: 5px
+}
+#mesdiscussions .search {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 5px; MARGIN: 0px auto; WIDTH: 80%; PADDING-TOP: 5px
+}
+#mesdiscussions .sondage {
+	TEXT-ALIGN: left
+}
+#mesdiscussions .search {
+	TEXT-ALIGN: center
+}
+#mesdiscussions .sondageLeft {
+	FLOAT: left; WIDTH: 50%
+}
+#mesdiscussions .sondageRight {
+	FLOAT: right; WIDTH: 50%; PADDING-TOP: 2px
+}
+#mesdiscussions .sondageTop {
+	PADDING-TOP: 2px
+}
+#mesdiscussions .citation {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 90%; PADDING-TOP: 3px; TEXT-ALIGN: left
+}
+#mesdiscussions .oldcitation {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 90%; PADDING-TOP: 3px; TEXT-ALIGN: left
+}
+#mesdiscussions .quote {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 90%; PADDING-TOP: 3px; TEXT-ALIGN: left
+}
+#mesdiscussions .oldquote {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 90%; PADDING-TOP: 3px; TEXT-ALIGN: left
+}
+#mesdiscussions .fixed {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 90%; PADDING-TOP: 3px; TEXT-ALIGN: left
+}
+#mesdiscussions .code {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 90%; PADDING-TOP: 3px; TEXT-ALIGN: left
+}
+#mesdiscussions .spoiler {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 90%; PADDING-TOP: 3px; TEXT-ALIGN: left
+}
+#mesdiscussions .oldspoiler {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; WIDTH: 90%; PADDING-TOP: 3px; TEXT-ALIGN: left
+}
+#mesdiscussions .quote {
+	FONT-STYLE: italic
+}
+#mesdiscussions .oldquote {
+	FONT-STYLE: italic
+}
+#mesdiscussions .fixed {
+	BORDER-RIGHT: #000000 1px solid; BORDER-TOP: #000000 1px solid; MARGIN: 8px 5px; BORDER-LEFT: #000000 1px solid; COLOR: #000000; BORDER-BOTTOM: #000000 1px solid; FONT-FAMILY: Courier New, Courier, monospace; BACKGROUND-COLOR: #ffffff
+}
+#mesdiscussions .code {
+	BORDER-RIGHT: #000000 1px solid; BORDER-TOP: #000000 1px solid; MARGIN: 8px 5px; BORDER-LEFT: #000000 1px solid; COLOR: #000000; BORDER-BOTTOM: #000000 1px solid; FONT-FAMILY: Courier New, Courier, monospace; BACKGROUND-COLOR: #ffffff
+}
+#mesdiscussions .citation {
+	MARGIN: 8px auto
+}
+#mesdiscussions .oldcitation {
+	MARGIN: 8px auto
+}
+#mesdiscussions .quote {
+	MARGIN: 8px auto
+}
+#mesdiscussions .oldquote {
+	MARGIN: 8px auto
+}
+#mesdiscussions .spoiler {
+	MARGIN: 8px auto
+}
+#mesdiscussions .oldspoiler {
+	MARGIN: 8px auto
+}
+#mesdiscussions .oldcitation {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+#mesdiscussions .oldquote {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+#mesdiscussions .spoiler DIV.masque {
+	VISIBILITY: hidden
+}
+#mesdiscussions .citation A.Topic {
+	TEXT-DECORATION: underline
+}
+#mesdiscussions .citation B.s1Topic {
+	TEXT-DECORATION: underline
+}
+#mesdiscussions .spoiler B.s1Topic {
+	TEXT-DECORATION: underline
+}
+#mesdiscussions .smiley {
+	MARGIN: auto; WIDTH: 135px
+}
+#mesdiscussions .smiley DIV {
+	FLOAT: left; TEXT-ALIGN: center
+}
+#mesdiscussions .smiley IMG {
+	MARGIN-LEFT: 2px
+}
+#mesdiscussions .profilCase1 {
+	VERTICAL-ALIGN: middle; WIDTH: 20px; TEXT-ALIGN: center
+}
+#mesdiscussions .profilCase2 {
+	FONT-WEIGHT: bold; WIDTH: 170px; TEXT-ALIGN: right
+}
+#mesdiscussions .profilCase4 {
+	WIDTH: 150px; TEXT-ALIGN: center
+}
+#mesdiscussions .profilCase5 {
+	FONT-WEIGHT: bold; WIDTH: 33%; TEXT-ALIGN: right
+}
+#mesdiscussions .modoCase0 {
+	FONT-WEIGHT: bold; TEXT-ALIGN: right
+}
+#mesdiscussions .modoCase1 {
+	WIDTH: 10px; TEXT-ALIGN: center
+}
+#mesdiscussions .modoCase1bis {
+	FONT-WEIGHT: bold
+}
+#mesdiscussions .modoCase3 {
+	WIDTH: 320px
+}
+#mesdiscussions .eversanctionned {
+	COLOR: red
+}
+#mesdiscussions .searchCase {
+	FONT-WEIGHT: bold; VERTICAL-ALIGN: middle; WIDTH: 36%
+}
+#mesdiscussions .seachhelp {
+	BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: black 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 8px; BORDER-LEFT: black 1px solid; PADDING-TOP: 5px; BORDER-BOTTOM: black 1px solid; TEXT-ALIGN: left
+}
+#mesdiscussions .exemple {
+	FONT-STYLE: italic
+}
+#mesdiscussions .checkbox {
+	MARGIN-BOTTOM: 0px
+}
+#mesdiscussions .boutton {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+#mesdiscussions .s0 {
+	FONT-SIZE: 0px
+}
+#mesdiscussions .reponserapide {
+	WIDTH: 500px; HEIGHT: 100px
+}
+#mesdiscussions .contenu {
+	WIDTH: 99%; HEIGHT: 250px
+}
+#mesdiscussions #apercu IFRAME {
+	WIDTH: 99%; HEIGHT: 600px
+}
+#mesdiscussions .onglet {
+	CURSOR: pointer
+}
+#mesdiscussions .ongletonmouseover {
+	CURSOR: pointer
+}
+#mesdiscussions .onglet IMG {
+	MARGIN-TOP: 2px
+}
+#mesdiscussions .ongletsel IMG {
+	MARGIN-TOP: 2px
+}
+#mesdiscussions .ongletonmouseover IMG {
+	MARGIN-TOP: 2px
+}
+#mesdiscussions .cadreonglet {
+	FLOAT: left
+}
+#mesdiscussions .beforonglet {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 0px; FLOAT: left; PADDING-BOTTOM: 0px; WIDTH: 4px; PADDING-TOP: 0px; HEIGHT: 18px
+}
+#mesdiscussions .afteronglet {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 0px; FLOAT: left; PADDING-BOTTOM: 0px; WIDTH: 4px; PADDING-TOP: 0px; HEIGHT: 18px
+}
+#mesdiscussions .beforongletsel {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 0px; FLOAT: left; PADDING-BOTTOM: 0px; WIDTH: 4px; PADDING-TOP: 0px; HEIGHT: 18px
+}
+#mesdiscussions .afterongletsel {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 0px; FLOAT: left; PADDING-BOTTOM: 0px; WIDTH: 4px; PADDING-TOP: 0px; HEIGHT: 18px
+}
+#mesdiscussions .btnImage {
+	MARGIN: 1px; CURSOR: pointer
+}
+#mesdiscussions .btnImageRaised {
+	BORDER-RIGHT: #ffffff 1px outset; BORDER-TOP: #ffffff 1px outset; BORDER-LEFT: #ffffff 1px outset; CURSOR: pointer; BORDER-BOTTOM: #ffffff 1px outset; BACKGROUND-COLOR: #5080b8
+}
+#mesdiscussions .btnImageLowered {
+	BORDER-RIGHT: #ffffff 1px inset; BORDER-TOP: #ffffff 1px inset; BORDER-LEFT: #ffffff 1px inset; CURSOR: pointer; BORDER-BOTTOM: #ffffff 1px inset; BACKGROUND-COLOR: #5080b8
+}
+#mesdiscussions .messagetabledel .spoiler DIV {
+	VISIBILITY: visible
+}
+#mesdiscussions .collapsable {
+	PADDING-RIGHT: 0px! important; PADDING-LEFT: 0px! important; PADDING-BOTTOM: 0px! important; MARGIN: 0px; PADDING-TOP: 0px! important; POSITION: relative
+}
+#mesdiscussions .collapsable SPAN.hidden {
+	DISPLAY: none; LEFT: 0px; WIDTH: 25em; POSITION: absolute; TOP: 14px
+}
+#mesdiscussions .collapsed SPAN.hidden {
+	DISPLAY: none
+}
+#mesdiscussions .uncollapsed SPAN.hidden {
+	DISPLAY: block; Z-INDEX: 10000
+}
+#mesdiscussions .collapsable SPAN.hidden DIV.first {
+	BORDER-TOP: #777777 1px solid
+}
+#mesdiscussions .collapsable SPAN.hidden DIV {
+	BORDER-RIGHT: #777777 1px solid; PADDING-BOTTOM: 3px; BORDER-LEFT: #777777 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #777777 1px solid
+}
+#mesdiscussions .collapsable SPAN.hidden DIV.close {
+	CURSOR: pointer; TEXT-ALIGN: center
+}
+#mesdiscussions IMG.a {
+	MARGIN-LEFT: 2px; MARGIN-RIGHT: 2px
+}
+#mesdiscussions .arbo H1 {
+	DISPLAY: inline; FONT-WEIGHT: normal; FONT-SIZE: 10px
+}
+#mesdiscussions .arbo H2 {
+	DISPLAY: inline; FONT-WEIGHT: normal; FONT-SIZE: 10px
+}
+#mesdiscussions .arbo H3 {
+	DISPLAY: inline; FONT-WEIGHT: normal; FONT-SIZE: 10px
+}
+#mesdiscussions .arbo H4 {
+	DISPLAY: inline; FONT-WEIGHT: normal; FONT-SIZE: 10px
+}
+#mesdiscussions .arbo H5 {
+	DISPLAY: inline; FONT-WEIGHT: normal; FONT-SIZE: 10px
+}
+#mesdiscussions .arbo H6 {
+	DISPLAY: inline; FONT-WEIGHT: normal; FONT-SIZE: 10px
+}
+#mesdiscussions TH H3 {
+	DISPLAY: inline
+}
+#mesdiscussions .messagetable P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+#mesdiscussions .messagetabledel P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+#mesdiscussions .textleft TD {
+	TEXT-ALIGN: left
+}
+#mesdiscussions UL.plandusite {
+	TEXT-ALIGN: left
+}
+#mesdiscussions TABLE#sujetrelatif TD {
+	WIDTH: 50%; TEXT-ALIGN: left
+}
+#mesdiscussions DIV.onglet_menu {
+	PADDING-RIGHT: 0px! important; PADDING-LEFT: 0px! important; FLOAT: left; PADDING-BOTTOM: 0px! important; MARGIN: 0px; PADDING-TOP: 0px! important; POSITION: relative
+}
+#mesdiscussions DIV.onglet_menu DIV {
+	PADDING-RIGHT: 0px; DISPLAY: none; PADDING-LEFT: 0px; LEFT: 0px! important; PADDING-BOTTOM: 0px; MARGIN: 0px; OVERFLOW: hidden; WIDTH: 20em; PADDING-TOP: 0px; POSITION: absolute; TOP: 18px
+}
+#mesdiscussions DIV.onglet_menu DIV A {
+	PADDING-RIGHT: 2px; BACKGROUND-POSITION: 5px 3px; DISPLAY: block; PADDING-LEFT: 30px; FONT-WEIGHT: bold; PADDING-BOTTOM: 2px; WIDTH: 18em; PADDING-TOP: 2px; BACKGROUND-REPEAT: no-repeat; TEXT-ALIGN: left
+}
+#mesdiscussions DIV.onglet_menu DIV SPAN {
+	PADDING-RIGHT: 2px; BACKGROUND-POSITION: 5px 3px; DISPLAY: block; PADDING-LEFT: 30px; FONT-WEIGHT: bold; PADDING-BOTTOM: 2px; WIDTH: 18em; PADDING-TOP: 2px; BACKGROUND-REPEAT: no-repeat; TEXT-ALIGN: left
+}
+#mesdiscussions DIV.nojs DIV {
+	DISPLAY: block
+}
+#mesdiscussions DIV.onglet_menu DIV A:hover {
+	BACKGROUND-IMAGE: none
+}
+#mesdiscussions DIV.onglet_menu DIV A IMG {
+	MARGIN-RIGHT: 5px
+}
+#mesdiscussions DIV.onglet_menu DIV SPAN IMG {
+	MARGIN-RIGHT: 5px
+}
+#mesdiscussions DIV.edited {
+	FONT-STYLE: italic; TEXT-ALIGN: right
+}
+#mesdiscussions .error {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; PADDING-TOP: 5px
+}
+#mesdiscussions .error B {
+	FONT-SIZE: 14px
+}
+#mesdiscussions .fastsearchMain {
+	WIDTH: 220px
+}
+#mesdiscussions .fastsearchInput {
+	WIDTH: 100px
+}
+#mesdiscussions .fastsearchSubmit {
+	
+}
+#mesdiscussions .headerModeration {
+	WIDTH: 600px; TEXT-ALIGN: center
+}
+#mesdiscussions .borderModeration {
+	PADDING-BOTTOM: 1px; MARGIN: auto; VERTICAL-ALIGN: middle; WIDTH: 80%; PADDING-TOP: 1px; HEIGHT: 42px; TEXT-ALIGN: center
+}
+#mesdiscussions .moderationsInfos {
+	BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: black 1px solid; PADDING-LEFT: 0px; FONT-SIZE: 10px; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-LEFT: black 1px solid; WIDTH: 30px; PADDING-TOP: 0px; BORDER-BOTTOM: black 1px solid; HEIGHT: 14px
+}
+#mesdiscussions .moderationsInfosSubmit {
+	BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: black 1px solid; PADDING-LEFT: 0px; FONT-SIZE: 8px; PADDING-BOTTOM: 0px; MARGIN: 0px; VERTICAL-ALIGN: bottom; BORDER-LEFT: black 1px solid; PADDING-TOP: 0px; BORDER-BOTTOM: black 1px solid; HEIGHT: 16px
+}
+#mesdiscussions .dashed {
+	WIDTH: 97%
+}
+#mesdiscussions .filtre {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 5px; DISPLAY: block; PADDING-LEFT: 5px; BORDER-LEFT-WIDTH: 0px; FONT-SIZE: 11px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 5px; MARGIN: 5px auto 10px 0px; PADDING-TOP: 5px; TEXT-ALIGN: left; BORDER-RIGHT-WIDTH: 0px
+}
+#mesdiscussions .filtre .insubcatgroup {
+	FONT-WEIGHT: bold
+}
+#mesdiscussions #welcome_message {
+	BORDER-RIGHT: #000 3px double; PADDING-RIGHT: 5px; BORDER-TOP: #000 3px double; PADDING-LEFT: 5px; FONT-SIZE: 14px; PADDING-BOTTOM: 5px; BORDER-LEFT: #000 3px double; PADDING-TOP: 5px; BORDER-BOTTOM: #000 3px double
+}
+#mesdiscussions #welcome_register {
+	BORDER-RIGHT: #000 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #000 1px solid; PADDING-LEFT: 5px; FONT-SIZE: 14px; PADDING-BOTTOM: 5px; MARGIN: 0px auto; BORDER-LEFT: #000 1px solid; PADDING-TOP: 5px; BORDER-BOTTOM: #000 1px solid
+}
+.cBackTab1 .small {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px
+}
+.cBackTab1 .small  {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px
+}
+.reponse .small {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px
+}
+.reponse .small  {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px
+}
+.cBackTab1 .small INPUT {
+	VERTICAL-ALIGN: middle
+}
+.reponse .small INPUT {
+	VERTICAL-ALIGN: middle
+}
+.tagclouds {
+	CLEAR: right; BORDER-RIGHT: #bbb 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #bbb 1px solid; DISPLAY: block; PADDING-LEFT: 10px; FONT-SIZE: 18px; FLOAT: right; PADDING-BOTTOM: 10px; BORDER-LEFT: #bbb 1px solid; WIDTH: 400px; PADDING-TOP: 10px; BORDER-BOTTOM: #bbb 1px solid; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif; TEXT-ALIGN: center
+}
+.tagclouds  {
+	DISPLAY: inline
+}
+.tagclouds H1 {
+	FONT-SIZE: 110%; COLOR: #f30; TEXT-DECORATION: none
+}
+.tagclouds H1  {
+	FONT-SIZE: 110%; COLOR: #f30; TEXT-DECORATION: none
+}
+.tagclouds H2 {
+	FONT-SIZE: 100%; COLOR: #9c3; TEXT-DECORATION: none
+}
+.tagclouds H2  {
+	FONT-SIZE: 100%; COLOR: #9c3; TEXT-DECORATION: none
+}
+.tagclouds H3 {
+	FONT-SIZE: 90%; COLOR: #393; TEXT-DECORATION: none
+}
+.tagclouds H3  {
+	FONT-SIZE: 90%; COLOR: #393; TEXT-DECORATION: none
+}
+.tagclouds H4 {
+	FONT-SIZE: 85%; COLOR: #399; TEXT-DECORATION: none
+}
+.tagclouds H4  {
+	FONT-SIZE: 85%; COLOR: #399; TEXT-DECORATION: none
+}
+.tagclouds H5 {
+	FONT-SIZE: 80%; COLOR: #933; TEXT-DECORATION: none
+}
+.tagclouds H5  {
+	FONT-SIZE: 80%; COLOR: #933; TEXT-DECORATION: none
+}
+.tagclouds H6 {
+	FONT-SIZE: 75%; COLOR: #3c9; TEXT-DECORATION: none
+}
+.tagclouds H6  {
+	FONT-SIZE: 75%; COLOR: #3c9; TEXT-DECORATION: none
+}
+.tagclouds A:hover {
+	TEXT-DECORATION: underline
+}
