@@ -1,8 +1,10 @@
 =head1 Introduction
 
-This directory contains Perl programs made till 2006.
+This directory contains Perl programs made from February 2003 till 2006.
 
 Perl version was 5.8.8 then 5.10 then back to 5.8.9 to maintains.
+
+Versions varied from one OS to another. It was started with and old FreeBSD  4.2 as far as I can remember. Due to backup problems, upgrade of the system data were lost hence,  a small peace of code was saved and the project was continued from that. Now that's the final release of 2006 off course :-).
 
 =head1 Instructions
 
