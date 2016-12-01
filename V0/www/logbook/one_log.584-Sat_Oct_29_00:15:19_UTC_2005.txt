@@ -1,5 +1,0 @@
-Sat Oct 29 00:15:19 UTC 2005
-Sat Oct 29 00:15:27 UTC 2005*X*8 sec(s)
-Sat Oct 29 00:15:27 UTC 2005*menu 1
-Sat Oct 29 00:16:27 UTC 2005*X*1 min(s)
-

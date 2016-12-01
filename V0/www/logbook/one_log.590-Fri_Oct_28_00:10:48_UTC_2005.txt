@@ -1,6 +1,0 @@
-Fri Oct 28 00:10:48 UTC 2005
-Fri Oct 28 00:12:35 UTC 2005*X*1 min(s) 47 sec(s)
-Fri Oct 28 00:12:36 UTC 2005*menu 2
-Fri Oct 28 00:13:16 UTC 2005*X*40 sec(s)
-
-Fri Oct 28 00:13:17 UTC 2005*menu 4

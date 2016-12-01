@@ -1,6 +1,0 @@
-/* x.dot */
-  digraph G {
-    URL="http://www.research.att.com/base.html";
-    command [URL="http://www.research.att.com/command.html"];
-    command -> output [URL="colors.html"];
-  }
