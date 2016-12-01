@@ -1,0 +1,8 @@
+=head1 Introduction
+
+Repository was set as it was started back in 20030201
+
+=head1 Notice
+
+Nothing much to declare.
+
