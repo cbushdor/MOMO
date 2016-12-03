@@ -12,9 +12,9 @@ To unpack use the following instructions.
 
 =over 12
 
-=item untar
+=item To untar or decompress:
 
-tar xpvf SourceWWW.tar
+	tar xpvf SourceWWW.tar
 
 =back
 
