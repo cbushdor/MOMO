@@ -1,18 +1,18 @@
-Directory
-=========
-* LGV: La Grande Vadrouille and Gantt files of the project   [execution](http://dorey.sebastien.free.fr/Project/LGV/mapr/Gantt/).
+=head1 Directory
+LGV: La Grande Vadrouille and Gantt files of the project   [execution](http://dorey.sebastien.free.fr/Project/LGV/mapr/Gantt/).
 
-* V1: first version of MAOP (My Album Of Pictures) [execution](http://derased.heliohost.org//cgi-bin/album.cgi).
+V0: verion made beafore the first release of MAOP.
 
-* V2: second version of MAOP (My Album Of Pictures). 
+V1: first version of MAOP (My Album Of Pictures) [execution](http://derased.heliohost.org//cgi-bin/album.cgi).
+
+V2: second version of MAOP (My Album Of Pictures). 
 
 
-* MyNavBase: this contains a program to include in a directory and it prints pod files at the bottom of the listing (if README.pod exists) [execution](http://derased.heliohost.org/).
+MyNavBase: this contains a program to include in a directory and it prints pod files at the bottom of the listing (if README.pod exists) [execution](http://derased.heliohost.org/).
 
-Branches:
-=========
-* dev: dedicated to future dev and present dev
+=head1 Branches
+master: current
 
-* master: current
+dev: dedicated to future dev and present dev
 
-* old: old dev before year 2007. Under it there is the version V0 which is the first version. That was found on old disks...
+old: old dev before year 2007. Under it there is the version V0 which is the first version. That was found on old disks...
