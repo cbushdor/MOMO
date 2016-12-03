@@ -8,8 +8,17 @@ Versions varied from one OS to another. It was started with and old FreeBSD  4.2
 
 =head1 Instructions
 
-To unpack use these instructions: tar xpvf SourceWWW.tar
+To unpack use these instructions: 
 
+=head2 Command line
+
+=over 12
+
+=item untar
+
+tar xpvf SourceWWW.tar
+
+=back
 
 =head1 Branches
 
