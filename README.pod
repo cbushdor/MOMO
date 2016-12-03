@@ -2,7 +2,7 @@
 
 LGV: La Grande Vadrouille and Gantt files of the project   [execution](http://dorey.sebastien.free.fr/Project/LGV/mapr/Gantt/).
 
-V0: verion made beafore the first release of MAOP.
+V0: verion made before the first release of MAOP.
 
 V1: first version of MAOP (My Album Of Pictures) [execution](http://derased.heliohost.org//cgi-bin/album.cgi).
 
