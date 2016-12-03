@@ -1,14 +1,15 @@
-Directory
-=========
-* LGV: La Grande Vadrouille and Gantt files of the project   [execution](http://dorey.sebastien.free.fr/Project/LGV/mapr/Gantt/).
+=head1 Directory
+LGV: La Grande Vadrouille and Gantt files of the project   [execution](http://dorey.sebastien.free.fr/Project/LGV/mapr/Gantt/).
 
-* V1: first version of MAOP (My Album Of Pictures) [execution](http://derased.heliohost.org//cgi-bin/album.cgi).
+V0: verion of MAOP released before the first version.
 
-* V2: second version of MAOP (My Album Of Pictures). 
+V1: first version of MAOP (My Album Of Pictures) [execution](http://derased.heliohost.org//cgi-bin/album.cgi).
 
-* MyNavBase: this contains a program to include in a directory and it prints pod files at the bottom of the listing (if README.pod exists) [execution](http://derased.heliohost.org/).
+V2: second version of MAOP (My Album Of Pictures). 
 
-* Cell directory added. This should/will contain, in the future, stuff regarding cell dev for the album project.
+MyNavBase: this contains a program to include in a directory and it prints pod files at the bottom of the listing (if README.pod exists) [execution](http://derased.heliohost.org/).
 
-* A merge between different repositories were done. Now complete history should be ok.
+Cell directory added. This should/will contain, in the future, stuff regarding cell dev for the album project.
+
+A merge between different repositories were done. Now complete history should be ok.
 
