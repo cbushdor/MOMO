@@ -1,3 +1,10 @@
+=head1 Forewords
+
+What else to say?
+
+It is old code. That's the begining of the project. It contains not the first code but the whole directory. So when untar you'll get all the old files that were used back in the day.
+
+
 =head1 Introduction
 
 This directory contains Perl programs made from February 2003 till 2006.
