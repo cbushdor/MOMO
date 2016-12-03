@@ -8,9 +8,7 @@ Versions varied from one OS to another. It was started with and old FreeBSD  4.2
 
 =head1 Instructions
 
-To unpack use these instructions: 
-
-=head2 Command line
+To unpack use the following instructions.
 
 =over 12
 
