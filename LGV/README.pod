@@ -1,0 +1,3 @@
+=head1 Content of the directory
+
+Contains .html code and .planner files.
