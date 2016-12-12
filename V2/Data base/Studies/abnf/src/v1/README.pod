@@ -34,6 +34,8 @@ L<Tested on 20160525a|/"Tested on 20160525a">
 
 L<Tested on 20160526a|/"Tested on 20160526a">
 
+L<Tested on 20161212a|/"Tested on 20161212a">
+
 =back
 
 L<Documents used to do that|/"Documents used to do that">
@@ -1375,6 +1377,17 @@ Here are the codes and executions...
 
 	Ok, it is over
 
+=back
+
+=head2 Tested on 20161212a
+
+First test with a picture. The picture introduce the tests done till now.
+
+=begin html
+
+<p><center><img src="https://github.com/cbushdor/My-Proj/blob/master/testsPod/Screen%20Shot%202016-12-12%20at%205.19.57%20AM.png" width="640" height="420" alt="Output from rich_strings.pl" /></center></p>
+
+=end html
 =back
 
 =head1 Documents used to do that
