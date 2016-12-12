@@ -1,6 +1,6 @@
 =pod
 
-... some Pod here
+some Pod here
 
 =begin html
 
