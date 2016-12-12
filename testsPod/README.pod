@@ -1,0 +1,15 @@
+=pod
+
+... some Pod here
+
+=begin html
+
+<p><center><img src="http://jmcnamara.github.com/excel-writer-xlsx/images/examples/rich_strings.jpg" width="640" height="420" alt="Output from rich_strings.pl" /></center></p>
+
+=end html
+
+... more Pod here.
+
+=cut
+
+
