@@ -1381,7 +1381,7 @@ Here are the codes and executions...
 
 =head2 Tested on 20161212a
 
-First test with a picture. The picture introduce the tests done till now.
+First test with a picture. The picture introduces the tests done till now.
 
 =begin html
 
