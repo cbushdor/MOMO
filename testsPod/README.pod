@@ -4,7 +4,7 @@
 
 =begin html
 
-<p><center><img src="Screen\ Shot\ 2016-12-12\ at\ 5.19.57\ AM.png" width="640" height="420" alt="Output from rich_strings.pl" /></center></p>
+<p><center><img src="https://github.com/cbushdor/My-Proj/blob/master/testsPod/Screen%20Shot%202016-12-12%20at%205.19.57%20AM.png" width="640" height="420" alt="Output from rich_strings.pl" /></center></p>
 
 =end html
 
