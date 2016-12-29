@@ -1,5 +1,6 @@
 =encoding utf8
 
+
 =head1 Index
 
 L<BASIC REPORT OF WHAT CAN DO PARSE.PL|/"BASIC REPORT OF WHAT CAN DO PARSE.PL">
@@ -35,6 +36,10 @@ L<Tested on 20160525a|/"Tested on 20160525a">
 L<Tested on 20160526a|/"Tested on 20160526a">
 
 L<Tested on 20161212a|/"Tested on 20161212a">
+
+L<Tested on 20161227|/"Tested on 20161227">
+
+L<Tested on 20161229|/"Tested on 20161229">
 
 =back
 
@@ -1269,7 +1274,7 @@ B<After modification:>
 	 109		$osbr{"$rn"}="rn"; # We create the reference in the hash but body is not yet defined
 	 110    } # End if(!defined($osbr{"$rn"}))
 
-=item * As you can watch its magic :-)
+=item As you can watch its magic :-)
 
 Here are the codes and executions...
 
@@ -1379,6 +1384,7 @@ Here are the codes and executions...
 
 =back
 
+
 =head2 Tested on 20161212a
 
 First test with a picture. The picture introduces the tests done till now.
@@ -1388,9 +1394,162 @@ First test with a picture. The picture introduces the tests done till now.
 <p><center><img src="https://github.com/cbushdor/My-Proj/blob/master/testsPod/Screen%20Shot%202016-12-12%20at%205.19.57%20AM.png" width="640" height="420" alt="Output from rich_strings.pl" /></center></p>
 
 =end html
+
+=head2 Tested on 20161227
+
+Read what as done previously because project came back to study.
+
+Basic regexp reviewed and enhanced.
+
+Basic tests were done and software were added s.a tmux. It was used but with care.
+
+
+=head2 Tested on 20161229
+
+Results are reached. A small peace of script was tested.
+
+=over 4
+
+=item Original script tested
+
+	The ... means that the script was truncated for ease to read.
+
+	35 ...
+	36 ; ------------------------------------------------------------
+	37 ;  This notation is accepted with the parser: see RFC rfc7405 p?
+	38 ; ------------------------------------------------------------
+	39     <mumble>     =  "%i" "foo bar" / foo / "%s" "faoo bar"
+	40                         foo ; this notation is equivalent to the one below
+	41 foo=%i"azerty" "fff" aaaa
+	42                         <gggg>
+	43 mumble      =  %i"foo bar" foo
+	44 
+	45 ... 
+
+=item Results
+
+	...
+
+	oooooooooooooooooooooooooooo
+	This is what we want <foo>
+	oooooooooooooooooooooooooooo
+	key(<mumble>): value(000000000000000000000000000000000000000000000000_39+<mumble>)
+	key(000000000000000000000000000000000000000000000000_39+<mumble>): value( _==mbZaEAiLfxEebLkBcjroYapXKsWYLxGWDRD==_ / <foo> / _==FRjmwRQSyvyQDbwAHENROLdwlTOZbWwRG==_ )
+	key(_==mbZaEAiLfxEebLkBcjroYapXKsWYLxGWDRD==_): value("%i" "foo bar")
+	key(_==FRjmwRQSyvyQDbwAHENROLdwlTOZbWwRG==_): value("%s" "faoo bar")
+	key(<foo>): value()
+	key(<mumble>): value()
+	This is what we want <foo>
+
+
+	oooooooooooooooooooooooooooo
+	key(<mumble>): value(000000000000000000000000000000000000000000000000_39+<mumble>)
+	key(000000000000000000000000000000000000000000000000_39+<mumble>): value( _==mbZaEAiLfxEebLkBcjroYapXKsWYLxGWDRD==_ / <foo> / _==FRjmwRQSyvyQDbwAHENROLdwlTOZbWwRG==_   <foo>  )
+	key(_==mbZaEAiLfxEebLkBcjroYapXKsWYLxGWDRD==_): value("%i" "foo bar")
+	key(_==FRjmwRQSyvyQDbwAHENROLdwlTOZbWwRG==_): value("%s" "faoo bar")
+	key(<foo>): value()
+	key(<mumble>): value()
+	This is what we want <aaaa>
+
+
+	oooooooooooooooooooooooooooo
+	key(<foo>): value(000000000000000000000000000000000000000000000001_41+<foo>)
+	key(<mumble>): value(000000000000000000000000000000000000000000000000_39+<mumble>)
+	key(000000000000000000000000000000000000000000000000_39+<mumble>): value( _==mbZaEAiLfxEebLkBcjroYapXKsWYLxGWDRD==_ / <foo> / _==FRjmwRQSyvyQDbwAHENROLdwlTOZbWwRG==_   <foo>  )
+	key(000000000000000000000000000000000000000000000001_41+<foo>): value( _==TkiLWAxDuwcFq==_ _==rRZQzJyzByuUyyfJGryI==_ <aaaa> )
+	key(_==mbZaEAiLfxEebLkBcjroYapXKsWYLxGWDRD==_): value("%i" "foo bar")
+	key(_==rRZQzJyzByuUyyfJGryI==_): value("fff")
+	key(_==TkiLWAxDuwcFq==_): value(%i"azerty")
+	key(_==FRjmwRQSyvyQDbwAHENROLdwlTOZbWwRG==_): value("%s" "faoo bar")
+	key(<foo>): value()
+	key(<mumble>): value()
+	key(<aaaa>): value()
+	This is what we want <gggg>
+
+
+	oooooooooooooooooooooooooooo
+	key(<foo>): value(000000000000000000000000000000000000000000000001_41+<foo>)
+	key(<mumble>): value(000000000000000000000000000000000000000000000000_39+<mumble>)
+	key(000000000000000000000000000000000000000000000000_39+<mumble>): value( _==mbZaEAiLfxEebLkBcjroYapXKsWYLxGWDRD==_ / <foo> / _==FRjmwRQSyvyQDbwAHENROLdwlTOZbWwRG==_   <foo>  )
+	key(000000000000000000000000000000000000000000000001_41+<foo>): value( _==TkiLWAxDuwcFq==_ _==rRZQzJyzByuUyyfJGryI==_ <aaaa>   <gggg>  )
+	key(_==mbZaEAiLfxEebLkBcjroYapXKsWYLxGWDRD==_): value("%i" "foo bar")
+	key(_==rRZQzJyzByuUyyfJGryI==_): value("fff")
+	key(_==TkiLWAxDuwcFq==_): value(%i"azerty")
+	key(_==FRjmwRQSyvyQDbwAHENROLdwlTOZbWwRG==_): value("%s" "faoo bar")
+	key(<foo>): value()
+	key(<mumble>): value()
+	key(<aaaa>): value()
+	key(<gggg>): value()
+	This is what we want <foo>
+	Line 43 <mumble> already defined+++.
+
+=item Comments
+
+	We have several hashes. A hash is created and contains the real rn or rd. RN stands for rule name and RD stands for Rule Definition.
+
+	The hash replaces in the string the real string (can contains spaces in it that bewteen doucle cot see example below).
+
+=item Example
+
+	41 foo=%i"azerty" "fff" aaaa
+	42 gggg
+
+	key(000000000000000000000000000000000000000000000001_41+<foo>): value( _==TkiLWAxDuwcFq==_ _==rRZQzJyzByuUyyfJGryI==_ <aaaa>   <gggg> 
+
+
+=item  Debuging session
+
+	oooooooooooooooooooooooooooo                                                           | 29 
+	main::(./parser.pl:75):         if(length($l)>0){ # Begin if(length($l)>0)             | 30 ; <aaaaa>= zzzzz %i"       eee_ee " rrrrr  %s" e r t y y uuuuuud"
+	  DB<2>                                                                                |          CRLF ; CRLF
+	main::(./parser.pl:77):                 &pht(%hrc); #  Hash Rule Correspond: Contains t│ 31 ; / "zz e  e" /  ; azeaz*ezaeezea
+	he definitions of the rules at a corresponding id.                                     │ 32 ; thfghghg / erty  ; azeazezaeezea
+	  DB<2>                                                                                │ 33 ; thfghghg="m m "  ; azeazezaeezea
+	key(<foo>): value(000000000000000000000000000000000000000000000001_41+<foo>)           │ 34 ; erty="e t y u u"; yuyuiyu
+	key(<mumble>): value(000000000000000000000000000000000000000000000000_39+<mumble>)     │ 35 
+	main::(./parser.pl:78):                 &pht(%hr); # Contains the definitions of the ru│ 36 ; ------------------------------------------------------------
+	les.                                                                                   │ 37 ;  This notation is accepted with the parser: see RFC rfc7405 p?
+	  DB<2>                                                                                │ 38 ; ------------------------------------------------------------
+	key(000000000000000000000000000000000000000000000000_39+<mumble>): value( _==WuKIgVXBVj│ 39     <mumble>     =  "%i" "foo bar" / foo / "%s" "faoo bar"
+	aFkRHGTFIOntkRjlDTpzDnQbRlw==_ / <foo> / _==meYBrcCMPNwjqSAOMfRjHSEMWvx==_   <foo>  )  │ 40                         foo ; this notation is equivalent to the one below
+	key(000000000000000000000000000000000000000000000001_41+<foo>): value( _==KQkaukfdOTYFx│ 41 foo=%i"azerty" "fff" aaaa
+	RAhpm==_ _==SGPvmwexgjIVmrxTqQ==_ <aaaa>   <gggg>  )                                   │ 42                         <gggg>
+	main::(./parser.pl:79):                 &pht(%sht); # String Hash Table. Contains strin│ 43 mumble      =  %i"foo bar" foo                                               gs is      some string between double cot occurs.                                           │ 44 
+	  DB<2>                                                                                │ 45 ; ------------------------------------------------------------
+	key(_==meYBrcCMPNwjqSAOMfRjHSEMWvx==_): value("%s" "faoo bar")                         │ 46 ;  This notation is accepted with the parser: see RFC 5234 p4
+	key(_==WuKIgVXBVjaFkRHGTFIOntkRjlDTpzDnQbRlw==_): value("%i" "foo bar")                │ 47 ; ------------------------------------------------------------
+	key(_==KQkaukfdOTYFxRAhpm==_): value(%i"azerty")                                       │ 48 rrrrr= %d13;CR
+	key(_==SGPvmwexgjIVmrxTqQ==_): value("fff")                                            │~                                                                                     main::(./parser.pl:80):                 &pht(%osbr); # Original hash Square Bracket Rul│./rules.abnf                                                                
+	es converted                                                                           │  1 #!/Users/sdo/perl5/perlbrew/build/perl-5.8.8/perl -d 
+	  DB<2>                                                                                │  2
+	key(<foo>): value()                                                                    │  3 #-T
+	key(<mumble>): value()                                                                 │  4
+	     key(<aaaa>): value()                                                              │  5 use strict;
+	     key(<gggg>): value()                                                              │  6 use Warnings;
+	main::(./parser.pl:83):                 if($l=~m/^${id_rn}[\t\ ]{0,}\={1,1}/){ # Begin │  7
+	if($l=~m/^${id_rn}[\t\ ]{0,}\={1,1}/)                                                  │  8 # Parser based on rfc5234
+	  DB<2>                                                                                │  9 my $irndosl=0; # is rule name defined on several lines 0=no 1=yes
+	main::(./parser.pl:85):                         $irndosl=0; # This line defines a rule │ 10 # () / * =/ -
+	name the value is 0=no                                                                 │ 11 #my $cpt=0;
+	  DB<2>                                                                                │ 12
+	main::(./parser.pl:86):                         $l =~ m/([^=]+)=(.+)/; # We old pattern│ 13 my $id_rn="[\<]{0,1}([a-zA-Z][\-a-zA-Z0-9]{0,})[\>]{0,1}"; # identify rule name
+	s in  $1 for rn and $2 for rd                                                          │ 14 my $id_rn_cont="(<){1,1}([a-zA-Z][\-a-zA-Z0-9]{0,})(>){1,1}"; # identify rule name
+	main::(./parser.pl:87):                         ($rn,$rd)=&new_tupple($1,$2); # rule na│ 15 my $id_rn_wd="([a-zA-Z][\-a-zA-Z0-9]{0,})"; # identify rule name without delimiter
+	me,rule delaration affectation                                                         │ 16
+	  DB<2>                                                                                │ 17 my $oper_concat=".";
+	main::(./parser.pl:101):                        if(defined($rn)){ # Begin if(defined($r│ 18
+	n))                                                                                    │ 19 # Definition of the alphabet
+	  DB<2>                                                                                │ 20 my $bin_digits="[01]{8}";# Alphabet for binary digits
+	main::(./parser.pl:102):                                if(!$irndosl){ # Begin if(!$irn│@
+	dosl)                                                                                  │./parser.pl
+	  DB<2>                                                                                │"./rules.abnf" 48L, 2294C written [1] 0:perl*
+											"macbook-pro-de-sdo.ho" 10:13 29-Dec-16
+
+
 =back
 
-=head1 Documents used to do that
+
+=head1 Basic tests were done and it was done successfully.
 
 Norm ABNF used from L<rfc5234|https://tools.ietf.org/html/rfc5234>.
 
