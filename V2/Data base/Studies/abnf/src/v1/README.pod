@@ -39,7 +39,9 @@ L<Tested on 20161212a|/"Tested on 20161212a">
 
 L<Tested on 20161227|/"Tested on 20161227">
 
-L<Tested on 20161229|/"Tested on 20161229">
+L<Tested on 20161229a|/"Tested on 20161229a">
+
+L<Tested on 20161229b|/"Tested on 20161229b">
 
 =back
 
@@ -1403,7 +1405,7 @@ Basic regexp reviewed and enhanced.
 
 Basic tests were done and software were added s.a tmux. It was used but with care.
 
-=head2 Tested on 20161229
+=head2 Tested on 20161229a
 
 Results are reached. A small peace of script was tested.
 
@@ -2300,6 +2302,351 @@ The code source is not yet stable. Only a aversion for debugging is available be
 
 =back
 
+
+=head2 Tested on 20161229b
+
+Entra tests were done. Now it is check that a rule name exists and is defined.
+
+=head2 Checks if the rule are declared but not defined (Error raised)
+
+=over 4
+
+=item The script that defined the abnf rule
+
+	; ------------------------------------------------------------
+	;          https://tools.ietf.org/pdf/rfc5234.pdf
+	; ------------------------------------------------------------
+
+	; ------------------------------------------------------
+	;  note that semicolumn starts comment rfc 5234 p9 §3.9
+	; ------------------------------------------------------
+
+	; rule form is definition defined paragraph 2 and naming 2.1 rfc5234
+
+	; zzzzz            =  "="  
+	; "fgdfdfgdfgdf" "bhgga" ; basic rule definition similar to below definition
+
+	; here we must have an error because rule name is already defined
+	; <zzzzz>            =  "="   "bhgga" ; basic rule definition similar to upper definition
+
+	; ------------------------------------------------------------
+	;  This notation is accepted with the parser: see RFC 5234 p5
+	; ------------------------------------------------------------
+	; rulename    =  %d97.98.99 ; check p4  rfc 5234 for definition of the base and concatenation p5 below notation is equivalent to this current line
+	 ;         aaa    =  %d97 %d98 %d99 ; check p4  rfc 5234 for definition of the base and concatenation p5 upper notation is equivalent to this current line
+
+	; zzzz="a"
+
+	; ------------------------------------------------------------
+	;  This notation is accepted with the parser: see RFC 5234 p5
+	; ------------------------------------------------------------
+	; CRLF	= 	%d13.10	; CRLF is written like that %d13.10 but is also written like that CR LF too CR=%d13 and LF=%d10
+
+	; <aaaaa>= zzzzz %i"       eee_ee " rrrrr  %s" e r t y y uuuuuud" 			CRLF ; CRLF
+	; / "zz e  e" /  ; azeaz*ezaeezea
+	; thfghghg / erty  ; azeazezaeezea
+	; thfghghg="m m "  ; azeazezaeezea
+	; erty="e t y u u"; yuyuiyu
+
+	; ------------------------------------------------------------
+	;  This notation is accepted with the parser: see RFC rfc7405 p?
+	; ------------------------------------------------------------
+	    <mumble>     =  "%i" "foo bar" / foo / "%s" "faoo bar"                 
+				foo ; this notation is equivalent to the one below
+	foo=%i"azerty" "fff" aaaa
+				<gggg>
+	mumbler      =  %i"foo bar" foo
+
+	; ------------------------------------------------------------
+	;  This notation is accepted with the parser: see RFC 5234 p4
+	; ------------------------------------------------------------
+	rrrrr= %d13;CR
+
+=item After execution of the parser: checks if the rules are declared and defined
+
+	...
+
+	oooooooooooooooooooooooooooo
+	1
+	2
+	3
+	4
+	This is what we want <foo>
+
+
+	oooooooooooooooooooooooooooo
+	1
+	key(<mumble>): value(000000000000000000000000000000000000000000000000_39+<mumble>)
+	2
+	key(000000000000000000000000000000000000000000000000_39+<mumble>): value( _==fZaGgjmOYPvTIWJdgoQLZMygbckeZsoRIHUNrbBTbsPbeAy==_ / <foo> / _==MFuodZFdosGPmtGpNxxWIdUCfiDkvXaD==_ )
+	3
+	key(_==MFuodZFdosGPmtGpNxxWIdUCfiDkvXaD==_): value("%s" "faoo bar")
+	key(_==fZaGgjmOYPvTIWJdgoQLZMygbckeZsoRIHUNrbBTbsPbeAy==_): value("%i" "foo bar")
+	4
+	key(<foo>): value()
+	key(<mumble>): value()
+	This is what we want <foo>
+
+
+	oooooooooooooooooooooooooooo
+	1
+	key(<mumble>): value(000000000000000000000000000000000000000000000000_39+<mumble>)
+	2
+	key(000000000000000000000000000000000000000000000000_39+<mumble>): value( _==fZaGgjmOYPvTIWJdgoQLZMygbckeZsoRIHUNrbBTbsPbeAy==_ / <foo> / _==MFuodZFdosGPmtGpNxxWIdUCfiDkvXaD==_   <foo>  )
+	3
+	key(_==MFuodZFdosGPmtGpNxxWIdUCfiDkvXaD==_): value("%s" "faoo bar")
+	key(_==fZaGgjmOYPvTIWJdgoQLZMygbckeZsoRIHUNrbBTbsPbeAy==_): value("%i" "foo bar")
+	4
+	key(<foo>): value()
+	key(<mumble>): value()
+	This is what we want <aaaa>
+
+
+	oooooooooooooooooooooooooooo
+	1
+	key(<foo>): value(000000000000000000000000000000000000000000000001_41+<foo>)
+	key(<mumble>): value(000000000000000000000000000000000000000000000000_39+<mumble>)
+	2
+	key(000000000000000000000000000000000000000000000000_39+<mumble>): value( _==fZaGgjmOYPvTIWJdgoQLZMygbckeZsoRIHUNrbBTbsPbeAy==_ / <foo> / _==MFuodZFdosGPmtGpNxxWIdUCfiDkvXaD==_   <foo>  )
+	key(000000000000000000000000000000000000000000000001_41+<foo>): value( _==WyqVIsNzGvtCjlyNPqfSjYujyPlPLjSvRniArh==_ _==BYIEDgFbwTCi==_ <aaaa> )
+	3
+	key(_==MFuodZFdosGPmtGpNxxWIdUCfiDkvXaD==_): value("%s" "faoo bar")
+	key(_==WyqVIsNzGvtCjlyNPqfSjYujyPlPLjSvRniArh==_): value(%i"azerty")
+	key(_==fZaGgjmOYPvTIWJdgoQLZMygbckeZsoRIHUNrbBTbsPbeAy==_): value("%i" "foo bar")
+	key(_==BYIEDgFbwTCi==_): value("fff")
+	4
+	key(<foo>): value()
+	key(<mumble>): value()
+	key(<aaaa>): value()
+	This is what we want <gggg>
+
+
+	oooooooooooooooooooooooooooo
+	1
+	key(<foo>): value(000000000000000000000000000000000000000000000001_41+<foo>)
+	key(<mumble>): value(000000000000000000000000000000000000000000000000_39+<mumble>)
+	2
+	key(000000000000000000000000000000000000000000000000_39+<mumble>): value( _==fZaGgjmOYPvTIWJdgoQLZMygbckeZsoRIHUNrbBTbsPbeAy==_ / <foo> / _==MFuodZFdosGPmtGpNxxWIdUCfiDkvXaD==_   <foo>  )
+	key(000000000000000000000000000000000000000000000001_41+<foo>): value( _==WyqVIsNzGvtCjlyNPqfSjYujyPlPLjSvRniArh==_ _==BYIEDgFbwTCi==_ <aaaa>   <gggg>  )
+	3
+	key(_==MFuodZFdosGPmtGpNxxWIdUCfiDkvXaD==_): value("%s" "faoo bar")
+	key(_==WyqVIsNzGvtCjlyNPqfSjYujyPlPLjSvRniArh==_): value(%i"azerty")
+	key(_==fZaGgjmOYPvTIWJdgoQLZMygbckeZsoRIHUNrbBTbsPbeAy==_): value("%i" "foo bar")
+	key(_==BYIEDgFbwTCi==_): value("fff")
+	4
+	key(<foo>): value()
+	key(<mumble>): value()
+	key(<aaaa>): value()
+	key(<gggg>): value()
+	This is what we want <foo>
+
+
+	oooooooooooooooooooooooooooo
+
+
+	oooooooooooooooooooooooooooo
+
+
+	oooooooooooooooooooooooooooo
+
+
+	oooooooooooooooooooooooooooo
+
+
+	oooooooooooooooooooooooooooo
+	1
+	key(<foo>): value(000000000000000000000000000000000000000000000001_41+<foo>)
+	key(<mumble>): value(000000000000000000000000000000000000000000000000_39+<mumble>)
+	key(<mumbler>): value(000000000000000000000000000000000000000000000002_43+<mumbler>)
+	2
+	key(000000000000000000000000000000000000000000000002_43+<mumbler>): value( _==AFhBYfSEW==_ <foo> )
+	key(000000000000000000000000000000000000000000000000_39+<mumble>): value( _==fZaGgjmOYPvTIWJdgoQLZMygbckeZsoRIHUNrbBTbsPbeAy==_ / <foo> / _==MFuodZFdosGPmtGpNxxWIdUCfiDkvXaD==_   <foo>  )
+	key(000000000000000000000000000000000000000000000001_41+<foo>): value( _==WyqVIsNzGvtCjlyNPqfSjYujyPlPLjSvRniArh==_ _==BYIEDgFbwTCi==_ <aaaa>   <gggg>  )
+	3
+	key(_==MFuodZFdosGPmtGpNxxWIdUCfiDkvXaD==_): value("%s" "faoo bar")
+	key(_==AFhBYfSEW==_): value(%i"foo bar")
+	key(_==WyqVIsNzGvtCjlyNPqfSjYujyPlPLjSvRniArh==_): value(%i"azerty")
+	key(_==fZaGgjmOYPvTIWJdgoQLZMygbckeZsoRIHUNrbBTbsPbeAy==_): value("%i" "foo bar")
+	key(_==BYIEDgFbwTCi==_): value("fff")
+	4
+	key(<foo>): value()
+	key(<mumble>): value()
+	key(<aaaa>): value()
+	key(<gggg>): value()
+	key(<mumbler>): value()
+
+	---------------------------------------------------------------------
+	---------------------------------------------------------------------
+
+	<foo> ------ 000000000000000000000000000000000000000000000001_41+<foo>
+	<mumble> ------ 000000000000000000000000000000000000000000000000_39+<mumble>
+	<mumbler> ------ 000000000000000000000000000000000000000000000002_43+<mumbler>
+	<rrrrr> ------ 000000000000000000000000000000000000000000000003_48+<rrrrr>
+
+	---------------------------------------------------------------------
+	---------------------------------------------------------------------
+
+	<mumble>-------> _==fZaGgjmOYPvTIWJdgoQLZMygbckeZsoRIHUNrbBTbsPbeAy==_ / <foo> / _==MFuodZFdosGPmtGpNxxWIdUCfiDkvXaD==_   <foo>  
+		Within definition of rule <mumble> matches at least a string...
+			String stored in rule <mumble>:_==fZaGgjmOYPvTIWJdgoQLZMygbckeZsoRIHUNrbBTbsPbeAy==_-->"%i" "foo bar"
+			String stored in rule <mumble>:_==MFuodZFdosGPmtGpNxxWIdUCfiDkvXaD==_-->"%s" "faoo bar"
+	<mumble>-------> "%i" "foo bar" / <foo> / "%s" "faoo bar"   <foo>   (original formated)
+
+	<foo>-------> _==WyqVIsNzGvtCjlyNPqfSjYujyPlPLjSvRniArh==_ _==BYIEDgFbwTCi==_ <aaaa>   <gggg>  
+		Within definition of rule <foo> matches at least a string...
+			String stored in rule <foo>:_==WyqVIsNzGvtCjlyNPqfSjYujyPlPLjSvRniArh==_-->%i"azerty"
+			String stored in rule <foo>:_==BYIEDgFbwTCi==_-->"fff"
+	<foo>-------> %i"azerty" "fff" <aaaa>   <gggg>   (original formated)
+
+	<mumbler>-------> _==AFhBYfSEW==_ <foo> 
+		Within definition of rule <mumbler> matches at least a string...
+			String stored in rule <mumbler>:_==AFhBYfSEW==_-->%i"foo bar"
+	<mumbler>-------> %i"foo bar" <foo>  (original formated)
+
+	<rrrrr>-------> %d13
+
+B< 	E<lt>aaaaE<gt> is not defined >
+
+=back
+
+=head2 Checks if the rules are already declared (Error raised)
+
+If there are declared twice
+
+=over 4
+
+=item Script to check
+
+	; ------------------------------------------------------------
+	;          https://tools.ietf.org/pdf/rfc5234.pdf
+	; ------------------------------------------------------------
+
+	; ------------------------------------------------------
+	;  note that semicolumn starts comment rfc 5234 p9 §3.9
+	; ------------------------------------------------------
+
+	; rule form is definition defined paragraph 2 and naming 2.1 rfc5234
+
+	; zzzzz            =  "="  
+	; "fgdfdfgdfgdf" "bhgga" ; basic rule definition similar to below definition
+
+	; here we must have an error because rule name is already defined
+	; <zzzzz>            =  "="   "bhgga" ; basic rule definition similar to upper definition
+
+	; ------------------------------------------------------------
+	;  This notation is accepted with the parser: see RFC 5234 p5
+	; ------------------------------------------------------------
+	; rulename    =  %d97.98.99 ; check p4  rfc 5234 for definition of the base and concatenation p5 below notation is equivalent to this current line
+	 ;         aaa    =  %d97 %d98 %d99 ; check p4  rfc 5234 for definition of the base and concatenation p5 upper notation is equivalent to this current line
+
+	; zzzz="a"
+
+	; ------------------------------------------------------------
+	;  This notation is accepted with the parser: see RFC 5234 p5
+	; ------------------------------------------------------------
+	; CRLF	= 	%d13.10	; CRLF is written like that %d13.10 but is also written like that CR LF too CR=%d13 and LF=%d10
+
+	; <aaaaa>= zzzzz %i"       eee_ee " rrrrr  %s" e r t y y uuuuuud" 			CRLF ; CRLF
+	; / "zz e  e" /  ; azeaz*ezaeezea
+	; thfghghg / erty  ; azeazezaeezea
+	; thfghghg="m m "  ; azeazezaeezea
+	; erty="e t y u u"; yuyuiyu
+
+	; ------------------------------------------------------------
+	;  This notation is accepted with the parser: see RFC rfc7405 p?
+	; ------------------------------------------------------------
+	    <mumble>     =  "%i" "foo bar" / foo / "%s" "faoo bar"                 
+				foo ; this notation is equivalent to the one below
+	foo=%i"azerty" "fff" aaaa
+				<gggg>
+	mumble      =  %i"foo bar" foo
+
+	; ------------------------------------------------------------
+	;  This notation is accepted with the parser: see RFC 5234 p4
+	; ------------------------------------------------------------
+	rrrrr= %d13;CR
+
+=item Execution of the parser (Error must be raised)
+
+...
+
+	oooooooooooooooooooooooooooo
+	1
+	2
+	3
+	4
+	This is what we want <foo>
+
+
+	oooooooooooooooooooooooooooo
+	1
+	key(<mumble>): value(000000000000000000000000000000000000000000000000_39+<mumble>)
+	2
+	key(000000000000000000000000000000000000000000000000_39+<mumble>): value( _==MpQTADfJYejrBbVlRZDOJNbuxPZpVWNvwwJwZjy==_ / <foo> / _==hhdKMpprBMsJBFapBUKSRofCOZSSLjnunSHmvsDh==_ )
+	3
+	key(_==MpQTADfJYejrBbVlRZDOJNbuxPZpVWNvwwJwZjy==_): value("%i" "foo bar")
+	key(_==hhdKMpprBMsJBFapBUKSRofCOZSSLjnunSHmvsDh==_): value("%s" "faoo bar")
+	4
+	key(<foo>): value()
+	key(<mumble>): value()
+	This is what we want <foo>
+
+
+	oooooooooooooooooooooooooooo
+	1
+	key(<mumble>): value(000000000000000000000000000000000000000000000000_39+<mumble>)
+	2
+	key(000000000000000000000000000000000000000000000000_39+<mumble>): value( _==MpQTADfJYejrBbVlRZDOJNbuxPZpVWNvwwJwZjy==_ / <foo> / _==hhdKMpprBMsJBFapBUKSRofCOZSSLjnunSHmvsDh==_   <foo>  )
+	3
+	key(_==MpQTADfJYejrBbVlRZDOJNbuxPZpVWNvwwJwZjy==_): value("%i" "foo bar")
+	key(_==hhdKMpprBMsJBFapBUKSRofCOZSSLjnunSHmvsDh==_): value("%s" "faoo bar")
+	4
+	key(<foo>): value()
+	key(<mumble>): value()
+	This is what we want <aaaa>
+
+
+	oooooooooooooooooooooooooooo
+	1
+	key(<foo>): value(000000000000000000000000000000000000000000000001_41+<foo>)
+	key(<mumble>): value(000000000000000000000000000000000000000000000000_39+<mumble>)
+	2
+	key(000000000000000000000000000000000000000000000000_39+<mumble>): value( _==MpQTADfJYejrBbVlRZDOJNbuxPZpVWNvwwJwZjy==_ / <foo> / _==hhdKMpprBMsJBFapBUKSRofCOZSSLjnunSHmvsDh==_   <foo>  )
+	key(000000000000000000000000000000000000000000000001_41+<foo>): value( _==KGbNLyvCYqcXXggUkjiozxkafyqjd==_ _==ainOOUiKRmCrRZglRTURzBajpL==_ <aaaa> )
+	3
+	key(_==KGbNLyvCYqcXXggUkjiozxkafyqjd==_): value(%i"azerty")
+	key(_==MpQTADfJYejrBbVlRZDOJNbuxPZpVWNvwwJwZjy==_): value("%i" "foo bar")
+	key(_==ainOOUiKRmCrRZglRTURzBajpL==_): value("fff")
+	key(_==hhdKMpprBMsJBFapBUKSRofCOZSSLjnunSHmvsDh==_): value("%s" "faoo bar")
+	4
+	key(<foo>): value()
+	key(<mumble>): value()
+	key(<aaaa>): value()
+	This is what we want <gggg>
+
+
+	oooooooooooooooooooooooooooo
+	1
+	key(<foo>): value(000000000000000000000000000000000000000000000001_41+<foo>)
+	key(<mumble>): value(000000000000000000000000000000000000000000000000_39+<mumble>)
+	2
+	key(000000000000000000000000000000000000000000000000_39+<mumble>): value( _==MpQTADfJYejrBbVlRZDOJNbuxPZpVWNvwwJwZjy==_ / <foo> / _==hhdKMpprBMsJBFapBUKSRofCOZSSLjnunSHmvsDh==_   <foo>  )
+	key(000000000000000000000000000000000000000000000001_41+<foo>): value( _==KGbNLyvCYqcXXggUkjiozxkafyqjd==_ _==ainOOUiKRmCrRZglRTURzBajpL==_ <aaaa>   <gggg>  )
+	3
+	key(_==KGbNLyvCYqcXXggUkjiozxkafyqjd==_): value(%i"azerty")
+	key(_==MpQTADfJYejrBbVlRZDOJNbuxPZpVWNvwwJwZjy==_): value("%i" "foo bar")
+	key(_==ainOOUiKRmCrRZglRTURzBajpL==_): value("fff")
+	key(_==hhdKMpprBMsJBFapBUKSRofCOZSSLjnunSHmvsDh==_): value("%s" "faoo bar")
+	4
+	key(<foo>): value()
+	key(<mumble>): value()
+	key(<aaaa>): value()
+	key(<gggg>): value()
+	This is what we want <foo>
+
+B<	Line 43 E<lt>mumbleE<gt> already defined+++. >
+
+=back
 
 =head1 Basic tests were done and it was done successfully.
 
