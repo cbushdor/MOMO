@@ -1483,11 +1483,15 @@ Results are reached. A small peace of script was tested.
 	This is what we want <foo>
 	Line 43 <mumble> already defined+++.
 
-=item Comments
+=back
+
+=head2 Comments
 
 	We have several hashes. A hash is created and contains the real rn or rd. RN stands for rule name and RD stands for Rule Definition.
 
 	The hash replaces in the string the real string (can contains spaces in it that bewteen doucle cot see example below).
+
+=over 4
 
 =item Example
 
@@ -1546,10 +1550,16 @@ Results are reached. A small peace of script was tested.
 											"macbook-pro-de-sdo.ho" 10:13 29-Dec-16
 
 
-=item Code source
+=back
+
+=head3 Code source comments
 
 	The code source is not yet stable. Only a aversion for debugging is available below.
 
+
+=over 4
+
+=item The source
 
 	#!/Users/sdo/perl5/perlbrew/build/perl-5.8.8/perl 
 
