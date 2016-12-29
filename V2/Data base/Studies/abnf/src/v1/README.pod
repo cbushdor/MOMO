@@ -1403,7 +1403,6 @@ Basic regexp reviewed and enhanced.
 
 Basic tests were done and software were added s.a tmux. It was used but with care.
 
-
 =head2 Tested on 20161229
 
 Results are reached. A small peace of script was tested.
@@ -1487,9 +1486,9 @@ Results are reached. A small peace of script was tested.
 
 =head2 Comments
 
-	We have several hashes. A hash is created and contains the real rn or rd. RN stands for rule name and RD stands for Rule Definition.
+We have several hashes. A hash is created and contains the real rn or rd. RN stands for rule name and RD stands for Rule Definition.
 
-	The hash replaces in the string the real string (can contains spaces in it that bewteen doucle cot see example below).
+The hash replaces in the string the real string (can contains spaces in it that bewteen doucle cot see example below).
 
 =over 4
 
@@ -1552,10 +1551,9 @@ Results are reached. A small peace of script was tested.
 
 =back
 
-=head3 Code source comments
+=head3 The source comments
 
-	The code source is not yet stable. Only a aversion for debugging is available below.
-
+The code source is not yet stable. Only a aversion for debugging is available below.
 
 =over 4
 
