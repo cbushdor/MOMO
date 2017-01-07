@@ -2653,9 +2653,12 @@ B<	Line 43 E<lt>mumbleE<gt> already defined+++. >
 =head1 Experiences (20170106)
 
 Experience #1
+
 .............
+
 	Result
-	──────────────────────────────────────────────────────────────────────────────────────────	Let me give you the result: it was a faillure.
+	──────────────────────────────────────────────────────────────────────────────────────────
+	Let me give you the result: it was a faillure.
 
 	Description of the experience
 	──────────────────────────────────────────────────────────────────────────────────────────
@@ -2696,10 +2699,11 @@ Experience #1
 	
 	It works but it is not comfortable to debug.
 
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 Experience #2
+
 .............
 
 	Case 1: after checking the rules I noticed that <fOo> and <foo> rule names were treated differently.
