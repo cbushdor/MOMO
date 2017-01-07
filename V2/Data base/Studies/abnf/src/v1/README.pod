@@ -43,6 +43,8 @@ L<Tested on 20161229a|/"Tested on 20161229a">
 
 L<Tested on 20161229b|/"Tested on 20161229b">
 
+L<Experiences (20170106)|"Experiences (20170106)">
+
 =back
 
 L<Documents used to do that|/"Documents used to do that">
@@ -2647,6 +2649,152 @@ If there are declared twice
 B<	Line 43 E<lt>mumbleE<gt> already defined+++. >
 
 =back
+
+=head1 Experiences (20170106)
+
+Experience #1
+.............
+	Result
+	──────────────────────────────────────────────────────────────────────────────────────────	Let me give you the result: it was a faillure.
+
+	Description of the experience
+	──────────────────────────────────────────────────────────────────────────────────────────
+	I tried to replace the regexp by a string that contains the regexp and then replace the regexp by the string s.a see below:
+
+	Basic Exemples
+	──────────────────────────────────────────────────────────────────────────────────────────
+
+	The original regexp
+			47 
+			48 my $line_with_spaces_or_tabs_only="^[\t\ ]{0,}\$";
+			49 
+			....
+			87 $lnum++; # We increment the number of line
+			88 $l=~s/"^[\t\ ]{0,}\$//; # we clean the line
+			    
+
+	by this
+			47 
+			48 my $line_with_spaces_or_tabs_only="^[\t\ ]{0,}\$";
+			49 
+			....
+			87 $lnum++; # We increment the number of line
+			88 $l=~s/${line_with_spaces_or_tabs_only}//; # we clean the line
+			    
+	Why and because
+	──────────────────────────────────────────────────────────────────────────────────────────
+	While this example is working well it is not the easy to see characters in the debugging session.
+
+			p ">${line_with_spaces_or_tabs_only}<"
+
+	for instance won't print characters as a text but as a result we won't see anything.
+	It will print:
+			> 	<
+
+	instead of:
+			^[\t\ ]{0,}$
+	
+	It works but it is not comfortable to debug.
+
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+Experience #2
+.............
+
+	Case 1: after checking the rules I noticed that <fOo> and <foo> rule names were treated differently.
+	In the rfc 5234 §2.1 it is said case insensitive. The following is what I've got.
+
+
+	Extract of the file: ./rules.abnf
+	──────────────────────────────────────────────────────────────────────────────────────────
+	550 sub store_rn{ # Begin sub store_rn
+	551         my ($lrn)= $1;
+	  
+
+
+	The file: ./rules.abnf
+	──────────────────────────────────────────────────────────────────────────────────────────
+	41 foo=%i"azerty" "fff" aaaa azezezaeaz
+	42                         <gggg>
+	43 mumblue      =  %i"foo bar" fOo
+	    
+
+	Result of the execution of ./parser.pl
+	──────────────────────────────────────────────────────────────────────────────────────────
+	rules.abnf: Error rule name <fOo> is not defined
+
+
+************************************************************************************************************************************************************************************
+
+	Case 2: after corrections in several sub I have these peace of codes:
+
+	550 sub store_rn{ # Begin sub store_rn
+	551         my ($lrn)= lc $1;
+	552 
+
+	and this peace of code:
+
+	724 sub new_tupple{ # Begin sub new_tupple
+	723         my($rn,$rd)=@_; # rule name (rn),rule delaration (rd)
+	724 
+	725         return (lc $rn,$rd);
+	726 } # End sub new_tupple
+	727 
+
+	──────────────────────────────────────────────────────────────────────────────────────────
+
+	Ok, it is over
+
+	---------------------------------------------------------------------
+	---------------------------------------------------------------------
+
+	<aaaa> ------ 00000000000000000000000000000000000000000000000003_44+<aaaa>
+	<azezezaeaz> ------ 00000000000000000000000000000000000000000000000005_46+<azezezaeaz>
+	<foo> ------ 00000000000000000000000000000000000000000000000001_41+<foo>
+	<gggg> ------ 00000000000000000000000000000000000000000000000004_45+<gggg>
+	<mumble> ------ 00000000000000000000000000000000000000000000000000_39+<mumble>
+	<mumblue> ------ 00000000000000000000000000000000000000000000000002_43+<mumblue>
+
+	---------------------------------------------------------------------
+	---------------------------------------------------------------------
+
+	<mumble>-------> _==bwUQudbPMUHcSgOGhaxIfoKcEj==_ / <foo> / _==qxbaTVuEmcGmcusTfZswryYQaMO==_   <foo>  
+		Within definition of rule <mumble> matches at least a string...
+			String stored in rule <mumble>:_==bwUQudbPMUHcSgOGhaxIfoKcEj==_-->"%i" "foo bar"
+			String stored in rule <mumble>:_==qxbaTVuEmcGmcusTfZswryYQaMO==_-->"%s" "faoo bar"
+	<mumble>-------> "%i" "foo bar" / <foo> / "%s" "faoo bar"   <foo>   (original formated)
+
+	<foo>-------> _==XjkfqXhBswzKmyDjufFdhJeTI==_ _==MmNWsskcSlNDuBcwma==_ <aaaa> <azezezaeaz>   <gggg>  
+		Within definition of rule <foo> matches at least a string...
+			String stored in rule <foo>:_==XjkfqXhBswzKmyDjufFdhJeTI==_-->%i"azerty"
+			String stored in rule <foo>:_==MmNWsskcSlNDuBcwma==_-->"fff"
+	<foo>-------> %i"azerty" "fff" <aaaa> <azezezaeaz>   <gggg>   (original formated)
+
+	<mumblue>-------> _==kkUbSIYMtKVhpgfExdQKcYgmleyLnhLaG==_ <foo> 
+		Within definition of rule <mumblue> matches at least a string...
+			String stored in rule <mumblue>:_==kkUbSIYMtKVhpgfExdQKcYgmleyLnhLaG==_-->%i"foo bar"
+	<mumblue>-------> %i"foo bar" <foo>  (original formated)
+
+	<aaaa>-------> _==EmWUQCIoMsKJaQkgIVPtKkXHeeSdvotRCXc==_ 
+		Within definition of rule <aaaa> matches at least a string...
+			String stored in rule <aaaa>:_==EmWUQCIoMsKJaQkgIVPtKkXHeeSdvotRCXc==_-->"1"
+	<aaaa>-------> "1"  (original formated)
+
+	<gggg>-------> _==PbjfozxtzOGuZGSGeNnDkCTPtvAGLHFBcXDqOSHoauXR==_ 
+		Within definition of rule <gggg> matches at least a string...
+			String stored in rule <gggg>:_==PbjfozxtzOGuZGSGeNnDkCTPtvAGLHFBcXDqOSHoauXR==_-->"2"
+	<gggg>-------> "2"  (original formated)
+
+	<azezezaeaz>-------> _==BcqBzSzRmcHLYqhJepTDbX==_ 
+		Within definition of rule <azezezaeaz> matches at least a string...
+			String stored in rule <azezezaeaz>:_==BcqBzSzRmcHLYqhJepTDbX==_-->"4343"
+	<azezezaeaz>-------> "4343"  (original formated)
+
+
+Hence Q.E.D.
+
+
 
 =head1 Basic tests were done and it was done successfully.
 
