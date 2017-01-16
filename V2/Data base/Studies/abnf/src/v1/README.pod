@@ -45,6 +45,8 @@ L<Tested on 20161229b|/"Tested on 20161229b">
 
 L<Experiences (20170106)|"Experiences (20170106)">
 
+L<Tests and TODO with parser.t and, MyABNF.pm (20170113)|"Tests and TODO with, parser.t and MyABNF.pm this (20170113) ">
+
 =back
 
 L<Documents used to do that|/"Documents used to do that">
@@ -2799,6 +2801,49 @@ Experience #2
 Hence Q.E.D.
 
 
+=head1 Tests and TODO with parser.t and, MyABNF.pm (20170113)
+
+=head2 Introduction of the tests
+
+	After modifying the module MyABNF.pm we need to test it but some feature are not implemented yet.
+
+=head2 This test is showing that.
+
+	What was done to get this: the COMMAND LINE
+
+	After the execution of prove -v ./parser.t . Here re the source: Download Parser and Download MyABNF and off course the script tested Download Rules.
+
+
+	That's it nothin much than the end of the world
+
+
+=head2  The trace
+
+	./parser.t ..
+	1..6
+	ok 1 - use MyABNF;
+	ok 2 - main->can('set_abnf')
+	ok 3 - main->can('start')
+	not ok 4 # TODO new commant not yet implemented. continuum not yet harnessed
+
+	#   Failed (TODO) test at ./parser.t line 19.
+	not ok 5 # TODO new commant not yet implemented. continuum not yet harnessed
+	#   Failed (TODO) test at ./parser.t line 20.
+	not ok 6 - ensuring that we have added text by some day... # TODO new commant not yet implemented. continuum not yet harnessed
+	#   Failed (TODO) test 'ensuring that we have added text by some day...'
+	#   at ./parser.t line 22.
+	#     '0'
+	#         <
+	#     '0'
+	ok
+	All tests successful.
+	Files=1, Tests=6,  0 wallclock secs ( 0.02 usr  0.00 sys +  0.03 cusr  0.00 csys =  0.05 CPU)
+	Result: PASS
+
+
+=head2 Explanation
+
+	Well that's an execution that says that there is 6 tests and 3 of them are telling that they are not implemened yet.
 
 =head1 Basic tests were done and it was done successfully.
 
