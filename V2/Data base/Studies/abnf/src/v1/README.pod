@@ -45,7 +45,7 @@ L<Tested on 20161229b|/"Tested on 20161229b">
 
 L<Experiences (20170106)|"Experiences (20170106)">
 
-L<Tests and TODO with parser.t and, MyABNF.pm (20170113)|"Tests and TODO with, parser.t and MyABNF.pm this (20170113) ">
+L<Tests and TODO with parser.t MyABNF.pm (20170113)|"Tests and TODO with parser.t MyABNF.pm (20170113)">
 
 =back
 
@@ -2801,7 +2801,7 @@ Experience #2
 Hence Q.E.D.
 
 
-=head1 Tests and TODO with parser.t and, MyABNF.pm (20170113)
+=head1 Tests and TODO with parser.t MyABNF.pm (20170113)
 
 =head2 Introduction of the tests
 
