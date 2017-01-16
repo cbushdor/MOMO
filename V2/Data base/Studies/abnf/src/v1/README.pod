@@ -2813,9 +2813,13 @@ Hence Q.E.D.
 
 	After the execution of prove -v ./parser.t . Here re the source: Download Parser and Download MyABNF and off course the script tested Download Rules.
 
+=begin HTML
 
-	That's it nothin much than the end of the world
+<center>
+<p><img src="http://sharkb.typepad.com/.a/6a013484ae5cb1970c01b7c8c9255f970b-800wi" width="500" height="250" alt="Line Chart" /></p>
+That's it nothin much than the end of the world</center>
 
+=end HTML
 
 =head2  The trace
 
