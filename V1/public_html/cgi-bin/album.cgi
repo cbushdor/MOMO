@@ -81,11 +81,10 @@ my $timsec=time();
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '15.170'; # Album release
+use constant ALBUM_REL               	=> '15.179'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
-use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
-#use constant HOSTED_BY_URL 		=> 'http://www.heliohost.org';    # That's the url of host name
+use constant HOSTED_BY     		=> 'effers.com ';        # That's the host name
 use constant HOSTED_BY_URL 		=> 'https://dorey.effers.com/~sdo/';    # That's the url of host name
 use constant TESTED_WITH_BROWSERS    	=> 'Firefox V27.0.1,Safari V5.1.7,Opera V11.64'; # That's browsers tested
 use constant MAX_PAGE_PER_LINE_INDEX 	=> 20; # That's max of page in browser that shows up on one line.
