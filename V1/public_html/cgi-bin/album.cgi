@@ -85,7 +85,8 @@ use constant ALBUM_REL               	=> '15.170'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'Helio host ';        # That's the host name
-use constant HOSTED_BY_URL 		=> 'http://www.heliohost.org';    # That's the url of host name
+#use constant HOSTED_BY_URL 		=> 'http://www.heliohost.org';    # That's the url of host name
+use constant HOSTED_BY_URL 		=> 'https://dorey.effers.com/~sdo/';    # That's the url of host name
 use constant TESTED_WITH_BROWSERS    	=> 'Firefox V27.0.1,Safari V5.1.7,Opera V11.64'; # That's browsers tested
 use constant MAX_PAGE_PER_LINE_INDEX 	=> 20; # That's max of page in browser that shows up on one line.
 use constant MAX_IMAGES_PER_PAGE     	=> 5; # Maximum of images per page
@@ -6207,7 +6208,7 @@ Google ID:<input type='text' name='maop_googid' />
 		var idx = document.myform.operationokdelete.selectedIndex;
 		var choice = document.myform.operationokdelete.options[idx].innerHTML;
 		var myurl=new String("$myuri$myport/$myscript?maop_googid="+choice+"&maop_gmv=3-0");
-		var r=alert("http://"+myurl.replace(/[\/]{2,}/g,"/")); // Regexp used to eliminate bugs while printing URL   ....
+		var r=alert("https://"+myurl.replace(/[\/]{2,}/g,"/")); // Regexp used to eliminate bugs while printing URL   ....
 		
 		document.myform.submit(); 
 	} // End function listToList()
@@ -7362,7 +7363,7 @@ sub setGoogleID{# begin setGoogleID
 	} # End else
 }# end setGoogleID
 
-sub myrec{
+sub myrec{ # Begin sub myrec
 	my ($c,$f,$m)=@_;
 	my $mainp=(split(/[\\\/]/,"$0"))[scalar(split(/[\\\/]/,"$0"))-1]; # gets program name
 		my $dt = DateTime->from_epoch( epoch => time() );# Current date format DateTime
@@ -7377,7 +7378,7 @@ sub myrec{
 	print W "<b>******************End**************************<br>\n";
 	print W "</pre><br><br>\n";
 	close(W)||die("error close$!");
-}
+} # End sub myrec
 
 =head1 AUTHOR
 
