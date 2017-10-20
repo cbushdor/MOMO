@@ -6207,9 +6207,15 @@ Google ID:<input type='text' name='maop_googid' />
 		var idx = document.myform.operationokdelete.selectedIndex;
 		var choice = document.myform.operationokdelete.options[idx].innerHTML;
 		var myurl=new String("$myuri$myport/$myscript?maop_googid="+choice+"&maop_gmv=3-0");
-		var r=alert("https://"+myurl.replace(/[\/]{2,}/g,"/")); // Regexp used to eliminate bugs while printing URL   ....
+		//var r=alert("https://"+myurl.replace(/[\/]{2,}/g,"/")); // Regexp used to eliminate bugs while printing URL   ....
+		var set_r="https://"+myurl.replace(/[\/]{2,}/g,"/"); // Regexp used to eliminate bugs while printing URL   ....
+		var answer=confirm("Please click OK to continue. / Appuyer sur OK pour continuer.");
 		
-		document.myform.submit(); 
+		if(answer){
+			window.location=set_r;
+		}
+		
+		//	document.myform.submit(); 
 	} // End function listToList()
 
 	function myList(){ // Begin function myList()
