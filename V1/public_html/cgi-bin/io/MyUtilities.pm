@@ -412,8 +412,16 @@ sub footer {    # begin sub footer
   ,$hosted_url
   ,$hosted_by
   ) = @_;
+  # Checks footer url
+  my $chkf= <<CHECK;
+  <script>
+  	var murl="https://validator.w3.org/check?uri=";
+	document.write("<a href='"+murl+encodeURI(document.URL)+"'>Syntax validator</a>");
+  </script>
+CHECK
   return 
     "	<div id=\"my_footer\">\n".
+    "<script>document.write('hello');</script>\n".
       $doc->table(
 		  {
 		   -class => "footer",
@@ -430,7 +438,7 @@ sub footer {    # begin sub footer
 				    . "\n" . $doc->a(
 					      {
 					       -href =>
-					       'mailto:sdo@laposte.net?subject=Album of pictures'
+					       'mailto:esse.dho@laposte.net?subject=Album of pictures'
 					      },
 					      MANAGER
 					     )
@@ -454,9 +462,11 @@ sub footer {    # begin sub footer
 				    . $doc->br
 				    . "<font class=\"footer\">Script version "
 				    . $version . $doc->br
-				    . "Tested with browsers: "
-				    . $browsers . "."
-				    . "</font>\n<br />" .
+				    #. "Tested with browsers: "
+				    #. $browsers . "."
+				    . "</font>\n<br />" 
+				    #. "<script>document.write('<a href=\"https://validator.w3.org/check?uri=');</script>\n"
+				    . "$chkf\n" .
 					"\n"
 				   ),"\n".
 			   $doc->td(
