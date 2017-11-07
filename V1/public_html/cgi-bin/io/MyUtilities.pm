@@ -421,7 +421,7 @@ sub footer {    # begin sub footer
 CHECK
   return 
     "	<div id=\"my_footer\">\n".
-    "<script>document.write('hello');</script>\n".
+    "<!-- <script>document.write('hello');</script> -->\n".
       $doc->table(
 		  {
 		   -class => "footer",
