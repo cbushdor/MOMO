@@ -18,7 +18,7 @@ use Time::localtime;
 use Time::Local;
 use Try::Tiny;
 use Cwd;
-#use POSIX;
+use POSIX 'strftime';
 use Encode;
 use URI::Escape;
 
@@ -606,7 +606,7 @@ $mparam=~s/^\&//;
 		$url="https://192.168.1.13/~sdo/cgi-bin/maop.cgi\?$mparam";
 		print "</br>$url<br>";
 		print "</br>IP---->$ipAddr<br>defined:" . defined($ipAddr) . "<br>192\.168\.1\.13 ? match example2.dev :". ($ipAddr=~m!example2.dev!) ."<<br>";
-		sleep(15);
+		#sleep(15);
 		#exit(-1);
 	} # End elsif(! defined($ipAddr)||$ipAddr=~m/^192\.168\.1\.13/||$ipAddr=~m!example2.dev!)
 	else{ # Begin else
@@ -1087,7 +1087,7 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 					print W ".";
 					close(W);
 					##&raised_upload_window;
-					sleep(1);
+#					sleep(1);
 #					print "ooooooo".ALLOWED_FILE_FORMAT_TYPE."<br />";
 					if(length(uri_unescape($doc->param("maop_file_name_img")))>0){
 						# watch out case of youtube
@@ -6299,6 +6299,11 @@ None.
 
 
 sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
+	#my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
+	#my $now = sprintf("%04d-%02d-%02dT%02d:%02d:%02d", $year+1900, $mon, $mday, $hour, $min, $sec);
+	my $dt=DateTime->now;#
+	my $nowMyFormat=join 'T', $dt->ymd, $dt->hms;
+	print "******************>$nowMyFormat\n";
 # --------------google id
 	#chomp($mtzg);
 	# ---------------done---------------------------------------------------------------------------------- Ruler
@@ -6419,8 +6424,10 @@ function myList(){ /*  Begin function myList() */
 		"<input type='hidden' name='maop_TRIP_ID' value='ok' />" +
 		"Trip name:<input type='text' name='maop_googid' /> " +
 		"<br>Email to send: <input type='email' name='maop_email' value='dorey_s\@laposte.net'>" +
-		"<br>Begining of the trip (2014-02-22T15:50)<input type='datetime-local' name='maop_bdaytime'>$ltznb" +
-		"<br>End of the trip (2014-02-23T05:50)<input type='datetime-local' name='maop_edaytime'>$ltzne" +
+		"<br>Begining of the trip (2014-02-22T15:50)<input type='datetime-local' name='maop_bdaytime' value='$nowMyFormat'>"+
+		"$ltznb" +
+		"<br>End of the trip (2014-02-23T05:50)<input type='datetime-local' name='maop_edaytime' value='$nowMyFormat'>"+
+		"$ltzne" +
 		"<br><input type='button' onclick='calc()' value='Checks dates'>" +
 		'<div id="err"></div>';
 	} /*  End else if(choice.match("Add")) */
@@ -7528,19 +7535,20 @@ sub setGoogleID{# Begin setGoogleID
 						my $tzet=DateTime::TimeZone->new( name => uri_unescape($doc->param('maop_ltzn_e')) ); # Time zone end of the trip
 						my $to = uri_unescape($doc->param("maop_email"));
 						my $from = 'shark.b@laposte.net';
-						my $maop_url_loc = uri_unescape($doc->param('maop_url')); $maop_url_loc=~s/[\n\t\ ]*$//; # watch out there is a variable that already contains that value it is $mgidt
+						my $maop_url_loc = uri_unescape($doc->param('maop_url')); $maop_url_loc=~s/[\n\t\ ]*$//; # watch out there is a variable that already contains that value it is $mgidt in another word we shave all characters that are at the end of the memory taken from parameter
 						my $subject = "Info regarding trip name:" . uri_unescape($doc->param('maop_googid')); 
-						my $message = "<b><u>Trip name/Nom du voyage:</u></b>" . uri_unescape($doc->param('maop_googid')) .  
+						my $message = "<br><b><u>Trip name/Nom du voyage:</u></b>" . uri_unescape($doc->param('maop_googid')) .  
 							      "\n<br><b><u>Begining of the trip/Debut du voyage:</u></b>" . uri_unescape($doc->param('maop_bdaytime')) . " " . $tzbt->name . " " . $tzbt->offset_for_local_datetime( $dtb ) .
 							      "\n<br><b><u>End of the trip/Fin du voyage:</u></b>". uri_unescape($doc->param('maop_edaytime')). " " . $tzet->name . " " . $tzet->offset_for_local_datetime( $dte ) .
 							      "\n<br><b><u>Trace trip/Trace du voyage:</u></b><a href='".$maop_url_loc."'>trip</a>\n".
 							      "\n<br><b><u>Watch map regarding trip/Regarder le voyage sur une carte:</u></b><a href='".$maop_url_loc.
-								"\&maop_gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
+							      #"\&maop_gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
 								"\&maop_prog=g3ogle.cgi'>trip</a>\n" ;
 
 						open(MAIL, "|/usr/sbin/sendmail -t");
 						# Email Header
 						print MAIL "To: $to\n";
+						#print MAIL "To: sebastien.dorey\@laposte.net\n";
 						print MAIL "From: $from\n";
 						print MAIL "MIME-Version: 1.0\n";
 						print MAIL "Content-Type: text/html\n";
