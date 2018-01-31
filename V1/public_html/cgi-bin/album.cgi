@@ -96,7 +96,7 @@ use io::MySec;
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.30'; # Album release
+use constant ALBUM_REL               	=> '16.100'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'effers.com';        # That's the host name
@@ -146,7 +146,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.30
+$VERSION=1.6.16.100
 
 =head1 ABSTRACT
 
@@ -227,6 +227,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.100> Jan 31 2018 due to a breakdown to web host new to to update program. Instaal web server (or update) and mail server. Program my album of picture used was not up to date so took last version that was buggy and made correction of bugs and try to update it.
 
 - I<Last modification:v1.6.15.238> Apr 8 2016 minor bug noticed during tests at the public place. Spaces in the trip name was bathering the map printings. Regexp was added to remove this checks sub setGoogleID
 
