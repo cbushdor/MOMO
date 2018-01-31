@@ -7534,7 +7534,7 @@ sub setGoogleID{# Begin setGoogleID
 						my $tzbt=DateTime::TimeZone->new( name => uri_unescape($doc->param('maop_ltzn_b')) ); # Time zone begining of the trip
 						my $tzet=DateTime::TimeZone->new( name => uri_unescape($doc->param('maop_ltzn_e')) ); # Time zone end of the trip
 						my $to = uri_unescape($doc->param("maop_email"));
-						my $from = 'shark.b@laposte.net';
+						my $from = 'Bot from MAOP<shark.b@laposte.net>';
 						my $maop_url_loc = uri_unescape($doc->param('maop_url')); $maop_url_loc=~s/[\n\t\ ]*$//; # watch out there is a variable that already contains that value it is $mgidt in another word we shave all characters that are at the end of the memory taken from parameter
 						my $subject = "Info regarding trip name:" . uri_unescape($doc->param('maop_googid')); 
 						my $message = "<br><b><u>Trip name/Nom du voyage:</u></b>" . uri_unescape($doc->param('maop_googid')) .  
@@ -7543,7 +7543,8 @@ sub setGoogleID{# Begin setGoogleID
 							      "\n<br><b><u>Trace trip/Trace du voyage:</u></b><a href='".$maop_url_loc."'>trip</a>\n".
 							      "\n<br><b><u>Watch map regarding trip/Regarder le voyage sur une carte:</u></b><a href='".$maop_url_loc.
 							      #"\&maop_gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
-								"\&maop_prog=g3ogle.cgi'>trip</a>\n" ;
+								"\&maop_prog=g3ogle.cgi'>trip</a>\n<br>".
+								"Friendly yours,<br>Bot from MAOP\n";
 
 						open(MAIL, "|/usr/sbin/sendmail -t");
 						# Email Header
