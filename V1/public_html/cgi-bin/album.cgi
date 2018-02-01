@@ -228,7 +228,7 @@ under_construction_prompt
 
 =over 4
 
-- I<Last modification:v1.6.16.100> Jan 31 2018 due to a breakdown to web host new to to update program. Instaal web server (or update) and mail server. Program my album of picture used was not up to date so took last version that was buggy and made correction of bugs and try to update it.
+- I<Last modification:v1.6.16.100> Jan 31 2018 due to a breakdown to web host new to to update program. Install web server (or update) and mail server. Program my album of picture used was not up to date so took last version that was buggy and made correction of bugs and try to update it.
 
 - I<Last modification:v1.6.15.238> Apr 8 2016 minor bug noticed during tests at the public place. Spaces in the trip name was bathering the map printings. Regexp was added to remove this checks sub setGoogleID
 
@@ -748,13 +748,14 @@ else{ # Begin else
 	&myrec("Case 9.2 ($lon - $lat) logfile format <i>$url</i>","../error.html","weather center contacted");
 } # End else
 
-if($url=~m/derased/){ # Begin if($url=~m/derased/)
+#if($url=~m/dorey/||$url=~m!192.168.1.13!){ # Begin if($url=~m/dorey/||$url=~m!192.168.1.13!)
+if($url=~m/$ENV{SERVER_NAME}/){ # Begin if($url=~m/$ENV{SERVER_NAME}/)
 	$gurl = "https://maps.googleapis.com/maps/api/timezone/json?location=$lat,$lon&timestamp=1331161200&key=$id"; # google url
 	$gjson=get("$gurl"); # google json
 	$json_obj = new JSON;# create json object
 	$pperl = $json_obj->decode($gjson);# decode result from previous get
 	$mtzg=$pperl->{timeZoneId};# my time zone from google
-} # End if($url=~m/derased/)
+} # End if($url=~m/$ENV{SERVER_NAME}/)
 &myrec("Case 10 ($lon - $lat) logfile format <i>$url</i>","../error.html","------------------everything is fine-----------------------------");
 
 # Password for login
