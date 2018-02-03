@@ -4972,6 +4972,25 @@ sub javaScript { # Begin javaScript
 				The aim is to creates / moved all js functions in this field
 				try to field functions wisely ${lot},...
 			*/
+function timeCalculusB(value){
+	var mtz=decodeURIComponent(value); // my time zone
+	var formISO='YYYY-MM-DDTHH:mm:ss';
+	var d=new Date();
+	var nowMoment=moment();
+
+	document.myform.maop_bdaytime.value = nowMoment.tz(mtz).format(formISO);
+	document.getElementById('err').innerHTML = nowMoment.tz(mtz).format();
+}
+
+function timeCalculusE(value){
+	var mtz=decodeURIComponent(value); // my time zone
+	var formISO='YYYY-MM-DDTHH:mm:ss';
+	var d=new Date();
+	var nowMoment=moment();
+
+	document.myform.maop_edaytime.value = nowMoment.tz(mtz).format(formISO);
+	document.getElementById('err').innerHTML = nowMoment.tz(mtz).format();
+}
 function calc(){ /*  Begin function calc() */
 	$lot
 	var d1;
@@ -6305,13 +6324,14 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 	#my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
 	#my $now = sprintf("%04d-%02d-%02dT%02d:%02d:%02d", $year+1900, $mon, $mday, $hour, $min, $sec);
 	my $dt=DateTime->now;#
+	#$dt->set_time_zone($mtgz);
 	my $nowMyFormat=join 'T', $dt->ymd, $dt->hms;
 	print "******************>$nowMyFormat\n";
 # --------------google id
 	#chomp($mtzg);
 	# ---------------done---------------------------------------------------------------------------------- Ruler
-	my $ltznb=" Time zone <select name='maop_ltzn_b'>"; # List of time zone names for the begining of the trip
-	my $ltzne=" Time zone <select name='maop_ltzn_e'>"; # List of time zone names for the end of the trip
+	my $ltznb=" Time zone <select name='maop_ltzn_b' onchange='timeCalculusB(this.value)'>"; # List of time zone names for the begining of the trip
+	my $ltzne=" Time zone <select name='maop_ltzn_e' onchange='timeCalculusE(this.value)'>"; # List of time zone names for the end of the trip
 	foreach (@{DateTime::TimeZone->all_names}){
 		chomp($_);
 		my $tzfe=uri_escape("$_"); # time zone field encoded
@@ -6427,9 +6447,9 @@ function myList(){ /*  Begin function myList() */
 		"<input type='hidden' name='maop_TRIP_ID' value='ok' />" +
 		"Trip name:<input type='text' name='maop_googid' /> " +
 		"<br>Email to send: <input type='email' name='maop_email' value='dorey_s\@laposte.net'>" +
-		"<br>Begining of the trip (2014-02-22T15:50)<input type='datetime-local' name='maop_bdaytime' value='$nowMyFormat'>"+
+		"<br>Begining of the trip (2014-02-22T15:50)<input type='datetime-local' name='maop_bdaytime' value='Choose a time zone'>"+
 		"$ltznb" +
-		"<br>End of the trip (2014-02-23T05:50)<input type='datetime-local' name='maop_edaytime' value='$nowMyFormat'>"+
+		"<br>End of the trip (2014-02-23T05:50)<input type='datetime-local' name='maop_edaytime' value='Choose a time zone'>"+
 		"$ltzne" +
 		"<br><input type='button' onclick='calc()' value='Checks dates'>" +
 		'<div id="err"></div>';
@@ -7838,6 +7858,8 @@ None.
 sub loadDataTrips{ # Begin sub loadDataTrips
 	print "Content-Type: text/html\n\n";
 	print "<br>Get current path ------>>>>".getcwd()."<<<<<-------<br>\n";
+	print '<script src="../js/moment.min.js"></script>';
+	print '<script src="../js/moment-timezone-with-data-2012-2022.min.js"></script>';
 	if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==0) ) 
 		chdir(PATH_GOOGLE_MAP_TRIP);
 		print "<br>Get current path ------>>>>".getcwd()."<<<<<-------<br>\n";
@@ -7856,7 +7878,7 @@ sub loadDataTrips{ # Begin sub loadDataTrips
 	#
 	# **************************************************************	
 	#
-		foreach my $i (@dr){ # Begin foreach my $i (@dr)
+		foreach my $i (sort @dr){ # Begin foreach my $i (@dr)
 			#print "<br>*************>$i<br>";
 			$lot.="\"$i\",";
 			open(R,"$i") || die("error open $!");
