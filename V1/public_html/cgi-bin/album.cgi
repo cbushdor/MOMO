@@ -894,12 +894,12 @@ my $date_ticket=uri_unescape($doc->param("maop_date"));
 		my $anal = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
 		my $dtb = $anal->parse_datetime( $brtn );
 
-		# We set intenal clock as the same time zone as the begining of the trip time zone
+		# We set internal clock as the same time zone as the begining of the trip time zone
 		$dt3->set_time_zone($tntz_b);
 
 		if($dtb>$dt3){ # Begin if($dtb>$dt3)
 			# date is not yet arrived
-			#print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
+			print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
 			$mtfn="_-" . TRIP_NAME; 
 		} # End if($dtb>$dt3)
 		else{ # Begin else $dtb<=$dt3
@@ -4975,11 +4975,17 @@ sub javaScript { # Begin javaScript
 function timeCalculusB(value){
 	var mtz=decodeURIComponent(value); // my time zone
 	var formISO='YYYY-MM-DDTHH:mm:ss';
-	var d=new Date();
+	//var d=new Date();
 	var nowMoment=moment();
 
-	document.myform.maop_bdaytime.value = nowMoment.tz(mtz).format(formISO);
-	document.getElementById('err').innerHTML = nowMoment.tz(mtz).format();
+	if (value==""){ // Begin if (value=="")
+		document.myform.maop_bdaytime.value = "--";
+		document.getElementById('err').innerHTML = "Begin trip:Select a time zone first./Début voyage:Selectionnez un fuseau horaire en premier.";
+	} // End if (value=="")
+	else{ // Begin else
+		document.myform.maop_bdaytime.value = nowMoment.tz(mtz).format(formISO);
+		document.getElementById('err').innerHTML = document.myform.maop_bdaytime.value;
+	} // End else
 }
 
 function timeCalculusE(value){
@@ -4988,26 +4994,56 @@ function timeCalculusE(value){
 	var d=new Date();
 	var nowMoment=moment();
 
-	document.myform.maop_edaytime.value = nowMoment.tz(mtz).format(formISO);
-	document.getElementById('err').innerHTML = nowMoment.tz(mtz).format();
+	if (value==""){ // Begin if (value=="")
+		document.myform.maop_edaytime.value = "--";
+		document.getElementById('err').innerHTML = "End of trip:Select a time zone first./Fin du voyage:Selectionnez un fuseau horaire en premier.";
+	} // End if (value=="")
+	else{ // Begin else
+		document.myform.maop_edaytime.value = nowMoment.tz(mtz).format(formISO);
+	} // End else
 }
+
 function calc(){ /*  Begin function calc() */
 	$lot
 	var d1;
 	var d2;
-	var trip = encodeURI(document.myform.maop_googid.value);
-	var num1 = encodeURI(document.myform.maop_bdaytime.value);
-	var num2 = encodeURI(document.myform.maop_edaytime.value);
+	var trip=decodeURIComponent(document.myform.maop_googid.value);
+	var num1=decodeURIComponent(document.myform.maop_bdaytime.value);
+	var num2=decodeURIComponent(document.myform.maop_edaytime.value);
+	var comp1=decodeURIComponent(document.myform.maop_ltzn_b.value);
+	var comp2=decodeURIComponent(document.myform.maop_ltzn_e.value);
 	var myurl=new String("$myuri$myport/$myscript?maop_googid="+trip+"&maop_gmv=3-0");
 	var r="https://"+myurl.replace(/[\/]{2,}/g,"/"); /*  Regexp used to eliminate bugs while printing URL   ... */
 	var myForms = document.forms["myform"];
+	var bot=moment(num1); // date+time beging of trip
+	var eot=moment(num2); // date+time end of trip 
+	var formISO='YYYY-MM-DDTHH:mm:ss';
 
-	//document.myform.maop_lat.value = encodeURI(document.myform.maop_lat.value);
-	//document.myform.maop_lon.value = encodeURI(document.myform.maop_lon.value);
+	var mbot1=bot.tz(comp1,true); // Begin of trip: we don't change date but set time zone to it (date and time)
 
 	document.getElementById('err').innerHTML = "";
 
-	if(trip.length == 0){ /*  Begin if(trip.length == 0) */
+	document.getElementById('err').innerHTML = "comp1: "+comp1+"<br>comp2:"+comp2+
+						   "<br>*****A******loc begining trip(mbot1)------->"+mbot1.format(formISO);
+
+	var mbot2=mbot1.tz(comp2);// we set mbot1 to local time=end of the trip
+
+	document.getElementById('err').innerHTML += "<br>*****B******loc +lag  end of trip(mbot2)------->"+mbot2.format(formISO);
+
+	var meot1=eot.tz(comp2,true); // End of trip: we don't change date but set time zone to it (date and time)
+	document.getElementById('err').innerHTML += "<br>*****C******loc end of trip--tz(B,C) (meot1)----->"+meot1.format(formISO);
+
+	document.getElementById('err').innerHTML += "<br>"+mbot2+" < "+meot1+"----->";
+	document.getElementById('err').innerHTML += mbot2<meot1;
+
+	exit(0);
+	if (document.myform.maop_bdaytime.value=="--" ){
+		document.getElementById('err').innerHTML = "Select a time zone first./Selectionnez un fuseau horaire en premier.";
+	}
+	else if (document.myform.maop_edaytime.value=="--" ){
+		document.getElementById('err').innerHTML = "Select a time zone first./Selectionnez un fuseau horaire en premier.";
+	}
+	else if(trip.length == 0){ /*  Begin if(trip.length == 0) */
 		document.getElementById('err').innerHTML += "No trip name specified.";// + "<br>" + myForms.elements.length;
 	} /*  End if(trip.length == 0) */
 	else { /*  Begin else */
@@ -6330,19 +6366,21 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 # --------------google id
 	#chomp($mtzg);
 	# ---------------done---------------------------------------------------------------------------------- Ruler
-	my $ltznb=" Time zone <select name='maop_ltzn_b' onchange='timeCalculusB(this.value)'>"; # List of time zone names for the begining of the trip
-	my $ltzne=" Time zone <select name='maop_ltzn_e' onchange='timeCalculusE(this.value)'>"; # List of time zone names for the end of the trip
+	my $ltznb=" Time zone/Fuseau horaire <select name='maop_ltzn_b' onchange='timeCalculusB(this.value)'>"; # List of time zone names for the begining of the trip
+	my $ltzne=" Time zone/Fuseau horaire <select name='maop_ltzn_e' onchange='timeCalculusE(this.value)'>"; # List of time zone names for the end of the trip
+	$ltznb.="<option value='' selected>--</option>";
+	$ltzne.="<option value='' selected>--</option>";
 	foreach (@{DateTime::TimeZone->all_names}){
 		chomp($_);
 		my $tzfe=uri_escape("$_"); # time zone field encoded
-		if($_=~m/$mtzg/){
-			$ltznb.="<option value='$tzfe' selected>$_</option>";
-			$ltzne.="<option value='$tzfe' selected>$_</option>";
-		}
-		else{
+		#if($_=~m/$mtzg/){
+			#$ltznb.="<option value='$tzfe' selected>$_</option>";
+			#$ltzne.="<option value='$tzfe' selected>$_</option>";
+			#}
+		#else{
 			 $ltznb.="<option value='$tzfe'>$_</option>";
 			 $ltzne.="<option value='$tzfe'>$_</option>";
-		}
+			 #}
 	}
 	$ltznb.="</select>";
 	$ltzne.="</select>";
@@ -6447,9 +6485,9 @@ function myList(){ /*  Begin function myList() */
 		"<input type='hidden' name='maop_TRIP_ID' value='ok' />" +
 		"Trip name:<input type='text' name='maop_googid' /> " +
 		"<br>Email to send: <input type='email' name='maop_email' value='dorey_s\@laposte.net'>" +
-		"<br>Begining of the trip (2014-02-22T15:50)<input type='datetime-local' name='maop_bdaytime' value='Choose a time zone'>"+
+		"<br>Begining of the trip/Début du voyage<input type='datetime-local' name='maop_bdaytime' value='--'>"+
 		"$ltznb" +
-		"<br>End of the trip (2014-02-23T05:50)<input type='datetime-local' name='maop_edaytime' value='Choose a time zone'>"+
+		"<br>End of the trip/Fin du voyage<input type='datetime-local' name='maop_edaytime' value='--'>"+
 		"$ltzne" +
 		"<br><input type='button' onclick='calc()' value='Checks dates'>" +
 		'<div id="err"></div>';
