@@ -599,20 +599,20 @@ $mparam=~s/^\&//;
 	#print "Content-Type: text/html ; charset=UTF-8\n\n";
 	#print "case 2<br>";exit(1);
 	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){ # Begin if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
-		print "oooiiiiiiii>case 1-";
+		#print "oooiiiiiiii>case 1-";
 		$url="http://localhost/~sdo/cgi-bin/maop.cgi\?$mparam";
 		#print "$url<br>";
 	} # End if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
 	elsif(! defined($ipAddr)||$ipAddr=~m/^192\.168\.1\.13/||$ipAddr=~m!example2.dev!){ # Begin elsif(! defined($ipAddr)||$ipAddr=~m/^192\.168\.1\.13/||$ipAddr=~m!example2.dev!)
-		print "iiiiiiii>case 3xxx-";
+		#print "iiiiiiii>case 3xxx-";
 		$url="https://192.168.1.13/~sdo/cgi-bin/maop.cgi\?$mparam";
-		print "</br>$url<br>";
-		print "</br>IP---->$ipAddr<br>defined:" . defined($ipAddr) . "<br>192\.168\.1\.13 ? match example2.dev :". ($ipAddr=~m!example2.dev!) ."<<br>";
+		#print "</br>$url<br>";
+		#print "</br>IP---->$ipAddr<br>defined:" . defined($ipAddr) . "<br>192\.168\.1\.13 ? match example2.dev :". ($ipAddr=~m!example2.dev!) ."<<br>";
 		#sleep(15);
 		#exit(-1);
 	} # End elsif(! defined($ipAddr)||$ipAddr=~m/^192\.168\.1\.13/||$ipAddr=~m!example2.dev!)
 	else{ # Begin else
-		print "iiiiiiii>case 2-";
+		#print "iiiiiiii>case 2-";
 		$url= HOSTED_BY_URL . "/cgi-bin/maop.cgi\?$mparam"; # url where website is hosted
 	} # End else
 	#print "<br>$ipAddr<br><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< $url<br>";
@@ -634,15 +634,15 @@ $mparam=~s/^\&//;
 A
 	#exit(0);
 
-print "Content-type: text/html\n\n";
-print "<br><br><br>UUUUUU-------------->$logfile<br><br>";
+#print "Content-type: text/html\n\n";
+#print "<br><br><br>UUUUUU-------------->$logfile<br><br>";
 #print "stop"; exit(-1);
 if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/){ # Begin if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
 	#print "Content-Type: text/html ; charset=UTF-8\n\n";
 	&myrec("Case 1 ($lon - $lat) logfile format($logfile) does not exists or variable does not exist <i>$url</i>","../error.html","case===>" .
 	               ((! defined($logfile)) ? "$logfile not defined length:" . length($logfile)  : " $logfile defined length:" . length($logfile) ).
 		       (($logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/) ? " not reg format logfile" : " regular format logfile"). "<br>");
-	       print "azerty 1<br>";
+	       #print "azerty 1<br>";
 	print $c . "<!-- accordeoniste -->";
 	exit(0);
 } # End if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
@@ -651,12 +651,12 @@ $logfile=~s/\_/\//g;
 if(!-f "$logfile"){ # Begin if(!-f "$logfile")
 	#print "Content-Type: text/html ; charset=UTF-8\n\n";
 	&myrec("Case 2 ($lon - $lat) logfile cannot be found [$logfile] <i>[$url]</i>","../error.html","case ===>". ((!-f "$logfile") ? "file '$logfile' does not exist<br>" : "file '$logfile' exists<br>"));
-	       print "azerty 2<br>";
+	#print "azerty 2<br>";
 	print $c . "<!-- accordeoniste 2-->";
 	#exit(0);
 } # End if(!-f "$logfile") 
 else{ # Begin else
-	       print "azerty 3<br>";
+	#print "azerty 3<br>";
 	if( -e "$logfile"){ # Begin if( -e "$logfile")
 		unlink("$logfile");
 	} # End if( -e "$logfile")
@@ -682,8 +682,8 @@ else{ # Begin else
 if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # Begin if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	#print "Content-Type: text/html ; charset=UTF-8\n\n";
 	&myrec("Case 3 ($lon - $lat) latitude exists and as proper format <i>$url</i>","../error.html","(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
-	       print "azerty 4<br>";
-	print $c. "<!-- azerty -->";
+	#print "azerty 4<br>";
+	#print $c. "<!-- azerty -->";
 	exit(0);
 } # End if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 
@@ -694,7 +694,7 @@ my $locweaf=ALBUM_INFO_HIST_DIRECTORY ."wfc_data.$lon.$lat.$$.".time().".xml";# 
 if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # Begin if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
 	print "Content-Type: text/html ; charset=UTF-8\n\n";
-	       print "azerty 5<br>";
+	#print "azerty 5<br>";
 	#print "case 1<br>";exit(1);
 	#if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){ # Begin if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
 		#$url="http://localhost/~sdo/cgi-bin/maop.cgi";
@@ -725,7 +725,7 @@ else{ # Begin else
 	my $wfcu="http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=$lat,$lon";
 	my $xml = new XML::Simple;
 
-	       print "azerty 6<br>";
+	#print "azerty 6<br>";
 	&myrec("Case 9.0 ($lon - $lat) logfile format <i>$url</i>","../error.html","try to contact weather center");
 	#print "Content-Type: text/html ; charset=UTF-8\n\n";
 	#print "--------------------->bef $locweaf rec<------<br>\n$wfcu<br>";
@@ -5007,45 +5007,37 @@ function calc(){ /*  Begin function calc() */
 	$lot
 	var d1;
 	var d2;
-	var trip=decodeURIComponent(document.myform.maop_googid.value);
-	var num1=decodeURIComponent(document.myform.maop_bdaytime.value);
-	var num2=decodeURIComponent(document.myform.maop_edaytime.value);
-	var comp1=decodeURIComponent(document.myform.maop_ltzn_b.value);
-	var comp2=decodeURIComponent(document.myform.maop_ltzn_e.value);
+	var num1=decodeURIComponent(document.myform.maop_bdaytime.value);// date+time local begining of the trip
+	var num2=decodeURIComponent(document.myform.maop_edaytime.value);// date+time local ending of the trip
+	var comp1=decodeURIComponent(document.myform.maop_ltzn_b.value);// time zone begining of the trip
+	var comp2=decodeURIComponent(document.myform.maop_ltzn_e.value);// time zone ending of the trip
+	var trip=decodeURIComponent(document.myform.maop_googid.value);// Trip name
 	var myurl=new String("$myuri$myport/$myscript?maop_googid="+trip+"&maop_gmv=3-0");
 	var r="https://"+myurl.replace(/[\/]{2,}/g,"/"); /*  Regexp used to eliminate bugs while printing URL   ... */
 	var myForms = document.forms["myform"];
-	var bot=moment(num1); // date+time beging of trip
-	var eot=moment(num2); // date+time end of trip 
+	var bot=moment(num1); // date+time begining of trip
+	var eot=moment(num2); // date+time ending of trip 
 	var formISO='YYYY-MM-DDTHH:mm:ss';
+	var is_tne=(trip === "");// is trip name there
 
 	var mbot1=bot.tz(comp1,true); // Begin of trip: we don't change date but set time zone to it (date and time)
-
-	document.getElementById('err').innerHTML = "";
-
-	document.getElementById('err').innerHTML = "comp1: "+comp1+"<br>comp2:"+comp2+
-						   "<br>*****A******loc begining trip(mbot1)------->"+mbot1.format(formISO);
-
-	var mbot2=mbot1.tz(comp2);// we set mbot1 to local time=end of the trip
-
-	document.getElementById('err').innerHTML += "<br>*****B******loc +lag  end of trip(mbot2)------->"+mbot2.format(formISO);
-
+	//var mbot2=mbot1.tz(comp2);// we set mbot1 to local time=end of the trip
 	var meot1=eot.tz(comp2,true); // End of trip: we don't change date but set time zone to it (date and time)
-	document.getElementById('err').innerHTML += "<br>*****C******loc end of trip--tz(B,C) (meot1)----->"+meot1.format(formISO);
+	document.getElementById('err').innerHTML = "     "; //"-------->"+trip+"<-------";
 
-	document.getElementById('err').innerHTML += "<br>"+mbot2+" < "+meot1+"----->";
-	document.getElementById('err').innerHTML += mbot2<meot1;
-
-	exit(0);
-	if (document.myform.maop_bdaytime.value=="--" ){
-		document.getElementById('err').innerHTML = "Select a time zone first./Selectionnez un fuseau horaire en premier.";
+	if (new String(trip).valueOf() == new String("").valueOf()) { /* Begin if(trip == "") */
+		document.getElementById('err').innerHTML = "No trip name specified./<br>Pas de nom de voyage spécifié.";// + "<br>" + myForms.elements.length;
+	} /* End if(trip == "") */
+	else if (document.myform.maop_bdaytime.value=="--" ){ /* Begin else if (document.myform.maop_bdaytime.value=="--" ) */
+		document.getElementById('err').innerHTML = "<u><b>Begining of the trip:</u></b> select a time zone first./<br><u><b>Début du voyage:</b></u> selectionnez un fuseau horaire en premier.";
+	} /* End else if (document.myform.maop_bdaytime.value=="--" ) */
+	else if (mbot1>=meot1){
+		document.getElementById('err').innerHTML = "time zone end < time zone begining./problèmes avec les fuseaux horaires et les heures de départ et heures d'arrivées.";
 	}
-	else if (document.myform.maop_edaytime.value=="--" ){
-		document.getElementById('err').innerHTML = "Select a time zone first./Selectionnez un fuseau horaire en premier.";
-	}
-	else if(trip.length == 0){ /*  Begin if(trip.length == 0) */
-		document.getElementById('err').innerHTML += "No trip name specified.";// + "<br>" + myForms.elements.length;
-	} /*  End if(trip.length == 0) */
+	else if (document.myform.maop_edaytime.value=="--" ){ /* Begin else if (document.myform.maop_edaytime.value=="--" ) */
+		//document.getElementById('err').innerHTML = "Select a time zone first./Selectionnez un fuseau horaire en premier.";
+		document.getElementById('err').innerHTML = "<u><b>End of the trip:</u></b> select a time zone first./<br><u><b>Fin du voyage:</u></b> selectionnez un fuseau horaire en premier.";
+	} /* End else if (document.myform.maop_edaytime.value=="--" ) */
 	else { /*  Begin else */
 		if( lot.indexOf(trip+ "-trips",0)>=0){ /* Begin if( lot.indexOf(trip+ "-trips",0)>=0) */
 			document.getElementById('err').innerHTML = "Choose another trip name." + trip + " already exists.";
@@ -6362,7 +6354,7 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 	my $dt=DateTime->now;#
 	#$dt->set_time_zone($mtgz);
 	my $nowMyFormat=join 'T', $dt->ymd, $dt->hms;
-	print "******************>$nowMyFormat\n";
+	#print "******************>$nowMyFormat\n";
 # --------------google id
 	#chomp($mtzg);
 	# ---------------done---------------------------------------------------------------------------------- Ruler
@@ -7894,13 +7886,13 @@ None.
 =cut
 
 sub loadDataTrips{ # Begin sub loadDataTrips
-	print "Content-Type: text/html\n\n";
-	print "<br>Get current path ------>>>>".getcwd()."<<<<<-------<br>\n";
+	#print "Content-Type: text/html\n\n";
+	#print "<br>Get current path ------>>>>".getcwd()."<<<<<-------<br>\n";
 	print '<script src="../js/moment.min.js"></script>';
 	print '<script src="../js/moment-timezone-with-data-2012-2022.min.js"></script>';
 	if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==0) ) 
 		chdir(PATH_GOOGLE_MAP_TRIP);
-		print "<br>Get current path ------>>>>".getcwd()."<<<<<-------<br>\n";
+		#print "<br>Get current path ------>>>>".getcwd()."<<<<<-------<br>\n";
 		opendir(ARD,".") || die(". $!");# open current directory
 		my @dr= grep { $_ =~ m/\-trips$/ } readdir(ARD);# parse current directory
 		closedir(ARD) || die(". $!");# close directory
