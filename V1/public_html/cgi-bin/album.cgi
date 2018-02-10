@@ -4980,11 +4980,14 @@ function timeCalculusB(value){
 
 	if (value==""){ // Begin if (value=="")
 		document.myform.maop_bdaytime.value = "--";
-		document.getElementById('err').innerHTML = "Begin trip:Select a time zone first./Début voyage:Selectionnez un fuseau horaire en premier.";
+		document.getElementById('err').innerHTML = manageError(
+									"Error/Erreur",
+									"Begin trip:Select a time zone first.",
+									"Début voyage:Selectionnez un fuseau horaire en premier.");
 	} // End if (value=="")
 	else{ // Begin else
 		document.myform.maop_bdaytime.value = nowMoment.tz(mtz).format(formISO);
-		document.getElementById('err').innerHTML = document.myform.maop_bdaytime.value;
+		//document.getElementById('err').innerHTML = document.myform.maop_bdaytime.value;
 	} // End else
 }
 
@@ -4996,7 +4999,10 @@ function timeCalculusE(value){
 
 	if (value==""){ // Begin if (value=="")
 		document.myform.maop_edaytime.value = "--";
-		document.getElementById('err').innerHTML = "End of trip:Select a time zone first./Fin du voyage:Selectionnez un fuseau horaire en premier.";
+		document.getElementById('err').innerHTML = manageError(
+									"Error/Erreur",
+									"End of trip: select a time zone first.",
+									"Fin du voyage: selectionnez un fuseau horaire en premier.");
 	} // End if (value=="")
 	else{ // Begin else
 		document.myform.maop_edaytime.value = nowMoment.tz(mtz).format(formISO);
@@ -5010,32 +5016,33 @@ function manageError(header,eEn,eFr){/* Begin function manageError(header,eEn,eF
 
 function calc(){ /*  Begin function calc() */
 	$lot
+	var trip=decodeURIComponent(document.myform.maop_googid.value);// Trip name
 	var d1; // date with JS (will be be deprecated pretty soon in this code
 	var d2; // date with JS (will be be deprecated pretty soon in this code
 	var num1=decodeURIComponent(document.myform.maop_bdaytime.value);// date+time local begining of the trip
 	var num2=decodeURIComponent(document.myform.maop_edaytime.value);// date+time local ending of the trip
 	var comp1=decodeURIComponent(document.myform.maop_ltzn_b.value);// time zone begining of the trip
 	var comp2=decodeURIComponent(document.myform.maop_ltzn_e.value);// time zone ending of the trip
-	var trip=decodeURIComponent(document.myform.maop_googid.value);// Trip name
 	var myurl=new String("$myuri$myport/$myscript?maop_googid="+trip+"&maop_gmv=3-0");
 	var r="https://"+myurl.replace(/[\/]{2,}/g,"/"); /*  Regexp used to eliminate bugs while printing URL   ... */
 	var myForms = document.forms["myform"];
 	var bot=moment(num1); // date+time begining of trip
 	var eot=moment(num2); // date+time ending of trip 
 	var formISO='YYYY-MM-DDTHH:mm:ss';
-	var is_tne=(trip === "");// is trip name there
 
-	var mbot1=bot.tz(comp1,true); // Begin of trip: we don't change date but set time zone to it (date and time)
-	//var mbot2=mbot1.tz(comp2);// we set mbot1 to local time=end of the trip
+	bot.tz(comp1,true); // Begin of trip: we don't change date but set time zone to it (date and time)
+	var mbot1=bot; // Begin of trip: we don't change date but set time zone to it (date and time)
+	var mbot2=bot.clone(); // clone date+time at the begining of the trip
+	mbot2.tz(comp2);// we set mbot1 to local time=end of the trip
 	var meot1=eot.tz(comp2,true); // End of trip: we don't change date but set time zone to it (date and time)
-	document.getElementById('err').innerHTML = "     "; //"-------->"+trip+"<-------";
 
-	if (new String(trip).valueOf() == new String("").valueOf()) { /* Begin if(trip == "") */
+
+	if (new String(trip).valueOf() == new String("").valueOf()) { /* Begin if (new String(trip).valueOf() == new String("").valueOf()) */
 		document.getElementById('err').innerHTML = manageError(
 									"Error/Erreur",
 									"No trip name specified.",
 									"Pas de nom de voyage spécifié.");// + "<br>" + myForms.elements.length;
-	} /* End if(trip == "") */
+	} /* End if (new String(trip).valueOf() == new String("").valueOf()) */
 	else if (document.myform.maop_bdaytime.value=="--" ){ /* Begin else if (document.myform.maop_bdaytime.value=="--" ) */
 		document.getElementById('err').innerHTML = manageError(
 									"Error/Erreur",
@@ -5044,9 +5051,9 @@ function calc(){ /*  Begin function calc() */
 	} /* End else if (document.myform.maop_bdaytime.value=="--" ) */
 	else if (mbot1>=meot1){
 		document.getElementById('err').innerHTML = manageError(
-									"Error/Erreur", 
-									"Time zone end and dates < time zone begining and dates .",
-									"Fuseaux horaires et heures d'arrivées < Fuseaux horaires et heures de départ");
+									"Error/Erreur",
+									"Time zone end and dates <= time zone begining and dates.",
+									"Fuseaux horaires et heures d'arrivées <= Fuseaux horaires et heures de départ.");
 	}
 	else if (document.myform.maop_edaytime.value=="--" ){ /* Begin else if (document.myform.maop_edaytime.value=="--" ) */
 		document.getElementById('err').innerHTML = manageError(
@@ -5062,32 +5069,29 @@ function calc(){ /*  Begin function calc() */
 										"Choisir un autre nom du voyage." + trip + " déjà existtant.");
 		} /*  End if( lot.indexOf(trip+ "-trips",0)>=0) */
 		else{ /*  Begin else */
-			d1=new Date(num1);
-			d2=new Date(num2);
-			if ((d1 - d2) < 0){ /*  Begin if ((d1 - d2) < 0) */
-				/* document.getElementById('maop_url').value = r;  */
-				/*  document.getElementById("err").innerHTML=r; */
-				var lag=d1.getTimezoneOffset();
-
-				document.getElementById('err').innerHTML = "<input type='submit' onclick='validForm()'>"+"<input type='hidden' name='maop_url' value='"+r+"'/>"+ getTimeZone()+ "<input type='hidden' name='maop_tz_offset' value='"+lag+"'/>";
+			if (meot1>mbot1) {
+				var lag=0;
+				document.getElementById('err').innerHTML = "<input type='submit' onclick='validForm()'>"+
+										"<input type='hidden' name='maop_url' value='"+r+"'/>"+
+										"----->"+getTimeZone()+ "<-----"+
+										"<input type='hidden' name='maop_tz_offset' value='"+lag+"'/>";
 
 				function validForm(){ // Begin function validForm()
 					for (var i = 0; i < myForms.elements.length; i++) { // Begin for (var i = 0; i < myForms.elements.length; i++)
 						if(myForms.elements[i].value != "Checks dates"){ // Begin if(myForms.elements[i].value != "Checks dates")
-							/*
-							document.getElementById('err').innerHTML += myForms.elements[i].name + "=";
-							document.getElementById('err').innerHTML += encodeURI(myForms.elements[i].value) + "<br>";
-							*/
 							myForms.elements[i].value=encodeURI(myForms.elements[i].value);
 						} // End if(myForms.elements[i].value != "Checks dates")
 					} // End for (var i = 0; i < myForms.elements.length; i++)
 				} // End function validForm()
-			} /*  End if ((d1 - d2) < 0) */
+			}
 			else{ /*  Begin else */
-				document.getElementById('err').innerHTML = "d1 > d2 ..." + document.myform.maop_bdaytime.value + " "+document.myform.maop_edaytime.value+" ---- "+num1+" ------ " + num2;
+				document.getElementById('err').innerHTML = manageError( "Error/Erreur",
+											"(d1,t1) > (d2,t2)",
+											"(d1,t1) > (d2,t2)");
 			} /*  End else */
 		} /*  End else */
 	} /*  End else */
+	document.getElementById('err').innerHTML += "   --------- "+ trip +" ooooooooo "+ meot1.format(formISO) +'  >  '+ mbot1.format(formISO) +"---------->"+mbot2.format(formISO)+" ======== "+ (meot1>mbot1) ;
 } /*  End function calc() */
 
 function listToModification(){ /*  Begining function listToModification() */
