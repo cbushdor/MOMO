@@ -5010,8 +5010,8 @@ function manageError(header,eEn,eFr){/* Begin function manageError(header,eEn,eF
 
 function calc(){ /*  Begin function calc() */
 	$lot
-	var d1;
-	var d2;
+	var d1; // date with JS (will be be deprecated pretty soon in this code
+	var d2; // date with JS (will be be deprecated pretty soon in this code
 	var num1=decodeURIComponent(document.myform.maop_bdaytime.value);// date+time local begining of the trip
 	var num2=decodeURIComponent(document.myform.maop_edaytime.value);// date+time local ending of the trip
 	var comp1=decodeURIComponent(document.myform.maop_ltzn_b.value);// time zone begining of the trip
@@ -5056,7 +5056,10 @@ function calc(){ /*  Begin function calc() */
 	} /* End else if (document.myform.maop_edaytime.value=="--" ) */
 	else { /*  Begin else */
 		if( lot.indexOf(trip+ "-trips",0)>=0){ /* Begin if( lot.indexOf(trip+ "-trips",0)>=0) */
-			document.getElementById('err').innerHTML = "Choose another trip name." + trip + " already exists.";
+			document.getElementById('err').innerHTML = manageError(
+										"Error/Erreur",
+										"Choose another trip name." + trip + " already exists.",
+										"Choisir un autre nom du voyage." + trip + " déjà existtant.");
 		} /*  End if( lot.indexOf(trip+ "-trips",0)>=0) */
 		else{ /*  Begin else */
 			d1=new Date(num1);
