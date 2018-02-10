@@ -5003,6 +5003,11 @@ function timeCalculusE(value){
 	} // End else
 }
 
+function manageError(header,eEn,eFr){/* Begin function manageError(header,eEn,eFr) */
+	return "<div name='errFrame' style='border: thin solid black;border-radius: 5px;'>"+ 
+		"<div name='errFrame' style='border: thin solid yellow;border-radius: 5px;'>"+ "<div name='errFrame' style='border: thin solid black;border-radius: 5px;'>"+ "<center><h3>"+header+"</h3></center><div class='customHr'>.</div><p>"+eEn+"<br>"+eFr+"</p>"+ "</div>"+ "</div>" + "</div>" ;
+} /* End function manageError(header,eEn,eFr) */
+
 function calc(){ /*  Begin function calc() */
 	$lot
 	var d1;
@@ -5026,17 +5031,28 @@ function calc(){ /*  Begin function calc() */
 	document.getElementById('err').innerHTML = "     "; //"-------->"+trip+"<-------";
 
 	if (new String(trip).valueOf() == new String("").valueOf()) { /* Begin if(trip == "") */
-		document.getElementById('err').innerHTML = "No trip name specified./<br>Pas de nom de voyage spécifié.";// + "<br>" + myForms.elements.length;
+		document.getElementById('err').innerHTML = manageError(
+									"Error/Erreur",
+									"No trip name specified.",
+									"Pas de nom de voyage spécifié.");// + "<br>" + myForms.elements.length;
 	} /* End if(trip == "") */
 	else if (document.myform.maop_bdaytime.value=="--" ){ /* Begin else if (document.myform.maop_bdaytime.value=="--" ) */
-		document.getElementById('err').innerHTML = "<u><b>Begining of the trip:</u></b> select a time zone first./<br><u><b>Début du voyage:</b></u> selectionnez un fuseau horaire en premier.";
+		document.getElementById('err').innerHTML = manageError(
+									"Error/Erreur",
+									"<u><b>Begining of the trip:</u></b> select a time zone first.",
+									"<br><u><b>Début du voyage:</b></u> selectionnez un fuseau horaire en premier.");
 	} /* End else if (document.myform.maop_bdaytime.value=="--" ) */
 	else if (mbot1>=meot1){
-		document.getElementById('err').innerHTML = "time zone end < time zone begining./problèmes avec les fuseaux horaires et les heures de départ et heures d'arrivées.";
+		document.getElementById('err').innerHTML = manageError(
+									"Error/Erreur", 
+									"Time zone end and dates < time zone begining and dates .",
+									"Fuseaux horaires et heures d'arrivées < Fuseaux horaires et heures de départ");
 	}
 	else if (document.myform.maop_edaytime.value=="--" ){ /* Begin else if (document.myform.maop_edaytime.value=="--" ) */
-		//document.getElementById('err').innerHTML = "Select a time zone first./Selectionnez un fuseau horaire en premier.";
-		document.getElementById('err').innerHTML = "<u><b>End of the trip:</u></b> select a time zone first./<br><u><b>Fin du voyage:</u></b> selectionnez un fuseau horaire en premier.";
+		document.getElementById('err').innerHTML = manageError(
+									"Error/Erreur",
+									"<u><b>End of the trip:</u></b> select a time zone first.",
+									"<u><b>Fin du voyage:</u></b> selectionnez un fuseau horaire en premier.");
 	} /* End else if (document.myform.maop_edaytime.value=="--" ) */
 	else { /*  Begin else */
 		if( lot.indexOf(trip+ "-trips",0)>=0){ /* Begin if( lot.indexOf(trip+ "-trips",0)>=0) */
@@ -5340,6 +5356,16 @@ sub general_css_def { # Begin general_css_def
 		#	"font-size: 20px;\n".
 		#	"font-family: courier;\n".
 		"}\n".
+		".customHr {\n"
+		. "width: 95%\n"
+		. "font-size: 1px;\n"
+		. "color: rgba(0, 0, 0, 0);\n"
+		. "line-height: 1px;\n"
+
+		. "background-color: grey;\n"
+		. "margin-top: -6px;\n"
+		. "margin-bottom: 10px;\n"
+		. "}\n".
 		"xxx { z-index: 40; position: absolute; left: 0px;top: 120px;}\n".
 		"expl_1_4 { position: absolute; left: 5px; top: 2px; z-index: 2; }\n"; 
 } # End sub general_css_def
@@ -6477,9 +6503,9 @@ function myList(){ /*  Begin function myList() */
 		"<input type='hidden' name='maop_TRIP_ID' value='ok' />" +
 		"Trip name:<input type='text' name='maop_googid' /> " +
 		"<br>Email to send: <input type='email' name='maop_email' value='dorey_s\@laposte.net'>" +
-		"<br>Begining of the trip/Début du voyage<input type='datetime-local' name='maop_bdaytime' value='--'>"+
+		"<br>Begining of the trip/Début du voyage<input type='datetime-local' name='maop_bdaytime' value='--' onchange='calc()'>"+
 		"$ltznb" +
-		"<br>End of the trip/Fin du voyage<input type='datetime-local' name='maop_edaytime' value='--'>"+
+		"<br>End of the trip/Fin du voyage<input type='datetime-local' name='maop_edaytime' value='--' onchange='calc()'>"+
 		"$ltzne" +
 		"<br><input type='button' onclick='calc()' value='Checks dates'>" +
 		'<div id="err"></div>';
@@ -7931,6 +7957,61 @@ sub loadDataTrips{ # Begin sub loadDataTrips
 	$lotList.="</select>";
 	$lotList2.="</select>";
 } # End sub loadDataTrips
+
+=head1 sub manageError(...)
+
+This function creates an error report in html when html field filled.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$header: header
+
+$eEn: message error in English 
+
+$eFr: message error in French
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+String formated html 5 with css for an error report (not the same for die...).
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG(S) KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Created on:> Feb 9 2018
+
+=back
+
+=cut
+
+sub manageError{ # Begin sub manageError
+	my ($header,$eEn,$eFr)=@_; # header,error English, error French
+	return "<h3>$header</h3>\n<div class='customHr'>.</div>\n<p>$eEn<br>$eFr</p>";
+} # End sub manageError
 
 =head1 AUTHOR
 
