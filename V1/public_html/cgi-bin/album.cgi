@@ -5091,7 +5091,7 @@ function calc(){ /*  Begin function calc() */
 			} /*  End else */
 		} /*  End else */
 	} /*  End else */
-	document.getElementById('err').innerHTML += "   --------- "+ trip +" ooooooooo "+ meot1.format(formISO) +'  >  '+ mbot1.format(formISO) +"---------->"+mbot2.format(formISO)+" ======== "+ (meot1>mbot1) ;
+	document.getElementById('err').innerHTML += "   --------- "+ trip +" ooooooooo <br><b>"+ meot1.format(formISO) +'  >  '+ mbot1.format(formISO) +"</b><===>"+mbot2.format(formISO)+" ======== "+ (meot1>mbot1) + " or "+(meot1>mbot2);
 } /*  End function calc() */
 
 function listToModification(){ /*  Begining function listToModification() */
