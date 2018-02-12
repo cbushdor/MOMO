@@ -5011,7 +5011,15 @@ function timeCalculusE(value){
 
 function manageError(header,eEn,eFr){/* Begin function manageError(header,eEn,eFr) */
 	return "<div name='errFrame' style='border: thin solid black;border-radius: 5px;'>"+ 
-		"<div name='errFrame' style='border: thin solid yellow;border-radius: 5px;'>"+ "<div name='errFrame' style='border: thin solid black;border-radius: 5px;'>"+ "<center><h3>"+header+"</h3></center><div class='customHr'>.</div><p>"+eEn+"<br>"+eFr+"</p>"+ "</div>"+ "</div>" + "</div>" ;
+			"<div name='errFrame' style='border: thin solid #33ccff;border-radius: 5px;'>"+ 
+				"<div name='errFrame' style='border: thin solid black; background: repeating-linear-gradient(to bottom,#33ccff,#0033cc); '>"+
+					"<center><h3>"+header+"</h3></center>"+
+				"</div>"+
+				"<p>"+
+					eEn+"<br>"+eFr+
+				"</p>"+
+			"</div>"+
+		"</div>"  ;
 } /* End function manageError(header,eEn,eFr) */
 
 function calc(){ /*  Begin function calc() */
@@ -5065,16 +5073,18 @@ function calc(){ /*  Begin function calc() */
 		if( lot.indexOf(trip+ "-trips",0)>=0){ /* Begin if( lot.indexOf(trip+ "-trips",0)>=0) */
 			document.getElementById('err').innerHTML = manageError(
 										"Error/Erreur",
-										"Choose another trip name." + trip + " already exists.",
-										"Choisir un autre nom du voyage." + trip + " déjà existtant.");
+										"The trip name [<b>" + trip + "</b>] already exists.",
+										"Le nom [<b>" + trip + "</b>] déjà existtant.");
 		} /*  End if( lot.indexOf(trip+ "-trips",0)>=0) */
 		else{ /*  Begin else */
 			if (meot1>mbot1) {
 				var lag=0;
 				document.getElementById('err').innerHTML = "<input type='submit' onclick='validForm()'>"+
-										"<input type='hidden' name='maop_url' value='"+r+"'/>"+
-										"----->"+getTimeZone()+ "<-----"+
+										"<input type='hidden' name='maop_url' value='"+r+"'/>";
+										/*
+										+ "----->"+getTimeZone()+ "<-----"+
 										"<input type='hidden' name='maop_tz_offset' value='"+lag+"'/>";
+										*/
 
 				function validForm(){ // Begin function validForm()
 					for (var i = 0; i < myForms.elements.length; i++) { // Begin for (var i = 0; i < myForms.elements.length; i++)
@@ -5091,7 +5101,7 @@ function calc(){ /*  Begin function calc() */
 			} /*  End else */
 		} /*  End else */
 	} /*  End else */
-	document.getElementById('err').innerHTML += "   --------- "+ trip +" ooooooooo <br><b>"+ meot1.format(formISO) +'  >  '+ mbot1.format(formISO) +"</b><===>"+mbot2.format(formISO)+" ======== "+ (meot1>mbot1) + " or "+(meot1>mbot2);
+	//document.getElementById('err').innerHTML += "   --------- "+ trip +" ooooooooo <br><b>"+ meot1.format(formISO) +'  >  '+ mbot1.format(formISO) +"</b><===>"+mbot2.format(formISO)+" ======== "+ (meot1>mbot1) + " or "+(meot1>mbot2);
 } /*  End function calc() */
 
 function listToModification(){ /*  Begining function listToModification() */
@@ -5363,16 +5373,6 @@ sub general_css_def { # Begin general_css_def
 		#	"font-size: 20px;\n".
 		#	"font-family: courier;\n".
 		"}\n".
-		".customHr {\n"
-		. "width: 95%\n"
-		. "font-size: 1px;\n"
-		. "color: rgba(0, 0, 0, 0);\n"
-		. "line-height: 1px;\n"
-
-		. "background-color: grey;\n"
-		. "margin-top: -6px;\n"
-		. "margin-bottom: 10px;\n"
-		. "}\n".
 		"xxx { z-index: 40; position: absolute; left: 0px;top: 120px;}\n".
 		"expl_1_4 { position: absolute; left: 5px; top: 2px; z-index: 2; }\n"; 
 } # End sub general_css_def
@@ -6425,7 +6425,7 @@ Google ID:<input type='text' name='maop_googid' />
 </form>
 </fieldset>	
 <fieldset>
-<legend>Trip operations</legend>
+<legend>Trip operations/Opérations sur les voyages</legend>
 
 <script  language="javascript"  type="text/javascript">
 
@@ -6508,8 +6508,8 @@ function myList(){ /*  Begin function myList() */
 		"<input type='hidden' name='maop_service' value='check' />" +
 		"<input type='hidden' name='maop_ssection' value='adminGroup' />" +
 		"<input type='hidden' name='maop_TRIP_ID' value='ok' />" +
-		"Trip name:<input type='text' name='maop_googid' /> " +
-		"<br>Email to send: <input type='email' name='maop_email' value='dorey_s\@laposte.net'>" +
+		"Trip name/Nom du voyage:<input type='text' name='maop_googid' /> " +
+		"<br>Email address to send / Addresse mail pour envoie de courriel: <input type='email' name='maop_email' value='dorey_s\@laposte.net'>" +
 		"<br>Begining of the trip/Début du voyage<input type='datetime-local' name='maop_bdaytime' value='--' onchange='calc()'>"+
 		"$ltznb" +
 		"<br>End of the trip/Fin du voyage<input type='datetime-local' name='maop_edaytime' value='--' onchange='calc()'>"+
@@ -6526,7 +6526,7 @@ function myList(){ /*  Begin function myList() */
 
 <form name="myform" method='post' enctype='multipart/form-data'>
 <!-- Operation <select name="operation" onChange="myList();"> -->
-Operation <select name="operation" onChange="myList();">
+Operations/Opérations <select name="operation" onChange="myList();">
 <option default>--</option>
 <option>Add</option>
 <option>List</option>
