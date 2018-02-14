@@ -80,6 +80,8 @@ In used.
 
 =over 4
 
+- I<Last modification: v1.1.25.26> 20180214 see check_password 
+
 - I<Last modification: v1.1.25.25> 20161001 see googHead 
 
 - I<Last modification: v1.1.25.24> 20142230 see setUrlFile
@@ -670,6 +672,8 @@ None.
 
 =over 4
 
+- I<Last modification:> Feb 14th 2018 only die added to close() subroutines
+
 - I<Last modification:> Sep 3rd 2006
 
 - I<Last modification:> Nov 10 2004
@@ -704,7 +708,7 @@ sub check_password {    # begin sub check_password
 					#print "ok 4<br>";
 					open( PID, ">$album_pid_file" ) || die("Can't create $album_pid_file: $!");
 					print PID $$;
-					close(PID);
+					close(PID)||die("Error: $!");;
 					return 0;
 				} # End if ("$user_password" eq "$password")
 				#print "ok 3bis<br>";
@@ -716,26 +720,26 @@ sub check_password {    # begin sub check_password
 			open( OLD_PID, "$album_pid_file" ) || die("Can't open $album_pid_file: $!");
 			my $pid;
 			foreach (<OLD_PID>) { # begin foreach (<OLD_PID>)
-				#print "pid list $_<br>\n";
+				print "pid list $_<br>\n";
 				chomp($_);
 				$pid .= $_;
 			} # End foreach (<OLD_PID>)
-			close(OLD_PID);
+			close(OLD_PID)||die("Error: $!");
 
 			if ( $my_pid != $pid ) { # begin if ($my_pid != $pid)
-				#print "bad<br>";
+				#print "bizzzzz bad (current pid $$)  $my_pid != $pid<br>";
 				return -1;
 			} # End if ($my_pid != $pid)
 			open( PID, ">$album_pid_file" ) || die("Can't create $album_pid_file: $!");
 			print PID $$;
-			close(PID);
+			close(PID)||die("Error: $!");;
 			return 0;
 		} # End else
 	} # End if ( "$service_from_param" eq "$service_value" )
 	else {    # begin else
 		#print "$service_from_param eq $service_value aaaaaaaaa<br>";
 	} # End else
-	#print "BAD<br>";
+	#print "ddfdfsdfdsdfs BAD<br>";
 	return -1;
 } # End sub check_password
 
