@@ -877,53 +877,53 @@ my $date_ticket=uri_unescape($doc->param("maop_date"));
 #print "Content-Type: text/html;charset=utf-8;\n"; print "Pragma: no-cache \n\n";
 
 	#------------------------------------------------------------------------
-	my $mtfn=();# my trip file name
+my $mtfn=();# my trip file name
 
-	if(-f "$tn"){ # Begin if(-f "$tn")
-		# =================================================================================================
-		# ============================ We calculate if the trip is on schedule ============================
-		# ===================== We have the name of the trip dates: begining and, end of the trip =========
-		# ===================== We have the time zone where the trip starts and end =======================
-		# ===================== <DATETIME> ================================================================
-		# =================================================================================================
+if(-f "$tn"){ # Begin if(-f "$tn")
+	# =================================================================================================
+	# ============================ We calculate if the trip is on schedule ============================
+	# ===================== We have the name of the trip dates: begining and, end of the trip =========
+	# ===================== We have the time zone where the trip starts and end =======================
+	# ===================== <DATETIME> ================================================================
+	# =================================================================================================
 
-		my $dt3 = DateTime->from_epoch( epoch => time() );# Current date format DateTime
+	my $dt3 = DateTime->from_epoch( epoch => time() );# Current date format DateTime
 
-		open(RTN,"$tn") or die ("$tn error $!");my @rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains Begin and end of trip)
-		chomp($rtn[0]);my ($brtn,$ertn,$tntz_b,$tntz_e)=split(/\#/,$rtn[0]); # begining r... trip name,end r... trip name,trip name (time) zone begining,trip name (time) zone end
-		my $anal = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
-		my $dtb = $anal->parse_datetime( $brtn );
+	open(RTN,"$tn") or die ("$tn error $!");my @rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains Begin and end of trip)
+	chomp($rtn[0]);my ($brtn,$ertn,$tntz_b,$tntz_e)=split(/\#/,$rtn[0]); # begining r... trip name,end r... trip name,trip name (time) zone begining,trip name (time) zone end
+	my $anal = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
+	my $dtb = $anal->parse_datetime( $brtn );
 
-		# We set internal clock as the same time zone as the begining of the trip time zone
-		$dt3->set_time_zone($tntz_b);
+	# We set internal clock as the same time zone as the begining of the trip time zone
+	$dt3->set_time_zone($tntz_b);
 
-		if($dtb>$dt3){ # Begin if($dtb>$dt3)
-			# date is not yet arrived
-			print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
-			$mtfn="_-" . TRIP_NAME; 
-		} # End if($dtb>$dt3)
-		else{ # Begin else $dtb<=$dt3
-			my $anal2 = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
-			my $dte = $anal2->parse_datetime( $ertn );
-
-			# We set intenal clock as the same time zone as the end of the trip time zone
-			$dt3->set_time_zone($tntz_e);
-
-			if($dte<$dt3){ # Begin if($dte<$dt3)
-				# date is passed
-				$mtfn="_-" . TRIP_NAME; 
-			} # End if($dte<$dt3)
-			else { # Begin  $dte>=$dt3
-				print "<h1>We record $dtb<$dt3<$dte</h1></br>";
-				$mtfn="${mgidt}-" . TRIP_NAME; 
-			} # End  $dte>=$dt3
-		} # End else $dtb<=$dt3
-	} # End if(-f "$tn")
-	else{ # Begin else
-		#print uri_unescape($doc->param("maop_date"))." usual record\n<br>";
+	if($dtb>$dt3){ # Begin if($dtb>$dt3)
+		# date is not yet arrived
+		print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
 		$mtfn="_-" . TRIP_NAME; 
-	} # End else
-	#------------------------------------------------------------------------
+	} # End if($dtb>$dt3)
+	else{ # Begin else $dtb<=$dt3
+		my $anal2 = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
+		my $dte = $anal2->parse_datetime( $ertn );
+
+		# We set intenal clock as the same time zone as the end of the trip time zone
+		$dt3->set_time_zone($tntz_e);
+
+		if($dte<$dt3){ # Begin if($dte<$dt3)
+			# date is passed
+			$mtfn="_-" . TRIP_NAME; 
+		} # End if($dte<$dt3)
+		else { # Begin  $dte>=$dt3
+			print "<h1>We record $dtb<$dt3<$dte</h1></br>";
+			$mtfn="${mgidt}-" . TRIP_NAME; 
+		} # End  $dte>=$dt3
+	} # End else $dtb<=$dt3
+} # End if(-f "$tn")
+else{ # Begin else
+	#print uri_unescape($doc->param("maop_date"))." usual record\n<br>";
+	$mtfn="_-" . TRIP_NAME; 
+} # End else
+#------------------------------------------------------------------------
 
 print "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n";
 print "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n";
@@ -933,15 +933,15 @@ print "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />
 print $doc->meta({
 			-name=>"title",
 			-content=>"Album of pictures/Album photos"
-		});
+		})."\n";
 print $doc->meta({ 
 			-name=>"description", 
 			-content=>"Album of pictures generated with a script/Album genere avec un script"
-		}) ;
+		})."\n" ;
 print $doc->meta({ 
 			-name=>"keywords", 
 			-content=>"Merci, Thanks"
-		}) ;
+		})."\n" ;
 #print $doc->meta({ 
 		#-name=>"keywords", 
 		#-content=>"quelque part sur la toile,somewhere on the net, album picture, album photo Sebastien Dorey, mere denis"
@@ -949,7 +949,7 @@ print $doc->meta({
 print $doc->meta({ 
 			-name=>"author", 
 			-content=>"Sebastien DOREY aka shark bait"
-		}) ;
+		})."\n" ;
 
 #print "++++===><br />";
 my ($resPing,$ipOk)=(0,0); # stub io::MySec::checksRevIpAdd($ipAddr,io::MySec::getsAllIPReceived); # Checks ping address
@@ -1023,7 +1023,7 @@ my $locid="$co/$cn/$cr/$ct/$lo/$la";
 # ------------------------------------------------------------------------------
 
 #my $resAuth=io::MyUtilities::check_password($my_pid,uri_unescape($doc->param("maop_service")), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,"album/pid");
-#print "<br>>>>>>+++++>>>>>>>$resAuth<br>$resPing<------delim";
+print "<br>>>>>>+++++>>>>>>>$resAuth<br>$resPing<------delim";
 #my $mcgierr=$doc->cgi_error;
 #if($mcgierr){
 	#print "<br>tonton 1<br>\n\n\n\n\n\n";
@@ -2610,8 +2610,8 @@ sub auth_menu { # Begin auth_menu
 	print $doc->br
 		. &menu_page_title(
 			"Bienvenue sur l'album photos<br /><font color='blue'>Welcome to the album of pictures</font>",
-			"Authentifiez vous pour administrer l'album photos" . $doc->br .
-			"<font color='blue'>Authenticate to administrate the album of pictures</font>",
+			"Authentifiez vous pour administrer l'album photos" . $doc->br . "\n" .
+			"<font color='blue'>Authenticate to administrate the album of pictures</font>", "\n" .
 			ALBUM_VERSION
 			);
 
@@ -5101,7 +5101,12 @@ function calc(){ /*  Begin function calc() */
 			} /*  End else */
 		} /*  End else */
 	} /*  End else */
-	//document.getElementById('err').innerHTML += "   --------- "+ trip +" ooooooooo <br><b>"+ meot1.format(formISO) +'  >  '+ mbot1.format(formISO) +"</b><===>"+mbot2.format(formISO)+" ======== "+ (meot1>mbot1) + " or "+(meot1>mbot2);
+	/*
+		document.getElementById('err').innerHTML += "   --------- "+ trip 
+						+" ooooooooo <br><b>"+ meot1.format(formISO) 
+						+'  >  '+ mbot1.format(formISO) +"</b><===>"+mbot2.format(formISO)
+						+" ======== "+ (meot1>mbot1) + " or "+(meot1>mbot2);
+	*/
 } /*  End function calc() */
 
 function listToModification(){ /*  Begining function listToModification() */
@@ -7921,8 +7926,9 @@ None.
 sub loadDataTrips{ # Begin sub loadDataTrips
 	#print "Content-Type: text/html\n\n";
 	#print "<br>Get current path ------>>>>".getcwd()."<<<<<-------<br>\n";
-	print '<script src="../js/moment.min.js"></script>';
-	print '<script src="../js/moment-timezone-with-data-2012-2022.min.js"></script>';
+	print "\n".'<script src="../js/CallServer.js"></script>'."\n";
+	print '<script src="../js/moment.min.js"></script>'."\n";
+	print '<script src="../js/moment-timezone-with-data-2012-2022.min.js"></script>'."\n";
 	if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==0) ) 
 		chdir(PATH_GOOGLE_MAP_TRIP);
 		#print "<br>Get current path ------>>>>".getcwd()."<<<<<-------<br>\n";
