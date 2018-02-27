@@ -123,6 +123,7 @@ my $vnl=100; # calculate version number length (number of characters in string)
 my $main_prog="maop.cgi"; #(split(/[\\\/]/,"$0"))[scalar(split(/[\\\/]/,"$0"))-1]; # gets program name
 #my $loc_margin="        ";
 my $loc_margin="";
+my $mip=io::MyNav::gets_ip_address;
 
 my $ipAddr=io::MyNav::gets_ip_address;
 my $furls="urls"; # fichier de sauvegarde urls
@@ -5031,7 +5032,7 @@ function calc(){ /*  Begin function calc() */
 	var num2=decodeURIComponent(document.myform.maop_edaytime.value);// date+time local ending of the trip
 	var comp1=decodeURIComponent(document.myform.maop_ltzn_b.value);// time zone begining of the trip
 	var comp2=decodeURIComponent(document.myform.maop_ltzn_e.value);// time zone ending of the trip
-	var myurl=new String("$myuri$myport/$myscript?maop_googid="+trip+"&maop_gmv=3-0");
+	var myurl=new String("$myuri$myport/$myscript?maop_googid="+trip+"&maop_gmv=3-0"); // <<<<<<<< here to check for url and ip @
 	var r="https://"+myurl.replace(/[\/]{2,}/g,"/"); /*  Regexp used to eliminate bugs while printing URL   ... */
 	var myForms = document.forms["myform"];
 	var bot=moment(num1); // date+time begining of trip
@@ -5041,7 +5042,7 @@ function calc(){ /*  Begin function calc() */
 	bot.tz(comp1,true); // Begin of trip: we don't change date but set time zone to it (date and time)
 	var mbot1=bot; // Begin of trip: we don't change date but set time zone to it (date and time)
 	var mbot2=bot.clone(); // clone date+time at the begining of the trip
-	mbot2.tz(comp2);// we set mbot1 to local time=end of the trip
+	mbot2.tz(comp2); // we set mbot1 to local time=end of the trip
 	var meot1=eot.tz(comp2,true); // End of trip: we don't change date but set time zone to it (date and time)
 
 
@@ -6251,7 +6252,6 @@ sub ipAddressGranted{ # Begin ipAddressGranted
 		@urlAllowed=split(/\,/, io::MyUtilities::getUrlFromFile); # refresh list
 	} # End if($recPid=~m/ok/)
 
-	my $mip=io::MyNav::gets_ip_address;
 	#my $sen=io::MyNav::gets_server_name;
 
 # -------------------------autorize ip address---------
@@ -7594,7 +7594,7 @@ sub setGoogleID{# Begin setGoogleID
 						#print $bdaytime . "#" . $edaytime.'<br>';
 						# We create the file that contains data related to trip s.a name, bdate,edate of trip
 						print "</br>where we store data [$tn]</br>";
-						print "B4 Storing++++++>".getcwd()."<-----<br>\n"; 
+						#print "B4 Storing++++++>".getcwd()."<-----<br>\n"; 
 						
 						open(W,">$tn")||die("Error($tn): $!");
 						print W $bdaytime . "#" . $edaytime . "#" . $ltzn_b . "#" . $ltzn_e;
@@ -7628,13 +7628,23 @@ sub setGoogleID{# Begin setGoogleID
 						my $from = 'Bot from MAOP<shark.b@laposte.net>';
 						my $maop_url_loc = uri_unescape($doc->param('maop_url')); $maop_url_loc=~s/[\n\t\ ]*$//; # watch out there is a variable that already contains that value it is $mgidt in another word we shave all characters that are at the end of the memory taken from parameter
 						my $subject = "Info regarding trip name:" . uri_unescape($doc->param('maop_googid')); 
+						my $dist=$maop_url_loc;
+						my $dist=$maop_url_loc;
+						my $loc=$maop_url_loc;
+						my $mh=HOSTED_BY_URL; # my host
+						#$mh=~s/^https{0,1}\:\/\///;
+						$loc=~s/$mh/$mip/;
+						$mh=~m/(([^\.\:\/]{1,})(\.[^\.\:\/]{1,}){2})/;
+						my $nmh=$1;
+						$dist=~s/[0-9]{1,3}(\.[0-9]{1,3}){3}/$nmh/;
+						#print "<br>------------>dist: $nmh<br>\n";
 						my $message = "<br><b><u>Trip name/Nom du voyage:</u></b>" . uri_unescape($doc->param('maop_googid')) .  
 							      "\n<br><b><u>Begining of the trip/Debut du voyage:</u></b>" . uri_unescape($doc->param('maop_bdaytime')) . " " . $tzbt->name . " " . $tzbt->offset_for_local_datetime( $dtb ) .
 							      "\n<br><b><u>End of the trip/Fin du voyage:</u></b>". uri_unescape($doc->param('maop_edaytime')). " " . $tzet->name . " " . $tzet->offset_for_local_datetime( $dte ) .
-							      "\n<br><b><u>Trace trip/Trace du voyage:</u></b><a href='".$maop_url_loc."'>trip</a>\n".
-							      "\n<br><b><u>Watch map regarding trip/Regarder le voyage sur une carte:</u></b><a href='".$maop_url_loc.
-							      #"\&maop_gmv=".GOOGLE_MAP_SCRIPT_VERSION. PATH_GOOGLE_MAP_OPT .
-								"\&maop_prog=g3ogle.cgi'>trip</a>\n<br>".
+							      "\n<br><b><u>Trace trip/Trace du voyage:</u></b><span style='background-color:red'><a href='".$maop_url_loc."'>trip (lan)</a></span>\n".
+								  "<span style='background-color:green'><a href='".$dist."'>trip (network)</a></span>\n".
+							      "\n<br><b><u>Watch map regarding trip/Regarder le voyage sur une carte:</u></b><span style='background-color:red'><a href='".$loc. "\&maop_prog=g3ogle.cgi'>trip (local)</a></span>\n ".
+							      "<span style='background-color:green'><a href='".$dist. "\&maop_prog=g3ogle.cgi'>trip (distant)</a></span>\n<br>".
 								"Friendly yours,<br>Bot from MAOP\n";
 
 						open(MAIL, "|/usr/sbin/sendmail -t");
@@ -7649,7 +7659,9 @@ sub setGoogleID{# Begin setGoogleID
 						print MAIL $message;
 						close(MAIL);
 
-						print "A mail to $to is being sent...\n";
+						print "A mail to $to is being sent...\n<br>";
+						#print $message;
+						#print "<br>-----------------------<br>";
 					} # End if(length($edaytime)!=0)
 					else{ # Begin else
 						#print "<br><br><BR><i>ERRROR<br>";
@@ -7949,7 +7961,7 @@ sub loadDataTrips{ # Begin sub loadDataTrips
 	#
 		foreach my $i (sort @dr){ # Begin foreach my $i (@dr)
 			#print "<br>*************>$i<br>";
-			$lot.="\"$i\",";
+			$lot.="\"$i\",\n";
 			open(R,"$i") || die("error open $!");
 			my @ftr=<R>; # File trip read
 			my ($btd,$etd,$btzn,$etzn)=split(/\#/,$ftr[0]);# Begin trip date,end trip date
