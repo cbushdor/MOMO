@@ -101,6 +101,7 @@ use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album ve
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'effers.com';        # That's the host name
 use constant HOSTED_BY_URL 		=> 'https://dorey.effers.com/~sdo/';    # That's the url of host name
+use constant LOCAL_HOSTED_BY_URL 		=> '192.168.1.13';    # That's the url of local host name
 use constant TESTED_WITH_BROWSERS    	=> 'Firefox V27.0.1,Safari V5.1.7,Opera V11.64'; # That's browsers tested
 use constant MAX_PAGE_PER_LINE_INDEX 	=> 20; # That's max of page in browser that shows up on one line.
 use constant MAX_IMAGES_PER_PAGE     	=> 5; # Maximum of images per page
@@ -7629,19 +7630,22 @@ sub setGoogleID{# Begin setGoogleID
 						my $maop_url_loc = uri_unescape($doc->param('maop_url')); $maop_url_loc=~s/[\n\t\ ]*$//; # watch out there is a variable that already contains that value it is $mgidt in another word we shave all characters that are at the end of the memory taken from parameter
 						my $subject = "Info regarding trip name:" . uri_unescape($doc->param('maop_googid')); 
 						my $dist=$maop_url_loc;
-						my $dist=$maop_url_loc;
 						my $loc=$maop_url_loc;
+						# "https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_googid=20180228%20Tests&maop_gmv=3-0";
+						#print "************>$loc<br>";
 						my $mh=HOSTED_BY_URL; # my host
+						my $lmh=LOCAL_HOSTED_BY_URL; # my host
 						#$mh=~s/^https{0,1}\:\/\///;
-						$loc=~s/$mh/$mip/;
+						$loc=~s/(([^\.\:\/]{1,})(\.[^\.\:\/]{1,}){2})/$lmh/;
 						$mh=~m/(([^\.\:\/]{1,})(\.[^\.\:\/]{1,}){2})/;
 						my $nmh=$1;
 						$dist=~s/[0-9]{1,3}(\.[0-9]{1,3}){3}/$nmh/;
 						#print "<br>------------>dist: $nmh<br>\n";
+						#print "************>$loc<br>";
 						my $message = "<br><b><u>Trip name/Nom du voyage:</u></b>" . uri_unescape($doc->param('maop_googid')) .  
 							      "\n<br><b><u>Begining of the trip/Debut du voyage:</u></b>" . uri_unescape($doc->param('maop_bdaytime')) . " " . $tzbt->name . " " . $tzbt->offset_for_local_datetime( $dtb ) .
 							      "\n<br><b><u>End of the trip/Fin du voyage:</u></b>". uri_unescape($doc->param('maop_edaytime')). " " . $tzet->name . " " . $tzet->offset_for_local_datetime( $dte ) .
-							      "\n<br><b><u>Trace trip/Trace du voyage:</u></b><span style='background-color:red'><a href='".$maop_url_loc."'>trip (lan)</a></span>\n".
+							      "\n<br><b><u>Trace trip/Trace du voyage:</u></b><span style='background-color:red'><a href='".$loc."'>trip (lan)</a></span>\n".
 								  "<span style='background-color:green'><a href='".$dist."'>trip (network)</a></span>\n".
 							      "\n<br><b><u>Watch map regarding trip/Regarder le voyage sur une carte:</u></b><span style='background-color:red'><a href='".$loc. "\&maop_prog=g3ogle.cgi'>trip (local)</a></span>\n ".
 							      "<span style='background-color:green'><a href='".$dist. "\&maop_prog=g3ogle.cgi'>trip (distant)</a></span>\n<br>".
