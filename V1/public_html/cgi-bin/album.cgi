@@ -4976,7 +4976,7 @@ sub javaScript { # Begin javaScript
 			*/
 function timeCalculusB(value){
 	var mtz=decodeURIComponent(value); // my time zone
-	var formISO='YYYY-MM-DDTHH:mm:ss';
+	var formISO='YYYY-MM-DDTHH:mm';
 	//var d=new Date();
 	var nowMoment=moment();
 
@@ -4995,7 +4995,7 @@ function timeCalculusB(value){
 
 function timeCalculusE(value){
 	var mtz=decodeURIComponent(value); // my time zone
-	var formISO='YYYY-MM-DDTHH:mm:ss';
+	var formISO='YYYY-MM-DDTHH:mm';
 	var d=new Date();
 	var nowMoment=moment();
 
@@ -5038,7 +5038,7 @@ function calc(){ /*  Begin function calc() */
 	var myForms = document.forms["myform"];
 	var bot=moment(num1); // date+time begining of trip
 	var eot=moment(num2); // date+time ending of trip 
-	var formISO='YYYY-MM-DDTHH:mm:ss';
+	var formISO='YYYY-MM-DDTHH:mm';
 
 	bot.tz(comp1,true); // Begin of trip: we don't change date but set time zone to it (date and time)
 	var mbot1=bot; // Begin of trip: we don't change date but set time zone to it (date and time)
