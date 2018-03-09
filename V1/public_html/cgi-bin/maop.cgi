@@ -1,4 +1,4 @@
-#!/home1/derased/public_html/my_link_perl
+#!/Users/sdo/perl5/perlbrew/perls/perl-5.8.8/bin/perl
 
 $|=1;
 use CGI;
@@ -22,18 +22,18 @@ my $logfile="album/hist/log-$ipAddr-$$";
 my $mparam=();# my parameter passed
 
 print "Content-Type: text/html ; charset=UTF-8 \n\n";
-print "++++++>".getcwd()."<-----<br>\n"; 
+#print "++++++>".getcwd()."<-----<br>\n"; 
 my $leng=scalar $doc->param;
 #print "---|$leng|------". (defined($doc->param('maop_lon'))) ? "longitude defined" : "longitude not defined"  ;
 #print "---$leng------". $doc->param('maop_lon') ."<br>";
 
 my $la=$doc->param("maop_lat");
 my $lo=$doc->param("maop_lon");
-print "oooooooooooooooooooooooooooo>la:$la    lo:$lo<br>";
+#print "oooooooooooooooooooooooooooo>la:$la    lo:$lo<br>";
 
 foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 	#print ">>>>>>>$p --->".uri_escape($doc->param($p))."<br>";
-	print ">>>>>>>$p --->".$doc->param($p)."<br>";
+#	print ">>>>>>>$p --->".$doc->param($p)."<br>";
 	if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
 		if($p!~m/^maop_lon$/&&
 		   $p!~m/^maop_lat$/&&
@@ -63,27 +63,27 @@ if ("$ENV{HTTPS}" eq "on") {
 	$url .= "s";
 }
 $url .= "://";
-print "<br><u>A server name:</u>$ENV{SERVER_NAME}<br><u>server port:</u>$ENV{SERVER_PORT}<br><u>server request uri:</u>$ENV{REQUEST_URI}<br>";
+#print "<br><u>A server name:</u>$ENV{SERVER_NAME}<br><u>server port:</u>$ENV{SERVER_PORT}<br><u>server request uri:</u>$ENV{REQUEST_URI}<br>";
 if ("$ENV{SERVER_PORT}" ne "80") { # Begin if ("$ENV{SERVER_PORT}" ne "80") 
-	print "<br><u>A url before:</u>$url<br>";
+#	print "<br><u>A url before:</u>$url<br>";
 	$url .= $ENV{SERVER_NAME}.":".$ENV{SERVER_PORT}.$ENV{REQUEST_URI};
 	$url=~s/maop\.cgi/$prog/;
 	$url.=$mparam;
-	print "<br><u>A url after:</u>$url<br><u>prog:</u>$prog<br>";
+#	print "<br><u>A url after:</u>$url<br><u>prog:</u>$prog<br>";
 } # End if ("$ENV{SERVER_PORT}" ne "80")
 else { # Begin else
-	print "<br><u>B url before:</u>$url<br>";
+#	print "<br><u>B url before:</u>$url<br>";
 	$url .= $ENV{SERVER_NAME}.$ENV{REQUEST_URI};
 	$url=~s/maop\.cgi.*/$prog/;
-	print "<br><u>B url after:</u>$url<br>";
+#	print "<br><u>B url after:</u>$url<br>";
 } # End else
-print "<br><u>C server name:</u>$ENV{SERVER_NAME}<br><u>server port:</u>$ENV{SERVER_PORT}<br><u>server request uri:</u>$ENV{REQUEST_URI}<br>";
+#print "<br><u>C server name:</u>$ENV{SERVER_NAME}<br><u>server port:</u>$ENV{SERVER_PORT}<br><u>server request uri:</u>$ENV{REQUEST_URI}<br>";
 $url=~s/(\/)[^\/]+$/$1/;
 $url.=$prog;
-print "<br><br><u>url:</u>$url<br>";
-print "<br><u>mparam:</u>$mparam<br>";
-print "<br><u>maop_log:</u>$logfile<br>";
-sleep(15);
+#print "<br><br><u>url:</u>$url<br>";
+#print "<br><u>mparam:</u>$mparam<br>";
+#print "<br><u>maop_log:</u>$logfile<br>";
+#sleep(15);
 #exit(-1);
 
 # =====================================================================================
@@ -97,12 +97,12 @@ if( -f "$logfile"){ # begin if( -f "$logfile")
 open(FD,">$logfile") or die("$logfile error $!");
 print FD " ";
 close(FD) or die("$logfile error $!");
-if( -f "$logfile"){ # begin if( -f "$logfile")
-	print "<br><br><br>//////////><b>$logfile</b> exists<br>***********************\n";
-} # end if( -f "$logfile")
-else{
-	print "<br><br><br>::::::::::::::::::::><i><b>$logfile does not exists</i></b><br>-----------------------\n";
-}
+#if( -f "$logfile"){ # begin if( -f "$logfile")
+#	print "<br><br><br>//////////><b>$logfile</b> exists<br>***********************\n";
+#} # end if( -f "$logfile")
+#else{
+#	print "<br><br><br>::::::::::::::::::::><i><b>$logfile does not exists</i></b><br>-----------------------\n";
+#}
 #sleep(15);
 #print "toto<br>";
 #exit(-1);

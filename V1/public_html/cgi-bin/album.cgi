@@ -1,4 +1,4 @@
-#!/home1/derased/public_html/my_link_perl
+#!/Users/sdo/perl5/perlbrew/perls/perl-5.8.8/bin/perl
 
 # +-------------------------------+
 # | album.cgi                     |
