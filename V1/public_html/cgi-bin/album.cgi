@@ -615,9 +615,16 @@ $mparam=~s/^\&//;
 	} # End elsif(! defined($ipAddr)||$ipAddr=~m/^192\.168\.1\.13/||$ipAddr=~m!example2.dev!)
 	else{ # Begin else
 		#print "iiiiiiii>case 2-";
-		$url= HOSTED_BY_URL . "/cgi-bin/maop.cgi\?$mparam"; # url where website is hosted
+		$url = 'http';
+		if ("$ENV{HTTPS}" eq "on") {
+			$url .= "s";
+		}
+		$url .= "://";
+		$url.= LOCAL_HOSTED_BY_URL . $ENV{REQUEST_URI}. "\?$mparam"; # url where website is hosted
+		$url=~s/album\.cgi/maop\.cgi/;
 	} # End else
-	#print "<br>$ipAddr<br><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< $url<br>";
+	#print "$ENV{REQUEST_URI}<br>$ipAddr<br><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< $url<br>";
+	#exit(-1);
 	# ------------------------------------------------------------------------------------------
 	my $c=<<A;
 <!DOCTYPE html>
@@ -628,7 +635,7 @@ $mparam=~s/^\&//;
 <script  language="javascript" type="text/javascript">
 	var x=document.getElementById("wait");
 	/* x.innerHTML="Please wait while loading..."; */
-	x.innerHTML="Error case 1 [lon,lat]=[$lon,$lat] not defined<br>Please wait while loading...";
+	x.innerHTML="Error case 1 $ipAddr [lon,lat]=[$lon,$lat] not defined<br>Please wait while loading...";
 	window.location="$url";
 </script>
 </body>
