@@ -620,7 +620,7 @@ $mparam=~s/^\&//;
 			$url .= "s";
 		}
 		$url .= "://";
-		$url.= LOCAL_HOSTED_BY_URL . $ENV{REQUEST_URI}. "\?$mparam"; # url where website is hosted
+		$url.= $ENV{"HTTP_HOST"} . $ENV{REQUEST_URI}. "\?$mparam"; # url where website is hosted
 		$url=~s/album\.cgi/maop\.cgi/;
 	} # End else
 	#print "$ENV{REQUEST_URI}<br>$ipAddr<br><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< $url<br>";
@@ -635,7 +635,7 @@ $mparam=~s/^\&//;
 <script  language="javascript" type="text/javascript">
 	var x=document.getElementById("wait");
 	/* x.innerHTML="Please wait while loading..."; */
-	x.innerHTML="Error case 1 $ipAddr [lon,lat]=[$lon,$lat] not defined<br>Please wait while loading...";
+	x.innerHTML="Error case 1 $ipAddr go to $url [lon,lat]=[$lon,$lat] not defined<br>Please wait while loading...";
 	window.location="$url";
 </script>
 </body>
