@@ -22,6 +22,7 @@ my $logfile="album/hist/log-$ipAddr-$$";
 my $mparam=();# my parameter passed
 
 print "Content-Type: text/html ; charset=UTF-8 \n\n";
+print "We are in MAOP.CGI ";
 #print "++++++>".getcwd()."<-----<br>\n"; 
 my $leng=scalar $doc->param;
 #print "---|$leng|------". (defined($doc->param('maop_lon'))) ? "longitude defined" : "longitude not defined"  ;
@@ -33,14 +34,30 @@ my $lo=$doc->param("maop_lon");
 
 foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 	#print ">>>>>>>$p --->".uri_escape($doc->param($p))."<br>";
-#	print ">>>>>>>$p --->".$doc->param($p)."<br>";
+	print ">>>>>>>$p --->".$doc->param($p)."<br>";
 	if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
 		if($p!~m/^maop_lon$/&&
 		   $p!~m/^maop_lat$/&&
 		   $p!~m/^maop_prog$/&&
 		   $p!~m/^maop_date$/&&
 		   $p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
-			$mparam.="&$p=".uri_escape($doc->param($p));
+		   	my $dec=();
+			print "<br>--------BEGIN----($p)------------------------<br>";
+			my $pram=$doc->param($p);
+			chomp($pram);
+			print "param received:>$pram<    length:".length($pram)."  " . ((defined $doc->param($p)) ? "defined ":"not defined ");
+			print "param with uri_encode: ---->$dec<----<br>";
+			if (length($pram)>0) { 
+				$dec=uri_escape($pram, "\0-\377") || die ("Error: $!");;
+				$mparam.="&$p=$dec";
+			} #.uri_escape($doc->param($p));
+			#else {
+				#if($pram=~m/^maop_googid$/){
+					#$dec=uri_escape("3-0", "\0-\377") || die ("Error: $!");;
+					#$mparam.="&$p=$dec";
+				#}
+			#}
+			print "<br>--------END----($p)------------------------<br>";
 		}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 		elsif ($p!~m/^maop_lat$/){ # begin elsif ($p!~m/^maop_lat$/)
 #&myrec("Case logfile format maop ","../error.html","****** $la" );
