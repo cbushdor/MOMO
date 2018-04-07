@@ -1,5 +1,8 @@
-#!/usr/bin/perl -T
-
+#!/Users/sdo/perl5/perlbrew/perls/perl-5.8.8/bin/perl
+# #!/home1/derased/public_html/my_link_perl
+# #!/usr/bin/perl -T
+print "Content-Type: text/html\n\n";
+print "------------";
 $|=0;
 
 use warnings;
@@ -10,7 +13,6 @@ use DateTime::Format::Strptime;
 BEGIN {
 	push @INC, '/Users/sdo/Sites/cgi-bin/';
 	push @INC, '/home1/derased/public_html/cgi-bin/';
-	push @INC, '/home/sdo/public_html/cgi-bin/';
 }
 
 use LWP::Simple;
@@ -25,13 +27,15 @@ use io::MyUtilities;
 
 use CGI;
 
+print "Content-Type: text/html\n\n";
+
 my $ipAddr=io::MyNav::gets_ip_address;
 
 =head1 NAME
 
 g3ogle.cgi
 
-$VERSION=0.2.1.157  
+$VERSION=0.2.1.154
 
 =head1 ABSTRACT
 
@@ -58,8 +62,6 @@ infoCenter
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
-
-- I<Last modification:v0.2.1.157> Feb 12 2016: lengen of the map improved
 
 - I<Last modification:v0.2.1.154> Aug 30 2015: removed test below
 			if(!("$ll" eq "$l" && "$LL" eq "$L")){ # begin if(!("$ll" eq "$l" && "$LL" eq "$L"))
@@ -91,8 +93,7 @@ my $logfile= $doc->param("maop_log");
 $logfile=~s/\_/\//g;
 my $ui=time - (stat "$logfile")[9];
 my $statlastlogfile =($ui > $lstlog); # we check if log file is older that $lstlog seconds
-
-my $mgidt=(); #my google id  trip
+my $ilws=0; # is local website variable used for tests (local website,distant website)
 
 if($statlastlogfile){ # begin if($statlastlogfile)
 	my $mparam=();
@@ -127,8 +128,8 @@ if($statlastlogfile){ # begin if($statlastlogfile)
 	my @lflb=split(/\//,$logfile);
 	my $lfl=$lflb[scalar(@lflb)-1];
 	$lfl=~/^(.*)$/g;$lfl=$1;
-	#print "<br><h2>this is the log file to use ($lfl)=". length($lfl)."</h2>";
-	#print "<h1><br>- ". getcwd() ."</h1><br>";
+#	print "<br><h2>this is the log file to use $lfl</h2>";
+#	print "<h1><br>- ". getcwd() ."</h1><br>";
 	open(W,">$lfl") || die("Error with $lfl $!");
 	print W " ";
 	close(W) || die("Error with $lfl $!");
@@ -138,11 +139,14 @@ if($statlastlogfile){ # begin if($statlastlogfile)
 
 	chdir("..");chdir("..");
 	$logfile=~s/\//\_/g;
-	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){
+	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){ # begin if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
 		$url="http://localhost/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
-	}else{
-		$url="http://derased.heliohost.org/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_log=$logfile$mparam";
-	}
+		$ilws=0; # is local website 0=yes (for local wesite tests)
+	} # end if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
+	else{ # begin else
+		$ilws=1; # is local website 1=no (for distant wesite tests)
+		$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_log=$logfile$mparam";
+	} # end else
 #	print "ooooooooo>$url<br>";
 #	print "case 2-------($statlastlogfile)=======$logfile<br>";exit(1);
 	my $c=<<A;
@@ -170,7 +174,8 @@ if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){
 		$url="http://localhost/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
 	}else{
-		$url="http://derased.heliohost.org/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
+		#$url="http://derased.heliohost.org/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
+		$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
 	}
 	my $c=<<A;
 <!DOCTYPE html>
@@ -196,8 +201,11 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	#print "case 1<br>";exit(1);
 	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){
 		$url="http://localhost/~sdo/cgi-bin/maop.cgi";
+		$ilws=0; # is local website 0=yes (for local wesite tests)
 	}else{
-		$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
+		#$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
+		$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi";
+		$ilws=1; # is local website 1=no (for distant wesite tests)
 	}
 	my $c=<<A;
 <!DOCTYPE html>
@@ -233,8 +241,9 @@ if(length($googid)==0 || ! defined($googid) ){ # begin if(length($prt)==0 || ! d
 
 if ($ipAddr=~m/127.0.0.1/){ # begin if ($ipAddr=~m/127.0.0.1/)
 	my $pong = Net::Ping->new( $> ? "tcp" : "icmp" );
-	if ($pong->ping("www.heliohost.org")) { # begin if ($pong->ping("www.heliohost.org"))
-	} # end if ($pong->ping("www.heliohost.org"))
+	#if ($pong->ping("www.heliohost.org")) { # begin if ($pong->ping("www.heliohost.org"))
+	if ($pong->ping("dorey.effers.com")) { # begin if ($pong->ping("dorey.effers.com"))
+	} # end if ($pong->ping("dorey.effers.com"))
 	else { # begin else
 		print "No connection!\n";
 		exit(-1);
@@ -546,7 +555,7 @@ sub getsPath{ # begin getsPath
 	my $cur=1;
 use constant PATH_GOOGLE_MAP_TRIP 	=> "album/trips/";
 use constant TRIP_NAME           	=> "trips"; # Album trips
-		$mgidt=$doc->param("maop_googid"); #my google id  trip
+		my $mgidt=$doc->param("maop_googid"); #my google id  trip
 		chomp($mgidt);
 
 		my $tn=PATH_GOOGLE_MAP_TRIP.$mgidt ."-".TRIP_NAME; # Trip name
@@ -969,7 +978,7 @@ R
 		</script>
 
 R
-	print io::MyUtilities::googHead("$idgoog","$gmv");	
+	print io::MyUtilities::googHead("$idgoog","$gmv",$ilws);	
 	my $colo="CCCC00";
 	my $leng=<<A;
 				EtapeDebut: {
@@ -1003,7 +1012,6 @@ A
 				}
 A
 	}
-	if(length($mgidt)>0){$mgidt="<br>Trip name/Nom du voyage $mgidt";}
 	print <<R;
 		<script type="text/javascript" src="../js/markerclusterer.js"></script>
 		<script type="text/javascript">
@@ -1080,7 +1088,7 @@ $path;
 	</head>
 <body>
 	<div id="map"/>
-	<div id="legend"><h3>Legend $mgidt</h3></div>
+	<div id="legend"><h3>Legend</h3></div>
 	<!--
 	$fn proto: 0.3.$mtime <a href="mailto:shark.baits\@laposte.net" class="mailaddr">shark bait</a>
 	-->
