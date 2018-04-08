@@ -231,6 +231,7 @@ under_construction_prompt
 =over 4
 
 - I<Last modification:v1.6.16.112> Apr 07 2018 Due to portage configuration from previous config were not modified. There are still some but for the ime being it does not shows up. Couldn't check local config but ok for distant tests. This lack was modified hopefully hope it is ok now.
+Early bird: when link is sent within email bad IP address send. Now it is ok.
 
 - I<Last modification:v1.6.16.100> Jan 31 2018 due to a breakdown to web host new to to update program. Install web server (or update) and mail server. Program my album of picture used was not up to date so took last version that was buggy and made correction of bugs and try to update it.
 
@@ -7641,11 +7642,11 @@ sub setGoogleID{# Begin setGoogleID
 						my $dist=$maop_url_loc;
 						my $loc=$maop_url_loc;
 						# "https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_googid=20180228%20Tests&maop_gmv=3-0";
-						print "************>$loc<br>";
+						#print "************>$loc<br>";
 						my $mh=HOSTED_BY_URL; # my host
 						my $lmh=LOCAL_HOSTED_BY_URL; # my host
 						#$mh=~s/^https{0,1}\:\/\///;
-						$loc=~s/(([^\.\:\/]{1,})(\.[^\.\:\/]{1,}){2})/$lmh/;
+						$loc=~s/(([^\.\:\/]{1,})(\.[^\.\:\/]{1,}){3})/$lmh/;
 						$mh=~m/(([^\.\:\/]{1,})(\.[^\.\:\/]{1,}){2})/;
 						my $nmh=$1;
 						$dist=~s/[0-9]{1,3}(\.[0-9]{1,3}){3}/$nmh/;
