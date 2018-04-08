@@ -1,8 +1,5 @@
 #!/Users/sdo/perl5/perlbrew/perls/perl-5.8.8/bin/perl
-# #!/home1/derased/public_html/my_link_perl
 # #!/usr/bin/perl -T
-print "Content-Type: text/html\n\n";
-print "------------";
 $|=0;
 
 use warnings;
@@ -35,7 +32,7 @@ my $ipAddr=io::MyNav::gets_ip_address;
 
 g3ogle.cgi
 
-$VERSION=0.2.1.154
+$VERSION=0.2.1.170
 
 =head1 ABSTRACT
 
