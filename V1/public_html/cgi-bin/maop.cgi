@@ -13,7 +13,7 @@ use Cwd;
 use URI::Escape;
 
 my $now_string = time(); # strftime "%m %d %H:%M:%S UTC %Y", gmtime;
-my $VERSION=1.0.12.4
+my $VERSION=1.0.12.4;
 
 my $doc = new CGI;
 my $url=();
