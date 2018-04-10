@@ -82,6 +82,16 @@ infoCenter
 
 
 my $doc=new CGI;
+		{
+			open(REC,">>../rec.html")||die("err: $!");
+			my $tft=gmtime(); #time for test
+			print REC "<br>BEGIN < $0 > $tft<br>";
+			foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
+				print REC ">>>>>>>$p --->".$doc->param($p)."<br>";
+			} # end foreach my $p ($doc->param)
+			print REC "<br>END < $0 > $tft<br>";
+			close(REC)||die("Error:$!");
+		}
 
 my $lstlog=30*2; # that's seconds
 my $lon=$doc->param("maop_lon");
@@ -557,6 +567,16 @@ use constant TRIP_NAME           	=> "trips"; # Album trips
 
 		my $tn=PATH_GOOGLE_MAP_TRIP.$mgidt ."-".TRIP_NAME; # Trip name
 
+		if ( ! -f "$tn"){ # Begin if ( ! -f "$tn")
+			print "Content-type: text/html\n\n";
+			print <<R;
+			<p1>
+			File not exists $mgidt;
+			</p1>
+			<br><b><u>We are checking all variables values passed as param:</b></u><br>
+R
+			exit(-1);
+		} # End if ( ! -f "$tn")
 		open(RTN,"$tn") or die ("$tn error $!");my @rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains begin and end of trip)
 		#open(W,">____test.txt");print W "$logfile °°°°°° $rtn[0]\n";close(W);
 		chomp($rtn[0]);my ($brtn,$ertn)=split(/\#/,$rtn[0]);

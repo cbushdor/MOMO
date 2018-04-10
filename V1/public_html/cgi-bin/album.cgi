@@ -96,7 +96,7 @@ use io::MySec;
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.113'; # Album release
+use constant ALBUM_REL               	=> '16.120'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'effers.com';        # That's the host name
@@ -148,7 +148,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.100
+$VERSION=1.6.16.120
 
 =head1 ABSTRACT
 
@@ -1028,28 +1028,24 @@ my $locid="$co/$cn/$cr/$ct/$lo/$la";
 
 # print "Content-Type: text/html ; charset=UTF-8\n\n";
 
-#print "aaaaaa>check_password($my_pid,maop_service=". uri_unescape($doc->param("maop_service")).",check, $my_pid, $user_login, $login, $user_password, $password, $doc,album/pid);------>";
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-#my $resAuth=io::MyUtilities::check_password($my_pid,uri_unescape($doc->param("maop_service")), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,"album/pid");
 print "<br>>>>>>+++++>>>>>>>$resAuth<br>$resPing<------delim";
-#my $mcgierr=$doc->cgi_error;
-#if($mcgierr){
-	#print "<br>tonton 1<br>\n\n\n\n\n\n";
-	#print $doc->header(-status=>$error),
-	#$doc->start_html('Problems'),
-	#$doc->h2('Request not processed'),
-	#$doc->strong($error);
-	#exit 0;
-#}
-# -------------- &loadDataTrips; # put security control
+#{
+	#open(REC,">>../rec.html")||die("Error $!");
+	#my $tft=gmtime(); #time for test
+	#print REC "<br>BEGIN < $0 > $tft<br>";
+	#foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
+		#print REC "($my_pid,$$)>>>>>>>$p --->".$doc->param($p)."<br>";
+		#} # end foreach my $p ($doc->param)
+	#print REC "<br>END < $0 > $tft<br>";
+	#close(REC)||die("Error:$!");
+	#}
+			
 if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==0) ) 
-	#print "<br>tonton 2<br>";
-	#print "<br>tonton 3<br>";
-	#print "<br>tonton 4<br>";
 	$user_password=""; # we remove password because of pid and prev pid
 	$password=""; # we remove password because of pid and prev pid
 	print $doc->title("album ${service} admin interface");
@@ -1058,7 +1054,7 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 	chomp($recor);
 	open( R, "$file_conf_to_save" ) || error_raised( $doc, "File [$file_conf_to_save] not found!!!" );
 	@all_file=<R>;
-	close(R);
+	close(R)||die("Error: $!");
 	print '<body onload="JavaScript:show();">'."\n";
 	&main_menu(
 		"Menu pour administration. / Administration menu.",
@@ -1073,7 +1069,7 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 	chomp($ssection);
 	if(length($ssection)==0){ # Begin if(length($$section)==0)
 		#print "1111111111111111111111111></br>";
-		&firstChoicetMenuadmin ; # Create am pre admin first menu choice
+		&firstChoicetMenuadmin ; # Create a pre admin first menu choice
 	} # End if(length($$section)==0)
 	elsif($ssection=~m/adminGroup/){ # Begin elsif($ssection=~m/adminGroup/)
 		print "00000000000000000000></br>";
@@ -7671,7 +7667,7 @@ sub setGoogleID{# Begin setGoogleID
 						print MAIL "Subject: $subject\n\n";
 						# Email Body
 						print MAIL $message;
-						close(MAIL);
+						close(MAIL) || die("Error: $!");
 
 						print "A mail to $to is being sent...\n<br>";
 						#print $message;

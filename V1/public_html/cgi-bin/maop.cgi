@@ -23,7 +23,7 @@ my $logfile="album/hist/log-$ipAddr-$$";
 my $mparam=();# my parameter passed
 
 print "Content-Type: text/html ; charset=UTF-8 \n\n";
-print "We are in MAOP.CGI ";
+#print "We are in MAOP.CGI ";
 #print "++++++>".getcwd()."<-----<br>\n"; 
 my $leng=scalar $doc->param;
 #print "---|$leng|------". (defined($doc->param('maop_lon'))) ? "longitude defined" : "longitude not defined"  ;
@@ -33,6 +33,16 @@ my $la=$doc->param("maop_lat");
 my $lo=$doc->param("maop_lon");
 #print "oooooooooooooooooooooooooooo>la:$la    lo:$lo<br>";
 
+#{
+	#open(REC,">>../rec.html")||die("err: $!");
+	#my $tft=gmtime(); #time for test
+	#print REC "<br>BEGIN < $0 > $tft<br>";
+	#foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
+		#print REC "($$)>>>>>>>$p --->".$doc->param($p)."<br>";
+		#} # end foreach my $p ($doc->param)
+	#print REC "<br>END < $0 > $tft<br>";
+	#close(REC)||die("Error:$!");
+	#}
 foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 	#print ">>>>>>>$p --->".uri_escape($doc->param($p))."<br>";
 	print ">>>>>>>$p --->".$doc->param($p)."<br>";
