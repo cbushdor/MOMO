@@ -305,7 +305,7 @@ None.
 sub checks_file_dependencies {    # begin sub checks_file_dependencies
 	my ($file,$application,@file_dependencies) = @_;
 
-	if (!-f "$application/$file.ok") { # begin if (-f "$application/check_file.ok")
+	if (!-f "$application/$file.ok") { # begin if (-f "$application/$file.ok")
 		my $error = 0;
 		my @files = ();
 
@@ -338,7 +338,7 @@ sub checks_file_dependencies {    # begin sub checks_file_dependencies
 		close(R) || die("$application/$file cannot be closed");
 		close(W) || die("$application/$file.ok cannot be closed");
 		unlink("$application/$file") || die("$application/$file cannot be unlinked");
-	} # End if (-f "$application/check_file.ok")
+	} # End if (-f "$application/$file.ok")
 }    # End sub checks_file_dependencies
 
 =head1 sub footer(...)
@@ -445,7 +445,7 @@ CHECK
 					      MANAGER
 					     )
 				    . 
-				    "; Designed by "
+				    ";\n Designed by "
 				    . $doc->a(
 					      {
 					       -href =>
@@ -453,7 +453,7 @@ CHECK
 					      },
 					      COMPAGNY
 					     )
-				    . "; Written by "
+				    . ";\n Written by "
 				    . $doc->a(
 					      {
 					       -href =>
@@ -461,8 +461,8 @@ CHECK
 					      },
 					      AUTHOR
 					     )
-				    . $doc->br
-				    . "<font class=\"footer\">Script version "
+				    . "\n".$doc->br
+				    . "\n<font class=\"footer\">Script version "
 				    . $version . $doc->br
 				    #. "Tested with browsers: "
 				    #. $browsers . "."
@@ -697,15 +697,21 @@ sub check_password {    # begin sub check_password
 	$password,
 	$doc,
 	$album_pid_file)=@_;
+#open(REC,">>../rec.html")||die("Error: $!");
+#print REC "*************************we check password***$$**************<br>";
+#close(REC)||die("Error: $!");
 
 	if ( "$service_from_param" eq "$service_value" ) { # begin if ( "$service_from_param" eq "$service_value" )
-		#print "ok 1<br>";
-		if ( "$prev_pid_from_param" eq "" ) { # begin if ( $doc->param('prev_pid_from_param') eq "")
-			#print "ok 2 ---|$user_login---$login<<<<<br>";
+		#print "ok 1 $service_from_param eq $service_value <br>";
+		if ( "$prev_pid_from_param" eq "" ) { 
+			# Begin if ( "$prev_pid_from_param" eq "" )
+			##print "ok 2 ($prev_pid_from_param,'')---|$user_login---$login<<<<<br>";
 			if ( "$user_login" eq "$login" ) { # begin if ( "$user_login" eq "$login" )
-				#print "ok 3<br>";
+				#print "ok 3 ($user_login,$login)<br>";
 				if ( "$user_password" eq "$password" ) { # begin if ("$user_password" eq "$password")
-					#print "ok 4<br>";
+					#open(REC,">>../rec.html")||die("Error: $!");
+					#print REC "<b>ok 4 we record this pid $$ ($user_password,$login,$$)</b><br>";
+					#close(REC)||die("Error: $!");
 					open( PID, ">$album_pid_file" ) || die("Can't create $album_pid_file: $!");
 					print PID $$;
 					close(PID)||die("Error: $!");;
@@ -714,30 +720,36 @@ sub check_password {    # begin sub check_password
 				#print "ok 3bis<br>";
 			} # End if ($user_login eq "$login")
 			#print "ok 2bis<br>";
-		} # End if ( $doc->param('prev_pid_from_param') eq "")
+		} # End if ( "$prev_pid_from_param" eq "" )
 		else { # begin else
-			#print "ok 1bis<br>";
+			#print "ok 1bis ($prev_pid_from_param,'')<br>";
 			open( OLD_PID, "$album_pid_file" ) || die("Can't open $album_pid_file: $!");
 			my $pid;
 			foreach (<OLD_PID>) { # begin foreach (<OLD_PID>)
-				print "pid list $_<br>\n";
+				#print "pid list $_<br>\n";
 				chomp($_);
 				$pid .= $_;
 			} # End foreach (<OLD_PID>)
 			close(OLD_PID)||die("Error: $!");
 
 			if ( $my_pid != $pid ) { # begin if ($my_pid != $pid)
-				#print "bizzzzz bad (current pid $$)  $my_pid != $pid<br>";
+				#	open(REC,">>../rec.html")||die("Error: $!");
+				#print REC "<b>bizzzzz bad (current pid $$)  $my_pid != $pid</b><br>";
+				#close(REC)||die("Error: $!");
+				#print "$0 bizzzzz bad (current pid $$)  $my_pid != $pid<br>";
+				#print "-----------------------------------------------------------------<br>";
 				return -1;
 			} # End if ($my_pid != $pid)
-			open( PID, ">$album_pid_file" ) || die("Can't create $album_pid_file: $!");
-			print PID $$;
-			close(PID)||die("Error: $!");;
+			#open( PID, ">$album_pid_file" ) || die("Can't create $album_pid_file: $!");
+			#print PID $$;
+			#close(PID)||die("Error: $!");;
+			#print "$0 passed we record this pid $$ (current pid $$)  $my_pid != $pid<br>";
+			#print "-----------------------------------------------------------------<br>";
 			return 0;
 		} # End else
 	} # End if ( "$service_from_param" eq "$service_value" )
 	else {    # begin else
-		#print "$service_from_param eq $service_value aaaaaaaaa<br>";
+		#print "else $service_from_param eq $service_value aaaaaaaaa<br>";
 	} # End else
 	#print "ddfdfsdfdsdfs BAD<br>";
 	return -1;
