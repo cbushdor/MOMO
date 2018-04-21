@@ -1,4 +1,5 @@
-#!/Users/sdo/perl5/perlbrew/perls/perl-5.8.8/bin/perl
+#!/opt/local/bin/perl
+# #!/Users/sdo/perl5/perlbrew/perls/perl-5.10.1/bin/perl
 
 # +-------------------------------+
 # | album.cgi                     |
@@ -21,6 +22,7 @@ use Cwd;
 use POSIX 'strftime';
 use Encode;
 use URI::Escape;
+use HTTP::Tiny;
 
 use DateTime;
 use DateTime::TimeZone;
@@ -629,6 +631,7 @@ $mparam=~s/^\&//;
 	#print "$ENV{REQUEST_URI}<br>$ipAddr<br><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< $url<br>";
 	#exit(-1);
 	# ------------------------------------------------------------------------------------------
+	# open(REC,">>test.txt"); print REC "<p>Error case 1 ---->$ipAddr<----- go to ====><u>$url</u><====== [lon,lat]=[$lon,$lat] not defined<br>Please wait while loading...</p>\n"; close(REC);
 	my $c=<<A;
 <!DOCTYPE html>
 <html>
@@ -638,7 +641,7 @@ $mparam=~s/^\&//;
 <script  language="javascript" type="text/javascript">
 	var x=document.getElementById("wait");
 	/* x.innerHTML="Please wait while loading..."; */
-	x.innerHTML="Error case 1 $ipAddr go to $url [lon,lat]=[$lon,$lat] not defined<br>Please wait while loading...";
+	x.innerHTML="<p>Error case 1 ---->$ipAddr<----- go to ====><u>$url</u><====== [lon,lat]=[$lon,$lat] not defined<br>Please wait while loading...</p>";
 	window.location="$url";
 </script>
 </body>
@@ -705,6 +708,21 @@ my $locweaf=ALBUM_INFO_HIST_DIRECTORY ."wfc_data.$lon.$lat.$$.".time().".xml";# 
 # format solved - missing but need to check if lon lat can have negative values
 if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # Begin if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
+
+	# -------------------------------------------------------
+	# --------------------- BEGINING ------------------------
+	# -------- case when local but this case now is rare ----
+	$url = 'http';
+	if ("$ENV{HTTPS}" eq "on") {
+		$url .= "s";
+	}
+	$url .= "://";
+	$url.= $ENV{"HTTP_HOST"} . $ENV{REQUEST_URI}. "\?$mparam"; # url where website is hosted
+	$url=~s/album\.cgi/maop\.cgi/;
+	# -------- case when local but this case now is rare ----
+	# ---------------------- END ----------------------------
+	# -------------------------------------------------------
+	
 	print "Content-Type: text/html ; charset=UTF-8\n\n";
 	#print "azerty 5<br>";
 	#print "case 1<br>";exit(1);
@@ -722,7 +740,7 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 
 	<script  language="javascript"  type="text/javascript">
 		var x=document.getElementById("wait");
-		x.innerHTML="Error case 2 [lon,lat]=[$lon,$lat] not defined<br>Please wait while loading...";
+		x.innerHTML="<u>env(SERVER_NAME):</u><b>$ENV{SERVER_NAME}</b><br>Error case 2 [lon,lat]=[$lon,$lat] not defined<br>Please wait while loading...";
 	window.location="$url";
 </script>
 </body>
@@ -762,10 +780,13 @@ else{ # Begin else
 
 #if($url=~m/dorey/||$url=~m!192.168.1.13!){ # Begin if($url=~m/dorey/||$url=~m!192.168.1.13!)
 if($url=~m/$ENV{SERVER_NAME}/){ # Begin if($url=~m/$ENV{SERVER_NAME}/)
-	$gurl = "https://maps.googleapis.com/maps/api/timezone/json?location=$lat,$lon&timestamp=1331161200&key=$id"; # google url
-	$gjson=get("$gurl"); # google json
-	$json_obj = new JSON;# create json object
-	$pperl = $json_obj->decode($gjson);# decode result from previous get
+	$gurl = "https://maps.googleapis.com/maps/api/timezone/json?timestamp=1331161200&location=$lat,$lon&key=$id";
+	my $html = HTTP::Tiny->new->get($gurl) || die "Error:$!";
+	my %h = %$html;
+
+	$pperl = decode_json($h{"content"}) || die("Error: $!");# decode result from previous get
+	#print $pperl->{timeZoneId};
+	#exit(-1);
 	$mtzg=$pperl->{timeZoneId};# my time zone from google
 } # End if($url=~m/$ENV{SERVER_NAME}/)
 &myrec("Case 10 ($lon - $lat) logfile format <i>$url</i>","../error.html","------------------everything is fine-----------------------------");
@@ -1033,17 +1054,17 @@ my $locid="$co/$cn/$cr/$ct/$lo/$la";
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-print "<br>>>>>>+++++>>>>>>>$resAuth<br>$resPing<------delim";
-#{
-	#open(REC,">>../rec.html")||die("Error $!");
-	#my $tft=gmtime(); #time for test
-	#print REC "<br>BEGIN < $0 > $tft<br>";
-	#foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
-		#print REC "($my_pid,$$)>>>>>>>$p --->".$doc->param($p)."<br>";
-		#} # end foreach my $p ($doc->param)
-	#print REC "<br>END < $0 > $tft<br>";
-	#close(REC)||die("Error:$!");
-	#}
+print "<br>$$ >>>>>+++++>>>>>>>$resAuth<br>$resPing<------delim";
+{
+	open(REC,">>../rec.html")||die("Error $!");
+	my $tft=gmtime(); #time for test
+	print REC "<br>BEGIN < $0 > $tft<br>";
+	foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
+		print REC "($my_pid,$$)>>>>>>>$p --->".$doc->param($p)."<br>";
+	} # end foreach my $p ($doc->param)
+	print REC "<br>END < $0 > $tft<br>";
+	close(REC)||die("Error:$!");
+}
 			
 if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==0) ) 
 	$user_password=""; # we remove password because of pid and prev pid
@@ -7325,8 +7346,8 @@ sub firstChoicetMenuadmin{ # Begin firstChoicetMenuadmin
 <br />
 <form action='${main_prog}?maop_service=auth&amp;maop_maop_upld=ok' method='post' name="maop_adminMenu" enctype='multipart/form-data'>
 <input type='hidden' name='maop_prev_id' value='$$' />
-<input type='hidden' name='maop_login' value='$login' />
-<input type='hidden' name='maop_password' value='$password' />
+<input type='hidden' name='maop_login' value='$logi n' />
+<input type='hidden' name='maop_password' value='$passwor d' />
 <input type='hidden' name='maop_recPid' value='ok' />
 <input type='hidden' name='maop_service' value='check' />
 <input type='hidden' name='maop_ssection' value='adminPict' />
@@ -7335,8 +7356,8 @@ sub firstChoicetMenuadmin{ # Begin firstChoicetMenuadmin
 </form>
 <form action='${main_prog}?maop_service=auth&amp;maop_maop_upld=ok' method='post' name="maop_adminMenu" enctype='multipart/form-data'>
 <input type='hidden' name='maop_prev_id' value='$$' />
-<input type='hidden' name='maop_login' value='$login' />
-<input type='hidden' name='maop_password' value='$password' />
+<input type='hidden' name='maop_login' value='$logi n' />
+<input type='hidden' name='maop_password' value='$passwor d' />
 <input type='hidden' name='maop_recPid' value='' />
 <input type='hidden' name='maop_service' value='check' />
 <input type='hidden' name='maop_ssection' value='adminGroup' />
@@ -7698,7 +7719,7 @@ sub setGoogleID{# Begin setGoogleID
 		print W "$googleid";
 		close(W);
 	} # End else
-}# End setGoogleID
+} # End setGoogleID
 
 # -----------------------------------
 =head1 sub myrec(...)

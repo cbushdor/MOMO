@@ -1,4 +1,5 @@
-#!/Users/sdo/perl5/perlbrew/perls/perl-5.8.8/bin/perl
+#!/opt/local/bin/perl
+# #!/Users/sdo/perl5/perlbrew/perls/perl-5.10.1/bin/perl
 
 $|=1;
 use CGI;
@@ -23,6 +24,7 @@ my $logfile="album/hist/log-$ipAddr-$$";
 my $mparam=();# my parameter passed
 
 print "Content-Type: text/html ; charset=UTF-8 \n\n";
+#while(-f "./stop"){ print "$0 remove <b>stop</b> process to attach $$\n<br>"; sleep 10; }
 #print "We are in MAOP.CGI ";
 #print "++++++>".getcwd()."<-----<br>\n"; 
 my $leng=scalar $doc->param;
@@ -33,16 +35,16 @@ my $la=$doc->param("maop_lat");
 my $lo=$doc->param("maop_lon");
 #print "oooooooooooooooooooooooooooo>la:$la    lo:$lo<br>";
 
-#{
-	#open(REC,">>../rec.html")||die("err: $!");
-	#my $tft=gmtime(); #time for test
-	#print REC "<br>BEGIN < $0 > $tft<br>";
-	#foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
-		#print REC "($$)>>>>>>>$p --->".$doc->param($p)."<br>";
-		#} # end foreach my $p ($doc->param)
-	#print REC "<br>END < $0 > $tft<br>";
-	#close(REC)||die("Error:$!");
-	#}
+{
+	open(REC,">>../rec.html")||die("err: $!");
+	my $tft=gmtime(); #time for test
+	print REC "<br>BEGIN < $0 > $tft<br>";
+	foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
+		print REC "($0,$$)>>>>>>>$p --->".$doc->param($p)."<br>";
+	} # end foreach my $p ($doc->param)
+	print REC "END < $0 > $tft<br>";
+	close(REC)||die("Error:$!");
+}
 foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 	#print ">>>>>>>$p --->".uri_escape($doc->param($p))."<br>";
 	print ">>>>>>>$p --->".$doc->param($p)."<br>";
@@ -53,11 +55,11 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 		   $p!~m/^maop_date$/&&
 		   $p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 		   	my $dec=();
-			print "<br>--------BEGIN----($p)------------------------<br>";
+			#print "<br>--------BEGIN----($p)------------------------<br>";
 			my $pram=$doc->param($p);
 			chomp($pram);
-			print "param received:>$pram<    length:".length($pram)."  " . ((defined $doc->param($p)) ? "defined ":"not defined ");
-			print "param with uri_encode: ---->$dec<----<br>";
+			#print "param received:>$pram<    length:".length($pram)."  " . ((defined $doc->param($p)) ? "defined ":"not defined ");
+			#print "param with uri_encode: ---->$dec<----<br>";
 			if (length($pram)>0) { 
 				$dec=uri_escape($pram, "\0-\377") || die ("Error: $!");;
 				$mparam.="&$p=$dec";
@@ -68,7 +70,7 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 					#$mparam.="&$p=$dec";
 				#}
 			#}
-			print "<br>--------END----($p)------------------------<br>";
+		#print "<br>--------END----($p)------------------------<br>";
 		}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 		elsif ($p!~m/^maop_lat$/){ # begin elsif ($p!~m/^maop_lat$/)
 #&myrec("Case logfile format maop ","../error.html","****** $la" );
@@ -111,7 +113,7 @@ $url.=$prog;
 #print "<br><br><u>url:</u>$url<br>";
 #print "<br><u>mparam:</u>$mparam<br>";
 #print "<br><u>maop_log:</u>$logfile<br>";
-#sleep(15);
+#sleep(20);
 #exit(-1);
 
 # =====================================================================================
