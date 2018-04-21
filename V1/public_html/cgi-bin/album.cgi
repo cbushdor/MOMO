@@ -98,7 +98,7 @@ use io::MySec;
 # +-----------------------------------------+
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.120'; # Album release
+use constant ALBUM_REL               	=> '16.140'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 use constant TRIP_NAME           	=> "trips"; # Album trips
 use constant HOSTED_BY     		=> 'effers.com';        # That's the host name
@@ -150,7 +150,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.120
+$VERSION=1.6.16.140
 
 =head1 ABSTRACT
 
@@ -231,6 +231,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.140> Apr 21 2018 Compiler version change from  5.8.8 to 5.24.3. Slight modification were made read note Last modification:v1.6.16.140.
 
 - I<Last modification:v1.6.16.112> Apr 07 2018 Due to portage configuration from previous config were not modified. There are still some but for the ime being it does not shows up. Couldn't check local config but ok for distant tests. This lack was modified hopefully hope it is ok now.
 Early bird: when link is sent within email bad IP address send. Now it is ok.
@@ -780,13 +782,14 @@ else{ # Begin else
 
 #if($url=~m/dorey/||$url=~m!192.168.1.13!){ # Begin if($url=~m/dorey/||$url=~m!192.168.1.13!)
 if($url=~m/$ENV{SERVER_NAME}/){ # Begin if($url=~m/$ENV{SERVER_NAME}/)
+	# Note Last modification:v1.6.16.140
+	# Slight modification here in this scope because get can't retreive anymore content of website.
+	# New get used from different package.
 	$gurl = "https://maps.googleapis.com/maps/api/timezone/json?timestamp=1331161200&location=$lat,$lon&key=$id";
-	my $html = HTTP::Tiny->new->get($gurl) || die "Error:$!";
-	my %h = %$html;
+	my $html = HTTP::Tiny->new->get($gurl) || die "Error:$!"; # Changed from get to HTTP::Tiny->new->get
+	my %h = %$html; # Transtypage to reach the value field
 
-	$pperl = decode_json($h{"content"}) || die("Error: $!");# decode result from previous get
-	#print $pperl->{timeZoneId};
-	#exit(-1);
+	$pperl = decode_json($h{"content"}) || die("Error: $!");# decode result from previous get (read upper note in this scope)
 	$mtzg=$pperl->{timeZoneId};# my time zone from google
 } # End if($url=~m/$ENV{SERVER_NAME}/)
 &myrec("Case 10 ($lon - $lat) logfile format <i>$url</i>","../error.html","------------------everything is fine-----------------------------");
