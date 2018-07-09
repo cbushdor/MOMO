@@ -1,7 +1,5 @@
-#!/opt/local/bin/perl
-# #!/Users/sdo/perl5/perlbrew/perls/perl-5.10.1/bin/perl
+#!/opt/local/bin/perl 
 
-$|=1;
 use CGI;
 use strict;
 use warnings;
@@ -11,66 +9,46 @@ use DateTime;
 use DateTime::Format::Strptime;
 use Cwd;
 #use Encode;
+use URI;
 use URI::Escape;
 
+$|=1;
 my $now_string = time(); # strftime "%m %d %H:%M:%S UTC %Y", gmtime;
 my $VERSION=1.0.12.4;
 
 my $doc = new CGI;
-my $url=();
 my $ip=io::MyNav::gets_ip_address;
 my $ipAddr=io::MyNav::gets_ip_address;
 my $logfile="album/hist/log-$ipAddr-$$";
 my $mparam=();# my parameter passed
 
 print "Content-Type: text/html ; charset=UTF-8 \n\n";
-#while(-f "./stop"){ print "$0 remove <b>stop</b> process to attach $$\n<br>"; sleep 10; }
-#print "We are in MAOP.CGI ";
-#print "++++++>".getcwd()."<-----<br>\n"; 
+
+my $requested = URI->new( CGI::url() );
+#open(REC,">>mylog"); print REC $requested."?".$ENV{QUERY_STRING} ."\n"; close(REC);
 my $leng=scalar $doc->param;
-#print "---|$leng|------". (defined($doc->param('maop_lon'))) ? "longitude defined" : "longitude not defined"  ;
-#print "---$leng------". $doc->param('maop_lon') ."<br>";
 
 my $la=$doc->param("maop_lat");
 my $lo=$doc->param("maop_lon");
-#print "oooooooooooooooooooooooooooo>la:$la    lo:$lo<br>";
 
-{
-	open(REC,">>../rec.html")||die("err: $!");
-	my $tft=gmtime(); #time for test
-	print REC "<br>BEGIN < $0 > $tft<br>";
-	foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
-		print REC "($0,$$)>>>>>>>$p --->".$doc->param($p)."<br>";
-	} # end foreach my $p ($doc->param)
-	print REC "END < $0 > $tft<br>";
-	close(REC)||die("Error:$!");
-}
+open(REC,">>../rec.html");
+print REC "\n----------------BEGIN----------<br>\n";
 foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 	#print ">>>>>>>$p --->".uri_escape($doc->param($p))."<br>";
-	print ">>>>>>>$p --->".$doc->param($p)."<br>";
+	#print ">>>>>>>$p --->".$doc->param($p)."<br>\n";
 	if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
 		if($p!~m/^maop_lon$/&&
 		   $p!~m/^maop_lat$/&&
 		   $p!~m/^maop_prog$/&&
 		   $p!~m/^maop_date$/&&
 		   $p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
-		   	my $dec=();
-			#print "<br>--------BEGIN----($p)------------------------<br>";
 			my $pram=$doc->param($p);
-			chomp($pram);
-			#print "param received:>$pram<    length:".length($pram)."  " . ((defined $doc->param($p)) ? "defined ":"not defined ");
-			#print "param with uri_encode: ---->$dec<----<br>";
+			print "****>>>>>>>$p --->".$doc->param($p)."<br>\n";
+			#chomp($pram);
 			if (length($pram)>0) { 
-				$dec=uri_escape($pram, "\0-\377") || die ("Error: $!");;
-				$mparam.="&$p=$dec";
+				#$dec=uri_escape($pram, "\0-\377") || die ("Error: $!");;
+				$mparam.="&$p=$pram";
 			} #.uri_escape($doc->param($p));
-			#else {
-				#if($pram=~m/^maop_googid$/){
-					#$dec=uri_escape("3-0", "\0-\377") || die ("Error: $!");;
-					#$mparam.="&$p=$dec";
-				#}
-			#}
-		#print "<br>--------END----($p)------------------------<br>";
 		}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 		elsif ($p!~m/^maop_lat$/){ # begin elsif ($p!~m/^maop_lat$/)
 #&myrec("Case logfile format maop ","../error.html","****** $la" );
@@ -78,8 +56,13 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 		elsif($p!~m/^maop_lon$/){ # begin elsif($p!~m/^maop_lon$/)
 #&myrec("Case logfile format maop ","../error.html","****** $lo" );
 		} # end elsif($p!~m/^maop_lon$/)
+		else{ # Begin else
+		} # End else
 	} # end if($p=~m/^maop\_/)
+	print REC "\n#####+++++***<$p>".$doc->param($p)."<br>";
 } # end foreach my $p ($doc->param)
+print REC "\n----------------END----------<br>\n";
+close(REC);
 #&myrec("Case logfile format maop ","../error.html","logfile: $logfile *****(lo,la)=($lo,$la)" );
 #print "oooooooo>$mparam<br>";
 
@@ -88,17 +71,20 @@ my $prog=(length($doc->param("maop_prog"))==0) ? "album.cgi" : $doc->param("maop
 #print "<h1>>>>>${ip} ooooooooooooooooooooo>$prog<<<<<<<<<<<<</h1><br>";
 
 # we build the url
-$url = 'http';
-if ("$ENV{HTTPS}" eq "on") {
+my $url= 'http';
+if ("$ENV{HTTPS}" eq "on") { # Begin if ("$ENV{HTTPS}" eq "on")
 	$url .= "s";
-}
-$url .= "://";
+} # End if ("$ENV{HTTPS}" eq "on")
+
+$url .= "://"; # We build url
 #print "<br><u>A server name:</u>$ENV{SERVER_NAME}<br><u>server port:</u>$ENV{SERVER_PORT}<br><u>server request uri:</u>$ENV{REQUEST_URI}<br>";
 if ("$ENV{SERVER_PORT}" ne "80") { # Begin if ("$ENV{SERVER_PORT}" ne "80") 
 #	print "<br><u>A url before:</u>$url<br>";
 	$url .= $ENV{SERVER_NAME}.":".$ENV{SERVER_PORT}.$ENV{REQUEST_URI};
-	$url=~s/maop\.cgi/$prog/;
-	$url.=$mparam;
+	$url=~s/maop\.cgi/$prog/; # we put the destination for URL
+	print "<br>UNDER CONSTRUCTION> $url<br>";
+	#$url.=$mparam;
+	print "<br>UNDER CONSTRUCTION> $url<br>";
 #	print "<br><u>A url after:</u>$url<br><u>prog:</u>$prog<br>";
 } # End if ("$ENV{SERVER_PORT}" ne "80")
 else { # Begin else
@@ -110,33 +96,21 @@ else { # Begin else
 #print "<br><u>C server name:</u>$ENV{SERVER_NAME}<br><u>server port:</u>$ENV{SERVER_PORT}<br><u>server request uri:</u>$ENV{REQUEST_URI}<br>";
 $url=~s/(\/)[^\/]+$/$1/;
 $url.=$prog;
-#print "<br><br><u>url:</u>$url<br>";
-#print "<br><u>mparam:</u>$mparam<br>";
-#print "<br><u>maop_log:</u>$logfile<br>";
-#sleep(20);
 #exit(-1);
 
 # =====================================================================================
 # =====================================================================================
 # =====================================================================================
 if( -f "$logfile"){ # begin if( -f "$logfile")
-	unlink("$logfile");
-	&myrec("Case logfile format maop ","../error.html","-f $logfile");
+	#unlink("$logfile");
+	#&myrec("Case logfile format maop ","../error.html","-f $logfile");
 } # end if( -f "$logfile")
 
 open(FD,">$logfile") or die("$logfile error $!");
 print FD " ";
 close(FD) or die("$logfile error $!");
-#if( -f "$logfile"){ # begin if( -f "$logfile")
-#	print "<br><br><br>//////////><b>$logfile</b> exists<br>***********************\n";
-#} # end if( -f "$logfile")
-#else{
-#	print "<br><br><br>::::::::::::::::::::><i><b>$logfile does not exists</i></b><br>-----------------------\n";
-#}
-#sleep(15);
-#print "toto<br>";
-#exit(-1);
 $logfile=~s/\//\_/g;
+
 # =====================================================================================
 # =====================================================================================
 # =====================================================================================
@@ -149,7 +123,7 @@ my $myform=<<FORM;
 
 <script>
 var x=document.getElementById("wait");
-x.innerHTML="Attendre svp pendant le chargement...<br><i>Please wait while loading...</i>";
+x.innerHTML="Attendre svp pendant le chargement...<br><i>Please wait while loading...</i><br>";
 // + "$url?maop_lon="+lon+"&maop_lat="+lat+"$mparam&maop_date=$now_string&maop_log=$logfile";
 getLocation();
 
@@ -181,12 +155,18 @@ function showError(error){ // begin function showError(error)
 } // end function showError(error)
 
 function showPosition(position) { // begin function showPosition(position)
+    //var x=document.getElementById("wait");
     var lon=position.coords.longitude;
-    var myURL="$url?maop_lon="+lon;
     var lat=position.coords.latitude;
-    myURL+="&maop_lat="+lat;
-    myURL+="$mparam&maop_date=$now_string&maop_log=$logfile";
-    window.location=myURL; // "$url?maop_lon="+lon+"&maop_lat="+lat+"$mparam&maop_date=$now_string&maop_log=$logfile&maop_toto=restOfTheWorld";
+
+    lon=encodeURIComponent(lon);
+    lat=encodeURIComponent(lat);
+    var myURL="$url?maop_lon="+lon+"&maop_lat="+lat+"&$mparam&maop_date=$now_string&maop_log=$logfile";
+    x.innerHTML += "<br>Seeking longitude "+lon+"<br>Seeking latitude:"+lat+"<br>$url";
+    //var myURL="$url?maop_lon="+lon;
+    //myURL+="&maop_lat="+lat;
+    //myURL+="&$mparam&maop_date=$now_string&maop_log=$logfile";
+    window.location="$url?maop_lon="+lon+"&maop_lat="+lat+"&$mparam&maop_date=$now_string&maop_log=$logfile";
 } // end function showPosition(position)
 </script>
 </body>

@@ -1,4 +1,5 @@
-#!/opt/local/bin/perl
+#!/opt/local/bin/perl 
+#-d
 # #!/Users/sdo/perl5/perlbrew/perls/perl-5.10.1/bin/perl
 
 # +-------------------------------+
@@ -203,6 +204,8 @@ print_date_of_picture_put_on_album
 print_info_picture 
 print_page 
 print_pictures 
+my_promptA
+my_promptB
 put_url_line 
 raised_upload_window 
 rank_right_navigator_bar_range 
@@ -566,6 +569,7 @@ my $bdaytime=uri_unescape($doc->param("maop_bdaytime"));
 my $edaytime=uri_unescape($doc->param("maop_edaytime"));
 my $logfile=uri_unescape($doc->param("maop_log"));
 
+#@chomp($param);
 chomp($logfile);
 #print "Content-type:text/html ; charset=UTF-8\n\n";
 #print "---->$bdaytime<br>========>$edaytime<br>";
@@ -610,7 +614,7 @@ $mparam=~s/^\&//;
 	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){ # Begin if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
 		#print "oooiiiiiiii>case 1-";
 		$url="http://localhost/~sdo/cgi-bin/maop.cgi\?$mparam";
-		#print "$url<br>";
+		#print "*************CHECK******>$url<br>";
 	} # End if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
 	elsif(! defined($ipAddr)||$ipAddr=~m/^192\.168\.1\.13/||$ipAddr=~m!example2.dev!){ # Begin elsif(! defined($ipAddr)||$ipAddr=~m/^192\.168\.1\.13/||$ipAddr=~m!example2.dev!)
 		#print "iiiiiiii>case 3xxx-";
@@ -630,47 +634,20 @@ $mparam=~s/^\&//;
 		$url.= $ENV{"HTTP_HOST"} . $ENV{REQUEST_URI}. "\?$mparam"; # url where website is hosted
 		$url=~s/album\.cgi/maop\.cgi/;
 	} # End else
-	#print "$ENV{REQUEST_URI}<br>$ipAddr<br><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< $url<br>";
-	#exit(-1);
 	# ------------------------------------------------------------------------------------------
-	# open(REC,">>test.txt"); print REC "<p>Error case 1 ---->$ipAddr<----- go to ====><u>$url</u><====== [lon,lat]=[$lon,$lat] not defined<br>Please wait while loading...</p>\n"; close(REC);
-	my $c=<<A;
-<!DOCTYPE html>
-<html>
-<body>
-<p id="wait"></p>
+	#print "<br>#########################>$url<br>";
 
-<script  language="javascript" type="text/javascript">
-	var x=document.getElementById("wait");
-	/* x.innerHTML="Please wait while loading..."; */
-	x.innerHTML="<p>Error case 1 ---->$ipAddr<----- go to ====><u>$url</u><====== [lon,lat]=[$lon,$lat] not defined<br>Please wait while loading...</p>";
-	window.location="$url";
-</script>
-</body>
-</html>
-A
 	#exit(0);
 
-#print "Content-type: text/html\n\n";
-#print "<br><br><br>UUUUUU-------------->$logfile<br><br>";
-#print "stop"; exit(-1);
 if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/){ # Begin if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
-	#print "Content-Type: text/html ; charset=UTF-8\n\n";
-	&myrec("Case 1 ($lon - $lat) logfile format($logfile) does not exists or variable does not exist <i>$url</i>","../error.html","case===>" .
-	               ((! defined($logfile)) ? "$logfile not defined length:" . length($logfile)  : " $logfile defined length:" . length($logfile) ).
-		       (($logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/) ? " not reg format logfile" : " regular format logfile"). "<br>");
-	       #print "azerty 1<br>";
-	print $c . "<!-- accordeoniste -->";
+	print &my_promptA("<u>part 1 ($logfile):</u> <b></u>$url</b>" ."<!-- accordeoniste -->");
 	exit(0);
 } # End if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
 
 $logfile=~s/\_/\//g;
 if(!-f "$logfile"){ # Begin if(!-f "$logfile")
-	#print "Content-Type: text/html ; charset=UTF-8\n\n";
-	&myrec("Case 2 ($lon - $lat) logfile cannot be found [$logfile] <i>[$url]</i>","../error.html","case ===>". ((!-f "$logfile") ? "file '$logfile' does not exist<br>" : "file '$logfile' exists<br>"));
-	#print "azerty 2<br>";
-	print $c . "<!-- accordeoniste 2-->";
-	#exit(0);
+	print &my_promptA("part 2 (does not exist $logfile): ");
+	exit(0);
 } # End if(!-f "$logfile") 
 else{ # Begin else
 	#print "azerty 3<br>";
@@ -698,7 +675,7 @@ else{ # Begin else
 
 if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # Begin if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	#print "Content-Type: text/html ; charset=UTF-8\n\n";
-	&myrec("Case 3 ($lon - $lat) latitude exists and as proper format <i>$url</i>","../error.html","(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
+	# &myrecmyrec("Case 3 ($lon - $lat) latitude exists and as proper format <i>$url</i>","../error.html","(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
 	#print "azerty 4<br>";
 	#print $c. "<!-- azerty -->";
 	exit(0);
@@ -734,23 +711,15 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	#else{ # Begin else
 		#$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
 	#} # End else
-	my $c=<<A;
-	<!DOCTYPE html>
-	<html>
-	<body>
-	<p id="wait"></p>
 
-	<script  language="javascript"  type="text/javascript">
-		var x=document.getElementById("wait");
-		x.innerHTML="<u>env(SERVER_NAME):</u><b>$ENV{SERVER_NAME}</b><br>Error case 2 [lon,lat]=[$lon,$lat] not defined<br>Please wait while loading...";
-	window.location="$url";
-</script>
-</body>
-</html>
-A
 
-	&myrec("Case 4 ($lon - $lat) longitude exists and as proper format <i>$url</i>","../error.html","(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
-	print $c . "<!-- plustot -->";
+	# &myrecmyrec("Case 4 ($lon - $lat) longitude exists and as proper format <i>$url</i>","../error.html","(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
+	my $t="* <u>($lon)</u> ======== * defined(lon):".((defined($lon)) ? " defined" : " not defined")." <b>=====</b> "
+		."* length(lon)==0: ".((length($lon)==0) ? " length is zero ":" length is not zero ")." <b>=====</b> "
+		."* lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/".(($lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/) ? " not defined for this reg exp " : " defined for this reg exp ")." <b>=====</b> ";
+		print $t;
+	print &my_promptB("Tests B");
+	#print $c . "<!-- plustot -->";
 	exit(0);
 } # End if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 else{ # Begin else
@@ -758,7 +727,7 @@ else{ # Begin else
 	my $xml = new XML::Simple;
 
 	#print "azerty 6<br>";
-	&myrec("Case 9.0 ($lon - $lat) logfile format <i>$url</i>","../error.html","try to contact weather center");
+	# &myrecmyrec("Case 9.0 ($lon - $lat) logfile format <i>$url</i>","../error.html","try to contact weather center");
 	#print "Content-Type: text/html ; charset=UTF-8\n\n";
 	#print "--------------------->bef $locweaf rec<------<br>\n$wfcu<br>";
 	try { # Begin try
@@ -774,10 +743,10 @@ else{ # Begin else
 	catch { # Begin catch
 		if( -e "$locweaf"){ # Begin if( -e "$locweaf")
 			unlink("$locweaf") or die("error $!");
-			&myrec("Case 9.1 ($lon - $lat) logfile format <i>$url</i>","../error.html","once weather center contacted catch error and rem file $locweaf");
+			# &myrecmyrec("Case 9.1 ($lon - $lat) logfile format <i>$url</i>","../error.html","once weather center contacted catch error and rem file $locweaf");
 		} # End if( -e "$locweaf")
 	}; # End catch
-	&myrec("Case 9.2 ($lon - $lat) logfile format <i>$url</i>","../error.html","weather center contacted");
+	# &myrecmyrec("Case 9.2 ($lon - $lat) logfile format <i>$url</i>","../error.html","weather center contacted");
 } # End else
 
 #if($url=~m/dorey/||$url=~m!192.168.1.13!){ # Begin if($url=~m/dorey/||$url=~m!192.168.1.13!)
@@ -792,7 +761,7 @@ if($url=~m/$ENV{SERVER_NAME}/){ # Begin if($url=~m/$ENV{SERVER_NAME}/)
 	$pperl = decode_json($h{"content"}) || die("Error: $!");# decode result from previous get (read upper note in this scope)
 	$mtzg=$pperl->{timeZoneId};# my time zone from google
 } # End if($url=~m/$ENV{SERVER_NAME}/)
-&myrec("Case 10 ($lon - $lat) logfile format <i>$url</i>","../error.html","------------------everything is fine-----------------------------");
+# &myrecmyrec("Case 10 ($lon - $lat) logfile format <i>$url</i>","../error.html","------------------everything is fine-----------------------------");
 
 # Password for login
 my ( $login, $password )=io::MyUtilities::gets_private_stuff_for_administrator($an_action,
@@ -992,17 +961,13 @@ my ($resPing,$ipOk)=(0,0); # stub io::MySec::checksRevIpAdd($ipAddr,io::MySec::g
 my $resAuth=io::MyUtilities::check_password($my_pid,uri_unescape($doc->param("maop_service")), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,"album/pid");
 &loadDataTrips; # put security control
 print &cascade_style_sheet_definition;
-#print "===>" . ${ipAddr} ."<br />";
 
 my @auaf=io::MyNav::gets_all_user_agent_fields;
-#print "tototo<br>";
-#print "<!-- 1 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 if ( $an_action eq "modify" ){ # Begin if ($an_action eq "modify")
 	# We print the administration menu of the album of pictures to modify a feature
 	@info_on_picture=&return_info_picture;
 } # End if ($an_action eq "modify")
 
-#print "<!-- 2 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 # We get info from URL
 my (
 	$modify_page_position_in_album, $modify_position_in_page,
@@ -1079,7 +1044,7 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 	open( R, "$file_conf_to_save" ) || error_raised( $doc, "File [$file_conf_to_save] not found!!!" );
 	@all_file=<R>;
 	close(R)||die("Error: $!");
-	print '<body onload="JavaScript:show();">'."\n";
+	print '<body onload="JavaScript:show();">'."\n".  '<div id="myDemo">popoopopo</div>'."\n" ;
 	&main_menu(
 		"Menu pour administration. / Administration menu.",
 		"Choisir une page et un rang pour placer l'image. / Choose a page and a raw for the image.",
@@ -2005,7 +1970,7 @@ Name's changed from menu_admin to menu_admin_title.
 =cut
 
 sub menu_admin_title { # Begin menu_admin_title
-	print &menu_page_title( $doc->br() . "ADMINISTRATION DES PHOTOS" . $doc->br() . $doc->font( { -color => 'blue' } , "ADMINISTRATION OF PICTURES") . $doc->br );
+	print &menu_page_title( $doc->br() . "ADMINISTRATION DES PHOTOS" . $doc->br() . $doc->font( { -color => 'blue' } , "ADMINISTRATION OF PICTURES") . $doc->br .'<p id="inf"></p>');
 } # End sub menu_admin_title
 
 =head1 sub  admin_menu(...)
@@ -4983,6 +4948,16 @@ sub javaScript { # Begin javaScript
 	my $u=<<R;
 //<![CDATA[
 		<!--
+			function print_info(title,mess){ /* Begin function print_info(title,mess) */
+				var x = document.getElementById("myDemo"); 
+				x.innerHTML = "<div id='paragHeader'>"+title+"</div>" + "<div id='paragBody'>"+mess+"</div>" ;
+			} /* End function print_info(title,mess) */
+
+			function add_print_info(mess){ /* Begin add_function print_info(mess) */
+				var x = document.getElementById("myDemo"); 
+				x.innerHTML +=  mess;
+			} /* End function add_print_info(mess) */
+
 			function go_to(url){ /*  Begin function go_to(url) */
 				location= url;
 			}  /*  End function go_to(url) */
@@ -5004,6 +4979,16 @@ sub javaScript { # Begin javaScript
 				The aim is to creates / moved all js functions in this field
 				try to field functions wisely ${lot},...
 			*/
+
+	function paramEncode(a){
+		var x = document.getElementById(a);
+		for (i = 0 ; i < x.elements.length ; i++) {
+			document.getElementById("demo").innerHTML += x.elements[i].name + " === " + x.elements[i].value + "<br>";
+			x.elements[i].value = encodeURIComponent(x.elements[i].value) ;
+			document.getElementById("demo").innerHTML += x.elements[i].name + " === " + x.elements[i].value + "<br>";
+		}
+	}
+
 function timeCalculusB(value){
 	var mtz=decodeURIComponent(value); // my time zone
 	var formISO='YYYY-MM-DDTHH:mm';
@@ -5121,7 +5106,7 @@ function calc(){ /*  Begin function calc() */
 				function validForm(){ // Begin function validForm()
 					for (var i = 0; i < myForms.elements.length; i++) { // Begin for (var i = 0; i < myForms.elements.length; i++)
 						if(myForms.elements[i].value != "Checks dates"){ // Begin if(myForms.elements[i].value != "Checks dates")
-							myForms.elements[i].value=encodeURI(myForms.elements[i].value);
+							myForms.elements[i].value=encodeURIComponent(myForms.elements[i].value);
 						} // End if(myForms.elements[i].value != "Checks dates")
 					} // End for (var i = 0; i < myForms.elements.length; i++)
 				} // End function validForm()
@@ -5279,13 +5264,40 @@ sub general_css_def { # Begin general_css_def
 		. "background-color: #ABAFCE;\n"
 		. "color: black;\n"
 		. "border-color: #807CA5;\n"
+		. "color: black;\n"
+		. "}\n"
+		. "#myDemo {\n"
+		. "color: black;\n"
+		. "margin-top: 0px;\n"
+		. "padding: 5px;\n"
+		. "background: grey;\n"
+		. "width: 500px;\n"
+		. "font-size: 12px;\n"
+		#. "height: 200px;\n"
+		. "position: absolute;\n"
+		. "left: 500px;\n"
+		. "top: 100px;\n"
+		. "border-width:1px;\n"
+		. "border-style: double;\n"
+		. "border-radius: 25px;\n"
+		. "z-index: 24;\n"
+		. "}\n"
+		. "#paragHeader{\n"
+		. "position: relative;\n"
+		#. "border-radius: 25px;\n"
+		#. "top: 0px;\n"
+		. "background: green;\n"
+		. "height: 15%;\n"
+		. "width: 100% 15%;\n"
+		. "}\n"
+		. "div.paragBody{\n"
+		. "position: relative;\n"
+		#. "color: yellow;\n"
 		. "}\n"
 		. "li {\n"
 		. "margin-left: 2px;\n"
 		. "display: inline;\n"
-		.
-		"}\n". "li.help_menu_content {\n".
-
+		. "}\n". "li.help_menu_content {\n".
 		"color: red;\n"
 		. "}\n"
 		. "b.taken {\n"
@@ -7357,14 +7369,14 @@ sub firstChoicetMenuadmin{ # Begin firstChoicetMenuadmin
 <input type='submit' value="Administration des photos/Administration of pictures" />
 <br />
 </form>
-<form action='${main_prog}?maop_service=auth&amp;maop_maop_upld=ok' method='post' name="maop_adminMenu" enctype='multipart/form-data'>
+<form id="fAdmin" action='${main_prog}?maop_service=auth&amp;maop_maop_upld=ok' method='post' name="maop_adminMenu" enctype='multipart/form-data'>
 <input type='hidden' name='maop_prev_id' value='$$' />
 <input type='hidden' name='maop_login' value='$logi n' />
 <input type='hidden' name='maop_password' value='$passwor d' />
 <input type='hidden' name='maop_recPid' value='' />
 <input type='hidden' name='maop_service' value='check' />
 <input type='hidden' name='maop_ssection' value='adminGroup' />
-<input type='submit' value="Groups &amp; URLs/Groups &amp; URLs" />
+<input type='submit' value="Groups &amp; URLs/Groups &amp; URLs" onclick="paramEncode('fAdmin')"/>
 <br />
 </form>
 <form action='${main_prog}' method='post' enctype='multipart/form-data'>
@@ -7378,7 +7390,35 @@ MENU
 		print <<MENU;
 	<br />
 	<br />
+	<script>
+		print_info("My hello world",
+			   "1 hello world<br>"
+			   +"2 hello world<br>"
+			   +"3 helloworld<br>"
+			   +"helloworld<br>"
+			   +"helloworld<br>"
+			   +"helloworld<br>"
+			   +"helloworld<br>"
+		   );
+	   </script>
+	   ->
 MENU
+	print &add_print_info("<br>1basic test<br>");
+		print <<MENU;
+		<-
+	   <script>
+		   add_print_info( "helloworld<br>"
+			   +"helloworld<br>"
+			   +"helloworld<br>"
+			   +"helloworld<br>"
+			   +"helloworld<br>"
+			   +"helloworld<br>"
+			   +"helloworld<br>"
+		   );
+		add_print_info("<br>---------------------->My hello world<br>");
+	   </script>
+MENU
+	&add_print_info("2222 basic test");
 	print io::MyUtilities::footer(
 						$doc,
 						DIRECTORY_DEPOSIT . "powered.gif",
@@ -7388,8 +7428,12 @@ MENU
 						 TESTED_WITH_BROWSERS,
 						 HOSTED_BY,
 						 HOSTED_BY_URL);
+	&add_print_info("<br>2basic test");
 	print <<MENU;
 </div>
+<script>
+	add_print_info("<br><br><br><br><br><br><br><br>zaeazeazeazeazeazeazeaeazeazea");
+</script>
 </body>
 </html>
 MENU
@@ -8071,6 +8115,202 @@ sub manageError{ # Begin sub manageError
 	my ($header,$eEn,$eFr)=@_; # header,error English, error French
 	return "<h3>$header</h3>\n<div class='customHr'>.</div>\n<p>$eEn<br>$eFr</p>";
 } # End sub manageError
+
+=head1 sub my_promptB(...)
+
+A prompt is used between each screen. This prompt is used too for debugging too.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+=over 4
+
+$debug: info to help debugging.
+
+=back
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+=over 4
+
+Returns HTML structure for the new prompt.
+
+=back
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+=over 4
+
+none.
+
+=back
+
+=back
+
+=head2 BUG(S) KNOWN
+
+=over 4
+
+=over 4
+
+None.
+
+=back
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+=over 4
+
+- I<Last modification:>  Apr 24 2018
+
+- I<Created on:> Apr 24 2018
+
+=back
+
+=back
+
+=cut
+
+sub my_promptB{ # Begin sub my_promptB
+	my ($debug)=@_;
+	my $ln=__LINE__;
+	my $sn=(caller(0))[3]; # get subroutine name
+
+	my $c=<<A;
+	<!DOCTYPE html>
+	<html>
+	<body>
+	<p id="wait"></p>
+
+	<script  language="javascript"  type="text/javascript">
+		var x=document.getElementById("wait");
+		x.innerHTML="($sn<$ln>) $debug<br><b>$ENV{SERVER_NAME}</b><br>Error case 2 [lon,lat]=[$lon,$lat] not defined<br>Please wait while loading...";
+	window.location="$url";
+</script>
+</body>
+</html>
+A
+	return $c;
+} # End sub my_promptB
+
+=head1 sub my_promptA(...)
+
+A prompt is used between each screen. This prompt is used too for debugging too.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+=over 4
+
+$debug: info to help debugging.
+
+=back
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+=over 4
+
+Returns HTML structure for the new prompt.
+
+=back
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+=over 4
+
+none.
+
+=back
+
+=back
+
+=head2 BUG(S) KNOWN
+
+=over 4
+
+=over 4
+
+None.
+
+=back
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+=over 4
+
+- I<Last modification:>  Apr 24 2018
+
+- I<Created on:> Apr 24 2018
+
+=back
+
+=back
+
+=cut
+
+sub my_promptA{ # Begin sub my_promptA
+	my ($debug)=@_;
+	my $ln=__LINE__;
+	my $sn=(caller(0))[3]; # get subroutine name
+
+	chomp($debug);chomp($info);chomp($url);
+	my $c=<<A;
+<!DOCTYPE html>
+<html>
+<body>
+<p id="wait"></p>
+
+<script  language="javascript" type="text/javascript">
+	var x=document.getElementById("wait");
+	/* x.innerHTML="Please wait while loading..."; */
+	x.innerHTML="($sn<$ln>) <u>$debug</u><br><p>Error case 1<br>[lon,lat]=[$lon,$lat] we check if not defined<br>Please wait while loading...</p>";
+	window.location="$url";
+</script>
+</body>
+</html>
+A
+	return $c;
+} # End sub my_promptA
+
+sub print_info { # Begin sub print_info($title,$mess)
+	my ($title,$mess)=@_;
+	print <<A;
+<script type="text/javascript">
+	print_info($title,$mess);
+</script>
+A
+} # End sub print_info($title,$mess)
+
+sub add_print_info { # Begin sub add_print_info($mess)
+	my ($mess) = @_;
+	print "<script>document.getElementById('myDemo').innerHTML+='$mess';</script>\n";
+} # End sub add_print_info($mess)
 
 =head1 AUTHOR
 
