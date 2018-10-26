@@ -5,8 +5,11 @@ q##//q#
 * Created By : sdo
 * File Name : maop.cgi
 * Creation Date : Wed Aug 19 15:51:08 2015
-* Last Modified : Fri Oct 26 11:26:09 2018
+* Last Modified : Fri Oct 26 21:55:36 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
+* License:
+*       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
+*       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
 * Version : 0.0.0.0
 * Purpose : 
 #;
