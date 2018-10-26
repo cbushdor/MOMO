@@ -1,25 +1,28 @@
 package io::MyTime;
 use CGI::Carp qw(fatalsToBrowser); 
 
+
+# ------------------------------------------------------
+q##//q#
+* Created By : sdo
+* File Name : MyTime.pm
+* Creation Date : Thu Oct 13 12:18:08 2005
+* Last Modified : Fri Oct 26 21:59:11 2018
+* Email Address : sdo@macbook-pro-de-sdo.home
+* Version : 0.0.0.0
+* License:
+*       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
+*       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
+* Purpose :
+#;
+# ------------------------------------------------------
+
+
 # +-------------------------------+
 # | MyTime.pm                     |
 # | Last update on Oct 13rd 2005  |
 # | Written     on Aug 8 th 2005  |
 # +-------------------------------+
-
-
-
-# ------------------------------------------------------
-q##//q#
-* Created By : sdo
-* File Name : MyUtilities.pm
-* Creation Date : Thu Oct 13 12:18:08 2005
-* Last Modified : Fri Oct 26 11:57:06 2018
-* Email Address : sdo@macbook-pro-de-sdo.home
-* Version : 0.0.0.0
-* Purpose :
-#;
-# ------------------------------------------------------
 
 require Exporter;
 #use strict;

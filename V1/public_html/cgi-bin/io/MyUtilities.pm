@@ -1,10 +1,5 @@
 package io::MyUtilities;
 
-# +-------------------------------+
-# | MyUtilities.pm                |
-# | Last update on Oct 1st  2016  |
-# | Created     on Oct 13rd 2005  |
-# +-------------------------------+
 
 
 # ------------------------------------------------------
@@ -12,13 +7,21 @@ q##//q#
 * Created By : sdo
 * File Name : MyUtilities.pm
 * Creation Date : Thu Oct 13 22:51:08 2005
-* Last Modified : Fri Oct 26 11:57:06 2018
+* Last Modified : Fri Oct 26 21:58:27 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
+* License:
+*       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
+*       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
 * Purpose :
 #;
 # ------------------------------------------------------
 
+# +-------------------------------+
+# | MyUtilities.pm                |
+# | Last update on Oct 1st  2016  |
+# | Created     on Oct 13rd 2005  |
+# +-------------------------------+
 
 require Exporter;
 
