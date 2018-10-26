@@ -7,6 +7,19 @@ use CGI::Carp qw(fatalsToBrowser);
 # | Written     on Nov 30 2008    |
 # +-------------------------------+
 
+
+# ------------------------------------------------------
+q##//q#
+* Created By : sdo
+* File Name : MyUtilities.pm
+* Creation Date : Wed Nov 30 22:51:08 2005
+* Last Modified : Fri Oct 26 11:57:06 2018
+* Email Address : sdo@macbook-pro-de-sdo.home
+* Version : 0.0.0.0
+* Purpose :
+#;
+# ------------------------------------------------------
+
 require Exporter;
 
 use Fcntl qw( :DEFAULT :flock);

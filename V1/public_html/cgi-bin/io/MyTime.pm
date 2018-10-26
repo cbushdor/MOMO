@@ -7,6 +7,20 @@ use CGI::Carp qw(fatalsToBrowser);
 # | Written     on Aug 8 th 2005  |
 # +-------------------------------+
 
+
+
+# ------------------------------------------------------
+q##//q#
+* Created By : sdo
+* File Name : MyUtilities.pm
+* Creation Date : Thu Oct 13 12:18:08 2005
+* Last Modified : Fri Oct 26 11:57:06 2018
+* Email Address : sdo@macbook-pro-de-sdo.home
+* Version : 0.0.0.0
+* Purpose :
+#;
+# ------------------------------------------------------
+
 require Exporter;
 #use strict;
 

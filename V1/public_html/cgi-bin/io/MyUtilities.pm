@@ -6,6 +6,20 @@ package io::MyUtilities;
 # | Created     on Oct 13rd 2005  |
 # +-------------------------------+
 
+
+# ------------------------------------------------------
+q##//q#
+* Created By : sdo
+* File Name : MyUtilities.pm
+* Creation Date : Thu Oct 13 22:51:08 2005
+* Last Modified : Fri Oct 26 11:57:06 2018
+* Email Address : sdo@macbook-pro-de-sdo.home
+* Version : 0.0.0.0
+* Purpose :
+#;
+# ------------------------------------------------------
+
+
 require Exporter;
 
 # @inc=(@inc "packages");
@@ -698,23 +712,32 @@ sub check_password {    # begin sub check_password
 	$doc,
 	$album_pid_file)=@_;
 #open(REC,">>../rec.html")||die("Error: $!");
-#print REC "*************************we check password***$$**************<br>";
+#print REC "we check password***($$)***** $my_pid *********<br>";
 #close(REC)||die("Error: $!");
+#print "*************************we check password***$$**************<br>";
 
+	# Case service asked
 	if ( "$service_from_param" eq "$service_value" ) { # begin if ( "$service_from_param" eq "$service_value" )
 		#print "ok 1 $service_from_param eq $service_value <br>";
-		if ( "$prev_pid_from_param" eq "" ) { 
-			# Begin if ( "$prev_pid_from_param" eq "" )
-			##print "ok 2 ($prev_pid_from_param,'')---|$user_login---$login<<<<<br>";
+		# Case we start log
+		if ( "$prev_pid_from_param" eq "" ) { # Begin if ( "$prev_pid_from_param" eq "" )
+			# Case First time
 			if ( "$user_login" eq "$login" ) { # begin if ( "$user_login" eq "$login" )
 				#print "ok 3 ($user_login,$login)<br>";
 				if ( "$user_password" eq "$password" ) { # begin if ("$user_password" eq "$password")
 					#open(REC,">>../rec.html")||die("Error: $!");
 					#print REC "<b>ok 4 we record this pid $$ ($user_password,$login,$$)</b><br>";
 					#close(REC)||die("Error: $!");
+					#print "<b>ok 4 we record this pid $$ ($user_password,$login,$$)</b><br>";
+					if (-f "$album_pid_file"){ # Begin if (-f "$album_pid_file") 
+						unlink $album_pid_file or warn "Could not unlink $album_pid_file: $!";
+					} # End if (-f "$album_pid_file") 
+					#print "We create for first time pid<br>";
+					#exit(-1);
 					open( PID, ">$album_pid_file" ) || die("Can't create $album_pid_file: $!");
 					print PID $$;
 					close(PID)||die("Error: $!");;
+					#sleep(3);
 					return 0;
 				} # End if ("$user_password" eq "$password")
 				#print "ok 3bis<br>";
@@ -722,29 +745,42 @@ sub check_password {    # begin sub check_password
 			#print "ok 2bis<br>";
 		} # End if ( "$prev_pid_from_param" eq "" )
 		else { # begin else
-			#print "ok 1bis ($prev_pid_from_param,'')<br>";
-			open( OLD_PID, "$album_pid_file" ) || die("Can't open $album_pid_file: $!");
-			my $pid;
-			foreach (<OLD_PID>) { # begin foreach (<OLD_PID>)
-				#print "pid list $_<br>\n";
-				chomp($_);
-				$pid .= $_;
-			} # End foreach (<OLD_PID>)
-			close(OLD_PID)||die("Error: $!");
+			# Case not first time but service log asked
+			my $pid=();
+			print "($album_pid_file) Checks $album_pid_file " . ((-f "$album_pid_file") ? "ok exist" : "don't exist") . "<br>";;
+			if (-f "$album_pid_file"){ # Begin if (-f "$album_pid_file") 
+				open( OLD_PID, "$album_pid_file" ) || die("Can't open $album_pid_file: $!");
+				foreach (<OLD_PID>) { # begin foreach (<OLD_PID>)
+					chomp($_);
+					$pid .= $_;
+				} # End foreach (<OLD_PID>)
+				close(OLD_PID)||die("Error: $!");
+				#unlink $album_pid_file or warn "Could not unlink $album_pid_file: $!";
+				#sleep(3);
+			} # End if (-f "$album_pid_file") 
 
-			if ( $my_pid != $pid ) { # begin if ($my_pid != $pid)
-				#	open(REC,">>../rec.html")||die("Error: $!");
-				#print REC "<b>bizzzzz bad (current pid $$)  $my_pid != $pid</b><br>";
-				#close(REC)||die("Error: $!");
-				#print "$0 bizzzzz bad (current pid $$)  $my_pid != $pid<br>";
-				#print "-----------------------------------------------------------------<br>";
+			my $pid_ok=0;
+			foreach (split(/\,/,$pid)){
+				#print "$_ =?= $my_pid\n<br>";
+				if($_ =~ m/$my_pid/){ $pid_ok++; }
+			}
+
+			if ( $pid_ok == 0) { # begin if ( $pid_ok == 0)
+				print "failed<br>";
 				return -1;
-			} # End if ($my_pid != $pid)
-			#open( PID, ">$album_pid_file" ) || die("Can't create $album_pid_file: $!");
-			#print PID $$;
-			#close(PID)||die("Error: $!");;
-			#print "$0 passed we record this pid $$ (current pid $$)  $my_pid != $pid<br>";
-			#print "-----------------------------------------------------------------<br>";
+			} # End if ($pid_ok == 0)
+			#unlink $album_pid_file or warn "Could not unlink $album_pid_file: $!";
+			#print "($album_pid_file)  We create for diff time pid<br>";
+			#exit(-1);
+			open( PID, ">>$album_pid_file" ) || die("Can't create $album_pid_file: $!");
+			print PID ",$$";
+			close(PID)||die("Error: $!");;
+			#open(REC,">>../rec.html")||die("Error: $!");
+			#print REC "$0 passed we record this pid $$ (current pid $$)  $my_pid != $pid<br>";
+			#print REC "-----------------------------------------------------------------<br>";
+			#close(REC)||die("Error: $!");
+			#sleep(3);
+			print "Success authentication for this side<br>";
 			return 0;
 		} # End else
 	} # End if ( "$service_from_param" eq "$service_value" )
