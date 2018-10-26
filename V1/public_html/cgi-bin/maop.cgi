@@ -1,10 +1,23 @@
 #!/opt/local/bin/perl 
 
+# ------------------------------------------------------
+q##//q#
+* Created By : sdo
+* File Name : maop.cgi
+* Creation Date : Wed Aug 19 15:51:08 2015
+* Last Modified : Fri Oct 26 11:26:09 2018
+* Email Address : sdo@macbook-pro-de-sdo.home
+* Version : 0.0.0.0
+* Purpose : 
+#;
+# ------------------------------------------------------
+
 use CGI;
 use strict;
 use warnings;
 use POSIX qw(strftime);
 use io::MyNav;
+use io::MyConstantBase;
 use DateTime;
 use DateTime::Format::Strptime;
 use Cwd;
