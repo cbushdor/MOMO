@@ -1,12 +1,11 @@
-#!/Users/sdo/perl5/perlbrew/perls/perl-5.8.8/bin/perl
-# #!/usr/bin/perl -T
+#!//opt/local/bin/perl
 
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* Last Modified : Fri Oct 26 21:55:14 2018
+* Last Modified : Fri Oct 26 22:51:41 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -35,15 +34,18 @@ use Data::Dumper;
 use Net::Ping;
 use Cwd;
 
+use io::MyConstantBase;
 use io::MyNav;
 use io::MySec;
 use io::MyUtilities;
 
 use CGI;
 
+our $mip=io::MyNav::gets_ip_address;
+
 print "Content-Type: text/html\n\n";
 
-my $ipAddr=io::MyNav::gets_ip_address;
+#my $ipAddr=io::MyNav::gets_ip_address;
 
 =head1 NAME
 
@@ -163,10 +165,10 @@ if($statlastlogfile){ # begin if($statlastlogfile)
 
 	chdir("..");chdir("..");
 	$logfile=~s/\//\_/g;
-	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){ # begin if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
+	if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!){ # begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
 		$url="http://localhost/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
 		$ilws=0; # is local website 0=yes (for local wesite tests)
-	} # end if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
+	} # end if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
 	else{ # begin else
 		$ilws=1; # is local website 1=no (for distant wesite tests)
 		$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_log=$logfile$mparam";
@@ -195,7 +197,7 @@ if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
 	print "Content-Type: text/html\n\n";
 	#print "case 2<br>";exit(1);
-	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){
+	if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!){
 		$url="http://localhost/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
 	}else{
 		#$url="http://derased.heliohost.org/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
@@ -223,7 +225,7 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
 	print "Content-Type: text/html\n\n";
 	#print "case 1<br>";exit(1);
-	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){
+	if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!){
 		$url="http://localhost/~sdo/cgi-bin/maop.cgi";
 		$ilws=0; # is local website 0=yes (for local wesite tests)
 	}else{
@@ -263,7 +265,7 @@ if(length($googid)==0 || ! defined($googid) ){ # begin if(length($prt)==0 || ! d
 
 #print "B - i$gmv,$prt, check  test prt length if it is ok. implemented but not tested yet<br>";
 
-if ($ipAddr=~m/127.0.0.1/){ # begin if ($ipAddr=~m/127.0.0.1/)
+if ($mip=~m/127.0.0.1/){ # begin if ($mip=~m/127.0.0.1/)
 	my $pong = Net::Ping->new( $> ? "tcp" : "icmp" );
 	#if ($pong->ping("www.heliohost.org")) { # begin if ($pong->ping("www.heliohost.org"))
 	if ($pong->ping("dorey.effers.com")) { # begin if ($pong->ping("dorey.effers.com"))
@@ -272,7 +274,7 @@ if ($ipAddr=~m/127.0.0.1/){ # begin if ($ipAddr=~m/127.0.0.1/)
 		print "No connection!\n";
 		exit(-1);
 	} # end else
-} # end if ($ipAddr=~m/127.0.0.1/)
+} # end if ($mip=~m/127.0.0.1/)
 
 my $fn=$0; # file name
 $fn=~m/([0-9a-zA-Z\-\.]*)$/;
@@ -577,12 +579,12 @@ sub getsPath{ # begin getsPath
 	#print "size of the array ". scalar(@qq) . "<<<<<<<<<<<<<<<<br>";
 	my $max=scalar(@qq);
 	my $cur=1;
-use constant PATH_GOOGLE_MAP_TRIP 	=> "album/trips/";
-use constant TRIP_NAME           	=> "trips"; # Album trips
+#use constant PATH_GOOGLE_MAP_TRIP ->() 	=> "album/trips/";
+#use constant TRIP_NAME ->()           	=> "trips"; # Album trips
 		my $mgidt=$doc->param("maop_googid"); #my google id  trip
 		chomp($mgidt);
 
-		my $tn=PATH_GOOGLE_MAP_TRIP.$mgidt ."-".TRIP_NAME; # Trip name
+		my $tn=PATH_GOOGLE_MAP_TRIP ->().$mgidt ."-".TRIP_NAME ->(); # Trip name
 
 		if ( ! -f "$tn"){ # Begin if ( ! -f "$tn")
 			print "Content-type: text/html\n\n";
