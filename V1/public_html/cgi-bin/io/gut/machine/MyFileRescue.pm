@@ -1,25 +1,23 @@
 package io::MyFileRescue;
 use CGI::Carp qw(fatalsToBrowser); 
 
-# +-------------------------------+
-# | MyFileRescue.pm                     |
-# | Last update on Aug 20th 2008  |
-# | Written     on Sep 27th 2006  |
-# +-------------------------------+
-
-
-
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
-* File Name : MyUtilities.pm
+* File Name : MyFileRescue.pm
 * Creation Date : Wed Sep 27 21:01:08 2006
-* Last Modified : Fri Oct 26 11:57:06 2018
+* Last Modified : Fri Oct 26 22:02:34 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * Purpose :
 #;
 # ------------------------------------------------------
+
+# +-------------------------------+
+# | MyFileRescue.pm               |
+# | Last update on Aug 20th 2008  |
+# | Written     on Sep 27th 2006  |
+# +-------------------------------+
 
 require Exporter;
 

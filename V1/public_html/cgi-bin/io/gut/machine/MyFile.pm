@@ -5,26 +5,23 @@ my $tmp=getcwd();chomp($tmp);# gets current directory path
 $CGITempFile::TMPDIRECTORY="$tmp/tmp";# this is where all temporary uploaded file whill go
 if( ! -d "$CGITempFile::TMPDIRECTORY"){ die "$CGITempFile::TMPDIRECTORY $!";}# if there's an error
 
-# +-------------------------------+
-# | MyFile.pm                     |
-# | Last update on Aug 20th 2008  |
-# | Written     on Sep 27th 2006  |
-# +-------------------------------+
-
-
-
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
-* File Name : MyUtilities.pm
+* File Name : MyFile.pm
 * Creation Date : Wed Aug 20 22:51:08 2008
-* Last Modified : Fri Oct 26 11:57:06 2018
+* Last Modified : Fri Oct 26 22:01:53 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * Purpose :
 #;
 # ------------------------------------------------------
 
+# +-------------------------------+
+# | MyFile.pm                     |
+# | Last update on Aug 20th 2008  |
+# | Written     on Sep 27th 2006  |
+# +-------------------------------+
 require Exporter;
 
 $VERSION    = '1.1.4.0';
