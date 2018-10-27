@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* Last Modified : Sat Oct 27 09:24:37 2018
+* Last Modified : Sat Oct 27 10:21:22 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -46,12 +46,13 @@ our $mip=io::MyNav::gets_ip_address;
 #print "Content-Type: text/html\n\n";
 
 #my $ipAddr=io::MyNav::gets_ip_address;
+my $VERSION="0.2.1.200";
 
 =head1 NAME
 
 g3ogle.cgi
 
-$VERSION=0.2.1.200
+$VERSION="0.2.1.200"
 
 =head1 ABSTRACT
 
@@ -1082,6 +1083,9 @@ A
 					div.innerHTML = '<img src="' + icon + '"> ' + name;
 					legend.appendChild(div);
 				}
+				var div = document.createElement('div');
+				div.innerHTML = "<i>v$VERSION</i>";
+				legend.appendChild(div);
 
 				map=new google.maps.Map(document.getElementById("map"),mapOptions);
 				map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
@@ -1409,3 +1413,5 @@ sub infoCenter{ # begin sub infoCenter
 			;
 	} # end else
 } # end sub infoCenter
+
+print "v$VERSION\n<br>";
