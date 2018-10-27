@@ -7,7 +7,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Fri Oct 26 21:47:19 2018
+* Last Modified : Sat Oct 27 09:20:46 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -123,7 +123,7 @@ use io::MySec;
 our $mip=io::MyNav::gets_ip_address;
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.151'; # Album release
+use constant ALBUM_REL               	=> '16.156'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -152,7 +152,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.151
+$VERSION=1.6.16.156
 
 =head1 ABSTRACT
 
@@ -235,6 +235,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.156> Oct 27 2018 Tests+updates of the dates
 
 - I<Last modification:v1.6.16.151> Oct 26 2018 Starting + finishing putting all constants in a single file: io/MyConstantBase.pm
 
