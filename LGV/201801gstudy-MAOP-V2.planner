@@ -91,7 +91,7 @@
       <task id="30" name="Meetups" note="" work="7200" start="20180101T000000Z" end="20180101T100000Z" work-start="20180101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
     </task>
     <task id="31" name="Sports" note="" work="28800" start="20180101T000000Z" end="20180101T170000Z" work-start="20180101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-    <task id="32" name="Conf/Renc/Mati/Salo/Expo" note="" work="543600" start="20180101T000000Z" end="20181024T150000Z" work-start="20180101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="32" name="Conf/Renc/Mati/Salo/Expo" note="" work="565200" start="20180101T000000Z" end="20181026T150000Z" work-start="20180101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
       <task id="33" name="Cin&#xE9;ma" note="" work="39600" start="20180101T000000Z" end="20180910T100000Z" work-start="20180101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <task id="34" name="Regular" note="" work="7200" start="20180101T000000Z" end="20180101T100000Z" work-start="20180101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
           <task id="35" name="Pubicis" note="Sun 08 Apr 2018, 21:26&#10;Bruce Lee - La furreur du dragon" work="7200" duration="7200" start="20180101T000000Z" end="20180101T100000Z" work-start="20180101T080000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-duration"/>
@@ -148,7 +148,7 @@
           <constraint type="must-start-on" time="20180907T000000Z"/>
         </task>
       </task>
-      <task id="54" name="Parc" note="" work="108000" start="20180707T000000Z" end="20181024T150000Z" work-start="20180709T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="54" name="Parc" note="" work="129600" start="20180707T000000Z" end="20181026T150000Z" work-start="20180709T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <task id="55" name="Paris plage" note="" work="7200" duration="7200" start="20180707T000000Z" end="20180709T100000Z" work-start="20180709T080000Z" percent-complete="0" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20180707T000000Z"/>
           <task id="56" name="Visite" note="" work="7200" duration="7200" start="20180707T000000Z" end="20180709T100000Z" work-start="20180709T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
@@ -173,64 +173,68 @@
         <task id="62" name="Marche+Chataignes" note="Wed 24 Oct 2018, 23:18&#10;Balade en for&#xEA;t o&#xF9; trouver des ch&#xE2;taignes + Lecture + practice exercises (may be some research, some clues seeked on the net)&#10;&#10;Fausses Reposes Forest, France" work="21600" duration="21600" start="20181024T000000Z" end="20181024T150000Z" work-start="20181024T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20181024T000000Z"/>
         </task>
+        <task id="63" name="Marche+Balade en for&#xEA;t o&#xF9; trouver des ch&#xE2;taignes" note="Sat 27 Oct 2018, 09:10&#10;Balade en for&#xEA;t o&#xF9; trouver des ch&#xE2;taignes + Lecture + practice exercises (may be some research, some clues seeked on the net)&#10;&#10;Fausses Reposes Forest, France" work="21600" duration="21600" start="20181026T000000Z" end="20181026T150000Z" work-start="20181026T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20181026T000000Z"/>
+        </task>
       </task>
-      <task id="63" name="Spectacles" note="" work="7200" start="20180705T000000Z" end="20180709T090000Z" work-start="20180705T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="64" name="Fnac concert" note="" work="7200" duration="61200" start="20180705T000000Z" end="20180709T090000Z" work-start="20180705T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+      <task id="64" name="Spectacles" note="" work="7200" start="20180705T000000Z" end="20180709T090000Z" work-start="20180705T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="65" name="Fnac concert" note="" work="7200" duration="61200" start="20180705T000000Z" end="20180709T090000Z" work-start="20180705T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20180705T000000Z"/>
-          <task id="65" name="Visite" note="" work="3600" duration="3600" start="20180705T000000Z" end="20180705T090000Z" work-start="20180705T080000Z" percent-complete="10" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="66" name="Visite" note="" work="3600" duration="3600" start="20180705T000000Z" end="20180705T090000Z" work-start="20180705T080000Z" percent-complete="10" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20180705T000000Z"/>
           </task>
-          <task id="66" name="Concert" note="" work="3600" duration="3600" start="20180707T000000Z" end="20180709T090000Z" work-start="20180709T080000Z" percent-complete="10" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="67" name="Concert" note="" work="3600" duration="3600" start="20180707T000000Z" end="20180709T090000Z" work-start="20180709T080000Z" percent-complete="10" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20180707T000000Z"/>
           </task>
         </task>
       </task>
-      <task id="67" name="Games" note="" work="7200" start="20180101T000000Z" end="20180101T100000Z" work-start="20180101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="68" name="Obligations civiques" note="" work="316800" start="20180101T000000Z" end="20180115T170000Z" work-start="20180101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="68" name="Games" note="" work="7200" start="20180101T000000Z" end="20180101T100000Z" work-start="20180101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="69" name="Obligations civiques" note="" work="316800" start="20180101T000000Z" end="20180115T170000Z" work-start="20180101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
     </task>
   </tasks>
   <resource-groups>
-    <group id="1" name="Admin" admin-name="" admin-phone="" admin-email=""/>
-    <group id="2" name="Programming" admin-name="" admin-phone="" admin-email=""/>
-    <group id="3" name="Asso" admin-name="" admin-phone="" admin-email=""/>
-    <group id="4" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
-    <group id="5" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
-    <group id="6" name="Culture" admin-name="" admin-phone="" admin-email=""/>
+    <group id="1" name="Culture" admin-name="" admin-phone="" admin-email=""/>
+    <group id="2" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
+    <group id="3" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
+    <group id="4" name="Asso" admin-name="" admin-phone="" admin-email=""/>
+    <group id="5" name="Programming" admin-name="" admin-phone="" admin-email=""/>
+    <group id="6" name="Admin" admin-name="" admin-phone="" admin-email=""/>
   </resource-groups>
   <resources>
-    <resource group="1" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="4" name="Web servers" short-name="wse" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="5" name="Googlemap" short-name="gma" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="6" name="Tests" short-name="Tes" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="7" name="Perl" short-name="Per" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="8" name="Ubuntu" short-name="ubu" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="9" name="Fedora" short-name="fed" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="10" name="April" short-name="apr" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="11" name="Parinux" short-name="prx" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="12" name="Mongueurs de Perl" short-name="mdp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="13" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="14" name="Coffee shop" short-name="csh" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="15" name="Paris est une f&#xEA;te" short-name="PEUF" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="16" name="Python" short-name="Pyt" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="17" name="OpenOffice" short-name="OOf" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="18" name="SCumm VM" short-name="SVM" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="19" name="Utilitaire/Tools 7z" short-name="c7z" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="20" name="Basic OpenOffice.org" short-name="boo.org" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="21" name="SELinux" short-name="SEL" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="22" name="Mac OS X" short-name="mox" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="23" name="github" short-name="ghu" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="24" name="Mairie de Paris" short-name="M2P" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="25" name="POD (Plain Old Document)" short-name="POD" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="26" name="PHP" short-name="PHP" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="27" name="Blender 2.77" short-name="BLD" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="28" name="Orange" short-name="ORA" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="29" name="Tablet" short-name="TAB" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="30" name="Cellular" short-name="CEL" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="4" name="Web servers" short-name="wse" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="5" name="Googlemap" short-name="gma" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="6" name="Tests" short-name="Tes" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="7" name="Perl" short-name="Per" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="8" name="Ubuntu" short-name="ubu" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="9" name="Fedora" short-name="fed" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="10" name="April" short-name="apr" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="11" name="Parinux" short-name="prx" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="12" name="Mongueurs de Perl" short-name="mdp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="13" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="14" name="Coffee shop" short-name="csh" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="15" name="Paris est une f&#xEA;te" short-name="PEUF" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="16" name="Python" short-name="Pyt" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="17" name="OpenOffice" short-name="OOf" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="18" name="SCumm VM" short-name="SVM" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="19" name="Utilitaire/Tools 7z" short-name="c7z" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="20" name="Basic OpenOffice.org" short-name="boo.org" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="21" name="SELinux" short-name="SEL" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="22" name="Mac OS X" short-name="mox" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="23" name="github" short-name="ghu" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="24" name="Mairie de Paris" short-name="M2P" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="25" name="POD (Plain Old Document)" short-name="POD" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="26" name="PHP" short-name="PHP" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="27" name="Blender 2.77" short-name="BLD" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="28" name="Orange" short-name="ORA" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="29" name="Tablet" short-name="TAB" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="30" name="Cellular" short-name="CEL" type="2" units="0" email="" note="" std-rate="0"/>
     <resource id="31" name="Angular" short-name="AnJS" type="2" units="0" email="" note="" std-rate="0"/>
   </resources>
   <allocations>
+    <allocation task-id="63" resource-id="1" units="11"/>
     <allocation task-id="62" resource-id="1" units="13"/>
     <allocation task-id="61" resource-id="1" units="13"/>
     <allocation task-id="60" resource-id="1" units="14"/>
@@ -243,6 +247,7 @@
     <allocation task-id="10" resource-id="1" units="25"/>
     <allocation task-id="9" resource-id="1" units="9"/>
     <allocation task-id="4" resource-id="1" units="20"/>
+    <allocation task-id="63" resource-id="2" units="11"/>
     <allocation task-id="62" resource-id="2" units="13"/>
     <allocation task-id="61" resource-id="2" units="13"/>
     <allocation task-id="60" resource-id="2" units="14"/>
@@ -253,6 +258,7 @@
     <allocation task-id="9" resource-id="2" units="9"/>
     <allocation task-id="8" resource-id="2" units="10"/>
     <allocation task-id="4" resource-id="2" units="20"/>
+    <allocation task-id="63" resource-id="3" units="11"/>
     <allocation task-id="62" resource-id="3" units="13"/>
     <allocation task-id="61" resource-id="3" units="13"/>
     <allocation task-id="60" resource-id="3" units="14"/>
@@ -263,6 +269,7 @@
     <allocation task-id="8" resource-id="3" units="10"/>
     <allocation task-id="12" resource-id="3" units="17"/>
     <allocation task-id="4" resource-id="3" units="20"/>
+    <allocation task-id="63" resource-id="4" units="11"/>
     <allocation task-id="62" resource-id="4" units="13"/>
     <allocation task-id="61" resource-id="4" units="13"/>
     <allocation task-id="60" resource-id="4" units="14"/>
@@ -272,12 +279,14 @@
     <allocation task-id="50" resource-id="4" units="14"/>
     <allocation task-id="8" resource-id="4" units="10"/>
     <allocation task-id="12" resource-id="4" units="17"/>
+    <allocation task-id="63" resource-id="5" units="11"/>
     <allocation task-id="62" resource-id="5" units="13"/>
     <allocation task-id="61" resource-id="5" units="13"/>
     <allocation task-id="60" resource-id="5" units="14"/>
     <allocation task-id="59" resource-id="5" units="17"/>
     <allocation task-id="58" resource-id="5" units="25"/>
     <allocation task-id="9" resource-id="5" units="9"/>
+    <allocation task-id="63" resource-id="6" units="11"/>
     <allocation task-id="62" resource-id="6" units="13"/>
     <allocation task-id="61" resource-id="6" units="13"/>
     <allocation task-id="60" resource-id="6" units="14"/>
@@ -291,6 +300,7 @@
     <allocation task-id="12" resource-id="6" units="17"/>
     <allocation task-id="7" resource-id="6" units="20"/>
     <allocation task-id="4" resource-id="6" units="20"/>
+    <allocation task-id="63" resource-id="7" units="11"/>
     <allocation task-id="62" resource-id="7" units="13"/>
     <allocation task-id="51" resource-id="7" units="7"/>
     <allocation task-id="10" resource-id="7" units="25"/>
@@ -319,6 +329,7 @@
     <allocation task-id="19" resource-id="12" units="100"/>
     <allocation task-id="18" resource-id="12" units="100"/>
     <allocation task-id="17" resource-id="12" units="100"/>
+    <allocation task-id="63" resource-id="13" units="11"/>
     <allocation task-id="61" resource-id="13" units="13"/>
     <allocation task-id="51" resource-id="13" units="7"/>
     <allocation task-id="50" resource-id="13" units="14"/>
@@ -331,6 +342,7 @@
     <allocation task-id="35" resource-id="13" units="100"/>
     <allocation task-id="38" resource-id="13" units="100"/>
     <allocation task-id="37" resource-id="13" units="100"/>
+    <allocation task-id="63" resource-id="14" units="11"/>
     <allocation task-id="61" resource-id="14" units="13"/>
     <allocation task-id="60" resource-id="14" units="14"/>
     <allocation task-id="57" resource-id="14" units="50"/>
@@ -350,9 +362,9 @@
     <allocation task-id="50" resource-id="24" units="14"/>
     <allocation task-id="49" resource-id="24" units="14"/>
     <allocation task-id="52" resource-id="24" units="100"/>
+    <allocation task-id="67" resource-id="24" units="100"/>
     <allocation task-id="66" resource-id="24" units="100"/>
     <allocation task-id="65" resource-id="24" units="100"/>
-    <allocation task-id="64" resource-id="24" units="100"/>
     <allocation task-id="56" resource-id="24" units="100"/>
     <allocation task-id="55" resource-id="24" units="100"/>
     <allocation task-id="47" resource-id="24" units="100"/>
