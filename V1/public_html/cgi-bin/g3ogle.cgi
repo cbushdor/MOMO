@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* Last Modified : Fri Oct 26 22:51:41 2018
+* Last Modified : Sat Oct 27 09:24:37 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -43,7 +43,7 @@ use CGI;
 
 our $mip=io::MyNav::gets_ip_address;
 
-print "Content-Type: text/html\n\n";
+#print "Content-Type: text/html\n\n";
 
 #my $ipAddr=io::MyNav::gets_ip_address;
 
@@ -51,7 +51,7 @@ print "Content-Type: text/html\n\n";
 
 g3ogle.cgi
 
-$VERSION=0.2.1.170
+$VERSION=0.2.1.200
 
 =head1 ABSTRACT
 
