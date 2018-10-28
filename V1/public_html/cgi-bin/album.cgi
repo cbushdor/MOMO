@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Sun Oct 28 22:32:30 2018
+* Last Modified : Sun Oct 28 23:34:50 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -121,7 +121,7 @@ use io::MySec;
 our $mip=io::MyNav::gets_ip_address;
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.156'; # Album release
+use constant ALBUM_REL               	=> '16.160'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -150,7 +150,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.156
+$VERSION=1.6.16.160
 
 =head1 ABSTRACT
 
