@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyConstantBase.pm
 * Creation Date : Sun Aug 19 22:51:08 2018
-* Last Modified : Fri Oct 26 22:00:30 2018
+* Last Modified : Sun Oct 28 23:01:34 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -27,6 +27,7 @@ our $toto="testing";
 my $privateToto="testing";
 
 use constant LOCAL_HOSTS_FILE => "/etc/hosts"; # For security issur where to check hosts files
+use constant LOCAL_HOSTED_BY_URL => sub { "192.168.1.13" }; # That's the local url/ip address to reach website
 use constant HOSTED_BY_URL => sub{ "https://dorseb.hopto.org/~sdo/" }; # That's the url of host name
 #use constant HOSTED_BY_URL => sub{ "$ENV{REQUEST_SCHEME}://$ENV{SERVER_NAME}$ENV{CONTEXT_PREFIX}" }; # That's the url of host name
 use constant HOSTED_BY => sub{  "hopto.org"  }; # That's the host name
@@ -58,95 +59,7 @@ use constant PATH_GOOGLE_MAP_ID 	=> sub{ "private/id.googlemap.v". GOOGLE_MAP_SC
 use constant PATH_GOOGLE_MAP_TRIP 	=> sub{ "album/trips/"; }; # Where to reach trips
 use constant PATH_GOOGLE_MAP_OPT 	=> sub{ "-0"; }; # Extra option check documentation or comments
 
-=head1 LOCAL_HOSTED_BY_URL
 
-Check if it local or not local ip.
-That's the url of local host name
-
-=head2 PARAMETER(S)
-
-=over 4
-
-=over 4
-
-none
-
-=back
-
-=back
-
-=head2 RETURNED VALUE
-
-=over 4
-
-=over 4
-
-Returns IP address otherwise an empty string. Checks field error returned otherwise.
-
-=back
-
-=back
-
-=head2 ERRROR RETURNED
-
-=over 4
-
-=over 4
-
-$mip is not defined
-	Message received "$mip does not exists: $!"
-
-$mip is defined but does not contains IP address.
-	Message received "\$mip does exists but not initialized: $!" 
-
-=back
-
-=back
-
-=head2 BUG(S) KNOWN
-
-=over 4
-
-=over 4
-
-None.
-
-=back
-
-=back
-
-=head2 HISTORY OF CREATION/MODIFICATION 
-
-=over 4
-
-=over 4
-
-- I<Last modification:> Aug 20 2018
-
-- I<Created on:> Aug 15 2018
-
-=back
-
-=back
-
-=cut
-
-use constant LOCAL_HOSTED_BY_URL => sub {
-	# Sanitized tests
-	die "\$mip does not exists: $!" if ! defined $mip;
-	die "\$mip does exists but not initialized: $!" if $mip =~ m/io::MyNav::gets_ip_address/;
-
-	#open(RHF,"$_[0]") || die("Error: $!\n"); # On the file that contains hosts file 
-	# my $o = 
-	open(RHF,LOCAL_HOSTS_FILE) || die("Error: $! '$_'\n"); # On the file that contains hosts file 
-	print "\$_->'$_'=length(".length("$_")."), error:$!<br>";
-	foreach(<RHF>){
-		close(RHF) || die("Error: $!\n") if ($_ =~ m/^$mip\ +/); 
-		return "$mip"   if ($_ =~ m/^$mip\ +/); 
-	}
-	close(RHF) || die("Error: $!\n");
-	return "";
-};
 
 sub printTest{
 	print "hello world<br>";
