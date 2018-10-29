@@ -7,7 +7,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyUtilities.pm
 * Creation Date : Thu Oct 13 22:51:08 2005
-* Last Modified : Fri Oct 26 21:58:27 2018
+* Last Modified : Mon Oct 29 10:44:38 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -33,8 +33,9 @@ use IO::Socket;
 #use URI;
 
 # use strict;
+use Cwd;
 
-my $VERSION    = '1.1.25.24';
+my $VERSION    = '1.1.25.38';
 $VERSION    = eval $VERSION;
 my @ISA    = qw( Exporter );
 my @EXPORT = qw(
@@ -750,7 +751,7 @@ sub check_password {    # begin sub check_password
 		else { # begin else
 			# Case not first time but service log asked
 			my $pid=();
-			print "($album_pid_file) Checks $album_pid_file " . ((-f "$album_pid_file") ? "ok exist" : "don't exist") . "<br>";;
+			print "($album_pid_file,$0,".getcwd().") Checks $album_pid_file " . ((-f "$album_pid_file") ? "ok exist" : "don't exist") . "<br>";;
 			if (-f "$album_pid_file"){ # Begin if (-f "$album_pid_file") 
 				open( OLD_PID, "$album_pid_file" ) || die("Can't open $album_pid_file: $!");
 				foreach (<OLD_PID>) { # begin foreach (<OLD_PID>)
