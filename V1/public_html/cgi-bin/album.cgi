@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Mon Oct 29 21:15:19 2018
+* Last Modified : Tue Oct 30 12:15:29 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -4999,7 +4999,7 @@ function timeCalculusB(value){
 									"Début voyage:Selectionnez un fuseau horaire en premier.");
 	} // End if (value=="")
 	else{ // Begin else
-		document.myform.maop_bdaytime.value = nowMoment.tz(mtz).format(formISO);
+		document.myform.maop_bdaytime.value = nowMoment.tz(mtz).add('minutes',5).format(formISO);
 		//document.getElementById('err').innerHTML = document.myform.maop_bdaytime.value;
 	} // End else
 }
@@ -5018,7 +5018,7 @@ function timeCalculusE(value){
 									"Fin du voyage: selectionnez un fuseau horaire en premier.");
 	} // End if (value=="")
 	else{ // Begin else
-		document.myform.maop_edaytime.value = nowMoment.tz(mtz).format(formISO);
+		document.myform.maop_edaytime.value = nowMoment.tz(mtz).add('minutes',5).format(formISO);
 	} // End else
 }
 
@@ -5047,15 +5047,21 @@ function calc(){ /*  Begin function calc() */
 	var myurl=new String("$myuri$myport/$myscript?maop_googid="+trip+"&maop_gmv=3-0"); // <<<<<<<< here to check for url and ip @
 	var r="https://"+myurl.replace(/[\/]{2,}/g,"/"); /*  Regexp used to eliminate bugs while printing URL   ... */
 	var myForms = document.forms["myform"];
-	var bot=moment(num1); // date+time begining of trip
+	var bot=moment(num1); // date+time begining of trip ; add one minute to the begining of the trip because of he cell bug
 	var eot=moment(num2); // date+time ending of trip 
 	var formISO='YYYY-MM-DDTHH:mm';
 
 	bot.tz(comp1,true); // Begin of trip: we don't change date but set time zone to it (date and time)
 	var mbot1=bot; // Begin of trip: we don't change date but set time zone to it (date and time)
 	var mbot2=bot.clone(); // clone date+time at the begining of the trip
-	mbot2.tz(comp2); // we set mbot1 to local time=end of the trip
+	mbot2.tz(comp2); // we set mbot2 to local time=end of the trip
 	var meot1=eot.tz(comp2,true); // End of trip: we don't change date but set time zone to it (date and time)
+	// begin test not good enougth need to be improved
+	// current date is>=begin of trip?
+	var cdt=moment().format('YYYY-MM-DDTHH:MM'); // current date
+	var mbot3=bot.clone(); // clone date+time at the begining of the trip
+	mbot3.tz(cdt); // we set mbot3 to local time=current date of the trip
+	// end test not good enougth need to be improved
 
 
 	if (new String(trip).valueOf() == new String("").valueOf()) { /* Begin if (new String(trip).valueOf() == new String("").valueOf()) */
@@ -5070,7 +5076,8 @@ function calc(){ /*  Begin function calc() */
 									"<u><b>Begining of the trip:</u></b> select a time zone first.",
 									"<br><u><b>Début du voyage:</b></u> selectionnez un fuseau horaire en premier.");
 	} /* End else if (document.myform.maop_bdaytime.value=="--" ) */
-	else if (mbot1>=meot1){
+	else if (mbot3>=meot1){
+		// test not good enougth need to be improved
 		document.getElementById('err').innerHTML = manageError(
 									"Error/Erreur",
 									"Time zone end and dates <= time zone begining and dates.",
