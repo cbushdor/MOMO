@@ -5,12 +5,12 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Tue Oct 30 12:15:29 2018
+* Last Modified : Wed Oct 31 11:21:53 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 0.0.0.0
+* Version : 1.6.16.171
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -121,7 +121,7 @@ use io::MySec;
 our $mip=io::MyNav::gets_ip_address;
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.160'; # Album release
+use constant ALBUM_REL               	=> '16.171'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -150,7 +150,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.160
+$VERSION=1.6.16.171
 
 =head1 ABSTRACT
 
@@ -7709,7 +7709,8 @@ sub setGoogleID{# Begin setGoogleID
 						my $dist=$maop_url_loc;
 						my $loc=$maop_url_loc;
 						# "https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_googid=20180228%20Tests&maop_gmv=3-0";
-						#print "************>$loc<br>";
+						print "************>$loc<br>";
+						#sleep(200);
 						my $mh=HOSTED_BY_URL->(); # my host
 						my $lmh=LOCAL_HOSTED_BY_URL->(); # my host
 						#$mh=~s/^https{0,1}\:\/\///;
@@ -7717,8 +7718,8 @@ sub setGoogleID{# Begin setGoogleID
 						$mh=~m/(([^\.\:\/]{1,})(\.[^\.\:\/]{1,}){2})/;
 						my $nmh=$1;
 						$dist=~s/[0-9]{1,3}(\.[0-9]{1,3}){3}/$nmh/;
-						#print "<br>------------>dist: $nmh<br>\n";
-						#print "************>$loc<br>";
+						print "<br>after shaving ------------>dist: $nmh<br>\n";
+						print "after shaving ************>$loc<br>";
 						my $message = "<br><b><u>Trip name/Nom du voyage:</u></b>" . uri_unescape($doc->param('maop_googid')) .  
 							      "\n<br><b><u>Begining of the trip/Debut du voyage:</u></b>" . uri_unescape($doc->param('maop_bdaytime')) . " " . $tzbt->name . " " . $tzbt->offset_for_local_datetime( $dtb ) .
 							      "\n<br><b><u>End of the trip/Fin du voyage:</u></b>". uri_unescape($doc->param('maop_edaytime')). " " . $tzet->name . " " . $tzet->offset_for_local_datetime( $dte ) .
