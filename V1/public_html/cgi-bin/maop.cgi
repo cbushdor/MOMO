@@ -5,12 +5,12 @@ q##//q#
 * Created By : sdo
 * File Name : maop.cgi
 * Creation Date : Wed Aug 19 15:51:08 2015
-* Last Modified : Sat Oct 27 09:58:11 2018
+* Last Modified : Wed Oct 31 11:20:14 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 0.0.0.0
+* Version : 1.0.12.22
 * Purpose : 
 #;
 # ------------------------------------------------------
@@ -30,7 +30,7 @@ use URI::Escape;
 
 $|=1;
 my $now_string = time(); # strftime "%m %d %H:%M:%S UTC %Y", gmtime;
-my $VERSION="1.0.12.15";
+my $VERSION="1.0.12.22";
 
 my $doc = new CGI;
 my $ip=io::MyNav::gets_ip_address;
@@ -60,7 +60,7 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 		   $p!~m/^maop_date$/&&
 		   $p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 			my $pram=$doc->param($p);
-			print "****>>>>>>>$p --->".$doc->param($p)."<br>\n";
+			#print "****>>>>>>>$p --->".$doc->param($p)."<br>\n";
 			#chomp($pram);
 			if (length($pram)>0) { 
 				#$dec=uri_escape($pram, "\0-\377") || die ("Error: $!");;
@@ -76,9 +76,9 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 		else{ # Begin else
 		} # End else
 	} # end if($p=~m/^maop\_/)
-	print REC "\n#####+++++***<$p>".$doc->param($p)."<br>";
+	#	print REC "\n#####+++++***<$p>".$doc->param($p)."<br>";
 } # end foreach my $p ($doc->param)
-print REC "\n----------------END----------<br>\n";
+#print REC "\n----------------END----------<br>\n";
 close(REC);
 #&myrec("Case logfile format maop ","../error.html","logfile: $logfile *****(lo,la)=($lo,$la)" );
 #print "oooooooo>$mparam<br>";
@@ -99,9 +99,9 @@ if ("$ENV{SERVER_PORT}" ne "80") { # Begin if ("$ENV{SERVER_PORT}" ne "80")
 #	print "<br><u>A url before:</u>$url<br>";
 	$url .= $ENV{SERVER_NAME}.":".$ENV{SERVER_PORT}.$ENV{REQUEST_URI};
 	$url=~s/maop\.cgi/$prog/; # we put the destination for URL
-	print "<br>UNDER CONSTRUCTION> $url<br>";
+	#print "<br>UNDER CONSTRUCTION> $url<br>";
 	#$url.=$mparam;
-	print "<br>UNDER CONSTRUCTION> $url<br>";
+	#print "<br>UNDER CONSTRUCTION> $url<br>";
 #	print "<br><u>A url after:</u>$url<br><u>prog:</u>$prog<br>";
 } # End if ("$ENV{SERVER_PORT}" ne "80")
 else { # Begin else
@@ -179,7 +179,7 @@ function showPosition(position) { // begin function showPosition(position)
     lon=encodeURIComponent(lon);
     lat=encodeURIComponent(lat);
     var myURL="$url?maop_lon="+lon+"&maop_lat="+lat+"&$mparam&maop_date=$now_string&maop_log=$logfile";
-    x.innerHTML += "<br>Seeking longitude "+lon+"<br>Seeking latitude:"+lat+"<br>$url";
+    x.innerHTML += "<br>Seeking longitude: "+lon+"<br>Seeking latitude: "+lat+"<br>$url";
     //var myURL="$url?maop_lon="+lon;
     //myURL+="&maop_lat="+lat;
     //myURL+="&$mparam&maop_date=$now_string&maop_log=$logfile";
