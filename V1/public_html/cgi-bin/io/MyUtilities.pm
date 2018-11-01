@@ -7,7 +7,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyUtilities.pm
 * Creation Date : Thu Oct 13 22:51:08 2005
-* Last Modified : Mon Oct 29 10:44:38 2018
+* Last Modified : Thu Nov  1 11:07:08 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -35,7 +35,7 @@ use IO::Socket;
 # use strict;
 use Cwd;
 
-my $VERSION    = '1.1.25.38';
+my $VERSION    = '1.1.25.45';
 $VERSION    = eval $VERSION;
 my @ISA    = qw( Exporter );
 my @EXPORT = qw(
@@ -97,6 +97,8 @@ In used.
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification: v1.1.25.45> 20181101 see check_password 
 
 - I<Last modification: v1.1.25.26> 20180214 see check_password 
 
@@ -690,6 +692,8 @@ None.
 
 =over 4
 
+- I<Last modification:> Nov 01st 2018 data corruption suspected
+
 - I<Last modification:> Feb 14th 2018 only die added to close() subroutines
 
 - I<Last modification:> Sep 3rd 2006
@@ -715,10 +719,6 @@ sub check_password {    # begin sub check_password
 	$password,
 	$doc,
 	$album_pid_file)=@_;
-#open(REC,">>../rec.html")||die("Error: $!");
-#print REC "we check password***($$)***** $my_pid *********<br>";
-#close(REC)||die("Error: $!");
-#print "*************************we check password***$$**************<br>";
 
 	# Case service asked
 	if ( "$service_from_param" eq "$service_value" ) { # begin if ( "$service_from_param" eq "$service_value" )
@@ -734,14 +734,12 @@ sub check_password {    # begin sub check_password
 					#close(REC)||die("Error: $!");
 					#print "<b>ok 4 we record this pid $$ ($user_password,$login,$$)</b><br>";
 					if (-f "$album_pid_file"){ # Begin if (-f "$album_pid_file") 
+						print "(unlink $album_pid_file,$0,".getcwd().") Checks $album_pid_file " . ((-f "$album_pid_file") ? "ok exist" : "don't exist") . "<br>";;
 						unlink $album_pid_file or warn "Could not unlink $album_pid_file: $!";
 					} # End if (-f "$album_pid_file") 
-					#print "We create for first time pid<br>";
-					#exit(-1);
 					open( PID, ">$album_pid_file" ) || die("Can't create $album_pid_file: $!");
 					print PID $$;
 					close(PID)||die("Error: $!");;
-					#sleep(3);
 					return 0;
 				} # End if ("$user_password" eq "$password")
 				#print "ok 3bis<br>";
