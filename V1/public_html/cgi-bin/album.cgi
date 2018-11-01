@@ -5,12 +5,12 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Thu Nov  1 11:11:20 2018
+* Last Modified : Thu Nov  1 11:23:11 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.171
+* Version : 1.6.16.179
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -121,7 +121,7 @@ use io::MySec;
 our $mip=io::MyNav::gets_ip_address;
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.171'; # Album release
+use constant ALBUM_REL               	=> '16.179'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -150,7 +150,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.171
+$VERSION=1.6.16.179
 
 =head1 ABSTRACT
 
