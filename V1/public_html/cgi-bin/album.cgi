@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Wed Oct 31 11:21:53 2018
+* Last Modified : Thu Nov  1 11:11:20 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -954,7 +954,7 @@ print $doc->meta({
 
 #print "++++===><br />";
 my ($resPing,$ipOk)=(0,0); # stub io::MySec::checksRevIpAdd($ipAddr,io::MySec::getsAllIPReceived); # Checks ping address
-my $resAuth=io::MyUtilities::check_password($my_pid,uri_unescape($doc->param("maop_service")), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,"album/pid");
+my $resAuth=io::MyUtilities::check_password($my_pid,uri_unescape($doc->param("maop_service")), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,CHECK_PID_SESSION->());
 &loadDataTrips; # put security control
 print &cascade_style_sheet_definition;
 
