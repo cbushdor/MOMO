@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyConstantBase.pm
 * Creation Date : Sun Aug 19 22:51:08 2018
-* Last Modified : Sun Oct 28 23:35:55 2018
+* Last Modified : Thu Nov  1 11:10:45 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.4.0
 * License:
@@ -29,9 +29,8 @@ my $privateToto="testing";
 use constant LOCAL_HOSTS_FILE => "/etc/hosts"; # For security issur where to check hosts files
 use constant LOCAL_HOSTED_BY_URL => sub { "192.168.1.13" }; # That's the local url/ip address to reach website
 use constant HOSTED_BY_URL => sub{ "https://dorseb.hopto.org/~sdo/" }; # That's the url of host name
-#use constant HOSTED_BY_URL => sub{ "$ENV{REQUEST_SCHEME}://$ENV{SERVER_NAME}$ENV{CONTEXT_PREFIX}" }; # That's the url of host name
 use constant HOSTED_BY => sub{  "hopto.org"  }; # That's the host name
-#use constant HOSTED_BY => sub{  (split(/\//,HOSTED_BY_URL->()))[2] }; # That's the host name
+use constant CHECK_PID_SESSION => sub{ 'album/pid' }; # Checks previous pid to garanty the session
 
 # We define a boolean value OK=0
 use constant OK  => sub{ 0; };
