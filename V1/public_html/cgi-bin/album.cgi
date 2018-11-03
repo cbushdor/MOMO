@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Thu Nov  1 11:23:11 2018
+* Last Modified : Sat Nov  3 22:03:42 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -106,18 +106,8 @@ use io::MyTime;
 use io::MyConstantBase;
 use io::MyNav;
 
-#our $mip=io::MyNav::gets_ip_address;
-
 use io::MySec;
 
-# Written by shark bait ###
-# new set of tests
-
-# +-----------------------------------------+
-# ! see sub set_history o modify history db !
-# +-----------------------------------------+
-
-#my $mip=io::MyNav::gets_ip_address;
 our $mip=io::MyNav::gets_ip_address;
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
@@ -130,16 +120,16 @@ my $main_prog="maop.cgi"; #(split(/[\\\/]/,"$0"))[scalar(split(/[\\\/]/,"$0"))-1
 #my $loc_margin="        ";
 my $loc_margin="";
 
-my $ipAddr=io::MyNav::gets_ip_address;
+#my $ipAddr=io::MyNav::gets_ip_address;
 my $furls="urls"; # fichier de sauvegarde urls
 # Next 3 lines are used to suffix new file name to save in the album.
 my @month=( "Jan", "Fev", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" );
 my @proc                  = gmtime;
 my $suffix_for_image_file =
-	 $ipAddr
+	 $mip
 	. "||";
 
-my $fn="album/hist/${ipAddr}";
+my $fn="album/hist/${mip}";
 
 # This is usefull when pb occurs and file being open
 use IO;
@@ -609,19 +599,19 @@ $mparam=~s/^\&//;
 	my $url=();
 	#print "Content-Type: text/html ; charset=UTF-8\n\n";
 	#print "case 2<br>";exit(1);
-	if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){ # Begin if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
+	if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!){ # Begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
 		#print "oooiiiiiiii>case 1-";
 		$url="http://localhost/~sdo/cgi-bin/maop.cgi\?$mparam";
 		#print "*************CHECK******>$url<br>";
-	} # End if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
-	elsif(! defined($ipAddr)||$ipAddr=~m/^192\.168\.1\.13/||$ipAddr=~m!example2.dev!){ # Begin elsif(! defined($ipAddr)||$ipAddr=~m/^192\.168\.1\.13/||$ipAddr=~m!example2.dev!)
+	} # End if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
+	elsif(! defined($mip)||$mip=~m/^${\LOCAL_HOSTED_BY_URL}/||$mip=~m!example2.dev!){ # Begin elsif(! defined($mip)||$mip=~m/^${\LOCAL_HOSTED_BY_URL}/||$mip=~m!example2.dev!)
 		#print "iiiiiiii>case 3xxx-";
-		$url="https://192.168.1.13/~sdo/cgi-bin/maop.cgi\?$mparam";
+		$url="https://${\LOCAL_HOSTED_BY_URL}/~sdo/cgi-bin/maop.cgi\?$mparam";
 		#print "</br>$url<br>";
-		#print "</br>IP---->$ipAddr<br>defined:" . defined($ipAddr) . "<br>192\.168\.1\.13 ? match example2.dev :". ($ipAddr=~m!example2.dev!) ."<<br>";
+		#print "</br>IP---->$mip<br>defined:" . defined($mip) . "<br>${\LOCAL_HOSTED_BY_URL} ? match example2.dev :". ($mip=~m!example2.dev!) ."<<br>";
 		#sleep(15);
 		#exit(-1);
-	} # End elsif(! defined($ipAddr)||$ipAddr=~m/^192\.168\.1\.13/||$ipAddr=~m!example2.dev!)
+	} # End elsif(! defined($mip)||$mip=~m/^${\LOCAL_HOSTED_BY_URL}/||$mip=~m!example2.dev!)
 	else{ # Begin else
 		#print "iiiiiiii>case 2-";
 		$url = 'http';
@@ -703,9 +693,9 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	print "Content-Type: text/html ; charset=UTF-8\n\n";
 	#print "azerty 5<br>";
 	#print "case 1<br>";exit(1);
-	#if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!){ # Begin if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
+	#if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!){ # Begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
 		#$url="http://localhost/~sdo/cgi-bin/maop.cgi";
-	#} # End if(! defined($ipAddr)||$ipAddr=~m/^127\.0\.0\.1/i||$ipAddr=~m!localhost!)
+	#} # End if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
 	#else{ # Begin else
 		#$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
 	#} # End else
@@ -747,7 +737,7 @@ else{ # Begin else
 	# &myrecmyrec("Case 9.2 ($lon - $lat) logfile format <i>$url</i>","../error.html","weather center contacted");
 } # End else
 
-#if($url=~m/dorey/||$url=~m!192.168.1.13!){ # Begin if($url=~m/dorey/||$url=~m!192.168.1.13!)
+#if($url=~m/dorey/||$url=~m!${\LOCAL_HOSTED_BY_URL}!){ # Begin if($url=~m/dorey/||$url=~m!${\LOCAL_HOSTED_BY_URL}!)
 if($url=~m/$ENV{SERVER_NAME}/){ # Begin if($url=~m/$ENV{SERVER_NAME}/)
 	# Note Last modification:v1.6.16.140
 	# Slight modification here in this scope because get can't retreive anymore content of website.
@@ -787,7 +777,7 @@ chomp(${service});
 if( -f "album/debug_album_DO_NOT_REMOVE"){ # Begin if( -f "album/debug_album_DO_NOT_REMOVE")
 	#print "Content-Type: text/html ; charset=UTF-8\n\n";
 	#print "ooooooo)$service<br />";
-	#print "-------->" . $ipAddr."\n<br />";
+	#print "-------->" . $mip."\n<br />";
 	#print "oooooo->$name<br />";
 } # End if( -f "album/debug_album_DO_NOT_REMOVE")
 else{# Begin else
@@ -953,7 +943,7 @@ print $doc->meta({
 		})."\n" ;
 
 #print "++++===><br />";
-my ($resPing,$ipOk)=(0,0); # stub io::MySec::checksRevIpAdd($ipAddr,io::MySec::getsAllIPReceived); # Checks ping address
+my ($resPing,$ipOk)=(0,0); # stub io::MySec::checksRevIpAdd($mip,io::MySec::getsAllIPReceived); # Checks ping address
 my $resAuth=io::MyUtilities::check_password($my_pid,uri_unescape($doc->param("maop_service")), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,CHECK_PID_SESSION->());
 &loadDataTrips; # put security control
 print &cascade_style_sheet_definition;
@@ -989,11 +979,11 @@ my @all_file=();
 #print "<!-- 3.2 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 #print "<script>document.write(\"connected with\"+navigator.userAgent);</script>\n";
 if( -f "album/debug_album_DO_NOT_REMOVE"){ # Begin if( -f "album/debug_album_DO_NOT_REMOVE")
-	#print "<br />\n---->res ping($resPing,$ipOk) for $ipAddr<br />---$service---<br />";
+	#print "<br />\n---->res ping($resPing,$ipOk) for $mip<br />---$service---<br />";
 } # End if( -f "album/debug_album_DO_NOT_REMOVE")
 use Net::Domain qw(hostname hostfqdn hostdomain);
          
-my @resa=split(/\n/,io::MySec::getsCoordinates(${ipAddr}));# from ip address gets geoloc coordinates
+my @resa=split(/\n/,io::MySec::getsCoordinates(${mip}));# from ip address gets geoloc coordinates
 #print "<!-- 3.3 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 my $l=();
 foreach (@resa){
@@ -1179,7 +1169,7 @@ elsif (
 	# We print the main title of authentication menu
 	&auth_menu;
 } # End elsif (
-  #              (io::MyNav::checksRevIpAdd("${ipAddr}")==0) && 
+  #              (io::MyNav::checksRevIpAdd("${mip}")==0) && 
   #              ( $resPing==0 && ${service} eq "auth" )
   #             )
 elsif ( ${service} eq "showPict" ){ # Begin elsif ( ${service} eq "showPict" )
@@ -1237,7 +1227,7 @@ else { # Begin else
 	} # End foreach (@llll_res)
 	#$llll_res[6]=~s/[^:]*://g;
 	#$llll_res[7]=~s/[^:]*://g;
-	set_history(${ipAddr}, $oppp,$locpa ,"$ipAddr",$llll_l,ALBUM_INFO_HIST_DIRECTORY ->());
+	set_history(${mip}, $oppp,$locpa ,"$mip",$llll_l,ALBUM_INFO_HIST_DIRECTORY ->());
 	# Dealing with tweeter
 	#my $llll_inf="[$llll_res[6],$llll_res[7]]";
 	#system("`pwd`/tweet.sh \"Sh4rkb41t\" \"lakpwr\"  \"[album] $oppp page:$locpa $llll_inf\""); 
