@@ -5,12 +5,12 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Sat Nov  3 22:03:42 2018
+* Last Modified : Sun Nov  4 00:36:13 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.179
+* Version : 1.6.16.189
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -111,7 +111,7 @@ use io::MySec;
 our $mip=io::MyNav::gets_ip_address;
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.179'; # Album release
+use constant ALBUM_REL               	=> '16.189'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -140,7 +140,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.179
+$VERSION=1.6.16.189
 
 =head1 ABSTRACT
 
@@ -223,6 +223,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.189> Nov 04 2018 hash added %credentials to check_passord
 
 - I<Last modification:v1.6.16.156> Oct 27 2018 Tests+updates of the dates
 
@@ -944,7 +946,21 @@ print $doc->meta({
 
 #print "++++===><br />";
 my ($resPing,$ipOk)=(0,0); # stub io::MySec::checksRevIpAdd($mip,io::MySec::getsAllIPReceived); # Checks ping address
-my $resAuth=io::MyUtilities::check_password($my_pid,uri_unescape($doc->param("maop_service")), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,CHECK_PID_SESSION->());
+my %credentials;
+$credentials{"my_pid"}=$my_pid;
+$credentials{"service_from_param"}=uri_unescape($doc->param("maop_service"));
+$credentials{"service_value"}='check';
+$credentials{"prev_pid_from_param"}=$my_pid;
+$credentials{"user_login"}=$user_login;
+$credentials{"login"}=$login;
+$credentials{"user_password"}= $user_password;
+$credentials{"password"}=$password;
+$credentials{"doc"}= $doc;
+$credentials{"album_pid_file"}=CHECK_PID_SESSION->();
+
+#print "<u>param to checks:</u> $my_pid,".uri_unescape($doc->param("maop_service")).", check, $my_pid, $user_login, $login, $user_password, $password, $doc,".CHECK_PID_SESSION->()."\n<br>";
+#my $resAuth=io::MyUtilities::check_password($my_pid,uri_unescape($doc->param("maop_service")), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,CHECK_PID_SESSION->());
+my $resAuth=io::MyUtilities::check_password(%credentials);
 &loadDataTrips; # put security control
 print &cascade_style_sheet_definition;
 
