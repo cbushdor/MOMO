@@ -7,21 +7,15 @@ q##//q#
 * Created By : sdo
 * File Name : MyUtilities.pm
 * Creation Date : Thu Oct 13 22:51:08 2005
-* Last Modified : Thu Nov  1 11:07:08 2018
+* Last Modified : Sun Nov  4 00:32:21 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
-* Version : 0.0.0.0
+* Version : 1.1.25.60
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
 * Purpose :
 #;
 # ------------------------------------------------------
-
-# +-------------------------------+
-# | MyUtilities.pm                |
-# | Last update on Oct 1st  2016  |
-# | Created     on Oct 13rd 2005  |
-# +-------------------------------+
 
 require Exporter;
 
@@ -35,7 +29,7 @@ use IO::Socket;
 # use strict;
 use Cwd;
 
-my $VERSION    = '1.1.25.45';
+my $VERSION    = '1.1.25.60';
 $VERSION    = eval $VERSION;
 my @ISA    = qw( Exporter );
 my @EXPORT = qw(
@@ -692,6 +686,8 @@ None.
 
 =over 4
 
+- I<Last modification:> Nov 01st 2018 data corruption suspected ----> hash %crendentials replaced params 
+
 - I<Last modification:> Nov 01st 2018 data corruption suspected
 
 - I<Last modification:> Feb 14th 2018 only die added to close() subroutines
@@ -709,6 +705,7 @@ None.
 # work to do creates parameters according to variables within function below.
 
 sub check_password {    # begin sub check_password
+	my (%credentials)=@_;
 	my ($my_pid,
 	$service_from_param,
 	$service_value,
@@ -717,8 +714,21 @@ sub check_password {    # begin sub check_password
 	$login,
 	$user_password,
 	$password,
-	$doc,
-	$album_pid_file)=@_;
+	$album_pid_file,
+	$doc)=(
+				$credentials{"my_pid"},
+				$credentials{"service_from_param"},
+				$credentials{"service_value"},
+				$credentials{"prev_pid_from_param"},
+				$credentials{"user_login"},
+				$credentials{"login"},
+				$credentials{"user_password"},
+				$credentials{"password"},
+				$credentials{"album_pid_file"},
+				$credentials{"doc"});
+
+	#print " | $_:$credentials{$_}" foreach keys %credentials;print "\n<br>";
+	#print " ($my_pid, $service_from_param, $service_value, $prev_pid_from_param, $user_login, $login, $user_password, $password, $album_pid_file, $doc)\n<br>";
 
 	# Case service asked
 	if ( "$service_from_param" eq "$service_value" ) { # begin if ( "$service_from_param" eq "$service_value" )
@@ -749,7 +759,7 @@ sub check_password {    # begin sub check_password
 		else { # begin else
 			# Case not first time but service log asked
 			my $pid=();
-			print "($album_pid_file,$0,".getcwd().") Checks $album_pid_file " . ((-f "$album_pid_file") ? "ok exist" : "don't exist") . "<br>";;
+			print "file to check:$album_pid_file<br>($0,".getcwd().") Checks $album_pid_file " . ((-f "$album_pid_file") ? "ok exist" : "don't exist") . "<br>";;
 			if (-f "$album_pid_file"){ # Begin if (-f "$album_pid_file") 
 				open( OLD_PID, "$album_pid_file" ) || die("Can't open $album_pid_file: $!");
 				foreach (<OLD_PID>) { # begin foreach (<OLD_PID>)
