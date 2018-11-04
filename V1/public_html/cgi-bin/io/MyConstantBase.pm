@@ -5,9 +5,9 @@ q##//q#
 * Created By : sdo
 * File Name : MyConstantBase.pm
 * Creation Date : Sun Aug 19 22:51:08 2018
-* Last Modified : Thu Nov  1 11:10:45 2018
+* Last Modified : Mon Nov  5 00:18:10 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
-* Version : 0.0.4.0
+* Version : 0.0.5.12
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
@@ -58,7 +58,12 @@ use constant PATH_GOOGLE_MAP_ID 	=> sub{ "private/id.googlemap.v". GOOGLE_MAP_SC
 use constant PATH_GOOGLE_MAP_TRIP 	=> sub{ "album/trips/"; }; # Where to reach trips
 use constant PATH_GOOGLE_MAP_OPT 	=> sub{ "-0"; }; # Extra option check documentation or comments
 
-
+sub do_untaint { # Begin sub do_untaint
+	my ($myvar) = @_;
+	unless ($myvar =~ m/^(.*)$/) { #allow filename to be [a-zA-Z0-9_]
+		die("Tainted $myvar $!");
+	} return $1;
+} # End sub do_untaint
 
 sub printTest{
 	print "hello world<br>";
