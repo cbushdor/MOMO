@@ -5,12 +5,12 @@ q##//q#
 * Created By : sdo
 * File Name : maop.cgi
 * Creation Date : Wed Aug 19 15:51:08 2015
-* Last Modified : Sun Nov  4 23:36:51 2018
+* Last Modified : Mon Nov  5 00:16:07 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.0.12.23
+* Version : 1.0.12.25
 * Purpose : 
 #;
 # ------------------------------------------------------
@@ -34,7 +34,7 @@ use URI::Escape;
 
 $|=1;
 my $now_string = time(); # strftime "%m %d %H:%M:%S UTC %Y", gmtime;
-my $VERSION="1.0.12.23";
+my $VERSION="1.0.12.25";
 
 my $doc = new CGI;
 my $ip=io::MyNav::gets_ip_address;
@@ -130,12 +130,7 @@ if( -f "$logfile"){ # begin if( -f "$logfile")
 	#&myrec("Case logfile format maop ","../error.html","-f $logfile");
 } # end if( -f "$logfile")
 
-$logfile=~s/\//_/g;
-unless ($logfile =~ m#^([\w.-]+)$#){# $1 is untainted
-	die("Variable '$logfile' has invalid characters $!.\n");
-}
-$logfile=$1;
-$logfile=~s/\_/\//g;
+$logfile=&do_untaint($logfile);
 
 open(FD,">","$logfile") or die("$logfile error $!");
 print FD " ";
