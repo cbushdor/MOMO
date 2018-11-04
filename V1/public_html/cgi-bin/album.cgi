@@ -5,21 +5,19 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Sun Nov  4 22:10:02 2018
+* Last Modified : Sun Nov  4 22:23:20 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.189A
+* Version : 1.6.16.189B
 * Purpose :
 #;
 # ------------------------------------------------------
 
-
-# +-------------------------------+
-# | album.cgi                     |
-# +-------------------------------+
 use strict;
+use warnings;
+
 use Socket;
 use JSON;
 use File::stat;
@@ -111,7 +109,7 @@ use io::MySec;
 our $mip=io::MyNav::gets_ip_address;
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.189A'; # Album release
+use constant ALBUM_REL               	=> '16.189B'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -140,7 +138,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.189A
+$VERSION=1.6.16.189B
 
 =head1 ABSTRACT
 
@@ -224,7 +222,9 @@ under_construction_prompt
 
 =over 4
 
-- I<Last modification:v1.6.16.189A> Nov 04 2018 use strict added. Try to avoid old value in memory to stay. Hope it will be ok. Slight change done in the code to make it works with these prerequisites.
+- I<Last modification:v1.6.16.189B> Nov 04 2018 use warnings; added. Try to avoid old value in memory to stay. Hope it will be ok. Slight change done in the code to make it works with these prerequisites.
+
+- I<Last modification:v1.6.16.189A> Nov 04 2018 use strict; added. Try to avoid old value in memory to stay. Hope it will be ok. Slight change done in the code to make it works with these prerequisites.
 
 - I<Last modification:v1.6.16.189> Nov 04 2018 hash added %credentials to check_passord
 
