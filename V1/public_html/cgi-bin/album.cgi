@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Sun Nov  4 00:36:13 2018
+* Last Modified : Sun Nov  4 22:04:07 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -19,7 +19,7 @@ q##//q#
 # +-------------------------------+
 # | album.cgi                     |
 # +-------------------------------+
-
+use strict;
 use Socket;
 use JSON;
 use File::stat;
@@ -804,7 +804,7 @@ if($service eq "verDoc"){ # Only entire documentation + version is asked
 	print "Content-Type: text/html ; charset=UTF-8\n\n";
 	my $cres=jcode(MPWD ->(),ALBUM_VERSION);
 	#print "$cres(---------)<br />";
-	$res=encode_base64($cres);
+	my $res=encode_base64($cres);
 	print "$res";
 	exit(OK ->());# Exit that's it
 }elsif($service eq "ver"){ # Only version is asked
@@ -824,7 +824,7 @@ if($service eq "verDoc"){ # Only entire documentation + version is asked
 	my $hist=<R>;
 	close(R)|| die("error ".ALBUM_INFO_DIRECTORY ->() . ALBUM_HISTORY_INFO_FILE ->());
 	my $cres=jcode(ALBUM_INFO_DIRECTORY ->() . MPWD ->() . ALBUM_INFO_DIRECTORY ->(),$hist);
-	$res=encode_base64($cres);
+	my $res=encode_base64($cres);
 	print "$res";
 	exit(OK ->());
 }# End elsif($service=~m/geoLoc/)
@@ -2850,7 +2850,7 @@ sub record { # Begin record
 			$file_name=~s/height\=\"\d+\"/height\=\"180\"/;
 		}
 		elsif($file_name=~m/\/watch\?/){ # Begin elsif($file_name=~m/www.youtube.com\/watch\?/)
-				$tmp="<iframe width=\"200\" height=\"180\" src=\"";
+				my $tmp="<iframe width=\"200\" height=\"180\" src=\"";
 				$file_name=~s/\/watch\?v\=/\/embed\//;
 				$file_name=~s/\&feature\=related//;
 				$file_name.='"';
@@ -3495,11 +3495,11 @@ sub shows_list_pictures { # Begin shows_list_pictures
 					chdir("../img");
 					if(-f "$line[3]"){ # Begin if(-f "$line[3]")
 						#print "----------ooooo)$line[3]";
-						open(R,"$line[3]");
-						my $dta=stat(R);
+						open(my $R,"$line[3]");
+						my $dta=stat($R);
 						print "<br /><u><b>At/A:</b></u> " ;
 						print scalar localtime $dta->mtime ;
-						close(R);
+						close($R);
 						print "\n<br />";
 					} # End if(-f "$line[3]")
 					chdir("../cgi-bin");
@@ -4178,10 +4178,10 @@ sub print_page { # Begin print_page
 				# do some cleaning in case that something went wrong during delete picture
 				if(-f DIRECTORY_DEPOSIT ->() . "$line[3]"){ # Begin if(-f DIRECTORY_DEPOSIT ->() . "$line[3]")
 					#print "------>$line[3]<br />";
-					open(R, DIRECTORY_DEPOSIT ->() . "$line[3]");
-					my $dta=stat(R);
+					open(my $R, DIRECTORY_DEPOSIT ->() . "$line[3]");
+					my $dta=stat($R);
 					$ppj= scalar localtime $dta->mtime ;
-					close(R);
+					close($R);
 				} # End if(-f DIRECTORY_DEPOSIT ->() . "$line[3]")
 				else{ # Begin else
 					if( $line[3]!~m!www.youtube.com!i){ # Begin if( $line[3]!~m!www.youtube.com!i)
@@ -7370,8 +7370,8 @@ sub firstChoicetMenuadmin{ # Begin firstChoicetMenuadmin
 <br />
 <form action='${main_prog}?maop_service=auth&amp;maop_maop_upld=ok' method='post' name="maop_adminMenu" enctype='multipart/form-data'>
 <input type='hidden' name='maop_prev_id' value='$$' />
-<input type='hidden' name='maop_login' value='$logi n' />
-<input type='hidden' name='maop_password' value='$passwor d' />
+<input type='hidden' name='maop_login' value='logi n' />
+<input type='hidden' name='maop_password' value='passwor d' />
 <input type='hidden' name='maop_recPid' value='ok' />
 <input type='hidden' name='maop_service' value='check' />
 <input type='hidden' name='maop_ssection' value='adminPict' />
@@ -7380,8 +7380,8 @@ sub firstChoicetMenuadmin{ # Begin firstChoicetMenuadmin
 </form>
 <form id="fAdmin" action='${main_prog}?maop_service=auth&amp;maop_maop_upld=ok' method='post' name="maop_adminMenu" enctype='multipart/form-data'>
 <input type='hidden' name='maop_prev_id' value='$$' />
-<input type='hidden' name='maop_login' value='$logi n' />
-<input type='hidden' name='maop_password' value='$passwor d' />
+<input type='hidden' name='maop_login' value='logi n' />
+<input type='hidden' name='maop_password' value='passwor d' />
 <input type='hidden' name='maop_recPid' value='' />
 <input type='hidden' name='maop_service' value='check' />
 <input type='hidden' name='maop_ssection' value='adminGroup' />
@@ -7658,7 +7658,7 @@ sub setGoogleID{# Begin setGoogleID
 
 	print "Stge 1<br>";
 	chomp($fname);#chomp($googleid);
-#	print "if($param_trip=~m/^ok$/)\n<br>";
+	print "if($param_trip=~m/^ok$/)\n<br>";
 #exit(-1);
 	if($param_trip=~m/^ok$/){ # Begin if($param_trip=~m/^ok$/)
 		my $tn=PATH_GOOGLE_MAP_TRIP ->().$googleid ."-".TRIP_NAME ->(); # Trip name
@@ -7666,6 +7666,10 @@ sub setGoogleID{# Begin setGoogleID
 		print "Stge 2 [$googleid]".length($googleid)."<br>";
 
 		if(length($googleid)!=0){ # Begin if(length($googleid)!=0)
+			print '<div id="myDemo">';
+			print "trip name [$tn] does not exist<br>" if ( ! -f "$tn" );
+			print "trip name [$tn] does exist<br>" if ( -f "$tn" );
+			print "</div>";
 			if( ! -f "$tn" ){ # Begin if( ! -f "$tn" )
 				my $bdaytime=uri_unescape($doc->param("maop_bdaytime"));
 				my $edaytime=uri_unescape($doc->param("maop_edaytime"));
@@ -8286,10 +8290,10 @@ None.
 
 sub my_promptA{ # Begin sub my_promptA
 	my ($debug)=@_;
-	my $ln=__LINE__;
-	my $sn=(caller(0))[3]; # get subroutine name
+	#my $ln=__LINE__;
+	#my $sn=(caller(0))[3]; # get subroutine name
 
-	chomp($debug);chomp($info);chomp($url);
+	chomp($url); chomp($debug); #chomp($info);
 	my $c=<<A;
 <!DOCTYPE html>
 <html>
@@ -8299,7 +8303,7 @@ sub my_promptA{ # Begin sub my_promptA
 <script  language="javascript" type="text/javascript">
 	var x=document.getElementById("wait");
 	/* x.innerHTML="Please wait while loading..."; */
-	x.innerHTML="($sn<$ln>) <u>$debug</u><br><p>Error case 1<br>[lon,lat]=[$lon,$lat] we check if not defined<br>Please wait while loading...</p>";
+	x.innerHTML="<u>$debug</u><br><p>Error case 1<br>[lon,lat]=[$lon,$lat] we check if not defined<br>Please wait while loading...</p>";
 	window.location="$url";
 </script>
 </body>
