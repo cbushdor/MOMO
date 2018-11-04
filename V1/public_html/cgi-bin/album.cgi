@@ -5,12 +5,12 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Mon Nov  5 00:13:08 2018
+* Last Modified : Mon Nov  5 00:23:43 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.189B
+* Version : 1.6.16.189C
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -113,7 +113,7 @@ use io::MySec;
 our $mip=io::MyNav::gets_ip_address;
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.189B'; # Album release
+use constant ALBUM_REL               	=> '16.189C'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -142,7 +142,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.189B
+$VERSION=1.6.16.189C
 
 =head1 ABSTRACT
 
@@ -225,6 +225,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.189C> Nov 05 2018 Tainted mode finally added to the program.
 
 - I<Last modification:v1.6.16.189B> Nov 04 2018 use warnings; added. Try to avoid old value in memory to stay. Hope it will be ok. Slight change done in the code to make it works with these prerequisites.
 
@@ -648,13 +650,7 @@ if(!-f "$logfile"){ # Begin if(!-f "$logfile")
 else{ # Begin else
 	#print "azerty 3<br>";
 	if( -e "$logfile"){ # Begin if( -e "$logfile")
-		#$logfile=~s/\//_/g;
-		#unless ($logfile =~ m#^(.+)$#){# $1 is untainted
-		#	die("Variable '$logfile' has invalid characters $!.\n");
-		#}
-		#$logfile=$1;
 		$logfile=&do_untaint($logfile);
-		#print "++++++++++++++++++=>$logfile\n<br>";
 		unlink("$logfile");
 	} # End if( -e "$logfile")
 	chdir("album");chdir("hist");
