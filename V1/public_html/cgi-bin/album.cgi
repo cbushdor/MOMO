@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Mon Nov  5 00:23:43 2018
+* Last Modified : Mon Nov  5 00:37:31 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -7693,9 +7693,10 @@ sub setGoogleID{# Begin setGoogleID
 						print "</br>where we store data [$tn]</br>";
 						#print "B4 Storing++++++>".getcwd()."<-----<br>\n"; 
 						
-						open(W,">$tn")||die("Error($tn): $!");
-						print W $bdaytime . "#" . $edaytime . "#" . $ltzn_b . "#" . $ltzn_e;
-						close(W);
+						$tn=&do_untaint($tn);
+						open(my $W,'>',$tn)||die("Error: [$tn] $!");
+						print $W $bdaytime . "#" . $edaytime . "#" . $ltzn_b . "#" . $ltzn_e;
+						close($W);
 						# ---------------------------------------------------
 						# format received yyyy-mm-ddThh:mm for params received in maop_bdaytime, maop_edaytime
 						my ($bdp,$bhp)=split(/T/,uri_unescape($doc->param('maop_bdaytime')));# Begin date trip param,begin hour trip param
