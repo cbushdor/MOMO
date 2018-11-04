@@ -1,19 +1,23 @@
-#!/opt/local/bin/perl 
+#!/opt/local/bin/perl -T
 
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : maop.cgi
 * Creation Date : Wed Aug 19 15:51:08 2015
-* Last Modified : Wed Oct 31 11:20:14 2018
+* Last Modified : Sun Nov  4 23:36:51 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.0.12.22
+* Version : 1.0.12.23
 * Purpose : 
 #;
 # ------------------------------------------------------
+
+BEGIN {
+	push @INC,"/Users/sdo/Sites/cgi-bin/";
+}
 
 use CGI;
 use strict;
@@ -30,7 +34,7 @@ use URI::Escape;
 
 $|=1;
 my $now_string = time(); # strftime "%m %d %H:%M:%S UTC %Y", gmtime;
-my $VERSION="1.0.12.22";
+my $VERSION="1.0.12.23";
 
 my $doc = new CGI;
 my $ip=io::MyNav::gets_ip_address;
@@ -60,12 +64,13 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 		   $p!~m/^maop_date$/&&
 		   $p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 			my $pram=$doc->param($p);
+			print "****>>>>>>>$p --->$pram<br>\n";
 			#print "****>>>>>>>$p --->".$doc->param($p)."<br>\n";
 			#chomp($pram);
-			if (length($pram)>0) { 
+			if (length($pram)>0) { # Begin if (length($pram)>0)
 				#$dec=uri_escape($pram, "\0-\377") || die ("Error: $!");;
 				$mparam.="&$p=$pram";
-			} #.uri_escape($doc->param($p));
+			} # End if (length($pram)>0)
 		}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 		elsif ($p!~m/^maop_lat$/){ # begin elsif ($p!~m/^maop_lat$/)
 #&myrec("Case logfile format maop ","../error.html","****** $la" );
@@ -80,6 +85,7 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 } # end foreach my $p ($doc->param)
 #print REC "\n----------------END----------<br>\n";
 close(REC);
+#sleep(40);
 #&myrec("Case logfile format maop ","../error.html","logfile: $logfile *****(lo,la)=($lo,$la)" );
 #print "oooooooo>$mparam<br>";
 
@@ -118,12 +124,20 @@ $url.=$prog;
 # =====================================================================================
 # =====================================================================================
 # =====================================================================================
+
 if( -f "$logfile"){ # begin if( -f "$logfile")
 	#unlink("$logfile");
 	#&myrec("Case logfile format maop ","../error.html","-f $logfile");
 } # end if( -f "$logfile")
 
-open(FD,">$logfile") or die("$logfile error $!");
+$logfile=~s/\//_/g;
+unless ($logfile =~ m#^([\w.-]+)$#){# $1 is untainted
+	die("Variable '$logfile' has invalid characters $!.\n");
+}
+$logfile=$1;
+$logfile=~s/\_/\//g;
+
+open(FD,">","$logfile") or die("$logfile error $!");
 print FD " ";
 close(FD) or die("$logfile error $!");
 $logfile=~s/\//\_/g;
@@ -179,7 +193,7 @@ function showPosition(position) { // begin function showPosition(position)
     lon=encodeURIComponent(lon);
     lat=encodeURIComponent(lat);
     var myURL="$url?maop_lon="+lon+"&maop_lat="+lat+"&$mparam&maop_date=$now_string&maop_log=$logfile";
-    x.innerHTML += "<br>Seeking longitude: "+lon+"<br>Seeking latitude: "+lat+"<br>$url";
+    //x.innerHTML += "<br>Seeking longitude: "+lon+"<br>Seeking latitude: "+lat+"<br>$url";
     //var myURL="$url?maop_lon="+lon;
     //myURL+="&maop_lat="+lat;
     //myURL+="&$mparam&maop_date=$now_string&maop_log=$logfile";
