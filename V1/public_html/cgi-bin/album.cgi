@@ -1,11 +1,11 @@
-#!/opt/local/bin/perl 
+#!/opt/local/bin/perl -T
 
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Sun Nov  4 22:23:20 2018
+* Last Modified : Mon Nov  5 00:13:08 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -14,6 +14,10 @@ q##//q#
 * Purpose :
 #;
 # ------------------------------------------------------
+
+BEGIN {
+	push @INC,"/Users/sdo/Sites/cgi-bin/";
+}
 
 use strict;
 use warnings;
@@ -644,6 +648,13 @@ if(!-f "$logfile"){ # Begin if(!-f "$logfile")
 else{ # Begin else
 	#print "azerty 3<br>";
 	if( -e "$logfile"){ # Begin if( -e "$logfile")
+		#$logfile=~s/\//_/g;
+		#unless ($logfile =~ m#^(.+)$#){# $1 is untainted
+		#	die("Variable '$logfile' has invalid characters $!.\n");
+		#}
+		#$logfile=$1;
+		$logfile=&do_untaint($logfile);
+		#print "++++++++++++++++++=>$logfile\n<br>";
 		unlink("$logfile");
 	} # End if( -e "$logfile")
 	chdir("album");chdir("hist");
