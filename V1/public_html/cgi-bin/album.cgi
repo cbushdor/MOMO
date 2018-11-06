@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Mon Nov  5 00:37:31 2018
+* Last Modified : Tue Nov  6 23:10:34 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -101,11 +101,9 @@ if ($@){
 #	else{ $MyFile="packges::MyFileRescue";}
 }
 
-use io::MyUtilities;
 use io::MyTime;
-#use packages::MyFile;
-#use io::MyNav;
 use io::MyConstantBase;
+use io::MyUtilities;
 use io::MyNav;
 
 use io::MySec;
@@ -307,10 +305,10 @@ see sub menu_admin_GoogleMap_ID
 
 - I<Last modification:v1.6.15.14> Feb 18 2014 Removed parameters. Caused problems with google map.
 
-- I<Last modification:v1.6.13.13> Feb 11 2014 Add the constant PATH_GOOGLE_MAP_OPT ->()
+- I<Last modification:v1.6.13.13> Feb 11 2014 Add the constant &io::MyConstantBase::PATH_GOOGLE_MAP_OPT->()
 
 - I<Last modification:v1.6.13.12> Jan 18 2014 put the trip name in history
-			GOOGLE_MAP_SCRIPT_VERSION ->() added.
+			&io::MyConstantBase::GOOGLE_MAP_SCRIPT_VERSION->() added.
 
 - I<Last modification:v1.6.13.10> Jul 17 2012 see accessToPicture
 
@@ -458,7 +456,7 @@ This page is the log book.
 
 - I<Last modification: v1.4.13.9> Oct 24 2009: mp4 or dat or flv file format added.
 
-- I<Last modification: v1.4.13.1> Oct 18 2009: SHOW_PICTURES_ADMIN ->() added.
+- I<Last modification: v1.4.13.1> Oct 18 2009: SHOW_PICTURES_ADMIN->() added.
 
 - I<Last modification: v1.4.12.0> Oct 04 2009: read comment io::MyNav.pm.
 
@@ -544,7 +542,7 @@ use Fcntl qw( :DEFAULT :flock);
 
 # create temporary file
 if( ! -d "tmp"){mkdir("tmp");}
-if( ! -d PATH_GOOGLE_MAP_TRIP ->() ){mkdir(PATH_GOOGLE_MAP_TRIP ->());}
+if( ! -d &io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->() ){mkdir(&io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->());}
 
 
 # This is document which will help to deal with CGI information
@@ -557,7 +555,7 @@ print $doc->header(-type => 'text/html',
 my $timsec=uri_unescape($doc->param("timsec"));
 my $mgidt=uri_unescape($doc->param("maop_googid")); #my google id  trip
 $mgidt=~s/[\n\t\ ]*$//g;
-my $tn=PATH_GOOGLE_MAP_TRIP ->().$mgidt ."-".TRIP_NAME ->(); # Trip name
+my $tn=&io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->().$mgidt ."-".&io::MyConstantBase::TRIP_NAME->(); # Trip name
 my $an_action=();
 my $lok=uri_unescape($doc->param("maop_login"));
 my $lon=uri_unescape($doc->param("maop_lon"));
@@ -607,6 +605,7 @@ $mparam=~s/^\&//;
 #exit(1);
 
 	my $url=();
+	my $mltmp=&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(); # my local tmp
 	#print "Content-Type: text/html ; charset=UTF-8\n\n";
 	#print "case 2<br>";exit(1);
 	if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!){ # Begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
@@ -614,14 +613,14 @@ $mparam=~s/^\&//;
 		$url="http://localhost/~sdo/cgi-bin/maop.cgi\?$mparam";
 		#print "*************CHECK******>$url<br>";
 	} # End if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
-	elsif(! defined($mip)||$mip=~m/^${\LOCAL_HOSTED_BY_URL}/||$mip=~m!example2.dev!){ # Begin elsif(! defined($mip)||$mip=~m/^${\LOCAL_HOSTED_BY_URL}/||$mip=~m!example2.dev!)
+	elsif(! defined($mip)||$mip=~m/^$mltmp/||$mip=~m!example2.dev!){ # Begin elsif(! defined($mip)||$mip=~m/^${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL}/||$mip=~m!example2.dev!)
 		#print "iiiiiiii>case 3xxx-";
-		$url="https://${\LOCAL_HOSTED_BY_URL}/~sdo/cgi-bin/maop.cgi\?$mparam";
+		$url="https://$mltmp/~sdo/cgi-bin/maop.cgi\?$mparam";
 		#print "</br>$url<br>";
-		#print "</br>IP---->$mip<br>defined:" . defined($mip) . "<br>${\LOCAL_HOSTED_BY_URL} ? match example2.dev :". ($mip=~m!example2.dev!) ."<<br>";
+		#print "</br>IP---->$mip<br>defined:" . defined($mip) . "<br>${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL} ? match example2.dev :". ($mip=~m!example2.dev!) ."<<br>";
 		#sleep(15);
 		#exit(-1);
-	} # End elsif(! defined($mip)||$mip=~m/^${\LOCAL_HOSTED_BY_URL}/||$mip=~m!example2.dev!)
+	} # End elsif(! defined($mip)||$mip=~m/^${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL}/||$mip=~m!example2.dev!)
 	else{ # Begin else
 		#print "iiiiiiii>case 2-";
 		$url = 'http';
@@ -665,6 +664,7 @@ else{ # Begin else
 			#print ">".$c++ . "--------------ooo)" . ( time - $uuu )  ;
 			if( -e "$o"){ # Begin if( -e "$o")
 				#print "removing $o<br>";
+				$o=&do_untaint($o);
 				unlink("$o");
 			} # End if( -e "$o")
 		} # End if( $uuu > 5*60*60)
@@ -680,7 +680,7 @@ if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	exit(0);
 } # End if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 
-my $locweaf=ALBUM_INFO_HIST_DIRECTORY ->() ."wfc_data.$lon.$lat.$$.".time().".xml";# file for local weather
+my $locweaf=&io::MyConstantBase::ALBUM_INFO_HIST_DIRECTORY->() ."wfc_data.$lon.$lat.$$.".time().".xml";# file for local weather
 
 # ----------------------------------------------------------------------------------------------
 # format solved - missing but need to check if lon lat can have negative values
@@ -748,7 +748,7 @@ else{ # Begin else
 	# &myrecmyrec("Case 9.2 ($lon - $lat) logfile format <i>$url</i>","../error.html","weather center contacted");
 } # End else
 
-#if($url=~m/dorey/||$url=~m!${\LOCAL_HOSTED_BY_URL}!){ # Begin if($url=~m/dorey/||$url=~m!${\LOCAL_HOSTED_BY_URL}!)
+#if($url=~m/dorey/||$url=~m!${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL}!){ # Begin if($url=~m/dorey/||$url=~m!${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL}!)
 if($url=~m/$ENV{SERVER_NAME}/){ # Begin if($url=~m/$ENV{SERVER_NAME}/)
 	# Note Last modification:v1.6.16.140
 	# Slight modification here in this scope because get can't retreive anymore content of website.
@@ -764,7 +764,7 @@ if($url=~m/$ENV{SERVER_NAME}/){ # Begin if($url=~m/$ENV{SERVER_NAME}/)
 
 # Password for login
 my ( $login, $password )=io::MyUtilities::gets_private_stuff_for_administrator($an_action,
-									       PRIVATE_INFO_DIRECTORY ->(),
+									       &io::MyConstantBase::PRIVATE_INFO_DIRECTORY->(),
 									       uri_unescape($doc->param("maop_login")),
 									       uri_unescape($doc->param("maop_password")));
 
@@ -805,37 +805,37 @@ if($service eq "verDoc"){ # Only entire documentation + version is asked
 	print "Content-Type: text/html ; charset=UTF-8\n\n";
 	my $res=io::MyUtilities::getsDocVers("${main_prog}",ALBUM_VERSION);
 	#print $res;
-	my $cres=jcode(MPWD ->(),$res);
+	my $cres=jcode(MPWD->(),$res);
 	$res=encode_base64($cres);
 	print "$res";
-	exit(OK ->());# Exit that's it
+	exit(&io::MyConstantBase::OK->());# Exit that's it
 }elsif($service eq "versioning"){ # Only version is asked
 	print "Content-Type: text/html ; charset=UTF-8\n\n";
-	my $cres=jcode(MPWD ->(),ALBUM_VERSION);
+	my $cres=jcode(MPWD->(),ALBUM_VERSION);
 	#print "$cres(---------)<br />";
 	my $res=encode_base64($cres);
 	print "$res";
-	exit(OK ->());# Exit that's it
+	exit(&io::MyConstantBase::OK->());# Exit that's it
 }elsif($service eq "ver"){ # Only version is asked
 	print "Content-Type: text/html ; charset=UTF-8\n\n";
-	#my $cres=jcode(MPWD ->(),ALBUM_VERSION);
+	#my $cres=jcode(MPWD->(),ALBUM_VERSION);
 	print ALBUM_VERSION;
-	exit(OK ->());# Exit that's it
+	exit(&io::MyConstantBase::OK->());# Exit that's it
 }elsif($service=~m/geoLoc/){ # only history is asked
-	my $u=ALBUM_INFO_DIRECTORY ->() . ALBUM_HISTORY_INFO_FILE ->();
+	my $u=ALBUM_INFO_DIRECTORY->() . ALBUM_HISTORY_INFO_FILE->();
 	print "Content-Type: text/html ; charset=UTF-8\n\n";
 	#print "Content-Type: text/html\n\n";
 	if(  -f "$u" ){ # Begin if(  -f "$u" )
 		print "error";
-		exit(OK ->());
+		exit(&io::MyConstantBase::OK->());
 	} # End if(  -f "$u" )
 	open(R,$u) || die("error $u $!"); 
 	my $hist=<R>;
-	close(R)|| die("error ".ALBUM_INFO_DIRECTORY ->() . ALBUM_HISTORY_INFO_FILE ->());
-	my $cres=jcode(ALBUM_INFO_DIRECTORY ->() . MPWD ->() . ALBUM_INFO_DIRECTORY ->(),$hist);
+	close(R)|| die("error ".ALBUM_INFO_DIRECTORY->() . ALBUM_HISTORY_INFO_FILE->());
+	my $cres=jcode(ALBUM_INFO_DIRECTORY->() . MPWD->() . ALBUM_INFO_DIRECTORY->(),$hist);
 	my $res=encode_base64($cres);
 	print "$res";
-	exit(OK ->());
+	exit(&io::MyConstantBase::OK->());
 }# End elsif($service=~m/geoLoc/)
 
 # That's the pid to record
@@ -868,11 +868,11 @@ my @info_on_picture=();
 
 # necessary images
 my @images_used=(
-	DIRECTORY_DEPOSIT ->() . "new_cross.gif",
-	DIRECTORY_DEPOSIT ->() . "under_construction10.gif",
-	DIRECTORY_DEPOSIT ->() . "my_lovely_pict.gif",
-	DIRECTORY_DEPOSIT ->() . "chair1-a.gif",
-	DIRECTORY_DEPOSIT ->() . "powered.gif"
+	&io::MyConstantBase::DIRECTORY_DEPOSIT->() . "new_cross.gif",
+	&io::MyConstantBase::DIRECTORY_DEPOSIT->() . "under_construction10.gif",
+	&io::MyConstantBase::DIRECTORY_DEPOSIT->() . "my_lovely_pict.gif",
+	&io::MyConstantBase::DIRECTORY_DEPOSIT->() . "chair1-a.gif",
+	&io::MyConstantBase::DIRECTORY_DEPOSIT->() . "powered.gif"
 	);
 
 my $date_ticket=uri_unescape($doc->param("maop_date"));
@@ -902,7 +902,7 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 	if($dtb>$dt3){ # Begin if($dtb>$dt3)
 		# date is not yet arrived
 		print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
-		$mtfn="_-" . TRIP_NAME ->(); 
+		$mtfn="_-" . &io::MyConstantBase::TRIP_NAME->(); 
 	} # End if($dtb>$dt3)
 	else{ # Begin else $dtb<=$dt3
 		my $anal2 = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
@@ -913,17 +913,17 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 
 		if($dte<$dt3){ # Begin if($dte<$dt3)
 			# date is passed
-			$mtfn="_-" . TRIP_NAME ->(); 
+			$mtfn="_-" . &io::MyConstantBase::TRIP_NAME->(); 
 		} # End if($dte<$dt3)
 		else { # Begin  $dte>=$dt3
 			print "<h1>We record $dtb<$dt3<$dte</h1></br>";
-			$mtfn="${mgidt}-" . TRIP_NAME ->(); 
+			$mtfn="${mgidt}-" . &io::MyConstantBase::TRIP_NAME->(); 
 		} # End  $dte>=$dt3
 	} # End else $dtb<=$dt3
 } # End if(-f "$tn")
 else{ # Begin else
 	#print uri_unescape($doc->param("maop_date"))." usual record\n<br>";
-	$mtfn="_-" . TRIP_NAME ->(); 
+	$mtfn="_-" . &io::MyConstantBase::TRIP_NAME->(); 
 } # End else
 #------------------------------------------------------------------------
 
@@ -965,10 +965,10 @@ $credentials{"login"}=$login;
 $credentials{"user_password"}= $user_password;
 $credentials{"password"}=$password;
 $credentials{"doc"}= $doc;
-$credentials{"album_pid_file"}=CHECK_PID_SESSION->();
+$credentials{"album_pid_file"}=&io::MyConstantBase::CHECK_PID_SESSION->();
 
-#print "<u>param to checks:</u> $my_pid,".uri_unescape($doc->param("maop_service")).", check, $my_pid, $user_login, $login, $user_password, $password, $doc,".CHECK_PID_SESSION->()."\n<br>";
-#my $resAuth=io::MyUtilities::check_password($my_pid,uri_unescape($doc->param("maop_service")), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,CHECK_PID_SESSION->());
+#print "<u>param to checks:</u> $my_pid,".uri_unescape($doc->param("maop_service")).", check, $my_pid, $user_login, $login, $user_password, $password, $doc,".&io::MyConstantBase::CHECK_PID_SESSION->()."\n<br>";
+#my $resAuth=io::MyUtilities::check_password($my_pid,uri_unescape($doc->param("maop_service")), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,&io::MyConstantBase::CHECK_PID_SESSION->());
 my $resAuth=io::MyUtilities::check_password(%credentials);
 &loadDataTrips; # put security control
 print &cascade_style_sheet_definition;
@@ -1073,16 +1073,16 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 	} # End if(length($$section)==0)
 	elsif($ssection=~m/adminGroup/){ # Begin elsif($ssection=~m/adminGroup/)
 		print "00000000000000000000></br>";
-		&setGoogleID(PATH_GOOGLE_MAP_ID ->(),uri_unescape($doc->param("maop_googid"))) ; # Stuff about google ID map
+		&setGoogleID(&io::MyConstantBase::PATH_GOOGLE_MAP_ID->(),uri_unescape($doc->param("maop_googid"))) ; # Stuff about google ID map
 		&groupAndStuff ; # Stuff about groups
 	} # End elsif($ssection=~m/adminGroup/)
 	elsif($ssection=~m/adminGroupModif/){ # Begin elsif($ssection=~m/adminGroup/)
-		&setGoogleID(PATH_GOOGLE_MAP_ID ->(),uri_unescape($doc->param("maop_googid"))) ; # Stuff about google ID map
+		&setGoogleID(&io::MyConstantBase::PATH_GOOGLE_MAP_ID->(),uri_unescape($doc->param("maop_googid"))) ; # Stuff about google ID map
 		&groupAndStuff ; # Stuff about groups
 	} # End elsif($ssection=~m/adminGroupModif/)
 	elsif($ssection=~m/adminGoogleID/){ # Begin elsif($ssection=~m/adminGoogleID/)
 		#print "toto 2 l er ret";
-		&setGoogleID(PATH_GOOGLE_MAP_ID ->(),uri_unescape($doc->param("maop_googid"))) ; # Stuff about google ID map
+		&setGoogleID(&io::MyConstantBase::PATH_GOOGLE_MAP_ID->(),uri_unescape($doc->param("maop_googid"))) ; # Stuff about google ID map
 		&firstChoicetMenuadmin ; # Create am pre admin first menu choice
 	} # End elsif($ssection=~m/adminGoogleID/)
 	elsif($ssection=~m/adminPict/){ # Begin elsif($ssection=~m/adminPict/)
@@ -1099,10 +1099,10 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 					close(W);
 					##&raised_upload_window;
 #					sleep(1);
-#					print "ooooooo".ALLOWED_FILE_FORMAT_TYPE ->()."<br />";
+#					print "ooooooo".ALLOWED_FILE_FORMAT_TYPE->()."<br />";
 					if(length(uri_unescape($doc->param("maop_file_name_img")))>0){
 						# watch out case of youtube
-						#$rul=my_upload($doc, uri_unescape($doc->param("maop_file_name_img")), DIRECTORY_DEPOSIT ->(), "$timsec",ALLOWED_FILE_FORMAT_TYPE ->());
+						#$rul=my_upload($doc, uri_unescape($doc->param("maop_file_name_img")), &io::MyConstantBase::DIRECTORY_DEPOSIT->(), "$timsec",ALLOWED_FILE_FORMAT_TYPE->());
 	#					$file_name=~s!\&\#95;!g;
 					}
 				} # End if ($type_upload eq "Local")
@@ -1226,7 +1226,7 @@ else { # Begin else
 	#print $doc->script( { -language => "javascript" ,
 	print "<script language=\"javascript\" type=\"text/javascript\" >";
 	print "//<![CDATA[\nfunction listOfPages(){\n".'document.write("' . $a . '");'."\n}\n//]]>\n".
-	      "\n</script>\n" . $doc->title("album's page ".uri_unescape($doc->param('maop_googid'))) ; # . ((uri_unescape($doc->param("maop_page"))=~m/[0-9]+/) ? uri_unescape($doc->param("maop_page")) : 1 )
+	      "\n</script>\n" . $doc->title("album's page ".uri_unescape($doc->param('maop_googid'))) ; 
 #	) .
 	#$doc->end_head() .
 	#print "\n</script>";
@@ -1252,7 +1252,7 @@ else { # Begin else
 	} # End foreach (@llll_res)
 	#$llll_res[6]=~s/[^:]*://g;
 	#$llll_res[7]=~s/[^:]*://g;
-	set_history(${mip}, $oppp,$locpa ,"$mip",$llll_l,ALBUM_INFO_HIST_DIRECTORY ->());
+	set_history(${mip}, $oppp,$locpa ,"$mip",$llll_l,&io::MyConstantBase::ALBUM_INFO_HIST_DIRECTORY->());
 	# Dealing with tweeter
 	#my $llll_inf="[$llll_res[6],$llll_res[7]]";
 	#system("`pwd`/tweet.sh \"Sh4rkb41t\" \"lakpwr\"  \"[album] $oppp page:$locpa $llll_inf\""); 
@@ -1267,13 +1267,13 @@ else { # Begin else
 #&showsStats;
 #print "zzzzzzzzzzzzzzzzzz<br />";
 print "<br /><br />" . io::MyUtilities::footer($doc, 
-						 DIRECTORY_DEPOSIT ->() . "powered.gif",
-						 DIRECTORY_DEPOSIT ->() . "jangada.gif",
+						 &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "powered.gif",
+						 &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "jangada.gif",
 						 "http://www.perl.org",
 						 ALBUM_VERSION,
-						 TESTED_WITH_BROWSERS ->(),
-						 HOSTED_BY ->(),
-						 HOSTED_BY_URL->());
+						 &io::MyConstantBase::TESTED_WITH_BROWSERS->(),
+						 &io::MyConstantBase::HOSTED_BY->(),
+						 &io::MyConstantBase::HOSTED_BY_URL->());
 print <<EE;
 </div>
 
@@ -1475,7 +1475,7 @@ sub print_info_picture { # Begin print_info_picture
 	return "";
 	my $comment=uri_unescape($doc->param('maop_comments'));
 	my ( $french, $english )=split( /SEPARATOR/, $comment );
-	my $uuu= DIRECTORY_DEPOSIT ->() ."$img";
+	my $uuu= &io::MyConstantBase::DIRECTORY_DEPOSIT->() ."$img";
 	chomp($uuu);
 	my (@stat_img)= stat $uuu;
 	my ($num_of_pict,$size_of_all_picture_gathered)=&gets_current_images_information_from_current_album("$file_conf_to_save");
@@ -1695,7 +1695,7 @@ sub add_new_col { # Begin add_new_col
 	my $col;
 	if( ! -f "$file_conf_to_save.nb_col" ){ # Begin if( ! -f "$file_conf_to_save.nb_col" )
 		open( W, ">$file_conf_to_save.nb_col" ) or error_raised("File $file_conf_to_save does not exists");
-		print W MAX_COL_NUMBER ->();
+		print W MAX_COL_NUMBER->();
 		close(W) or error_raised("File $file_conf_to_save does not exists");
 	} # End if( ! -f "$file_conf_to_save.nb_col" )
 	else { # Begin else
@@ -1704,7 +1704,7 @@ sub add_new_col { # Begin add_new_col
 		close(R) or error_raised("File $file_conf_to_save does not exists");
 		$col=(split(/\n/,@u))[0];
 	} # End else
-	if($col<MAX_COL_NUMBER ->()){ # Begin if($col<MAX_COL_NUMBER ->())
+	if($col<MAX_COL_NUMBER->()){ # Begin if($col<MAX_COL_NUMBER->())
 		open( R, "$file_conf_to_save" ) or error_raised("File $file_conf_to_save does not exists");
 		my @f=<R>;
 		close(R) or error_raised("File $file_conf_to_save does not exists");
@@ -1721,9 +1721,9 @@ sub add_new_col { # Begin add_new_col
 				my @z=split(/\|\|/,$_);
 				my $nb=scalar(@z)-1;
 				if($nb>0){ # Begin if($nb>0)
-					for(my $i=$nb;$i<=MAX_COL_NUMBER ->();$i++){ # Begin for(my $i=$nb;$i<MAX_COL_NUMBER ->();$i++)
+					for(my $i=$nb;$i<=MAX_COL_NUMBER->();$i++){ # Begin for(my $i=$nb;$i<MAX_COL_NUMBER->();$i++)
 						$line="$line||.";
-					} # End for(my $i=$nb;$i<MAX_COL_NUMBER ->();$i++)
+					} # End for(my $i=$nb;$i<MAX_COL_NUMBER->();$i++)
 					print W "$line\n";
 				} # End if($nb>0)
 			} # End foreach (@f)
@@ -1738,7 +1738,7 @@ sub add_new_col { # Begin add_new_col
 			} # End foreach (@v)
 			close(M) or error_raised("File $file_conf_to_save does not exists");
 		} # End if (scalar(@f) != 0)
-	} # End if($col<MAX_COL_NUMBER ->())
+	} # End if($col<MAX_COL_NUMBER->())
 	return 0;
 } # End sub add_new_col
 
@@ -2123,7 +2123,7 @@ sub admin_menu { # Begin admin_menu
 		print "<input type='hidden' name='maop_line' value='$modify_position_in_page' />\n";
 		print "<input type='hidden' name='maop_file_name_img' value='$modify_file_name' />\n";
 	} # End  if ($an_action ne "modify")
-	&set_language(LANGUAGES ->());
+	&set_language(LANGUAGES->());
 	print $doc->Tr(
 		$doc->td( {align=>'right'},
 			$doc->input({ type=>'hidden', name=>'maop_upld', value=>'ok'}),
@@ -2888,7 +2888,7 @@ sub record { # Begin record
 		io::gut::machine::MyFile::reformat($l_file_scat[ scalar(@l_file_scat) - 1 ]);
 	}# End if(scalar(@l_file_scat)>0)
 	# We create a file into a path where to store new image file
-	my $file_to_upload=DIRECTORY_DEPOSIT ->() . "/${suffix_for_image_file}${file_name_saved_at_server_side}";
+	my $file_to_upload=&io::MyConstantBase::DIRECTORY_DEPOSIT->() . "/${suffix_for_image_file}${file_name_saved_at_server_side}";
 
 	# That's the end of session at the end this session will be remove
 
@@ -2921,13 +2921,13 @@ sub record { # Begin record
 				my $page_num=$in_file[0];
 				if ( $position_in_page=~/last/i ){ # Begin  if ($position_in_page=~/last/i)
 					if ( $page_position_in_album == $page_num ){ # Begin if ($page_position_in_album == $page_num)
-						if ( $in_file[1] == MAX_IMAGES_PER_PAGE ->() ){ # Begin if ($in_file[1] == MAX_IMAGES_PER_PAGE ->())
-							error_raised( $doc, "Maximum of images reached per page which is " . MAX_IMAGES_PER_PAGE ->() );
-						} # End if ($in_file[1] == MAX_IMAGES_PER_PAGE ->())
+						if ( $in_file[1] == &io::MyConstantBase::MAX_IMAGES_PER_PAGE->() ){ # Begin if ($in_file[1] == &io::MyConstantBase::MAX_IMAGES_PER_PAGE->())
+							error_raised( $doc, "Maximum of images reached per page which is " . &io::MyConstantBase::MAX_IMAGES_PER_PAGE->() );
+						} # End if ($in_file[1] == &io::MyConstantBase::MAX_IMAGES_PER_PAGE->())
 					} # End if ($page_position_in_album == $page_num)
 				} # End if ($position_in_page=~/last/i)
 				if ($page_position_in_album == $in_file[0] && $position_in_page == $in_file[1] ){ # Begin if ( $page_position_in_album == $in_file[0] && $position_in_page == $in_file[1] )
-					error_raised( $doc, "This place is already taken by another picture [(pos in album=$page_position_in_album == $page_num=page number),(row in page = $in_file[1] == " . MAX_IMAGES_PER_PAGE ->() . "max row(s) per page)]" );
+					error_raised( $doc, "This place is already taken by another picture [(pos in album=$page_position_in_album == $page_num=page number),(row in page = $in_file[1] == " . &io::MyConstantBase::MAX_IMAGES_PER_PAGE->() . "max row(s) per page)]" );
 				} # End if ( $page_position_in_album == $in_file[0] && $position_in_page == $in_file[1] )
 			} # End foreach (@save_result)
 		} # End if case where all info related to files are stored and already exists
@@ -3205,15 +3205,15 @@ sub under_construction_prompt { # Begin under_construction_prompt
 	print "<br /><br /><b><a href='${main_prog}?maop_service=auth'  >Administrer le Cyber Album</a></b> /\n";
 	print "<font color='gray42'><b><a href='${main_prog}?maop_service=auth'  >Administrate Cyber Album</a></b></font>\n<br />\n<br />\n";
 	print "<img src='"
-				. DIRECTORY_DEPOSIT ->()
+				. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
 				. "under_construction10.gif' alt='y' />\n<br />";
 	#print "<br />\n<br />\nAller <a href='$url_demo'  >version</a> precedente / <font color='gray42'>Go to previous <a href='$url_demo'  >version</a>.\n</font><br />\n"
 		#. $doc->br
 		#. $doc->br
-	print $doc->img( { -src => DIRECTORY_DEPOSIT ->() . 'powered.gif' } )
+	print $doc->img( { -src => &io::MyConstantBase::DIRECTORY_DEPOSIT->() . 'powered.gif' } )
 		. $doc->br
 		. "Hosted by "
-		. $doc->a( { -href => HOSTED_BY_URL->() }, HOSTED_BY ->() )
+		. $doc->a( { -href => &io::MyConstantBase::HOSTED_BY_URL->() }, &io::MyConstantBase::HOSTED_BY->() )
 		. "</center>\n";
 	print "</table>\n";
 	exit(-1);
@@ -3353,10 +3353,10 @@ sub shows_page_not_taken_yet { # Begin shows_page_not_taken_yet
 	# read page already saved. Remove from the list page already saved. And print the matrix of page not taken.
 	for ( my $l = 1 ; $l != ( $lmax + 1 ) ; $l++ )
 	{ # Begin for (my $l = 1;$l != ($lmax+1);$l++)
-	for ( my $c = 1 ; $c != ( MAX_IMAGES_PER_PAGE ->() + 1 ) ; $c++ )
-	{ # Begin for ($c = 1; $c != (MAX_IMAGES_PER_PAGE ->()+1); $c++)
+	for ( my $c = 1 ; $c != ( &io::MyConstantBase::MAX_IMAGES_PER_PAGE->() + 1 ) ; $c++ )
+	{ # Begin for ($c = 1; $c != (&io::MyConstantBase::MAX_IMAGES_PER_PAGE->()+1); $c++)
 	$s .= "$l $c;";
-	} # End for ($c = 1; $c != (MAX_IMAGES_PER_PAGE ->()+1); $c++)
+	} # End for ($c = 1; $c != (&io::MyConstantBase::MAX_IMAGES_PER_PAGE->()+1); $c++)
 	} # End for (my $l = 1;$l != ($lmax+1);$l++)
 
 	foreach (@save_info){ # Begin foreach (@save_info)
@@ -3480,8 +3480,8 @@ sub shows_list_pictures { # Begin shows_list_pictures
 			my $granted=$line[12] ; # granted
 			print "<form action='${main_prog}' method='post'>\n";
 			print "<tr><td valign='top' align='left'>\n<li>"
-				. &switch_from_a_specified_tag_to_characters( ($line[6]=~m!http://www.youtube.com!) ? "<img src='".DIRECTORY_DEPOSIT ->()."/youtube.gif' alt='q' />" :$line[6] ) . "<br /><font color='#822942'>"
-				. &switch_from_a_specified_tag_to_characters( ($line[7]=~m!http://www.youtube.com!) ? "<img src='".DIRECTORY_DEPOSIT ->()."/youtube.gif' alt=':' />":$line[7]  )
+				. &switch_from_a_specified_tag_to_characters( ($line[6]=~m!http://www.youtube.com!) ? "<img src='".&io::MyConstantBase::DIRECTORY_DEPOSIT->()."/youtube.gif' alt='q' />" :$line[6] ) . "<br /><font color='#822942'>"
+				. &switch_from_a_specified_tag_to_characters( ($line[7]=~m!http://www.youtube.com!) ? "<img src='".&io::MyConstantBase::DIRECTORY_DEPOSIT->()."/youtube.gif' alt=':' />":$line[7]  )
 				. "</font></li></td>\n";# field 1
 			print "<td align='center' valign='top'>\n$line[10]</td>\n";# field 2
 			print "<td align='center' valign='top'>\n$line[0]</td>\n";# field 3
@@ -3490,12 +3490,12 @@ sub shows_list_pictures { # Begin shows_list_pictures
 			print "<td align='center' valign='top'>\n$line[4]/$line[5]</td>\n";# field 6
 
 			if ( $line[3] !~ m/^http\:\/\//i ){ # Begin if ($line[3] !~ m/^http\:\/\//i)
-				if(SHOW_PICTURES_ADMIN ->()!=0){ # Begin if(SHOW_PICTURES_ADMIN ->()!=0)
+				if(SHOW_PICTURES_ADMIN->()!=0){ # Begin if(SHOW_PICTURES_ADMIN->()!=0)
 					print "<td align='center' valign='middle'>\n";
 					print "<img src='"
-						. DIRECTORY_DEPOSIT ->()
+						. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
 						. "$line[3]' width='75'  height='75' alt='xx' />\n</td>";# field 7
-				} # End if(SHOW_PICTURES_ADMIN ->()!=0)
+				} # End if(SHOW_PICTURES_ADMIN->()!=0)
 				else { # Begin else
 					print "<td align='left' valign='top'>\n";# field 7
 					
@@ -3737,7 +3737,7 @@ sub remove_picture { # Begin remove_picture
 
 	foreach (@all_file){ # Begin foreach (@all_file)
 		my @line = split( /\|\|/, $_ );
-		@list_file = (@list_file,DIRECTORY_DEPOSIT ->() . $line[2]);
+		@list_file = (@list_file,&io::MyConstantBase::DIRECTORY_DEPOSIT->() . $line[2]);
 	} # End foreach (@all_file)
 
 	# We create the new file_conf
@@ -3752,7 +3752,7 @@ sub remove_picture { # Begin remove_picture
 	#$file_to_remove=~s!&#45;!\-!g;
 	#$file_to_remove=~s!&#95;!\_!g;
 	# We remove the image that goes with the associated comment if no more use than once in the album otherwise it is not removed
-	my $local_dir = DIRECTORY_DEPOSIT ->() . "$file_to_remove";
+	my $local_dir = &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "$file_to_remove";
 	if (-f "$local_dir"){ # Begin if (-f "$local_dir")
 		unlink("$local_dir") || die("$local_dir cannot be removed");
 		$local_dir=~s/\</&#60;/g;
@@ -3831,7 +3831,9 @@ None.
 
 sub clean_pictures { # Begin clean_pictures
 	my (@list) = @_;
-	my $dir =  DIRECTORY_DEPOSIT ->() . "200*";
+	my $dir =  &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "200*";
+	print "------>$dir<-------------<br>";
+	$dir=&do_untaint($dir);
 	my @l = `ls $dir`;
 
 	# if (!-f "${album_directory}/to_clean_pictures_according_album_of_pictures_remove_me"){ # Begin if (!-f "${album_directory}/to_clean_pictures_according_album_of_pictures_remove_me")
@@ -4129,7 +4131,7 @@ sub print_page { # Begin print_page
 	my $next_page              = ();
 	my @line                   = ();
 	chomp($page_asked);
-	my $div = $page_asked / MAX_IMAGES_PER_PAGE ->();
+	my $div = $page_asked / &io::MyConstantBase::MAX_IMAGES_PER_PAGE->();
 	my ( $word_to_link,     $my_link )     = ();
 	my ( $word_to_link_eng, $my_link_eng ) = ();
 	my $date_of_picture_put_on_css = "font-weight: lighter;font-size: 10pt; font-style: oblique;";
@@ -4139,10 +4141,10 @@ sub print_page { # Begin print_page
 	$div = ( split( /\./, $div ) )[0];
 
 	# We setup min range and max range of page number to show up on the navigator menu of the album.
-	my $RANK_MIN_PICT_SHOW = ( ( $div < 1.0 ) ? 1 : ( $div * MAX_IMAGES_PER_PAGE ->() ));
+	my $RANK_MIN_PICT_SHOW = ( ( $div < 1.0 ) ? 1 : ( $div * &io::MyConstantBase::MAX_IMAGES_PER_PAGE->() ));
 
 	# We set up min range and max range of page number to show up on the navigator menu of the album.
-	my $RANK_MAX_PICT_SHOW = &rank_right_navigator_bar_range( $RANK_MIN_PICT_SHOW + ( MAX_IMAGES_PER_PAGE ->() - 1 ) );
+	my $RANK_MAX_PICT_SHOW = &rank_right_navigator_bar_range( $RANK_MIN_PICT_SHOW + ( &io::MyConstantBase::MAX_IMAGES_PER_PAGE->() - 1 ) );
 
 	open( R, "$file_conf_to_save" ) || error_raised( $doc, "File [$file_conf_to_save] not found!!!" );
 	@all_file = <R>;
@@ -4164,6 +4166,7 @@ sub print_page { # Begin print_page
 			chomp($_);
 			# next line to be removed in the near future
 			$_=~s/\&\#95\;/\_/g;# Transforms data in order not to be delete later
+			#print "WWWWWWWWWWWWWWWW>$_<br>";
 			my @line = split(/\|\|/,$_);
 			my $d = $line[3];
 			my $ppj=();
@@ -4185,13 +4188,13 @@ sub print_page { # Begin print_page
 			} # End if( $line[3]=~m!www.youtube.com!i)
 			if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i){ # Begin if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
 				# do some cleaning in case that something went wrong during delete picture
-				if(-f DIRECTORY_DEPOSIT ->() . "$line[3]"){ # Begin if(-f DIRECTORY_DEPOSIT ->() . "$line[3]")
+				if(-f &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "$line[3]"){ # Begin if(-f &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "$line[3]")
 					#print "------>$line[3]<br />";
-					open(my $R, DIRECTORY_DEPOSIT ->() . "$line[3]");
+					open(my $R, &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "$line[3]");
 					my $dta=stat($R);
 					$ppj= scalar localtime $dta->mtime ;
 					close($R);
-				} # End if(-f DIRECTORY_DEPOSIT ->() . "$line[3]")
+				} # End if(-f &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "$line[3]")
 				else{ # Begin else
 					if( $line[3]!~m!www.youtube.com!i){ # Begin if( $line[3]!~m!www.youtube.com!i)
 						my $o=$line[3];
@@ -4237,36 +4240,36 @@ sub print_page { # Begin print_page
 				if ( $my_prev != $line[0] ){ # Begin if ($my_prev != $line[0])
 					if ( $page_asked != $line[0] ){ # Begin if ($page_asked != $line[0])
 						if ( ( $my_prev != 1 ) ){ # Begin if ( ( $my_prev != 1 ) )
-							if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ->() ) < ( $my_prev % MAX_PAGE_PER_LINE_INDEX ->() ) ){ # Begin if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ->() ) < ( $my_prev % MAX_PAGE_PER_LINE_INDEX ->() ) )
+							if ( ( $line[0] % &io::MyConstantBase::MAX_PAGE_PER_LINE_INDEX->() ) < ( $my_prev % &io::MyConstantBase::MAX_PAGE_PER_LINE_INDEX->() ) ){ # Begin if ( ( $line[0] % &io::MyConstantBase::MAX_PAGE_PER_LINE_INDEX->() ) < ( $my_prev % &io::MyConstantBase::MAX_PAGE_PER_LINE_INDEX->() ) )
 								$list_page .= " </td><!-- blue jean --></tr><!-- balaaaaa -->\"\n+\"<tr>";
-							} # End if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ->() ) < ( $my_prev % MAX_PAGE_PER_LINE_INDEX ->() ) )
+							} # End if ( ( $line[0] % &io::MyConstantBase::MAX_PAGE_PER_LINE_INDEX->() ) < ( $my_prev % &io::MyConstantBase::MAX_PAGE_PER_LINE_INDEX->() ) )
 							$list_page .= "<td align='center'><a href='${main_prog}?maop_page=$line[0]".
-								"&maop_googid=".uri_unescape($doc->param("maop_googid"))."&maop_gmv=".GOOGLE_MAP_SCRIPT_VERSION ->(). PATH_GOOGLE_MAP_OPT ->() .
+								"&maop_googid=".uri_unescape($doc->param("maop_googid"))."&maop_gmv=".&io::MyConstantBase::GOOGLE_MAP_SCRIPT_VERSION->(). &io::MyConstantBase::PATH_GOOGLE_MAP_OPT->() .
 								"'>x</a></td><!-- <wwblablablablo -->\"+\n\"";
 						} # End if ($my_prev != 1)
 						else { #  Begin else 
-							if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ->() ) == 0 ){ # Begin if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ->() ) == 0 )
+							if ( ( $line[0] % &io::MyConstantBase::MAX_PAGE_PER_LINE_INDEX->() ) == 0 ){ # Begin if ( ( $line[0] % &io::MyConstantBase::MAX_PAGE_PER_LINE_INDEX->() ) == 0 )
 								$list_page .= "<td align='center'></td><!-- pantalon --></tr>\"\n+\"<tr>";
-							} # End if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ->() ) == 0 )
+							} # End if ( ( $line[0] % &io::MyConstantBase::MAX_PAGE_PER_LINE_INDEX->() ) == 0 )
 							#    First element in the list
 							$list_page .= "<td align='center'><a href='${main_prog}?maop_page=$line[0]".
-							"&maop_googid=".uri_unescape($doc->param("maop_googid")). "&maop_gmv=".GOOGLE_MAP_SCRIPT_VERSION ->(). PATH_GOOGLE_MAP_OPT ->() .
+							"&maop_googid=".uri_unescape($doc->param("maop_googid")). "&maop_gmv=".&io::MyConstantBase::GOOGLE_MAP_SCRIPT_VERSION->(). &io::MyConstantBase::PATH_GOOGLE_MAP_OPT->() .
 							"'>x</a></td><!-- lolololozutzutyyyyyyyy -->\"+\n\"";
-						} # End if ( ($my_prev != 1) && (($line[0] % (MAX_IMAGES_PER_PAGE ->()+1)) != 0) )
+						} # End if ( ($my_prev != 1) && (($line[0] % (&io::MyConstantBase::MAX_IMAGES_PER_PAGE->()+1)) != 0) )
 						$my_prev = $line[0];
 					} # End if ($page_asked != $line[0])
 					else { # Begin else
 						$my_prev = $line[0];
-						if ( ( $my_prev != 1 ) && ( ( $line[0] % ( MAX_IMAGES_PER_PAGE ->() + 1 ) ) != 0 ) ){ # Begin if (($my_prev != 1) && (($line[0] % (MAX_IMAGES_PER_PAGE ->()+1)) != 0) )
-							if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ->() ) == 0 ){ # Begin if ($line[0] % 10 == 0)
+						if ( ( $my_prev != 1 ) && ( ( $line[0] % ( &io::MyConstantBase::MAX_IMAGES_PER_PAGE->() + 1 ) ) != 0 ) ){ # Begin if (($my_prev != 1) && (($line[0] % (&io::MyConstantBase::MAX_IMAGES_PER_PAGE->()+1)) != 0) )
+							if ( ( $line[0] % &io::MyConstantBase::MAX_PAGE_PER_LINE_INDEX->() ) == 0 ){ # Begin if ($line[0] % 10 == 0)
 								$list_page .= " </td><!-- short en bermuda --></tr>\"\n+\"<tr>";
 							} # End if ($line[0] % 10 == 0)
 							$list_page .= "<td align='center'><i><font color='#CE3030'>X</font></i></td><!-- zutzutyyyyyyyy -->\"\n+\"";
-						} # End if (($my_prev != 1) && (($line[0] % (MAX_IMAGES_PER_PAGE ->()+1)) != 0) )
+						} # End if (($my_prev != 1) && (($line[0] % (&io::MyConstantBase::MAX_IMAGES_PER_PAGE->()+1)) != 0) )
 						else { # Begin else
-							if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ->() ) == 0 ){ # Begin if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ->() ) == 0 )
+							if ( ( $line[0] % &io::MyConstantBase::MAX_PAGE_PER_LINE_INDEX->() ) == 0 ){ # Begin if ( ( $line[0] % &io::MyConstantBase::MAX_PAGE_PER_LINE_INDEX->() ) == 0 )
 								$list_page .= "</td><!-- tshirt moulant --></tr>\"\n+\"<tr>";
-							} # End if ( ( $line[0] % MAX_PAGE_PER_LINE_INDEX ->() ) == 0 )
+							} # End if ( ( $line[0] % &io::MyConstantBase::MAX_PAGE_PER_LINE_INDEX->() ) == 0 )
 							$list_page .= "<td align='center'><font color='#CE3030'>X</font></td><!-- zout machine -->\"+\n\"";
 						} # End else
 					} # End else
@@ -4287,7 +4290,7 @@ sub print_page { # Begin print_page
 									if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i){ # Begin if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
 										$print_my_page_script .= 
 											"\n<!-- momo and toto --><a  href='${main_prog}?maop_service=showPict&maop_pict="
-											. DIRECTORY_DEPOSIT ->()
+											. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
 											. "$line[3]&maop_comments="
 											. &switch_from_a_specified_character_to_tag(
 														"$line[6]SEPARATOR$line[7]")
@@ -4303,7 +4306,7 @@ sub print_page { # Begin print_page
 								#print "ggggggg<br />";
 								$print_my_page_script .= 
 										  "<embed src='"
-										. DIRECTORY_DEPOSIT ->()
+										. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
 										. "$line[3]'  height=360 width=450 border=1 autoplay=false>\n";
 							} # End if($line[3]=~/.(mp4|3gp|mpeg|mov|dat|avi)/i)
 							else { # Begin else
@@ -4311,7 +4314,7 @@ sub print_page { # Begin print_page
 									#print "eeeeeeeeiiiie<br />";	
 									$print_my_page_script .= 
 										  "\n<img src='"
-										. DIRECTORY_DEPOSIT ->()
+										. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
 										#. "$line[3]'  height='72' border='0' alt='knn' />\n";
 										. "$line[3]'  height='72' border='0' alt='knn' />\n</td></tr>";
 								} # End if($line[3]!~/.(mp3)$/i&&$line[3]!~/www.youtube.com/)
@@ -4333,7 +4336,7 @@ sub print_page { # Begin print_page
 							#	    print "tttttttt<br />";
 									$print_my_page_script .= 
 												  "<embed src='"
-												. DIRECTORY_DEPOSIT ->()
+												. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
 												. "$line[3]'  height=100 width=200 border=0 autoplay=false>\n";
 								} # End if($line[3]=~/.(mp3)$/i)
 								elsif($line[3]=~m!www.youtube.com!i){# Begin elsif($line[3]=~m!www.youtube.com!)
@@ -4346,7 +4349,7 @@ sub print_page { # Begin print_page
 													$line[0],
 													$line[1],
 													"<p align=left style='font-weight: lighter;font-size: 10pt; font-style: oblique;'>" .
-													&print_date_of_picture_put_on_album($ppj,$date_of_picture_put_on_css,'(stat(DIRECTORY_DEPOSIT ->() .$line[2]))[9]',$line[12],$line[2],$line[3]) .
+													&print_date_of_picture_put_on_album($ppj,$date_of_picture_put_on_css,'(stat(&io::MyConstantBase::DIRECTORY_DEPOSIT->() .$line[2]))[9]',$line[12],$line[2],$line[3]) .
 											&print_info_picture((($my_image_per_page == 2) ? 2 :($my_image_per_page)) ,"$line[3]") 
 										       ) ."</td><!-- vouiiiii --></tr>\n";
 									$print_my_page_script .= "</td></tr>";
@@ -4362,13 +4365,13 @@ sub print_page { # Begin print_page
 						if($line[3]=~/.(mp4|3gp|mpeg|mov|dat|avi)$/i){# BEGIN if($line[3]=~/.(mp4|3gp|mpeg|mov|dat|avi)$/i)
 							$print_my_page_script .=
 							"<embed src='"
-							. DIRECTORY_DEPOSIT ->()
+							. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
 							. "$line[3]'  height=360 width=450 border=0 autoplay=false>\n";
 						} # End if($line[3]=~/.(mp4|3gp|mpeg|mov|dat|avi)$/i)
 						elsif($line[3]=~/.(mp3)$/i){ # Begin if($line[3]=~/.(mp3)/i)
 								$print_my_page_script .= 
 										  "<embed src='"
-										. DIRECTORY_DEPOSIT ->()
+										. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
 										. "$line[3]'  height=100 width=200 border=0 autoplay=false>\n";
 						} # End if($line[3]=~/.(mp3)/i)
 						elsif($line[3]=~/www.youtube.com/i){ # Begin if($line[3]=~/www.youtube.com/i)
@@ -4381,13 +4384,13 @@ sub print_page { # Begin print_page
 							if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i){ # Begin if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
 								if((io::MySec::urlsAllowed)[1] eq "ok" ){ # Begin if((io::MySec::urlsAllowed)[1] eq "ok" )
 									$print_my_page_script.="<a   href='${main_prog}?maop_service=showPict&maop_pict="
-										. DIRECTORY_DEPOSIT ->()
+										. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
 										. "$line[3]&maop_comments="
 										. &switch_from_a_specified_character_to_tag(
 										"$line[6]SEPARATOR$line[7]")
 										. "'>\n";
 								} # End if((io::MySec::urlsAllowed)[1] eq "ok" )
-								$print_my_page_script .= "<img src='" . DIRECTORY_DEPOSIT ->() . "$line[3]'  height='72'  border='0' alt='oook' />\n" ;
+								$print_my_page_script .= "<img src='" . &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "$line[3]'  height='72'  border='0' alt='oook' />\n" ;
 								if((io::MySec::urlsAllowed)[1] ne "ok" ){ # Begin if((io::MySec::urlsAllowed)[1] ne "ok" )
 									#$print_my_page_script .= "<br />$ppj<!-- date of first time -->" ;
 								}
@@ -4406,7 +4409,7 @@ sub print_page { # Begin print_page
 								$line[0],
 								$line[1],
 								"<p align=left style='font-weight: lighter;font-size: 10pt; font-style: oblique;'>" .
-								&print_date_of_picture_put_on_album($ppj,$date_of_picture_put_on_css,(stat(DIRECTORY_DEPOSIT ->() .$line[3]))[9],$line[12]," ",$line[2],$line[3]) .
+								&print_date_of_picture_put_on_album($ppj,$date_of_picture_put_on_css,(stat(&io::MyConstantBase::DIRECTORY_DEPOSIT->() .$line[3]))[9],$line[12]," ",$line[2],$line[3]) .
 								&print_info_picture((($my_image_per_page==2 ) ? 2 :($my_image_per_page)),"$line[3]") .
 								"</p>"
 						       )
@@ -4417,7 +4420,7 @@ sub print_page { # Begin print_page
 					} # End if("$authorized" eq "ok") 
 					else { # Begin else
 						#$print_my_page_script .= "<tr><td><br />\nNe peut être vu de $locip / <font color='#822942'>Cannot be seen from $locip</font></td></tr>\n";
-			#			$print_my_page_script .= "<tr><td><br /> <table><tr><td>\n<!--<img src=\"". DIRECTORY_DEPOSIT ->() . "/sorry.jpg\" > -->\n</td><td valign=middle align=left><!--La photo ne peut être vue de cette machine <br />\n<font color='#822942'> This picture cannot be seen from this machine</font> --></td></tr></table></td></tr>\n";
+			#			$print_my_page_script .= "<tr><td><br /> <table><tr><td>\n<!--<img src=\"". &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "/sorry.jpg\" > -->\n</td><td valign=middle align=left><!--La photo ne peut être vue de cette machine <br />\n<font color='#822942'> This picture cannot be seen from this machine</font> --></td></tr></table></td></tr>\n";
 						$my_image_per_page += 2;
 					} # End else
 				} # End if ($page_asked eq $line[0])
@@ -4430,9 +4433,9 @@ sub print_page { # Begin print_page
 		} # End else
 	} # End foreach (@all_file)
 	$print_my_page_script .= "</table>\n";
-	if ( &is_ok_page_num( $page_asked, @list_of_existing_pages ) == NOK ->() )  { # Begin if ( &is_ok_page_num($page_asked,@list_of_existing_pages) == NOK ->())
+	if ( &is_ok_page_num( $page_asked, @list_of_existing_pages ) == &io::MyConstantBase::NOK->() )  { # Begin if ( &is_ok_page_num($page_asked,@list_of_existing_pages) == &io::MyConstantBase::NOK->())
 		print error_raised( $doc, "Page asked [$page_asked] does not exist!!!!" );
-	} # End if ( &is_ok_page_num($page_asked,@list_of_existing_pages) == NOK ->())
+	} # End if ( &is_ok_page_num($page_asked,@list_of_existing_pages) == &io::MyConstantBase::NOK->())
 
 	$list_page .= "<!-- meueuuuuuuu --></tr></table>";
 
@@ -4662,9 +4665,9 @@ None.
 sub rank_right_navigator_bar_range { # Begin rank_right_navigator_bar_range
 	my ${rank_max} = $_[0];
 
-	while ( ( ${rank_max} % MAX_IMAGES_PER_PAGE ->() ) != 0 ){ # Begin while ((${rank_max} % MAX_IMAGES_PER_PAGE ->()) != 0)
+	while ( ( ${rank_max} % &io::MyConstantBase::MAX_IMAGES_PER_PAGE->() ) != 0 ){ # Begin while ((${rank_max} % &io::MyConstantBase::MAX_IMAGES_PER_PAGE->()) != 0)
 		${rank_max}++;
-	} # End while ((${rank_max} % MAX_IMAGES_PER_PAGE ->()) != 0)
+	} # End while ((${rank_max} % &io::MyConstantBase::MAX_IMAGES_PER_PAGE->()) != 0)
 	return ${rank_max};
 } # End sub rank_right_navigator_bar_range
 
@@ -4686,9 +4689,9 @@ $page_asked:page asked.
 
 =over 4
 
-OK ->(): ok.
+&io::MyConstantBase::OK->(): ok.
 
-NOK ->(): not ok.
+&io::MyConstantBase::NOK->(): not ok.
 
 =back
 
@@ -4727,11 +4730,11 @@ sub is_ok_page_num { # Begin is_ok_page_num
 		error_raised_visit( $doc, "Page format number not correct!!!! [$page_asked]" );
 	} # End  if ($page_asked !~ m/^\d+$/)
 	elsif ( $page_asked <= $list_of_existing_pages[ scalar(@list_of_existing_pages) - 1 ] ){ # Begin if ($page_asked <= $list_of_existing_pages[scalar(@list_of_existing_pages)-1])
-		return OK ->();
+		return &io::MyConstantBase::OK->();
 	} # End if ($page_asked <= $list_of_existing_pages[scalar(@list_of_existing_pages)-1])
 	else { # Begin else
-		#	print $doc->p("NOK ->() value is [$page_asked]");
-		return NOK ->();
+		#	print $doc->p("&io::MyConstantBase::NOK->() value is [$page_asked]");
+		return &io::MyConstantBase::NOK->();
 	} # End else
 } # End sub is_ok_page_num
 
@@ -5395,7 +5398,7 @@ sub general_css_def { # Begin general_css_def
 		. "background:  #7e85c1;\n"
 		. "opacity: .1;\n"
 		#	  . "background-image: url(\""
-		#	    . DIRECTORY_DEPOSIT ->()
+		#	    . &io::MyConstantBase::DIRECTORY_DEPOSIT->()
 		#	      . "/my_lovely_pict.gif\");\n"
 		#		. "background-repeat: no-repeat;\n"
 		. "background-position: left top;\n"
@@ -5505,8 +5508,8 @@ sub main_menu { # Begin main_menu
 		. "http://dorey.sebastien.free.fr"
 		. "\");'>My website</a>\n</dt>\n";
 	#print "<dt>Other albums</dt>\n";
-	print "<dt><a href=\"maop.cgi?maop_prog=g".GOOGLE_MAP_SCRIPT_VERSION ->()."ogle.cgi" . 
-		"&maop_googid=".uri_unescape($doc->param("maop_googid"))."&maop_gmv=".GOOGLE_MAP_SCRIPT_VERSION ->(). PATH_GOOGLE_MAP_OPT ->() . "&maop_lon=$lon&maop_lat=$lat". "\">Visitor map</a></dt>\n";
+	print "<dt><a href=\"maop.cgi?maop_prog=g".&io::MyConstantBase::GOOGLE_MAP_SCRIPT_VERSION->()."ogle.cgi" . 
+		"&maop_googid=".uri_unescape($doc->param("maop_googid"))."&maop_gmv=".&io::MyConstantBase::GOOGLE_MAP_SCRIPT_VERSION->(). &io::MyConstantBase::PATH_GOOGLE_MAP_OPT->() . "&maop_lon=$lon&maop_lat=$lat". "\">Visitor map</a></dt>\n";
 	print "<dt onclick=\"javascript:show('smenu2');\" onmouseout=\"javascript:show();\">Help</dt>";
 	print "\n<dd id=\"smenu2\"><!-- begin dd smenu2 -->\n";
 	&help_menu_with_css( $title, @help_feature );
@@ -5572,7 +5575,7 @@ sub help_menu_with_css { # Begin help_menu_with_css
 	"Suivre attentivement les instructions dessous. / Follow carefully instructions below.",
 	@info
 	);
-	my $img="<img src=\"" . DIRECTORY_DEPOSIT ->() . "/my_lovely_pict.gif\" style=\"float: right;padding-top: 25px;\" alt='+' />";
+	my $img="<img src=\"" . &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "/my_lovely_pict.gif\" style=\"float: right;padding-top: 25px;\" alt='+' />";
 
 	print <<MENU;
 <div class="help_content"> <!-- begin div help_content -->
@@ -5796,11 +5799,11 @@ sub look_for_images_used { # Begin look_for_images_used
 		print
 		"	<tr><td align='left'><font color='blue'><b>Status</b></font></td>\n<td align='right'><font color='blue'><b>Image</b></font></td></tr>\n";
 		foreach (@images_used){ # Begin foreach (@images_used)
-			if ( -f "$_" ){ # Begin if (-f DIRECTORY_DEPOSIT ->() . "$_")
+			if ( -f "$_" ){ # Begin if (-f &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "$_")
 				$counter++;
 				print
 				"	<tr><td align='left'><b><font color='green'>ok</font></b></td>\n<td align='right'>$_</td></tr>\n";
-			} # End if (-f DIRECTORY_DEPOSIT ->() . "$_")
+			} # End if (-f &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "$_")
 			else { # Begin else
 				print
 				"<tr><td align='left'> N'existe pas / <font color='blue'>does not exist !!!</font><b></td>\n<td align='right'>$_</td></tr>\n";
@@ -5814,7 +5817,7 @@ sub look_for_images_used { # Begin look_for_images_used
 			print W "";
 			close(W);
 			print "All images are present in the directory "
-			. DIRECTORY_DEPOSIT ->()
+			. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
 			. "<br />\n";
 		} # End if (($counter+1) == scalar(@images_used))
 		else { # Begin else
@@ -6020,7 +6023,7 @@ sub gets_current_images_information_from_current_album { # Begin gets_current_im
 		chomp($line_of_album);
 		my ($p,$l,$img_name,@others) = split(/\|\|/,$line_of_album);
 
-		$size_within_album_of_all_images += (stat  DIRECTORY_DEPOSIT ->() . "$img_name")[7];
+		$size_within_album_of_all_images += (stat  &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "$img_name")[7];
 	} # End foreach my $line_of_album (@all_file)
 	return ($max_of_image_that_are_stored,$size_within_album_of_all_images);
 } # End sub gets_current_images_information_from_current_album
@@ -6113,7 +6116,7 @@ sub extra_comments { # Begin extra_comments
 
 			if ($current_horizontal_pos=~m/$check_with_horizontal_pos/i ){ # Begin if ($current_horizontal_pos=~m/$check_with_horizontal_pos/i )
 				return "$javascript_f <a onclick='k=document.getElementById(\"expl_" . $page . "_". $line . "\");document.getElementById(\"expl_" . $page . "_". $line . "\").style.display=\"none\"; k.innerHTML=comment_print_${page}_${line}(); k.style.display=\"block\";'  onmouseout=\"document.getElementById('expl_" . $page . "_". $line . "').style.display='none';\">\n"
-				. "\n<img src='". DIRECTORY_DEPOSIT ->() ."/new_cross.gif' title=\"Cliquez moi / Click me\" alt='o' />\n"
+				. "\n<img src='". &io::MyConstantBase::DIRECTORY_DEPOSIT->() ."/new_cross.gif' title=\"Cliquez moi / Click me\" alt='o' />\n"
 				. "</a>"
 				. &tag_div_comment($page,$line);
 			} # End if ($current_horizontal_pos=~m/$check_with_horizontal_pos/i )
@@ -7439,13 +7442,13 @@ MENU
 	&add_print_info("2222 basic test");
 	print io::MyUtilities::footer(
 						$doc,
-						DIRECTORY_DEPOSIT ->() . "powered.gif",
-						DIRECTORY_DEPOSIT ->() . "jangada.gif",
+						&io::MyConstantBase::DIRECTORY_DEPOSIT->() . "powered.gif",
+						&io::MyConstantBase::DIRECTORY_DEPOSIT->() . "jangada.gif",
 						"http://www.perl.org", 
 						ALBUM_VERSION ,
-						 TESTED_WITH_BROWSERS ->(),
-						 HOSTED_BY ->(),
-						 HOSTED_BY_URL->());
+						 &io::MyConstantBase::TESTED_WITH_BROWSERS->(),
+						 &io::MyConstantBase::HOSTED_BY->(),
+						 &io::MyConstantBase::HOSTED_BY_URL->());
 	&add_print_info("<br>2basic test");
 	print <<MENU;
 </div>
@@ -7543,7 +7546,7 @@ MENU
 	# </script>
 	# put infinite loop
 
-	&my_wait(LOOP ->(),5);
+	&my_wait(&io::MyConstantBase::LOOP->(),5);
 	&menu_admin_GoogleMap_ID; # --------------------> we locate where the error is
 	&ipAddressGranted;
 	print <<MENU;
@@ -7653,8 +7656,8 @@ sub setGoogleID{# Begin setGoogleID
 		my $param_trip_delete=uri_unescape($doc->param("maop_TRIP_ID_DELETE"));
 		chomp($param_trip_delete);
 		if($param_trip_delete=~m/^ok$/){ # Begin if($param_trip_delete=~m/^ok$/)
-			chdir(PATH_GOOGLE_MAP_TRIP ->());
-			#print "file to delete " . PATH_GOOGLE_MAP_TRIP ->() . "/" . uri_unescape($doc->param("maop_operationokdelete")) . "-trips <br>";
+			chdir(&io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->());
+			#print "file to delete " . &io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->() . "/" . uri_unescape($doc->param("maop_operationokdelete")) . "-trips <br>";
 			unlink(uri_unescape($doc->param("maop_operationokdelete")) . "-trips");
 			if( ! -f uri_unescape($doc->param("maop_operationokdelete")) . "-trips"){ # Begin if( ! -f uri_unescape($doc->param("maop_operationokdelete")) . "-trips")
 				print "<br><br><br><br>Trip " . uri_unescape($doc->param("maop_operationokdelete")) . " removed<br>";
@@ -7670,7 +7673,7 @@ sub setGoogleID{# Begin setGoogleID
 	print "if($param_trip=~m/^ok$/)\n<br>";
 #exit(-1);
 	if($param_trip=~m/^ok$/){ # Begin if($param_trip=~m/^ok$/)
-		my $tn=PATH_GOOGLE_MAP_TRIP ->().$googleid ."-".TRIP_NAME ->(); # Trip name
+		my $tn=&io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->().$googleid ."-".&io::MyConstantBase::TRIP_NAME->(); # Trip name
 		$tn=~s/[\ \n\t]*\-trip/\-trip/;
 		print "Stge 2 [$googleid]".length($googleid)."<br>";
 
@@ -7694,9 +7697,9 @@ sub setGoogleID{# Begin setGoogleID
 						#print "B4 Storing++++++>".getcwd()."<-----<br>\n"; 
 						
 						$tn=&do_untaint($tn);
-						open(my $W,'>',$tn)||die("Error: [$tn] $!");
-						print $W $bdaytime . "#" . $edaytime . "#" . $ltzn_b . "#" . $ltzn_e;
-						close($W);
+						open(W,">","$tn")||die("Error: [$tn] $!");
+						print W "${bdaytime}#${edaytime}#${ltzn_b}#${ltzn_e}";
+						close(W);
 						# ---------------------------------------------------
 						# format received yyyy-mm-ddThh:mm for params received in maop_bdaytime, maop_edaytime
 						my ($bdp,$bhp)=split(/T/,uri_unescape($doc->param('maop_bdaytime')));# Begin date trip param,begin hour trip param
@@ -7720,7 +7723,8 @@ sub setGoogleID{# Begin setGoogleID
 									second     => 0,
 								); # creates object date time for end of the trip
 						# ---------------------------------------------------
-						my $tzbt=DateTime::TimeZone->new( name => uri_unescape($doc->param('maop_ltzn_b')) ); # Time zone begining of the trip
+						my $loc_maop_ltzn_b=uri_unescape($doc->param('maop_ltzn_b'));
+						my $tzbt=DateTime::TimeZone->new( name => $loc_maop_ltzn_b ); # Time zone begining of the trip
 						my $tzet=DateTime::TimeZone->new( name => uri_unescape($doc->param('maop_ltzn_e')) ); # Time zone end of the trip
 						my $to = uri_unescape($doc->param("maop_email"));
 						my $from = 'Bot from MAOP<shark.b@laposte.net>';
@@ -7731,8 +7735,8 @@ sub setGoogleID{# Begin setGoogleID
 						# "https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_googid=20180228%20Tests&maop_gmv=3-0";
 						print "************>$loc<br>";
 						#sleep(200);
-						my $mh=HOSTED_BY_URL->(); # my host
-						my $lmh=LOCAL_HOSTED_BY_URL->(); # my host
+						my $mh=&io::MyConstantBase::HOSTED_BY_URL->(); # my host
+						my $lmh=&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(); # my host
 						#$mh=~s/^https{0,1}\:\/\///;
 						$loc=~s/(([^\.\:\/]{1,})(\.[^\.\:\/]{1,}){3})/$lmh/;
 						$mh=~m/(([^\.\:\/]{1,})(\.[^\.\:\/]{1,}){2})/;
@@ -7749,7 +7753,15 @@ sub setGoogleID{# Begin setGoogleID
 							      "<span style='background-color:green'><a href='".$dist. "\&maop_prog=g3ogle.cgi'>trip (distant)</a></span>\n<br>".
 								"Friendly yours,<br>Bot from MAOP\n";
 
-						open(MAIL, "|/usr/sbin/sendmail -t");
+								$ENV{PATH}='/bin:/usr/bin:/usr/local/bin';
+
+						my $mypath="|/usr/sbin/sendmail -t";
+						$mypath=&do_untaint($mypath);
+						$to=&do_untaint($to);
+						$from=&do_untaint($from);
+						$subject=&do_untaint($subject);
+						#$message=&do_untaint($message);
+						open(MAIL,"$mypath") || die("Error: $!");
 						# Email Header
 						print MAIL "To: $to\n";
 						#print MAIL "To: sebastien.dorey\@laposte.net\n";
@@ -8044,7 +8056,7 @@ sub loadDataTrips{ # Begin sub loadDataTrips
 	print '<script src="../js/moment.min.js"></script>'."\n";
 	print '<script src="../js/moment-timezone-with-data-2012-2022.min.js"></script>'."\n";
 	if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==0) ) 
-		chdir(PATH_GOOGLE_MAP_TRIP ->());
+		chdir(&io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->());
 		#print "<br>Get current path ------>>>>".getcwd()."<<<<<-------<br>\n";
 		opendir(ARD,".") || die(". $!");# open current directory
 		my @dr= grep { $_ =~ m/\-trips$/ } readdir(ARD);# parse current directory
