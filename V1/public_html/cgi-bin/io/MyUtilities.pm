@@ -1,13 +1,11 @@
 package io::MyUtilities;
 
-
-
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : MyUtilities.pm
 * Creation Date : Thu Oct 13 22:51:08 2005
-* Last Modified : Sun Nov  4 00:32:21 2018
+* Last Modified : Mon Nov  5 20:55:58 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 1.1.25.60
 * License:
@@ -19,10 +17,14 @@ q##//q#
 
 require Exporter;
 
+use strict;
+use warnings;
+
+#sub io::MyConstantBase::do_untaint { ... }
+#use io::MyConstantBase;
 # @inc=(@inc "packages");
 
 use CGI::Carp qw(fatalsToBrowser); 
-#use strict;
 use IO::Socket;
 #use URI;
 
@@ -44,11 +46,6 @@ my @EXPORT = qw(
 		getsDocVers 		myPing
 	    );
 
-use constant MANAGER       => 'landing net';    # manager's name
-use constant AUTHOR        => 'flotilla reindeer';    # Author's name
-use constant COMPAGNY      => 'shark bait';         # That's for fun
-use constant MY_WEBSITE    => 'http://dorey.sebastien.free.fr';    # That's author's url
-use constant ROOT_DEPOSIT  => '../'; # To store information
 
 =head1 NAME
 
@@ -228,39 +225,40 @@ None.
 =cut
 
 sub finds_directory_where_are_stored_images {  # begin sub finds_directory_where_are_stored_images
-	#my $directory_where_are_stored_imagess=ROOT_DESPOSIT;
-
-	if ( -d "../img/" ) {             # begin if (-d "../img/")
-		return ROOT_DEPOSIT . "img/";
-	}    # End if (-d "../img/")
-	elsif ( -d "../image/" ) {    # begin elsif (-d "../image")
-		return ROOT_DEPOSIT . "image/";
-	}    # End elsif (-d "../image")
-	elsif ( -d "../images/" ) {    # begin elsif (-d "../images")
-		return ROOT_DEPOSIT . "images/";
-	}    # End elsif (-d "../images")
-	elsif ( -d "../Image/" ) {    # begin elsif (-d "../Image")
-		return ROOT_DEPOSIT . "image/";
-	}    # End elsif (-d "../Image")
-	elsif ( -d "../IMAGE/" ) {    # begin elsif (-d "../IMAGE")
-		return ROOT_DEPOSIT . "IMAGE/";
-	}    # End elsif (-d "../IMAGE")
-	elsif ( -d "../IMAGES" ) {    # begin elsif (-d "../IMAGES")
-		return ROOT_DEPOSIT . "IMAGES/";
-	}    # End elsif (-d "../IMAGES")
-	elsif ( -d "../Image" ) {    # begin elsif (-d "../Image")
-		return ROOT_DEPOSIT . "Image/";
-	}    # End elsif (-d "../Image")
-	elsif ( -d "../Images" ) {    # begin elsif (-d "../Images")
-		return ROOT_DEPOSIT . "Images/";
-	}    # End elsif (-d "../Images")
+	if ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/img/" ) { # Begin if ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/img/" )
+		return &io::MyConstantBase::ROOT_DEPOSIT->() . "img/";
+	} # End if ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/img/" )
+	elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/image/" ) { # Begin elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/image/" ) 
+		return &io::MyConstantBase::ROOT_DEPOSIT->() . "image/";
+	} # End elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/image/" ) 
+	elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/images/" ) {    # begin elsif (-d "../images")
+		# Begin elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/images/" )
+		return &io::MyConstantBase::ROOT_DEPOSIT->() . "images/";
+	} # End elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/images/" )
+	elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/Image/" ) {    # Begin elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/Image/" ) 
+		return &io::MyConstantBase::ROOT_DEPOSIT->() . "image/";
+	}    # End elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/Image/" ) 
+	elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/IMAGE/" ) {    
+		# Begin elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/IMAGE/" )
+		return &io::MyConstantBase::ROOT_DEPOSIT->() . "IMAGE/";
+	}    # End elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/IMAGE/" )
+	elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/IMAGES" ) { # Begin elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/IMAGES" )
+		return &io::MyConstantBase::ROOT_DEPOSIT->() . "IMAGES/";
+	}   # End elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/IMAGES" )
+	elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/Image" ) {   # Begin elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/Image" ) 
+		return &io::MyConstantBase::ROOT_DEPOSIT->() . "Image/";
+	}    # End elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/Image" ) 
+	elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/Images" ) { 
+		# Begin elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/Images" ) 
+		return &io::MyConstantBase::ROOT_DEPOSIT->() . "Images/";
+	}    # End elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/Images" ) 
 	else {    # begin else
 		# That's the case where no directory was found under the above names.
 		# Case where directory does not exist. we create a directory where all images will be stored.
 		# &error_raised("can't find a directory to store images");
 
-		mkdir( ROOT_DEPOSIT . "images/", 0755 );
-		return ROOT_DEPOSIT . "images/";
+		mkdir( &io::MyConstantBase::ROOT_DEPOSIT->() . "images/", 0755 );
+		return &io::MyConstantBase::ROOT_DEPOSIT->() . "images/";
 	}    # End else
 } # End sub finds_directory_where_are_stored_images
 
@@ -456,7 +454,7 @@ CHECK
 					       -href =>
 					       'mailto:esse.dho@laposte.net?subject=Album of pictures'
 					      },
-					      MANAGER
+					      &io::MyConstantBase::MANAGER->()
 					     )
 				    . 
 				    ";\n Designed by "
@@ -465,7 +463,7 @@ CHECK
 					       -href =>
 					       'mailto:shark.bait@laposte.net?subject=Album of pictures'
 					      },
-					      COMPAGNY
+					      &io::MyConstantBase::COMPAGNY->()
 					     )
 				    . ";\n Written by "
 				    . $doc->a(
@@ -473,7 +471,7 @@ CHECK
 					       -href =>
 					       'mailto:flotilla.reindeer@laposte.net?subject=Album of pictures'
 					      },
-					      AUTHOR
+					      &io::MyConstantBase::AUTHOR->()
 					     )
 				    . "\n".$doc->br
 				    . "\n<font class=\"footer\">Script version "
@@ -1003,7 +1001,9 @@ sub setUrlFile{ # begin setUrlFile
 		}# end for (split(/\//,$locdep))
 	}# end if( !-d "$locdep")
 	else{# begin else
-		open(URL,">>$locdep/maop-$f") or die("$locdep/maop-$f");
+		#$locdep=do_untaint($locdep);
+		$f=&io::MyConstantBase::do_untaint($f);
+		open(URL,">>","$locdep/maop-$f") or die("$locdep/maop-$f");
 		print URL "$p," ;
 		close(URL); 
 	}# end else
@@ -1129,11 +1129,11 @@ sub getsDocVers{# Begin sub getsDocVers
 	my ($orpath,$version)=@_;
 
 	open(R,"${orpath}");
-	@ooo=<R>;
+	my @ooo=<R>;
 	close(R);
-	$oo=join(/\n/,@ooo);
-	@oob=split(/=head2 HISTORY OF MODIFICATIONS/,$oo);
-	@z=split(/=over 4/,$oob[1]);
+	my $oo=join(/\n/,@ooo);
+	my @oob=split(/=head2 HISTORY OF MODIFICATIONS/,$oo);
+	my @z=split(/=over 4/,$oob[1]);
 	$oo=join(/\n/,$z[1]);
 	@z=split(/=back/,$oo);
 	$oo=join(/\n/,$z[0]);
