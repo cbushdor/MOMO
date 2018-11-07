@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Tue Nov  6 23:10:34 2018
+* Last Modified : Wed Nov  7 22:52:28 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -7695,6 +7695,7 @@ sub setGoogleID{# Begin setGoogleID
 						# We create the file that contains data related to trip s.a name, bdate,edate of trip
 						print "</br>where we store data [$tn]</br>";
 						#print "B4 Storing++++++>".getcwd()."<-----<br>\n"; 
+						print "----------------><u>${bdaytime}#${edaytime}#${ltzn_b}#${ltzn_e}</u><br>";
 						
 						$tn=&do_untaint($tn);
 						open(W,">","$tn")||die("Error: [$tn] $!");
@@ -7738,13 +7739,17 @@ sub setGoogleID{# Begin setGoogleID
 						my $mh=&io::MyConstantBase::HOSTED_BY_URL->(); # my host
 						my $lmh=&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(); # my host
 						#$mh=~s/^https{0,1}\:\/\///;
+						my ($tmplmh,$tmpmh)=($lmh,$mh);
 						$loc=~s/(([^\.\:\/]{1,})(\.[^\.\:\/]{1,}){3})/$lmh/;
 						$mh=~m/(([^\.\:\/]{1,})(\.[^\.\:\/]{1,}){2})/;
 						my $nmh=$1;
 						$dist=~s/[0-9]{1,3}(\.[0-9]{1,3}){3}/$nmh/;
 						print "<br>after shaving ------------>dist: $nmh<br>\n";
 						print "after shaving ************>$loc<br>";
-						my $message = "<br><b><u>Trip name/Nom du voyage:</u></b>" . uri_unescape($doc->param('maop_googid')) .  
+						my $message = "<br>IP:$mip\n".
+								"<br>O----------->(loc,dist)=(<u>$tmplmh</u>,<u>$tmpmh</u>)\n".
+						              "<br>T----------->(loc,dist)=(<u>$loc</u>,<u>$dist</u>)\n<br>" .
+								"<br><b><u>Trip name/Nom du voyage:</u></b>" . uri_unescape($doc->param('maop_googid')) .  
 							      "\n<br><b><u>Begining of the trip/Debut du voyage:</u></b>" . uri_unescape($doc->param('maop_bdaytime')) . " " . $tzbt->name . " " . $tzbt->offset_for_local_datetime( $dtb ) .
 							      "\n<br><b><u>End of the trip/Fin du voyage:</u></b>". uri_unescape($doc->param('maop_edaytime')). " " . $tzet->name . " " . $tzet->offset_for_local_datetime( $dte ) .
 							      "\n<br><b><u>Trace trip/Trace du voyage:</u></b><span style='background-color:red'><a href='".$loc."'>trip (lan)</a></span>\n".
