@@ -1,11 +1,13 @@
 #!/opt/local/bin/perl
 
+package io::MyConstantBase;
+
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : MyConstantBase.pm
 * Creation Date : Sun Aug 19 22:51:08 2018
-* Last Modified : Mon Nov  5 00:18:10 2018
+* Last Modified : Thu Nov  8 23:09:49 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.5.12
 * License:
@@ -20,24 +22,41 @@ use warnings;
 use io::MyUtilities;
 
 use vars qw($mip);
+use Exporter qw(import);
+
+our @EXPORT = qw( do_untaint );
 
 # $mip variable declared in the main package
 
 our $toto="testing";
 my $privateToto="testing";
 
+use constant MANAGER       => sub { 'landing net'; };   # manager's name
+use constant AUTHOR        => sub { 'flotilla reindeer'; };   # Author's name
+use constant COMPAGNY      => sub { 'shark bait'; };         # That's for fun
+use constant ROOT_DEPOSIT  => sub { '../'; }; # To store information
+
+use constant AMOUNT_OF_INFO_TO_READ  => sub { ( 2096 * 7 ); }; # That's the amount bite read each time src files read (slot)
+
+#use constant MY_WEBSITE    => sub { 'http://dorey.sebastien.free.fr'; }    # That's author's url
+
+#  album.cgi's file to modify
+#  my $album_directory="album";
+#  my $configuration_file="conf.file";
+#  my $url_demo="http://storm.prohosting.com/dorey/cgi-bin/${main_prog}";
+
 use constant LOCAL_HOSTS_FILE => "/etc/hosts"; # For security issur where to check hosts files
-use constant LOCAL_HOSTED_BY_URL => sub { "192.168.1.13" }; # That's the local url/ip address to reach website
-use constant HOSTED_BY_URL => sub{ "https://dorseb.hopto.org/~sdo/" }; # That's the url of host name
-use constant HOSTED_BY => sub{  "hopto.org"  }; # That's the host name
-use constant CHECK_PID_SESSION => sub{ 'album/pid' }; # Checks previous pid to garanty the session
+use constant LOCAL_HOSTED_BY_URL => sub { "192.168.1.13"; }; # That's the local url/ip address to reach website
+use constant HOSTED_BY_URL => sub{ "https://dorseb.hopto.org/~sdo/"; }; # That's the url of host name
+use constant HOSTED_BY => sub{  "hopto.org";  }; # That's the host name
+use constant CHECK_PID_SESSION => sub{ 'album/pid'; }; # Checks previous pid to garanty the session
 
 # We define a boolean value OK=0
 use constant OK  => sub{ 0; };
 use constant NOK => sub{ ! OK ->(); };
 
 # Where pictures are going to be when upload action is done
-use constant DIRECTORY_DEPOSIT 		=> sub{ io::MyUtilities::finds_directory_where_are_stored_images; };
+use constant DIRECTORY_DEPOSIT 		=> sub{ &io::MyUtilities::finds_directory_where_are_stored_images() };
 use constant TRIP_NAME           	=> sub{ "trips"; }; # Album trips
 use constant TESTED_WITH_BROWSERS    	=> sub{ 'Firefox V27.0.1,Safari V5.1.7,Opera V11.64'; };  # That's browsers tested
 use constant MAX_PAGE_PER_LINE_INDEX 	=> sub{ 20; };  # That's max of page in browser that shows up on one line.
@@ -58,12 +77,25 @@ use constant PATH_GOOGLE_MAP_ID 	=> sub{ "private/id.googlemap.v". GOOGLE_MAP_SC
 use constant PATH_GOOGLE_MAP_TRIP 	=> sub{ "album/trips/"; }; # Where to reach trips
 use constant PATH_GOOGLE_MAP_OPT 	=> sub{ "-0"; }; # Extra option check documentation or comments
 
+
 sub do_untaint { # Begin sub do_untaint
 	my ($myvar) = @_;
 	unless ($myvar =~ m/^(.*)$/) { #allow filename to be [a-zA-Z0-9_]
 		die("Tainted $myvar $!");
 	} return $1;
 } # End sub do_untaint
+
+sub is_tainted { # Begin sub is_tainted
+	my $taint;
+
+	if ( $] >= 5.008 ) { # Begin if ( $] >= 5.008 )
+		$taint = eval '${^TAINT}';
+	} # End if ( $] >= 5.008 )
+	else { # Begin else
+		# some work around ...
+	} # End else
+	$taint;
+} # End sub is_tainted
 
 sub printTest{
 	print "hello world<br>";
@@ -72,6 +104,8 @@ sub printTest{
 sub titi {
 	print "hello world useTestPrint<br>";
 }
+
+#our $my_untaint=\&do_untaint;
 our $useTestPrint = \&titi;
 my $usePrivateTestPrint = \&titi;
 
