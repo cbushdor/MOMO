@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyUtilities.pm
 * Creation Date : Thu Oct 13 22:51:08 2005
-* Last Modified : Mon Nov  5 20:55:58 2018
+* Last Modified : Thu Nov  8 22:38:32 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 1.1.25.60
 * License:
@@ -439,7 +439,7 @@ CHECK
       $doc->table(
 		  {
 		   -class => "footer",
-		   -border => "0",
+		   -border => (${^TAINT}) ? "1" : "0",
 		   -width => '100%'
 		  }, "\n" .
 		  $doc->Tr("\n".
