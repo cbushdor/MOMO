@@ -5,12 +5,12 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Wed Nov  7 22:52:28 2018
+* Last Modified : Thu Nov  8 22:42:41 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.189C
+* Version : 1.6.16.189D
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -111,7 +111,7 @@ use io::MySec;
 our $mip=io::MyNav::gets_ip_address;
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.189C'; # Album release
+use constant ALBUM_REL               	=> '16.189D'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -140,7 +140,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.189C
+$VERSION=1.6.16.189D
 
 =head1 ABSTRACT
 
@@ -223,6 +223,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.189D> Nov 08 2018 Tainted mode finally added to the program and tested. Some corrections were made to make te prgram work agaain as the original.
 
 - I<Last modification:v1.6.16.189C> Nov 05 2018 Tainted mode finally added to the program.
 
@@ -456,7 +458,7 @@ This page is the log book.
 
 - I<Last modification: v1.4.13.9> Oct 24 2009: mp4 or dat or flv file format added.
 
-- I<Last modification: v1.4.13.1> Oct 18 2009: SHOW_PICTURES_ADMIN->() added.
+- I<Last modification: v1.4.13.1> Oct 18 2009: &io::MyConstantBase::SHOW_PICTURES_ADMIN->() added.
 
 - I<Last modification: v1.4.12.0> Oct 04 2009: read comment io::MyNav.pm.
 
@@ -568,6 +570,8 @@ my $logfile=uri_unescape($doc->param("maop_log"));
 #@chomp($param);
 chomp($logfile);
 #print "Content-type:text/html ; charset=UTF-8\n\n";
+#my $c=(${^TAINT}) ? "Tainted<br>\n":"Not tainted<br>\n";
+#print "<br>------->$c<br>\n";
 #print "---->$bdaytime<br>========>$edaytime<br>";
 
 if(-f "debug"){ # Begin if(-f "debug")
@@ -1099,10 +1103,10 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 					close(W);
 					##&raised_upload_window;
 #					sleep(1);
-#					print "ooooooo".ALLOWED_FILE_FORMAT_TYPE->()."<br />";
+#					print "ooooooo".&io::MyConstantBase::ALLOWED_FILE_FORMAT_TYPE->()->()."<br />";
 					if(length(uri_unescape($doc->param("maop_file_name_img")))>0){
 						# watch out case of youtube
-						#$rul=my_upload($doc, uri_unescape($doc->param("maop_file_name_img")), &io::MyConstantBase::DIRECTORY_DEPOSIT->(), "$timsec",ALLOWED_FILE_FORMAT_TYPE->());
+						$rul=my_upload($doc, uri_unescape($doc->param("maop_file_name_img")), &io::MyConstantBase::DIRECTORY_DEPOSIT->(), "$timsec",&io::MyConstantBase::ALLOWED_FILE_FORMAT_TYPE->());
 	#					$file_name=~s!\&\#95;!g;
 					}
 				} # End if ($type_upload eq "Local")
@@ -1140,7 +1144,7 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 		&menu_admin_title();
 		&menu_leave_admin;
 		
-		print "\n<form action='${main_prog}?maop_service=auth&amp;maop_upld=ok' method='post' name=\"adminMenu\"  enctype='multipart/form-data'>\n";
+		print "\n<form action='${main_prog}?maop_service=auth\&maop_upld=ok' method='post' name=\"adminMenu\"  enctype='multipart/form-data'>\n";
 		print "<input type='hidden' name='maop_prev_id' value='$$' />";
 		print "<table width=\"100%\" border=\"0\">\n" . 
 			"<tr>\n<td width=22% bgcolor='#CFD3F6' align='left' valign='top'>\n";
@@ -2123,7 +2127,7 @@ sub admin_menu { # Begin admin_menu
 		print "<input type='hidden' name='maop_line' value='$modify_position_in_page' />\n";
 		print "<input type='hidden' name='maop_file_name_img' value='$modify_file_name' />\n";
 	} # End  if ($an_action ne "modify")
-	&set_language(LANGUAGES->());
+	&set_language(&io::MyConstantBase::LANGUAGES->());
 	print $doc->Tr(
 		$doc->td( {align=>'right'},
 			$doc->input({ type=>'hidden', name=>'maop_upld', value=>'ok'}),
@@ -3490,12 +3494,12 @@ sub shows_list_pictures { # Begin shows_list_pictures
 			print "<td align='center' valign='top'>\n$line[4]/$line[5]</td>\n";# field 6
 
 			if ( $line[3] !~ m/^http\:\/\//i ){ # Begin if ($line[3] !~ m/^http\:\/\//i)
-				if(SHOW_PICTURES_ADMIN->()!=0){ # Begin if(SHOW_PICTURES_ADMIN->()!=0)
+				if(&io::MyConstantBase::SHOW_PICTURES_ADMIN->()!=0){ # Begin if(&io::MyConstantBase::SHOW_PICTURES_ADMIN->()!=0)
 					print "<td align='center' valign='middle'>\n";
 					print "<img src='"
 						. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
 						. "$line[3]' width='75'  height='75' alt='xx' />\n</td>";# field 7
-				} # End if(SHOW_PICTURES_ADMIN->()!=0)
+				} # End if(&io::MyConstantBase::SHOW_PICTURES_ADMIN->()!=0)
 				else { # Begin else
 					print "<td align='left' valign='top'>\n";# field 7
 					
@@ -3753,6 +3757,7 @@ sub remove_picture { # Begin remove_picture
 	#$file_to_remove=~s!&#95;!\_!g;
 	# We remove the image that goes with the associated comment if no more use than once in the album otherwise it is not removed
 	my $local_dir = &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "$file_to_remove";
+	$local_dir=&do_untaint($local_dir);
 	if (-f "$local_dir"){ # Begin if (-f "$local_dir")
 		unlink("$local_dir") || die("$local_dir cannot be removed");
 		$local_dir=~s/\</&#60;/g;
@@ -3833,8 +3838,10 @@ sub clean_pictures { # Begin clean_pictures
 	my (@list) = @_;
 	my $dir =  &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "200*";
 	print "------>$dir<-------------<br>";
-	$dir=&do_untaint($dir);
-	my @l = `ls $dir`;
+	$ENV{PATH}='/bin:/usr/bin:/usr/local/bin';
+	my $s="ls $dir";
+	$s=&do_untaint($s);
+	my @l = `$s`;
 
 	# if (!-f "${album_directory}/to_clean_pictures_according_album_of_pictures_remove_me"){ # Begin if (!-f "${album_directory}/to_clean_pictures_according_album_of_pictures_remove_me")
 	#print "I will try to clean all pictures that were recorded and,<br />removed from the album but that are still on the disk...<br />\n";
@@ -4138,6 +4145,7 @@ sub print_page { # Begin print_page
 	my $my_image = 0;
 	my $my_image_per_page = 2;
 
+	print "----------------->$page_asked<<br>))))))))))))$div<<br>";
 	$div = ( split( /\./, $div ) )[0];
 
 	# We setup min range and max range of page number to show up on the navigator menu of the album.
@@ -4146,6 +4154,7 @@ sub print_page { # Begin print_page
 	# We set up min range and max range of page number to show up on the navigator menu of the album.
 	my $RANK_MAX_PICT_SHOW = &rank_right_navigator_bar_range( $RANK_MIN_PICT_SHOW + ( &io::MyConstantBase::MAX_IMAGES_PER_PAGE->() - 1 ) );
 
+	#print "--------->$file_conf_to_save<br>";
 	open( R, "$file_conf_to_save" ) || error_raised( $doc, "File [$file_conf_to_save] not found!!!" );
 	@all_file = <R>;
 	close(R) || error_raised( $doc, "File [$file_conf_to_save] not found!!!" );
@@ -4162,6 +4171,7 @@ sub print_page { # Begin print_page
 	# Begin Creates navigator menu
 	my $cpt_l=1;
 	foreach (@all_file){ # Begin foreach (@all_file)
+		#print "<u>line:</u>$_<br>\n";
 		if($cpt_l!=0){ # Begin if($cpt_l!=0)
 			chomp($_);
 			# next line to be removed in the near future
