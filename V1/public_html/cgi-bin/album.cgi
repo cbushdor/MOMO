@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Fri Nov  9 13:33:58 2018
+* Last Modified : Fri Nov  9 23:56:10 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -15,8 +15,15 @@ q##//q#
 #;
 # ------------------------------------------------------
 
+use CGI;
+
+my $doc;
 BEGIN {
 	push @INC,"/Users/sdo/Sites/cgi-bin/";
+	$doc=$CGI::Q ||= new CGI;
+}
+END {
+	$doc->delete_all();
 }
 
 use strict;
@@ -535,7 +542,6 @@ my $url_demo="http://storm.prohosting.com/dorey/cgi-bin/${main_prog}";
 
 $|=1;
 
-use CGI;
 #use CGI::Pretty qw( :html4 );
 
 $CGI::Pretty::LINEBREAK="\n\n";
@@ -549,7 +555,6 @@ if( ! -d &io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->() ){mkdir(&io::MyConstantBa
 
 
 # This is document which will help to deal with CGI information
-my $doc=new CGI;
 binmode STDOUT, ':utf8';
 print $doc->header(-type => 'text/html',
 	                   -charset => 'utf-8');
