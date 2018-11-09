@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Thu Nov  8 22:42:41 2018
+* Last Modified : Fri Nov  9 13:33:58 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -109,6 +109,7 @@ use io::MyNav;
 use io::MySec;
 
 our $mip=io::MyNav::gets_ip_address;
+chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
 use constant ALBUM_REL               	=> '16.189D'; # Album release
@@ -7705,12 +7706,13 @@ sub setGoogleID{# Begin setGoogleID
 						# We create the file that contains data related to trip s.a name, bdate,edate of trip
 						print "</br>where we store data [$tn]</br>";
 						#print "B4 Storing++++++>".getcwd()."<-----<br>\n"; 
-						print "----------------><u>${bdaytime}#${edaytime}#${ltzn_b}#${ltzn_e}</u><br>";
+						print "B----------------><u>${bdaytime}#${edaytime}#${ltzn_b}#${ltzn_e}</u><br>";
 						
 						$tn=&do_untaint($tn);
 						open(W,">","$tn")||die("Error: [$tn] $!");
 						print W "${bdaytime}#${edaytime}#${ltzn_b}#${ltzn_e}";
 						close(W);
+						print "E----------------><u>${bdaytime}#${edaytime}#${ltzn_b}#${ltzn_e}</u><br>";
 						# ---------------------------------------------------
 						# format received yyyy-mm-ddThh:mm for params received in maop_bdaytime, maop_edaytime
 						my ($bdp,$bhp)=split(/T/,uri_unescape($doc->param('maop_bdaytime')));# Begin date trip param,begin hour trip param
@@ -7719,6 +7721,7 @@ sub setGoogleID{# Begin setGoogleID
 						my ($bhh,$bhm)=split(/\:/,$bhp);# Begin hour hour,begin hour minute
 						my ($edy,$edm,$edd)=split(/\-/,$bdp);# End day year, end day month, end day day
 						my ($ehh,$ehm)=split(/\:/,$bhp);# End hour hour,end hour minute
+						print "begin 1 datetime<br>";
 						my $dtb= DateTime->new( year       => $bdy,
 									month      => $bdm,
 									day        => $bdd,
@@ -7726,6 +7729,8 @@ sub setGoogleID{# Begin setGoogleID
 									minute     => $bhm,
 									second     => 0,
 								); # creates object date time for begining of the trip
+						print "end 1 datetime<br>";
+						print "begin 2 datetime<br>";
 						my $dte= DateTime->new( year       => $edy,
 									month      => $edm,
 									day        => $edd,
@@ -7733,39 +7738,35 @@ sub setGoogleID{# Begin setGoogleID
 									minute     => $ehm,
 									second     => 0,
 								); # creates object date time for end of the trip
+						print "end 2 datetime<br>";
 						# ---------------------------------------------------
+						print "A-<br>";
 						my $loc_maop_ltzn_b=uri_unescape($doc->param('maop_ltzn_b'));
+						print "B-<br>";
 						my $tzbt=DateTime::TimeZone->new( name => $loc_maop_ltzn_b ); # Time zone begining of the trip
-						my $tzet=DateTime::TimeZone->new( name => uri_unescape($doc->param('maop_ltzn_e')) ); # Time zone end of the trip
+						print "C-<br>";
+						my $loc_maop_ltzn_e=uri_unescape($doc->param('maop_ltzn_e'));
+						my $tzet=DateTime::TimeZone->new( name => $loc_maop_ltzn_e ); # Time zone end of the trip
+						print "D-<br>";
 						my $to = uri_unescape($doc->param("maop_email"));
+						print "E-<br>";
 						my $from = 'Bot from MAOP<shark.b@laposte.net>';
+						print "F-<br>";
 						my $maop_url_loc = uri_unescape($doc->param('maop_url')); $maop_url_loc=~s/[\n\t\ ]*$//; # watch out there is a variable that already contains that value it is $mgidt in another word we shave all characters that are at the end of the memory taken from parameter
+						my $maop_url_loc2 = uri_unescape($doc->param('maop_url')); $maop_url_loc2=~s/[\n\t\ ]*$//; # watch out there is a variable that already contains that value it is $mgidt in another word we shave all characters that are at the end of the memory taken from parameter
+						print "G-<br>";
 						my $subject = "Info regarding trip name:" . uri_unescape($doc->param('maop_googid')); 
-						my $dist=$maop_url_loc;
-						my $loc=$maop_url_loc;
-						# "https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_googid=20180228%20Tests&maop_gmv=3-0";
-						print "************>$loc<br>";
-						#sleep(200);
-						my $mh=&io::MyConstantBase::HOSTED_BY_URL->(); # my host
-						my $lmh=&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(); # my host
-						#$mh=~s/^https{0,1}\:\/\///;
-						my ($tmplmh,$tmpmh)=($lmh,$mh);
-						$loc=~s/(([^\.\:\/]{1,})(\.[^\.\:\/]{1,}){3})/$lmh/;
-						$mh=~m/(([^\.\:\/]{1,})(\.[^\.\:\/]{1,}){2})/;
-						my $nmh=$1;
-						$dist=~s/[0-9]{1,3}(\.[0-9]{1,3}){3}/$nmh/;
-						print "<br>after shaving ------------>dist: $nmh<br>\n";
-						print "after shaving ************>$loc<br>";
-						my $message = "<br>IP:$mip\n".
-								"<br>O----------->(loc,dist)=(<u>$tmplmh</u>,<u>$tmpmh</u>)\n".
-						              "<br>T----------->(loc,dist)=(<u>$loc</u>,<u>$dist</u>)\n<br>" .
-								"<br><b><u>Trip name/Nom du voyage:</u></b>" . uri_unescape($doc->param('maop_googid')) .  
-							      "\n<br><b><u>Begining of the trip/Debut du voyage:</u></b>" . uri_unescape($doc->param('maop_bdaytime')) . " " . $tzbt->name . " " . $tzbt->offset_for_local_datetime( $dtb ) .
+						my $loc=&io::MyConstantBase::PROTO_USED->().&io::MyConstantBase::LOCAL_HOSTED_BY_URL->().&io::MyConstantBase::WEB_ACCOUNT->() ."cgi-bin/maop.cgi\?maop_googid=". uri_unescape($doc->param('maop_googid'));
+						my $dist=&io::MyConstantBase::PROTO_USED->().&io::MyConstantBase::DISTANT_HOSTED_BY_URL->().&io::MyConstantBase::WEB_ACCOUNT->()."cgi-bin/maop.cgi\?maop_googid=". uri_unescape($doc->param('maop_googid'));
+						my $loc_map=&io::MyConstantBase::PROTO_USED->().&io::MyConstantBase::LOCAL_HOSTED_BY_URL->().&io::MyConstantBase::WEB_ACCOUNT->() ."cgi-bin/maop.cgi\?maop_googid=". uri_unescape($doc->param('maop_googid')).'&maop_gmv='.&io::MyConstantBase::MAP_VER_IN_USE->().'&maop_prog='.&io::MyConstantBase::MAP_PROG->();
+						my $dist_map=&io::MyConstantBase::PROTO_USED->().&io::MyConstantBase::DISTANT_HOSTED_BY_URL->().&io::MyConstantBase::WEB_ACCOUNT->()."cgi-bin/maop.cgi\?maop_googid=". uri_unescape($doc->param('maop_googid')).'&maop_gmv='.&io::MyConstantBase::MAP_VER_IN_USE->().'&maop_prog='.&io::MyConstantBase::MAP_PROG->();
+
+						my $message = "\n<br><b><u>Begining of the trip/Debut du voyage:</u></b>" . uri_unescape($doc->param('maop_bdaytime')) . " " . $tzbt->name . " " . $tzbt->offset_for_local_datetime( $dtb ) .
 							      "\n<br><b><u>End of the trip/Fin du voyage:</u></b>". uri_unescape($doc->param('maop_edaytime')). " " . $tzet->name . " " . $tzet->offset_for_local_datetime( $dte ) .
 							      "\n<br><b><u>Trace trip/Trace du voyage:</u></b><span style='background-color:red'><a href='".$loc."'>trip (lan)</a></span>\n".
-								  "<span style='background-color:green'><a href='".$dist."'>trip (network)</a></span>\n".
-							      "\n<br><b><u>Watch map regarding trip/Regarder le voyage sur une carte:</u></b><span style='background-color:red'><a href='".$loc. "\&maop_prog=g3ogle.cgi'>trip (local)</a></span>\n ".
-							      "<span style='background-color:green'><a href='".$dist. "\&maop_prog=g3ogle.cgi'>trip (distant)</a></span>\n<br>".
+							      "<span style='background-color:green'><a href='".$dist."'>trip (network)</a></span>\n".
+							      "\n<br><b><u>Watch map regarding trip/Regarder le voyage sur une carte:</u></b><span style='background-color:red'><a href='".$loc_map. "'>trip (local)</a></span>\n ".
+							      "<span style='background-color:green'><a href='".$dist_map. "'>trip (distant)</a></span>\n<br>".
 								"Friendly yours,<br>Bot from MAOP\n";
 
 								$ENV{PATH}='/bin:/usr/bin:/usr/local/bin';
