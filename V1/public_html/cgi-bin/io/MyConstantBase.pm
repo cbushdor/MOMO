@@ -7,7 +7,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyConstantBase.pm
 * Creation Date : Sun Aug 19 22:51:08 2018
-* Last Modified : Thu Nov  8 23:09:49 2018
+* Last Modified : Fri Nov  9 13:31:30 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.5.12
 * License:
@@ -19,6 +19,7 @@ q##//q#
 
 use strict;
 use warnings;
+use CGI;
 use io::MyUtilities;
 
 use vars qw($mip);
@@ -28,6 +29,7 @@ our @EXPORT = qw( do_untaint );
 
 # $mip variable declared in the main package
 
+my $mycgi=CGI->new;
 our $toto="testing";
 my $privateToto="testing";
 
@@ -46,10 +48,15 @@ use constant AMOUNT_OF_INFO_TO_READ  => sub { ( 2096 * 7 ); }; # That's the amou
 #  my $url_demo="http://storm.prohosting.com/dorey/cgi-bin/${main_prog}";
 
 use constant LOCAL_HOSTS_FILE => "/etc/hosts"; # For security issur where to check hosts files
+use constant PROTO_USED => sub { ($mycgi->https()=~m/on/) ? "https://" : "http"; } ;
 use constant LOCAL_HOSTED_BY_URL => sub { "192.168.1.13"; }; # That's the local url/ip address to reach website
-use constant HOSTED_BY_URL => sub{ "https://dorseb.hopto.org/~sdo/"; }; # That's the url of host name
+use constant DISTANT_HOSTED_BY_URL => sub { "dorseb.hopto.org"; }; # That's the local url/ip address to reach website
+use constant WEB_ACCOUNT => sub { '/~sdo/'; }; # Account where to access website 
+use constant HOSTED_BY_URL => sub{ PROTO_USED->() . DISTANT_HOSTED_BY_URL->(). WEB_ACCOUNT->(); }; # That's the url of host name
 use constant HOSTED_BY => sub{  "hopto.org";  }; # That's the host name
 use constant CHECK_PID_SESSION => sub{ 'album/pid'; }; # Checks previous pid to garanty the session
+use constant MAP_VER_IN_USE => sub { "3-0"; };
+use constant MAP_PROG => sub { "g3ogle.cgi"; };
 
 # We define a boolean value OK=0
 use constant OK  => sub{ 0; };
