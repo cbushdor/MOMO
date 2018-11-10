@@ -5,12 +5,12 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Fri Nov  9 23:56:10 2018
+* Last Modified : Sat Nov 10 01:01:01 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.189D
+* Version : 1.6.16.189E
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -19,11 +19,12 @@ use CGI;
 
 my $doc;
 BEGIN {
-	push @INC,"/Users/sdo/Sites/cgi-bin/";
-	$doc=$CGI::Q ||= new CGI;
+	push @INC,"/Users/sdo/Sites/cgi-bin/"; # We add a new path to @INC
+	# A bug was solved and that's it was "...but still, the newly generated form has al the values from the previous form...".
+	$doc=$CGI::Q ||= new CGI; # It is using the special internal $CGI::Q object, rather than your 'my $doc' object that's why we do this.
 }
 END {
-	$doc->delete_all();
+	$doc->delete_all(); # We clean all variables and parameters when the script is over
 }
 
 use strict;
@@ -119,7 +120,7 @@ our $mip=io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.189D'; # Album release
+use constant ALBUM_REL               	=> '16.189E'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -148,7 +149,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.189D
+$VERSION=1.6.16.189E
 
 =head1 ABSTRACT
 
@@ -231,6 +232,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.189F> Nov 09 2018 old data staid in the form even if the content of it is new. This bug was solved in the field BEGIN and END.
 
 - I<Last modification:v1.6.16.189D> Nov 08 2018 Tainted mode finally added to the program and tested. Some corrections were made to make te prgram work agaain as the original.
 
