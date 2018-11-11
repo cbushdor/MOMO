@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Sat Nov 10 01:01:01 2018
+* Last Modified : Sun Nov 11 01:47:05 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -693,7 +693,8 @@ if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	exit(0);
 } # End if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 
-my $locweaf=&io::MyConstantBase::ALBUM_INFO_HIST_DIRECTORY->() ."wfc_data.$lon.$lat.$$.".time().".xml";# file for local weather
+#my $locweaf=&io::MyConstantBase::ALBUM_INFO_HIST_DIRECTORY->() ."wfc_data.$lon.$lat.$$.".time().".xml";# file for local weather
+my $locweaf=&io::MyConstantBase::ALBUM_INFO_HIST_DIRECTORY->() ."wfc_data-$$-".time().".xml";# file for local weather
 
 # ----------------------------------------------------------------------------------------------
 # format solved - missing but need to check if lon lat can have negative values
@@ -715,17 +716,6 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	# -------------------------------------------------------
 	
 	print "Content-Type: text/html ; charset=UTF-8\n\n";
-	#print "azerty 5<br>";
-	#print "case 1<br>";exit(1);
-	#if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!){ # Begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
-		#$url="http://localhost/~sdo/cgi-bin/maop.cgi";
-	#} # End if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
-	#else{ # Begin else
-		#$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
-	#} # End else
-
-
-	# &myrecmyrec("Case 4 ($lon - $lat) longitude exists and as proper format <i>$url</i>","../error.html","(! defined($lon)||length($lon)==0||$lon!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
 	my $t="* <u>($lon)</u> ======== * defined(lon):".((defined($lon)) ? " defined" : " not defined")." <b>=====</b> "
 		."* length(lon)==0: ".((length($lon)==0) ? " length is zero ":" length is not zero ")." <b>=====</b> "
 		."* lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/".(($lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/) ? " not defined for this reg exp " : " defined for this reg exp ")." <b>=====</b> ";
@@ -735,30 +725,6 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	exit(0);
 } # End if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 else{ # Begin else
-	my $wfcu="http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=$lat,$lon";
-	my $xml = new XML::Simple;
-
-	#print "azerty 6<br>";
-	# &myrecmyrec("Case 9.0 ($lon - $lat) logfile format <i>$url</i>","../error.html","try to contact weather center");
-	#print "Content-Type: text/html ; charset=UTF-8\n\n";
-	#print "--------------------->bef $locweaf rec<------<br>\n$wfcu<br>";
-	try { # Begin try
-		# Weather center
-		my $wfc=get("$wfcu");
-
-		#print "--------------------->$locweaf rec<------<br>$wfc\n";
-		open(W,">$locweaf") or die("error $!");
-		print W $wfc;
-		close(W) or die("error $!");
-		my $data = $xml->XMLin("$locweaf") or die("error $locweaf $!");
-	} # End try
-	catch { # Begin catch
-		if( -e "$locweaf"){ # Begin if( -e "$locweaf")
-			unlink("$locweaf") or die("error $!");
-			# &myrecmyrec("Case 9.1 ($lon - $lat) logfile format <i>$url</i>","../error.html","once weather center contacted catch error and rem file $locweaf");
-		} # End if( -e "$locweaf")
-	}; # End catch
-	# &myrecmyrec("Case 9.2 ($lon - $lat) logfile format <i>$url</i>","../error.html","weather center contacted");
 } # End else
 
 #if($url=~m/dorey/||$url=~m!${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL}!){ # Begin if($url=~m/dorey/||$url=~m!${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL}!)
@@ -931,6 +897,25 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 		else { # Begin  $dte>=$dt3
 			print "<h1>We record $dtb<$dt3<$dte</h1></br>";
 			$mtfn="${mgidt}-" . &io::MyConstantBase::TRIP_NAME->(); 
+	my $wfcu="http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=$lat,$lon";
+	my $xml = new XML::Simple;
+
+	#print "Content-Type: text/html ; charset=UTF-8\n\n";
+	#print "weather ----- $lat,$lon ---------------->bef $locweaf rec<------<br>\n$wfcu<br>";
+	try { # Begin try
+		# Weather center
+		my $wfc=get("$wfcu");
+
+		open(my $WOO,'>'."$locweaf") || die("error $!");
+		print $WOO $wfc;
+		close($WOO) || die("error $!");
+		my $data = $xml->XMLin("$locweaf") or die("error $locweaf $!");
+	} # End try
+	catch { # Begin catch
+		if( -e "$locweaf"){ # Begin if( -e "$locweaf")
+			unlink("$locweaf") or die("error $!");
+		} # End if( -e "$locweaf")
+	}; # End catch
 		} # End  $dte>=$dt3
 	} # End else $dtb<=$dt3
 } # End if(-f "$tn")
@@ -1228,7 +1213,7 @@ elsif ( ${service} eq "showPict" ){ # Begin elsif ( ${service} eq "showPict" )
 } # End elsif ( ${service} eq "showPict" )
 else { # Begin else 
 #print "<!-- 5 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
-	my $u=();
+	my $u="";
 	my $locpa=((uri_unescape($doc->param("maop_page"))=~m/[0-9]+/) ? uri_unescape($doc->param("maop_page")) : 1 );
 
 	&create_dir;# Creates infrastructure directories,...
@@ -1251,7 +1236,7 @@ else { # Begin else
 #print "<!-- 1111115 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 	print $main_page;
 	my $oppp=io::MyTime::gets_formated_date;
-	my $llll_l=();
+	my $llll_l="";
 	#print "------------weather----------------->$locweaf<br>";
 	my @llll_res=($lon,$lat,$mtfn,(-e "$locweaf") ? "$locweaf" : "-",$date_ticket);# from ip address gets geoloc coordinates, trip name,weather stuff
 	foreach (@llll_res){ # Begin foreach (@llll_res)
