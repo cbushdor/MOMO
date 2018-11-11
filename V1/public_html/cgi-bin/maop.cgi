@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : maop.cgi
 * Creation Date : Wed Aug 19 15:51:08 2015
-* Last Modified : Mon Nov  5 14:37:19 2018
+* Last Modified : Sun Nov 11 04:00:34 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -31,11 +31,20 @@ use Cwd;
 use URI;
 use URI::Escape;
 
-$|=1;
-my $now_string = time(); # strftime "%m %d %H:%M:%S UTC %Y", gmtime;
-my $VERSION="1.0.12.25";
+my $VERSION="1.0.12.29";
 
-my $doc = new CGI;
+my $doc;
+my $now_string = time(); # strftime "%m %d %H:%M:%S UTC %Y", gmtime;
+BEGIN {
+	push @INC,"/Users/sdo/Sites/cgi-bin/"; # We add a new path to @INC
+	# A bug was solved and that's it was "...but still, the newly generated form has al the values from the previous form...".
+	$|=1;
+	$doc=$CGI::Q ||= new CGI; # It is using the special internal $CGI::Q object, rather than your 'my $doc' object that's why we do this.
+}
+END {
+	$doc->delete_all(); # We clean all variables and parameters when the script is over
+}
+
 my $ip=io::MyNav::gets_ip_address;
 my $ipAddr=io::MyNav::gets_ip_address;
 my $logfile="album/hist/log-$ipAddr-$$";
@@ -63,13 +72,15 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 		   $p!~m/^maop_date$/&&
 		   $p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 			my $pram=$doc->param($p);
-			print "****>>>>>>>$p --->$pram<br>\n";
+			#print "****>>>>>>>$p --->$pram<br>\n";
 			#print "****>>>>>>>$p --->".$doc->param($p)."<br>\n";
 			#chomp($pram);
-			if (length($pram)>0) { # Begin if (length($pram)>0)
-				#$dec=uri_escape($pram, "\0-\377") || die ("Error: $!");;
-				$mparam.="&$p=$pram";
-			} # End if (length($pram)>0)
+			if($mparam!~m/[\?\&]$p\=/){
+				if (length($pram)>0) { # Begin if (length($pram)>0)
+					#$dec=uri_escape($pram, "\0-\377") || die ("Error: $!");;
+					$mparam.="\&$p=$pram";
+				} # End if (length($pram)>0)
+			}
 		}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 		elsif ($p!~m/^maop_lat$/){ # begin elsif ($p!~m/^maop_lat$/)
 #&myrec("Case logfile format maop ","../error.html","****** $la" );
@@ -84,9 +95,9 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 } # end foreach my $p ($doc->param)
 #print REC "\n----------------END----------<br>\n";
 close(REC);
-#sleep(40);
 #&myrec("Case logfile format maop ","../error.html","logfile: $logfile *****(lo,la)=($lo,$la)" );
 #print "oooooooo>$mparam<br>";
+#sleep(40);
 
 my $prog=(length($doc->param("maop_prog"))==0) ? "album.cgi" : $doc->param("maop_prog");
 
