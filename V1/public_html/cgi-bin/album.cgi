@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Sun Nov 11 01:47:05 2018
+* Last Modified : Mon Nov 12 04:04:02 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -5021,7 +5021,7 @@ function timeCalculusB(value){
 									"Début voyage:Selectionnez un fuseau horaire en premier.");
 	} // End if (value=="")
 	else{ // Begin else
-		document.myform.maop_bdaytime.value = nowMoment.tz(mtz).add('minutes',5).format(formISO);
+		document.myform.maop_bdaytime.value = nowMoment.tz(mtz).add(5,'minutes').format(formISO);
 		//document.getElementById('err').innerHTML = document.myform.maop_bdaytime.value;
 	} // End else
 }
@@ -5040,7 +5040,7 @@ function timeCalculusE(value){
 									"Fin du voyage: selectionnez un fuseau horaire en premier.");
 	} // End if (value=="")
 	else{ // Begin else
-		document.myform.maop_edaytime.value = nowMoment.tz(mtz).add('minutes',5).format(formISO);
+		document.myform.maop_edaytime.value = nowMoment.tz(mtz).add(5,'minutes').format(formISO);
 	} // End else
 }
 
@@ -5121,13 +5121,14 @@ function calc(){ /*  Begin function calc() */
 		else{ /*  Begin else */
 			if (meot1>mbot1) {
 				var lag=0;
-				document.getElementById('err').innerHTML = "<input type='submit' onclick='validForm()'>"+
+				document.getElementById('err').innerHTML = "<input type='submit' onclick='validForm();'>"+
 										"<input type='hidden' name='maop_url' value='"+r+"'/>";
 										/*
 										+ "----->"+getTimeZone()+ "<-----"+
 										"<input type='hidden' name='maop_tz_offset' value='"+lag+"'/>";
 										*/
 
+				// function validForm() not working fine : not called in the input field above
 				function validForm(){ // Begin function validForm()
 					for (var i = 0; i < myForms.elements.length; i++) { // Begin for (var i = 0; i < myForms.elements.length; i++)
 						if(myForms.elements[i].value != "Checks dates"){ // Begin if(myForms.elements[i].value != "Checks dates")
@@ -6581,13 +6582,13 @@ function myList(){ /*  Begin function myList() */
 		"<input type='hidden' name='maop_service' value='check' />" +
 		"<input type='hidden' name='maop_ssection' value='adminGroup' />" +
 		"<input type='hidden' name='maop_TRIP_ID' value='ok' />" +
-		"Trip name/Nom du voyage:<input type='text' name='maop_googid' /> " +
+		"Trip name/Nom du voyage:<input type='text' name='maop_googid' pattern='[a-zA-Z0-9 +*-_\\/]+' title='a-zA-Z0-9 +*-_\\/'/> " +
 		"<br>Email address to send / Addresse mail pour envoie de courriel: <input type='email' name='maop_email' value='dorey_s\@laposte.net'>" +
 		"<br>Begining of the trip/Début du voyage<input type='datetime-local' name='maop_bdaytime' value='--' onchange='calc()'>"+
 		"$ltznb" +
 		"<br>End of the trip/Fin du voyage<input type='datetime-local' name='maop_edaytime' value='--' onchange='calc()'>"+
 		"$ltzne" +
-		"<br><input type='button' onclick='calc()' value='Checks dates'>" +
+		"<br><input type='button' onclick='calc()' value='Checks dates oki ducky'>" +
 		'<div id="err"></div>';
 	} /*  End else if(choice.match("Add")) */
 	else{ /*  Begin else */
@@ -7699,13 +7700,13 @@ sub setGoogleID{# Begin setGoogleID
 						# We create the file that contains data related to trip s.a name, bdate,edate of trip
 						print "</br>where we store data [$tn]</br>";
 						#print "B4 Storing++++++>".getcwd()."<-----<br>\n"; 
-						print "B----------------><u>${bdaytime}#${edaytime}#${ltzn_b}#${ltzn_e}</u><br>";
+						#print "B----------------><u>${bdaytime}#${edaytime}#${ltzn_b}#${ltzn_e}</u><br>";
 						
 						$tn=&do_untaint($tn);
 						open(W,">","$tn")||die("Error: [$tn] $!");
 						print W "${bdaytime}#${edaytime}#${ltzn_b}#${ltzn_e}";
 						close(W);
-						print "E----------------><u>${bdaytime}#${edaytime}#${ltzn_b}#${ltzn_e}</u><br>";
+						#print "E----------------><u>${bdaytime}#${edaytime}#${ltzn_b}#${ltzn_e}</u><br>";
 						# ---------------------------------------------------
 						# format received yyyy-mm-ddThh:mm for params received in maop_bdaytime, maop_edaytime
 						my ($bdp,$bhp)=split(/T/,uri_unescape($doc->param('maop_bdaytime')));# Begin date trip param,begin hour trip param
@@ -7714,7 +7715,7 @@ sub setGoogleID{# Begin setGoogleID
 						my ($bhh,$bhm)=split(/\:/,$bhp);# Begin hour hour,begin hour minute
 						my ($edy,$edm,$edd)=split(/\-/,$bdp);# End day year, end day month, end day day
 						my ($ehh,$ehm)=split(/\:/,$bhp);# End hour hour,end hour minute
-						print "begin 1 datetime<br>";
+						#print "begin 1 datetime<br>";
 						my $dtb= DateTime->new( year       => $bdy,
 									month      => $bdm,
 									day        => $bdd,
@@ -7722,8 +7723,8 @@ sub setGoogleID{# Begin setGoogleID
 									minute     => $bhm,
 									second     => 0,
 								); # creates object date time for begining of the trip
-						print "end 1 datetime<br>";
-						print "begin 2 datetime<br>";
+								#print "end 1 datetime<br>";
+								#print "begin 2 datetime<br>";
 						my $dte= DateTime->new( year       => $edy,
 									month      => $edm,
 									day        => $edd,
@@ -7731,23 +7732,23 @@ sub setGoogleID{# Begin setGoogleID
 									minute     => $ehm,
 									second     => 0,
 								); # creates object date time for end of the trip
-						print "end 2 datetime<br>";
+								#print "end 2 datetime<br>";
 						# ---------------------------------------------------
-						print "A-<br>";
+						#print "A-<br>";
 						my $loc_maop_ltzn_b=uri_unescape($doc->param('maop_ltzn_b'));
-						print "B-<br>";
+						#print "B-<br>";
 						my $tzbt=DateTime::TimeZone->new( name => $loc_maop_ltzn_b ); # Time zone begining of the trip
-						print "C-<br>";
+						#print "C-<br>";
 						my $loc_maop_ltzn_e=uri_unescape($doc->param('maop_ltzn_e'));
 						my $tzet=DateTime::TimeZone->new( name => $loc_maop_ltzn_e ); # Time zone end of the trip
-						print "D-<br>";
+						#print "D-<br>";
 						my $to = uri_unescape($doc->param("maop_email"));
-						print "E-<br>";
+						#print "E-<br>";
 						my $from = 'Bot from MAOP<shark.b@laposte.net>';
-						print "F-<br>";
+						#print "F-<br>";
 						my $maop_url_loc = uri_unescape($doc->param('maop_url')); $maop_url_loc=~s/[\n\t\ ]*$//; # watch out there is a variable that already contains that value it is $mgidt in another word we shave all characters that are at the end of the memory taken from parameter
 						my $maop_url_loc2 = uri_unescape($doc->param('maop_url')); $maop_url_loc2=~s/[\n\t\ ]*$//; # watch out there is a variable that already contains that value it is $mgidt in another word we shave all characters that are at the end of the memory taken from parameter
-						print "G-<br>";
+						#print "G-<br>";
 						my $subject = "Info regarding trip name:" . uri_unescape($doc->param('maop_googid')); 
 						my $loc=&io::MyConstantBase::PROTO_USED->().&io::MyConstantBase::LOCAL_HOSTED_BY_URL->().&io::MyConstantBase::WEB_ACCOUNT->() ."cgi-bin/maop.cgi\?maop_googid=". uri_unescape($doc->param('maop_googid'));
 						my $dist=&io::MyConstantBase::PROTO_USED->().&io::MyConstantBase::DISTANT_HOSTED_BY_URL->().&io::MyConstantBase::WEB_ACCOUNT->()."cgi-bin/maop.cgi\?maop_googid=". uri_unescape($doc->param('maop_googid'));
