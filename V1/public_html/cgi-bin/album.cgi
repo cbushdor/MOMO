@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Tue Nov 13 01:34:44 2018
+* Last Modified : Fri Nov 16 23:16:22 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -592,11 +592,11 @@ else{ # Begin else
 
 my $mparam=();
 
-	my $gurl =();# google url get data time zone name for instance
-	my $gjson=();# json object return from get with $gurl
-	my $json_obj = ();# json object
-	my $pperl = ();# gjson decoded to perl hash
-	my $mtzg=();
+	#my $gurl =();# google url get data time zone name for instance
+	#my $gjson=();# json object return from get with $gurl
+	#my $json_obj = ();# json object
+	#my #$pperl = ();# gjson decoded to perl hash
+	my $mtzg=();# My Time Zone Global
 
 # Saving parametters
 foreach my $p ($doc->param){ # Begin foreach my $p ($doc->param)
@@ -730,14 +730,9 @@ else{ # Begin else
 #if($url=~m/dorey/||$url=~m!${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL}!){ # Begin if($url=~m/dorey/||$url=~m!${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL}!)
 if($url=~m/$ENV{SERVER_NAME}/){ # Begin if($url=~m/$ENV{SERVER_NAME}/)
 	# Note Last modification:v1.6.16.140
-	# Slight modification here in this scope because get can't retreive anymore content of website.
-	# New get used from different package.
-	$gurl = "https://maps.googleapis.com/maps/api/timezone/json?timestamp=1331161200&location=$lat,$lon&key=$id";
-	my $html = HTTP::Tiny->new->get($gurl) || die "Error:$!"; # Changed from get to HTTP::Tiny->new->get
-	my %h = %$html; # Transtypage to reach the value field
-
-	$pperl = decode_json($h{"content"}) || die("Error: $!");# decode result from previous get (read upper note in this scope)
-	$mtzg=$pperl->{timeZoneId};# my time zone from google
+	# We want to get time zone Id from param
+	$mtzg=uri_unescape($doc->param("maop_myLocalTZ")); # my time zone from google
+	#$pperl->{timeZoneId};
 } # End if($url=~m/$ENV{SERVER_NAME}/)
 # &myrecmyrec("Case 10 ($lon - $lat) logfile format <i>$url</i>","../error.html","------------------everything is fine-----------------------------");
 
@@ -909,6 +904,7 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 		open(my $WOO,'>'."$locweaf") || die("error $!");
 		print $WOO $wfc;
 		close($WOO) || die("error $!");
+		print "XXXXXXXXXXXXXXXXXXX><br>$wfc<br><XXXXXXXXXXXXXXXXXXXX<br>\n";
 		my $data = $xml->XMLin("$locweaf") or die("error $locweaf $!");
 	} # End try
 	catch { # Begin catch
@@ -1231,7 +1227,7 @@ else { # Begin else
 	print "</head>";
 	print "<body onload=\"JavaScript:show();\" >" ;
 	#&create_dir;# Creates infrastructure directories,...
-#print "<!-- 2111115 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
+	#print "<!-- 2111115 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 	&main_help_menu_css("$u");
 #print "<!-- 1111115 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 	print $main_page;
@@ -6462,27 +6458,30 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 	#$dt->set_time_zone($mtgz);
 	my $nowMyFormat=join 'T', $dt->ymd, $dt->hms;
 	#print "******************>$nowMyFormat\n";
-# --------------google id
+	# --------------google id
 	#chomp($mtzg);
 	# ---------------done---------------------------------------------------------------------------------- Ruler
-	my $ltznb=" Time zone/Fuseau horaire <select name='maop_ltzn_b' onchange='timeCalculusB(this.value)'>"; # List of time zone names for the begining of the trip
-	my $ltzne=" Time zone/Fuseau horaire <select name='maop_ltzn_e' onchange='timeCalculusE(this.value)'>"; # List of time zone names for the end of the trip
+	my $ltznb=" Time zone/Fuseau horaire <select name='maop_ltzn_b' onchange='timeCalculusB(this.value)' >"; # List of time zone names for the begining of the trip
+	my $ltzne=" Time zone/Fuseau horaire <select name='maop_ltzn_e' onchange='timeCalculusE(this.value)' >"; # List of time zone names for the end of the trip
+	my $tmpltznb="";
+	my $tmpltzne="";
 	$ltznb.="<option value='' selected>--</option>";
 	$ltzne.="<option value='' selected>--</option>";
 	foreach (@{DateTime::TimeZone->all_names}){
 		chomp($_);
 		my $tzfe=uri_escape("$_"); # time zone field encoded
-		#if($_=~m/$mtzg/){
-			#$ltznb.="<option value='$tzfe' selected>$_</option>";
-			#$ltzne.="<option value='$tzfe' selected>$_</option>";
-			#}
-		#else{
-			 $ltznb.="<option value='$tzfe'>$_</option>";
-			 $ltzne.="<option value='$tzfe'>$_</option>";
-			 #}
+		if($_=~m/$mtzg/){
+			$ltznb.="<option value='$tzfe'>$_</option>";
+			$ltzne.="<option value='$tzfe'>$_</option>";
+		} else{
+			 $tmpltznb.="<option value='$tzfe'>$_</option>";
+			 $tmpltzne.="<option value='$tzfe'>$_</option>";
+		}
 	}
-	$ltznb.="</select>";
-	$ltzne.="</select>";
+	$tmpltznb.="</select>";
+	$tmpltzne.="</select>";
+	$ltznb.=$tmpltznb;
+	$ltzne.=$tmpltzne;
 	# ---------------done---------------------------------------------------------------------------------- Ruler
 	print <<MENU;
 <fieldset>
@@ -7396,6 +7395,9 @@ sub firstChoicetMenuadmin{ # Begin firstChoicetMenuadmin
 <br />
 </form>
 <form id="fAdmin" action='${main_prog}?maop_service=auth&amp;maop_maop_upld=ok' method='post' name="maop_adminMenu" enctype='multipart/form-data'>
+MENU
+	print "<input type='hidden' name='maop_myLocalTZ' value='".uri_escape(DateTime::TimeZone->new( name => 'local' )->name())."'>\n";
+	print <<MENU;
 <input type='hidden' name='maop_prev_id' value='$$' />
 <input type='hidden' name='maop_login' value='logi n' />
 <input type='hidden' name='maop_password' value='passwor d' />
