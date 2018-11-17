@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* Last Modified : Sat Oct 27 10:21:22 2018
+* Last Modified : Sat Nov 17 01:23:18 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -46,7 +46,7 @@ our $mip=io::MyNav::gets_ip_address;
 #print "Content-Type: text/html\n\n";
 
 #my $ipAddr=io::MyNav::gets_ip_address;
-my $VERSION="0.2.1.200";
+my $VERSION="0.2.1.212";
 
 =head1 NAME
 
@@ -101,7 +101,16 @@ infoCenter
 =cut
 
 
-my $doc=new CGI;
+my $doc;
+BEGIN {
+	push @INC,"/Users/sdo/Sites/cgi-bin/"; # We add a new path to @INC
+	# A bug was solved and that's it was "...but still, the newly generated form has al the values from the previous form...".
+	$doc=$CGI::Q ||= new CGI; # It is using the special internal $CGI::Q object, rather than your 'my $doc' object that's why we do this.
+}
+END {
+	$doc->delete_all(); # We clean all variables and parameters when the script is over
+}
+
 		{
 			open(REC,">>../rec.html")||die("err: $!");
 			my $tft=gmtime(); #time for test
@@ -580,12 +589,12 @@ sub getsPath{ # begin getsPath
 	#print "size of the array ". scalar(@qq) . "<<<<<<<<<<<<<<<<br>";
 	my $max=scalar(@qq);
 	my $cur=1;
-#use constant PATH_GOOGLE_MAP_TRIP ->() 	=> "album/trips/";
-#use constant TRIP_NAME ->()           	=> "trips"; # Album trips
+#use constant &io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->() 	=> "album/trips/";
+#use constant &io::MyConstantBase::TRIP_NAME->()           	=> "trips"; # Album trips
 		my $mgidt=$doc->param("maop_googid"); #my google id  trip
 		chomp($mgidt);
 
-		my $tn=PATH_GOOGLE_MAP_TRIP ->().$mgidt ."-".TRIP_NAME ->(); # Trip name
+		my $tn=&io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->().$mgidt ."-".&io::MyConstantBase::TRIP_NAME->(); # Trip name
 
 		if ( ! -f "$tn"){ # Begin if ( ! -f "$tn")
 			print "Content-type: text/html\n\n";
