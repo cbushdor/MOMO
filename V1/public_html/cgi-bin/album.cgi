@@ -5,12 +5,12 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Fri Nov 16 23:16:22 2018
+* Last Modified : Sat Nov 17 22:10:03 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.189E
+* Version : 1.6.16.189G
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -120,7 +120,7 @@ our $mip=io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.189E'; # Album release
+use constant ALBUM_REL               	=> '16.189G'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -149,7 +149,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.189E
+$VERSION=1.6.16.189G
 
 =head1 ABSTRACT
 
@@ -232,6 +232,9 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.189G> Nov 17 2018 Form is cleaned properly. TZ loaded properly but still need to be taken.
+
 
 - I<Last modification:v1.6.16.189F> Nov 09 2018 old data staid in the form even if the content of it is new. This bug was solved in the field BEGIN and END.
 
@@ -904,7 +907,7 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 		open(my $WOO,'>'."$locweaf") || die("error $!");
 		print $WOO $wfc;
 		close($WOO) || die("error $!");
-		print "XXXXXXXXXXXXXXXXXXX><br>$wfc<br><XXXXXXXXXXXXXXXXXXXX<br>\n";
+		#print "XXXXXXXXXXXXXXXXXXX><br>$wfc<br><XXXXXXXXXXXXXXXXXXXX<br>\n";
 		my $data = $xml->XMLin("$locweaf") or die("error $locweaf $!");
 	} # End try
 	catch { # Begin catch
