@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Tue Nov 20 11:43:42 2018
+* Last Modified : Tue Nov 20 23:50:57 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -6592,7 +6592,7 @@ function myList(){ /*  Begin function myList() */
 		"<input type='hidden' name='maop_service' value='check' />" +
 		"<input type='hidden' name='maop_ssection' value='adminGroup' />" +
 		"<input type='hidden' name='maop_TRIP_ID' value='ok' />" +
-		"Trip name/Nom du voyage:<input type='text' name='maop_googid' pattern='[a-zA-Z0-9 +*-_]+' title='a-zA-Z0-9 +*-_\\/'/> " +
+		"Trip name/Nom du voyage:<input type='text' name='maop_googid' pattern='[a-zA-Z0-9\ \-\_]+' title='a-zA-Z0-9 \-\_'/> " +
 		"<br>Email address to send / Addresse mail pour envoie de courriel: <input type='email' name='maop_email' value='dorey_s\@laposte.net'>" +
 		"<br>Begining of the trip/Début du voyage<input type='datetime-local' name='maop_bdaytime' value='--' onchange='calc()'>"+
 		"$ltznb" +
@@ -7691,7 +7691,7 @@ sub setGoogleID{# Begin setGoogleID
 	print "if($param_trip=~m/^ok$/)\n<br>";
 #exit(-1);
 	if($param_trip=~m/^ok$/){ # Begin if($param_trip=~m/^ok$/)
-		my $tn=&io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->().$googleid ."-".&io::MyConstantBase::TRIP_NAME->(); # Trip name
+		my $tn=&io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->().uri_escape($googleid)."-".&io::MyConstantBase::TRIP_NAME->(); # Trip name
 		$tn=~s/[\ \n\t]*\-trip/\-trip/;
 		print "Stge 2 [$googleid]".length($googleid)."<br>";
 
@@ -7778,25 +7778,11 @@ sub setGoogleID{# Begin setGoogleID
 
 								$ENV{PATH}='/bin:/usr/bin:/usr/local/bin';
 
-						my $mypath="|/usr/sbin/sendmail -t";
-						$mypath=&do_untaint($mypath);
 						$to=&do_untaint($to);
 						$from=&do_untaint($from);
 						$subject=&do_untaint($subject);
-						#$message=&do_untaint($message);
-						open(MAIL,"$mypath") || die("Error: $!");
-						# Email Header
-						print MAIL "To: $to\n";
-						#print MAIL "To: sebastien.dorey\@laposte.net\n";
-						print MAIL "From: $from\n";
-						print MAIL "MIME-Version: 1.0\n";
-						print MAIL "Content-Type: text/html\n";
-						print MAIL "Subject: $subject\n\n";
-						# Email Body
-						print MAIL $message;
-						close(MAIL) || die("Error: $!");
 
-
+						# ======MAKE ICS FILE======================
 						my ($bdt,$btt)=split(/T/, uri_unescape($doc->param('maop_bdaytime'))); # Begining Date Trip , Begining Time Trip (all departure)
 						my @dbd=split(/\-/,$bdt); # Prune out Date for departure Begining of the trip
 						my @dtd=split(/\:/,$btt); # Prune out Tim for departure Begining of the trip
@@ -7807,31 +7793,67 @@ sub setGoogleID{# Begin setGoogleID
 						my @ebd=split(/\-/,$edt); # Prune out Date for departure Begining of the trip
 						my @etd=split(/\:/,$ett); # Prune out Tim for departure Begining of the trip
 
-my $calendar = Data::ICal->new();
+						my $calendar = Data::ICal->new();
 
-my $vtodo = Data::ICal::Entry::Event->new();
-$vtodo->add_properties(
-			summary => "$subject fun",
-			description => "$message",
-			dtstart => Date::ICal->new ( day => $dbd[2],
-						       month => $dbd[1],
-						       year => $dbd[0],
-						       hour => $dtd[0],
-						       min => $dtd[1],
-						       sec => 00
-						)->ical,
-			dtend => Date::ICal->new(day => $ebd[2],
-						       month => $ebd[1],
-						       year => $ebd[0],
-						       hour => $etd[0],
-						       min => $etd[1],
-						       sec => 00
-						)->ical,
-);
-$calendar->add_entry($vtodo);
-open(WC,">myICal_BranNew.ics")||die("Error iCal: $!");
-print WC $calendar->as_string;
-close(WC)||die("Error iCal: $!");
+						my $vtodo = Data::ICal::Entry::Event->new();
+						$vtodo->add_properties(
+									summary => "$subject fun",
+									description => "$message",
+									dtstart => Date::ICal->new ( day => $dbd[2],
+												       month => $dbd[1],
+												       year => $dbd[0],
+												       hour => $dtd[0],
+												       min => $dtd[1],
+												       sec => 00
+												)->ical,
+									dtend => Date::ICal->new(day => $ebd[2],
+												       month => $ebd[1],
+												       year => $ebd[0],
+												       hour => $etd[0],
+												       min => $etd[1],
+												       sec => 00
+												)->ical,
+						);
+						$calendar->add_entry($vtodo);
+						open(WC,">",&io::MyConstantBase::PATH_FOR_CALENDAR_ICS->())||die("Error iCal: $!");
+						print WC $calendar->as_string;
+						close(WC)||die("Error iCal: $!");
+						# ============================
+
+						#$message=&do_untaint($message);
+					open(FILE, ">", &io::MyConstantBase::BODY_MESS_TO_SEND->()) or die("Cannot open ".&io::BODY_MESS_TO_SEND->().": $!");
+					print FILE "$message";
+					close(FILE);
+					my $attachment=&io::MyConstantBase::PATH_FOR_CALENDAR_ICS->();
+						my $mypath=&io::MyConstantBase::PATH_TO_SENDMAIL_OPT->();
+						$mypath=&do_untaint($mypath);
+						open(MAIL,"$mypath") || die("Error: $!");
+						# Email Header
+						print MAIL "To: $to\n";
+						#print MAIL "To: sebastien.dorey\@laposte.net\n";
+						print MAIL "From: $from\n";
+						print MAIL "Subject: $subject\n";
+					print MAIL "Content-Type: multipart/mixed; boundary=frontier\n";
+					print MAIL "--frontier\n";
+					print MAIL "Content-Type: text/html; charset=us-ascii\n";
+					print MAIL "MIME-Version: 1.0\n\n";
+					open(FILE, "<",  &io::MyConstantBase::BODY_MESS_TO_SEND->() ) or die("Cannot open ".  &io::MyConstantBase::BODY_MESS_TO_SEND->() .":$!");
+					print MAIL <FILE>;
+					close(FILE);
+					print MAIL "\n\n";
+					print MAIL "--frontier\n";
+					chomp(my $basename=`basename $attachment`);
+					print MAIL "Content-Disposition: attachment; filename=$basename\n";
+					print MAIL "Content-Type: text/plain; name=$attachment\n\n";
+					open(FILE, "<", "$attachment") or die "Cannot open $attachment: $!";
+					print MAIL <FILE>;
+					print MAIL "\n";
+					close(FILE);
+						#print MAIL "MIME-Version: 1.0\n";
+						#print MAIL "Content-Type: text/html\n";
+						# Email Body
+						#print MAIL $message;
+						close(MAIL) || die("Error: $!");
 
 						print "A mail to $to is being sent...\n<br>";
 						#print $message;
