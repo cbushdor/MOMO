@@ -7,7 +7,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyConstantBase.pm
 * Creation Date : Sun Aug 19 22:51:08 2018
-* Last Modified : Fri Nov  9 13:31:30 2018
+* Last Modified : Tue Nov 20 23:56:37 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.5.12
 * License:
@@ -83,7 +83,10 @@ use constant GOOGLE_MAP_SCRIPT_VERSION	=> sub{ "3"; }; # Script version to reach
 use constant PATH_GOOGLE_MAP_ID 	=> sub{ "private/id.googlemap.v". GOOGLE_MAP_SCRIPT_VERSION ->(); }; # Where to store info
 use constant PATH_GOOGLE_MAP_TRIP 	=> sub{ "album/trips/"; }; # Where to reach trips
 use constant PATH_GOOGLE_MAP_OPT 	=> sub{ "-0"; }; # Extra option check documentation or comments
-
+use constant PATH_TO_SENDMAIL_OPT	=> sub{ "|/usr/sbin/sendmail -t"; }; # Path to send mail with sendmail and options
+use constant BODY_MESS_TO_SEND		=> sub{ ALBUM_INFO_DIRECTORY->() . "myMessToSend.txt" ; }; # File that old the message to send
+use constant PATH_FOR_CALENDAR_ICS	=> sub{ ALBUM_INFO_DIRECTORY->() . "myICal_BranNew.ics"; } ; # Path where to store ics calendar 
+#"/Users/sdo/Sites/cgi-bin/myICal.ics"
 
 sub do_untaint { # Begin sub do_untaint
 	my ($myvar) = @_;
