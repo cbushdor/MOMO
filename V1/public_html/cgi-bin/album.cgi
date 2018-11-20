@@ -5,12 +5,12 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Sat Nov 17 22:10:03 2018
+* Last Modified : Tue Nov 20 10:41:57 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.189G
+* Version : 1.6.16.189H
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -52,6 +52,10 @@ use HTTP::Tiny;
 use DateTime;
 use DateTime::TimeZone;
 use DateTime::Format::Strptime;
+
+use Data::ICal;
+use Data::ICal::Entry::Event;
+use Date::ICal;
 
 my $debug=0;# 0=false for no debug;1=true for debug
 my $id=();
@@ -120,7 +124,7 @@ our $mip=io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.189G'; # Album release
+use constant ALBUM_REL               	=> '16.189H'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -149,7 +153,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.189G
+$VERSION=1.6.16.189H
 
 =head1 ABSTRACT
 
@@ -232,6 +236,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.189H> Nov 20 2018 Form is cleaned properly. Now ICS file created but not enclosed in email. Not created in proper directory.
 
 - I<Last modification:v1.6.16.189G> Nov 17 2018 Form is cleaned properly. TZ loaded properly but still need to be taken.
 
@@ -7787,6 +7793,43 @@ sub setGoogleID{# Begin setGoogleID
 						# Email Body
 						print MAIL $message;
 						close(MAIL) || die("Error: $!");
+
+
+						my ($bdt,$btt)=split(/T/, uri_unescape($doc->param('maop_bdaytime'))); # Begining Date Trip , Begining Time Trip (all departure)
+						my @dbd=split(/\-/,$bdt); # Prune out Date for departure Begining of the trip
+						my @dtd=split(/\:/,$btt); # Prune out Tim for departure Begining of the trip
+
+						# ----------------------------------
+
+						my ($edt,$ett)=split(/T/, uri_unescape($doc->param('maop_edaytime'))); # End Date Trip , End Time Trip (all Arival)
+						my @ebd=split(/\-/,$edt); # Prune out Date for departure Begining of the trip
+						my @etd=split(/\:/,$ett); # Prune out Tim for departure Begining of the trip
+
+my $calendar = Data::ICal->new();
+
+my $vtodo = Data::ICal::Entry::Event->new();
+$vtodo->add_properties(
+			summary => "$subject fun",
+			description => "$message",
+			dtstart => Date::ICal->new ( day => $dbd[2],
+						       month => $dbd[1],
+						       year => $dbd[0],
+						       hour => $dtd[0],
+						       min => $dtd[1],
+						       sec => 00
+						)->ical,
+			dtend => Date::ICal->new(day => $ebd[2],
+						       month => $ebd[1],
+						       year => $ebd[0],
+						       hour => $etd[0],
+						       min => $etd[1],
+						       sec => 00
+						)->ical,
+);
+$calendar->add_entry($vtodo);
+open(WC,">myICal_BranNew.ics")||die("Error iCal: $!");
+print WC $calendar->as_string;
+close(WC)||die("Error iCal: $!");
 
 						print "A mail to $to is being sent...\n<br>";
 						#print $message;
