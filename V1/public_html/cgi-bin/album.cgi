@@ -5,12 +5,12 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Tue Nov 20 10:41:57 2018
+* Last Modified : Tue Nov 20 11:43:42 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.189H
+* Version : 1.6.16.189Ha
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -124,7 +124,7 @@ our $mip=io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.189H'; # Album release
+use constant ALBUM_REL               	=> '16.189Ha'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -153,7 +153,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.189H
+$VERSION=1.6.16.189Ha
 
 =head1 ABSTRACT
 
@@ -236,6 +236,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.189Ha> Nov 20 2018 Form is cleaned properly. Trip name does not support or bare / character.
 
 - I<Last modification:v1.6.16.189H> Nov 20 2018 Form is cleaned properly. Now ICS file created but not enclosed in email. Not created in proper directory.
 
@@ -6590,7 +6592,7 @@ function myList(){ /*  Begin function myList() */
 		"<input type='hidden' name='maop_service' value='check' />" +
 		"<input type='hidden' name='maop_ssection' value='adminGroup' />" +
 		"<input type='hidden' name='maop_TRIP_ID' value='ok' />" +
-		"Trip name/Nom du voyage:<input type='text' name='maop_googid' pattern='[a-zA-Z0-9 +*-_\\/]+' title='a-zA-Z0-9 +*-_\\/'/> " +
+		"Trip name/Nom du voyage:<input type='text' name='maop_googid' pattern='[a-zA-Z0-9 +*-_]+' title='a-zA-Z0-9 +*-_\\/'/> " +
 		"<br>Email address to send / Addresse mail pour envoie de courriel: <input type='email' name='maop_email' value='dorey_s\@laposte.net'>" +
 		"<br>Begining of the trip/Début du voyage<input type='datetime-local' name='maop_bdaytime' value='--' onchange='calc()'>"+
 		"$ltznb" +
