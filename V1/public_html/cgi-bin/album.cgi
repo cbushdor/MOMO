@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Tue Nov 20 23:50:57 2018
+* Last Modified : Wed Nov 21 01:15:21 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -7844,7 +7844,7 @@ sub setGoogleID{# Begin setGoogleID
 					print MAIL "--frontier\n";
 					chomp(my $basename=`basename $attachment`);
 					print MAIL "Content-Disposition: attachment; filename=$basename\n";
-					print MAIL "Content-Type: text/plain; name=$attachment\n\n";
+					print MAIL "Content-Type: text/calendar; name=$attachment\n\n";
 					open(FILE, "<", "$attachment") or die "Cannot open $attachment: $!";
 					print MAIL <FILE>;
 					print MAIL "\n";
