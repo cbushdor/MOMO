@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Wed Nov 21 01:15:21 2018
+* Last Modified : Thu Nov 22 01:56:27 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -6592,7 +6592,7 @@ function myList(){ /*  Begin function myList() */
 		"<input type='hidden' name='maop_service' value='check' />" +
 		"<input type='hidden' name='maop_ssection' value='adminGroup' />" +
 		"<input type='hidden' name='maop_TRIP_ID' value='ok' />" +
-		"Trip name/Nom du voyage:<input type='text' name='maop_googid' pattern='[a-zA-Z0-9\ \-\_]+' title='a-zA-Z0-9 \-\_'/> " +
+		"Trip name/Nom du voyage:<input type='text' name='maop_googid' pattern='[^#/]+' /> " +
 		"<br>Email address to send / Addresse mail pour envoie de courriel: <input type='email' name='maop_email' value='dorey_s\@laposte.net'>" +
 		"<br>Begining of the trip/Début du voyage<input type='datetime-local' name='maop_bdaytime' value='--' onchange='calc()'>"+
 		"$ltznb" +
@@ -7691,7 +7691,8 @@ sub setGoogleID{# Begin setGoogleID
 	print "if($param_trip=~m/^ok$/)\n<br>";
 #exit(-1);
 	if($param_trip=~m/^ok$/){ # Begin if($param_trip=~m/^ok$/)
-		my $tn=&io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->().uri_escape($googleid)."-".&io::MyConstantBase::TRIP_NAME->(); # Trip name
+		#my $tn=&io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->().uri_escape($googleid)."-".&io::MyConstantBase::TRIP_NAME->(); # Trip name
+		my $tn=&io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->().$googleid."-".&io::MyConstantBase::TRIP_NAME->(); # Trip name
 		$tn=~s/[\ \n\t]*\-trip/\-trip/;
 		print "Stge 2 [$googleid]".length($googleid)."<br>";
 
