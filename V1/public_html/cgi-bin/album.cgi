@@ -5,12 +5,12 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Thu Nov 22 01:56:27 2018
+* Last Modified : Thu Nov 22 02:32:21 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.189Ha
+* Version : 1.6.16.189Hb
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -124,7 +124,7 @@ our $mip=io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.189Ha'; # Album release
+use constant ALBUM_REL               	=> '16.189Hb'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -153,7 +153,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.189Ha
+$VERSION=1.6.16.189Hb
 
 =head1 ABSTRACT
 
@@ -236,6 +236,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.189Hb> Nov 22 2018 Form is cleaned properly. Trip name does not support now # and  / characters. Trip name encoding was removed or commented.
 
 - I<Last modification:v1.6.16.189Ha> Nov 20 2018 Form is cleaned properly. Trip name does not support or bare / character.
 
@@ -7798,7 +7800,7 @@ sub setGoogleID{# Begin setGoogleID
 
 						my $vtodo = Data::ICal::Entry::Event->new();
 						$vtodo->add_properties(
-									summary => "$subject fun",
+									summary => "$subject",
 									description => "$message",
 									dtstart => Date::ICal->new ( day => $dbd[2],
 												       month => $dbd[1],
