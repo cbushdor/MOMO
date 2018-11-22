@@ -5,12 +5,12 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Thu Nov 22 02:32:21 2018
+* Last Modified : Thu Nov 22 11:39:48 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.189Hb
+* Version : 1.6.16.189Hc
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -124,7 +124,7 @@ our $mip=io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.189Hb'; # Album release
+use constant ALBUM_REL               	=> '16.189Hc'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -153,7 +153,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.189Hb
+$VERSION=1.6.16.189Hc
 
 =head1 ABSTRACT
 
@@ -236,6 +236,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.189Hc> Nov 22 2018 Form is cleaned and localtion for TZ preset.
 
 - I<Last modification:v1.6.16.189Hb> Nov 22 2018 Form is cleaned properly. Trip name does not support now # and  / characters. Trip name encoding was removed or commented.
 
@@ -6496,6 +6498,7 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 	$ltznb.=$tmpltznb;
 	$ltzne.=$tmpltzne;
 	# ---------------done---------------------------------------------------------------------------------- Ruler
+	my $tzField="<input type='hidden' name='maop_myLocalTZ' value='".uri_escape(DateTime::TimeZone->new( name => 'local' )->name())."'>";
 	print <<MENU;
 <fieldset>
 <legend>Google</legend>
@@ -6534,6 +6537,7 @@ function myList(){ /*  Begin function myList() */
 
 	if(choice.match("Delete")){ /*  Begin if(choice.match("Delete")) */
 		document.getElementById('tripList').innerHTML = "Trip list: $lotList" +
+		"${tzField}"+
 		"<input type='hidden' name='maop_prev_id' value='$$' />" +
 		"<input type='hidden' name='maop_lon' value='$lon' />" +
 		"<input type='hidden' name='maop_lat' value='$lat' />" +
@@ -6548,6 +6552,7 @@ function myList(){ /*  Begin function myList() */
 	else if(choice.match("List")){ /*  Begin if(choice.match("List")) */
 		document.getElementById('tripList').innerHTML = "Trip list: $lotList2" +
 		"<input type='hidden' name='maop_prev_id' value='$$' />" +
+		"${tzField}"+
 		"<input type='hidden' name='maop_login' value='$lok' />" +
 		"<input type='hidden' name='maop_recPid' value='ok' />" +
 		"<input type='hidden' name='maop_service' value='check' />" +
@@ -6562,6 +6567,7 @@ function myList(){ /*  Begin function myList() */
 		document.getElementById('tripList').innerHTML = "Trip list: $lotList2" +
 		"<input type='hidden' name='maop_prev_id' value='$$' />" +
 		"<input type='hidden' name='maop_login' value='$lok' />" +
+		"${tzField}"+
 		"<input type='hidden' name='maop_recPid' value='ok' />" +
 		"<input type='hidden' name='maop_service' value='check' />" +
 		"<input type='hidden' name='maop_ssection' value='adminGroup' />" +
@@ -6574,6 +6580,7 @@ function myList(){ /*  Begin function myList() */
 	else if(choice.match("Modification")){ /*  Begin if(choice.match("Modification")) */
 		document.getElementById('tripList').innerHTML = "<!--zeub $lotList2 --> Trip list: $lotList2" +
 		"<input type='hidden' name='maop_prev_id' value='$$' />" +
+		"${tzField}"+
 		"<input type='hidden' name='maop_login' value='$lok' />" +
 		"<input type='hidden' name='maop_recPid' value='ok' />" +
 		"<input type='hidden' name='maop_service' value='check' />" +
@@ -6589,6 +6596,7 @@ function myList(){ /*  Begin function myList() */
 		document.getElementById('tripList').innerHTML = "<input type='hidden' name='maop_lon' value='$lon' />" +
 		"<input type='hidden' name='maop_lat' value='$lat' />" +
 		"<input type='hidden' name='maop_prev_id' value='$$' />" +
+		"${tzField}"+
 		"<input type='hidden' name='maop_login' value='$lok' />" +
 		"<input type='hidden' name='maop_recPid' value='ok' />" +
 		"<input type='hidden' name='maop_service' value='check' />" +
