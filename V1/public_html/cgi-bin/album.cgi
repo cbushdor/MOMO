@@ -5,12 +5,12 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Thu Nov 22 11:39:48 2018
+* Last Modified : Fri Nov 23 21:49:15 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.189Hc
+* Version : 1.6.16.190
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -124,7 +124,7 @@ our $mip=io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.189Hc'; # Album release
+use constant ALBUM_REL               	=> '16.190'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -153,7 +153,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.189Hc
+$VERSION=1.6.16.190
 
 =head1 ABSTRACT
 
@@ -236,6 +236,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.190> Nov 23 2018 TZ in second unit added+better indent in mail for trip created
 
 - I<Last modification:v1.6.16.189Hc> Nov 22 2018 Form is cleaned and localtion for TZ preset.
 
@@ -665,7 +667,7 @@ $mparam=~s/^\&//;
 	#exit(0);
 
 if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/){ # Begin if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
-	print &my_promptA("<u>part 1 ($logfile):</u> <b></u>$url</b>" ."<!-- accordeoniste -->");
+	print &my_promptA("<!--<u>part 1 ($logfile):</u> <b></u>$url</b>-->" ."<!-- accordeoniste -->");
 	exit(0);
 } # End if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
 
@@ -7779,15 +7781,30 @@ sub setGoogleID{# Begin setGoogleID
 						my $loc_map=&io::MyConstantBase::PROTO_USED->().&io::MyConstantBase::LOCAL_HOSTED_BY_URL->().&io::MyConstantBase::WEB_ACCOUNT->() ."cgi-bin/maop.cgi\?maop_googid=". uri_unescape($doc->param('maop_googid')).'&maop_gmv='.&io::MyConstantBase::MAP_VER_IN_USE->().'&maop_prog='.&io::MyConstantBase::MAP_PROG->();
 						my $dist_map=&io::MyConstantBase::PROTO_USED->().&io::MyConstantBase::DISTANT_HOSTED_BY_URL->().&io::MyConstantBase::WEB_ACCOUNT->()."cgi-bin/maop.cgi\?maop_googid=". uri_unescape($doc->param('maop_googid')).'&maop_gmv='.&io::MyConstantBase::MAP_VER_IN_USE->().'&maop_prog='.&io::MyConstantBase::MAP_PROG->();
 
-						my $message = "\n<br><b><u>Begining of the trip/Debut du voyage:</u></b>" . uri_unescape($doc->param('maop_bdaytime')) . " " . $tzbt->name . " " . $tzbt->offset_for_local_datetime( $dtb ) .
-							      "\n<br><b><u>End of the trip/Fin du voyage:</u></b>". uri_unescape($doc->param('maop_edaytime')). " " . $tzet->name . " " . $tzet->offset_for_local_datetime( $dte ) .
-							      "\n<br><b><u>Trace trip/Trace du voyage:</u></b><span style='background-color:red'><a href='".$loc."'>trip (lan)</a></span>\n".
-							      "<span style='background-color:green'><a href='".$dist."'>trip (network)</a></span>\n".
-							      "\n<br><b><u>Watch map regarding trip/Regarder le voyage sur une carte:</u></b><span style='background-color:red'><a href='".$loc_map. "'>trip (local)</a></span>\n ".
-							      "<span style='background-color:green'><a href='".$dist_map. "'>trip (distant)</a></span>\n<br>".
-								"Friendly yours,<br>Bot from MAOP\n";
+						my $message = "\n".
+							"<ul style=\"list-style-type:none\">".
+								"<li><b><u>Begining of the trip/Debut du voyage:</u></b></li>".
+								"<ul>".
+									"<li>" . uri_unescape($doc->param('maop_bdaytime')) . " " . $tzbt->name . " " . $tzbt->offset_for_local_datetime( $dtb ) . "s</li>".
+								"</ul>\n".
+								"<li><b><u>End of the trip/Fin du voyage:</u></b></li>".
+							      	"<ul>".
+									"<li>". uri_unescape($doc->param('maop_edaytime')). " " . $tzet->name . " " . $tzet->offset_for_local_datetime( $dte ) . "s</li>".
+							      	"</ul>\n".
+								"<li><b><u>Trace trip/Trace du voyage:</u></b></li>".
+							      	"<ul>".
+									"<li><span style='background-color:red'><a href='".$loc."'>Trip (lan)</a></span></li>".
+									"<li><span style='background-color:green'><a href='".$dist."'>Trip (network)</a></span></li>".
+							      	"</ul>\n".
+								"<li><b><u>Watch map regarding trip/Regarder le voyage sur une carte:</u></b>".
+							      	"<ul>".
+									"<li><span style='background-color:red'><a href='".$loc_map. "'>trip (local)</a></span></li>".
+									"<li><span style='background-color:green'><a href='".$dist_map. "'>trip (distant)</a></span></li>".
+								"</ul>".
+							"</ul>".
+							"Friendly yours,<br>Bot from MAOP";
 
-								$ENV{PATH}='/bin:/usr/bin:/usr/local/bin';
+						$ENV{PATH}='/bin:/usr/bin:/usr/local/bin';
 
 						$to=&do_untaint($to);
 						$from=&do_untaint($from);
