@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Sun Nov 25 01:16:49 2018
+* Last Modified : Sun Nov 25 02:12:30 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -7782,29 +7782,24 @@ sub setGoogleID{# Begin setGoogleID
 						my $dist_map=&io::MyConstantBase::PROTO_USED->().&io::MyConstantBase::DISTANT_HOSTED_BY_URL->().&io::MyConstantBase::WEB_ACCOUNT->()."cgi-bin/maop.cgi\?maop_googid=". uri_unescape($doc->param('maop_googid')).'&maop_gmv='.&io::MyConstantBase::MAP_VER_IN_USE->().'&maop_prog='.&io::MyConstantBase::MAP_PROG->();
 
 						my $message = "\n".
-							"<ul style=\"list-style-type:none\">".
-								"<li><b><u>Begining of the trip/Debut du voyage:</u></b></li>\n".
-								"<ul>".
-									"<li>" . uri_unescape($doc->param('maop_bdaytime')) . " " . $tzbt->name . " " . $tzbt->offset_for_local_datetime( $dtb ) . "s</li>".
-								"</ul>\n".
-							"</ul>\n<ul style=\"list-style-type:none\">".
-								"<li><b><u>End of the trip/Fin du voyage:</u></b></li>".
-							      	"<ul>".
-									"<li>". uri_unescape($doc->param('maop_edaytime')). " " . $tzet->name . " " . $tzet->offset_for_local_datetime( $dte ) . "s</li>".
-							      	"</ul>\n".
-							"</ul>\n<ul style=\"list-style-type:none\">".
-								"<li><b><u>Trace trip/Trace du voyage:</u></b></li>\n".
-							      	"<ul>".
-									"<li><span style='background-color:red'><a href='".$loc."'>Trip (lan)</a></span></li>".
-									"<li><span style='background-color:green'><a href='".$dist."'>Trip (network)</a></span></li>".
-							      	"</ul>\n".
-							"</ul>\n<ul style=\"list-style-type:none\">".
-								"<li><b><u>Watch map regarding trip/Regarder le voyage sur une carte:</u></b>".
-							      	"<ul>".
-									"<li><span style='background-color:red'><a href='".$loc_map. "'>trip (local)</a></span></li>".
-									"<li><span style='background-color:green'><a href='".$dist_map. "'>trip (distant)</a></span></li>".
-								"</ul>".
-							"</ul>".
+							"<b><u>Begining of the trip/<i>Debut du voyage</i>:</u></b>\n".
+							"<ul>".
+								 "<li>".uri_unescape($doc->param('maop_bdaytime')) . " " . $tzbt->name . " " . $tzbt->offset_for_local_datetime( $dtb ) . "s"."</li>".
+							"</ul>\n".
+							"<b><u>End of the trip/<i>Fin du voyage</i>:</u></b>".
+							"<ul>".
+								"<li>".uri_unescape($doc->param('maop_edaytime')). " " . $tzet->name . " " . $tzet->offset_for_local_datetime( $dte ) . "s"."</li>".
+							"</ul>\n".
+							"<b><u>Trip trace/<i>Trace du voyage</i>:</u></b>\n".
+							"<ul>".
+								"<li><span style='background-color:red'><a href='".$loc."'>Trip (lan)</a></span></li>".
+								"<li><span style='background-color:green'><a href='".$dist."'>Trip (network)</a></span></li>".
+							"</ul>\n".
+							"<b><u>Watch map regarding trip/<i>Regarder le voyage sur une carte</i>:</u></b>\n".
+							"<ul>".
+								"<li><span style='background-color:red'><a href='".$loc_map. "'>trip (local)</a></span></li>".
+								"<li><span style='background-color:green'><a href='".$dist_map. "'>trip (distant)</a></span></li>".
+							"</ul>\n".
 							"Friendly yours,<br>Bot from MAOP";
 
 						$ENV{PATH}='/bin:/usr/bin:/usr/local/bin';
