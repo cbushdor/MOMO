@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Sun Nov 25 02:12:30 2018
+* Last Modified : Sun Nov 25 23:42:00 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -909,26 +909,24 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 		else { # Begin  $dte>=$dt3
 			print "<h1>We record $dtb<$dt3<$dte</h1></br>";
 			$mtfn="${mgidt}-" . &io::MyConstantBase::TRIP_NAME->(); 
-	my $wfcu="http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=$lat,$lon";
-	my $xml = new XML::Simple;
 
-	#print "Content-Type: text/html ; charset=UTF-8\n\n";
-	#print "weather ----- $lat,$lon ---------------->bef $locweaf rec<------<br>\n$wfcu<br>";
-	try { # Begin try
-		# Weather center
-		my $wfc=get("$wfcu");
+			try { # Begin try
+				# Getting info from the Weather center
+				my $wfcu="http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=$lat,$lon";
+				my $xml = new XML::Simple;
+				my $wfc=get("$wfcu");
 
-		open(my $WOO,'>'."$locweaf") || die("error $!");
-		print $WOO $wfc;
-		close($WOO) || die("error $!");
-		#print "XXXXXXXXXXXXXXXXXXX><br>$wfc<br><XXXXXXXXXXXXXXXXXXXX<br>\n";
-		my $data = $xml->XMLin("$locweaf") or die("error $locweaf $!");
-	} # End try
-	catch { # Begin catch
-		if( -e "$locweaf"){ # Begin if( -e "$locweaf")
-			unlink("$locweaf") or die("error $!");
-		} # End if( -e "$locweaf")
-	}; # End catch
+				open(my $WOO,'>'."$locweaf") || die("error $!");
+				print $WOO $wfc;
+				close($WOO) || die("error $!");
+				#print "XXXXXXXXXXXXXXXXXXX><br>$wfc<br><XXXXXXXXXXXXXXXXXXXX<br>\n";
+				my $data = $xml->XMLin("$locweaf") or die("error $locweaf $!");
+			} # End try
+			catch { # Begin catch
+				if( -e "$locweaf"){ # Begin if( -e "$locweaf")
+					unlink("$locweaf") or die("error $!");
+				} # End if( -e "$locweaf")
+			}; # End catch
 		} # End  $dte>=$dt3
 	} # End else $dtb<=$dt3
 } # End if(-f "$tn")
@@ -7775,30 +7773,30 @@ sub setGoogleID{# Begin setGoogleID
 						my $maop_url_loc = uri_unescape($doc->param('maop_url')); $maop_url_loc=~s/[\n\t\ ]*$//; # watch out there is a variable that already contains that value it is $mgidt in another word we shave all characters that are at the end of the memory taken from parameter
 						my $maop_url_loc2 = uri_unescape($doc->param('maop_url')); $maop_url_loc2=~s/[\n\t\ ]*$//; # watch out there is a variable that already contains that value it is $mgidt in another word we shave all characters that are at the end of the memory taken from parameter
 						#print "G-<br>";
-						my $subject = "Trip name/Nom du Voyage:" . uri_unescape($doc->param('maop_googid')); 
+						my $subject = "Trip / Voyage:" . uri_unescape($doc->param('maop_googid')); 
 						my $loc=&io::MyConstantBase::PROTO_USED->().&io::MyConstantBase::LOCAL_HOSTED_BY_URL->().&io::MyConstantBase::WEB_ACCOUNT->() ."cgi-bin/maop.cgi\?maop_googid=". uri_unescape($doc->param('maop_googid'));
 						my $dist=&io::MyConstantBase::PROTO_USED->().&io::MyConstantBase::DISTANT_HOSTED_BY_URL->().&io::MyConstantBase::WEB_ACCOUNT->()."cgi-bin/maop.cgi\?maop_googid=". uri_unescape($doc->param('maop_googid'));
 						my $loc_map=&io::MyConstantBase::PROTO_USED->().&io::MyConstantBase::LOCAL_HOSTED_BY_URL->().&io::MyConstantBase::WEB_ACCOUNT->() ."cgi-bin/maop.cgi\?maop_googid=". uri_unescape($doc->param('maop_googid')).'&maop_gmv='.&io::MyConstantBase::MAP_VER_IN_USE->().'&maop_prog='.&io::MyConstantBase::MAP_PROG->();
 						my $dist_map=&io::MyConstantBase::PROTO_USED->().&io::MyConstantBase::DISTANT_HOSTED_BY_URL->().&io::MyConstantBase::WEB_ACCOUNT->()."cgi-bin/maop.cgi\?maop_googid=". uri_unescape($doc->param('maop_googid')).'&maop_gmv='.&io::MyConstantBase::MAP_VER_IN_USE->().'&maop_prog='.&io::MyConstantBase::MAP_PROG->();
 
 						my $message = "\n".
-							"<b><u>Begining of the trip/<i>Debut du voyage</i>:</u></b>\n".
+							"<b><u>Begining of the trip and Time Zone/<i>Debut du voyage et decallage horaire</i>:</u></b>\n".
 							"<ul>".
 								 "<li>".uri_unescape($doc->param('maop_bdaytime')) . " " . $tzbt->name . " " . $tzbt->offset_for_local_datetime( $dtb ) . "s"."</li>".
 							"</ul>\n".
-							"<b><u>End of the trip/<i>Fin du voyage</i>:</u></b>".
+							"<b><u>End of the trip and Time Zone/<i>Fin du voyage et decalage horaire</i>:</u></b>".
 							"<ul>".
 								"<li>".uri_unescape($doc->param('maop_edaytime')). " " . $tzet->name . " " . $tzet->offset_for_local_datetime( $dte ) . "s"."</li>".
 							"</ul>\n".
-							"<b><u>Trip trace/<i>Trace du voyage</i>:</u></b>\n".
+							"<b><u>Pinpoint the map /<i>Mettre un point lors du voyage</i>:</u></b>\n".
 							"<ul>".
-								"<li><span style='background-color:red'><a href='".$loc."'>Trip (lan)</a></span></li>".
-								"<li><span style='background-color:green'><a href='".$dist."'>Trip (network)</a></span></li>".
+								"<li><span style='background-color:red'><a href='".$loc."'>Trip / Voyage</a></span> (LAN)</li>".
+								"<li><span style='background-color:green'><a href='".$dist."'>Trip / Voyage</a></span> (WAN)</li>".
 							"</ul>\n".
-							"<b><u>Watch map regarding trip/<i>Regarder le voyage sur une carte</i>:</u></b>\n".
+							"<b><u>Watch the trip on the map/<i>Regarder le voyage sur une carte</i>:</u></b>\n".
 							"<ul>".
-								"<li><span style='background-color:red'><a href='".$loc_map. "'>trip (local)</a></span></li>".
-								"<li><span style='background-color:green'><a href='".$dist_map. "'>trip (distant)</a></span></li>".
+								"<li><span style='background-color:red'><a href='".$loc_map. "'>Trip / Voyage</a></span> (LAN)</li>".
+								"<li><span style='background-color:green'><a href='".$dist_map. "'>Trip / Voyage</a></span> (WAN)</li>".
 							"</ul>\n".
 							"Friendly yours,<br>Bot from MAOP";
 
@@ -7847,10 +7845,11 @@ sub setGoogleID{# Begin setGoogleID
 						# ============================
 
 						#$message=&do_untaint($message);
-					open(FILE, ">", &io::MyConstantBase::BODY_MESS_TO_SEND->()) or die("Cannot open ".&io::BODY_MESS_TO_SEND->().": $!");
-					print FILE "$message";
-					close(FILE);
-					my $attachment=&io::MyConstantBase::PATH_FOR_CALENDAR_ICS->();
+						open(FILE, ">", &io::MyConstantBase::BODY_MESS_TO_SEND->()) or die("Cannot open ".&io::BODY_MESS_TO_SEND->().": $!");
+						print FILE "$message";
+						close(FILE);
+						my $attachment=&io::MyConstantBase::PATH_FOR_CALENDAR_ICS->();
+
 						my $mypath=&io::MyConstantBase::PATH_TO_SENDMAIL_OPT->();
 						$mypath=&do_untaint($mypath);
 						open(MAIL,"$mypath") || die("Error: $!");
@@ -7859,31 +7858,25 @@ sub setGoogleID{# Begin setGoogleID
 						#print MAIL "To: sebastien.dorey\@laposte.net\n";
 						print MAIL "From: $from\n";
 						print MAIL "Subject: $subject\n";
-					print MAIL "Content-Type: multipart/mixed; boundary=frontier\n";
-					print MAIL "--frontier\n";
-					print MAIL "Content-Type: text/html; charset=us-ascii\n";
-					print MAIL "MIME-Version: 1.0\n\n";
-					open(FILE, "<",  &io::MyConstantBase::BODY_MESS_TO_SEND->() ) or die("Cannot open ".  &io::MyConstantBase::BODY_MESS_TO_SEND->() .":$!");
-					print MAIL <FILE>;
-					close(FILE);
-					print MAIL "\n\n";
-					print MAIL "--frontier\n";
-					chomp(my $basename=`basename $attachment`);
-					print MAIL "Content-Disposition: attachment; filename=$basename\n";
-					print MAIL "Content-Type: text/calendar; name=$attachment\n\n";
-					open(FILE, "<", "$attachment") or die "Cannot open $attachment: $!";
-					print MAIL <FILE>;
-					print MAIL "\n";
-					close(FILE);
-						#print MAIL "MIME-Version: 1.0\n";
-						#print MAIL "Content-Type: text/html\n";
-						# Email Body
-						#print MAIL $message;
+						print MAIL "Content-Type: multipart/mixed; boundary=frontier\n";
+						print MAIL "--frontier\n";
+						print MAIL "Content-Type: text/html; charset=us-ascii\n";
+						print MAIL "MIME-Version: 1.0\n\n";
+						open(FILE, "<",  &io::MyConstantBase::BODY_MESS_TO_SEND->() ) or die("Cannot open ".  &io::MyConstantBase::BODY_MESS_TO_SEND->() .":$!");
+						print MAIL <FILE>;
+						close(FILE);
+						print MAIL "\n\n";
+						print MAIL "--frontier\n";
+						chomp(my $basename=`basename $attachment`);
+						print MAIL "Content-Disposition: attachment; filename=$basename\n";
+						print MAIL "Content-Type: text/calendar; name=$attachment\n\n";
+						open(FILE, "<", "$attachment") or die "Cannot open $attachment: $!";
+						print MAIL <FILE>;
+						print MAIL "\n";
+						close(FILE);
 						close(MAIL) || die("Error: $!");
 
 						print "A mail to $to is being sent...\n<br>";
-						#print $message;
-						#print "<br>-----------------------<br>";
 					} # End if(length($edaytime)!=0)
 					else{ # Begin else
 						#print "<br><br><BR><i>ERRROR<br>";
