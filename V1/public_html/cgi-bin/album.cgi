@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Mon Nov 26 15:58:07 2018
+* Last Modified : Mon Nov 26 18:30:17 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -887,6 +887,7 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 		print "<br><u>We didn't record yet the device finger print in <b>$tn</b></u>\n<br>";
 		$tn=&do_untaint($tn);
 		open(my $WOO,'>>'."$tn") || die("error $!");
+		print $WOO "\n";
 		print $WOO io::MySec::getsDFP;
 		close($WOO) or die("$tn close error"); # RTN: read trip name file (contains Begin and end of trip)
 		print "<br><u>We recorded the device finger print in <b>$tn</b></u>\n<br>";
@@ -941,6 +942,9 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 					} # End if( -e "$locweaf")
 				}; # End catch
 			} # End if($dcfp eq $my_finger_print)
+			else {
+				print"<br>no record for this device<br>";
+			}
 		} # End  $dte>=$dt3
 	} # End else $dtb<=$dt3
 } # End if(-f "$tn")
@@ -4164,7 +4168,7 @@ sub print_page { # Begin print_page
 	my $my_image = 0;
 	my $my_image_per_page = 2;
 
-	print "----------------->$page_asked<<br>))))))))))))$div<<br>";
+	#print "----------------->$page_asked<<br>))))))))))))$div<<br>";
 	$div = ( split( /\./, $div ) )[0];
 
 	# We setup min range and max range of page number to show up on the navigator menu of the album.
