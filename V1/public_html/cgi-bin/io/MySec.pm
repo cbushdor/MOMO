@@ -1,12 +1,13 @@
 package io::MySec;
 use CGI::Carp qw(fatalsToBrowser); 
+use HTTP::BrowserDetect;
 
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : MySec.pm
 * Creation Date : Sun Jul 19 21:11:08 2009
-* Last Modified : Fri Oct 26 21:59:56 2018
+* Last Modified : Mon Nov 26 14:04:32 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -45,6 +46,7 @@ $VERSION    = eval $VERSION;
 		getsGroupListFromList
 		getsGPSCoordinates
 		getsIpAddressFromGroup
+		getsDFP
 		isIPInGrp
 		jcode jdecode
 		myget
@@ -63,6 +65,7 @@ $VERSION    = eval $VERSION;
 		getsFileWithGroups
 		getsGroupListFromList
 		getsIpAddressFromGroup
+		getsDFP
 		isIPInGrp
 		jcode jdecode
 		myget
@@ -1355,6 +1358,81 @@ sub getsGPSCoordinates{ # begin sub getsGPSCoordinates
 	$res[7]=~s/[a-zA-Z]*://g;
 	return ($res[6],$res[7]);
 } # end sub getsGPSCoordinates
+
+
+=head1 sub getsDFP (...)
+
+Gets device's finger print.
+
+=head2 PARAMETER(S)
+
+=over 4 
+
+none.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+That's a string that returns the device's finger print.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION
+
+=over 4
+
+- I<Modified on:> Nov 26 2018
+
+- I<Created on:> Nov 26 2018
+
+=back
+
+=cut
+
+sub getsDFP {
+	my $ua = HTTP::BrowserDetect->new($ENV{'HTTP_USER_AGENT'});
+
+	return &gets_fp(
+		$ua->browser_string,
+		$ua->browser,
+		$ua->browser_version,
+		$ua->browser_properties,
+		$ua->browser_beta,
+		$ua->os,
+		$ua->device,
+		$ua->mobile,
+		$ua->tablet,
+		$ENV{'HTTP_USER_AGENT'});
+
+	sub gets_fp{
+		my $finger_print=();
+
+		foreach my $a (@_){
+			chomp($a);
+			$finger_print.=$a . ",";
+		}
+		return $finger_print;
+	}
+}
 
 1;
 
