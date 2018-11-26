@@ -7,7 +7,7 @@ q##//q#
 * Created By : sdo
 * File Name : MySec.pm
 * Creation Date : Sun Jul 19 21:11:08 2009
-* Last Modified : Mon Nov 26 14:04:32 2018
+* Last Modified : Mon Nov 26 15:32:34 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -1408,7 +1408,7 @@ None.
 
 =cut
 
-sub getsDFP {
+sub getsDFP { # Begin sub getsDFP
 	my $ua = HTTP::BrowserDetect->new($ENV{'HTTP_USER_AGENT'});
 
 	return &gets_fp(
@@ -1423,16 +1423,16 @@ sub getsDFP {
 		$ua->tablet,
 		$ENV{'HTTP_USER_AGENT'});
 
-	sub gets_fp{
+	sub gets_fp{ # Begin sub gets_fp
 		my $finger_print=();
 
-		foreach my $a (@_){
+		foreach my $a (@_){ # Begin foreach my $a (@_)
 			chomp($a);
 			$finger_print.=$a . ",";
-		}
+		} # End foreach my $a (@_)
 		return $finger_print;
-	}
-}
+	} # End sub gets_fp
+} # End sub getsDFP
 
 1;
 
