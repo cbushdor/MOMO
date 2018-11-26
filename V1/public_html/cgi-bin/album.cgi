@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Mon Nov 26 02:22:29 2018
+* Last Modified : Mon Nov 26 15:58:07 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -883,7 +883,17 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 	my $dt3 = DateTime->from_epoch( epoch => time() );# Current date format DateTime
 
 	open(RTN,"$tn") or die ("$tn error $!");my @rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains Begin and end of trip)
+	if (@rtn<2){ 
+		print "<br><u>We didn't record yet the device finger print in <b>$tn</b></u>\n<br>";
+		$tn=&do_untaint($tn);
+		open(my $WOO,'>>'."$tn") || die("error $!");
+		print $WOO io::MySec::getsDFP;
+		close($WOO) or die("$tn close error"); # RTN: read trip name file (contains Begin and end of trip)
+		print "<br><u>We recorded the device finger print in <b>$tn</b></u>\n<br>";
+		open(RTN,"$tn") or die ("$tn error $!");@rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains Begin and end of trip)
+	}
 	chomp($rtn[0]);my ($brtn,$ertn,$tntz_b,$tntz_e)=split(/\#/,$rtn[0]); # begining r... trip name,end r... trip name,trip name (time) zone begining,trip name (time) zone end
+	my $my_finger_print=$rtn[1];chomp($my_finger_print);
 	my $anal = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
 	my $dtb = $anal->parse_datetime( $brtn );
 
@@ -907,26 +917,30 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 			$mtfn="_-" . &io::MyConstantBase::TRIP_NAME->(); 
 		} # End if($dte<$dt3)
 		else { # Begin  $dte>=$dt3
-			print "<h1>We record $dtb<$dt3<$dte</h1></br>";
-			$mtfn="${mgidt}-" . &io::MyConstantBase::TRIP_NAME->(); 
+			my $dcfp = io::MySec::getsDFP;# We get the device finger print that is connecting
 
-			try { # Begin try
-				# Getting info from the Weather center
-				my $wfcu="http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=$lat,$lon";
-				my $xml = new XML::Simple;
-				my $wfc=get("$wfcu");
+			if($dcfp eq $my_finger_print) { # Begin if($dcfp eq $my_finger_print)
+				print "<h1>We record $dtb<$dt3<$dte</h1></br>";
+				$mtfn="${mgidt}-" . &io::MyConstantBase::TRIP_NAME->(); 
 
-				open(my $WOO,'>'."$locweaf") || die("error $!");
-				print $WOO $wfc;
-				close($WOO) || die("error $!");
-				#print "XXXXXXXXXXXXXXXXXXX><br>$wfc<br><XXXXXXXXXXXXXXXXXXXX<br>\n";
-				my $data = $xml->XMLin("$locweaf") or die("error $locweaf $!");
-			} # End try
-			catch { # Begin catch
-				if( -e "$locweaf"){ # Begin if( -e "$locweaf")
-					unlink("$locweaf") or die("error $!");
-				} # End if( -e "$locweaf")
-			}; # End catch
+				try { # Begin try
+					# Getting info from the Weather center
+					my $wfcu="http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=$lat,$lon";
+					my $xml = new XML::Simple;
+					my $wfc=get("$wfcu");
+
+					open(my $WOO,'>'."$locweaf") || die("error $!");
+					print $WOO $wfc;
+					close($WOO) || die("error $!");
+					#print "XXXXXXXXXXXXXXXXXXX><br>$wfc<br><XXXXXXXXXXXXXXXXXXXX<br>\n";
+					my $data = $xml->XMLin("$locweaf") or die("error $locweaf $!");
+				} # End try
+				catch { # Begin catch
+					if( -e "$locweaf"){ # Begin if( -e "$locweaf")
+						unlink("$locweaf") or die("error $!");
+					} # End if( -e "$locweaf")
+				}; # End catch
+			} # End if($dcfp eq $my_finger_print)
 		} # End  $dte>=$dt3
 	} # End else $dtb<=$dt3
 } # End if(-f "$tn")
