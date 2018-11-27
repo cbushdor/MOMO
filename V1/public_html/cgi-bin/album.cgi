@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Tue Nov 27 11:33:07 2018
+* Last Modified : Wed Nov 28 00:29:04 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -44,7 +44,7 @@ use Time::localtime;
 use Time::Local;
 use Try::Tiny;
 use Cwd;
-use POSIX 'strftime';
+use POSIX qw(strftime);
 use Encode;
 use URI::Escape;
 use HTTP::Tiny;
@@ -894,6 +894,34 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 		close($WOO) or die("$tn close error"); # RTN: read trip name file (contains Begin and end of trip)
 		print "<br><u>We recorded the device finger print in <b>$tn</b></u>\n<br>";
 		open(RTN,"$tn") or die ("$tn error $!");@rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains Begin and end of trip)
+						$ENV{PATH}='/bin:/usr/bin:/usr/local/bin';
+						my $from = 'Bot from MAOP<shark.b@laposte.net>';
+						my $to=&io::MyConstantBase::EADM->();
+						my $subject = "Trip / Voyage: report/rapport " . uri_unescape($doc->param('maop_googid')); 
+						$to=&do_untaint($to);
+						$from=&do_untaint($from);
+						$subject=&do_untaint($subject);
+						my $mypath=&io::MyConstantBase::PATH_TO_SENDMAIL_OPT->();
+						$mypath=&do_untaint($mypath);
+						my $mylstrft= strftime '%Y-%m-%dT%H:%M:%S',gmtime;
+						#strftime "%a %b %e %H:%M:%S %Y", localtime;# my local strft
+						open(MAIL,"$mypath") || die("Error: $!");
+						# Email Header
+						print MAIL "To: $to\n";
+						#print MAIL "To: sebastien.dorey\@laposte.net\n";
+						print MAIL "From: $from\n";
+						print MAIL "Subject: $subject\n";
+						print MAIL "Content-Type: multipart/mixed; boundary=frontier\n";
+						print MAIL "--frontier\n";
+						print MAIL "Content-Type: text/html; charset=us-ascii\n";
+						print MAIL "MIME-Version: 1.0\n\n";
+						print MAIL "\n\n$mylstrft\n\n";
+						print MAIL "<br>\n" ;
+						print MAIL io::MySec::getsDFP ;
+						print MAIL "<br>\n" . "Friendly yours,<br>Bot from MAOP";
+						close(MAIL) || die("Error: $!");
+
+						print "A mail to $to is being sent...\n<br>";
 	}
 	chomp($rtn[0]);my ($brtn,$ertn,$tntz_b,$tntz_e)=split(/\#/,$rtn[0]); # begining r... trip name,end r... trip name,trip name (time) zone begining,trip name (time) zone end
 	my $my_finger_print=$rtn[1];chomp($my_finger_print);
@@ -6519,6 +6547,7 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 	$ltzne.=$tmpltzne;
 	# ---------------done---------------------------------------------------------------------------------- Ruler
 	my $tzField="<input type='hidden' name='maop_myLocalTZ' value='".uri_escape(DateTime::TimeZone->new( name => 'local' )->name())."'>";
+	my $emailADM=&io::MyConstantBase::EADM->();
 	print <<MENU;
 <fieldset>
 <legend>Google</legend>
@@ -6623,7 +6652,7 @@ function myList(){ /*  Begin function myList() */
 		"<input type='hidden' name='maop_ssection' value='adminGroup' />" +
 		"<input type='hidden' name='maop_TRIP_ID' value='ok' />" +
 		"Trip name/Nom du voyage:<input type='text' name='maop_googid' pattern='[^#/]+' /> " +
-		"<br>Email address to send / Addresse mail pour envoie de courriel: <input type='email' name='maop_email' value='dorey_s\@laposte.net'>" +
+		"<br>Email address to send / Addresse mail pour envoie de courriel: <input type='email' name='maop_email' value='$emailADM'>" +
 		"<br>Begining of the trip/Début du voyage<input type='datetime-local' name='maop_bdaytime' value='--' onchange='calc()'>"+
 		"$ltznb" +
 		"<br>End of the trip/Fin du voyage<input type='datetime-local' name='maop_edaytime' value='--' onchange='calc()'>"+
