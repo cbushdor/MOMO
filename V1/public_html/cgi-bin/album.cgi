@@ -5,12 +5,12 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Wed Nov 28 00:38:11 2018
+* Last Modified : Wed Nov 28 12:48:12 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.195
+* Version : 1.6.16.196
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -18,10 +18,13 @@ q##//q#
 use CGI;
 
 my $doc;
+#my $rtrip="white"; # We record or not just by color
+my $rtrip; # We record or not just by color
 BEGIN {
 	push @INC,"/Users/sdo/Sites/cgi-bin/"; # We add a new path to @INC
 	# A bug was solved and that's it was "...but still, the newly generated form has al the values from the previous form...".
 	$doc=$CGI::Q ||= new CGI; # It is using the special internal $CGI::Q object, rather than your 'my $doc' object that's why we do this.
+	$rtrip="blue"; # We don't record trip
 }
 END {
 	$doc->delete_all(); # We clean all variables and parameters when the script is over
@@ -124,7 +127,7 @@ our $mip=io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.195'; # Album release
+use constant ALBUM_REL               	=> '16.196'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -153,7 +156,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.195
+$VERSION=1.6.16.196
 
 =head1 ABSTRACT
 
@@ -236,6 +239,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.196> Nov 28 2018 Physical messages replaced by color values.
 
 - I<Last modification:v1.6.16.195> Nov 28 2018 A mail is send to EADM when first time finger print is taken.
 
@@ -940,6 +945,7 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 	if($dtb>$dt3){ # Begin if($dtb>$dt3)
 		# date is not yet arrived
 		print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
+		$rtrip='red'; # We record 
 		$mtfn="_-" . &io::MyConstantBase::TRIP_NAME->(); 
 	} # End if($dtb>$dt3)
 	else{ # Begin else $dtb<=$dt3
@@ -957,7 +963,8 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 			my $dcfp = io::MySec::getsDFP;# We get the device finger print that is connecting
 
 			if($dcfp eq $my_finger_print) { # Begin if($dcfp eq $my_finger_print)
-				print "<h1>We record $dtb<$dt3<$dte</h1></br>";
+				#print "<h1>We record $dtb<$dt3<$dte</h1></br>";
+				$rtrip='#808080'; # We record 
 				$mtfn="${mgidt}-" . &io::MyConstantBase::TRIP_NAME->(); 
 
 				try { # Begin try
@@ -979,7 +986,8 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 				}; # End catch
 			} # End if($dcfp eq $my_finger_print)
 			else {
-				print"<br>no record for this device<br>";
+				$rtrip='red'; # We record 
+				#print"<br>no record for this device<br>";
 			}
 		} # End  $dte>=$dt3
 	} # End else $dtb<=$dt3
@@ -2682,7 +2690,8 @@ sub auth_menu { # Begin auth_menu
 		. &menu_page_title(
 			"Bienvenue sur l'album photos<br /><font color='blue'>Welcome to the album of pictures</font>",
 			"Authentifiez vous pour administrer l'album photos" . $doc->br . "\n" .
-			"<font color='blue'>Authenticate to administrate the album of pictures</font>", "\n" .
+			"<font color='blue'>Authenticate to administrate the album of pictures</font>", 
+			"\n" .
 			ALBUM_VERSION
 			);
 
@@ -4575,7 +4584,7 @@ sub print_page { # Begin print_page
 					-valign => 'middle',
 					-bgcolor => '#B4C4BD'
 					},
-					&menu_page_title( "Bienvenue sur l'album photos<br /><font color='blue'>Welcome to the album of pictures</font>", "Merci d'&ecirc;tre pass&eacute;.<br /><font color='blue'>Thanks for your visiting.</font>")
+					&menu_page_title( "Bienvenue sur l'album photos<br /><font color='$rtrip'>Welcome to the album of pictures</font>", "Merci d'&ecirc;tre pass&eacute;.<br /><font color='$rtrip'>Thanks for your visiting.</font>")
 				),
 				"\n"
 			),
