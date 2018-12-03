@@ -5,9 +5,9 @@ q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* Last Modified : Mon Dec  3 02:02:24 2018
+* Last Modified : Mon Dec  3 03:11:10 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
-* Version : 0.2.1.219
+* Version : 0.2.1.223
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
@@ -23,6 +23,8 @@ use strict;
 
 use DateTime;
 use DateTime::Format::Strptime;
+use DateTime::TimeZone;
+use POSIX;
 
 BEGIN {
 	push @INC, '/Users/sdo/Sites/cgi-bin/';
@@ -51,7 +53,7 @@ our $mip=io::MyNav::gets_ip_address;
 #print "Content-Type: text/html\n\n";
 
 #my $ipAddr=io::MyNav::gets_ip_address;
-my $VERSION="0.2.1.219";
+my $VERSION="0.2.1.223";
 
 =head1 NAME
 
@@ -1067,8 +1069,11 @@ A
 				}
 A
 	}
-	my $lanal = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
-	my $mldate=$lanal->parse_datetime(DateTime->now);
+	#my $lanal = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
+	#$lanal->pattern('%z');
+	my $mldate= strftime '%Y-%m-%dT%H:%M %z', localtime;
+
+	#my $mldtz=$lanal->offset_for_datetime;
 	my $param_trip=uri_unescape($doc->param("maop_googid"));
 		#my $ldtb = $lanal->parse_datetime( $brtn );
 	print <<R;
