@@ -5,12 +5,12 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Wed Nov 28 12:48:12 2018
+* Last Modified : Mon Dec  3 02:06:15 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.196
+* Version : 1.6.16.200
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -127,7 +127,7 @@ our $mip=io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.196'; # Album release
+use constant ALBUM_REL               	=> '16.200'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -156,7 +156,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.196
+$VERSION=1.6.16.200
 
 =head1 ABSTRACT
 
@@ -239,6 +239,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.200> Dec 02 2018 Map legend improved now date+time+tip name added. To reach the map extra param was added in Visitor map menu.
 
 - I<Last modification:v1.6.16.196> Nov 28 2018 Physical messages replaced by color values.
 
@@ -5588,7 +5590,7 @@ sub main_menu { # Begin main_menu
 		. "\");'>My website</a>\n</dt>\n";
 	#print "<dt>Other albums</dt>\n";
 	print "<dt><a href=\"maop.cgi?maop_prog=g".&io::MyConstantBase::GOOGLE_MAP_SCRIPT_VERSION->()."ogle.cgi" . 
-		"&maop_googid=".uri_unescape($doc->param("maop_googid"))."&maop_gmv=".&io::MyConstantBase::GOOGLE_MAP_SCRIPT_VERSION->(). &io::MyConstantBase::PATH_GOOGLE_MAP_OPT->() . "&maop_lon=$lon&maop_lat=$lat". "\">Visitor map</a></dt>\n";
+		"&maop_googid=".uri_unescape($doc->param("maop_googid"))."&maop_gmv=".&io::MyConstantBase::GOOGLE_MAP_SCRIPT_VERSION->(). &io::MyConstantBase::PATH_GOOGLE_MAP_OPT->() . "&maop_lon=$lon&maop_lat=$lat&maop_googid=".uri_unescape($doc->param('maop_googid')). "\">Visitor map</a></dt>\n";
 	print "<dt onclick=\"javascript:show('smenu2');\" onmouseout=\"javascript:show();\">Help</dt>";
 	print "\n<dd id=\"smenu2\"><!-- begin dd smenu2 -->\n";
 	&help_menu_with_css( $title, @help_feature );
@@ -6666,7 +6668,7 @@ function myList(){ /*  Begin function myList() */
 		"<input type='hidden' name='maop_service' value='check' />" +
 		"<input type='hidden' name='maop_ssection' value='adminGroup' />" +
 		"<input type='hidden' name='maop_TRIP_ID' value='ok' />" +
-		"Trip name/Nom du voyage:<input type='text' name='maop_googid' pattern='[^#/]+' /> " +
+		"Trip name/Nom du voyage:<input type='text' name='maop_googid' pattern='[a-zA-Z0-9 ]+' /> " +
 		"<br>Email address to send / Addresse mail pour envoie de courriel: <input type='email' name='maop_email' value='$emailADM'>" +
 		"<br>Begining of the trip/Début du voyage<input type='datetime-local' name='maop_bdaytime' value='--' onchange='calc()'>"+
 		"$ltznb" +
