@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* Last Modified : Mon Dec  3 03:11:10 2018
+* Last Modified : Mon Dec  3 12:34:01 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.2.1.223
 * License:
@@ -182,8 +182,10 @@ if($statlastlogfile){ # begin if($statlastlogfile)
 
 	chdir("..");chdir("..");
 	$logfile=~s/\//\_/g;
-	if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!){ # begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
-		$url="http://localhost/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
+	if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!){ # begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
+		#$url="http://localhost/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
+		my $param_trip=uri_unescape($doc->param("maop_googid"));
+		$url= "https://".&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_log=$logfile$mparam\&maop_googid=$param_trip";
 		$ilws=0; # is local website 0=yes (for local wesite tests)
 	} # end if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
 	else{ # begin else
