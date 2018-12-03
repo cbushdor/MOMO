@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* Last Modified : Mon Dec  3 12:37:50 2018
+* Last Modified : Mon Dec  3 12:47:02 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.2.1.225
 * License:
@@ -182,12 +182,12 @@ if($statlastlogfile){ # begin if($statlastlogfile)
 
 	chdir("..");chdir("..");
 	$logfile=~s/\//\_/g;
-	if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!){ # begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
+	if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!){ # begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
 		#$url="http://localhost/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
 		my $param_trip=uri_unescape($doc->param("maop_googid"));
 		$url= "https://".&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_log=$logfile$mparam\&maop_googid=$param_trip";
 		$ilws=0; # is local website 0=yes (for local wesite tests)
-	} # end if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
+	} # end if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
 	else{ # begin else
 		$ilws=1; # is local website 1=no (for distant wesite tests)
 		#$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_log=$logfile$mparam";
@@ -217,9 +217,12 @@ if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
 	print "Content-Type: text/html\n\n";
 	#print "case 2<br>";exit(1);
-	if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!){
-		$url="http://localhost/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
-	}else{
+	if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!){ # begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+		my $param_trip=uri_unescape($doc->param("maop_googid"));
+		$url= "https://".&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_googid=$param_trip";
+		#$url="http://localhost/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
+	}# end if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+	else{
 		#$url="http://derased.heliohost.org/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
 		#$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
 		$url= "https://".&io::MyConstantBase::DISTANT_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
