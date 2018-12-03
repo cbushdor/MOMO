@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* Last Modified : Sat Nov 17 01:23:18 2018
+* Last Modified : Mon Dec  3 01:00:41 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -181,7 +181,8 @@ if($statlastlogfile){ # begin if($statlastlogfile)
 	} # end if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
 	else{ # begin else
 		$ilws=1; # is local website 1=no (for distant wesite tests)
-		$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_log=$logfile$mparam";
+		#$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_log=$logfile$mparam";
+		$url= "https://".&io::MyConstantBase::DISTANT_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_log=$logfile$mparam";
 	} # end else
 #	print "ooooooooo>$url<br>";
 #	print "case 2-------($statlastlogfile)=======$logfile<br>";exit(1);
@@ -211,7 +212,8 @@ if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 		$url="http://localhost/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
 	}else{
 		#$url="http://derased.heliohost.org/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
-		$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
+		#$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
+		$url= "https://".&io::MyConstantBase::DISTANT_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
 	}
 	my $c=<<A;
 <!DOCTYPE html>
@@ -240,7 +242,8 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 		$ilws=0; # is local website 0=yes (for local wesite tests)
 	}else{
 		#$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
-		$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi";
+		#$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi";
+		$url= "https://".&io::MyConstantBase::DISTANT_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi";
 		$ilws=1; # is local website 1=no (for distant wesite tests)
 	}
 	my $c=<<A;
@@ -278,8 +281,9 @@ if(length($googid)==0 || ! defined($googid) ){ # begin if(length($prt)==0 || ! d
 if ($mip=~m/127.0.0.1/){ # begin if ($mip=~m/127.0.0.1/)
 	my $pong = Net::Ping->new( $> ? "tcp" : "icmp" );
 	#if ($pong->ping("www.heliohost.org")) { # begin if ($pong->ping("www.heliohost.org"))
-	if ($pong->ping("dorey.effers.com")) { # begin if ($pong->ping("dorey.effers.com"))
-	} # end if ($pong->ping("dorey.effers.com"))
+	#if ($pong->ping("dorey.effers.com")) { # begin if ($pong->ping("dorey.effers.com"))
+	if ($pong->ping(&io::MyConstantBase::DISTANT_HOSTED_BY_URL->())) { # begin if ($pong->ping(&io::MyConstantBase::DISTANT_HOSTED_BY_URL->()))
+	} # end if ($pong->ping(&io::MyConstantBase::DISTANT_HOSTED_BY_URL->())) 
 	else { # begin else
 		print "No connection!\n";
 		exit(-1);
