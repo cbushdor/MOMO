@@ -5,9 +5,9 @@ q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* Last Modified : Mon Dec  3 01:06:01 2018
+* Last Modified : Mon Dec  3 02:02:24 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
-* Version : 0.2.1.215
+* Version : 0.2.1.219
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
@@ -23,6 +23,7 @@ use strict;
 
 use DateTime;
 use DateTime::Format::Strptime;
+
 BEGIN {
 	push @INC, '/Users/sdo/Sites/cgi-bin/';
 	push @INC, '/home1/derased/public_html/cgi-bin/';
@@ -39,6 +40,10 @@ use io::MyNav;
 use io::MySec;
 use io::MyUtilities;
 
+use URI::Escape;
+use Encode qw(from_to);
+
+
 use CGI;
 
 our $mip=io::MyNav::gets_ip_address;
@@ -46,7 +51,7 @@ our $mip=io::MyNav::gets_ip_address;
 #print "Content-Type: text/html\n\n";
 
 #my $ipAddr=io::MyNav::gets_ip_address;
-my $VERSION="0.2.1.215";
+my $VERSION="0.2.1.219";
 
 =head1 NAME
 
@@ -1062,6 +1067,10 @@ A
 				}
 A
 	}
+	my $lanal = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
+	my $mldate=$lanal->parse_datetime(DateTime->now);
+	my $param_trip=uri_unescape($doc->param("maop_googid"));
+		#my $ldtb = $lanal->parse_datetime( $brtn );
 	print <<R;
 		<script type="text/javascript" src="../js/markerclusterer.js"></script>
 		<script type="text/javascript">
@@ -1141,7 +1150,7 @@ $path;
 	</head>
 <body>
 	<div id="map"/>
-	<div id="legend"><h3>Legend</h3></div>
+	<div id="legend"><center><h2>$param_trip</h2></center><br>On $mldate<br><h3>Legend</h3></div>
 	<!--
 	$fn proto: 0.3.$mtime <a href="mailto:shark.baits\@laposte.net" class="mailaddr">shark bait</a>
 	-->
