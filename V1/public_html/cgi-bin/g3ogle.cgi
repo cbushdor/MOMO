@@ -5,9 +5,9 @@ q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* Last Modified : Mon Dec  3 13:00:57 2018
+* Last Modified : Mon Dec  3 13:18:14 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
-* Version : 0.2.1..230
+* Version : 0.2.1..234
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
@@ -53,13 +53,13 @@ our $mip=io::MyNav::gets_ip_address;
 #print "Content-Type: text/html\n\n";
 
 #my $ipAddr=io::MyNav::gets_ip_address;
-my $VERSION="0.2.1..230";
+my $VERSION="0.2.1..234";
 
 =head1 NAME
 
 g3ogle.cgi
 
-$VERSION="0.2.1.200"
+$VERSION="0.2.1.234"
 
 =head1 ABSTRACT
 
@@ -293,12 +293,12 @@ if(length($googid)==0 || ! defined($googid) ){ # begin if(length($prt)==0 || ! d
 
 #print "B - i$gmv,$prt, check  test prt length if it is ok. implemented but not tested yet<br>";
 
-if ($mip=~m/127.0.0.1/){ # begin if ($mip=~m/127.0.0.1/)
+if ($mip=~m/127.0.0.1/||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!){ # begin if ($mip=~m/127.0.0.1/||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
 	my $pong = Net::Ping->new( $> ? "tcp" : "icmp" );
 	#if ($pong->ping("www.heliohost.org")) { # begin if ($pong->ping("www.heliohost.org"))
 	#if ($pong->ping("dorey.effers.com")) { # begin if ($pong->ping("dorey.effers.com"))
 	if ($pong->ping(&io::MyConstantBase::DISTANT_HOSTED_BY_URL->())) { # begin if ($pong->ping(&io::MyConstantBase::DISTANT_HOSTED_BY_URL->()))
-	} # end if ($pong->ping(&io::MyConstantBase::DISTANT_HOSTED_BY_URL->())) 
+	} # end if ($mip=~m/127.0.0.1/||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!) 
 	else { # begin else
 		print "No connection!\n";
 		exit(-1);
