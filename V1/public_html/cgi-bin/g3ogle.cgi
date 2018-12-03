@@ -5,9 +5,9 @@ q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* Last Modified : Mon Dec  3 12:34:01 2018
+* Last Modified : Mon Dec  3 12:37:50 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
-* Version : 0.2.1.223
+* Version : 0.2.1.225
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
@@ -53,7 +53,7 @@ our $mip=io::MyNav::gets_ip_address;
 #print "Content-Type: text/html\n\n";
 
 #my $ipAddr=io::MyNav::gets_ip_address;
-my $VERSION="0.2.1.223";
+my $VERSION="0.2.1.225";
 
 =head1 NAME
 
