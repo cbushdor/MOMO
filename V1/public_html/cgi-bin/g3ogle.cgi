@@ -5,9 +5,9 @@ q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* Last Modified : Mon Dec  3 12:47:02 2018
+* Last Modified : Mon Dec  3 12:54:18 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
-* Version : 0.2.1.225
+* Version : 0.2.1..230
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
@@ -53,7 +53,7 @@ our $mip=io::MyNav::gets_ip_address;
 #print "Content-Type: text/html\n\n";
 
 #my $ipAddr=io::MyNav::gets_ip_address;
-my $VERSION="0.2.1.225";
+my $VERSION="0.2.1..230";
 
 =head1 NAME
 
@@ -249,10 +249,13 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
 	print "Content-Type: text/html\n\n";
 	#print "case 1<br>";exit(1);
-	if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!){
+	if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!){ # begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
 		$url="http://localhost/~sdo/cgi-bin/maop.cgi";
+		#my $param_trip=uri_unescape($doc->param("maop_googid"));
+		$url= "https://".&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi?maop_googid=$param_trip";
 		$ilws=0; # is local website 0=yes (for local wesite tests)
-	}else{
+	}# end if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+	else{
 		#$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
 		#$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi";
 		$url= "https://".&io::MyConstantBase::DISTANT_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi";
