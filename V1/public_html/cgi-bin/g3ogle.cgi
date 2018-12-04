@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* Last Modified : Mon Dec  3 13:18:14 2018
+* Last Modified : Tue Dec  4 02:59:03 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.2.1..234
 * License:
@@ -25,11 +25,6 @@ use DateTime;
 use DateTime::Format::Strptime;
 use DateTime::TimeZone;
 use POSIX;
-
-BEGIN {
-	push @INC, '/Users/sdo/Sites/cgi-bin/';
-	push @INC, '/home1/derased/public_html/cgi-bin/';
-}
 
 use LWP::Simple;
 use XML::Simple;
@@ -303,7 +298,7 @@ if ($mip=~m/127.0.0.1/||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!){ 
 		print "No connection!\n";
 		exit(-1);
 	} # end else
-} # end if ($mip=~m/127.0.0.1/)
+} # end if ($mip=~m/127.0.0.1/||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
 
 my $fn=$0; # file name
 $fn=~m/([0-9a-zA-Z\-\.]*)$/;
