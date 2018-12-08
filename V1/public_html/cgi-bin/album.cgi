@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Mon Dec  3 02:06:15 2018
+* Last Modified : Sat Dec  8 21:36:12 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -1030,18 +1030,20 @@ print $doc->meta({
 my ($resPing,$ipOk)=(0,0); # stub io::MySec::checksRevIpAdd($mip,io::MySec::getsAllIPReceived); # Checks ping address
 my %credentials;
 $credentials{"my_pid"}=$my_pid;
-$credentials{"service_from_param"}=uri_unescape($doc->param("maop_service"));
-$credentials{"service_value"}='check';
+$credentials{"service_from_param"}=uri_unescape($doc->param("maop_service")); # It is from prams
+print "(service_from_param,maop_service)=(".$credentials{"service_from_param"}.",".uri_unescape($doc->param("maop_service")).")<br>\n"; # It is from prams
+$credentials{"service_value"}='check'; # It is from server
 $credentials{"prev_pid_from_param"}=$my_pid;
 $credentials{"user_login"}=$user_login;
 $credentials{"login"}=$login;
-$credentials{"user_password"}= $user_password;
+$credentials{"user_password"}=$user_password;
 $credentials{"password"}=$password;
 $credentials{"doc"}= $doc;
 $credentials{"album_pid_file"}=&io::MyConstantBase::CHECK_PID_SESSION->();
 
 #print "<u>param to checks:</u> $my_pid,".uri_unescape($doc->param("maop_service")).", check, $my_pid, $user_login, $login, $user_password, $password, $doc,".&io::MyConstantBase::CHECK_PID_SESSION->()."\n<br>";
 #my $resAuth=io::MyUtilities::check_password($my_pid,uri_unescape($doc->param("maop_service")), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,&io::MyConstantBase::CHECK_PID_SESSION->());
+print "Content-Type: test/html\n\n";
 my $resAuth=io::MyUtilities::check_password(%credentials);
 &loadDataTrips; # put security control
 print &cascade_style_sheet_definition;
@@ -1106,7 +1108,7 @@ my $locid="$co/$cn/$cr/$ct/$lo/$la";
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-#print "<br>$$ >>>>>+++++>>>>>>>$resAuth<br>$resPing<------delim";
+print "<br>$$ >>>>>+++++>>>>>>>$resAuth<<<<<<<<br>$resPing<------delim<br>";
 {
 	open(REC,">>../rec.html")||die("Error $!");
 	my $tft=gmtime(); #time for test
@@ -1483,7 +1485,7 @@ sub menu_leave_admin { # Begin menu_leave_admin
 	my $password=uri_unescape($doc->param("maop_password")) ; # Gets login
 
 	print <<MENU;
-<form action='${main_prog}?maop_service=auth&amp;maop_upld=ok' method='post' name="maop_adminMenu" enctype='multipart/form-data'>
+<form action='${main_prog}?maop_service=auth&maop_upld=ok' method='post' name="maop_adminMenu" enctype='multipart/form-data'>
 	<input type='hidden' name='maop_prev_id' value='$$' />
 	<input type='hidden' name='maop_login' value='$login' />
 	<input type='hidden' name='maop_remPid' value='ok' />
@@ -2198,15 +2200,18 @@ sub admin_menu { # Begin admin_menu
 	} # End  if ($an_action ne "modify")
 	&set_language(&io::MyConstantBase::LANGUAGES->());
 	print $doc->Tr(
-		$doc->td( {align=>'right'},
-			$doc->input({ type=>'hidden', name=>'maop_upld', value=>'ok'}),
-			$doc->input({ type=>'hidden', name=>'maop_login', value=>uri_unescape($doc->param("maop_login"))}),
-			$doc->input({ type=>'hidden', name=>'maop_Set_page_position_in_the_album', value=>"Page #$modify_page_position_in_album @ row #$modify_position_in_page"}),
-			$doc->input({ type=>'hidden', name=>'maop_service', value=>'check'}),
-			$doc->input({ type=>'hidden', name=>'maop_ssection', value=>'adminPict'}),
-			$doc->input({ type=>'hidden', name=>'maop_recording', value=>'check' }),
-			$doc->input({ type=>'submit', value=>'Envoyer la requete / Send query' } )),
-		$doc->td($doc->input({ type=>'reset', value=>'Annuler / Reset'})));
+		$doc->td( {align=>'right'},"\n".
+			#$doc->input({ type=>'hidden', name=>'maop_prev_id', value=>"$$"})."\n<!-- myabbaracada -->",
+			$doc->input({ type=>'hidden', name=>'maop_login', value=>uri_unescape($doc->param("maop_login"))})."\n",
+			$doc->input({ type=>'hidden', name=>'maop_remPid', value=>'ok'})."\n",
+			$doc->input({ type=>'hidden', name=>'maop_service', value=>'check'})."\n",
+
+			$doc->input({ type=>'hidden', name=>'maop_upld', value=>'ok'})."\n",
+			$doc->input({ type=>'hidden', name=>'maop_Set_page_position_in_the_album', value=>"Page #$modify_page_position_in_album @ row #$modify_position_in_page"})."\n",
+			$doc->input({ type=>'hidden', name=>'maop_ssection', value=>'adminPict'})."\n",
+			$doc->input({ type=>'hidden', name=>'maop_recording', value=>'check' })."\n",
+			$doc->input({ type=>'submit', value=>'Envoyer la requete / Send query' } ))."\n",
+		$doc->td($doc->input({ type=>'reset', value=>'Annuler / Reset'})))."\n";
 	print "</table>\n";
 	print "</form>\n";
 } # End sub admin_menu
@@ -2411,7 +2416,7 @@ sub set_language { # Begin set_language
 		$comment=&switch_from_a_specified_tag_to_characters($comment);
 		$comment=~s/\'/\&\#145/g;
 		$comment=~s/\"/\&\#147/g;
-		print "<tr>\n<td>Comment of the picture in $lng <td><input type='text' size=50 name='maop_lang_${lng}_comment' value=\"$comment\" /></tr>\n<br />\n";
+		print "<tr>\n<td>Comment of the picture in $lng </td>\n<td><input type='text' size=50 name='maop_lang_${lng}_comment' value=\"$comment\" /></tr>\n<br />\n";
 	} # End foreach @languages
 	if ( $an_action eq "modify" ){ # Begin if ($an_action eq "modify")
 		print "<input type='hidden' name='maop_action' value='record_modify' />\n";
@@ -3619,7 +3624,7 @@ sub shows_list_pictures { # Begin shows_list_pictures
 			# ---------------------
 			print "<td align='center' valign='middle'>\n";
 			print "$granted</td>";
-			print "\n<form action='${main_prog}?maop_service=auth&amp;maop_upld=ok' method='post' enctype='multipart/form-data'>\n";
+			print "\n<form action='${main_prog}?maop_service=auth&maop_upld=ok' method='post' enctype='multipart/form-data'>\n";
 			print "<input type='hidden' name='maop_prev_id' value='$$' />\n";
 			print "<td align='center' valign='middle'>\n";
 			print "<input type='radio' name='maop_action' value='modify' />\n";
@@ -6403,7 +6408,7 @@ sub ipAddressGranted{ # Begin ipAddressGranted
 	print <<MENU;
 	<fieldset>
 		<legend>Administration of IP address</legend>
-		<form action='${main_prog}?maop_service=auth&amp;maop_upld=ok' method='post' enctype='multipart/form-data'>
+		<form action='${main_prog}?maop_service=auth&maop_upld=ok' method='post' enctype='multipart/form-data'>
 			<input type='hidden' name='maop_prev_pid' value='$$' />
 			<input type='hidden' name='maop_login' value='$lok' />
 			<input type='hidden' name='maop_recPid' value='ok' />
@@ -6568,7 +6573,7 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 	print <<MENU;
 <fieldset>
 <legend>Google</legend>
-<form action='${main_prog}?maop_service=auth&amp;maop_upld=ok' method='post' enctype='multipart/form-data'>
+<form action='${main_prog}?maop_service=auth&maop_upld=ok' method='post' enctype='multipart/form-data'>
 <input type='hidden' name='maop_prev_id' value='$$' />
 <input type='hidden' name='maop_login' value='$lok' />
 <input type='hidden' name='maop_recPid' value='ok' />
@@ -6726,7 +6731,7 @@ div.protect {
 </div>
 <fieldset>
 <legend>Youtube</legend>
-<form action='${main_prog}?maop_service=auth&amp;maop_upld=ok' method='post' enctype='multipart/form-data'>
+<form action='${main_prog}?maop_service=auth&maop_upld=ok' method='post' enctype='multipart/form-data'>
 <input type='hidden' name='maop_prev_id' value='$$' />
 <input type='hidden' name='maop_login' value='$lok' />
 <input type='hidden' name='maop_recPid' value='ok' />
@@ -6844,7 +6849,7 @@ sub ipAddressRemoved{ # Begin ipAddressRemoved
 
 		my $log=uri_unescape($doc->param("maop_login"));
 		print <<MENU;
-<form action='${main_prog}?maop_service=auth&amp;maop_maop_upld=ok' method='post' enctype='multipart/form-data'>
+<form action='${main_prog}?maop_service=auth&maop_maop_upld=ok' method='post' enctype='multipart/form-data'>
 <input type='hidden' name='maop_prev_id' value='$$' />
 <input type='hidden' name='maop_login' value='$log' />
 <input type='hidden' name='maop_remPid' value='ok' />
@@ -7471,7 +7476,7 @@ sub firstChoicetMenuadmin{ # Begin firstChoicetMenuadmin
 <br />
 <br />
 <br />
-<form action='${main_prog}?maop_service=auth&amp;maop_maop_upld=ok' method='post' name="maop_adminMenu" enctype='multipart/form-data'>
+<form action='${main_prog}?maop_service=auth&maop_maop_upld=ok' method='post' name="maop_adminMenu" enctype='multipart/form-data'>
 <input type='hidden' name='maop_prev_id' value='$$' />
 <input type='hidden' name='maop_login' value='logi n' />
 <input type='hidden' name='maop_password' value='passwor d' />
@@ -7481,7 +7486,7 @@ sub firstChoicetMenuadmin{ # Begin firstChoicetMenuadmin
 <input type='submit' value="Administration des photos/Administration of pictures" />
 <br />
 </form>
-<form id="fAdmin" action='${main_prog}?maop_service=auth&amp;maop_maop_upld=ok' method='post' name="maop_adminMenu" enctype='multipart/form-data'>
+<form id="fAdmin" action='${main_prog}?maop_service=auth&maop_maop_upld=ok' method='post' name="maop_adminMenu" enctype='multipart/form-data'>
 MENU
 	print "<input type='hidden' name='maop_myLocalTZ' value='".uri_escape(DateTime::TimeZone->new( name => 'local' )->name())."'>\n";
 	print <<MENU;
@@ -7491,7 +7496,7 @@ MENU
 <input type='hidden' name='maop_recPid' value='' />
 <input type='hidden' name='maop_service' value='check' />
 <input type='hidden' name='maop_ssection' value='adminGroup' />
-<input type='submit' value="Groups &amp; URLs/Groups &amp; URLs" onclick="paramEncode('fAdmin')"/>
+<input type='submit' value="Groups & URLs/Groups & URLs" onclick="paramEncode('fAdmin')"/>
 <br />
 </form>
 <form action='${main_prog}' method='post' enctype='multipart/form-data'>
