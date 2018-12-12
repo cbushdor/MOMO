@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyUtilities.pm
 * Creation Date : Thu Oct 13 22:51:08 2005
-* Last Modified : Thu Nov  8 22:38:32 2018
+* Last Modified : Sat Dec  8 19:19:21 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 1.1.25.60
 * License:
@@ -725,22 +725,24 @@ sub check_password {    # begin sub check_password
 				$credentials{"album_pid_file"},
 				$credentials{"doc"});
 
-	#print " | $_:$credentials{$_}" foreach keys %credentials;print "\n<br>";
+	print "<br>\n | $_:$credentials{$_}" foreach keys %credentials;print "\n<br>-----------------------------------------<br>\n";
 	#print " ($my_pid, $service_from_param, $service_value, $prev_pid_from_param, $user_login, $login, $user_password, $password, $album_pid_file, $doc)\n<br>";
 
+	print "check 0: $service_from_param eq $service_value <br>\n";
 	# Case service asked
 	if ( "$service_from_param" eq "$service_value" ) { # begin if ( "$service_from_param" eq "$service_value" )
-		#print "ok 1 $service_from_param eq $service_value <br>";
+		print "ok 1 $service_from_param eq $service_value <br>";
 		# Case we start log
 		if ( "$prev_pid_from_param" eq "" ) { # Begin if ( "$prev_pid_from_param" eq "" )
+			print "ok 2 pid check: $prev_pid_from_param eq $service_value <br>";
 			# Case First time
 			if ( "$user_login" eq "$login" ) { # begin if ( "$user_login" eq "$login" )
-				#print "ok 3 ($user_login,$login)<br>";
+				print "ok 3 login check: ($user_login,$login)<br>";
 				if ( "$user_password" eq "$password" ) { # begin if ("$user_password" eq "$password")
 					#open(REC,">>../rec.html")||die("Error: $!");
 					#print REC "<b>ok 4 we record this pid $$ ($user_password,$login,$$)</b><br>";
 					#close(REC)||die("Error: $!");
-					#print "<b>ok 4 we record this pid $$ ($user_password,$login,$$)</b><br>";
+					print "<b>ok 4 we record this pid $$ ($user_password,$login,$$)</b><br>$album_pid_file<<<<<<<br>";
 					if (-f "$album_pid_file"){ # Begin if (-f "$album_pid_file") 
 						print "(unlink $album_pid_file,$0,".getcwd().") Checks $album_pid_file " . ((-f "$album_pid_file") ? "ok exist" : "don't exist") . "<br>";;
 						unlink $album_pid_file or warn "Could not unlink $album_pid_file: $!";

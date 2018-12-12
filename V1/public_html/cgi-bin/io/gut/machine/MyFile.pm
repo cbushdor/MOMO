@@ -5,14 +5,17 @@ q##//q#
 * Created By : sdo
 * File Name : MyFile.pm
 * Creation Date : Wed Aug 20 22:51:08 2008
-* Last Modified : Thu Nov  8 03:11:26 2018
-* Email Address : sdo@macbook-pro-de-sdo.home
+* Last Modified : Tue Dec 11 15:01:34 2018
+* Email Address : sdo@MacBook-Pro-de-SDO.local
 * Version : 0.0.0.0
 * Purpose :
 #;
 # ------------------------------------------------------
 
+use strict;
+#use CGI::Carp qw(fatalsToBrowser); 
 use CGI::Carp qw(fatalsToBrowser); 
+use File::Basename;
 use Cwd;
 use io::MyConstantBase;
 
@@ -23,16 +26,16 @@ if( ! -d "$CGITempFile::TMPDIRECTORY"){ die "$CGITempFile::TMPDIRECTORY $!";}# i
 
 require Exporter;
 
-$VERSION    = '1.1.4.0';
+my $VERSION    = '1.1.4.0';
 $VERSION    = eval $VERSION;
-@ISA    = qw( Exporter );
-@EXPORT = qw(
+my @ISA    = qw( Exporter );
+my @EXPORT = qw(
 		error_raised
 		my_upload
 		reformat
 	     );
 
-@EXPORT_OK = qw( 
+my @EXPORT_OK = qw( 
 		error_raised
 		my_upload 
 		reformat
@@ -46,15 +49,14 @@ $VERSION    = eval $VERSION;
 
 use Fcntl qw( :DEFAULT :flock);
 
-$CGI::DISABLE_UPLOADS = 0;
-$CGI::POST_MAX        = MAXIMUM_SIZE_FILE;
+$CGI::DISABLE_UPLOADS = &io::MyConstantBase::OK->();
+$CGI::POST_MAX        = &io::MyConstantBase::MAXIMUM_SIZE_FILE->();
 
 # We define a boolean value OK = 0
-use constant OK  => 0;
-use constant NOK => !(OK);
+#use constant OK  => 0;
+#use constant NOK => !(OK);
 
 # Define values to set up upload image files
-use constant MAXIMUM_SIZE_FILE => (1_048_576 * 5);    # 1 deposit = 1Mo * 5
 use constant MAXIMUM_DIRECTORY_SIZE_THAT_CAN_CONTAIN_FILE => 100 * 1_048_576;
 use constant MAXIMUM_FILE_OPENED                          => 100;
 
@@ -254,12 +256,13 @@ sub my_upload { # Begin sub my_upload
 	my $is_image_file_need_to_be_uploaded = 1;
 	my @l_file_scat = ();
 
-#	print "my_upload($doc, $file_from, $directory_deposit, $suffix_for_image_file,$file_format)<br>";
+	print "my_upload($doc, $file_from, $directory_deposit, $suffix_for_image_file,$file_format)<br>";
 	$doc->cgi_error and error_raised( $doc, "Transfert error of file :", $doc->cgi_error );
 	chomp($file_from);
 
 	# Never ever change something in the variable $file_from above from this point, it contains the file that is uploaded from source
-	@file_to_upload_info = stat $file_from;
+	my @file_to_upload_info = stat $file_from;
+	foreach(@file_to_upload_info){ print "<br>iiiiiiiiiiiii file to upload info>$_<br>"; }
 
 	# We check if file has the following format
 	# <drive name>:\d1\d1\f1.gif where d[num] is a directory and and f1.gif an image file name
@@ -280,42 +283,50 @@ sub my_upload { # Begin sub my_upload
 #exit(0);
 	if ( $file_from !~ m/(${file_format})$/i ) { # Begin if ($file !~ m/^[a-zA-Z][a-zA-Z0-9\-_]*.(jpeg|jpg|gif)$/i)
 	#	error_raised( $doc, "File received [$file_from].<br>Character accepted: from <u>a to z</u> and <u>A to Z</u> as first file character. Then several occurrencies from <u>a to z</u> and <u>A to Z</u> and <u>0 to 9</u> and <u>- and _</u> can be accepted.<br>\nFormat of image different from gif, jpeg, jpg.");
-	}elsif( $file_from !~ m/${socnet}/i){
-		print "<br><b>format not acepted</b>";
-		return -1;
-	} # End if ($file !~ m/^[a-zA-Z][a-zA-Z0-9\-_]*.(jpeg|jpg|gif)$/i)
+	}
+	#elsif( $file_from !~ m/${socnet}/i){
+	
+	#print "<br><b>format not accepted</b>";
+	
+	#return -1;
+	
+	#} # End if ($file !~ m/^[a-zA-Z][a-zA-Z0-9\-_]*.(jpeg|jpg|gif)$/i)
 	
 	if ( $is_image_file_need_to_be_uploaded == 1 ) { # Begin  if ($is_image_file_need_to_be_uploaded == 1 )
 		my $load=0;
-		print "ooooooo)$file_to_upload(ooooooo<br>";
-		chomp(${file_to_upload});
 		${file_to_upload}=&do_untaint(${file_to_upload});
+		print "<br><br><br>ooooooo)$file_to_upload(ooooooo<br>";
+		chomp(${file_to_upload});
 		if(${file_to_upload}=~m/\/$/){ print "no download: file name empty<br>";return -1;}
-		print "Content-Type: text/html\n\n"; print "--[".length(${file_to_upload})."]-->${file_to_upload}<---<br>";
+		#	print "Content-Type: text/html\n\n"; 
+		print "--[".length(${file_to_upload})."]-->${file_to_upload}<---<br>";
 		open(FW,">${file_to_upload}" ) || die("Can't create ${file_to_upload}");
 		my @info = stat $file_from;
 		my $seg_file_read = 0;
 		while ( $bytes_read = read( $file_from, $buff, io::MyConstantBase::AMOUNT_OF_INFO_TO_READ->() ) ) { # Begin while ($bytes_read=read($file_from,$buff,io::MyConstantBase::AMOUNT_OF_INFO_TO_READ->())
 		#while ( $bytes_read = read( $file_from, $buff, $info[7] ) ) { # Begin while ($bytes_read=read($file_from,$buff,$info[7])
 			$seg_file_read += $bytes_read;
-#			print "-$bytes_read-<br>";
+			print "---->$bytes_read-<br>";
 			#my ( $to_print, $average ) = &return_average_file( $info[7], $seg_file_read, $bytes_read );
+q##//q#
 			open( W, ">album/dec" ) || die("album/dec");
 			flock( W, LOCK_EX | LOCK_SH );
 			print W $to_print;
 			close(W) || die("album/dec");
+#;
 			sleep(1);
 			binmode FW;
 			print FW $buff;
 		} # End while ($bytes_read=read($file_from,$buff,io::MyConstantBase::AMOUNT_OF_INFO_TO_READ->())
 		close(FW) || die("album/dec");
 		#print "-$bytes_read-+$seg_file_read+<br>";
+q##//q#
 		open( W, ">album/dec" ) || die("album/dec");
 		print W End;
 		close(W) || die("album/dec");
 
-		#
 			unlink "album/dec";
+#;
 		chmod( 0755, "$file_to_upload" );
 	} # End  if ($is_image_file_need-to_be_uploaded == 1 )
 	#exit(-1);	

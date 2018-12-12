@@ -7,7 +7,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyConstantBase.pm
 * Creation Date : Sun Aug 19 22:51:08 2018
-* Last Modified : Tue Nov 20 23:56:37 2018
+* Last Modified : Wed Dec 12 01:19:46 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.5.12
 * License:
@@ -55,8 +55,9 @@ use constant WEB_ACCOUNT => sub { '/~sdo/'; }; # Account where to access website
 use constant HOSTED_BY_URL => sub{ PROTO_USED->() . DISTANT_HOSTED_BY_URL->(). WEB_ACCOUNT->(); }; # That's the url of host name
 use constant HOSTED_BY => sub{  "hopto.org";  }; # That's the host name
 use constant CHECK_PID_SESSION => sub{ 'album/pid'; }; # Checks previous pid to garanty the session
-use constant MAP_VER_IN_USE => sub { "3-0"; };
+use constant MAP_VER_IN_USE => sub { "3-0"; }; # Version of the map in use
 use constant MAP_PROG => sub { "g3ogle.cgi"; };
+use constant EADM => sub{ 'dorey_s@laposte.net'; }; # Email 
 
 # We define a boolean value OK=0
 use constant OK  => sub{ 0; };
@@ -85,8 +86,13 @@ use constant PATH_GOOGLE_MAP_TRIP 	=> sub{ "album/trips/"; }; # Where to reach t
 use constant PATH_GOOGLE_MAP_OPT 	=> sub{ "-0"; }; # Extra option check documentation or comments
 use constant PATH_TO_SENDMAIL_OPT	=> sub{ "|/usr/sbin/sendmail -t"; }; # Path to send mail with sendmail and options
 use constant BODY_MESS_TO_SEND		=> sub{ ALBUM_INFO_DIRECTORY->() . "myMessToSend.txt" ; }; # File that old the message to send
-use constant PATH_FOR_CALENDAR_ICS	=> sub{ ALBUM_INFO_DIRECTORY->() . "myICal_BranNew.ics"; } ; # Path where to store ics calendar 
+use constant PATH_FOR_CALENDAR_ICS	=> sub{ ALBUM_INFO_DIRECTORY->() . "myICal_BranNew.ics"; }; # Path where to store ics calendar 
 #"/Users/sdo/Sites/cgi-bin/myICal.ics"
+
+# Unused
+use constant MAXIMUM_SIZE_FILE 		=> sub{ (1_048_576 * 5); };    # 1 deposit = 1Mo * 5
+use constant MAXIMUM_DIRECTORY_SIZE_THAT_CAN_CONTAIN_FILE => sub{ 100 * MAXIMUM_SIZE_FILE->(); }; # Size of directory that can contains files
+use constant MAXIMUM_FILE_OPENED                          => sub{ 100; }; # Maximum file opened
 
 sub do_untaint { # Begin sub do_untaint
 	my ($myvar) = @_;
