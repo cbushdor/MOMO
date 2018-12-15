@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyFile.pm
 * Creation Date : Wed Aug 20 22:51:08 2008
-* Last Modified : Wed Dec 12 22:45:41 2018
+* Last Modified : Sun Dec 16 00:03:59 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * Purpose :
@@ -254,16 +254,27 @@ sub my_upload { # Begin sub my_upload
 	my $buff           = ();    # buffer used to read image
 	my $is_image_file_need_to_be_uploaded = 1;
 	my @l_file_scat = ();
+	my $ldi=getcwd; # we record current dir
 
-	$file_format=~m/(\.[a-z0-9]{3})$/i;
+	chomp($file_from);
+	#$buff=$file_from;
+	$ldi=&do_untaint($ldi);
+	print getcwd . "<br><br><br><br> change dir<br>";
+	chdir($directory_deposit);
+	print getcwd . "<br>";
+	print "we check if file $file_from exists ";
+	print "ok found " if (-e "$file_from");
+	if (-e "$file_from"){ chdir($ldi); return 0 ; } 
+	else{ chdir($ldi); }
+	print "not found<br>";
+	#$buff=();
+
+	$file_from=~m/(\.[a-z0-9]{3})$/i;
 	print "$file_format--->$1\n<br>";
 	return -1 if ($file_format!~m/$1/i);
 
 	$doc->cgi_error and error_raised( $doc, "Transfert error of file :", $doc->cgi_error );
 	chomp($file_from);
-
-	# Never ever change something in the variable $file_from above from this point, it contains the file that is uploaded from source
-	my @file_to_upload_info = stat $file_from;
 
 	# We check if file has the following format
 	# <drive name>:\d1\d1\f1.gif where d[num] is a directory and and f1.gif an image file name
@@ -279,7 +290,8 @@ sub my_upload { # Begin sub my_upload
 
 	# We create a file into a path where to store new image file
 	$file_to_upload = $directory_deposit . "/${suffix_for_image_file}${file_name_saved_at_server_side}";
-	chomp($file_to_upload);
+	#chomp($file_to_upload);
+	print "<br>FILE RECORDED: $file_to_upload<br>";
 
 	if ( $file_from !~ m/(${file_format})$/i ) { # Begin if ($file !~ m/^[a-zA-Z][a-zA-Z0-9\-_]*.(jpeg|jpg|gif)$/i)
 	#	error_raised( $doc, "File received [$file_from].<br>Character accepted: from <u>a to z</u> and <u>A to Z</u> as first file character. Then several occurrencies from <u>a to z</u> and <u>A to Z</u> and <u>0 to 9</u> and <u>- and _</u> can be accepted.<br>\nFormat of image different from gif, jpeg, jpg.");
@@ -299,7 +311,7 @@ sub my_upload { # Begin sub my_upload
 		#	print "Content-Type: text/html\n\n"; 
 		#print "--[".length(${file_to_upload})."]-->${file_to_upload}<---<br>";
 		open(FW,">${file_to_upload}" ) || die("Error ${file_to_upload}");
-		my @info = stat $file_from;
+		#		my @info = stat $file_from;
 		my $seg_file_read = 0;
 		while ( $bytes_read = read( $file_from, $buff, io::MyConstantBase::AMOUNT_OF_INFO_TO_READ->() ) ) { # Begin while ($bytes_read=read($file_from,$buff,io::MyConstantBase::AMOUNT_OF_INFO_TO_READ->())
 			$seg_file_read += $bytes_read;

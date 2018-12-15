@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyUtilities.pm
 * Creation Date : Thu Oct 13 22:51:08 2005
-* Last Modified : Sat Dec  8 19:19:21 2018
+* Last Modified : Fri Dec 14 01:50:45 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 1.1.25.60
 * License:
@@ -725,10 +725,10 @@ sub check_password {    # begin sub check_password
 				$credentials{"album_pid_file"},
 				$credentials{"doc"});
 
-	print "<br>\n | $_:$credentials{$_}" foreach keys %credentials;print "\n<br>-----------------------------------------<br>\n";
+	#print "<br>\n | $_:$credentials{$_}" foreach keys %credentials;print "\n<br>-----------------------------------------<br>\n";
 	#print " ($my_pid, $service_from_param, $service_value, $prev_pid_from_param, $user_login, $login, $user_password, $password, $album_pid_file, $doc)\n<br>";
 
-	print "check 0: $service_from_param eq $service_value <br>\n";
+	#print "check 0: $service_from_param eq $service_value <br>\n";
 	# Case service asked
 	if ( "$service_from_param" eq "$service_value" ) { # begin if ( "$service_from_param" eq "$service_value" )
 		print "ok 1 $service_from_param eq $service_value <br>";
@@ -1138,7 +1138,7 @@ sub getsDocVers{# Begin sub getsDocVers
 	my @z=split(/=over 4/,$oob[1]);
 	$oo=join(/\n/,$z[1]);
 	@z=split(/=back/,$oo);
-	$oo=join(/\n/,$z[0]);
+	$oo=join(/\\n/,$z[0]);
 	$oo=~s/I<Last modification:\ *(v[0-9]{1,9}.[0-9]{1,9}.[0-9]{1,9}.[0-9]{1,9})([^\ >]*)> /$1<font color=white><b>$2<\/b><\/font>|/g;
 	$oo=~s/\n/<br>/g;
 	return "$oo<br>\n";

@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Sat Dec  8 21:36:12 2018
+* Last Modified : Sun Dec 16 00:25:30 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -115,6 +115,9 @@ if ($@){
 	}
 #	else{ $MyFile="packges::MyFileRescue";}
 }
+print "Content-Type: text/html\n\n";
+#my $timsec=localtime;
+#my $final2 = io::gut::machine::MyFile::my_upload($doc, $doc->param("maop_file_name_img"), &io::MyConstantBase::DIRECTORY_DEPOSIT->(), "${timsec}$$",&io::MyConstantBase::ALLOWED_FILE_FORMAT_TYPE->());
 
 use io::MyTime;
 use io::MyConstantBase;
@@ -1031,7 +1034,7 @@ my ($resPing,$ipOk)=(0,0); # stub io::MySec::checksRevIpAdd($mip,io::MySec::gets
 my %credentials;
 $credentials{"my_pid"}=$my_pid;
 $credentials{"service_from_param"}=uri_unescape($doc->param("maop_service")); # It is from prams
-print "(service_from_param,maop_service)=(".$credentials{"service_from_param"}.",".uri_unescape($doc->param("maop_service")).")<br>\n"; # It is from prams
+#print "(service_from_param,maop_service)=(".$credentials{"service_from_param"}.",".uri_unescape($doc->param("maop_service")).")<br>\n"; # It is from prams
 $credentials{"service_value"}='check'; # It is from server
 $credentials{"prev_pid_from_param"}=$my_pid;
 $credentials{"user_login"}=$user_login;
@@ -1108,7 +1111,7 @@ my $locid="$co/$cn/$cr/$ct/$lo/$la";
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-print "<br>$$ >>>>>+++++>>>>>>>$resAuth<<<<<<<<br>$resPing<------delim<br>";
+#print "<br>$$ >>>>>+++++>>>>>>>$resAuth<<<<<<<<br>$resPing<------delim<br>";
 {
 	open(REC,">>../rec.html")||die("Error $!");
 	my $tft=gmtime(); #time for test
@@ -1169,17 +1172,15 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 				# We use this option in order to make a difference between an image linked to a web site and an image localy uploaded
 				if ( $type_upload eq "Local" ){ # Begin if ($type_upload eq "Local")
 					    # When upload raised a new window with info
-					open( W, ">album/dec" ) || error_raised( $doc, "File [$file_conf_to_save] not found!!!" );
-					print W ".";
-					close(W);
+				    #open( W, ">album/dec" ) || error_raised( $doc, "File [$file_conf_to_save] not found!!!" );
+				    #	print W ".";
+				    #	close(W);
 					##&raised_upload_window;
-#					sleep(1);
-#					print "ooooooo".&io::MyConstantBase::ALLOWED_FILE_FORMAT_TYPE->()->()."<br />";
-					if(length(uri_unescape($doc->param("maop_file_name_img")))>0){
-						# watch out case of youtube
-						$rul=my_upload($doc, uri_unescape($doc->param("maop_file_name_img")), &io::MyConstantBase::DIRECTORY_DEPOSIT->(), "$timsec",&io::MyConstantBase::ALLOWED_FILE_FORMAT_TYPE->());
-	#					$file_name=~s!\&\#95;!g;
-					}
+					if(length(uri_unescape($doc->param("maop_file_name_img")))>0){ # Begin if(length(uri_unescape($doc->param("maop_file_name_img")))>0)
+						# watch out case for youtube
+						$rul=$doc->param('maop_final2');
+						#	io::gut::machine::MyFile::my_upload($doc, uri_unescape($doc->param("maop_file_name_img")), &io::MyConstantBase::DIRECTORY_DEPOSIT->(), "${timsec}$$",&io::MyConstantBase::ALLOWED_FILE_FORMAT_TYPE->());
+					} # End if(length(uri_unescape($doc->param("maop_file_name_img")))>0)
 				} # End if ($type_upload eq "Local")
 			} # End if ($upload eq "ok")
 		} # End if ($an_action ne "record_modify")
@@ -3553,6 +3554,7 @@ sub shows_list_pictures { # Begin shows_list_pictures
 	my ( $word, $link, $word_eng, $link_eng) = ();
 	my $counter_p=1;
 	foreach my $one_line (@save_info){ # Begin foreach my $one_line (@save_info)
+		@line=();
 		if($counter_p>1){ # Begin if($counter_p>1)
 			@line = split( /\|\|/, $one_line );
 			( $word, $link, $word_eng, $link_eng) = &split_links( $line[11] );

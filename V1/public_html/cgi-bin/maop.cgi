@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : maop.cgi
 * Creation Date : Wed Aug 19 15:51:08 2015
-* Last Modified : Sat Dec  8 21:55:25 2018
+* Last Modified : Sun Dec 16 00:25:41 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -16,6 +16,7 @@ q##//q#
 # ------------------------------------------------------
 use CGI;
 use strict;
+use warnings;
 
 my $doc;
 BEGIN {
@@ -23,61 +24,64 @@ BEGIN {
 	# A bug was solved and that's it was "...but still, the newly generated form has al the values from the previous form...".
 	$|=1;
 	$doc=$CGI::Q ||= new CGI; # It is using the special internal $CGI::Q object, rather than your 'my $doc' object that's why we do this.
+	print "Content-Type: text/html ; charset=UTF-8 \n\n";
 }
 END {
 	$doc->delete_all(); # We clean all variables and parameters when the script is over
 }
 use POSIX qw(strftime);
 use io::MyNav;
-use io::MyConstantBase;
 use DateTime;
 use DateTime::Format::Strptime;
 use Cwd;
 #use Encode;
 use URI;
 use URI::Escape;
+use io::MyConstantBase;
+use io::gut::machine::MyFile;
 
 my $VERSION="1.0.12.29";
 
 my $now_string = time(); # strftime "%m %d %H:%M:%S UTC %Y", gmtime;
+
+my $extra_param="";
+	if($doc->param("maop_file_name_img")){
+		my $timsec=localtime;
+		print "<br><br><br><br><br><br><br><br><br><br>----------------->$timsec<br>";
+		$timsec=~s/[\ \/\:]/\_/g;
+		my $pim=$doc->param("maop_file_name_img");
+		$extra_param="maop_file_name_img=";
+		$extra_param .= uri_escape("${timsec}$$" . $pim);
+		my $final2 = io::gut::machine::MyFile::my_upload($doc, $pim, &io::MyConstantBase::DIRECTORY_DEPOSIT->(), "${timsec}$$",&io::MyConstantBase::ALLOWED_FILE_FORMAT_TYPE->());
+		print "UUUUUUUUUUUUUUUUUUUUUUU>".$final2."<br>";
+		$extra_param .= "\&maop_final=$final2";
+	}
 
 my $ip=io::MyNav::gets_ip_address;
 my $ipAddr=io::MyNav::gets_ip_address;
 my $logfile="album/hist/log-$ipAddr-$$";
 my $mparam=();# my parameter passed
 
-print "Content-Type: text/html ; charset=UTF-8 \n\n";
 print "v$VERSION\n<br>";
-print "<br>\n"; print "<br>\n"; print "<br>\n"; print "<br>\n";
-print "<br>\n"; print "<br>\n"; print "<br>\n"; print "<br>\n";
 
-my $requested = URI->new( CGI::url() );
-#open(REC,">>mylog"); print REC $requested."?".$ENV{QUERY_STRING} ."\n"; close(REC);
 my $leng=scalar $doc->param;
 
 my $la=$doc->param("maop_lat");
 my $lo=$doc->param("maop_lon");
 
-#open(REC,">>../rec.html");
-#print REC "\n----------------BEGIN----------<br>\n";
 foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
-	#print ">>>>>>>$p --->".uri_escape($doc->param($p))."<br>";
-	#print ">>>>>>>$p --->".$doc->param($p)."<br>\n";
 	if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
 		if($p!~m/^maop_lon$/&&
 		   $p!~m/^maop_lat$/&&
 		   $p!~m/^maop_prog$/&&
 		   $p!~m/^maop_date$/&&
+		   $p!~m/^maop_file_name_img$/&&
 		   #   $p!~m/^maop_Set_page_position_in_the_album$/&&
 		   $p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 			my $pram=$doc->param($p);
-			print "****>>>>>>>$p --->$pram<br>\n";
-			#print "****>>>>>>>$p --->".$doc->param($p)."<br>\n";
-			#chomp($pram);
+
 			if($mparam!~m/[\?\&]$p\=/){
 				if (length($pram)>0) { # Begin if (length($pram)>0)
-					#$dec=uri_escape($pram, "\0-\377") || die ("Error: $!");;
-					#$mparam.="\&$p=$pram";
 					$mparam.="\&$p=".uri_escape($pram);
 				} # End if (length($pram)>0)
 			}
@@ -91,25 +95,18 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 		#}
 		#} # End elsif ($p=~m/^maop_Set_page_position_in_the_album$/)
 		elsif ($p!~m/^maop_lat$/){ # begin elsif ($p!~m/^maop_lat$/)
-#&myrec("Case logfile format maop ","../error.html","****** $la" );
 		} # end elsif ($p!~m/^maop_lat$/)
 		elsif($p!~m/^maop_lon$/){ # begin elsif($p!~m/^maop_lon$/)
-#&myrec("Case logfile format maop ","../error.html","****** $lo" );
 		} # end elsif($p!~m/^maop_lon$/)
 		else{ # Begin else
 		} # End else
 	} # end if($p=~m/^maop\_/)
 	#	print REC "\n#####+++++***<$p>".$doc->param($p)."<br>";
 } # end foreach my $p ($doc->param)
-#print REC "\n----------------END----------<br>\n";
-#close(REC);
-#&myrec("Case logfile format maop ","../error.html","logfile: $logfile *****(lo,la)=($lo,$la)" );
-print "<br>oooooooo>$mparam<br>";
-#sleep(40);
+$mparam.="&$extra_param";
+#print "<br>oooooooo>$mparam<br>";
 
 my $prog=(length($doc->param("maop_prog"))==0) ? "album.cgi" : $doc->param("maop_prog");
-
-#print "<h1>>>>>${ip} ooooooooooooooooooooo>$prog<<<<<<<<<<<<</h1><br>";
 
 # we build the url
 my $url= 'http';
@@ -150,7 +147,7 @@ if( -f "$logfile"){ # begin if( -f "$logfile")
 
 $logfile=&do_untaint($logfile);
 
-open(FD,">","$logfile") or die("$logfile error $!");
+open(FD,">","${logfile}") or die("$logfile error $!");
 print FD " ";
 close(FD) or die("$logfile error $!");
 $logfile=~s/\//\_/g;
