@@ -5,9 +5,9 @@ q##//q#
 * Created By : sdo
 * File Name : MyFile.pm
 * Creation Date : Wed Aug 20 22:51:08 2008
-* Last Modified : Sun Dec 16 00:03:59 2018
+* Last Modified : Sun Dec 16 00:37:55 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
-* Version : 0.0.0.0
+* Version : 1.1.4.4
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -26,7 +26,7 @@ if( ! -d "$CGITempFile::TMPDIRECTORY"){ die "$CGITempFile::TMPDIRECTORY $!";}# i
 
 require Exporter;
 
-my $VERSION    = '1.1.4.0';
+my $VERSION    = '1.1.4.4';
 $VERSION    = eval $VERSION;
 my @ISA    = qw( Exporter );
 my @EXPORT = qw(
@@ -257,20 +257,19 @@ sub my_upload { # Begin sub my_upload
 	my $ldi=getcwd; # we record current dir
 
 	chomp($file_from);
-	#$buff=$file_from;
 	$ldi=&do_untaint($ldi);
-	print getcwd . "<br><br><br><br> change dir<br>";
-	chdir($directory_deposit);
-	print getcwd . "<br>";
-	print "we check if file $file_from exists ";
-	print "ok found " if (-e "$file_from");
-	if (-e "$file_from"){ chdir($ldi); return 0 ; } 
-	else{ chdir($ldi); }
-	print "not found<br>";
+	#print getcwd . "<br><br><br><br> change dir<br>";
+	#chdir($directory_deposit);
+	#print getcwd . "<br>";
+	#print "we check if file $file_from exists ";
+	#print "ok found " if (-e "$file_from");
+	#if (-e "$file_from"){ chdir($ldi); return 0 ; } 
+	#else{ chdir($ldi); }
+	#print "not found<br>";
 	#$buff=();
 
 	$file_from=~m/(\.[a-z0-9]{3})$/i;
-	print "$file_format--->$1\n<br>";
+	#print "$file_format--->$1\n<br>";
 	return -1 if ($file_format!~m/$1/i);
 
 	$doc->cgi_error and error_raised( $doc, "Transfert error of file :", $doc->cgi_error );
@@ -291,7 +290,7 @@ sub my_upload { # Begin sub my_upload
 	# We create a file into a path where to store new image file
 	$file_to_upload = $directory_deposit . "/${suffix_for_image_file}${file_name_saved_at_server_side}";
 	#chomp($file_to_upload);
-	print "<br>FILE RECORDED: $file_to_upload<br>";
+	#print "<br>FILE RECORDED: $file_to_upload<br>";
 
 	if ( $file_from !~ m/(${file_format})$/i ) { # Begin if ($file !~ m/^[a-zA-Z][a-zA-Z0-9\-_]*.(jpeg|jpg|gif)$/i)
 	#	error_raised( $doc, "File received [$file_from].<br>Character accepted: from <u>a to z</u> and <u>A to Z</u> as first file character. Then several occurrencies from <u>a to z</u> and <u>A to Z</u> and <u>0 to 9</u> and <u>- and _</u> can be accepted.<br>\nFormat of image different from gif, jpeg, jpg.");
@@ -305,7 +304,7 @@ sub my_upload { # Begin sub my_upload
 	if ( $is_image_file_need_to_be_uploaded == 1 ) { # Begin  if ($is_image_file_need_to_be_uploaded == 1 )
 		my $load=0;
 		${file_to_upload}=&do_untaint(${file_to_upload});
-		print "<br><br><br>ooooooo)$file_to_upload(ooooooo<br>";
+		#print "<br><br><br>ooooooo)$file_to_upload(ooooooo<br>";
 		chomp(${file_to_upload});
 		if(${file_to_upload}=~m/\/$/){ print "no download: file name empty<br>";return -1;}
 		#	print "Content-Type: text/html\n\n"; 
