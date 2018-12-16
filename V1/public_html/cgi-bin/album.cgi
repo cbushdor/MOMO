@@ -5,12 +5,12 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Sun Dec 16 00:48:43 2018
+* Last Modified : Sun Dec 16 02:25:18 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.234
+* Version : 1.6.16.236
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -104,18 +104,18 @@ my $myport= ($ENV{SERVER_PORT}=~m/[0-9]+/) ? ":$ENV{SERVER_PORT}/" : "/";
 my $myscript= $ENV{REQUEST_URI};
 $myscript=~s/\?.*$//;
 $myscript=~s/album.cgi/maop.cgi/;
+#print "Content-Type: text/html ; charset=UTF-8\n\n";
 
 eval "use io::gut::machine::MyFile";
 if ($@){
 	eval "use io::gut::machine::MyFileRescue";
 	if($@){
-		print "Content-Type: text/html ; charset=UTF-8\n\n";
 		print "No io::MyFileRescue";
 		exit (-1);
 	}
 #	else{ $MyFile="packges::MyFileRescue";}
 }
-print "Content-Type: text/html\n\n";
+#print "Content-Type: text/html\n\n";
 #my $timsec=localtime;
 #my $final2 = io::gut::machine::MyFile::my_upload($doc, $doc->param("maop_file_name_img"), &io::MyConstantBase::DIRECTORY_DEPOSIT->(), "${timsec}$$",&io::MyConstantBase::ALLOWED_FILE_FORMAT_TYPE->());
 
@@ -130,7 +130,7 @@ our $mip=io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.234'; # Album release
+use constant ALBUM_REL               	=> '16.236'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -159,7 +159,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.234
+$VERSION=1.6.16.236
 
 =head1 ABSTRACT
 
@@ -750,7 +750,7 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	# ---------------------- END ----------------------------
 	# -------------------------------------------------------
 	
-	print "Content-Type: text/html ; charset=UTF-8\n\n";
+	#print "Content-Type: text/html ; charset=UTF-8\n\n";
 	my $t="* <u>($lon)</u> ======== * defined(lon):".((defined($lon)) ? " defined" : " not defined")." <b>=====</b> "
 		."* length(lon)==0: ".((length($lon)==0) ? " length is zero ":" length is not zero ")." <b>=====</b> "
 		."* lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/".(($lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/) ? " not defined for this reg exp " : " defined for this reg exp ")." <b>=====</b> ";
@@ -811,7 +811,7 @@ else{# Begin else
 } # End else
 
 if($service eq "verDoc"){ # Only entire documentation + version is asked
-	print "Content-Type: text/html ; charset=UTF-8\n\n";
+	#print "Content-Type: text/html ; charset=UTF-8\n\n";
 	my $res=io::MyUtilities::getsDocVers("${main_prog}",ALBUM_VERSION);
 	#print $res;
 	my $cres=jcode(MPWD->(),$res);
@@ -819,20 +819,20 @@ if($service eq "verDoc"){ # Only entire documentation + version is asked
 	print "$res";
 	exit(&io::MyConstantBase::OK->());# Exit that's it
 }elsif($service eq "versioning"){ # Only version is asked
-	print "Content-Type: text/html ; charset=UTF-8\n\n";
+	#print "Content-Type: text/html ; charset=UTF-8\n\n";
 	my $cres=jcode(MPWD->(),ALBUM_VERSION);
 	#print "$cres(---------)<br />";
 	my $res=encode_base64($cres);
 	print "$res";
 	exit(&io::MyConstantBase::OK->());# Exit that's it
 }elsif($service eq "ver"){ # Only version is asked
-	print "Content-Type: text/html ; charset=UTF-8\n\n";
+	#print "Content-Type: text/html ; charset=UTF-8\n\n";
 	#my $cres=jcode(MPWD->(),ALBUM_VERSION);
 	print ALBUM_VERSION;
 	exit(&io::MyConstantBase::OK->());# Exit that's it
 }elsif($service=~m/geoLoc/){ # only history is asked
 	my $u=ALBUM_INFO_DIRECTORY->() . ALBUM_HISTORY_INFO_FILE->();
-	print "Content-Type: text/html ; charset=UTF-8\n\n";
+	#print "Content-Type: text/html ; charset=UTF-8\n\n";
 	#print "Content-Type: text/html\n\n";
 	if(  -f "$u" ){ # Begin if(  -f "$u" )
 		print "error";
@@ -1048,7 +1048,7 @@ $credentials{"album_pid_file"}=&io::MyConstantBase::CHECK_PID_SESSION->();
 
 #print "<u>param to checks:</u> $my_pid,".uri_unescape($doc->param("maop_service")).", check, $my_pid, $user_login, $login, $user_password, $password, $doc,".&io::MyConstantBase::CHECK_PID_SESSION->()."\n<br>";
 #my $resAuth=io::MyUtilities::check_password($my_pid,uri_unescape($doc->param("maop_service")), "check", "$my_pid", $user_login, $login, $user_password, $password, $doc,&io::MyConstantBase::CHECK_PID_SESSION->());
-print "Content-Type: test/html\n\n";
+#print "Content-Type: test/html\n\n";
 my $resAuth=io::MyUtilities::check_password(%credentials);
 &loadDataTrips; # put security control
 print &cascade_style_sheet_definition;
