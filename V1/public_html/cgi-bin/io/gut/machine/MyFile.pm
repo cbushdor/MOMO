@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyFile.pm
 * Creation Date : Wed Aug 20 22:51:08 2008
-* Last Modified : Sun Dec 16 00:37:55 2018
+* Last Modified : Sun Dec 16 01:56:07 2018
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 1.1.4.4
 * Purpose :
@@ -304,13 +304,9 @@ sub my_upload { # Begin sub my_upload
 	if ( $is_image_file_need_to_be_uploaded == 1 ) { # Begin  if ($is_image_file_need_to_be_uploaded == 1 )
 		my $load=0;
 		${file_to_upload}=&do_untaint(${file_to_upload});
-		#print "<br><br><br>ooooooo)$file_to_upload(ooooooo<br>";
 		chomp(${file_to_upload});
 		if(${file_to_upload}=~m/\/$/){ print "no download: file name empty<br>";return -1;}
-		#	print "Content-Type: text/html\n\n"; 
-		#print "--[".length(${file_to_upload})."]-->${file_to_upload}<---<br>";
 		open(FW,">${file_to_upload}" ) || die("Error ${file_to_upload}");
-		#		my @info = stat $file_from;
 		my $seg_file_read = 0;
 		while ( $bytes_read = read( $file_from, $buff, io::MyConstantBase::AMOUNT_OF_INFO_TO_READ->() ) ) { # Begin while ($bytes_read=read($file_from,$buff,io::MyConstantBase::AMOUNT_OF_INFO_TO_READ->())
 			$seg_file_read += $bytes_read;
