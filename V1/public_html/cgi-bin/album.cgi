@@ -1,16 +1,17 @@
-#!/opt/local/bin/perl -T
+#!/usr/bin/perl-5.28.1 -T
+#/opt/local/bin/perl 
 
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Sun Dec 16 02:25:18 2018
+* Last Modified : Wed Jan 30 09:49:44 2019
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.236
+* Version : 1.6.16.500
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -130,7 +131,7 @@ our $mip=io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.236'; # Album release
+use constant ALBUM_REL               	=> '16.500'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -159,7 +160,7 @@ use IO;
 
 album.cgi
 
-$VERSION=1.6.16.236
+$VERSION=1.6.16.500
 
 =head1 ABSTRACT
 
@@ -242,6 +243,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.500> Jan 30 2019 This is perl 5, version 24, subversion 3 (v5.24.3) built for darwin-thread-multi-2level to This is perl 5, version 28, subversion 1 (v5.28.1) built for darwin-2level (with 1 registered patch, see perl -V for more detail).
 
 - I<Last modification:v1.6.16.234> Dec 15 2018 Now pictures are printed.
 

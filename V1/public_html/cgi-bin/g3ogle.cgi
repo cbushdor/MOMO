@@ -1,13 +1,14 @@
-#!//opt/local/bin/perl
+#!/usr/bin/perl-5.28.1 -T
+# #!//opt/local/bin/perl
 
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* Last Modified : Tue Dec  4 02:59:03 2018
+* Last Modified : Wed Jan 30 10:25:39 2019
 * Email Address : sdo@macbook-pro-de-sdo.home
-* Version : 0.2.1..234
+* Version : 0.2.1..500
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
@@ -15,8 +16,19 @@ q##//q#
 #;
 # ------------------------------------------------------
 
+use CGI;
 
 $|=0;
+
+my $doc;
+BEGIN {
+	push @INC,"/Users/sdo/Sites/cgi-bin/"; # We add a new path to @INC
+	# A bug was solved and that's it was "...but still, the newly generated form has al the values from the previous form...".
+	$doc=$CGI::Q ||= new CGI; # It is using the special internal $CGI::Q object, rather than your 'my $doc' object that's why we do this.
+}
+END {
+	$doc->delete_all(); # We clean all variables and parameters when the script is over
+}
 
 use warnings;
 use strict;
@@ -41,20 +53,19 @@ use URI::Escape;
 use Encode qw(from_to);
 
 
-use CGI;
 
 our $mip=io::MyNav::gets_ip_address;
 
 #print "Content-Type: text/html\n\n";
 
 #my $ipAddr=io::MyNav::gets_ip_address;
-my $VERSION="0.2.1..234";
+my $VERSION="0.2.1.500";
 
 =head1 NAME
 
 g3ogle.cgi
 
-$VERSION="0.2.1.234"
+$VERSION="0.2.1.500"
 
 =head1 ABSTRACT
 
@@ -82,6 +93,8 @@ infoCenter
 
 =over 4
 
+- I<Last modification:v0.2.1.500> Jan 30 2019 This is perl 5, version 24, subversion 3 (v5.24.3) built for darwin-thread-multi-2level to This is perl 5, version 28, subversion 1 (v5.28.1) built for darwin-2level (with 1 registered patch, see perl -V for more detail).
+
 - I<Last modification:v0.2.1.154> Aug 30 2015: removed test below
 			if(!("$ll" eq "$l" && "$LL" eq "$L")){ # begin if(!("$ll" eq "$l" && "$LL" eq "$L"))
 
@@ -102,16 +115,6 @@ infoCenter
 
 =cut
 
-
-my $doc;
-BEGIN {
-	push @INC,"/Users/sdo/Sites/cgi-bin/"; # We add a new path to @INC
-	# A bug was solved and that's it was "...but still, the newly generated form has al the values from the previous form...".
-	$doc=$CGI::Q ||= new CGI; # It is using the special internal $CGI::Q object, rather than your 'my $doc' object that's why we do this.
-}
-END {
-	$doc->delete_all(); # We clean all variables and parameters when the script is over
-}
 
 		{
 			open(REC,">>../rec.html")||die("err: $!");
