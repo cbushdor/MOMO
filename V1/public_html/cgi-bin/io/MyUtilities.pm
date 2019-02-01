@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyUtilities.pm
 * Creation Date : Thu Oct 13 22:51:08 2005
-* Last Modified : Fri Dec 14 01:50:45 2018
+* Last Modified : Fri Feb  1 23:01:16 2019
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 1.1.25.60
 * License:
@@ -1133,12 +1133,12 @@ sub getsDocVers{# Begin sub getsDocVers
 	open(R,"${orpath}");
 	my @ooo=<R>;
 	close(R);
-	my $oo=join(/\n/,@ooo);
+	my $oo=join("\n",@ooo); # old notation my $oo=join(/\n/,@ooo);
 	my @oob=split(/=head2 HISTORY OF MODIFICATIONS/,$oo);
 	my @z=split(/=over 4/,$oob[1]);
-	$oo=join(/\n/,$z[1]);
+	$oo=join("\n",$z[1]); # old notation $oo=join(/\n/,$z[1]);
 	@z=split(/=back/,$oo);
-	$oo=join(/\\n/,$z[0]);
+	$oo=join("\\n",$z[0]); # old notation  $oo=join(/\\n/,$z[0]);
 	$oo=~s/I<Last modification:\ *(v[0-9]{1,9}.[0-9]{1,9}.[0-9]{1,9}.[0-9]{1,9})([^\ >]*)> /$1<font color=white><b>$2<\/b><\/font>|/g;
 	$oo=~s/\n/<br>/g;
 	return "$oo<br>\n";
