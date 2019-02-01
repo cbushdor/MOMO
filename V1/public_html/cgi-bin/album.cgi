@@ -6,12 +6,12 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Fri Feb  1 23:17:30 2019
+* Last Modified : Fri Feb  1 23:41:03 2019
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.500
+* Version : 1.6.16.512
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -131,7 +131,7 @@ our $mip=io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.500'; # Album release
+use constant ALBUM_REL               	=> '16.512'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -160,7 +160,7 @@ my $fn="album/hist/${mip}";
 
 album.cgi
 
-$VERSION=1.6.16.500
+$VERSION=1.6.16.512
 
 =head1 ABSTRACT
 
@@ -243,6 +243,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.512> Feb 1 2019 Bugs due to portage modified. On  result was a black screen unwanted on chrome browser on the cell.
 
 - I<Last modification:v1.6.16.500> Jan 30 2019 This is perl 5, version 24, subversion 3 (v5.24.3) built for darwin-thread-multi-2level to This is perl 5, version 28, subversion 1 (v5.28.1) built for darwin-2level (with 1 registered patch, see perl -V for more detail).
 
