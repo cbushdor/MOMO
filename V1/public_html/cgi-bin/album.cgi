@@ -6,7 +6,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Fri Feb  1 23:12:05 2019
+* Last Modified : Fri Feb  1 23:17:30 2019
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -585,8 +585,8 @@ $|=1;
 
 #use CGI::Pretty qw( :html4 );
 
-$CGI::Pretty::LINEBREAK="\n\n";
-$CGI::Pretty::INDENT="\t\t";
+#$CGI::Pretty::LINEBREAK="\n\n";
+#$CGI::Pretty::INDENT="\t\t";
 
 use Fcntl qw( :DEFAULT :flock);
 
