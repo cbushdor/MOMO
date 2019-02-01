@@ -6,7 +6,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Fri Feb  1 23:06:35 2019
+* Last Modified : Fri Feb  1 23:09:29 2019
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -6381,7 +6381,8 @@ sub ipAddressGranted{ # Begin ipAddressGranted
 	# Records ip address if user agreed
 	if($recPid=~m/ok/){ # Begin if($recPid=~m/ok/)
 		$recPid="";
-		my $url=join(/\n/,io::MyUtilities::getUrlFromFile); # pick up url from the file
+		my $url=join("\n",io::MyUtilities::getUrlFromFile); # pick up url from the file
+		#my $url=join(/\n/,io::MyUtilities::getUrlFromFile); # pick up url from the file
 		#print "zozozo$ipad<br />$url<br />";
 		if($url!~/$ipad\|/){ # Begin if($url!~/$ipad\|/)
 			chomp($ipad); # Remove crlf
