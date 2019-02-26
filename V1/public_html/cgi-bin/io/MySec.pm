@@ -7,7 +7,7 @@ q##//q#
 * Created By : sdo
 * File Name : MySec.pm
 * Creation Date : Sun Jul 19 21:11:08 2009
-* Last Modified : Mon Nov 26 15:32:34 2018
+* Last Modified : Tue Feb 26 13:41:10 2019
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -1428,7 +1428,7 @@ sub getsDFP { # Begin sub getsDFP
 
 		foreach my $a (@_){ # Begin foreach my $a (@_)
 			chomp($a);
-			$finger_print.=$a . ",";
+			$finger_print.=$a . "#";
 		} # End foreach my $a (@_)
 		return $finger_print;
 	} # End sub gets_fp
