@@ -6,12 +6,12 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Fri Feb  1 23:41:03 2019
+* Last Modified : Tue Feb 26 15:12:54 2019
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.512
+* Version : 1.6.16.521
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -131,7 +131,7 @@ our $mip=io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.512'; # Album release
+use constant ALBUM_REL               	=> '16.521'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -160,7 +160,7 @@ my $fn="album/hist/${mip}";
 
 album.cgi
 
-$VERSION=1.6.16.512
+$VERSION=1.6.16.521
 
 =head1 ABSTRACT
 
@@ -243,6 +243,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.521> Feb 26 2019 New filter.
 
 - I<Last modification:v1.6.16.512> Feb 1 2019 Bugs due to portage modified. On  result was a black screen unwanted on chrome browser on the cell.
 
@@ -947,7 +949,8 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 		print "A mail to $to is being sent...\n<br>";
 	}
 	chomp($rtn[0]);my ($brtn,$ertn,$tntz_b,$tntz_e)=split(/\#/,$rtn[0]); # begining r... trip name,end r... trip name,trip name (time) zone begining,trip name (time) zone end
-	my $my_finger_print=$rtn[1];chomp($my_finger_print);
+	my $my_finger_print=$rtn[1]; # Loads data stored for finger print
+	chomp($my_finger_print);
 	my $anal = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
 	my $dtb = $anal->parse_datetime( $brtn );
 
@@ -974,7 +977,30 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 		else { # Begin  $dte>=$dt3
 			my $dcfp = io::MySec::getsDFP;# We get the device finger print that is connecting
 
-			if($dcfp eq $my_finger_print) { # Begin if($dcfp eq $my_finger_print)
+			#print "Content type: text/html\n\n";
+			print "<br>My fingerprint: <br>";
+			# print "ok<br>" if($dcfp eq $my_finger_print); print "not ok<br>" if($dcfp ne $my_finger_print); print "$dcfp <br> $my_finger_print\n<br>"; print "ok" if($dcfp eq $my_finger_print);
+			my @localFP1=split(/\#/,$my_finger_print);
+			my @localFP2=split(/\#/,$dcfp);
+			#iscalar @localFP1."-".scalar @localFP2."<br>";
+			#for (my $i=0;$i<scalar @localFP1;$i++){ print "=====><b>$localFP1[$i]</b> -------- $localFP2[$i]<br>"; }
+			print "<br>".scalar @localFP1."-".scalar @localFP2."<br>";
+			print "******>$localFP1[0] eq $localFP2[0]<br>\n";
+			print "******>$localFP1[2]$localFP1[9] ge $localFP2[2]$localFP2[9] <br>\n";
+			print "******>$localFP1[5] eq $localFP2[5] <br>\n";
+			print "******>$localFP1[6] eq $localFP2[6] <br>\n";
+			print "******>$localFP1[7] eq $localFP2[7] <br>\n";
+			print "******>$localFP1[8] eq $localFP2[8] <br>\n";
+
+			if(
+				scalar @localFP1 == scalar @localFP2 &&
+				$localFP1[0] eq $localFP2[0] &&
+				"$localFP1[2]$localFP1[9]" ge "$localFP2[2]$localFP2[9]" &&
+				$localFP1[5] eq $localFP2[5] &&
+				$localFP1[7] eq $localFP2[7] &&
+				$localFP1[8] eq $localFP2[8] &&
+				$localFP1[6] eq $localFP2[6]
+			) { # Begin if($dcfp eq $my_finger_print)
 				#print "<h1>We record $dtb<$dt3<$dte</h1></br>";
 				$rtrip='#808080'; # We record 
 				$mtfn="${mgidt}-" . &io::MyConstantBase::TRIP_NAME->(); 
