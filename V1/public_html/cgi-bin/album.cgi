@@ -6,7 +6,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Thu Mar  7 08:24:25 2019
+* Last Modified : Thu Mar  7 11:32:05 2019
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -1006,6 +1006,8 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 			if(
 				scalar @localFP1 == scalar @localFP2 &&
 				$localFP1[0] eq $localFP2[0] &&
+				"$localFP1[2]$localFP1[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}$/ &&
+				"$localFP2[2]$localFP2[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}$/ &&
 				"$localFP1[2]$localFP1[9]" le "$localFP2[2]$localFP2[9]" &&
 				$localFP1[5] eq $localFP2[5] &&
 				$localFP1[7] eq $localFP2[7] &&
