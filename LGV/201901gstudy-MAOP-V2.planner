@@ -182,51 +182,53 @@
     </task>
   </tasks>
   <resource-groups>
-    <group id="1" name="Culture" admin-name="" admin-phone="" admin-email=""/>
-    <group id="2" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
-    <group id="3" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
-    <group id="4" name="Asso" admin-name="" admin-phone="" admin-email=""/>
-    <group id="5" name="Programming" admin-name="" admin-phone="" admin-email=""/>
-    <group id="6" name="Admin" admin-name="" admin-phone="" admin-email=""/>
+    <group id="1" name="Admin" admin-name="" admin-phone="" admin-email=""/>
+    <group id="2" name="Programming" admin-name="" admin-phone="" admin-email=""/>
+    <group id="3" name="Asso" admin-name="" admin-phone="" admin-email=""/>
+    <group id="4" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
+    <group id="5" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
+    <group id="6" name="Culture" admin-name="" admin-phone="" admin-email=""/>
   </resource-groups>
   <resources>
-    <resource group="6" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="4" name="Web servers" short-name="wse" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="5" name="Googlemap" short-name="gma" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="6" name="Tests" short-name="Tes" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="7" name="Perl" short-name="Per" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="8" name="Ubuntu" short-name="ubu" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="9" name="Fedora" short-name="fed" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="10" name="April" short-name="apr" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="11" name="Parinux" short-name="prx" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="12" name="Mongueurs de Perl" short-name="mdp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="13" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="14" name="Coffee shop" short-name="csh" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="15" name="Paris est une f&#xEA;te" short-name="PEUF" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="16" name="Python" short-name="Pyt" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="17" name="OpenOffice" short-name="OOf" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="18" name="SCumm VM" short-name="SVM" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="19" name="Utilitaire/Tools 7z" short-name="c7z" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="20" name="Basic OpenOffice.org" short-name="boo.org" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="21" name="SELinux" short-name="SEL" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="22" name="Mac OS X" short-name="mox" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="23" name="github" short-name="ghu" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="24" name="Mairie de Paris" short-name="M2P" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="25" name="POD (Plain Old Document)" short-name="POD" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="26" name="PHP" short-name="PHP" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="27" name="Blender 2.77" short-name="BLD" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="28" name="Orange" short-name="ORA" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="29" name="Tablet" short-name="TAB" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="30" name="Cellular" short-name="CEL" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="31" name="Angular" short-name="AnJS" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="32" name="Readings P6 Stuffs" short-name="RP6s" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="4" name="Web servers" short-name="wse" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="5" name="Googlemap" short-name="gma" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="6" name="Tests" short-name="Tes" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="7" name="Perl" short-name="Per" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="8" name="Ubuntu" short-name="ubu" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="9" name="Fedora" short-name="fed" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="10" name="April" short-name="apr" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="11" name="Parinux" short-name="prx" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="12" name="Mongueurs de Perl" short-name="mdp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="13" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="14" name="Coffee shop" short-name="csh" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="15" name="Paris est une f&#xEA;te" short-name="PEUF" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="16" name="Python" short-name="Pyt" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="17" name="OpenOffice" short-name="OOf" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="18" name="SCumm VM" short-name="SVM" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="19" name="Utilitaire/Tools 7z" short-name="c7z" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="20" name="Basic OpenOffice.org" short-name="boo.org" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="21" name="SELinux" short-name="SEL" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="22" name="Mac OS X" short-name="mox" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="23" name="github" short-name="ghu" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="24" name="Mairie de Paris" short-name="M2P" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="25" name="POD (Plain Old Document)" short-name="POD" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="26" name="PHP" short-name="PHP" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="27" name="Blender 2.77" short-name="BLD" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="28" name="Orange" short-name="ORA" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="29" name="Tablet" short-name="TAB" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="30" name="Cellular" short-name="CEL" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="31" name="Angular" short-name="AnJS" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="32" name="Readings P6 Stuffs" short-name="RP6s" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource id="33" name="Feuille de choux hot stuff regarding machines" short-name="RFC" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource id="34" name="Push FDC wm" short-name="PFWm" type="2" units="0" email="" note="" std-rate="0"/>
   </resources>
   <allocations>
     <allocation task-id="38" resource-id="1" units="14"/>
-    <allocation task-id="7" resource-id="1" units="11"/>
-    <allocation task-id="20" resource-id="1" units="10"/>
+    <allocation task-id="7" resource-id="1" units="8"/>
+    <allocation task-id="20" resource-id="1" units="8"/>
     <allocation task-id="19" resource-id="1" units="10"/>
     <allocation task-id="18" resource-id="1" units="11"/>
     <allocation task-id="44" resource-id="1" units="20"/>
@@ -249,8 +251,8 @@
     <allocation task-id="11" resource-id="1" units="8"/>
     <allocation task-id="5" resource-id="1" units="14"/>
     <allocation task-id="38" resource-id="2" units="14"/>
-    <allocation task-id="7" resource-id="2" units="11"/>
-    <allocation task-id="20" resource-id="2" units="10"/>
+    <allocation task-id="7" resource-id="2" units="8"/>
+    <allocation task-id="20" resource-id="2" units="8"/>
     <allocation task-id="19" resource-id="2" units="10"/>
     <allocation task-id="18" resource-id="2" units="11"/>
     <allocation task-id="44" resource-id="2" units="20"/>
@@ -274,8 +276,8 @@
     <allocation task-id="11" resource-id="2" units="8"/>
     <allocation task-id="5" resource-id="2" units="14"/>
     <allocation task-id="38" resource-id="3" units="14"/>
-    <allocation task-id="7" resource-id="3" units="11"/>
-    <allocation task-id="20" resource-id="3" units="10"/>
+    <allocation task-id="7" resource-id="3" units="8"/>
+    <allocation task-id="20" resource-id="3" units="8"/>
     <allocation task-id="19" resource-id="3" units="10"/>
     <allocation task-id="18" resource-id="3" units="11"/>
     <allocation task-id="44" resource-id="3" units="20"/>
@@ -298,8 +300,8 @@
     <allocation task-id="11" resource-id="3" units="8"/>
     <allocation task-id="5" resource-id="3" units="14"/>
     <allocation task-id="38" resource-id="4" units="14"/>
-    <allocation task-id="7" resource-id="4" units="11"/>
-    <allocation task-id="20" resource-id="4" units="10"/>
+    <allocation task-id="7" resource-id="4" units="8"/>
+    <allocation task-id="20" resource-id="4" units="8"/>
     <allocation task-id="19" resource-id="4" units="10"/>
     <allocation task-id="17" resource-id="4" units="100"/>
     <allocation task-id="16" resource-id="4" units="8"/>
@@ -314,8 +316,8 @@
     <allocation task-id="11" resource-id="4" units="8"/>
     <allocation task-id="5" resource-id="4" units="14"/>
     <allocation task-id="38" resource-id="5" units="14"/>
-    <allocation task-id="7" resource-id="5" units="11"/>
-    <allocation task-id="20" resource-id="5" units="10"/>
+    <allocation task-id="7" resource-id="5" units="8"/>
+    <allocation task-id="20" resource-id="5" units="8"/>
     <allocation task-id="19" resource-id="5" units="10"/>
     <allocation task-id="46" resource-id="5" units="25"/>
     <allocation task-id="17" resource-id="5" units="100"/>
@@ -330,8 +332,8 @@
     <allocation task-id="11" resource-id="5" units="8"/>
     <allocation task-id="5" resource-id="5" units="14"/>
     <allocation task-id="38" resource-id="6" units="14"/>
-    <allocation task-id="7" resource-id="6" units="11"/>
-    <allocation task-id="20" resource-id="6" units="10"/>
+    <allocation task-id="7" resource-id="6" units="8"/>
+    <allocation task-id="20" resource-id="6" units="8"/>
     <allocation task-id="19" resource-id="6" units="10"/>
     <allocation task-id="18" resource-id="6" units="11"/>
     <allocation task-id="44" resource-id="6" units="20"/>
@@ -353,7 +355,7 @@
     <allocation task-id="11" resource-id="6" units="8"/>
     <allocation task-id="5" resource-id="6" units="14"/>
     <allocation task-id="38" resource-id="7" units="14"/>
-    <allocation task-id="7" resource-id="7" units="11"/>
+    <allocation task-id="7" resource-id="7" units="8"/>
     <allocation task-id="19" resource-id="7" units="10"/>
     <allocation task-id="18" resource-id="7" units="11"/>
     <allocation task-id="27" resource-id="7" units="25"/>
@@ -392,7 +394,7 @@
     <allocation task-id="34" resource-id="12" units="50"/>
     <allocation task-id="12" resource-id="12" units="6"/>
     <allocation task-id="9" resource-id="12" units="6"/>
-    <allocation task-id="7" resource-id="13" units="11"/>
+    <allocation task-id="7" resource-id="13" units="8"/>
     <allocation task-id="19" resource-id="13" units="10"/>
     <allocation task-id="18" resource-id="13" units="11"/>
     <allocation task-id="44" resource-id="13" units="20"/>
@@ -414,8 +416,8 @@
     <allocation task-id="9" resource-id="13" units="6"/>
     <allocation task-id="10" resource-id="13" units="9"/>
     <allocation task-id="11" resource-id="13" units="8"/>
-    <allocation task-id="7" resource-id="14" units="11"/>
-    <allocation task-id="20" resource-id="14" units="10"/>
+    <allocation task-id="7" resource-id="14" units="8"/>
+    <allocation task-id="20" resource-id="14" units="8"/>
     <allocation task-id="19" resource-id="14" units="10"/>
     <allocation task-id="18" resource-id="14" units="11"/>
     <allocation task-id="46" resource-id="14" units="25"/>
@@ -471,7 +473,7 @@
     <allocation task-id="13" resource-id="26" units="6"/>
     <allocation task-id="12" resource-id="26" units="6"/>
     <allocation task-id="9" resource-id="27" units="6"/>
-    <allocation task-id="20" resource-id="28" units="10"/>
+    <allocation task-id="20" resource-id="28" units="8"/>
     <allocation task-id="13" resource-id="28" units="6"/>
     <allocation task-id="12" resource-id="28" units="6"/>
     <allocation task-id="4" resource-id="28" units="100"/>
@@ -483,7 +485,7 @@
     <allocation task-id="12" resource-id="29" units="6"/>
     <allocation task-id="4" resource-id="29" units="100"/>
     <allocation task-id="9" resource-id="29" units="6"/>
-    <allocation task-id="20" resource-id="30" units="10"/>
+    <allocation task-id="20" resource-id="30" units="8"/>
     <allocation task-id="16" resource-id="30" units="8"/>
     <allocation task-id="15" resource-id="30" units="7"/>
     <allocation task-id="13" resource-id="30" units="6"/>
@@ -493,7 +495,12 @@
     <allocation task-id="10" resource-id="30" units="9"/>
     <allocation task-id="11" resource-id="30" units="8"/>
     <allocation task-id="12" resource-id="31" units="6"/>
-    <allocation task-id="20" resource-id="32" units="10"/>
+    <allocation task-id="7" resource-id="32" units="8"/>
+    <allocation task-id="20" resource-id="32" units="8"/>
     <allocation task-id="24" resource-id="32" units="14"/>
+    <allocation task-id="20" resource-id="33" units="8"/>
+    <allocation task-id="7" resource-id="33" units="8"/>
+    <allocation task-id="20" resource-id="34" units="8"/>
+    <allocation task-id="7" resource-id="34" units="8"/>
   </allocations>
 </project>
