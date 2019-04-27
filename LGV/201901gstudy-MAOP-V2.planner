@@ -159,7 +159,7 @@
         </task>
       </task>
     </task>
-    <task id="40" name="Sports" note="" work="46800" start="20190423T000000Z" end="20190425T150000Z" work-start="20190423T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="40" name="Sports" note="" work="57600" start="20190423T000000Z" end="20190426T110000Z" work-start="20190423T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
       <task id="41" name="Hike" note="" work="14400" duration="14400" start="20190425T100000Z" end="20190425T150000Z" work-start="20190425T100000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
         <constraint type="start-no-earlier-than" time="20190421T000000Z"/>
         <predecessors>
@@ -178,91 +178,100 @@
       <task id="44" name="Hike" note="" work="7200" duration="7200" start="20190425T000000Z" end="20190425T100000Z" work-start="20190425T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
         <constraint type="start-no-earlier-than" time="20190425T000000Z"/>
       </task>
+      <task id="45" name="Hike" note="" work="10800" duration="10800" start="20190426T000000Z" end="20190426T110000Z" work-start="20190426T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <constraint type="start-no-earlier-than" time="20190426T000000Z"/>
+        <predecessors>
+          <predecessor id="1" predecessor-id="19" type="FS"/>
+          <predecessor id="1" predecessor-id="16" type="FS"/>
+          <predecessor id="1" predecessor-id="7" type="FS"/>
+        </predecessors>
+      </task>
     </task>
-    <task id="45" name="Conf/Renc/Mati/Salo/Expo" note="" work="75600" start="20190101T000000Z" end="20190416T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="46" name="Cin&#xE9;ma" note="" work="36000" start="20190101T000000Z" end="20190416T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="47" name="Saint Michel Paris" note="Sat 19 Jan 2019, 16:17&#10;&#10;Game Girl" work="7200" duration="7200" start="20190118T000000Z" end="20190118T100000Z" work-start="20190118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+    <task id="46" name="Conf/Renc/Mati/Salo/Expo" note="" work="75600" start="20190101T000000Z" end="20190416T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="47" name="Cin&#xE9;ma" note="" work="36000" start="20190101T000000Z" end="20190416T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="48" name="Saint Michel Paris" note="Sat 19 Jan 2019, 16:17&#10;&#10;Game Girl" work="7200" duration="7200" start="20190118T000000Z" end="20190118T100000Z" work-start="20190118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190118T000000Z"/>
         </task>
-        <task id="48" name="Espace Saint Michel" note="Fri 05 Apr 2019, 22:39&#10;Fukushima" work="7200" duration="7200" start="20190322T000000Z" end="20190322T100000Z" work-start="20190322T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="49" name="Espace Saint Michel" note="Fri 05 Apr 2019, 22:39&#10;Fukushima" work="7200" duration="7200" start="20190322T000000Z" end="20190322T100000Z" work-start="20190322T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190322T000000Z"/>
         </task>
-        <task id="49" name="Espace Saint Michel" note="Fri 05 Apr 2019, 22:38&#10;J'veux du soleil" work="7200" duration="7200" start="20190405T000000Z" end="20190405T100000Z" work-start="20190405T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="50" name="Espace Saint Michel" note="Fri 05 Apr 2019, 22:38&#10;J'veux du soleil" work="7200" duration="7200" start="20190405T000000Z" end="20190405T100000Z" work-start="20190405T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190405T000000Z"/>
         </task>
-        <task id="50" name="Le grand action" note="Wed 17 Apr 2019, 12:12&#10;Le bateau phare" work="7200" duration="7200" start="20190416T000000Z" end="20190416T100000Z" work-start="20190416T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="51" name="Le grand action" note="Wed 17 Apr 2019, 12:12&#10;Le bateau phare" work="7200" duration="7200" start="20190416T000000Z" end="20190416T100000Z" work-start="20190416T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190416T000000Z"/>
         </task>
-        <task id="51" name="Filmosa Festival - Festival du Cin&#xE9;ma Ta&#xEF;wanais &#xE0; Paris" note="" work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="52" name="Filmoth&#xE8;que" note="Sun 14 Apr 2019, 18:50&#10;Courts m&#xE9;trages" work="7200" duration="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
+        <task id="52" name="Filmosa Festival - Festival du Cin&#xE9;ma Ta&#xEF;wanais &#xE0; Paris" note="" work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="53" name="Filmoth&#xE8;que" note="Sun 14 Apr 2019, 18:50&#10;Courts m&#xE9;trages" work="7200" duration="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
         </task>
       </task>
-      <task id="53" name="Nouvel Chinois" note="" work="7200" duration="7200" start="20190208T000000Z" end="20190208T100000Z" work-start="20190208T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+      <task id="54" name="Nouvel Chinois" note="" work="7200" duration="7200" start="20190208T000000Z" end="20190208T100000Z" work-start="20190208T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
         <constraint type="must-start-on" time="20190204T000000Z"/>
-        <task id="54" name="Eclosion Printemps Concert" note="" work="7200" duration="7200" start="20190208T000000Z" end="20190208T100000Z" work-start="20190208T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="55" name="Eclosion Printemps Concert" note="" work="7200" duration="7200" start="20190208T000000Z" end="20190208T100000Z" work-start="20190208T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190208T000000Z"/>
         </task>
       </task>
-      <task id="55" name="Expo" note="" work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="56" name="Photographier Paris, l'exposition gratuite &#xE0; l'H&#xF4;tel de Ville : les photos !&#10;En savoir plugraphier-paris-l-exposition-gratuite-a-l-hotel-de-ville-les-photos#RpFMUeLRpJPHuSK9.99" note="" work="3600" duration="3600" start="20190118T000000Z" end="20190118T090000Z" work-start="20190118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="56" name="Expo" note="" work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="57" name="Photographier Paris, l'exposition gratuite &#xE0; l'H&#xF4;tel de Ville : les photos !&#10;En savoir plugraphier-paris-l-exposition-gratuite-a-l-hotel-de-ville-les-photos#RpFMUeLRpJPHuSK9.99" note="" work="3600" duration="3600" start="20190118T000000Z" end="20190118T090000Z" work-start="20190118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
         <constraint type="must-start-on" time="20190118T000000Z"/>
       </task>
-      <task id="57" name="Parc" note="" work="14400" start="20190216T000000Z" end="20190218T083320Z" work-start="20190218T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="58" name="Hokey" note="" work="14400" start="20190216T000000Z" end="20190218T083320Z" work-start="20190218T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
+      <task id="58" name="Parc" note="" work="14400" start="20190216T000000Z" end="20190218T083320Z" work-start="20190218T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="59" name="Hokey" note="" work="14400" start="20190216T000000Z" end="20190218T083320Z" work-start="20190218T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
           <constraint type="must-start-on" time="20190216T000000Z"/>
         </task>
       </task>
-      <task id="59" name="Spectacles" note="" work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="60" name="Spectacles" note="" work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
     </task>
   </tasks>
   <resource-groups>
-    <group id="1" name="Culture" admin-name="" admin-phone="" admin-email=""/>
-    <group id="2" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
-    <group id="3" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
-    <group id="4" name="Asso" admin-name="" admin-phone="" admin-email=""/>
-    <group id="5" name="Programming" admin-name="" admin-phone="" admin-email=""/>
-    <group id="6" name="Admin" admin-name="" admin-phone="" admin-email=""/>
+    <group id="1" name="Admin" admin-name="" admin-phone="" admin-email=""/>
+    <group id="2" name="Programming" admin-name="" admin-phone="" admin-email=""/>
+    <group id="3" name="Asso" admin-name="" admin-phone="" admin-email=""/>
+    <group id="4" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
+    <group id="5" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
+    <group id="6" name="Culture" admin-name="" admin-phone="" admin-email=""/>
   </resource-groups>
   <resources>
-    <resource group="6" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="4" name="Web servers" short-name="wse" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="5" name="Googlemap" short-name="gma" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="6" name="Tests" short-name="Tes" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="7" name="Perl" short-name="Per" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="8" name="Ubuntu" short-name="ubu" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="9" name="Fedora" short-name="fed" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="10" name="April" short-name="apr" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="11" name="Parinux" short-name="prx" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="12" name="Mongueurs de Perl" short-name="mdp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="13" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="14" name="Coffee shop" short-name="csh" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="15" name="Paris est une f&#xEA;te" short-name="PEUF" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="16" name="Python" short-name="Pyt" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="17" name="OpenOffice" short-name="OOf" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="18" name="SCumm VM" short-name="SVM" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="19" name="Utilitaire/Tools 7z" short-name="c7z" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="20" name="Basic OpenOffice.org" short-name="boo.org" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="21" name="SELinux" short-name="SEL" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="22" name="Mac OS X" short-name="mox" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="23" name="github" short-name="ghu" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="24" name="Mairie de la ville" short-name="M2V" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="25" name="POD (Plain Old Document)" short-name="POD" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="26" name="PHP" short-name="PHP" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="27" name="Blender 2.77" short-name="BLD" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="28" name="Orange" short-name="ORA" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="29" name="Tablet" short-name="TAB" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="30" name="Cellular" short-name="CEL" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="31" name="Angular" short-name="AnJS" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="32" name="Readings P6 Stuffs" short-name="RP6s" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="33" name="Feuille de choux hot stuff regarding machines" short-name="RFC" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="34" name="Push FDC wm" short-name="PFWm" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="4" name="Web servers" short-name="wse" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="5" name="Googlemap" short-name="gma" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="6" name="Tests" short-name="Tes" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="7" name="Perl" short-name="Per" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="8" name="Ubuntu" short-name="ubu" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="9" name="Fedora" short-name="fed" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="10" name="April" short-name="apr" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="11" name="Parinux" short-name="prx" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="12" name="Mongueurs de Perl" short-name="mdp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="13" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="14" name="Coffee shop" short-name="csh" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="15" name="Paris est une f&#xEA;te" short-name="PEUF" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="16" name="Python" short-name="Pyt" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="17" name="OpenOffice" short-name="OOf" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="18" name="SCumm VM" short-name="SVM" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="19" name="Utilitaire/Tools 7z" short-name="c7z" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="20" name="Basic OpenOffice.org" short-name="boo.org" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="21" name="SELinux" short-name="SEL" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="22" name="Mac OS X" short-name="mox" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="23" name="github" short-name="ghu" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="24" name="Mairie de la ville" short-name="M2V" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="25" name="POD (Plain Old Document)" short-name="POD" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="26" name="PHP" short-name="PHP" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="27" name="Blender 2.77" short-name="BLD" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="28" name="Orange" short-name="ORA" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="29" name="Tablet" short-name="TAB" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="30" name="Cellular" short-name="CEL" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="31" name="Angular" short-name="AnJS" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="32" name="Readings P6 Stuffs" short-name="RP6s" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="33" name="Feuille de choux hot stuff regarding machines" short-name="RFC" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="34" name="Push FDC wm" short-name="PFWm" type="2" units="0" email="" note="" std-rate="0"/>
     <resource id="35" name="P6 Stuffs" short-name="P6S" type="1" units="0" email="" note="" std-rate="0"/>
     <resource id="36" name="P6 Programming + Practising" short-name="P6P+P" type="1" units="0" email="" note="" std-rate="0"/>
     <resource id="37" name="Contributions" short-name="CTRB" type="1" units="0" email="" note="" std-rate="0"/>
   </resources>
   <allocations>
+    <allocation task-id="45" resource-id="1" units="9"/>
     <allocation task-id="44" resource-id="1" units="14"/>
     <allocation task-id="23" resource-id="1" units="6"/>
     <allocation task-id="43" resource-id="1" units="14"/>
@@ -274,14 +283,14 @@
     <allocation task-id="20" resource-id="1" units="8"/>
     <allocation task-id="19" resource-id="1" units="10"/>
     <allocation task-id="18" resource-id="1" units="11"/>
-    <allocation task-id="50" resource-id="1" units="20"/>
-    <allocation task-id="52" resource-id="1" units="25"/>
+    <allocation task-id="51" resource-id="1" units="20"/>
+    <allocation task-id="53" resource-id="1" units="25"/>
     <allocation task-id="30" resource-id="1" units="25"/>
     <allocation task-id="29" resource-id="1" units="14"/>
     <allocation task-id="17" resource-id="1" units="100"/>
     <allocation task-id="26" resource-id="1" units="17"/>
-    <allocation task-id="58" resource-id="1" units="100"/>
-    <allocation task-id="54" resource-id="1" units="33"/>
+    <allocation task-id="59" resource-id="1" units="100"/>
+    <allocation task-id="55" resource-id="1" units="33"/>
     <allocation task-id="16" resource-id="1" units="8"/>
     <allocation task-id="15" resource-id="1" units="7"/>
     <allocation task-id="14" resource-id="1" units="10"/>
@@ -301,7 +310,7 @@
     <allocation task-id="20" resource-id="2" units="8"/>
     <allocation task-id="19" resource-id="2" units="10"/>
     <allocation task-id="18" resource-id="2" units="11"/>
-    <allocation task-id="50" resource-id="2" units="20"/>
+    <allocation task-id="51" resource-id="2" units="20"/>
     <allocation task-id="30" resource-id="2" units="25"/>
     <allocation task-id="27" resource-id="2" units="14"/>
     <allocation task-id="31" resource-id="2" units="14"/>
@@ -309,7 +318,7 @@
     <allocation task-id="28" resource-id="2" units="17"/>
     <allocation task-id="17" resource-id="2" units="100"/>
     <allocation task-id="26" resource-id="2" units="17"/>
-    <allocation task-id="58" resource-id="2" units="100"/>
+    <allocation task-id="59" resource-id="2" units="100"/>
     <allocation task-id="16" resource-id="2" units="8"/>
     <allocation task-id="15" resource-id="2" units="7"/>
     <allocation task-id="14" resource-id="2" units="10"/>
@@ -328,14 +337,14 @@
     <allocation task-id="20" resource-id="3" units="8"/>
     <allocation task-id="19" resource-id="3" units="10"/>
     <allocation task-id="18" resource-id="3" units="11"/>
-    <allocation task-id="50" resource-id="3" units="20"/>
+    <allocation task-id="51" resource-id="3" units="20"/>
     <allocation task-id="27" resource-id="3" units="14"/>
     <allocation task-id="31" resource-id="3" units="14"/>
     <allocation task-id="29" resource-id="3" units="14"/>
     <allocation task-id="28" resource-id="3" units="17"/>
     <allocation task-id="17" resource-id="3" units="100"/>
     <allocation task-id="26" resource-id="3" units="17"/>
-    <allocation task-id="58" resource-id="3" units="100"/>
+    <allocation task-id="59" resource-id="3" units="100"/>
     <allocation task-id="16" resource-id="3" units="8"/>
     <allocation task-id="15" resource-id="3" units="7"/>
     <allocation task-id="14" resource-id="3" units="10"/>
@@ -372,7 +381,7 @@
     <allocation task-id="7" resource-id="5" units="8"/>
     <allocation task-id="20" resource-id="5" units="8"/>
     <allocation task-id="19" resource-id="5" units="10"/>
-    <allocation task-id="52" resource-id="5" units="25"/>
+    <allocation task-id="53" resource-id="5" units="25"/>
     <allocation task-id="17" resource-id="5" units="100"/>
     <allocation task-id="16" resource-id="5" units="8"/>
     <allocation task-id="15" resource-id="5" units="7"/>
@@ -384,6 +393,7 @@
     <allocation task-id="9" resource-id="5" units="6"/>
     <allocation task-id="11" resource-id="5" units="8"/>
     <allocation task-id="5" resource-id="5" units="14"/>
+    <allocation task-id="45" resource-id="6" units="9"/>
     <allocation task-id="44" resource-id="6" units="14"/>
     <allocation task-id="23" resource-id="6" units="6"/>
     <allocation task-id="43" resource-id="6" units="14"/>
@@ -395,7 +405,7 @@
     <allocation task-id="20" resource-id="6" units="8"/>
     <allocation task-id="19" resource-id="6" units="10"/>
     <allocation task-id="18" resource-id="6" units="11"/>
-    <allocation task-id="50" resource-id="6" units="20"/>
+    <allocation task-id="51" resource-id="6" units="20"/>
     <allocation task-id="30" resource-id="6" units="25"/>
     <allocation task-id="27" resource-id="6" units="14"/>
     <allocation task-id="31" resource-id="6" units="14"/>
@@ -413,6 +423,7 @@
     <allocation task-id="10" resource-id="6" units="9"/>
     <allocation task-id="11" resource-id="6" units="8"/>
     <allocation task-id="5" resource-id="6" units="14"/>
+    <allocation task-id="45" resource-id="7" units="9"/>
     <allocation task-id="44" resource-id="7" units="14"/>
     <allocation task-id="23" resource-id="7" units="6"/>
     <allocation task-id="43" resource-id="7" units="14"/>
@@ -429,7 +440,7 @@
     <allocation task-id="28" resource-id="7" units="17"/>
     <allocation task-id="17" resource-id="7" units="100"/>
     <allocation task-id="26" resource-id="7" units="17"/>
-    <allocation task-id="58" resource-id="7" units="100"/>
+    <allocation task-id="59" resource-id="7" units="100"/>
     <allocation task-id="16" resource-id="7" units="8"/>
     <allocation task-id="15" resource-id="7" units="7"/>
     <allocation task-id="14" resource-id="7" units="10"/>
@@ -442,7 +453,7 @@
     <allocation task-id="10" resource-id="7" units="9"/>
     <allocation task-id="11" resource-id="7" units="8"/>
     <allocation task-id="5" resource-id="7" units="14"/>
-    <allocation task-id="58" resource-id="8" units="100"/>
+    <allocation task-id="59" resource-id="8" units="100"/>
     <allocation task-id="17" resource-id="10" units="100"/>
     <allocation task-id="17" resource-id="11" units="100"/>
     <allocation task-id="23" resource-id="12" units="6"/>
@@ -452,7 +463,7 @@
     <allocation task-id="17" resource-id="12" units="100"/>
     <allocation task-id="39" resource-id="12" units="100"/>
     <allocation task-id="38" resource-id="12" units="100"/>
-    <allocation task-id="58" resource-id="12" units="100"/>
+    <allocation task-id="59" resource-id="12" units="100"/>
     <allocation task-id="16" resource-id="12" units="8"/>
     <allocation task-id="15" resource-id="12" units="7"/>
     <allocation task-id="14" resource-id="12" units="10"/>
@@ -463,25 +474,26 @@
     <allocation task-id="7" resource-id="13" units="8"/>
     <allocation task-id="19" resource-id="13" units="10"/>
     <allocation task-id="18" resource-id="13" units="11"/>
-    <allocation task-id="50" resource-id="13" units="20"/>
-    <allocation task-id="52" resource-id="13" units="25"/>
-    <allocation task-id="48" resource-id="13" units="100"/>
-    <allocation task-id="49" resource-id="13" units="50"/>
+    <allocation task-id="51" resource-id="13" units="20"/>
+    <allocation task-id="53" resource-id="13" units="25"/>
+    <allocation task-id="49" resource-id="13" units="100"/>
+    <allocation task-id="50" resource-id="13" units="50"/>
     <allocation task-id="27" resource-id="13" units="14"/>
     <allocation task-id="31" resource-id="13" units="14"/>
     <allocation task-id="17" resource-id="13" units="100"/>
     <allocation task-id="26" resource-id="13" units="17"/>
-    <allocation task-id="58" resource-id="13" units="100"/>
-    <allocation task-id="54" resource-id="13" units="33"/>
+    <allocation task-id="59" resource-id="13" units="100"/>
+    <allocation task-id="55" resource-id="13" units="33"/>
     <allocation task-id="16" resource-id="13" units="8"/>
     <allocation task-id="15" resource-id="13" units="7"/>
     <allocation task-id="6" resource-id="13" units="11"/>
     <allocation task-id="13" resource-id="13" units="6"/>
-    <allocation task-id="47" resource-id="13" units="100"/>
+    <allocation task-id="48" resource-id="13" units="100"/>
     <allocation task-id="4" resource-id="13" units="100"/>
     <allocation task-id="9" resource-id="13" units="6"/>
     <allocation task-id="10" resource-id="13" units="9"/>
     <allocation task-id="11" resource-id="13" units="8"/>
+    <allocation task-id="45" resource-id="14" units="9"/>
     <allocation task-id="44" resource-id="14" units="14"/>
     <allocation task-id="23" resource-id="14" units="6"/>
     <allocation task-id="43" resource-id="14" units="14"/>
@@ -490,8 +502,8 @@
     <allocation task-id="20" resource-id="14" units="8"/>
     <allocation task-id="19" resource-id="14" units="10"/>
     <allocation task-id="18" resource-id="14" units="11"/>
-    <allocation task-id="52" resource-id="14" units="25"/>
-    <allocation task-id="49" resource-id="14" units="50"/>
+    <allocation task-id="53" resource-id="14" units="25"/>
+    <allocation task-id="50" resource-id="14" units="50"/>
     <allocation task-id="27" resource-id="14" units="14"/>
     <allocation task-id="31" resource-id="14" units="14"/>
     <allocation task-id="29" resource-id="14" units="14"/>
@@ -504,13 +516,14 @@
     <allocation task-id="6" resource-id="14" units="11"/>
     <allocation task-id="13" resource-id="14" units="6"/>
     <allocation task-id="12" resource-id="14" units="6"/>
-    <allocation task-id="56" resource-id="14" units="50"/>
+    <allocation task-id="57" resource-id="14" units="50"/>
     <allocation task-id="4" resource-id="14" units="100"/>
     <allocation task-id="9" resource-id="14" units="6"/>
     <allocation task-id="11" resource-id="14" units="8"/>
     <allocation task-id="17" resource-id="15" units="100"/>
     <allocation task-id="13" resource-id="15" units="6"/>
     <allocation task-id="17" resource-id="21" units="100"/>
+    <allocation task-id="45" resource-id="22" units="9"/>
     <allocation task-id="23" resource-id="22" units="6"/>
     <allocation task-id="18" resource-id="22" units="11"/>
     <allocation task-id="17" resource-id="22" units="100"/>
@@ -522,6 +535,7 @@
     <allocation task-id="9" resource-id="22" units="6"/>
     <allocation task-id="10" resource-id="22" units="9"/>
     <allocation task-id="11" resource-id="22" units="8"/>
+    <allocation task-id="45" resource-id="23" units="9"/>
     <allocation task-id="23" resource-id="23" units="6"/>
     <allocation task-id="18" resource-id="23" units="11"/>
     <allocation task-id="28" resource-id="23" units="17"/>
@@ -536,9 +550,9 @@
     <allocation task-id="10" resource-id="23" units="9"/>
     <allocation task-id="11" resource-id="23" units="8"/>
     <allocation task-id="17" resource-id="24" units="100"/>
-    <allocation task-id="54" resource-id="24" units="33"/>
+    <allocation task-id="55" resource-id="24" units="33"/>
     <allocation task-id="13" resource-id="24" units="6"/>
-    <allocation task-id="56" resource-id="24" units="50"/>
+    <allocation task-id="57" resource-id="24" units="50"/>
     <allocation task-id="4" resource-id="24" units="100"/>
     <allocation task-id="15" resource-id="25" units="7"/>
     <allocation task-id="13" resource-id="25" units="6"/>
@@ -557,6 +571,7 @@
     <allocation task-id="12" resource-id="29" units="6"/>
     <allocation task-id="4" resource-id="29" units="100"/>
     <allocation task-id="9" resource-id="29" units="6"/>
+    <allocation task-id="45" resource-id="30" units="9"/>
     <allocation task-id="44" resource-id="30" units="14"/>
     <allocation task-id="23" resource-id="30" units="6"/>
     <allocation task-id="43" resource-id="30" units="14"/>
@@ -572,12 +587,14 @@
     <allocation task-id="10" resource-id="30" units="9"/>
     <allocation task-id="11" resource-id="30" units="8"/>
     <allocation task-id="12" resource-id="31" units="6"/>
+    <allocation task-id="45" resource-id="32" units="9"/>
     <allocation task-id="23" resource-id="32" units="6"/>
     <allocation task-id="22" resource-id="32" units="8"/>
     <allocation task-id="21" resource-id="32" units="10"/>
     <allocation task-id="7" resource-id="32" units="8"/>
     <allocation task-id="20" resource-id="32" units="8"/>
     <allocation task-id="27" resource-id="32" units="14"/>
+    <allocation task-id="45" resource-id="33" units="9"/>
     <allocation task-id="44" resource-id="33" units="14"/>
     <allocation task-id="23" resource-id="33" units="6"/>
     <allocation task-id="43" resource-id="33" units="14"/>
@@ -585,12 +602,14 @@
     <allocation task-id="21" resource-id="33" units="10"/>
     <allocation task-id="20" resource-id="33" units="8"/>
     <allocation task-id="7" resource-id="33" units="8"/>
+    <allocation task-id="45" resource-id="34" units="9"/>
     <allocation task-id="44" resource-id="34" units="14"/>
     <allocation task-id="23" resource-id="34" units="6"/>
     <allocation task-id="22" resource-id="34" units="8"/>
     <allocation task-id="21" resource-id="34" units="10"/>
     <allocation task-id="20" resource-id="34" units="8"/>
     <allocation task-id="7" resource-id="34" units="8"/>
+    <allocation task-id="45" resource-id="35" units="9"/>
     <allocation task-id="23" resource-id="35" units="6"/>
     <allocation task-id="23" resource-id="36" units="6"/>
   </allocations>
