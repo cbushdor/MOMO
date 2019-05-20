@@ -6,7 +6,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Thu Mar  7 11:32:05 2019
+* Last Modified : Mon May 20 13:59:37 2019
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -131,7 +131,7 @@ our $mip=io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.524'; # Album release
+use constant ALBUM_REL               	=> '16.5704'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -160,7 +160,7 @@ my $fn="album/hist/${mip}";
 
 album.cgi
 
-$VERSION=1.6.16.524
+$VERSION=1.6.16.570
 
 =head1 ABSTRACT
 
@@ -244,7 +244,9 @@ under_construction_prompt
 
 =over 4
 
-- I<Last modification:v1.6.16.524> Mar 076 2019 New filter.
+- I<Last modification:v1.6.16.570> May 20 2019 New filter modified due to field not empty anymore :-).
+
+- I<Last modification:v1.6.16.524> Mar 07 2019 New filter.
 
 - I<Last modification:v1.6.16.521> Feb 26 2019 New filter.
 
@@ -1002,12 +1004,33 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 			#print "******>$localFP1[6] eq $localFP2[6] <br>\n";
 			#print "******>$localFP1[7] eq $localFP2[7] <br>\n";
 			#print "******>$localFP1[8] eq $localFP2[8] <br>\n";
-
+			#			open(WRF,">tests_file");
+			#my $pppk=("$localFP1[2]$localFP1[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}[a-z]{0,}$/);
+			#print "res1: $pppk<br>";
+			#$pppk=("$localFP2[2]$localFP2[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}[a-z]{0,}$/);
+			#print "res2: $pppk<br>";
+			#my $printsout= <<WRF;
+			#$my_finger_print <br>
+			#<b>$dcfp </b><br>
+			#$localFP1[0] eq $localFP2[0] &&<br>
+			#"$localFP1[2]$localFP1[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}$/ &&<br>
+			#"$localFP2[2]$localFP2[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}$/ &&<br>
+			#----------------------------------------<br>
+			#"$localFP1[2]$localFP1[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}[a-z]{0,}$/ &&<br>
+			#"$localFP2[2]$localFP2[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}[a-z]{0,}$/ &&<br>
+			#----------------------------------------<br>
+			#"$localFP1[2]$localFP1[9]" le "$localFP2[2]$localFP2[9]" &&<br>
+			#$localFP1[5] eq $localFP2[5] &&<br>
+			#$localFP1[7] eq $localFP2[7] &&<br>
+			#$localFP1[8] eq $localFP2[8] &&<br>
+			#$localFP1[6] eq $localFP2[6]<br>
+			#WRF
+			#print "***********><br>$printsout\n<br>****************************";
 			if(
 				scalar @localFP1 == scalar @localFP2 &&
 				$localFP1[0] eq $localFP2[0] &&
-				"$localFP1[2]$localFP1[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}$/ &&
-				"$localFP2[2]$localFP2[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}$/ &&
+				"$localFP1[2]$localFP1[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}[a-z]{0,}$/i &&
+				"$localFP2[2]$localFP2[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}[a-z]{0,}$/i &&
 				"$localFP1[2]$localFP1[9]" le "$localFP2[2]$localFP2[9]" &&
 				$localFP1[5] eq $localFP2[5] &&
 				$localFP1[7] eq $localFP2[7] &&
