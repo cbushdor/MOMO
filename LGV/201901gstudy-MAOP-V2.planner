@@ -187,7 +187,9 @@
           <task id="42" name="Lecture+Practise" note="" work="7200" duration="7200" start="20190526T000000Z" end="20190527T100000Z" work-start="20190527T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20190526T000000Z"/>
           </task>
-          <task id="43" name="Lecture+Practise" note="" work="7200" duration="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="73" priority="1" type="normal" scheduling="fixed-duration"/>
+          <task id="43" name="Lecture+Practise" note="" work="7200" duration="7200" start="20190527T000000Z" end="20190527T100000Z" work-start="20190527T080000Z" percent-complete="73" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20190527T000000Z"/>
+          </task>
         </task>
         <task id="44" name="Mainainance" note="" work="50400" start="20190101T000000Z" end="20190520T140000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
           <task id="45" name="Perl6" note="" work="50400" start="20190101T000000Z" end="20190520T140000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
@@ -350,7 +352,7 @@
         <constraint type="must-start-on" time="20190525T000000Z"/>
       </task>
       <task id="83" name="Practise" note="" work="18000" duration="18000" start="20190101T000000Z" end="20190101T140000Z" work-start="20190101T080000Z" percent-complete="90" priority="1" type="normal" scheduling="fixed-duration"/>
-      <task id="84" name="Practise" note="" work="21600" duration="21600" start="20190527T000000Z" end="20190527T150000Z" work-start="20190527T080000Z" percent-complete="55" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="84" name="Practise" note="" work="21600" duration="21600" start="20190527T100000Z" end="20190527T170000Z" work-start="20190527T100000Z" percent-complete="55" priority="1" type="normal" scheduling="fixed-duration">
         <constraint type="start-no-earlier-than" time="20190527T000000Z"/>
         <predecessors>
           <predecessor id="1" predecessor-id="43" type="FS"/>
@@ -400,26 +402,26 @@
     </task>
   </tasks>
   <resource-groups>
-    <group id="1" name="Admin" admin-name="" admin-phone="" admin-email=""/>
-    <group id="2" name="Programming" admin-name="" admin-phone="" admin-email=""/>
-    <group id="3" name="Asso" admin-name="" admin-phone="" admin-email=""/>
-    <group id="4" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
-    <group id="5" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
-    <group id="6" name="Culture" admin-name="" admin-phone="" admin-email=""/>
+    <group id="1" name="Culture" admin-name="" admin-phone="" admin-email=""/>
+    <group id="2" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
+    <group id="3" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
+    <group id="4" name="Asso" admin-name="" admin-phone="" admin-email=""/>
+    <group id="5" name="Programming" admin-name="" admin-phone="" admin-email=""/>
+    <group id="6" name="Admin" admin-name="" admin-phone="" admin-email=""/>
   </resource-groups>
   <resources>
-    <resource group="1" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="4" name="Tests" short-name="Tes" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="5" name="Scripting Language" short-name="SCL" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="6" name="Opterating Systems" short-name="OSY" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="7" name="Associations" short-name="ass" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="8" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="9" name="Utilitaire/Tools 7z" short-name="c7z" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="10" name="Mairie de la ville" short-name="M2V" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="11" name="Devices" short-name="CEL" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="12" name="Readings" short-name="RDs" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="4" name="Tests" short-name="Tes" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="5" name="Scripting Language" short-name="SCL" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="6" name="Opterating Systems" short-name="OSY" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="7" name="Associations" short-name="ass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="8" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="9" name="Utilitaire/Tools 7z" short-name="c7z" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="10" name="Mairie de la ville" short-name="M2V" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="11" name="Devices" short-name="CEL" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="12" name="Readings" short-name="RDs" type="1" units="0" email="" note="" std-rate="0"/>
   </resources>
   <allocations>
     <allocation task-id="84" resource-id="1" units="100"/>
