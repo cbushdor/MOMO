@@ -1,0 +1,11 @@
+=encoding utf8
+
+=head1 Répertoire de base / Base directory
+
+=over
+
+Bienvenue sur le répertoire de base.
+
+I<Welcome in the base directory.>
+
+=back

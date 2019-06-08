@@ -1,0 +1,4 @@
+=head1 MAOP-V2
+
+	New version of My Album Of Pictures. It will be built or rebuilt entirely with Perl 6. 
+	But I still practise wih Perl 5.8.9. 

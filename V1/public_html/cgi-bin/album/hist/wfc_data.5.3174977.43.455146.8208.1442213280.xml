@@ -1,0 +1,105 @@
+	<current_observation>
+		<credit>Weather Underground NOAA Weather Station</credit>
+		<credit_URL>http://wunderground.com/</credit_URL>
+<termsofservice link="http://www.wunderground.com/weather/api/d/terms.html">This feed will be deprecated. Please switch to http://www.wunderground.com/weather/api/</termsofservice>
+		<image>
+		<url>http://icons.wxug.com/graphics/wu2/logo_130x80.png</url>
+		<title>Weather Underground</title>
+		<link>http://wunderground.com/</link>
+		</image>
+  <display_location>
+  <full>Aix-en-Provence, France</full>
+  <city>Aix-en-Provence</city>
+  <state></state>
+  <state_name>France</state_name>
+  <country>FR</country>
+  <country_iso3166>FR</country_iso3166>
+  <zip>00000</zip>
+  <latitude>43.455146</latitude>
+  <longitude>5.317498</longitude>
+  <elevation>196.00000000 ft</elevation>
+  </display_location>
+		<observation_location>
+		<full>Marseille, </full>
+		<city>Marseille</city>
+		<state></state>
+		<country>FR</country>
+		<country_iso3166>FR</country_iso3166>
+		<latitude>43.43777847</latitude>
+		<longitude>5.21611118</longitude>
+		<elevation>105 ft</elevation>
+		</observation_location>
+		<station_id>LFML</station_id>
+		<observation_time>Last Updated on September 14, 8:30 AM CEST</observation_time>
+		<observation_time_rfc822>Mon, 14 Sep 2015 06:30:00 GMT</observation_time_rfc822>
+		<observation_epoch>1442212200</observation_epoch>
+		<local_time>September 14, 8:47 AM CEST</local_time>
+		<local_time_rfc822>Mon, 14 Sep 2015 06:47:38 GMT</local_time_rfc822>
+		<local_epoch>1442213258</local_epoch>
+		<weather>Scattered Clouds</weather>
+		<temperature_string>70 F (21 C)</temperature_string>
+		<temp_f>70</temp_f>
+		<temp_c>21</temp_c>
+		<relative_humidity>88%</relative_humidity>
+		<wind_string>From the Variable at 2 MPH </wind_string>
+		<wind_dir>Variable</wind_dir>
+		<wind_degrees>0</wind_degrees>
+		<wind_mph>2</wind_mph>
+		<wind_gust_mph></wind_gust_mph>
+		<pressure_string>29.77 in (1008 mb)</pressure_string>
+		<pressure_mb>1008</pressure_mb>
+		<pressure_in>29.77</pressure_in>
+		<dewpoint_string>66 F (19 C)</dewpoint_string>
+		<dewpoint_f>66</dewpoint_f>
+		<dewpoint_c>19</dewpoint_c>
+		
+		<heat_index_string>NA</heat_index_string>
+		<heat_index_f>NA</heat_index_f>
+		<heat_index_c>NA</heat_index_c>
+		
+		
+		<windchill_string>NA</windchill_string>
+		<windchill_f>NA</windchill_f>
+		<windchill_c>NA</windchill_c>
+		
+		<visibility_mi>6.2</visibility_mi>
+		<visibility_km>10.0</visibility_km>
+		<icons>
+			<icon_set name="Default">
+				<icon_url>http://icons.wxug.com/i/c/a/partlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Smiley">
+				<icon_url>http://icons.wxug.com/i/c/b/partlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Generic">
+				<icon_url>http://icons.wxug.com/i/c/c/partlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Old School">
+				<icon_url>http://icons.wxug.com/i/c/d/partlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Cartoon">
+				<icon_url>http://icons.wxug.com/i/c/e/partlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Mobile">
+				<icon_url>http://icons.wxug.com/i/c/f/partlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Simple">
+				<icon_url>http://icons.wxug.com/i/c/g/partlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Contemporary">
+				<icon_url>http://icons.wxug.com/i/c/h/partlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Helen">
+				<icon_url>http://icons.wxug.com/i/c/i/partlycloudy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Incredible">
+				<icon_url>http://icons.wxug.com/i/c/k/partlycloudy.gif</icon_url>
+			</icon_set>
+		</icons>
+		<icon_url_base>http://icons.wxug.com/graphics/conds/</icon_url_base>
+		<icon_url_name>.GIF</icon_url_name>
+		<icon>partlycloudy</icon>
+		<forecast_url>http://www.wunderground.com/global/stations/07650.html</forecast_url>
+		<history_url>http://www.wunderground.com/history/airport/LFML/2015/9/14/DailyHistory.html</history_url>
+		<ob_url>http://www.wunderground.com/cgi-bin/findweather/getForecast?query=43.43777847,5.21611118</ob_url>
+	</current_observation>

@@ -1,0 +1,32 @@
+package io::MyLoginConstant;
+use CGI::Carp qw(fatalsToBrowser); 
+
+# +-------------------------------+
+# | MyLoginConstant.pm            |
+# | Written     on 10/2004        |
+# | Last update on May 23 2009    |
+# +-------------------------------+
+
+
+require Exporter;
+
+$VERSION    = '1.0.0.1';
+$VERSION    = eval $VERSION;
+@ISA    = qw( Exporter );
+@EXPORT = qw(
+	     PACKAGE_DIRECTORY            GUEST_BOOK_DIRECTORY_DEPOSIT
+	     IMAGE_DIRECTORY_DEPOSIT      TEMPORARY_FILE
+	     DEFAULT_NAME_FOR_GUEST_BOOK  DEFAULT_URL
+	     DEFAULT_URL                  MY_URL_WITH_CGI_FILE
+             );
+@EXPORT_OK = qw();
+
+use constant PACKAGE_DIRECTORY            => "packages/";
+use constant GUEST_BOOK_DIRECTORY_DEPOSIT => "Guest_Book_Deposit/";
+
+use constant TEMPORARY_FILE               => "removeTmp.";
+use constant DEFAULT_NAME_FOR_GUEST_BOOK  => "body.my";
+use constant DEFAULT_URL                  => "http://comanche.com/~prohosting/";
+use constant MY_URL_WITH_CGI_FILE         => DEFAULT_URL . "cgi-bin/login.cgi?guest_book_name=";
+
+1;

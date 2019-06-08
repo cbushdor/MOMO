@@ -1,0 +1,34 @@
+=head1 Forewords
+
+What else to say?
+
+It is old code. That's the begining of the project. It contains not the first code but the whole directory. So when untar you'll get all the old files that were used back in the days.
+
+
+=head1 Introduction
+
+This directory contains Perl programs made from February 2003 till 2006.
+
+Perl version was 5.8.8 then 5.10 then back to 5.8.9 to maintains.
+
+Versions varied from one OS to another. It was started with and old FreeBSD  4.2 as far as I can remember. Due to backup problems, upgrade of the system data were lost hence,  a small peace of code was saved and the project was continued from that. Now that's the final release of 2006 off course :-).
+
+=head1 Instructions
+
+To unpack use the following instructions.
+
+=over 12
+
+=item To untar or decompress:
+
+	tar xpvf SourceWWW.tar
+
+=back
+
+=head1 Branches
+
+* dev: dedicated to future dev and present dev
+
+* master: current
+
+* old: old dev before year 2007. Under it there is the version V0 which is the first version. That was found on old disks...

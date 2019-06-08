@@ -1,0 +1,105 @@
+	<current_observation>
+		<credit>Weather Underground NOAA Weather Station</credit>
+		<credit_URL>http://wunderground.com/</credit_URL>
+<termsofservice link="http://www.wunderground.com/weather/api/d/terms.html">This feed will be deprecated. Please switch to http://www.wunderground.com/weather/api/</termsofservice>
+		<image>
+		<url>http://icons.wxug.com/graphics/wu2/logo_130x80.png</url>
+		<title>Weather Underground</title>
+		<link>http://wunderground.com/</link>
+		</image>
+  <display_location>
+  <full>Cormeilles-en-Parisis, France</full>
+  <city>Cormeilles-en-Parisis</city>
+  <state></state>
+  <state_name>France</state_name>
+  <country>FR</country>
+  <country_iso3166>FR</country_iso3166>
+  <zip>00000</zip>
+  <latitude>48.977671</latitude>
+  <longitude>2.203624</longitude>
+  <elevation>167.00000000 ft</elevation>
+  </display_location>
+		<observation_location>
+		<full>Cormeilles, </full>
+		<city>Cormeilles</city>
+		<state></state>
+		<country>FR</country>
+		<country_iso3166>FR</country_iso3166>
+		<latitude>49.09659958</latitude>
+		<longitude>2.04080009</longitude>
+		<elevation>325 ft</elevation>
+		</observation_location>
+		<station_id>LFPT</station_id>
+		<observation_time>Last Updated on February 18, 5:30 PM CET</observation_time>
+		<observation_time_rfc822>Thu, 18 Feb 2016 16:30:00 GMT</observation_time_rfc822>
+		<observation_epoch>1455813000</observation_epoch>
+		<local_time>February 18, 6:02 PM CET</local_time>
+		<local_time_rfc822>Thu, 18 Feb 2016 17:02:54 GMT</local_time_rfc822>
+		<local_epoch>1455814974</local_epoch>
+		<weather>light rain</weather>
+		<temperature_string>39 F (4 C)</temperature_string>
+		<temp_f>39</temp_f>
+		<temp_c>4</temp_c>
+		<relative_humidity>93%</relative_humidity>
+		<wind_string>From the NW at 8 MPH </wind_string>
+		<wind_dir>NW</wind_dir>
+		<wind_degrees>320</wind_degrees>
+		<wind_mph>8</wind_mph>
+		<wind_gust_mph></wind_gust_mph>
+		<pressure_string>29.98 in (1015 mb)</pressure_string>
+		<pressure_mb>1015</pressure_mb>
+		<pressure_in>29.98</pressure_in>
+		<dewpoint_string>37 F (3 C)</dewpoint_string>
+		<dewpoint_f>37</dewpoint_f>
+		<dewpoint_c>3</dewpoint_c>
+		
+		<heat_index_string>NA</heat_index_string>
+		<heat_index_f>NA</heat_index_f>
+		<heat_index_c>NA</heat_index_c>
+		
+		
+		<windchill_string>34 F (1 C)</windchill_string>
+		<windchill_f>34</windchill_f>
+		<windchill_c>1</windchill_c>
+		
+		<visibility_mi>6.2</visibility_mi>
+		<visibility_km>10.0</visibility_km>
+		<icons>
+			<icon_set name="Default">
+				<icon_url>http://icons.wxug.com/i/c/a/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Smiley">
+				<icon_url>http://icons.wxug.com/i/c/b/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Generic">
+				<icon_url>http://icons.wxug.com/i/c/c/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Old School">
+				<icon_url>http://icons.wxug.com/i/c/d/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Cartoon">
+				<icon_url>http://icons.wxug.com/i/c/e/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Mobile">
+				<icon_url>http://icons.wxug.com/i/c/f/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Simple">
+				<icon_url>http://icons.wxug.com/i/c/g/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Contemporary">
+				<icon_url>http://icons.wxug.com/i/c/h/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Helen">
+				<icon_url>http://icons.wxug.com/i/c/i/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Incredible">
+				<icon_url>http://icons.wxug.com/i/c/k/rain.gif</icon_url>
+			</icon_set>
+		</icons>
+		<icon_url_base>http://icons.wxug.com/graphics/conds/</icon_url_base>
+		<icon_url_name>.GIF</icon_url_name>
+		<icon>rain</icon>
+		<forecast_url>http://www.wunderground.com/global/stations/WLFPT.html</forecast_url>
+		<history_url>http://www.wunderground.com/history/airport/LFPT/2016/2/18/DailyHistory.html</history_url>
+		<ob_url>http://www.wunderground.com/cgi-bin/findweather/getForecast?query=49.09659958,2.04080009</ob_url>
+	</current_observation>

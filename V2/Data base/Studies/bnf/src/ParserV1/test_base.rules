@@ -1,0 +1,6 @@
+R1::=<R_A5><R1> <AAAA>
+AAAA::=r_rr
+R_A5::="a" \c\n"be"
+R_A_5 ::="a" \c\n"be"
+R_A_6 ::='''
+R_A_7 ::=a b

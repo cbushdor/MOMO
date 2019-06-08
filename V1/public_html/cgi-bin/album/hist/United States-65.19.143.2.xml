@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ip IPAd="65.19.143.2" Method="IP Address Labs (Product: Pro)">
+  <Date>Sun May 11 13:58:33 UTC 2014</Date>
+  <ContinentName>North America</ContinentName>
+  <ContinentName>United States</ContinentName>
+  <RegionName>California</RegionName>
+  <CityName>Fremont</CityName>
+  <Latitude>37.5155</Latitude>
+  <Longitude>-121.8962</Longitude>
+  <Provider>Hurricane Electric</Provider>
+  <TripName>trip name to define</TripName>
+</ip>

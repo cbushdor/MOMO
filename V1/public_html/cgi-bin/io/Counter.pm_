@@ -1,0 +1,1759 @@
+package Counter;
+use CGI::Carp qw(fatalsToBrowser); 
+
+# +-------------------------------+
+# | Counter.pm                    |
+# | Written     on 10/2003        |
+# | Last update on May 2006       |
+# +-------------------------------+
+
+use Exporter;
+our @ISA = qw(Exporter);
+our @Export = qw(&CreateCounter 
+		 &remove_counter_pl
+		 &callGnuplot
+		 &lastYearStored
+		 &changeRights
+		 &print_text_board_of_stat_of_a_given_month
+		 &print_a_calendar
+		 &incremMonth
+		 &incremMonthMaterial
+		 &print_image_stat_of_a_given_year
+		 );
+
+my $i_am_the_user = `whoami`;
+my @rec_num = ();
+chomp($i_am_the_user);
+
+@INC = (@INC,"$ENV{'HOME'}/www/cgi-bin/packages");
+
+use strict;
+use FileHandle;
+use Fcntl ':flock';
+
+use packages::Conf_File;
+use packages::MyUtilities;
+
+=head1 ABSTRACT
+
+This package is used to count basic trafic on my website and, is used as a counter and, increments it according to users choices.
+
+=head2 LIST OF FUNCTIONS
+
+=over 4
+
+CreateCounter
+calculateYmax
+callGnuplot
+changeRights
+createFilesToPlot
+incremMonth
+incremMonthMaterial
+lastYearStored
+manage_errors_from_the_web
+my_header
+my_url
+print_image_stat_of_a_given_year
+print_number
+print_text_board_of_stat_of_a_given_month
+remove_counter_pl
+round
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF MODIFICATIONS
+
+=over 4
+
+- I<Last modification:> Jul 2004
+
+- I<Created on:> Jan 2003
+
+=back
+
+=cut
+
+my @months = ("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec");
+
+
+=head1 FUNCTION changeRights
+
+This function is there to change rights on a given image file.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$image_file_name: that's the file name.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub changeRights { # Begin sub changeRights
+	my ($image_file_name) = @_;
+	my $pid = $$;
+	
+	`chmod 755 $image_file_name/current_stat.gif`;
+} # End sub changeRights
+
+
+=head1 FUNCTION my_url
+
+This function is there to create URL for the board.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$year: that's the year.
+
+$month: that's the month.
+
+$service: that's the service.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+Returns the string that contains the ancre on the month number according to the year.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Oct 19th 2006
+
+- I<Last modification:> Sep 17th 2006
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub my_url { # Begin sub my_url
+	my ($year,$month,$service) = @_;
+	my $url = "http://$Conf_File::MY_HOST/\~$i_am_the_user/cgi-bin/counter.cgi?year=${year}&month=${month}&service=${service}";
+	
+	return "<a href='$url' style='cursor: default'>$_[1]</a>";
+}  # End sub my_url
+
+
+=head1 FUNCTION my_header
+
+This function prints a header.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+None.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub my_header { # Begin sub my_header
+	print "<body background='$Conf_File::img_bkground' text='${Conf_File::colourText}'  link='${Conf_File::cLink}' vlink='${Conf_File::cvLink}' >\n<br>";
+}  # End sub my_header
+
+
+=head1 FUNCTION print_a_calendar
+
+This function prints a calendar (months are numbers 1 is Jan 12 is Dec).
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$temporary_file: that's the temporary file.
+
+$m_ye: that's a given year.
+
+$mo: that's a given month.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION
+
+=over 4
+
+- I<Last modification:> Oct 19th 2006
+
+- I<Last modification:> Sep 21st 2006
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub print_a_calendar { # Begin sub print_a_calendar
+	my ($temporary_file,$m_ye,$mo) = @_;
+	my $my_y = ();
+	my $my_m = ();
+	my $c_my_y = 0;
+	my $to_summup = ();
+	my $cmm = ();
+	my $new_line = ();
+	
+	open(STAT,"${temporary_file}/counter.stat");
+	STAT->autoflush(1);
+	my @line_stat = <STAT>;
+	close(STAT);
+	
+	my $to_print_screen = "\n<center><h1>Statistics about connexions</h1></center>\n<br><br>\nPlotting that <a href='counter.cgi?service=printConnexions' style='cursor:help'>sum up</a> all hits since first year printed on screen.<br>\n<br>". Surface::get_welcome_message_for_surface() ."<center><br>\n<table border=1>\n";
+	
+	for my $i (@line_stat) { # Begin for my $i (@line_stat)
+		chomp($i);
+		($my_y,$my_m) = split(/\ /,$i);
+		if ($c_my_y == 0) { # Begin if ($c_my_y == 0)
+		    $c_my_y = $my_y;
+		} # End if ($c_my_y == 0)
+		elsif ($c_my_y != $my_y) { # Begin elsif ($c_my_y != $my_y)
+		    $cmm = 1;
+	#	    if (-f "${Conf_File::root_gnuplot_stat}/monthly${c_my_y}.gif") { # Begin if (-f "${Conf_File::root_gnuplot_stat}/monthly${c_my_y}.gif")
+			$new_line = "<tr>\n<td width='56' height='38'><font color='red'>\n" .  &my_url($c_my_y,$c_my_y,"printHit");
+	#	    } # End if (-f "${Conf_File::root_gnuplot_stat}/monthly${c_my_y}.gif")
+	#	    else { # Begin else
+	#		$new_line = "<tr>\n<td width='56' height='38'>\n<font color='red'>$c_my_y</font>\n";
+	#	    } # End else
+	#	    $new_line = "$new_line<td>"; 
+		    while ($cmm < 13) { # Begin while ($cmm < 13)
+			if ($cmm < 10) { # Begin if ($cmm < 10)
+			    $new_line = "$new_line\n<td width='56' height='38' align=center valign=center>\n" . &my_url($c_my_y,"0$cmm","statM");
+			} # End if ($cmm < 10)
+			else { # Begin else
+			    $new_line = "$new_line\n<td  width='56' height='38' align=center valign=center>\n" . &my_url($c_my_y,"$cmm","statM");
+			} # End else
+			$cmm++;
+		    } # End while ($cmm < 13)
+		    $new_line = "$new_line</tr>\n";
+		    $c_my_y = $my_y;
+		    $to_summup = "$to_summup$new_line\n";
+		}  # End elsif ($c_my_y != $my_y)
+	}  # End for my $i (@line_stat)
+	$cmm = 1;
+	#    if (-f "${Conf_File::root_gnuplot_stat}/monthly${c_my_y}.gif") { # Begin if (-f "${Conf_File::root_gnuplot_stat}/monthly${c_my_y}.gif")
+	$new_line = "<tr>\n<td width='56' height='38'><font color='red'>\n" .  &my_url($c_my_y,$c_my_y,"printHit");
+	#	$new_line = "<tr>\n<td width='56' height='38'>\n" .  &my_url($c_my_y,$c_my_y,"statY");
+	#    } # End if (-f "${Conf_File::root_gnuplot_stat}/monthly${c_my_y}.gif")
+	#    else { # Begin else
+	#	$new_line = "<tr>\n<td width='56' height='38'>\n<font color='red'>$c_my_y</font>\n";
+	#    } # End else
+	while ($cmm < 13) { # Begin while ($cmm < 13)
+		if ($cmm < 10) { # Begin if ($cmm < 10)
+		    $new_line = "$new_line\n<td width='56' height='38' align=center valign=center>\n" .  &my_url($c_my_y,"0$cmm","statM");
+		} # End if ($cmm < 10)
+		else { # Begin else
+		    $new_line = "$new_line\n<td width='56' height='38' align=center valign=center>\n" .  &my_url($c_my_y,"$cmm","statM");
+		}  # End else
+		$cmm++;
+	} # End while ($cmm < 13)
+	$to_summup = "$to_summup$new_line</tr>\n";
+	$to_print_screen = "$to_print_screen$to_summup\n</table>\n</center>\n<br><br>\n";
+	
+	&my_header;
+	print "$to_print_screen<br>\n";
+	print "Go <a href='JavaScript:history.black()'>back</a>\n";
+}  # End sub print_a_calendar
+	
+	
+=head1 FUNCTION print_text_board_of_stat_of_a_given_month 
+
+List the month hits in a table with extra details according to subject taken.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$file: that's the file.
+
+$y: that's the year.
+
+$m: that's the month.
+
+$cur_year: that's current year.
+
+$cur_month: that's current month.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+0: ok.
+
+-1: ko (when month is in the future).
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Oct 10th 2006
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub print_text_board_of_stat_of_a_given_month { # Begin sub print_text_board_of_stat_of_a_given_month
+	my ($file,$y,$m,$cur_year,$cur_month) = @_;
+	my @fi = ();
+	my $last_hit_num = ();
+	my $y2 = ();
+	my $m2 = ();
+	my $t2 = ();
+	my @r = ();
+	my $max_in_month = ();
+	my $to_p = ();
+	my $cpt = 0;
+	my $l = ();
+	my $global_stat = ();
+	
+	if ($cur_year == $y) { # Begin if ($cur_year == $y)
+		if ($cur_month < $m) { # Begin if ($cur_month < $m)
+		    print "Content-type: text/html\n\n";
+		    &my_header;
+		    print "<br><br><br><br><center>This is future $y-$m   current $cur_year-$cur_month</center><br><br><br><br>";
+		    print "<br><br><br><a href='JavaScript:history.back()'> <center><img src='${Conf_File::image_stored_absolute_path}/clock1-c.gif' border=0></center></a>";
+		    return -1;	    
+		} # End if ($cur_month < $m)
+	} # End if ($cur_year == $y)
+	elsif ($cur_year < $y) { # Begin elsif ($cur_year < $y)
+		print "Content-type: text/html\n\n";
+		# This test is redundant because date can't be changed but only for my own tests
+		&my_header;
+		print "<br><br><br><br><center>This is future $y-$m   current $cur_year-$cur_month</center><br><br><br><br>";
+		print "<br><br><br><a href='JavaScript:history.back()'> <center><img src='${Conf_File::image_stored_absolute_path}/clock1-c.gif' border=0></center></a>";
+		return -1;
+	} # End elsif ($cur_year < $y)
+	
+	open(R,"$file");
+	@fi = <R>;
+	close(R);
+	
+	$last_hit_num = 0;
+	
+	for my $k (@fi) { # Begin for my $k (@fi)
+		chomp($k);
+		$k =~ s/\ +/\ /g;
+		($y2,$m2,$t2,@r) = split(/\ /,$k);
+		$last_hit_num = $last_hit_num + $t2;
+	}  # End for my $k (@fi)
+	
+	for my $k (@fi) { # Begin for my $k (@fi)
+	#	print "oooooo>$k";
+		chomp($k);
+		$k =~ s/\ +/\ /g;
+		($y2,$m2,$t2,@r) = split(/\ /,$k);
+		$max_in_month = 0;
+		for my $m (@r) { # Begin for my $m (@r)
+		    $max_in_month += $m;
+		} # End for my $m (@r)
+		if (($y == $y2) && ($m == $m2)) { # Begin if (($y == $y2) && ($m == $m2))
+	#	    print "===>1\n";
+		    $to_p = "<center><h1><table><tr><td>".
+	&print_number("",$m,"../images/")
+	. " <td valign=bottom> <sub>{month rank}</sub> <font color=#A42829 font-family=sans-serif size=17> during year </font> <td> ".
+	&print_number("",$y,"../images/") 
+	. "</tr></table><h1></center><br><br><br><center><table border=1>\n<tr><td><td>Per. on max hit(s)<td>Monthly hit(s)<td>Per. hit(s) in one month</tr>\n";
+		    $cpt = 0;
+		    for my $m3 (@{Conf_File::subject}) { # Begin for my $m3 (@{Conf_File::subject})
+			$m3 =~ s/\"//g;
+			$l = $r[$cpt++];
+			$to_p = "$to_p<tr><td>$m3<td align=center>";
+			if ($max_in_month == 0) { # Begin if ($max_in_month == 0)
+			    $to_p = "<td align=center>$to_p 0";
+			} # End if ($max_in_month == 0)
+			else { # Begin else
+			    $to_p = "<td align=center>$to_p".(&round(2,(($l*100)/$last_hit_num)));
+			}  # End else
+			if ($t2 == 0) { # Begin if ($t2 == 0)
+			    $to_p = "$to_p<td align=center>".$l."<td align=center>0</tr>\n";
+			} # End if ($t2 == 0)
+			else { # Begin else
+			    $to_p = "$to_p<td align=center>".$l."<td align=center>".(&round(2,(($l*100)/$t2)))."</tr>\n";
+			}  # End else
+		    } # End for my $m3 (@{Conf_File::subject})
+		    $to_p = "$to_p</table></center>";
+		    $global_stat = "<center>\n<table>\n<tr><td>". 
+				&print_number("Max hit(s) from begining",$last_hit_num,finds_directory_where_are_stored_images) .
+				   "</tr>\n<tr><td>" .
+				&print_number("Max hit(s) in month:",$t2,finds_directory_where_are_stored_images) .
+				   "</tr></table>\n</center><br><br>";
+		    print "Content-type: text/html\n\n";
+		    &my_header;
+		    print "$to_p\n$global_stat";
+		    print "<br>Go <a href='JavaScript:history.back()'>back</a>";
+		    return 0;
+		}  # End if (($y == $y2) && ($m == $m2))
+	#	print "return -1\n";
+	}  # End for my $k (@fi)
+	return -1;
+} # End sub print_text_board_of_stat_of_a_given_month
+
+
+=head1 FUNCTION print_number
+
+Prints number in a funny way.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$title: that's title of the line.
+
+$num: that's number to prinr.
+
+$dir: that's directory where are stored images that represent numbers.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+That's the string to print whitch's formated string.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Oct 10th 2006
+
+- I<Created on:> Oct 10th 2006
+
+=back
+
+=cut
+
+sub print_number { # Begin sub print_number
+	my ($title,$num,$dir) = @_;
+	my $str = "\n<table>\n<tr>\n<td align=right valign=center>$title<td>";
+	
+	for (my $i = 0; $i < length($num); $i++) { # Begin for ($i = 0; $i < length($num); $i++)
+	my $num_already_in = 0;
+	
+	#    foreach my $j (@rec_num) {
+	#      if ($j == substr($num,$i,1)) {
+	#	$num_already_in++;
+	#      }
+	#    }
+	@rec_num = (@rec_num,substr($num,$i,1));
+	#    if ($num_already_in != 0) {
+	my $sec = (localtime)[0];
+	#  sleep(1000);
+	$str .= "<td valign=bottom><img src=\"$dir".substr($num,$i,1)."-". ($sec % 2) .".gif\">\n";
+	#    }
+	#    else {
+	#      $str .= "<td valign=bottom><img src=\"$dir".substr($num,$i,1).".gif\">\n";
+	#    }
+	} # End for ($i = 0; $i < length($num); $i++)
+	$str .= "</table>\n";
+	return $str;
+} # End sub print_number
+
+
+=head1 FUNCTION round
+
+Make round on number with a precision specified.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$precision: that's the precision.
+
+$floatting: that's the number.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+Floatting number according to parameters.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub round { # Begin  sub round
+	my ($precision,$floatting) = @_;
+	
+	return sprintf "%.${precision}f",$floatting;
+} # End sub round
+
+
+=head1 FUNCTION callGnuplot
+
+Script that calls gnuplot in order to create an image.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$root_f: root for the file.
+
+$tmp_f: temporary file.
+
+$home_p: home.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub callGnuplot { # Begin sub callGnuplot
+	my ($root_f,$tmp_f,$home_p) = @_;
+	my $pid = $$;    
+	my $current_dir = `pwd`;
+	chomp($current_dir);
+	my @gnuplot_file_conf = (
+				     "set terminal pbm color\n",
+	#			     "set out \"toto.gif\"\n",
+				     "set multiplot\n", 
+				     "set xtics 1,1\n",
+				     "set ytics 0,2\n",
+				     "set grid xtics\n",
+				     "set grid ytics\n",
+				     "set pointsize 2\n",
+				     "set xlabel \"Months\\n\\n\\n\"\n");
+	
+	my @plot_instructions = &createFilesToPlot("${root_f}gnuplot",$tmp_f,$home_p);
+	my @gnuplot_file_conf = (@gnuplot_file_conf,@plot_instructions);
+	chomp(@gnuplot_file_conf);
+	for my $opp (@gnuplot_file_conf) { # Begin for my $opp (@gnuplot_file_conf)
+		$opp .=  "\n";
+	}  # End for my $opp (@gnuplot_file_conf)
+	print "Content-type: image/gif\n\n";
+	binmode OUTPUT;
+	open(GP,"|${Conf_File::gnuplot_exe}|${Conf_File::ppmtogif_exe}") or die "no gnuplot";
+	GP->autoflush(1);
+	foreach (@gnuplot_file_conf) { # Begin foreach (@gnuplot_file_conf)
+	print $_;
+	print GP $_;
+	} # End foreach (@gnuplot_file_conf)
+	# print GP "@gnuplot_file_conf";
+	close(GP);
+	# foreach (@gnuplot_file_conf) {
+	# print $_;
+	# }
+	system("cp $tmp_f/img${pid}.gif $tmp_f/current_stat.gif");
+	system("rm $tmp_f/img* $tmp_f/mob* $tmp_f/*tmp");
+} # End sub callGnuplot
+
+
+=head1 FUNCTION createFilesToPlot
+
+Creates the files that helps to plot info on the screen with different colors for the year.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$root_file: file that is at root.
+
+$temporary_files: name for temporary file.
+
+$home_path: path for home.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+Returns the string that contains the file to plot script.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub createFilesToPlot { # Begin sub createFilesToPlot
+	my ($root_file,$temporary_files,$home_path) = @_;
+	my @line_stat = ();
+	my @file_name = ();
+	my @to_sto = ();
+	my $cy = ();
+	my $y = ();
+	my $m = ();
+	my $line = ();
+	my $process_id = $$;
+	my $date_for_graph = `date +%Y-%m-%d`;
+	chomp($date_for_graph);
+	
+	my $file_name = ();
+	my $file_name_smooth_unique = ();
+	my $yrange = (); 
+	my $myYrangeTmp = ();
+	my $myYrange = ();
+	my $afterComa = ();
+	
+	open(STAT,"${temporary_files}/counter.stat");
+	STAT->autoflush(1);
+	@line_stat = <STAT>;
+	close(STAT);
+	
+	chomp($date_for_graph);
+	@to_sto = ();
+	for my $line (@line_stat) { # Begin for my $line (@line_stat)
+		my $cy = ();
+		my $mmmm = ();
+		my $t = ();
+	
+		chomp($line);
+		($cy,$mmmm,$t) = split(/\ /,$line);
+		#print "$cy,$mmm,$t\n";
+		last;
+	}  # End for my $line (@line_stat)
+	for my $line (@line_stat) { # Begin for my $line (@line_stat)
+		chomp($line);
+		($y,$m) = split(/\ /,$line);
+		if ($cy < $y) { # Begin if ($cy < $y)
+		    if ($cy != 0) { # Begin if ($cy != 0)
+			if ($file_name eq "") { # Begin if ($file_name eq "")
+			    $file_name = "'${temporary_files}/mob${process_id}.$cy' using 2:3 title 'Year $cy'";
+			    $file_name_smooth_unique = "'${temporary_files}/mob${process_id}.$cy' using 2:3 smooth unique title 'Year $cy'";
+			}  # End if ($file_name eq "")
+			else { # Begin else
+			    $file_name = "$file_name, '${temporary_files}/mob${process_id}.$cy' using 2:3 title 'Year $cy',";
+			    $file_name_smooth_unique = "$file_name_smooth_unique, '${temporary_files}/mob${process_id}.$cy' using 2:3 smooth unique title 'Year $cy',";
+			} # End else
+			$line = "$line\n";
+			open(W,">${temporary_files}/mob${process_id}.$cy");
+			W->autoflush(1);
+			for my $i (@to_sto) { # Begin for my $i (@to_sto)
+			    chomp($i);
+			    print W "$i\n";
+			} # End for my $i (@to_sto)
+			close(W);
+			#&calculateMonthlyAndCreateGraph("${temporary_files}/mob${process_id}.$cy",$script_detailed,$home_path);
+			@to_sto = ($line);
+		    } # End if ($cy != 0)
+		    else { # Begin else
+			@to_sto = ("$line\n");
+		    } # End else
+		    $cy = $y;
+		} # End if ($cy < $y)
+		else { # Begin else
+		    @to_sto = (@to_sto,"$line\n");
+		} # End else
+	} # End for my $line (@line_stat)
+	$yrange = &calculateYmax($temporary_files);
+	$myYrangeTmp = $yrange/6;# we canculate y range
+	($myYrange,$afterComa) = split(/\./,"$myYrangeTmp");
+		
+	if ($cy != 0) { # Begin if ($cy != 0)
+		$file_name = "plot [1:12] [0:$yrange] $file_name '${temporary_files}/mob${process_id}.$cy' using 2:3 title 'Year $cy' \n";
+		$file_name =~ s/\,\,/\,/g;
+		$file_name =~ s/\'\ \'/\'\,\'/g;
+		$file_name_smooth_unique = "plot [1:12] [0:$yrange] ${file_name_smooth_unique} '${temporary_files}/mob${process_id}.$cy' using 2:3 smooth unique title 'Year $cy'\n";
+		$file_name_smooth_unique =~ s/\,\,/\,/g;
+		$file_name_smooth_unique =~ s/\'\ \'/\'\,\'/g;
+		open(W,">${temporary_files}/mob${process_id}.$cy");
+		W->autoflush(1);
+		for my $i (@to_sto) { # Begin for my $i (@to_sto)
+		    chomp($i);
+		    print W "$i\n";
+		} # End for my $i (@to_sto)
+		close(W);
+	} # End if ($cy != 0)
+	
+	my $date_to_print = Conf_File::set_title("Hit(s) over " . (Surface::calculate_below_any_current_given_year(Surface::get_stat_file())+1) . " year(s)",$Conf_File::COUNTER,"0","$yrange");
+	my @to_p = ("set ylabel \"Hit by the users per month(s)\"\n","set ytics 0,$myYrange\n","$date_to_print\n",	
+			"$file_name","$file_name_smooth_unique");
+	return @to_p;
+} # End sub createFilesToPlot
+
+
+=head1 FUNCTION CreateCounter
+
+Creates a counter DB (that's a file) that helps to count hits.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$fi: file.
+
+$y: year.
+
+$ly: last year.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub CreateCounter { # Begin sub CreateCounter
+	my ($fi,$y,$ly) = @_;
+	my $s = ();
+	my $i = ();
+	my $nm = ();
+	
+	for my $subj (@{Conf_File::subject}) { # Begin for my $subj (@{Conf_File::subject})
+		chomp($subj);
+		$s = "$s 0";
+	}  # End for my $subj (@{Conf_File::subject})
+	
+	if (!-f "$fi") { # Begin if (!-f "$fi")
+		print "File doesn't exists:$fi<br>";
+		$i = 1;
+		open(W,">$fi");
+		while ($i <= 12) { # Begin while ($i <= 12)
+		    print W "$y $i 0 $s\n";
+		    $i++;
+		} # End while ($i <= 12)
+		close(W);
+	} # End if (!-f "$fi")
+	elsif  (-z "$fi") { # Begin elsif  (-z "$fi")
+		print "file exists but is empty<br>\n";
+		$i = 1;
+		open(W,">$fi");
+		while ($i <= 12) { # Begin while ($i <= 12)
+		    print W "$y $i 0 $s\n";
+		    $i++;
+		} # End while ($i <= 12)
+		close(W);
+	} # End elsif  (-z "$fi")
+	elsif ($ly == 0) { # Begin elsif ($ly == 0)
+		print "File does exist but is empty:$fi<br>";
+		$i = 1;
+		open(W,">$fi");
+		while ($i <= 12) { # Begin while ($i <= 12)
+		    print W "$y $i 0 $s\n";
+		    $i++;
+		} # End while ($i <= 12)
+		close(W);
+	} # End elsif ($ly == 0)
+	else { # Begin else
+		if ($y > $ly) { # Begin if ($y > $ly) 
+		    print "file exists and is updated -$ly-$y-<br>\n";
+		    open(W,">>$fi");
+		    while ($ly < $y) { # Begin while ($ly < $y)
+			$ly++;
+			$nm = 1;
+			while ($nm != 13) { # Begin while ($nm != 13)
+			    print W "$ly $nm 0 $s\n";
+			    $nm++;
+			}  # End while ($nm != 13)
+		    }  # End while ($ly < $y)
+		    close(W);
+		    open(R,"$fi");
+		    my @line_to_be_recorded = <R>;
+		    close(R);
+		    open(W,">$fi");
+		    flock(W,LOCK_EX);
+		    foreach my $line_to_rem (@line_to_be_recorded) { # Begin foreach my $line_to_rem (@line_to_be_recorded)
+			my ($year_get,@rest) = split(/\ /,$line_to_rem);
+			if ($year_get >= ($y-5)) { # Begin if ($year_get >= ($y-5))
+				print W "$line_to_rem";
+			} # End if ($year_get >= ($y-5))
+		    } # End foreach my $line_to_rem (@line_to_be_recorded)
+		    close(W);
+		}  # End if ($y > $ly)
+	} # End else
+	print "Counter created<br>";
+} # End sub CreateCounter
+
+
+=head1 FUNCTION lastYearStored
+
+Checks the last year stored.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$file: that's the file.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+Last year stored.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub lastYearStored { # Begin sub lastYearStored
+	my ($file) = @_;
+	my @o = ();
+	my $y = ();
+	
+	if (!-f "$file") { # Begin if (!-f "$_[0]")
+		print "problem in module Counter.pm at lastYearStored function:'$_[0]' doesn't exists value returned $_[1]<br>\n";
+	return $_[1];
+	} # End if (!-f "$_[0]")
+	open(R,"$_[0]");
+	my @lu = <R>;
+	close(R);
+	
+	for my $i (@lu) { # Begin for my $i (@lu)
+	chomp($i);
+	($y,@o) = split(/\ /,$i);
+	} # End for my $i (@lu)
+	return $y;
+} # End sub lastYearStored
+
+
+=head1 FUNCTION incremMonth
+
+Increments month when hit is on a specific menu.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$y: that's year.
+
+$m: that's month.
+
+$f:that's file that contains hits.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub incremMonth { # Begin sub incremMonth
+	my ($y,$m,$f) = @_;
+	my $current_month = ();
+	my $current_year = ();
+	my $stat=();
+	my $pppo = `pwd`;
+	
+	open(STAT,"$f");
+	my @line_stat = <STAT>;
+	close(STAT);
+	my $lnes_stat = ();
+	my @final_stat_line = ();
+	my @lst = ();
+	my $p = ();
+	my $current_month = ();
+	
+	for my $lnes_stat (@line_stat) { # Begin for my $lnes_stat (@line_stat)
+		chomp($lnes_stat);
+		$lnes_stat =~ s/\ +/\ /g;
+		#print "$lnes_stat\n<br>";
+		($current_year,$current_month,$stat,@lst) = split(/\ /,$lnes_stat);
+		
+		if ($y == $current_year) { # Begin if ($y == $current_year)
+		    if ($m == $current_month) { # Begin if ($m == $current_month)
+			$stat++;
+			$p = "$current_year $current_month $stat @lst";
+			@final_stat_line = (@final_stat_line,$p);
+		    } # End if ($m == $current_month)
+		    else { # Begin else
+			@final_stat_line = (@final_stat_line,$lnes_stat);
+		    } # End else
+		}  # End if ($y == $current_year)
+		else { # Begin else
+		    @final_stat_line = (@final_stat_line,$lnes_stat);
+		} # End else
+	} # End for my $lnes_stat (@line_stat)
+	open(STAT,">$f");
+	flock(STAT,LOCK_EX);
+	seek(STAT, 0, 2);
+	for my $fl (@final_stat_line) { # Begin for my $fl (@final_stat_line)
+		chomp($fl);
+		if (length($fl) != 0) { # Begin if (length($fl) != 0)
+		    print STAT "$fl\n";
+		} # End if (length($fl) != 0)
+	}  # End for my $fl (@final_stat_line)
+	flock(STAT,LOCK_UN);
+	close(STAT);
+} # End sub incremMonth
+
+
+=head1 FUNCTION incremMonthMaterial
+
+When material is choosen then the related material(subject) hits are incremented.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$y: that's the year.
+
+$m: that's the month.
+
+$f: that's the file.
+
+$material: that's the material.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub incremMonthMaterial { # Begin sub incremMonthMaterial
+	my ($y,$m,$f,$material) = @_;
+	my $current_month = ();
+	my $current_year = ();
+	my $stat = ();
+	my $pppo = `pwd`;
+	my @final_stat_line = ();
+	my @line_stat = ();
+	my $current_year = ();
+	my $current_month = ();
+	my $stat = ();
+	my @lst = () ;
+	my $tmp_material = ();
+	my $p = ();
+	
+	open(STAT,"$f");
+	@line_stat = <STAT>;
+	close(STAT);
+	
+	for my $lnes_stat (@line_stat) { # Begin for my $lnes_stat (@line_stat)
+		chomp($lnes_stat);
+		$lnes_stat =~ s/\ +/\ /g;
+		($current_year,$current_month,$stat,@lst) = split(/\ /,$lnes_stat);
+		$tmp_material = 1;
+		if ($y == $current_year) { # Begin if ($y == $current_year)
+		    if ($m == $current_month) { # Begin if ($m == $current_month)
+			for my $k (@lst) { # Begin for my $k (@lst)
+			    if ($tmp_material == $material) { # Begin if ($tmp_material == $material)
+				$k++;
+			    } # End if ($tmp_material == $material)
+			    $tmp_material++;
+			}  # End for my $k (@lst)
+			$p = "$current_year $current_month $stat @lst";
+			@final_stat_line = (@final_stat_line,$p);
+		    } # End if ($m == $current_month)
+		    else { # Begin else
+			@final_stat_line = (@final_stat_line,$lnes_stat);
+		    } # End else
+		} # End if ($y == $current_year)
+		else { # Begin else
+		    @final_stat_line = (@final_stat_line,$lnes_stat);
+		} # End else
+	} # End for my $lnes_stat (@line_stat)
+	open(STAT,">$f");
+	flock(STAT,LOCK_EX);
+	seek(STAT, 0, 2);
+	
+	for my $fl (@final_stat_line) { # Begin for my $fl (@final_stat_line)
+		chomp($fl);
+		if (length($fl) != 0) { # Begin if (length($fl) != 0)
+		    print STAT "$fl\n";
+		}  # End if (length($fl) != 0)
+	} # End for my $fl (@final_stat_line)
+	flock(STAT,LOCK_UN);
+	close(STAT);
+} # End sub incremMonthMaterial
+
+
+=head1 FUNCTION incremMonthMaterial
+
+Calculates Y max for the board.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$stat_file: that's the stat file that contains hits.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+Returns Y max.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub calculateYmax { # Begin sub calculateYmax
+	my ($stat_file) = @_;
+	my $t = ();
+	my $m = ();
+	my $y = ();
+	my $to_return = 0;
+	
+	open(K,"$stat_file/counter.stat");
+	my @lines = <K>;
+	close(K);
+	for my $i (@lines) { # Begin for my $i (@lines)
+		chomp($i);
+		($y,$m,$t) = split(/\ /,$i);    
+		if ($to_return == 0 && $t < 10) { # Begin if ($to_return == 0 && $t < 10)
+		    $to_return = 10;
+		} # End if ($to_return == 0 && $t < 10)
+		else { # Begin else
+		    if (($t > $to_return) && ($t > 10)) { # Begin if (($t > $to_return) && ($t > 10))
+			$to_return = $t;
+		    } # End if (($t > $to_return) && ($t > 10))
+		} # End else
+	} # End for my $i (@lines)
+	return $to_return;
+} # End sub calculateYmax
+
+
+=head1 FUNCTION remove_counter_pl
+
+Removes temporary files.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$src: that's source.
+
+$dst: that's it.... :-)
+
+$laps: that's the laps (month).
+
+$last_y: that's last year.
+
+$home: that's home.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 EXEMPLE
+
+=over 4
+
+&remove_counter_pl("../img/counter.stat","../img/counter.stat",1,2012,"/momo");
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub remove_counter_pl { # Begin sub remove_counter_pl
+	my ($src,$dst,$laps,$last_y,$home) = @_;
+	my @to_sto = ();
+	my $first_y = ($last_y - $laps + 1); # first year to start
+	my @read_src = ();
+	my $y_sto = ();
+	my @other = ();
+	my $y = ();
+	
+	open(R,"$src") or die "can't read $src";
+	@read_src = <R>;
+	close(R);
+	
+	for my $lines (@read_src) { # Begin for my $lines (@read_src)
+		chomp($lines);
+		($y_sto,@other) = split(/\ /,$lines);
+		if ($y_sto >= $first_y) { # Begin if ($y_sto >= $first_y)
+		    @to_sto = (@to_sto,$lines);
+		} # End if ($y_sto >= $first_y)
+		else { # Begin else
+		    system("rm -f ${Conf_File::root_gnuplot_stat}/monthly$y_sto.gif ${Conf_File::root_gnuplot_stat}/monthly*");
+		    system("rm -f ${Conf_File::stub}${Conf_File::img_stat_surface_stat}.$y.stat ${Conf_File::stub}/${Conf_File::tmp_stat_surface_stat}.$y");
+		}  # End else
+	} # End for my $lines (@read_src)
+	
+	open(W,">$dst") or die "can't write in $dst";
+	#flock(W,LOCK_EX|LOCK_SH) or die "can't lock filehandle";
+	for my $l (@to_sto) { # Begin for my $l (@to_sto)
+		print W "$l\n";
+	} # End for my $l (@to_sto)
+	close(W);
+	system("rm -f $src.tmp2");
+}  # End sub remove_counter_pl
+
+
+=head1 FUNCTION print_image_stat_of_a_given_year
+
+Prints an image according to a given year.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$year_param: that's year.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+In used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub print_image_stat_of_a_given_year { # Begin sub print_image_stat_of_a_given_year
+	my $year_param = $_[0];
+	my @lst = ("<center>","_&img&_","</center>","<br>","<a href='JavaScript:history.back()'>back</a>");
+	
+	for my $l (@lst) { # Begin for my $l (@lst)
+		$l =~ s/\_\&img\&\_/\<img\ src\=\"\.\.\/\.gnuplot\/monthly$year_param\.gif\"\>/g;
+	} # End for my $l (@lst)
+	&my_header;
+	print "@lst";
+} # End sub print_image_stat_of_a_given_year
+
+
+=head1 FUNCTION manage_errors_from_the_web
+
+Manages errors
+
+=head2 PARAMETER(S)
+
+=over 4
+
+$error_sign: that's error.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+None.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 STATUS
+
+=over 4
+
+Not in used.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION 
+
+=over 4
+
+- I<Last modification:> Feb 2003
+
+- I<Created on:> Feb 2003
+
+=back
+
+=cut
+
+sub manage_errors_from_the_web {
+	my $err_sign = $_[0];
+	my $my_cgi = new CGI;
+	my $p =`ls -al packages`;
+	$p =~ s/\n/\<br\>/g; 
+	print $my_cgi->header("text/html"),
+	$my_cgi->start_html("Error with gnuplot"),
+		$my_cgi->h2("Error with gnuplot"),
+		$my_cgi->p("===>$err_sign<br>$p"),
+		$my_cgi->end_html;
+	
+	exit(-1);
+}
+
+1;

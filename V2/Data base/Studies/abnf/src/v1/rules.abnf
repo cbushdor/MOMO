@@ -1,0 +1,50 @@
+; ------------------------------------------------------------
+;          https://tools.ietf.org/pdf/rfc5234.pdf
+; ------------------------------------------------------------
+
+; ------------------------------------------------------
+;  note that semicolumn starts comment rfc 5234 p9 §3.9
+; ------------------------------------------------------
+
+; rule form is definition defined paragraph 2 and naming 2.1 rfc5234
+
+; zzzzz            =  "="  
+; "fgdfdfgdfgdf" "bhgga" ; basic rule definition similar to below definition
+
+; here we must have an error because rule name is already defined
+; <zzzzz>            =  "="   "bhgga" ; basic rule definition similar to upper definition
+
+; ------------------------------------------------------------
+;  This notation is accepted with the parser: see RFC 5234 p5
+; ------------------------------------------------------------
+; rulename    =  %d97.98.99 ; check p4  rfc 5234 for definition of the base and concatenation p5 below notation is equivalent to this current line
+ ;         aaa    =  %d97 %d98 %d99 ; check p4  rfc 5234 for definition of the base and concatenation p5 upper notation is equivalent to this current line
+
+; zzzz="a"
+
+; ------------------------------------------------------------
+;  This notation is accepted with the parser: see RFC 5234 p5
+; ------------------------------------------------------------
+; CRLF	= 	%d13.10	; CRLF is written like that %d13.10 but is also written like that CR LF too CR=%d13 and LF=%d10
+
+; <aaaaa>= zzzzz %i"       eee_ee " rrrrr  %s" e r t y y uuuuuud" 			CRLF ; CRLF
+; / "zz e  e" /  ; azeaz*ezaeezea
+; thfghghg / erty  ; azeazezaeezea
+; thfghghg="m m "  ; azeazezaeezea
+; erty="e t y u u"; yuyuiyu
+
+; ------------------------------------------------------------
+;  This notation is accepted with the parser: see RFC rfc7405 p?
+; ------------------------------------------------------------
+    <mumble>     =  "%i" "foo bar" / foo / "%s" "faoo bar"                 
+			foo ; this notation is equivalent to the one below
+foo=%i"azerty" "fff" aaaa azezezaeaz
+			<gggg>
+mumblue      =  %i"foo bar" fOo
+aaaa="1"
+gggg="2"
+azezezaeaz="4343"
+; ------------------------------------------------------------
+;  This notation is accepted with the parser: see RFC 5234 p4
+; ------------------------------------------------------------
+;rrrrr= %d13;CR

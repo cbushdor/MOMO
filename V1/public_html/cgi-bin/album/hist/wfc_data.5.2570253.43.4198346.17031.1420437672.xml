@@ -1,0 +1,105 @@
+	<current_observation>
+		<credit>Weather Underground NOAA Weather Station</credit>
+		<credit_URL>http://wunderground.com/</credit_URL>
+<termsofservice link="http://www.wunderground.com/weather/api/d/terms.html">This feed will be deprecated. Please switch to http://www.wunderground.com/weather/api/</termsofservice>
+		<image>
+		<url>http://icons.wxug.com/graphics/wu2/logo_130x80.png</url>
+		<title>Weather Underground</title>
+		<link>http://wunderground.com/</link>
+		</image>
+  <display_location>
+  <full>Saint-Victoret, France</full>
+  <city>Saint-Victoret</city>
+  <state></state>
+  <state_name>France</state_name>
+  <country>FR</country>
+  <country_iso3166>FR</country_iso3166>
+  <zip>00000</zip>
+  <latitude>43.419835</latitude>
+  <longitude>5.257025</longitude>
+  <elevation>23.00000000 ft</elevation>
+  </display_location>
+		<observation_location>
+		<full>Marseille, </full>
+		<city>Marseille</city>
+		<state></state>
+		<country>FR</country>
+		<country_iso3166>FR</country_iso3166>
+		<latitude>43.43777847</latitude>
+		<longitude>5.21611118</longitude>
+		<elevation>105 ft</elevation>
+		</observation_location>
+		<station_id>LFML</station_id>
+		<observation_time>Last Updated on January 5, 6:30 AM CET</observation_time>
+		<observation_time_rfc822>Mon, 05 Jan 2015 05:30:00 GMT</observation_time_rfc822>
+		<observation_epoch>1420435800</observation_epoch>
+		<local_time>January 5, 7:00 AM CET</local_time>
+		<local_time_rfc822>Mon, 05 Jan 2015 06:00:49 GMT</local_time_rfc822>
+		<local_epoch>1420437649</local_epoch>
+		<weather>Clear</weather>
+		<temperature_string>32 F (0 C)</temperature_string>
+		<temp_f>32</temp_f>
+		<temp_c>0</temp_c>
+		<relative_humidity>87%</relative_humidity>
+		<wind_string>From the SE at 5 MPH </wind_string>
+		<wind_dir>SE</wind_dir>
+		<wind_degrees>140</wind_degrees>
+		<wind_mph>5</wind_mph>
+		<wind_gust_mph></wind_gust_mph>
+		<pressure_string>30.39 in (1029 mb)</pressure_string>
+		<pressure_mb>1029</pressure_mb>
+		<pressure_in>30.39</pressure_in>
+		<dewpoint_string>28 F (-2 C)</dewpoint_string>
+		<dewpoint_f>28</dewpoint_f>
+		<dewpoint_c>-2</dewpoint_c>
+		
+		<heat_index_string>NA</heat_index_string>
+		<heat_index_f>NA</heat_index_f>
+		<heat_index_c>NA</heat_index_c>
+		
+		
+		<windchill_string>28 F (-2 C)</windchill_string>
+		<windchill_f>28</windchill_f>
+		<windchill_c>-2</windchill_c>
+		
+		<visibility_mi>N/A</visibility_mi>
+		<visibility_km>N/A</visibility_km>
+		<icons>
+			<icon_set name="Default">
+				<icon_url>http://icons.wxug.com/i/c/a/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Smiley">
+				<icon_url>http://icons.wxug.com/i/c/b/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Generic">
+				<icon_url>http://icons.wxug.com/i/c/c/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Old School">
+				<icon_url>http://icons.wxug.com/i/c/d/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Cartoon">
+				<icon_url>http://icons.wxug.com/i/c/e/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Mobile">
+				<icon_url>http://icons.wxug.com/i/c/f/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Simple">
+				<icon_url>http://icons.wxug.com/i/c/g/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Contemporary">
+				<icon_url>http://icons.wxug.com/i/c/h/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Helen">
+				<icon_url>http://icons.wxug.com/i/c/i/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Incredible">
+				<icon_url>http://icons.wxug.com/i/c/k/clear.gif</icon_url>
+			</icon_set>
+		</icons>
+		<icon_url_base>http://icons.wxug.com/graphics/conds/</icon_url_base>
+		<icon_url_name>.GIF</icon_url_name>
+		<icon>clear</icon>
+		<forecast_url>http://www.wunderground.com/global/stations/07650.html</forecast_url>
+		<history_url>http://www.wunderground.com/history/airport/LFML/2015/1/5/DailyHistory.html</history_url>
+		<ob_url>http://www.wunderground.com/cgi-bin/findweather/getForecast?query=43.43777847,5.21611118</ob_url>
+	</current_observation>

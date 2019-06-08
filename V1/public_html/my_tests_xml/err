@@ -1,0 +1,2 @@
+Warning: program compiled against libxml 207 using older 206
+Warning: XML::LibXML compiled against libxml2 20708, but runtime libxml2 is older 20626

@@ -1,0 +1,36 @@
+=head1 OVERVIEW
+
+This section is dedicated to my Data Base (DB) management.
+
+
+=head1 SYNOPSIS
+
+The DB will be build from different studies.
+
+
+=head1 THE GRAMMAR
+
+That part will build the grammar to describe the syntax that will be used to consult the DB.
+
+
+=head1 The Data Base 
+
+That part will manage the DB itelf. It will consult the DB through queries whose syntax will be specified in the grammar see upper paragraph dedicated to GRAMMAR.
+
+
+=head1 THE QUERIES
+
+That part will sort the results from the DB with the help of a given query specified by the user to retrieve data field(s). The format of the query(ies) are specified in the GRAMMAR. 
+
+
+=head1 COMPATIBILITY
+
+The basics will be written with Perl v5.8.9.
+
+=head1 SEE ALSO
+
+=begin html
+
+Backus–Naur Form on <a href="https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form">Wikipedia</a>
+
+=end html

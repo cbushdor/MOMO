@@ -1,0 +1,105 @@
+	<current_observation>
+		<credit>Weather Underground NOAA Weather Station</credit>
+		<credit_URL>http://wunderground.com/</credit_URL>
+<termsofservice link="http://www.wunderground.com/weather/api/d/terms.html">This feed will be deprecated. Please switch to http://www.wunderground.com/weather/api/</termsofservice>
+		<image>
+		<url>http://icons.wxug.com/graphics/wu2/logo_130x80.png</url>
+		<title>Weather Underground</title>
+		<link>http://wunderground.com/</link>
+		</image>
+  <display_location>
+  <full>Itxassou, France</full>
+  <city>Itxassou</city>
+  <state></state>
+  <state_name>France</state_name>
+  <country>FR</country>
+  <country_iso3166>FR</country_iso3166>
+  <zip>00000</zip>
+  <latitude>43.349939</latitude>
+  <longitude>-1.395179</longitude>
+  <elevation>20.00000000 ft</elevation>
+  </display_location>
+		<observation_location>
+		<full>Biarritz, </full>
+		<city>Biarritz</city>
+		<state></state>
+		<country>FR</country>
+		<country_iso3166>FR</country_iso3166>
+		<latitude>43.46944427</latitude>
+		<longitude>-1.53444397</longitude>
+		<elevation>233 ft</elevation>
+		</observation_location>
+		<station_id>LFBZ</station_id>
+		<observation_time>Last Updated on August 13, 5:30 PM CEST</observation_time>
+		<observation_time_rfc822>Thu, 13 Aug 2015 15:30:00 GMT</observation_time_rfc822>
+		<observation_epoch>1439479800</observation_epoch>
+		<local_time>August 13, 5:41 PM CEST</local_time>
+		<local_time_rfc822>Thu, 13 Aug 2015 15:41:40 GMT</local_time_rfc822>
+		<local_epoch>1439480500</local_epoch>
+		<weather>light rain</weather>
+		<temperature_string>68 F (20 C)</temperature_string>
+		<temp_f>68</temp_f>
+		<temp_c>20</temp_c>
+		<relative_humidity>83%</relative_humidity>
+		<wind_string>From the NW at 15 MPH </wind_string>
+		<wind_dir>NW</wind_dir>
+		<wind_degrees>310</wind_degrees>
+		<wind_mph>15</wind_mph>
+		<wind_gust_mph></wind_gust_mph>
+		<pressure_string>30.04 in (1017 mb)</pressure_string>
+		<pressure_mb>1017</pressure_mb>
+		<pressure_in>30.04</pressure_in>
+		<dewpoint_string>63 F (17 C)</dewpoint_string>
+		<dewpoint_f>63</dewpoint_f>
+		<dewpoint_c>17</dewpoint_c>
+		
+		<heat_index_string>NA</heat_index_string>
+		<heat_index_f>NA</heat_index_f>
+		<heat_index_c>NA</heat_index_c>
+		
+		
+		<windchill_string>NA</windchill_string>
+		<windchill_f>NA</windchill_f>
+		<windchill_c>NA</windchill_c>
+		
+		<visibility_mi>4.3</visibility_mi>
+		<visibility_km>7.0</visibility_km>
+		<icons>
+			<icon_set name="Default">
+				<icon_url>http://icons.wxug.com/i/c/a/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Smiley">
+				<icon_url>http://icons.wxug.com/i/c/b/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Generic">
+				<icon_url>http://icons.wxug.com/i/c/c/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Old School">
+				<icon_url>http://icons.wxug.com/i/c/d/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Cartoon">
+				<icon_url>http://icons.wxug.com/i/c/e/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Mobile">
+				<icon_url>http://icons.wxug.com/i/c/f/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Simple">
+				<icon_url>http://icons.wxug.com/i/c/g/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Contemporary">
+				<icon_url>http://icons.wxug.com/i/c/h/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Helen">
+				<icon_url>http://icons.wxug.com/i/c/i/rain.gif</icon_url>
+			</icon_set>
+			<icon_set name="Incredible">
+				<icon_url>http://icons.wxug.com/i/c/k/rain.gif</icon_url>
+			</icon_set>
+		</icons>
+		<icon_url_base>http://icons.wxug.com/graphics/conds/</icon_url_base>
+		<icon_url_name>.GIF</icon_url_name>
+		<icon>rain</icon>
+		<forecast_url>http://www.wunderground.com/global/stations/07602.html</forecast_url>
+		<history_url>http://www.wunderground.com/history/airport/LFBZ/2015/8/13/DailyHistory.html</history_url>
+		<ob_url>http://www.wunderground.com/cgi-bin/findweather/getForecast?query=43.46944427,-1.53444397</ob_url>
+	</current_observation>

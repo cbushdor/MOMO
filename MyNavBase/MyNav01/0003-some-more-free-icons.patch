@@ -1,0 +1,24 @@
+From ae0aa86b3e7420d54f8e2c55901b69d2918163f8 Mon Sep 17 00:00:00 2001
+From: sdo <shark.b@laposte.net>
+Date: Tue, 5 Jun 2012 02:45:08 +0200
+Subject: [PATCH 3/3] some more free icons
+
+---
+ icons/close.gif |  Bin 0 -> 102 bytes
+ 1 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 icons/close.gif
+
+diff --git a/icons/close.gif b/icons/close.gif
+new file mode 100644
+index 0000000000000000000000000000000000000000..679ca2aa47644793fc7096142233af6d18cfc9ac
+GIT binary patch
+literal 102
+zcmZ?wbhEHb6ky<E*u=o_|Nnmn2Zt*cPBb($FdzXP5F4b1f!Ua2*BwTsQ<}#YTSQ54
+u&YV}~xiElB`sv&k9Cg9JHWjhYH;uj)`ShF8fdmg7G3FCXiaLE57_0&Lb0FOS
+
+literal 0
+HcmV?d00001
+
+-- 
+1.7.7
+

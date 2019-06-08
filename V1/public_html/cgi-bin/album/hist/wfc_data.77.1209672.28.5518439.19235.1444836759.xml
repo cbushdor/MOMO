@@ -1,0 +1,105 @@
+	<current_observation>
+		<credit>Weather Underground NOAA Weather Station</credit>
+		<credit_URL>http://wunderground.com/</credit_URL>
+<termsofservice link="http://www.wunderground.com/weather/api/d/terms.html">This feed will be deprecated. Please switch to http://www.wunderground.com/weather/api/</termsofservice>
+		<image>
+		<url>http://icons.wxug.com/graphics/wu2/logo_130x80.png</url>
+		<title>Weather Underground</title>
+		<link>http://wunderground.com/</link>
+		</image>
+  <display_location>
+  <full>New Delhi, India</full>
+  <city>New Delhi</city>
+  <state></state>
+  <state_name>India</state_name>
+  <country>IN</country>
+  <country_iso3166>IN</country_iso3166>
+  <zip>00000</zip>
+  <latitude>28.551844</latitude>
+  <longitude>77.120967</longitude>
+  <elevation>233.00000000 ft</elevation>
+  </display_location>
+		<observation_location>
+		<full>New Delhi, </full>
+		<city>New Delhi</city>
+		<state></state>
+		<country>IN</country>
+		<country_iso3166>IN</country_iso3166>
+		<latitude>28.56666756</latitude>
+		<longitude>77.11666870</longitude>
+		<elevation>764 ft</elevation>
+		</observation_location>
+		<station_id>VIDP</station_id>
+		<observation_time>Last Updated on October 14, 8:30 PM IST</observation_time>
+		<observation_time_rfc822>Wed, 14 Oct 2015 15:00:00 GMT</observation_time_rfc822>
+		<observation_epoch>1444834800</observation_epoch>
+		<local_time>October 14, 9:02 PM IST</local_time>
+		<local_time_rfc822>Wed, 14 Oct 2015 15:32:16 GMT</local_time_rfc822>
+		<local_epoch>1444836736</local_epoch>
+		<weather>haze</weather>
+		<temperature_string>77 F (25 C)</temperature_string>
+		<temp_f>77</temp_f>
+		<temp_c>25</temp_c>
+		<relative_humidity>74%</relative_humidity>
+		<wind_string>From the East at 5 MPH </wind_string>
+		<wind_dir>East</wind_dir>
+		<wind_degrees>80</wind_degrees>
+		<wind_mph>5</wind_mph>
+		<wind_gust_mph></wind_gust_mph>
+		<pressure_string>29.98 in (1015 mb)</pressure_string>
+		<pressure_mb>1015</pressure_mb>
+		<pressure_in>29.98</pressure_in>
+		<dewpoint_string>68 F (20 C)</dewpoint_string>
+		<dewpoint_f>68</dewpoint_f>
+		<dewpoint_c>20</dewpoint_c>
+		
+		<heat_index_string>NA</heat_index_string>
+		<heat_index_f>NA</heat_index_f>
+		<heat_index_c>NA</heat_index_c>
+		
+		
+		<windchill_string>NA</windchill_string>
+		<windchill_f>NA</windchill_f>
+		<windchill_c>NA</windchill_c>
+		
+		<visibility_mi>1.6</visibility_mi>
+		<visibility_km>2.5</visibility_km>
+		<icons>
+			<icon_set name="Default">
+				<icon_url>http://icons.wxug.com/i/c/a/hazy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Smiley">
+				<icon_url>http://icons.wxug.com/i/c/b/hazy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Generic">
+				<icon_url>http://icons.wxug.com/i/c/c/hazy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Old School">
+				<icon_url>http://icons.wxug.com/i/c/d/hazy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Cartoon">
+				<icon_url>http://icons.wxug.com/i/c/e/hazy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Mobile">
+				<icon_url>http://icons.wxug.com/i/c/f/hazy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Simple">
+				<icon_url>http://icons.wxug.com/i/c/g/hazy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Contemporary">
+				<icon_url>http://icons.wxug.com/i/c/h/hazy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Helen">
+				<icon_url>http://icons.wxug.com/i/c/i/hazy.gif</icon_url>
+			</icon_set>
+			<icon_set name="Incredible">
+				<icon_url>http://icons.wxug.com/i/c/k/hazy.gif</icon_url>
+			</icon_set>
+		</icons>
+		<icon_url_base>http://icons.wxug.com/graphics/conds/</icon_url_base>
+		<icon_url_name>.GIF</icon_url_name>
+		<icon>hazy</icon>
+		<forecast_url>http://www.wunderground.com/global/stations/42181.html</forecast_url>
+		<history_url>http://www.wunderground.com/history/airport/VIDP/2015/10/14/DailyHistory.html</history_url>
+		<ob_url>http://www.wunderground.com/cgi-bin/findweather/getForecast?query=28.56666756,77.11666870</ob_url>
+	</current_observation>

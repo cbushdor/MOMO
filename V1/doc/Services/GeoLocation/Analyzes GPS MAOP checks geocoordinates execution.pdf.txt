@@ -1,0 +1,250 @@
+We list file that start with F*
+Sebastien-Doreys-MacBook:hist sdo$ ls -al F*
+-rw-r--r--  1 sdo  staff   1475 May 17  2014 France-109.11.167.193
+-rw-r--r--  1 sdo  staff   4145 May 12  2014 France-109.11.167.193-wfc_data.MonMay1200:28:482014.xml
+-rw-r--r--  1 sdo  staff   4145 May 12  2014 France-109.11.167.193-wfc_data.MonMay1200:31:412014.xml
+-rw-r--r--  1 sdo  staff   4150 May 11  2014 France-109.11.167.193-wfc_data.SunMay1102:39:002014.xml
+-rw-r--r--  1 sdo  staff   4150 May 11  2014 France-109.11.167.193-wfc_data.SunMay1111:38:352014.xml
+-rw-r--r--  1 sdo  staff   4144 May 11  2014 France-109.11.167.193-wfc_data.SunMay1114:06:002014.xml
+-rw-r--r--  1 sdo  staff    439 May 12  2014 France-109.11.167.193.xml
+-rw-r--r--  1 sdo  staff  11935 Feb 20  2014 France-109.11.231.158
+-rw-r--r--  1 sdo  staff   5172 Apr 22  2014 France-109.11.236.218
+-rw-r--r--  1 sdo  staff    576 May 25  2013 France-109.12.70.171
+-rw-r--r--  1 sdo  staff    286 Dec 18  2013 France-109.16.218.239
+-rw-r--r--  1 sdo  staff   1132 Aug 18  2013 France-193.251.83.210
+-rw-r--r--  1 sdo  staff    575 Aug 20 11:58 France-193.252.55.60
+-rw-r--r--  1 sdo  staff    576 Dec  8  2013 France-194.199.143.57
+-rw-r--r--  1 sdo  staff    283 Nov 17  2013 France-194.199.143.58
+-rw-r--r--  1 sdo  staff   6575 Jan  6  2013 France-194.79.147.129
+-rw-r--r--  1 sdo  staff   1047 Sep 16 18:53 France-195.154.179.168
+-rw-r--r--  1 sdo  staff    279 Jan  6  2013 France-195.167.200.4
+-rw-r--r--  1 sdo  staff    825 Jun  1  2013 France-195.167.200.5
+-rw-r--r--  1 sdo  staff    248 Jan  6  2013 France-195.75.25.233
+-rw-r--r--  1 sdo  staff   1475 Jan  6  2013 France-212.157.174.138
+-rw-r--r--  1 sdo  staff   6075 Jan  6  2013 France-212.27.63.204
+-rw-r--r--  1 sdo  staff    244 May  3  2013 France-213.111.4.72
+-rw-r--r--  1 sdo  staff   2512 Feb 23  2014 France-213.111.4.76
+-rw-r--r--  1 sdo  staff    236 Jan 19  2014 France-37.59.16.223
+-rw-r--r--  1 sdo  staff    237 Dec 11 10:13 France-37.59.32.148
+-rw-r--r--  1 sdo  staff    846 Jan 10  2014 France-77.204.46.253
+-rw-r--r--  1 sdo  staff   1136 Jan 24  2014 France-78.112.170.61
+-rw-r--r--  1 sdo  staff    293 Sep  6  2013 France-78.114.230.6
+-rw-r--r--  1 sdo  staff   1596 Apr 27  2013 France-78.248.89.109
+-rw-r--r--  1 sdo  staff    530 Mar 13  2014 France-79.84.84.11
+-rw-r--r--  1 sdo  staff   4778 Jan 24  2013 France-79.89.245.71
+-rw-r--r--  1 sdo  staff    296 Jan 24  2013 France-80.12.80.112
+-rw-r--r--  1 sdo  staff    228 Jul 15  2013 France-80.12.89.97
+-rw-r--r--  1 sdo  staff  10471 Jan  6  2013 France-80.13.172.70
+-rw-r--r--  1 sdo  staff   1701 Dec 23 17:29 France-80.14.10.93
+-rw-r--r--  1 sdo  staff    567 Jan  6  2013 France-80.14.194.99
+-rw-r--r--  1 sdo  staff   1305 Sep  6  2013 France-80.15.183.227
+-rw-r--r--  1 sdo  staff    256 Jan  6  2013 France-81.253.0.121
+-rw-r--r--  1 sdo  staff   1000 Jan  6  2013 France-81.253.1.94
+-rw-r--r--  1 sdo  staff   1536 Jan  6  2013 France-81.253.10.68
+-rw-r--r--  1 sdo  staff    256 Jan 26  2013 France-81.253.12.5
+-rw-r--r--  1 sdo  staff    258 Jan 10  2013 France-81.253.14.70
+-rw-r--r--  1 sdo  staff    247 Jan  6  2013 France-81.253.17.225
+-rw-r--r--  1 sdo  staff    247 Jan  6  2013 France-81.253.18.101
+-rw-r--r--  1 sdo  staff    494 Jan  6  2013 France-81.253.18.244
+-rw-r--r--  1 sdo  staff    258 Jan 26  2013 France-81.253.19.52
+-rw-r--r--  1 sdo  staff    239 Jan  6  2013 France-81.253.2.80
+-rw-r--r--  1 sdo  staff    980 Jan  6  2013 France-81.253.23.42
+-rw-r--r--  1 sdo  staff   1820 Feb 27  2013 France-81.253.24.246
+-rw-r--r--  1 sdo  staff    260 Jan  6  2013 France-81.253.26.205
+-rw-r--r--  1 sdo  staff    256 Jan  7  2013 France-81.253.27.5
+-rw-r--r--  1 sdo  staff   2048 Jan  6  2013 France-81.253.30.70
+-rw-r--r--  1 sdo  staff    259 Jan  6  2013 France-81.253.32.194
+-rw-r--r--  1 sdo  staff    258 Feb 27  2013 France-81.253.35.40
+-rw-r--r--  1 sdo  staff    256 Jan  6  2013 France-81.253.35.82
+-rw-r--r--  1 sdo  staff    248 Jan 10  2013 France-81.253.38.109
+-rw-r--r--  1 sdo  staff    516 Jan  6  2013 France-81.253.38.190
+-rw-r--r--  1 sdo  staff    268 Jan  6  2013 France-81.253.42.240
+-rw-r--r--  1 sdo  staff    258 Mar  9  2013 France-81.253.42.78
+-rw-r--r--  1 sdo  staff    258 Jan  6  2013 France-81.253.45.187
+-rw-r--r--  1 sdo  staff    256 Jan  6  2013 France-81.253.5.142
+-rw-r--r--  1 sdo  staff    768 Jan  6  2013 France-81.253.5.217
+-rw-r--r--  1 sdo  staff    262 Jan  6  2013 France-81.253.50.37
+-rw-r--r--  1 sdo  staff   3354 Jan  6  2013 France-81.253.54.115
+-rw-r--r--  1 sdo  staff    768 Jan  6  2013 France-81.253.55.97
+-rw-r--r--  1 sdo  staff   1036 Jan  6  2013 France-81.253.56.147
+-rw-r--r--  1 sdo  staff    247 Jan  6  2013 France-81.253.58.130
+-rw-r--r--  1 sdo  staff   1235 Jan  6  2013 France-81.253.58.165
+-rw-r--r--  1 sdo  staff    768 Jan  7  2013 France-81.253.6.74
+-rw-r--r--  1 sdo  staff    257 Jan  6  2013 France-81.253.60.46
+-rw-r--r--  1 sdo  staff    490 Jan  6  2013 France-81.253.61.1
+-rw-r--r--  1 sdo  staff    256 Jan  6  2013 France-81.253.63.83
+-rw-r--r--  1 sdo  staff    494 Jan  6  2013 France-81.253.8.201
+-rw-r--r--  1 sdo  staff    258 Jan 26  2013 France-81.253.8.227
+-rw-r--r--  1 sdo  staff    988 Jan  6  2013 France-81.253.8.242
+-rw-r--r--  1 sdo  staff   2893 Feb 28  2013 France-81.57.109.24
+-rw-r--r--  1 sdo  staff    566 Jul 24  2013 France-82.127.140.58
+-rw-r--r--  1 sdo  staff    566 May 18  2013 France-82.127.156.80
+-rw-r--r--  1 sdo  staff   1348 May  9  2014 France-82.127.196.123
+-rw-r--r--  1 sdo  staff    259 Jun  8  2013 France-82.244.55.84
+-rw-r--r--  1 sdo  staff    580 Jan 17  2013 France-84.101.242.133
+-rw-r--r--  1 sdo  staff   2030 Feb 25  2013 France-84.101.242.137
+-rw-r--r--  1 sdo  staff    873 Feb 26  2013 France-84.101.242.216
+-rw-r--r--  1 sdo  staff   2592 Aug 26  2013 France-84.101.242.36
+-rw-r--r--  1 sdo  staff   1770 Jan  6  2013 France-86.200.10.155
+-rw-r--r--  1 sdo  staff    941 Jan  6  2013 France-86.200.140.214
+-rw-r--r--  1 sdo  staff    870 Jan  6  2013 France-86.202.162.32
+-rw-r--r--  1 sdo  staff    622 Jan  6  2013 France-86.202.163.56
+-rw-r--r--  1 sdo  staff   1555 May  2  2013 France-86.210.102.70
+-rw-r--r--  1 sdo  staff    612 Jan  6  2013 France-86.211.120.61
+-rw-r--r--  1 sdo  staff    610 Jan  6  2013 France-86.216.144.211
+-rw-r--r--  1 sdo  staff    801 Jan 12  2014 France-86.66.199.163
+-rw-r--r--  1 sdo  staff    267 Dec 31  2013 France-86.66.199.189
+-rw-r--r--  1 sdo  staff   1068 Dec  1  2013 France-86.66.199.194
+-rw-r--r--  1 sdo  staff    291 May 22  2013 France-86.66.199.219
+-rw-r--r--  1 sdo  staff    267 Dec  4  2013 France-86.66.199.239
+-rw-r--r--  1 sdo  staff    808 Jan 21  2014 France-86.66.199.251
+-rw-r--r--  1 sdo  staff    838 Dec 12  2013 France-86.69.44.138
+-rw-r--r--  1 sdo  staff    837 Mar  8  2013 France-86.69.44.207
+-rw-r--r--  1 sdo  staff    287 Nov  3 23:58 France-86.69.44.217
+-rw-r--r--  1 sdo  staff    287 Oct 11 22:18 France-86.69.44.247
+-rw-r--r--  1 sdo  staff    862 Aug 30 22:34 France-86.69.44.250
+-rw-r--r--  1 sdo  staff    856 Dec 16 10:41 France-86.69.44.70
+-rw-r--r--  1 sdo  staff    277 Nov  4  2013 France-86.69.44.76
+-rw-r--r--  1 sdo  staff    281 Sep 30  2013 France-86.71.119.110
+-rw-r--r--  1 sdo  staff    281 Oct 28  2013 France-86.71.119.150
+-rw-r--r--  1 sdo  staff    282 Feb 20  2013 France-86.71.119.155
+-rw-r--r--  1 sdo  staff    558 Feb 14  2013 France-86.71.119.35
+-rw-r--r--  1 sdo  staff   1953 Sep  2  2013 France-86.71.119.54
+-rw-r--r--  1 sdo  staff    279 Oct 18  2013 France-86.71.119.95
+-rw-r--r--  1 sdo  staff    283 Jan 26  2013 France-86.73.48.108
+-rw-r--r--  1 sdo  staff   2529 Aug  9  2013 France-86.73.48.11
+-rw-r--r--  1 sdo  staff   7080 Jan 17  2013 France-86.73.48.146
+-rw-r--r--  1 sdo  staff   3069 Apr 29  2013 France-86.73.48.2
+-rw-r--r--  1 sdo  staff    277 May 15  2013 France-86.76.59.14
+-rw-r--r--  1 sdo  staff    279 Feb  6  2013 France-86.76.59.231
+-rw-r--r--  1 sdo  staff    554 Mar  8  2013 France-86.76.59.66
+-rw-r--r--  1 sdo  staff    281 Feb 11  2014 France-87.88.131.236
+-rw-r--r--  1 sdo  staff    270 Jan 20  2014 France-88.137.124.152
+-rw-r--r--  1 sdo  staff    525 Aug 28  2013 France-88.137.125.201
+-rw-r--r--  1 sdo  staff   4475 Jan 19  2014 France-88.138.234.65
+-rw-r--r--  1 sdo  staff    598 May  6  2013 France-89.81.158.108
+-rw-r--r--  1 sdo  staff   1140 Feb 15  2014 France-90.2.188.138
+-rw-r--r--  1 sdo  staff    296 May 16  2013 France-90.44.95.104
+-rw-r--r--  1 sdo  staff    281 Feb 11  2014 France-90.46.30.205
+-rw-r--r--  1 sdo  staff    235 Jun 22  2014 France-90.96.180.162
+-rw-r--r--  1 sdo  staff    231 Sep 19 19:50 France-90.96.25.19
+-rw-r--r--  1 sdo  staff    248 Jan  6  2013 France-91.213.15.225
+-rw-r--r--  1 sdo  staff   4846 Mar  9  2014 France-91.68.245.134
+-rw-r--r--  1 sdo  staff    598 Jul 11  2013 France-92.150.191.212
+-rw-r--r--  1 sdo  staff    289 Jun 16  2013 France-92.150.232.166
+-rw-r--r--  1 sdo  staff    299 Apr 23  2013 France-92.153.134.173
+-rw-r--r--  1 sdo  staff    288 Apr 27  2014 France-92.153.169.250
+-rw-r--r--  1 sdo  staff    586 Feb 12  2014 France-92.153.19.125
+-rw-r--r--  1 sdo  staff   1164 Jan  8  2014 France-92.153.22.174
+-rw-r--r--  1 sdo  staff    278 May 15  2013 France-92.153.30.17
+-rw-r--r--  1 sdo  staff    296 Jun 24  2013 France-92.153.5.241
+-rw-r--r--  1 sdo  staff   3035 Apr  3  2014 France-92.90.16.113
+-rw-r--r--  1 sdo  staff    552 Apr  9  2014 France-92.90.16.115
+-rw-r--r--  1 sdo  staff    550 Apr  3  2014 France-92.90.16.125
+-rw-r--r--  1 sdo  staff    276 Apr  9  2014 France-92.90.16.126
+-rw-r--r--  1 sdo  staff   4119 May 12  2014 France-92.90.16.130-wfc_data.MonMay1200:46:562014.xml
+-rw-r--r--  1 sdo  staff   4119 May 12  2014 France-92.90.16.130-wfc_data.MonMay1200:47:092014.xml
+-rw-r--r--  1 sdo  staff    403 May 12  2014 France-92.90.16.130.xml
+-rw-r--r--  1 sdo  staff    275 Apr  3  2014 France-92.90.16.131
+-rw-r--r--  1 sdo  staff   4119 May 12  2014 France-92.90.16.131-wfc_data.MonMay1200:51:142014.xml
+-rw-r--r--  1 sdo  staff    403 May 12  2014 France-92.90.16.131.xml
+-rw-r--r--  1 sdo  staff    275 Apr  3  2014 France-92.90.16.132
+-rw-r--r--  1 sdo  staff    276 Apr  1  2014 France-92.90.16.221
+-rw-r--r--  1 sdo  staff   1100 Apr  3  2014 France-92.90.16.222
+-rw-r--r--  1 sdo  staff   1644 Apr  9  2014 France-92.90.16.28
+-rw-r--r--  1 sdo  staff    294 Dec 24 17:25 France-92.90.16.62
+-rw-r--r--  1 sdo  staff   1355 Dec 24 12:03 France-92.90.16.76
+-rw-r--r--  1 sdo  staff    274 Apr  9  2014 France-92.90.16.95
+-rw-r--r--  1 sdo  staff    837 Dec 23 17:00 France-92.90.17.106
+-rw-r--r--  1 sdo  staff    837 Dec 23 18:35 France-92.90.17.113
+-rw-r--r--  1 sdo  staff    546 Dec 24 11:29 France-92.90.17.127
+-rw-r--r--  1 sdo  staff    294 Dec 24 17:17 France-92.90.17.63
+-rw-r--r--  1 sdo  staff    275 Apr  3  2014 France-92.90.20.101
+-rw-r--r--  1 sdo  staff    825 Apr  3  2014 France-92.90.20.110
+-rw-r--r--  1 sdo  staff    836 Apr  3  2014 France-92.90.20.125
+-rw-r--r--  1 sdo  staff    275 Apr  3  2014 France-92.90.20.129
+-rw-r--r--  1 sdo  staff    275 Apr  3  2014 France-92.90.20.130
+-rw-r--r--  1 sdo  staff    841 Dec 24 12:55 France-92.90.20.17
+-rw-r--r--  1 sdo  staff    294 Dec 24 16:50 France-92.90.20.19
+-rw-r--r--  1 sdo  staff    826 Apr  9  2014 France-92.90.20.210
+-rw-r--r--  1 sdo  staff    550 Apr  3  2014 France-92.90.20.221
+-rw-r--r--  1 sdo  staff    276 Dec 22 20:33 France-92.90.20.25
+-rw-r--r--  1 sdo  staff    542 Dec 24 11:31 France-92.90.20.44
+-rw-r--r--  1 sdo  staff    294 Dec 24 17:40 France-92.90.20.64
+-rw-r--r--  1 sdo  staff    276 Dec 22 20:40 France-92.90.20.76
+-rw-r--r--  1 sdo  staff    597 Apr  9  2014 France-92.90.20.99
+-rw-r--r--  1 sdo  staff    271 Dec 24 12:38 France-92.90.21.34
+-rw-r--r--  1 sdo  staff    271 Dec 24 12:23 France-92.90.21.36
+-rw-r--r--  1 sdo  staff    294 Dec 24 14:41 France-92.90.21.63
+-rw-r--r--  1 sdo  staff    287 Apr  3  2014 France-92.90.26.21
+-rw-r--r--  1 sdo  staff   4119 May 12  2014 France-92.90.26.21-wfc_data.MonMay1200:46:202014.xml
+-rw-r--r--  1 sdo  staff   4119 May 12  2014 France-92.90.26.21-wfc_data.MonMay1202:20:072014.xml
+-rw-r--r--  1 sdo  staff    402 May 12  2014 France-92.90.26.21.xml
+-rw-r--r--  1 sdo  staff   3992 May 15  2014 France-92.90.26.64-wfc_data.ThuMay1505:15:022014.xml
+-rw-r--r--  1 sdo  staff    402 May 15  2014 France-92.90.26.64.xml
+-rw-r--r--  1 sdo  staff   1092 Apr  3  2014 France-92.90.26.67
+-rw-r--r--  1 sdo  staff   4117 May 12  2014 France-92.90.26.67-wfc_data.MonMay1200:32:092014.xml
+-rw-r--r--  1 sdo  staff   4117 May 12  2014 France-92.90.26.67-wfc_data.MonMay1200:32:392014.xml
+-rw-r--r--  1 sdo  staff   4117 May 12  2014 France-92.90.26.67-wfc_data.MonMay1200:32:522014.xml
+-rw-r--r--  1 sdo  staff    402 May 12  2014 France-92.90.26.67.xml
+-rw-r--r--  1 sdo  staff    273 Apr  3  2014 France-92.90.26.68
+-rw-r--r--  1 sdo  staff    273 Apr  3  2014 France-92.90.26.69
+-rw-r--r--  1 sdo  staff    273 Apr  3  2014 France-92.90.26.70
+-rw-r--r--  1 sdo  staff    274 Apr  9  2014 France-92.90.26.71
+-rw-r--r--  1 sdo  staff    565 Dec 24 15:08 France-92.90.26.84
+-rw-r--r--  1 sdo  staff    882 Dec 24 15:56 France-92.90.26.87
+-rw-r--r--  1 sdo  staff   5248 Dec 23 21:07 France-92.93.141.190
+-rw-r--r--  1 sdo  staff   1554 Mar  1  2013 France-93.19.180.82
+-rw-r--r--  1 sdo  staff    311 May  1  2014 France-93.8.76.212
+-rw-r--r--  1 sdo  staff   1444 Feb 19  2014 France-93.8.79.93
+
+ We get all files that start with an F* and that contains NoelParis-StVictoret2014:
+ >for i  in `ls F*` ; do grep -H "NoelParis-StVictoret2014" $i;done
+
+France-92.90.16.62:92.90.16.62#Wed Dec 24 08:25:21 UTC 2014#1##domain62.16.90.92.rev.sfr.net#CONTINENT CODE:N/A#COUNTRY CODE:FR#COUNTRY NAME:France#REGION CODE:N/A#REGION NAME:N/A#CITY:N/A#LATITUDE:48.86#LONGITUDE:2.35#PROVIDER (ORG):AS15557 Societe Francaise du Radiotelephone S.A#NoelParis-StVictoret2014-trips,
+France-92.90.17.63:92.90.17.63#Wed Dec 24 08:16:55 UTC 2014#1##domain63.17.90.92.rev.sfr.net#CONTINENT CODE:N/A#COUNTRY CODE:FR#COUNTRY NAME:France#REGION CODE:N/A#REGION NAME:N/A#CITY:N/A#LATITUDE:48.86#LONGITUDE:2.35#PROVIDER (ORG):AS15557 Societe Francaise du Radiotelephone S.A#NoelParis-StVictoret2014-trips,
+France-92.90.20.17:92.90.20.17#Mon Dec 22 22:15:11 UTC 2014#1##domain17.20.90.92.rev.sfr.net#CONTINENT CODE:N/A#COUNTRY CODE:FR#COUNTRY NAME:France#REGION CODE:N/A#REGION NAME:N/A#CITY:N/A#LATITUDE:48.86#LONGITUDE:2.35#PROVIDER (ORG):AS15557 Societe Francaise du Radiotelephone S.A#STUTRI-trips,92.90.20.17#Wed Dec 24 03:46:11 UTC 2014#1##domain17.20.90.92.rev.sfr.net#CONTINENT CODE:N/A#COUNTRY CODE:FR#COUNTRY NAME:France#REGION CODE:N/A#REGION NAME:N/A#CITY:N/A#LATITUDE:48.86#LONGITUDE:2.35#PROVIDER (ORG):AS15557 Societe Francaise du Radiotelephone S.A#_-trips,92.90.20.17#Wed Dec 24 03:55:02 UTC 2014#1##domain17.20.90.92.rev.sfr.net#CONTINENT CODE:N/A#COUNTRY CODE:FR#COUNTRY NAME:France#REGION CODE:N/A#REGION NAME:N/A#CITY:N/A#LATITUDE:48.86#LONGITUDE:2.35#PROVIDER (ORG):AS15557 Societe Francaise du Radiotelephone S.A#NoelParis-StVictoret2014-trips,
+France-92.90.20.19:92.90.20.19#Wed Dec 24 07:49:56 UTC 2014#1##domain19.20.90.92.rev.sfr.net#CONTINENT CODE:N/A#COUNTRY CODE:FR#COUNTRY NAME:France#REGION CODE:N/A#REGION NAME:N/A#CITY:N/A#LATITUDE:48.86#LONGITUDE:2.35#PROVIDER (ORG):AS15557 Societe Francaise du Radiotelephone S.A#NoelParis-StVictoret2014-trips,
+France-92.90.20.64:92.90.20.64#Wed Dec 24 08:40:05 UTC 2014#1##domain64.20.90.92.rev.sfr.net#CONTINENT CODE:N/A#COUNTRY CODE:FR#COUNTRY NAME:France#REGION CODE:N/A#REGION NAME:N/A#CITY:N/A#LATITUDE:48.86#LONGITUDE:2.35#PROVIDER (ORG):AS15557 Societe Francaise du Radiotelephone S.A#NoelParis-StVictoret2014-trips,
+France-92.90.21.63:92.90.21.63#Wed Dec 24 05:41:00 UTC 2014#1##domain63.21.90.92.rev.sfr.net#CONTINENT CODE:N/A#COUNTRY CODE:FR#COUNTRY NAME:France#REGION CODE:N/A#REGION NAME:N/A#CITY:N/A#LATITUDE:48.86#LONGITUDE:2.35#PROVIDER (ORG):AS15557 Societe Francaise du Radiotelephone S.A#NoelParis-StVictoret2014-trips,
+France-92.90.26.84:92.90.26.84#Wed Dec 24 03:09:53 UTC 2014#1##domain84.26.90.92.rev.sfr.net#CONTINENT CODE:N/A#COUNTRY CODE:FR#COUNTRY NAME:France#REGION CODE:N/A#REGION NAME:N/A#CITY:N/A#LATITUDE:48.86#LONGITUDE:2.35#PROVIDER (ORG):AS15557 Societe Francaise du Radiotelephone S.A#_-trips,92.90.26.84#Wed Dec 24 06:07:49 UTC 2014#1##domain84.26.90.92.rev.sfr.net#CONTINENT CODE:N/A#COUNTRY CODE:FR#COUNTRY NAME:France#REGION CODE:N/A#REGION NAME:N/A#CITY:N/A#LATITUDE:48.86#LONGITUDE:2.35#PROVIDER (ORG):AS15557 Societe Francaise du Radiotelephone S.A#NoelParis-StVictoret2014-trips,
+France-92.90.26.87:92.90.26.87#Wed Dec 24 06:35:58 UTC 2014#1##domain87.26.90.92.rev.sfr.net#CONTINENT CODE:N/A#COUNTRY CODE:FR#COUNTRY NAME:France#REGION CODE:N/A#REGION NAME:N/A#CITY:N/A#LATITUDE:48.86#LONGITUDE:2.35#PROVIDER (ORG):AS15557 Societe Francaise du Radiotelephone S.A#NoelParis-StVictoret2014-trips,92.90.26.87#Wed Dec 24 06:36:52 UTC 2014#1##domain87.26.90.92.rev.sfr.net#CONTINENT CODE:N/A#COUNTRY CODE:FR#COUNTRY NAME:France#REGION CODE:N/A#REGION NAME:N/A#CITY:N/A#LATITUDE:48.86#LONGITUDE:2.35#PROVIDER (ORG):AS15557 Societe Francaise du Radiotelephone S.A#NoelParis-StVictoret2014-trips,92.90.26.87#Wed Dec 24 06:55:59 UTC 2014#1##domain87.26.90.92.rev.sfr.net#CONTINENT CODE:N/A#COUNTRY CODE:FR#COUNTRY NAME:France#REGION CODE:N/A#REGION NAME:N/A#CITY:N/A#LATITUDE:48.86#LONGITUDE:2.35#PROVIDER (ORG):AS15557 Societe Francaise du Radiotelephone S.A#NoelParis-StVictoret2014-trips,
+
+Same as above but we take first field to gate file name that contains NoelParis-StVictoret2014:
+for i  in `ls F*` ; do grep -H "NoelParis-StVictoret2014" $i|cut -f1 -d:;done
+
+France-92.90.16.62
+France-92.90.17.63
+France-92.90.20.17
+France-92.90.20.19
+France-92.90.20.64
+France-92.90.21.63
+France-92.90.26.84
+France-92.90.26.87
+
+we get the listing unordered of the files:
+ls -al France-92.90.16.62 France-92.90.17.63 France-92.90.20.17 France-92.90.20.19 France-92.90.20.64 France-92.90.21.63 France-92.90.26.84 France-92.90.26.87 
+-rw-r--r--  1 sdo  staff  294 Dec 24 17:25 France-92.90.16.62
+-rw-r--r--  1 sdo  staff  294 Dec 24 17:17 France-92.90.17.63
+-rw-r--r--  1 sdo  staff  841 Dec 24 12:55 France-92.90.20.17
+-rw-r--r--  1 sdo  staff  294 Dec 24 16:50 France-92.90.20.19
+-rw-r--r--  1 sdo  staff  294 Dec 24 17:40 France-92.90.20.64
+-rw-r--r--  1 sdo  staff  294 Dec 24 14:41 France-92.90.21.63
+-rw-r--r--  1 sdo  staff  565 Dec 24 15:08 France-92.90.26.84
+-rw-r--r--  1 sdo  staff  882 Dec 24 15:56 France-92.90.26.87
+
+
+We get the same as above but ordered:
+ls -atl France-92.90.16.62 France-92.90.17.63 France-92.90.20.17 France-92.90.20.19 France-92.90.20.64 France-92.90.21.63 France-92.90.26.84 France-92.90.26.87
+
+-rw-r--r--  1 sdo  staff  294 Dec 24 17:40 France-92.90.20.64
+-rw-r--r--  1 sdo  staff  294 Dec 24 17:25 France-92.90.16.62
+-rw-r--r--  1 sdo  staff  294 Dec 24 17:17 France-92.90.17.63
+-rw-r--r--  1 sdo  staff  294 Dec 24 16:50 France-92.90.20.19
+-rw-r--r--  1 sdo  staff  882 Dec 24 15:56 France-92.90.26.87
+-rw-r--r--  1 sdo  staff  565 Dec 24 15:08 France-92.90.26.84
+-rw-r--r--  1 sdo  staff  294 Dec 24 14:41 France-92.90.21.63
+-rw-r--r--  1 sdo  staff  841 Dec 24 12:55 France-92.90.20.17
+
+Conclusion:
+it is impossible to get the same geo coordinates.

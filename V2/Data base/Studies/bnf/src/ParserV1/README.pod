@@ -1,0 +1,227 @@
+=head1 Sumup
+
+=over 4
+
+=item * L<PREFACE|/"PREFACE">
+
+=item * L<INTRODUCTION|/"INTRODUCTION">
+
+=item * L<THE GRAMMAR RULES TO DESCRIBE THE SYNTAX|/"THE GRAMMAR RULES TO DESCRIBE THE SYNTAX">
+
+=over 4
+
+=item * L<-A- To name a rule it must follow the following rule to be accepted by the parser:|/"-A- To name a rule it must follow the following rule to be accepted by the parser:">
+
+=item * L<-B- To define a rule:|/"-B- To define a rule:">
+
+=item * L<-C- To use a rule:|/"-C- To use a rule:">
+
+=item * L<-D- To create a terminal rule:|/"-D- To create a terminal rule:">
+
+=item * L<-E- How to use it:|/"-E- How to use it:">
+
+=item * L<-F- Some characters are reserved for the compiler:|/"-F- Some characters are reserved for the compiler:">
+
+=item * L<-G- Error generated:|/"-G- Error generated:">
+
+=back
+ 
+=item * L<EXAMPLES|/"EXAMPLES">
+
+=over 4
+
+=item * L<ERROR|/"ERROR">
+
+=back
+
+=item * L<SEE ALSO|/"SEE ALSO">
+
+=back
+
+=head1 PREFACE
+
+My notation seems to be akward. I can't remember how I found it but it seems from the examples (it is not fully implemented yet) that I used L<RFC 733|https://tools.ietf.org/html/rfc733> but I am not sure since some notation can be omitted.
+
+=head1 INTRODUCTION
+
+First line must be the line that starts the rules. No need to specify that it is the start.
+Despite this, some instructions can be added to indicate that it will include other rules from other files. For the time being it s not mandatory.
+
+
+=head1 THE GRAMMAR RULES TO DESCRIBE THE SYNTAX
+
+Well the grammar syntax is described en the SEE ALSO section. What is following is a naive approach.
+
+=head2 -A- To name a rule it must follow the following rule to be accepted by the parser:
+
+-1- Must start by a upper character taken from the alphabet A-Z (must be read from A to Z and A is an upper letter not a) s.a MYRULE as a rule name.
+
+-2- It (the first character) can be followed by the character '_' 0 or 1 time then it must be followed by one or n upper character(s) taken from alphabet [A-Z] or number in  [0-9]. 
+
+-3- All that stuff (from paragraph -A- line -2-) can be repeated 0 or n times s.a (such as) MY_RULES_ARE_GREAT.
+
+
+=head2 -B- To define a rule:
+
+-1- We must follow how to name a rule (see paragraph below).
+
+-2- Once -1- donne it must be followed by ::= which means create/define a rule s.a MY_RULE_HAS_TO_BE_DEFINED::= .
+
+
+=head2 -C- To use a rule:
+
+-1- It must be encapsulated by '<' '>' s.a <NAME_OF_THE_RULE_1>.
+
+-2- The NAME_OF_THE_RULE_1  means the name of the rule and must .
+
+-3- This is a basic example of declaration of a rule:  MY_RULE_HAS_TO_BE_DEFINED::=<NAME_OF_THE_RULE_1>
+
+-4- Now we need to define <NAME_OF_THE_RULE_1>.
+
+
+=head2 -D- To create a terminal rule:
+
+
+-1- Define it as definition of a rule with ::=. At the left side is the name of the terminal rule (it follows the same as create name of the rule ).
+
+-2- At right side you can have a set of character(s) thar will define a word. A word can represent a word, a string, a character. If there is one character between two ' it is a character. If you have several charaters between two " (see paragraph L<-D- line -5-|/"-D- To create a terminal rule:">) it is a string. A string can contains any characters.
+
+-3- To define a number then write it at the right side.
+
+-4- If you define the rule as a terminal, Don't diffine several terminal in the definition of terminal. To do that use rules that are not terminals with | between.
+
+-5- To define a string as said before (see paragraph L<-D- line -5-|/"-D- To create a terminal rule:">) it must start with " and end with a ". No characters are admitted before the first " execpt ::= . No characters are admitted after the last ". If not so, an error is raised. If there is a " inside the string it must be preceded by a \ s.a this \".
+
+-6- A character (rudundent) must be start with ' and finish by '. Between the two ' is the character definition. For instance the rule definition defined as CHARACTER_A::='a' defines the rule that defines the character 'a'.
+
+
+=head2 -E- How to use it:
+
+
+-1- You cannot mix terminal rule and a rule.
+
+
+=head2 -F- Some characters are reserved for the compiler:
+
+
+-1- ::= it define a rule. Right side the name of the rule to define and left side the definition of the rule.
+
+-2- " defines the begining and the end of a string (see paragraph L<-D- line -2-|/"-D- To create a terminal rule:">).
+
+-3- ' defines the begining and the end of a character.
+
+
+=head2 -G- Error generated:
+
+
+-1- If the rule is not defined an error is generated.
+
+-2- If a rule is defined more than once there is an error.
+
+-3- If the size of a character if different of 1 then an error is raised (see definition in paragraph L<-D- line -6-|/"-D- To create a terminal rule:">).  THIS RULE WILL BE DEPRECATED PRETY SOON :)
+
+
+=head2 -H- Some rules will be written as standard. 
+
+
+-1- In the program they will be included automaticaly. This feature is not well defined yet. An idea is to create a directory where all the rules that are standard will be there. For the time being no reserved word is defined to include one module into another module.
+
+=head1 EXAMPLES
+
+=head2 ERROR
+
+We have the pseudo BNF code described in the file B<test_base.rules>. First number is the line number.
+
+
+=head3 cat -n test_base.rules
+
+=over 8
+
+=item 1	R1 ::=<R_A5><R1> <AAAA>
+
+=item 2	AAAA ::=r_rr
+
+=item 3	R_A5 ::="a" \c\n"be"
+
+=item 4	R_A_5 ::="a" \c\n"be"
+
+=item 5	R_A_6 ::='''
+
+=item 6	R_A_7 ::=a b
+
+=back
+
+We have the execution of the parser that checks the rules.
+
+=over 4
+
+=item * > B<./parse.pl>
+
+OOOOOOOOOOO>000000-R1
+
+-------- [2] [1] <R_A5> <R1> <AAAA>------------>[2]
+
+-------- [2] [1] <R_A5> <R1> <AAAA>------------>[1]
+
+OOOOOOOOOOOOOO>000001-AAAA
+
+-------- [3] [2] r_rr------------>[3]
+
+-------- [3] [2] r_rr------------>[2]
+
+-------- [3] [2] r_rr------------>r_rr
+
+OOOOOOOOOOOOOO>000002-R_A5
+
+-------- [4] [3] " 6122205c635c6e226265 "------------>[4]
+
+-------- [4] [3] " 6122205c635c6e226265 "------------>[3]
+
+-------- [4] [3] " 6122205c635c6e226265 "------------>"
+
+-------- [4] [3] " 6122205c635c6e226265 "------------>6122205c635c6e226265
+
+-------- [4] [3] " 6122205c635c6e226265 "------------>"
+
+OOOOOOOOOOOOOO>000003-R_A_5
+
+-------- [5] [4] " 6122205c635c6e226265 "------------>[5]
+
+-------- [5] [4] " 6122205c635c6e226265 "------------>[4]
+
+-------- [5] [4] " 6122205c635c6e226265 "------------>"
+
+-------- [5] [4] " 6122205c635c6e226265 "------------>6122205c635c6e226265
+
+-------- [5] [4] " 6122205c635c6e226265 "------------>"
+
+OOOOOOOOOOOOOO>000004-R_A_6
+
+-------- [6] [5] ' 27 '------------>[6]
+
+-------- [6] [5] ' 27 '------------>[5]
+
+-------- [6] [5] ' 27 '------------>'
+
+-------- [6] [5] ' 27 '------------>27
+
+-------- [6] [5] ' 27 '------------>'
+
+OOOOOOOOOOOOOO>000005-R_A_7
+
+--------[6] a b------------>[6]
+
+--------[6] a b------------>a
+
+L<Error line 6 |/"cat -n test_base.rules">: a which is part of a b this is not a terminal rule
+
+=back
+
+=head1 SEE ALSO
+
+=begin html
+
+<a href="http://cui.unige.ch/db-research/Enseignement/analyseinfo/AboutBNF.html">BNF notation</a> here is another link <a href="https://fr.wikipedia.org/wiki/Forme_de_Backus-Naur">Wikipedia</a>.</br>
+<a href="https://tools.ietf.org/html/rfc5234">rfc5234</a>.
+
+=end html

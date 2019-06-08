@@ -1,0 +1,3 @@
+=head1 Directory contains the study and the development of ABNF parser
+
+=head1 A syntax is described in a file with the extension *.rules

@@ -1,0 +1,51 @@
+Personne : djibril 2009-06-18T20:57:57
+Role : rédacteur
+Email : djibril@monmail.com
+Telephone : +33102030405
+Langage prefere : perl
+	- XML::Twig
+	- XML::Writer
+	- Config::Std
+Commentaire : 
+											            Personne assez active sur le forum, et
+												              responsable d'un forum.
+													              
+
+==========
+
+Personne : gorgonite 2009-06-14T20:57:57
+Role : rédacteur
+Email : gorgonite@mon.mail.com
+Telephone : +33112131415
+Langage prefere : perl
+	- XML::Simple
+Commentaire : 
+																								           Personne assez active sur le forum, et
+																									             rédacteur d'articles.
+																										             
+
+==========
+
+Personne : stoyak 2009-06-18T21:30:12
+Role : rédacteur
+Email : stoyak@monmail.com
+Langage prefere : perl
+	- XML::LibXML
+	- DBI
+Commentaire : 
+																																					            Personne assez active sur le forum, et
+																																						              en charge de corrections d'articles.
+																																							              
+
+==========
+
+Personne : jean 2009-06-20
+Role : lecteur
+Email : jean@monmail.com
+Commentaire : 
+																																														            Personne assez..., bah en fait, ne fait rien :-) .
+																																															              Et oui malheureusement, ça existe.
+																																																              
+
+==========
+

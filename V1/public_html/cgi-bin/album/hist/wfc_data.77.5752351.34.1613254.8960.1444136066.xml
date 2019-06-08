@@ -1,0 +1,105 @@
+	<current_observation>
+		<credit>Weather Underground NOAA Weather Station</credit>
+		<credit_URL>http://wunderground.com/</credit_URL>
+<termsofservice link="http://www.wunderground.com/weather/api/d/terms.html">This feed will be deprecated. Please switch to http://www.wunderground.com/weather/api/</termsofservice>
+		<image>
+		<url>http://icons.wxug.com/graphics/wu2/logo_130x80.png</url>
+		<title>Weather Underground</title>
+		<link>http://wunderground.com/</link>
+		</image>
+  <display_location>
+  <full>Leh, India</full>
+  <city>Leh</city>
+  <state></state>
+  <state_name>India</state_name>
+  <country>IN</country>
+  <country_iso3166>IN</country_iso3166>
+  <zip>00000</zip>
+  <latitude>34.161325</latitude>
+  <longitude>77.575235</longitude>
+  <elevation>3516.00000000 ft</elevation>
+  </display_location>
+		<observation_location>
+		<full>, </full>
+		<city></city>
+		<state></state>
+		<country></country>
+		<country_iso3166>IN</country_iso3166>
+		<latitude></latitude>
+		<longitude></longitude>
+		<elevation> ft</elevation>
+		</observation_location>
+		<station_id></station_id>
+		<observation_time>Last Updated on , </observation_time>
+		<observation_time_rfc822>, ::0 GMT</observation_time_rfc822>
+		<observation_epoch></observation_epoch>
+		<local_time>October 6, 6:24 PM IST</local_time>
+		<local_time_rfc822>Tue, 06 Oct 2015 12:54:04 GMT</local_time_rfc822>
+		<local_epoch>1444136044</local_epoch>
+		<weather>Clear</weather>
+		<temperature_string>43 F (6 C)</temperature_string>
+		<temp_f>43</temp_f>
+		<temp_c>6</temp_c>
+		<relative_humidity>58%</relative_humidity>
+		<wind_string>Calm</wind_string>
+		<wind_dir>West</wind_dir>
+		<wind_degrees>343</wind_degrees>
+		<wind_mph>0</wind_mph>
+		<wind_gust_mph></wind_gust_mph>
+		<pressure_string> in ( mb)</pressure_string>
+		<pressure_mb></pressure_mb>
+		<pressure_in></pressure_in>
+		<dewpoint_string>29 F (-1 C)</dewpoint_string>
+		<dewpoint_f>29</dewpoint_f>
+		<dewpoint_c>-1</dewpoint_c>
+		
+		<heat_index_string>NA</heat_index_string>
+		<heat_index_f>NA</heat_index_f>
+		<heat_index_c>NA</heat_index_c>
+		
+		
+		<windchill_string>NA</windchill_string>
+		<windchill_f>NA</windchill_f>
+		<windchill_c>NA</windchill_c>
+		
+		<visibility_mi></visibility_mi>
+		<visibility_km></visibility_km>
+		<icons>
+			<icon_set name="Default">
+				<icon_url>http://icons.wxug.com/i/c/a/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Smiley">
+				<icon_url>http://icons.wxug.com/i/c/b/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Generic">
+				<icon_url>http://icons.wxug.com/i/c/c/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Old School">
+				<icon_url>http://icons.wxug.com/i/c/d/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Cartoon">
+				<icon_url>http://icons.wxug.com/i/c/e/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Mobile">
+				<icon_url>http://icons.wxug.com/i/c/f/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Simple">
+				<icon_url>http://icons.wxug.com/i/c/g/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Contemporary">
+				<icon_url>http://icons.wxug.com/i/c/h/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Helen">
+				<icon_url>http://icons.wxug.com/i/c/i/clear.gif</icon_url>
+			</icon_set>
+			<icon_set name="Incredible">
+				<icon_url>http://icons.wxug.com/i/c/k/clear.gif</icon_url>
+			</icon_set>
+		</icons>
+		<icon_url_base>http://icons.wxug.com/graphics/conds/</icon_url_base>
+		<icon_url_name>.GIF</icon_url_name>
+		<icon>clear</icon>
+		<forecast_url>http://www.wunderground.com/global/stations/42030.html</forecast_url>
+		<history_url>http://www.wunderground.com/history/airport/////DailyHistory.html</history_url>
+		<ob_url>http://www.wunderground.com/cgi-bin/findweather/getForecast?query=,</ob_url>
+	</current_observation>

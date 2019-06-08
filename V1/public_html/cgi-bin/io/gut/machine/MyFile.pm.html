@@ -1,0 +1,300 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>./gut/machine/MyFile.pm</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:sdo@sebastien-doreys-macbook.local" />
+</head>
+
+<body style="background-color: white">
+
+
+<!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#abstract">ABSTRACT</a></li>
+	<ul>
+
+		<li><a href="#list_of_functions">LIST OF FUNCTIONS</a></li>
+		<li><a href="#history_of_modifications">HISTORY OF MODIFICATIONS</a></li>
+	</ul>
+
+	<li><a href="#sub_reformat_____">sub reformat(...)</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_">PARAMETER(S)</a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#sub_my_upload_____">sub my_upload(...)</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_">PARAMETER(S)</a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#sub_error_raised_____">sub error_raised(...)</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_">PARAMETER(S)</a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#sub_size_dir_____">sub size_dir(...)</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_">PARAMETER(S)</a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#sub_return_average_file_____">sub return_average_file(...)</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_">PARAMETER(S)</a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+	<li><a href="#sub_title_average_formating_____">sub title_average_formating(...)</a></li>
+	<ul>
+
+		<li><a href="#parameter_s_">PARAMETER(S)</a></li>
+		<li><a href="#returned_value">RETURNED VALUE</a></li>
+		<li><a href="#errror_returned">ERRROR RETURNED</a></li>
+		<li><a href="#bug_known">BUG KNOWN</a></li>
+		<li><a href="#history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></li>
+	</ul>
+
+</ul>
+
+<hr name="index" />
+</div>
+<!-- INDEX END -->
+
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p>packages::MyFile.pm</p>
+<p>$VERSION    = '1.1.4.0'</p>
+<p>
+</p>
+<hr />
+<h1><a name="abstract">ABSTRACT</a></h1>
+<p>This package manages file transactions: upload.</p>
+<p>
+</p>
+<h2><a name="list_of_functions">LIST OF FUNCTIONS</a></h2>
+<p>error_raised 
+my_upload 
+reformat 
+return_average_file 
+size_dir 
+title_average_formating</p>
+<p>
+</p>
+<h2><a name="history_of_modifications">HISTORY OF MODIFICATIONS</a></h2>
+<p>- <em>Last modification:1.1.4.1</em> Feb 22sd 2011: see my_upload</p>
+<p>- <em>Last modification:1.1.4.0</em> Jan 31st 2011: $CGITempFile::TMPDIRECTORY added.</p>
+<p>- <em>Last modification:1.1.2.0</em> Nov 22sd 2010: There is better managent of errors</p>
+<p>- <em>Last modification:1.1.0.0</em> May 24th 2009</p>
+<p>- <em>Last modification:</em> May 13th 2009</p>
+<p>- <em>Last modification:</em> Aug 20th 2008</p>
+<p>- <em>Last modification:</em> Jun 10th 2008</p>
+<p>- <em>Last modification:</em> Jan 27th 2006</p>
+<p>- <em>Last modification:</em> Mar 03rd 2005</p>
+<p>- <em>Starting date:</em> Nov 10th 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="sub_reformat_____">sub reformat(...)</a></h1>
+<p>This function reformats path when it comes from Internet Explorer.</p>
+<p>
+</p>
+<h2><a name="parameter_s_">PARAMETER(S)</a></h2>
+<p>$path: that's the path to file</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Path reformated.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Aug 22sd 2006</p>
+<p>- <em>Last modification:</em> Jul 18 2006</p>
+<p>- <em>Created on:</em> Jul 17 2006</p>
+<p>
+</p>
+<hr />
+<h1><a name="sub_my_upload_____">sub my_upload(...)</a></h1>
+<p>This function allows upload.</p>
+<p>
+</p>
+<h2><a name="parameter_s_">PARAMETER(S)</a></h2>
+<p>$doc: that's new CGI object.</p>
+<p>$file_from: that's the file to upload.</p>
+<p>$directory_deposit: that's where the file needs to be stored.</p>
+<p>$suffix_for_image_file: that can be used to give to initial file a suffix s.a date, url, ip address...</p>
+<p>$file_format: jpeg|jpg|gif can be written like this. Don't forget to put the pipe to give different file choices.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>0 ok otherwise -1</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Feb 22sd 2011 management error of file received corrected</p>
+<p>- <em>Last modification:</em> Nov 22sd 2010 better managent of errors</p>
+<p>- <em>Last modification:</em> May 13th 2009</p>
+<p>- <em>Last modification:</em> Aug 20th 2008</p>
+<p>- <em>Last modification:</em> Jun 10th 2008</p>
+<p>- <em>Last modification:</em> Aug 22sd 2006</p>
+<p>- <em>Last modification:</em> Mar 04 2006</p>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="sub_error_raised_____">sub error_raised(...)</a></h1>
+<p>This function generates an error message when a problem occurs.</p>
+<p>
+</p>
+<h2><a name="parameter_s_">PARAMETER(S)</a></h2>
+<p>$doc: that's an implementation of the object CGI (new CGI to be precised).</p>
+<p>$explaination: explaination of the error.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="sub_size_dir_____">sub size_dir(...)</a></h1>
+<p>This function calculates the size of directory.</p>
+<p>
+</p>
+<h2><a name="parameter_s_">PARAMETER(S)</a></h2>
+<p>$dir: directory.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Returns size of the directory.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="sub_return_average_file_____">sub return_average_file(...)</a></h1>
+<p>This function calculates info for upload to be printed.</p>
+<p>
+</p>
+<h2><a name="parameter_s_">PARAMETER(S)</a></h2>
+<p>$file_size: That's the file size.</p>
+<p>$info_read_from_begining: Info to print.</p>
+<p>$size_read: That's the size read from the begining.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Returns string to print.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+<p>
+</p>
+<hr />
+<h1><a name="sub_title_average_formating_____">sub title_average_formating(...)</a></h1>
+<p>This function center the title of the main page.</p>
+<p>
+</p>
+<h2><a name="parameter_s_">PARAMETER(S)</a></h2>
+<p>$title1: that's the title.</p>
+<p>$title2: other info abour title.</p>
+<p>
+</p>
+<h2><a name="returned_value">RETURNED VALUE</a></h2>
+<p>Returns the title formated with the two titles concatenated.</p>
+<p>
+</p>
+<h2><a name="errror_returned">ERRROR RETURNED</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="bug_known">BUG KNOWN</a></h2>
+<p>None.</p>
+<p>
+</p>
+<h2><a name="history_of_creation_modification">HISTORY OF CREATION/MODIFICATION</a></h2>
+<p>- <em>Last modification:</em> Nov 10 2004</p>
+<p>- <em>Created on:</em> Nov 10 2004</p>
+
+</body>
+
+</html>

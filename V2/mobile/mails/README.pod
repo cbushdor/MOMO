@@ -1,0 +1,3 @@
+=head1 Description
+
+	mails, with some friends (that's communications) related to mobile app.
