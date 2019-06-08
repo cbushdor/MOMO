@@ -1,9 +1,9 @@
 =head1 Directory
 LGV: La Grande Vadrouille and Gantt files of the project   [execution](http://dorey.sebastien.free.fr/Project/LGV/mapr/Gantt/).
 
-V0: verion of MAOP released before the first version.
+V0: version of MAOP released before the first version.
 
-V1: first version of MAOP (My Album Of Pictures) [execution](http://derased.heliohost.org//cgi-bin/album.cgi).
+V1: first version of MAOP (My Album Of Pictures) [execution](http://dorseb.hopto.org/~sdo/cgi-bin/album.cgi).
 
 V2: second version of MAOP (My Album Of Pictures). 
 
