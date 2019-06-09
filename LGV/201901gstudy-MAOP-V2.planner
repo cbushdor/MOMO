@@ -445,7 +445,7 @@
           <predecessor id="1" predecessor-id="50" type="FS"/>
         </predecessors>
       </task>
-      <task id="105" name="Practise" note="" work="18000" duration="18000" start="20190609T000000Z" end="20190610T140000Z" work-start="20190610T080000Z" percent-complete="94" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="105" name="Practise" note="" work="18000" duration="18000" start="20190609T000000Z" end="20190610T140000Z" work-start="20190610T080000Z" percent-complete="95" priority="1" type="normal" scheduling="fixed-duration">
         <constraint type="start-no-earlier-than" time="20190609T000000Z"/>
       </task>
     </task>
@@ -495,26 +495,26 @@
     </task>
   </tasks>
   <resource-groups>
-    <group id="1" name="Admin" admin-name="" admin-phone="" admin-email=""/>
-    <group id="2" name="Programming" admin-name="" admin-phone="" admin-email=""/>
-    <group id="3" name="Asso" admin-name="" admin-phone="" admin-email=""/>
-    <group id="4" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
-    <group id="5" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
-    <group id="6" name="Culture" admin-name="" admin-phone="" admin-email=""/>
+    <group id="1" name="Culture" admin-name="" admin-phone="" admin-email=""/>
+    <group id="2" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
+    <group id="3" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
+    <group id="4" name="Asso" admin-name="" admin-phone="" admin-email=""/>
+    <group id="5" name="Programming" admin-name="" admin-phone="" admin-email=""/>
+    <group id="6" name="Admin" admin-name="" admin-phone="" admin-email=""/>
   </resource-groups>
   <resources>
-    <resource group="1" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="4" name="Tests" short-name="tes" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="5" name="Scripting Language" short-name="scl" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="6" name="Opterating Systems" short-name="osy" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="7" name="Associations" short-name="ass" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="8" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="9" name="Utilitaire/Tools 7z" short-name="c7z" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="10" name="Mairie de la ville" short-name="m2v" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="11" name="Devices" short-name="dev" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="12" name="Readings" short-name="rds" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="4" name="Tests" short-name="tes" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="5" name="Scripting Language" short-name="scl" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="6" name="Opterating Systems" short-name="osy" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="7" name="Associations" short-name="ass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="8" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="9" name="Utilitaire/Tools 7z" short-name="c7z" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="10" name="Mairie de la ville" short-name="m2v" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="11" name="Devices" short-name="dev" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="12" name="Readings" short-name="rds" type="1" units="0" email="" note="" std-rate="0"/>
   </resources>
   <allocations>
     <allocation task-id="105" resource-id="1" units="100"/>
