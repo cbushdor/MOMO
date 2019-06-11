@@ -1,4 +1,5 @@
-#!/usr/bin/perl-5.28.1 -T
+#!/usr/bin/perl-5.30.0  -T
+# #!/usr/bin/perl-5.28.1 -T
 #/opt/local/bin/perl 
 
 # ------------------------------------------------------
@@ -6,7 +7,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Mon May 20 13:59:37 2019
+* Last Modified : Tue Jun 11 23:22:28 2019
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -131,7 +132,7 @@ our $mip=io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.5704'; # Album release
+use constant ALBUM_REL               	=> '16.5712'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 
@@ -160,7 +161,7 @@ my $fn="album/hist/${mip}";
 
 album.cgi
 
-$VERSION=1.6.16.570
+$VERSION=1.6.16.5712
 
 =head1 ABSTRACT
 
@@ -243,6 +244,8 @@ under_construction_prompt
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:v1.6.16.5712> Jun 11 2019 Perl 5.28.y -> 5.30.x
 
 - I<Last modification:v1.6.16.570> May 20 2019 New filter modified due to field not empty anymore :-).
 
@@ -741,6 +744,7 @@ if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 
 #my $locweaf=&io::MyConstantBase::ALBUM_INFO_HIST_DIRECTORY->() ."wfc_data.$lon.$lat.$$.".time().".xml";# file for local weather
 my $locweaf=&io::MyConstantBase::ALBUM_INFO_HIST_DIRECTORY->() ."wfc_data-$$-".time().".xml";# file for local weather
+#my $locweaf=&io::MyConstantBase::ALBUM_INFO_HIST_DIRECTORY->() ."owm_data-$$-".time().".xml";# file for local weather (new API Open Weather Map)
 
 # ----------------------------------------------------------------------------------------------
 # format solved - missing but need to check if lon lat can have negative values
@@ -830,21 +834,16 @@ if($service eq "verDoc"){ # Only entire documentation + version is asked
 	print "$res";
 	exit(&io::MyConstantBase::OK->());# Exit that's it
 }elsif($service eq "versioning"){ # Only version is asked
-	#print "Content-Type: text/html ; charset=UTF-8\n\n";
 	my $cres=jcode(MPWD->(),ALBUM_VERSION);
 	#print "$cres(---------)<br />";
 	my $res=encode_base64($cres);
 	print "$res";
 	exit(&io::MyConstantBase::OK->());# Exit that's it
 }elsif($service eq "ver"){ # Only version is asked
-	#print "Content-Type: text/html ; charset=UTF-8\n\n";
-	#my $cres=jcode(MPWD->(),ALBUM_VERSION);
 	print ALBUM_VERSION;
 	exit(&io::MyConstantBase::OK->());# Exit that's it
 }elsif($service=~m/geoLoc/){ # only history is asked
 	my $u=ALBUM_INFO_DIRECTORY->() . ALBUM_HISTORY_INFO_FILE->();
-	#print "Content-Type: text/html ; charset=UTF-8\n\n";
-	#print "Content-Type: text/html\n\n";
 	if(  -f "$u" ){ # Begin if(  -f "$u" )
 		print "error";
 		exit(&io::MyConstantBase::OK->());
@@ -896,7 +895,6 @@ my @images_used=(
 	);
 
 my $date_ticket=uri_unescape($doc->param("maop_date"));
-#print "Content-Type: text/html;charset=utf-8;\n"; print "Pragma: no-cache \n\n";
 
 	#------------------------------------------------------------------------
 my $mtfn=();# my trip file name
@@ -981,51 +979,11 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 		else { # Begin  $dte>=$dt3
 			my $dcfp = io::MySec::getsDFP;# We get the device finger print that is connecting
 
-			#print "Content type: text/html\n\n";
-			#print "<br>My fingerprint: <br>";
-			# print "ok<br>" if($dcfp eq $my_finger_print); print "not ok<br>" if($dcfp ne $my_finger_print); print "$dcfp <br> $my_finger_print\n<br>"; print "ok" if($dcfp eq $my_finger_print);
+			print "Content type: text/html\n\n";
+			print "<br>My fingerprint: <br>";
 			my @localFP1=split(/\#/,$my_finger_print);
-			#my @versnum1=split(/\./,"$localFP1[2]$localFP1[9]");
 			my @localFP2=split(/\#/,$dcfp);
-			#my @versnum2=split(/\./,"$localFP2[2]$localFP2[9]");
 			my $versres=0;
-			#iscalar @localFP1."-".scalar @localFP2."<br>";
-			#for (my $i=0;$i<scalar @localFP1;$i++){ print "=====><b>$localFP1[$i]</b> -------- $localFP2[$i]<br>"; }
-			#print "<br>".scalar @localFP1."-".scalar @localFP2."<br>";
-			#print "******>$localFP1[0] eq $localFP2[0]<br>\n";
-			#if ("$localFP1[2]$localFP1[9]" eq "$localFP2[2]$localFP2[9]" ){
-			#print "<h2>******>(FPS)$localFP1[2]$localFP1[9] eq $localFP2[2]$localFP2[9](FPC)</h2><br>\n";
-			#} elsif ("$localFP1[2]$localFP1[9]" le "$localFP2[2]$localFP2[9]" ){
-			#print "<h1>******>(FPS)$localFP1[2]$localFP1[9] le $localFP2[2]$localFP2[9](FPC)</h1><br>\n";
-			#} else {
-			#print "<b>******>(FPS)$localFP1[2]$localFP1[9] ne $localFP2[2]$localFP2[9](FPC)</b><br>\n";
-			#}
-			#print "******>$localFP1[5] eq $localFP2[5] <br>\n";
-			#print "******>$localFP1[6] eq $localFP2[6] <br>\n";
-			#print "******>$localFP1[7] eq $localFP2[7] <br>\n";
-			#print "******>$localFP1[8] eq $localFP2[8] <br>\n";
-			#			open(WRF,">tests_file");
-			#my $pppk=("$localFP1[2]$localFP1[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}[a-z]{0,}$/);
-			#print "res1: $pppk<br>";
-			#$pppk=("$localFP2[2]$localFP2[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}[a-z]{0,}$/);
-			#print "res2: $pppk<br>";
-			#my $printsout= <<WRF;
-			#$my_finger_print <br>
-			#<b>$dcfp </b><br>
-			#$localFP1[0] eq $localFP2[0] &&<br>
-			#"$localFP1[2]$localFP1[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}$/ &&<br>
-			#"$localFP2[2]$localFP2[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}$/ &&<br>
-			#----------------------------------------<br>
-			#"$localFP1[2]$localFP1[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}[a-z]{0,}$/ &&<br>
-			#"$localFP2[2]$localFP2[9]" =~ m/^[0-9]+(\.[0-9]+){0,3}[a-z]{0,}$/ &&<br>
-			#----------------------------------------<br>
-			#"$localFP1[2]$localFP1[9]" le "$localFP2[2]$localFP2[9]" &&<br>
-			#$localFP1[5] eq $localFP2[5] &&<br>
-			#$localFP1[7] eq $localFP2[7] &&<br>
-			#$localFP1[8] eq $localFP2[8] &&<br>
-			#$localFP1[6] eq $localFP2[6]<br>
-			#WRF
-			#print "***********><br>$printsout\n<br>****************************";
 			if(
 				scalar @localFP1 == scalar @localFP2 &&
 				$localFP1[0] eq $localFP2[0] &&
@@ -1042,15 +1000,17 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 				$mtfn="${mgidt}-" . &io::MyConstantBase::TRIP_NAME->(); 
 
 				try { # Begin try
-					# Getting info from the Weather center
+					# It is open weather mao (OWM)
+					# It is used only when a trip is created
 					my $wfcu="http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=$lat,$lon";
+					#my $wfcu="api.openweathermap.org/data/2.5/find?APPID=0efa8f218924f2f1d194893438218851&lat=$lat&lon=$lon&cnt=1&mode=xml";
 					my $xml = new XML::Simple;
 					my $wfc=get("$wfcu");
 
 					open(my $WOO,'>'."$locweaf") || die("error $!");
 					print $WOO $wfc;
 					close($WOO) || die("error $!");
-					#print "XXXXXXXXXXXXXXXXXXX><br>$wfc<br><XXXXXXXXXXXXXXXXXXXX<br>\n";
+					print "$wfcu<br>XXXXXXXXXXXXXXXXXXX><br>$wfc<br><XXXXXXXXXXXXXXXXXXXX<br>\n";
 					my $data = $xml->XMLin("$locweaf") or die("error $locweaf $!");
 				} # End try
 				catch { # Begin catch
