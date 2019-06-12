@@ -1,13 +1,11 @@
 #!/usr/bin/perl-5.30.0  -T
-# #!/usr/bin/perl-5.28.1 -T
-#/opt/local/bin/perl 
 
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Tue Jun 11 23:22:28 2019
+* Last Modified : Wed Jun 12 21:21:45 2019
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0

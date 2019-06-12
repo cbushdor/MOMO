@@ -1,12 +1,11 @@
-#!/usr/bin/perl-5.28.1 -T
-# #!//opt/local/bin/perl
+#!/usr/bin/perl-5.30.0  -T
 
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* Last Modified : Wed Jan 30 10:25:39 2019
+* Last Modified : Wed Jun 12 21:21:30 2019
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.2.1..500
 * License:
