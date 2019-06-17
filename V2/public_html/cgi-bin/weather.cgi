@@ -1,4 +1,5 @@
-#!/usr/bin/perl-5.30.0  -T
+#!/usr/bin/perl-5.30.0
+#-T
 # #!/Users/sdo/perl5/perlbrew/perls/perl-5.28.1/bin/perl
 ##!/usr/bin/perl
 use feature ':5.10';
@@ -10,7 +11,7 @@ q##//q#
 * Created By : sdo
 * File Name : weather.cgi
 * Creation Date : Sat Apr 13 23:44:44 2015
-* Last Modified : Mon Jun 17 12:35:00 2019
+* Last Modified : Mon Jun 17 13:20:45 2019
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -56,34 +57,40 @@ my $file_to_parse="$dir/my_owm_tests_data.$$--$L-$l--". time()  .".xml";
 
 #=begin comment
 if(defined $L && defined $l && $L ne '' && $l ne ''){ # Begin if(defined $L && defined $l && $L ne '' && $l ne '')
+	my $data = ();
+	my $url="http://api.openweathermap.org/data/2.5/find?APPID=0efa8f218924f2f1d194893438218851&lat=$L&lon=$l&cnt=2&mode=xml";
+
 	eval { # Begin try
 		my $xml = new XML::Simple;
-		my $url="http://api.openweathermap.org/data/2.5/find?APPID=0efa8f218924f2f1d194893438218851&lat=$L&lon=$l&cnt=2&mode=xml";
 		#my $url="http://api.openweathermap.org/data/2.5/find?APPID=0efa8f218924f2f1d194893438218851&lat=$L&lon=$l&cnt=2&mode=json";
 		my $cordstr="";
-		my $wfc=get("$url");
-		print "<br>We record data under $file_to_parse this file<br>";
-		open(W,">$file_to_parse") or die("error $!");
+		my $wfc=get($url) or die "Error $!<br>";
+		if(defined $wfc) { say "result defined". length $wfc ."<br>"; } else { say "result not defined<br>"; }
+		say "*********>$url<br>We are recording data under $file_to_parse<br>";
+		say "xxxxxxxxx><pre>$wfc</pre><oooooooooooo";
+		open(W,">","$file_to_parse") or die("error $!");
 		print W $wfc;
 		close(W) or die("error $!");
+		print "<br>Data recorded under $file_to_parse<br>";
 
 		if(-f "$file_to_parse"){ # Begin if(-f "$file_to_parse")
-			say "this file $file_to_parse exists";
-			my $data = $xml->XMLin("$file_to_parse") || die "<br>Error: $!<br>";
-			#print "<script> var jsonPretty = JSON.stringify(JSON.parse($wfc),null,2);</script>";
-			#print '<?xml version = "1.0" encoding = "UTF-8" standalone = "no" ?>';
-			#print "--->$data->{heat_index_f}<br>";
+			say "File <b>$file_to_parse</b> exists";
+			$data = $xml->XMLin("$file_to_parse") || die "<br>Error: $!<br>";
 
 			print "<pre>";
 			print Dumper($data);
 			print "</pre>";
 		} # End if(-f "$file_to_parse")
 		else{ # Begin else
-			say "this file $file_to_parse doesn't exist";
+			die "X this file $file_to_parse doesn't exist $!<br>";
 		} # End else
 		1;
-	} or do  {
-		say "Data not available";
+	} or do {
+		say "Weather taken from $url";
+		say "Data not available check bellow...";
+		print "<pre>";
+		print Dumper($data);
+		print "</pre>";
 	}; # End try
 } # End if(defined $L && defined $l && $L ne '' && $l ne '')
 else { # Begin else 
