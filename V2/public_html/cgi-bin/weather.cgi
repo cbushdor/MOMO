@@ -65,32 +65,30 @@ if(defined $L && defined $l && $L ne '' && $l ne ''){ # Begin if(defined $L && d
 		#my $url="http://api.openweathermap.org/data/2.5/find?APPID=0efa8f218924f2f1d194893438218851&lat=$L&lon=$l&cnt=2&mode=json";
 		my $cordstr="";
 		my $wfc=get($url) or die "Error $!<br>";
-		if(defined $wfc) { say "result defined". length $wfc ."<br>"; } else { say "result not defined<br>"; }
-		say "*********>$url<br>We are recording data under $file_to_parse<br>";
-		say "xxxxxxxxx><pre>$wfc</pre><oooooooooooo";
+		#if(defined $wfc) { say "result defined". length $wfc ."<br>"; } else { say "result not defined<br>"; }
+		#	say "*********>$url<br>We are recording data under $file_to_parse<br>";
+		#say "xxxxxxxxx><pre>$wfc</pre><oooooooooooo";
 		open(W,">","$file_to_parse") or die("error $!");
 		print W $wfc;
 		close(W) or die("error $!");
-		print "<br>Data recorded under $file_to_parse<br>";
+		print "* Weather info recorded under <i><b>$file_to_parse</i></b><br>";
 
 		if(-f "$file_to_parse"){ # Begin if(-f "$file_to_parse")
-			say "File <b>$file_to_parse</b> exists";
-			$data = $xml->XMLin("$file_to_parse") || die "<br>Error: $!<br>";
+			say "* File <i>[<b>$file_to_parse</b>]</i> exists";
+			#$data = $xml->XMLin("$file_to_parse") || die "<br>Error: $!<br>";
 
-			print "<pre>";
-			print Dumper($data);
-			print "</pre>";
+			#rint "<pre>";
+			#rint Dumper($data);
+			#rint "</pre>";
 		} # End if(-f "$file_to_parse")
 		else{ # Begin else
 			die "X this file $file_to_parse doesn't exist $!<br>";
 		} # End else
 		1;
 	} or do {
-		say "Weather taken from $url";
-		say "Data not available check bellow...";
-		print "<pre>";
-		print Dumper($data);
-		print "</pre>";
+		say "<u>Error status:</u><br>";
+		say "* Weather taken from <i><b>$url</i></b><br>";
+		say "* Data not available check bellow...";
 	}; # End try
 } # End if(defined $L && defined $l && $L ne '' && $l ne '')
 else { # Begin else 
