@@ -10,7 +10,7 @@ q##//q#
 * Created By : sdo
 * File Name : weather.cgi
 * Creation Date : Sat Apr 13 23:44:44 2015
-* Last Modified : Mon Jun 17 12:17:09 2019
+* Last Modified : Mon Jun 17 12:34:10 2019
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -38,7 +38,6 @@ use CGI;
 
 use XML::Simple;
 use Data::Dumper;
-#use Try::Tiny;
 
 use io::MySec;
 use io::MyNav;
