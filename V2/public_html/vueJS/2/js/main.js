@@ -33,7 +33,6 @@ Vue.component('product', {
                 <p>Shipping: {{ shipping }}</p>
                 <p>{{ printBrandProduct }}</p>
                 <product-details :details="details"></product-details> 
-                <product-details :details="details"></product-details> 
 
                 <div v-for="(variant,index) in variants" 
                     :key="variant.Id"
@@ -44,10 +43,7 @@ Vue.component('product', {
                 <button v-on:click="addToCart" 
                         :disabled="!inStock"
                         :class="{ disabledButton: !inStock }">Add to cart</button>
-                <button v-on:click="decrementToCart">Remove to cart</button>
-            </div>
-            <div class="cart">
-                <p>Cart({{cart}})</p>
+                <button v-on:click="decrementFromCart">Remove from cart</button>
             </div>
         </div>
     `,
@@ -74,22 +70,19 @@ Vue.component('product', {
                 },
             ],
             listOfSizes: ["XS", "S", "L", "M", "XL", "XXL"],
-            cart: 0,
         }
     },
     methods: {
         addToCart() {
-            this.cart += 1
+            this.$emit('add-to-cart',this.variants[this.selectedVariant].variantId)
         },
-        decrementToCart() {
-            if (this.cart > 0) {
-                this.cart -= 1
-            }
+        decrementFromCart() {
+            this.$emit('remove-from-cart', this.variants[this.selectedVariant].variantId)
         },
         updateProduct(index) {
             this.selectedVariant = index
             console.log(index)
-        }
+        },
     },
     computed: {
         title() {
@@ -121,5 +114,19 @@ var app = new Vue({
     el: '#app',
     data: {
         premium: true,
+        cart: [],
+    },
+    methods: {
+        updateCart(id) {
+            this.cart.push(id)
+        },
+        removeItem(id) {
+            for(var i = this.cart.length - 1 ; i >= 0; i--){
+                if(this.cart[i] === id){
+                    this.cart.splice(i,1)
+                }
+            }
+        },
     }
+
 });
