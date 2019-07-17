@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+<!--
+------------------------------------------------------
+* Created By : sdo
+* File Name : 20190717_soluce03_Conditional_Rendering_Vue_JS_2.html
+* Creation Date : Wed Jul 17 14:58:43 2019
+* Last Modified : Wed Jul 17 16:11:13 2019
+* Email Address : sdo@macbook-pro-de-sdo.home
+* Version : 0.0.0.0
+* License:
+* 	Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0 
+* 	Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
+* Purpose :
+------------------------------------------------------
+-->
+
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" type="text/css" href="./css/style.css">
+
+		<title>20190717_soluce03_Conditional_Rendering_Vue_JS_2</title>
+	</head>
+	<body>
+		<div id="app">
+			<div class="product">
+
+				<div class="product-image">
+					<img :src="image" />
+				</div>
+
+				<div class="product-info">
+					<h1>{{ product }}</h1>
+					<p v-if="inStock">In Stock</p>
+					<p v-else>Out of Stock</p>
+					<span v-if="onSale">On Sale!</span>
+				</div>
+
+			</div>
+
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+		<script>
+			//Add an onSale property to the data, and use it to conditionally render a span that says “On Sale!”
+
+			var app = new Vue({
+				el: '#app',
+				data: {
+					product: 'Socks',
+					image: 'https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg',
+					inStock: true,
+					onSale: true
+				}
+			})
+		</script>
+</body>
+</html>
+

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!--
+------------------------------------------------------
+* Created By : sdo
+* File Name : 20190717_soluce06_Class_and_Style_Binding_Vue_JS_2.html
+* Creation Date : Wed Jul 17 17:12:03 2019
+* Last Modified : Wed Jul 17 17:19:29 2019
+* Email Address : sdo@macbook-pro-de-sdo.home
+* Version : 0.0.0.0
+* License:
+* 	Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0 
+* 	Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
+* Purpose :
+------------------------------------------------------
+-->
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" type="text/css" href="./css/style.css">:w
+
+    <title>20190717_soluce06_Class_and_Style_Binding_Vue_JS_2</title>
+</head>
+
+<body>
+    <div class="nav-bar"></div>
+
+    <div id="app">
+
+        <div class="product">
+
+            <div class="product-image">
+                <img :src="image" />
+            </div>
+
+            <div class="product-info">
+                <h1>{{ product }}</h1>
+                <p v-if="inStock">In Stock</p>
+                <p v-else :class="{ outOfStock: !inStock }">Out of Stock</p>
+
+                <ul>
+                    <li v-for="detail in details">{{ detail }}</li>
+                </ul>
+
+
+                <div class="color-box" v-for="variant in variants" :key="variant.variantId" :style="{ backgroundColor: variant.variantColor }" @mouseover="updateProduct(variant.variantImage)">
+                </div>
+
+                <button v-on:click="addToCart" :disabled="!inStock" :class="{ disabledButton: !inStock }">
+          Add to cart
+        </button>
+
+                <div class="cart">
+                    <p>Cart({{ cart }})</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <script>
+        //When inStock is false, bind a class to the “Out of Stock” p tag that adds  text-decoration: line-through to that element.
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                product: 'Socks',
+                image: 'https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg',
+                inStock: false,
+                details: ['80% cotton', '20% polyester', 'Gender-neutral'],
+                variants: [{
+                    variantId: 2234,
+                    variantColor: 'green',
+                    variantImage: 'https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg'
+                }, {
+                    variantId: 2235,
+                    variantColor: 'blue',
+                    variantImage: 'https://www.vuemastery.com/images/challenges/vmSocks-blue-onWhite.jpg'
+                }],
+                cart: 0
+            },
+            methods: {
+                addToCart() {
+                    this.cart += 1
+                },
+                updateProduct(variantImage) {
+                    this.image = variantImage
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
