@@ -15,4 +15,6 @@ In the near future these scripting files will be generated on the fly from other
 > I like that thing
 
 
+For the time being it is just a study. It is necessary to check if the old architecture is still up to date with this new computer architecture.
+
 ---
