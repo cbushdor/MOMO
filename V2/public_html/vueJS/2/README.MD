@@ -1,6 +1,6 @@
 # Introduction
 
-This place is dedicated to host vue js script. For the time being that's anoly sample  to practice.
+This place is dedicated to host html/vuejs/js scripts. For the time being that's only samples  to practice.
 
 # Development
 
