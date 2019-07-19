@@ -1,3 +1,13 @@
+/**
+ * @author Sébastien Dorey
+ * @email sebastien.dorey@laposte.net
+ * @create date 2019-07-18 23:25:34
+ * @modify date 2019-07-18 23:25:34
+ * @desc [description]
+ */
+
+
+
 Vue.component('product-details',{
     props: {
         details: {
