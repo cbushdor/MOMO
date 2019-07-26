@@ -91,6 +91,12 @@ file name: 20190723_soluce10_forms_Vue_JS_2.html
 			},
 			methods: {
 				onSubmit: function () {
+					if (this.errors.length >= 0) {
+						for (var i = this.errors.length - 1; i >= 0; i--) {
+							this.errors.splice(i, 1)
+						}
+					}
+
 					if (this.name && this.review && this.rating && this.recommend) {
 						let productReview = {
 							name: this.name,
@@ -110,7 +116,7 @@ file name: 20190723_soluce10_forms_Vue_JS_2.html
 						if (!this.rating) { this.errors.push("Rating required.") }
 						if (!this.recommend) { this.errors.push("Recommandation required.") }
 					}
-				}
+				},
 			}
 		}),
 			Vue.component('product', {
