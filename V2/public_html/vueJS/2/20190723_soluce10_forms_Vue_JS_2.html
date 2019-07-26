@@ -38,8 +38,8 @@ file name: 20190723_soluce10_forms_Vue_JS_2.html
 		Vue.component('product-review', {
 			template: `
 				<form class="review-form" @submit.prevent="onSubmit">
-					<p v-if="this.errors">
-						<b>Please correct the following error(s)</b>
+					<p v-if="this.errors.length">
+						<b>Please correct the following error(s) {{ this.errors.length }}</b>
 						<ul v-for="error in errors">
 							<li>{{ error }}</li>
 						</ul>
@@ -64,6 +64,17 @@ file name: 20190723_soluce10_forms_Vue_JS_2.html
 							<option>1</option>
 						</select>
 					</p>
+
+					<p>Would you like to recomend this product?</p>
+					<label>
+						Yes
+						<input type="radio" id="recommend" value="yes" v-model="recommend">
+					</label>
+					<label>
+						No
+						<input type="radio" id="recommend" value="no" v-model="recommend">
+					</label>
+					
 					<p>
 						<input type="submit" value="Submit">
 					</p>
@@ -74,27 +85,30 @@ file name: 20190723_soluce10_forms_Vue_JS_2.html
 					name: null,
 					review: null,
 					rating: null,
+					recommend: null,
 					errors: [],
 				}
 			},
 			methods: {
 				onSubmit: function () {
-					if (this.name && this.review && this.rating) {
+					if (this.name && this.review && this.rating && this.recommend) {
 						let productReview = {
 							name: this.name,
 							review: this.review,
 							rating: this.rating,
+							recommend: this.recommend,
 						}
 						this.$emit('review-submitted', productReview)
 						this.name = null
 						this.review = null
 						this.rating = null
+						this.recommend = null
 					}
 					else {
-						if(!this.name) { this.errors.push("Name required.") }
+						if (!this.name) { this.errors.push("Name required.") }
 						if (!this.review) { this.errors.push("Review required.") }
 						if (!this.rating) { this.errors.push("Rating required.") }
-
+						if (!this.recommend) { this.errors.push("Recommandation required.") }
 					}
 				}
 			}
@@ -107,7 +121,6 @@ file name: 20190723_soluce10_forms_Vue_JS_2.html
 					}
 				},
 				template: `
-
 						<div class="product">
 
 							<div class="product-image">
@@ -147,7 +160,8 @@ file name: 20190723_soluce10_forms_Vue_JS_2.html
 										<li v-for="review in reviews">
 											<p>{{ review.name }}</p>
 											<p>Rating: {{ review.rating }}</p>
-											<p>{{ review.review }}</p>
+											<p>Review: {{ review.review }}</p>
+											<p>Recommend: {{ review.recommend }}</p>
 										</li>
 									</ul>
 								</div>
