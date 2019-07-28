@@ -2,13 +2,12 @@
 <html>
 
 <head>
-
 	<!--
 ------------------------------------------------------
 * Created By : sdo
 * File Name : 20190717_soluce10-bis_forms_Vue_JS_2.html
 * Creation Date : Wed Jul 17 22:59:25 2019
-* @modify date 2019-07-20 00:40:06
+* @modify date 2019-07-28 03:47:32
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -122,9 +121,9 @@
 					return this.variants[this.selectedVariant].variantImage
 				},
 				inStock() {
-					if ( this.variants[this.selectedVariant].variantQuantity > 0 ) { 
-						return true 
-					} else { 
+					if (this.variants[this.selectedVariant].variantQuantity > 0) {
+						return true
+					} else {
 						return false
 					}
 				},
