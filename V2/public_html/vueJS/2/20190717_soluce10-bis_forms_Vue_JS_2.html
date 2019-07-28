@@ -2,12 +2,12 @@
 <html>
 
 <head>
-	<!--
+    <!--
 ------------------------------------------------------
 * Created By : sdo
 * File Name : 20190717_soluce10-bis_forms_Vue_JS_2.html
 * Creation Date : Wed Jul 17 22:59:25 2019
-* @modify date 2019-07-28 03:47:32
+* @modify date 2019-07-28 04:15:54
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -17,37 +17,37 @@
 ------------------------------------------------------
 -->
 
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
-	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-	<link rel="stylesheet" type="text/css" href="./css/style.css">:w
-	<title>20190717_soluce10-bis_forms_Vue_JS_2</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">:w
+    <title>20190717_soluce10-bis_forms_Vue_JS_2</title>
 </head>
 
 <body>
-	<div class="nav-bar"></div>
+    <div class="nav-bar"></div>
 
-	<div id="app">
-		<div class="cart">
-			<p>Cart({{ cart.length }})</p>
-		</div>
+    <div id="app">
+        <div class="cart">
+            <p>Cart({{ cart.length }})</p>
+        </div>
 
-		<product :premium="premium" @add-to-cart="updateCart"></product>
-	</div>
+        <product :premium="premium" @add-to-cart="updateCart"></product>
+    </div>
 
-	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
 
-	<script>
-		//Add a new boolean data property `onSale` and create a computed property that takes `brand`, `product` and `onSale` and prints out a string whenever `onSale` is true.
-		Vue.component('product', {
-			props: {
-				premium: {
-					type: Boolean,
-					required: true,
-				}
-			},
-			template: `
+    <script>
+        //Add a new boolean data property `onSale` and create a computed property that takes `brand`, `product` and `onSale` and prints out a string whenever `onSale` is true.
+        Vue.component('product', {
+            props: {
+                premium: {
+                    type: Boolean,
+                    required: true,
+                }
+            },
+            template: `
 
 						<div class="product">
 
@@ -81,78 +81,75 @@
 							</div>
 						</div>
 			`,
-			data: function () {
-				return {
-					product: 'Socks',
-					brand: 'Vue Mastery',
-					selectedVariant: 0,
-					details: ['80% cotton', '20% polyester', 'Gender-neutral'],
-					onSale: true,
-					variants: [
-						{
-							variantId: 2234,
-							variantColor: 'green',
-							variantImage: './assets/vmSocks-green-onWhite.jpg',
-							variantQuantity: 10
-						},
-						{
-							variantId: 2235,
-							variantColor: 'blue',
-							variantImage: './assets/vmSocks-blue-onWhite.jpg',
-							variantQuantity: 0
-						}
-					],
-				}
-			},
-			methods: {
-				addToCart: function () {
-					this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId)
-				},
-				updateProduct: function (index) {
-					this.selectedVariant = index
-					console.log(index)
-				}
-			},
-			computed: {
-				title() {
-					return this.brand + ' ' + this.product
-				},
-				image() {
-					return this.variants[this.selectedVariant].variantImage
-				},
-				inStock() {
-					if (this.variants[this.selectedVariant].variantQuantity > 0) {
-						return true
-					} else {
-						return false
-					}
-				},
-				shipping() {
-					if (this.premium) {
-						return "Free"
-					} else {
-						return 2.99
-					}
-				},
-				printBrand() {
-					return (this.onSale) ? this.brand : "-"
-				}
+            data: function() {
+                return {
+                    product: 'Socks',
+                    brand: 'Vue Mastery',
+                    selectedVariant: 0,
+                    details: ['80% cotton', '20% polyester', 'Gender-neutral'],
+                    onSale: true,
+                    variants: [{
+                        variantId: 2234,
+                        variantColor: 'green',
+                        variantImage: './assets/vmSocks-green-onWhite.jpg',
+                        variantQuantity: 10
+                    }, {
+                        variantId: 2235,
+                        variantColor: 'blue',
+                        variantImage: './assets/vmSocks-blue-onWhite.jpg',
+                        variantQuantity: 0
+                    }],
+                }
+            },
+            methods: {
+                addToCart: function() {
+                    this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId)
+                },
+                updateProduct: function(index) {
+                    this.selectedVariant = index
+                    console.log(index)
+                }
+            },
+            computed: {
+                title() {
+                    return this.brand + ' ' + this.product
+                },
+                image() {
+                    return this.variants[this.selectedVariant].variantImage
+                },
+                inStock() {
+                    if (this.variants[this.selectedVariant].variantQuantity > 0) {
+                        return true
+                    } else {
+                        return false
+                    }
+                },
+                shipping() {
+                    if (this.premium) {
+                        return "Free"
+                    } else {
+                        return 2.99
+                    }
+                },
+                printBrand() {
+                    return (this.onSale) ? this.brand : "-"
+                }
 
-			}
-		})
-		var app = new Vue({
-			el: '#app',
-			data: {
-				premium: true,
-				cart: [],
-			},
-			methods: {
-				updateCart: function (id) {
-					this.cart.push(id)
-				}
-			},
-		})
-	</script>
+            }
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                premium: true,
+                cart: [],
+            },
+            methods: {
+                updateCart: function(id) {
+                    this.cart.push(id)
+                }
+            },
+        })
+    </script>
 </body>
 
 </html>
