@@ -1,3 +1,14 @@
+/**
+ * @author Sebastien Dorey
+ * @email sebastien.dorey@laposte.net
+ * @create date 2019-07-29 02:39:08
+ * @modify date 2019-07-29 02:39:08
+ * @desc [description] 	try to understand integration of graph, svg, in vuejs.
+	Exemple taken from the web but from scatered sources in the same example page.
+	Try to reproduce localy te exploit but alas :-(
+	For the time being it is too hoopsy daisy for me.
+ */
+
 body {
     font-family: Helvetica Neue, Arial, sans-serif;
 }

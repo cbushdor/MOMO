@@ -8,7 +8,7 @@
 * Created By : sdo
 * File Name : 20190729GraphDemoVJS.html
 * Creation Date : 2019-07-29 01:23:14
-* @modify date 2019-07-29 02:22:20
+* @modify date 2019-07-29 02:35:31
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * Purpose :
@@ -46,9 +46,9 @@
     <!-- demo root element -->
     <div id="demo">
         <!-- Use the component -->
-    <svg width="200" height="200">
-      <polygraph :stats="stats"></polygraph>
-    </svg>
+        <svg width="200" height="200">
+            <polygraph :stats="stats"></polygraph>
+        </svg>
         <!-- controls -->
         <div v-for="stat in stats">
             <label>{{stat.label}}</label>
