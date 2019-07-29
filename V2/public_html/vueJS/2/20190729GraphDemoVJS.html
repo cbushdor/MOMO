@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!--
+------------------------------------------------------
+* Created By : sdo
+* File Name : 20190729GraphDemoVJS.html
+* Creation Date : 2019-07-29 01:23:14
+* @modify date 2019-07-29 02:22:20
+* Email Address : sdo@macbook-pro-de-sdo.home
+* Version : 0.0.0.0
+* Purpose :
+	try to understand integration of graph, svg, in vuejs.
+	Exemple taken from the web but from scatered sources in the same example page.
+	Try to reproduce localy te exploit but alas :-(
+	For the time being it is too hoopsy daisy for me.
+------------------------------------------------------
+-->
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <link rel="stylesheet" type="text/css" href="./css/20190729GraphDemoVJS.css">:w
+    <title>20190729GraphDemoVJS</title>
+</head>
+
+<body>
+    <!-- template for the polygraph component. -->
+    <script type="text/x-template" id="polygraph-template">
+        <g>
+            <polygon :points="points"></polygon>
+            <circle cx="100" cy="100" r="80"></circle>
+            <axis-label v-for="(stat, index) in stats" :stat="stat" :index="index" :total="stats.length">
+            </axis-label>
+        </g>
+    </script>
+
+    <!-- template for the axis label component. -->
+    <script type="text/x-template" id="axis-label-template">
+        <text :x="point.x" :y="point.y">{{stat.label}}</text>
+    </script>
+
+    <!-- demo root element -->
+    <div id="demo">
+        <!-- Use the component -->
+    <svg width="200" height="200">
+      <polygraph :stats="stats"></polygraph>
+    </svg>
+        <!-- controls -->
+        <div v-for="stat in stats">
+            <label>{{stat.label}}</label>
+            <input type="range" v-model="stat.value" min="0" max="100">
+            <span>{{stat.value}}</span>
+            <button @click="remove(stat)" class="remove">X</button>
+        </div>
+        <form id="add">
+            <input name="newlabel" v-model="newLabel">
+            <button @click="add">Add a Stat</button>
+        </form>
+        <pre id="raw">{{ stats }}</pre>
+    </div>
+
+    <p style="font-size:12px">* input[type="range"] requires IE10 or above.</p>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <script src="./js/20190729GraphDemoVJS.js"></script>
+</body>
+
+</html>
