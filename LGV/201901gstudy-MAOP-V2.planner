@@ -136,7 +136,7 @@
           <task id="31" name="Lecture+practise" note="" work="7200" duration="7200" start="20190512T000000Z" end="20190513T100000Z" work-start="20190513T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="start-no-earlier-than" time="20190512T000000Z"/>
             <predecessors>
-              <predecessor id="1" predecessor-id="237" type="SS"/>
+              <predecessor id="1" predecessor-id="238" type="SS"/>
             </predecessors>
           </task>
           <task id="32" name="Practise" note="" work="7200" duration="7200" start="20190512T000000Z" end="20190513T100000Z" work-start="20190513T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
@@ -476,7 +476,7 @@
         </task>
       </task>
     </task>
-    <task id="136" name="Sports" note="" work="1044000" start="20190101T000000Z" end="20190923T160000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="136" name="Sports" note="" work="1051200" start="20190101T000000Z" end="20190923T160000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
       <task id="137" name="Hike" note="" work="14400" duration="14400" start="20190920T090000Z" end="20190920T140000Z" work-start="20190920T090000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
         <constraint type="start-no-earlier-than" time="20190421T000000Z"/>
         <predecessors>
@@ -626,7 +626,7 @@
       <task id="165" name="Pactise" note="" work="18000" duration="18000" start="20190607T110000Z" end="20190607T170000Z" work-start="20190607T110000Z" percent-complete="99" priority="1" type="normal" scheduling="fixed-duration">
         <constraint type="start-no-earlier-than" time="20190607T000000Z"/>
         <predecessors>
-          <predecessor id="1" predecessor-id="246" type="FS"/>
+          <predecessor id="1" predecessor-id="247" type="FS"/>
           <predecessor id="1" predecessor-id="50" type="FS"/>
         </predecessors>
       </task>
@@ -665,7 +665,7 @@
       <task id="173" name="Practise+Lecture" note="" work="14400" duration="14400" start="20190623T000000Z" end="20190624T120000Z" work-start="20190624T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
         <constraint type="start-no-earlier-than" time="20190623T000000Z"/>
         <predecessors>
-          <predecessor id="1" predecessor-id="226" type="FS"/>
+          <predecessor id="1" predecessor-id="227" type="FS"/>
         </predecessors>
       </task>
       <task id="174" name="Practise+Lecture" note="" work="18000" duration="18000" start="20190626T000000Z" end="20190626T140000Z" work-start="20190626T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
@@ -776,124 +776,126 @@
       <task id="209" name="Practise" note="" work="25200" duration="25200" start="20190921T000000Z" end="20190923T160000Z" work-start="20190923T080000Z" percent-complete="92" priority="1" type="normal" scheduling="fixed-duration">
         <constraint type="must-start-on" time="20190921T000000Z"/>
       </task>
-      <task id="210" name="Journ&#xE9;es Europ&#xE9;ennes" note="" work="14400" start="20190921T000000Z" end="20190923T120000Z" work-start="20190923T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
+      <task id="210" name="Practise" note="" work="14400" start="20190921T000000Z" end="20190923T120000Z" work-start="20190923T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
         <constraint type="must-start-on" time="20190921T000000Z"/>
       </task>
-      <task id="211" name="Journ&#xE9;es Europ&#xE9;ennes" note="" work="7200" duration="7200" start="20190922T000000Z" end="20190923T100000Z" work-start="20190923T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="211" name="Practise" note="" work="7200" duration="7200" start="20190922T000000Z" end="20190923T100000Z" work-start="20190923T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
         <constraint type="must-start-on" time="20190922T000000Z"/>
       </task>
+      <task id="212" name="Practise" note="" work="7200" duration="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
     </task>
-    <task id="212" name="Conf/Renc/Mati/Salo/Expo" note="" work="223200" start="20190101T000000Z" end="20190919T090000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="213" name="Cin&#xE9;ma" note="" work="122400" start="20190101T000000Z" end="20190910T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="214" name="Saint Michel Paris" note="Sat 19 Jan 2019, 16:17&#10;&#10;Game Girl" work="7200" duration="7200" start="20190118T000000Z" end="20190118T100000Z" work-start="20190118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+    <task id="213" name="Conf/Renc/Mati/Salo/Expo" note="" work="223200" start="20190101T000000Z" end="20190919T090000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="214" name="Cin&#xE9;ma" note="" work="122400" start="20190101T000000Z" end="20190910T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="215" name="Saint Michel Paris" note="Sat 19 Jan 2019, 16:17&#10;&#10;Game Girl" work="7200" duration="7200" start="20190118T000000Z" end="20190118T100000Z" work-start="20190118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190118T000000Z"/>
         </task>
-        <task id="215" name="Espace Saint Michel" note="Fri 05 Apr 2019, 22:39&#10;Fukushima" work="7200" duration="7200" start="20190322T000000Z" end="20190322T100000Z" work-start="20190322T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="216" name="Espace Saint Michel" note="Fri 05 Apr 2019, 22:39&#10;Fukushima" work="7200" duration="7200" start="20190322T000000Z" end="20190322T100000Z" work-start="20190322T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190322T000000Z"/>
         </task>
-        <task id="216" name="Espace Saint Michel" note="Fri 05 Apr 2019, 22:38&#10;J'veux du soleil" work="7200" duration="7200" start="20190405T000000Z" end="20190405T100000Z" work-start="20190405T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="217" name="Espace Saint Michel" note="Fri 05 Apr 2019, 22:38&#10;J'veux du soleil" work="7200" duration="7200" start="20190405T000000Z" end="20190405T100000Z" work-start="20190405T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190405T000000Z"/>
         </task>
-        <task id="217" name="Le grand action" note="Wed 17 Apr 2019, 12:12&#10;Le bateau phare" work="7200" duration="7200" start="20190416T000000Z" end="20190416T100000Z" work-start="20190416T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="218" name="Le grand action" note="Wed 17 Apr 2019, 12:12&#10;Le bateau phare" work="7200" duration="7200" start="20190416T000000Z" end="20190416T100000Z" work-start="20190416T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190416T000000Z"/>
         </task>
-        <task id="218" name="Espace Saint Michel" note="Sat 04 May 2019, 20:30&#10;La Mis&#xE9;ricorde de la Jungle" work="7200" duration="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
-        <task id="219" name="Ecole 21" note="Wed 10 Jul 2019, 23:14&#10;Quatre mouches de velour gris " work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="94" priority="1" type="normal" scheduling="fixed-work"/>
-        <task id="220" name="Luminor" note="Sat 13 Jul 2019, 23:18&#10;Rabbi Jacob" work="7200" duration="7200" start="20190713T000000Z" end="20190715T100000Z" work-start="20190715T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="219" name="Espace Saint Michel" note="Sat 04 May 2019, 20:30&#10;La Mis&#xE9;ricorde de la Jungle" work="7200" duration="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
+        <task id="220" name="Ecole 21" note="Wed 10 Jul 2019, 23:14&#10;Quatre mouches de velour gris " work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="94" priority="1" type="normal" scheduling="fixed-work"/>
+        <task id="221" name="Luminor" note="Sat 13 Jul 2019, 23:18&#10;Rabbi Jacob" work="7200" duration="7200" start="20190713T000000Z" end="20190715T100000Z" work-start="20190715T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190713T000000Z"/>
         </task>
-        <task id="221" name="Le grand action" note="Fri 23 Aug 2019, 20:29&#10;Navigateur" work="7200" duration="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
-        <task id="222" name="Luminor" note="Wed 11 Sep 2019, 19:40&#10;The Bra" work="7200" duration="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
-        <task id="223" name="Filmosa Festival - Festival du Cin&#xE9;ma Ta&#xEF;wanais &#xE0; Paris" note="" work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="224" name="Filmoth&#xE8;que" note="Sun 14 Apr 2019, 18:50&#10;Courts m&#xE9;trages" work="7200" duration="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
+        <task id="222" name="Le grand action" note="Fri 23 Aug 2019, 20:29&#10;Navigateur" work="7200" duration="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
+        <task id="223" name="Luminor" note="Wed 11 Sep 2019, 19:40&#10;The Bra" work="7200" duration="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
+        <task id="224" name="Filmosa Festival - Festival du Cin&#xE9;ma Ta&#xEF;wanais &#xE0; Paris" note="" work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="225" name="Filmoth&#xE8;que" note="Sun 14 Apr 2019, 18:50&#10;Courts m&#xE9;trages" work="7200" duration="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
         </task>
-        <task id="225" name="Film Festival Champs Elys&#xE9;es" note="" work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="226" name="Movies" note="" work="7200" duration="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration"/>
+        <task id="226" name="Film Festival Champs Elys&#xE9;es" note="" work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="227" name="Movies" note="" work="7200" duration="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration"/>
         </task>
-        <task id="227" name="Festival film de fesse 2019" note="" work="36000" start="20190628T000000Z" end="20190701T120000Z" work-start="20190628T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="228" name="Filmoth&#xE8;que" note="Sat 29 Jun 2019, 00:18&#10;bijou d'amour" work="7200" duration="7200" start="20190628T000000Z" end="20190628T100000Z" work-start="20190628T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="228" name="Festival film de fesse 2019" note="" work="36000" start="20190628T000000Z" end="20190701T120000Z" work-start="20190628T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="229" name="Filmoth&#xE8;que" note="Sat 29 Jun 2019, 00:18&#10;bijou d'amour" work="7200" duration="7200" start="20190628T000000Z" end="20190628T100000Z" work-start="20190628T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="start-no-earlier-than" time="20190628T000000Z"/>
           </task>
-          <task id="229" name="Filmoh&#xE8;que" note="" work="14400" duration="14400" start="20190629T000000Z" end="20190701T120000Z" work-start="20190701T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="230" name="Filmoh&#xE8;que" note="" work="14400" duration="14400" start="20190629T000000Z" end="20190701T120000Z" work-start="20190701T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="start-no-earlier-than" time="20190629T000000Z"/>
           </task>
-          <task id="230" name="Filmoth&#xE8;que" note="" work="14400" duration="14400" start="20190630T000000Z" end="20190701T120000Z" work-start="20190701T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="231" name="Filmoth&#xE8;que" note="" work="14400" duration="14400" start="20190630T000000Z" end="20190701T120000Z" work-start="20190701T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20190630T000000Z"/>
           </task>
         </task>
-        <task id="231" name="L'&#xE9;trange Festival " note="" work="7200" start="20190910T000000Z" end="20190910T100000Z" work-start="20190910T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="232" name="Boot hills" note="" work="7200" start="20190910T000000Z" end="20190910T100000Z" work-start="20190910T080000Z" percent-complete="1" priority="1" type="normal" scheduling="fixed-work">
+        <task id="232" name="L'&#xE9;trange Festival " note="" work="7200" start="20190910T000000Z" end="20190910T100000Z" work-start="20190910T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="233" name="Boot hills" note="" work="7200" start="20190910T000000Z" end="20190910T100000Z" work-start="20190910T080000Z" percent-complete="1" priority="1" type="normal" scheduling="fixed-work">
             <constraint type="must-start-on" time="20190910T000000Z"/>
           </task>
         </task>
       </task>
-      <task id="233" name="Nouvel Chinois" note="" work="7200" duration="7200" start="20190208T000000Z" end="20190208T100000Z" work-start="20190208T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
+      <task id="234" name="Nouvel Chinois" note="" work="7200" duration="7200" start="20190208T000000Z" end="20190208T100000Z" work-start="20190208T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-duration">
         <constraint type="must-start-on" time="20190204T000000Z"/>
-        <task id="234" name="Eclosion Printemps Concert" note="" work="7200" duration="7200" start="20190208T000000Z" end="20190208T100000Z" work-start="20190208T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="235" name="Eclosion Printemps Concert" note="" work="7200" duration="7200" start="20190208T000000Z" end="20190208T100000Z" work-start="20190208T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190208T000000Z"/>
         </task>
       </task>
-      <task id="235" name="Expo" note="" work="43200" start="20190101T000000Z" end="20190919T090000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="236" name="F&#xEA;te de l'Europe" note="Sat 04 May 2019, 20:33&#10;Hotel de Ville 5e" work="3600" duration="3600" start="20190101T000000Z" end="20190101T090000Z" work-start="20190101T080000Z" percent-complete="10" priority="1" type="normal" scheduling="fixed-duration"/>
-        <task id="237" name="F&#xEA;te du pain" note="" work="3600" duration="3600" start="20190512T000000Z" end="20190513T090000Z" work-start="20190513T080000Z" percent-complete="40" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="236" name="Expo" note="" work="43200" start="20190101T000000Z" end="20190919T090000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="237" name="F&#xEA;te de l'Europe" note="Sat 04 May 2019, 20:33&#10;Hotel de Ville 5e" work="3600" duration="3600" start="20190101T000000Z" end="20190101T090000Z" work-start="20190101T080000Z" percent-complete="10" priority="1" type="normal" scheduling="fixed-duration"/>
+        <task id="238" name="F&#xEA;te du pain" note="" work="3600" duration="3600" start="20190512T000000Z" end="20190513T090000Z" work-start="20190513T080000Z" percent-complete="40" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20190512T000000Z"/>
         </task>
-        <task id="238" name="March&#xE9; M&#xE9;di&#xE9;val" note="" work="14400" duration="14400" start="20190616T000000Z" end="20190617T120000Z" work-start="20190617T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="239" name="March&#xE9; M&#xE9;di&#xE9;val" note="" work="14400" duration="14400" start="20190616T000000Z" end="20190617T120000Z" work-start="20190617T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190616T000000Z"/>
         </task>
-        <task id="239" name="Paris Plage 2019" note="" work="7200" duration="7200" start="20190706T000000Z" end="20190708T100000Z" work-start="20190708T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="240" name="Paris Plage 2019" note="" work="7200" duration="7200" start="20190706T000000Z" end="20190708T100000Z" work-start="20190708T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190706T000000Z"/>
         </task>
-        <task id="240" name="CHAMPS D'AMOUR" note="" work="3600" duration="3600" start="20190712T000000Z" end="20190712T090000Z" work-start="20190712T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="241" name="CHAMPS D'AMOUR" note="" work="3600" duration="3600" start="20190712T000000Z" end="20190712T090000Z" work-start="20190712T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190712T000000Z"/>
         </task>
-        <task id="241" name="Lib&#xE9;ration 1945" note="" work="7200" duration="7200" start="20190825T000000Z" end="20190826T100000Z" work-start="20190826T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="242" name="Lib&#xE9;ration 1945" note="" work="7200" duration="7200" start="20190825T000000Z" end="20190826T100000Z" work-start="20190826T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190825T000000Z"/>
         </task>
-        <task id="242" name="F&#xEA;te de la lune" note="" work="3600" duration="3600" start="20190919T000000Z" end="20190919T090000Z" work-start="20190919T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="243" name="F&#xEA;te de la lune" note="" work="3600" duration="3600" start="20190919T000000Z" end="20190919T090000Z" work-start="20190919T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190919T000000Z"/>
         </task>
       </task>
-      <task id="243" name="Photographier Paris, l'exposition gratuite &#xE0; l'H&#xF4;tel de Ville : les photos !&#10;En savoir plugraphier-paris-l-exposition-gratuite-a-l-hotel-de-ville-les-photos#RpFMUeLRpJPHuSK9.99" note="" work="3600" duration="3600" start="20190118T000000Z" end="20190118T090000Z" work-start="20190118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="244" name="Photographier Paris, l'exposition gratuite &#xE0; l'H&#xF4;tel de Ville : les photos !&#10;En savoir plugraphier-paris-l-exposition-gratuite-a-l-hotel-de-ville-les-photos#RpFMUeLRpJPHuSK9.99" note="" work="3600" duration="3600" start="20190118T000000Z" end="20190118T090000Z" work-start="20190118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
         <constraint type="must-start-on" time="20190118T000000Z"/>
       </task>
-      <task id="244" name="Parc" note="" work="39600" start="20190216T000000Z" end="20190906T120000Z" work-start="20190218T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="245" name="Hokey" note="" work="14400" start="20190216T000000Z" end="20190218T083320Z" work-start="20190218T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
+      <task id="245" name="Parc" note="" work="39600" start="20190216T000000Z" end="20190906T120000Z" work-start="20190218T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="246" name="Hokey" note="" work="14400" start="20190216T000000Z" end="20190218T083320Z" work-start="20190218T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
           <constraint type="must-start-on" time="20190216T000000Z"/>
         </task>
-        <task id="246" name="Etude" note="" work="10800" duration="10800" start="20190607T000000Z" end="20190607T110000Z" work-start="20190607T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="247" name="Etude" note="" work="10800" duration="10800" start="20190607T000000Z" end="20190607T110000Z" work-start="20190607T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190607T000000Z"/>
         </task>
-        <task id="247" name="Parc" note="" work="14400" duration="14400" start="20190906T000000Z" end="20190906T120000Z" work-start="20190906T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="248" name="Parc" note="" work="14400" duration="14400" start="20190906T000000Z" end="20190906T120000Z" work-start="20190906T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190906T000000Z"/>
         </task>
       </task>
-      <task id="248" name="Spectacles" note="" work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="249" name="Spectacles" note="" work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
     </task>
   </tasks>
   <resource-groups>
-    <group id="1" name="Culture" admin-name="" admin-phone="" admin-email=""/>
-    <group id="2" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
-    <group id="3" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
-    <group id="4" name="Asso" admin-name="" admin-phone="" admin-email=""/>
-    <group id="5" name="Programming" admin-name="" admin-phone="" admin-email=""/>
-    <group id="6" name="Admin" admin-name="" admin-phone="" admin-email=""/>
+    <group id="1" name="Admin" admin-name="" admin-phone="" admin-email=""/>
+    <group id="2" name="Programming" admin-name="" admin-phone="" admin-email=""/>
+    <group id="3" name="Asso" admin-name="" admin-phone="" admin-email=""/>
+    <group id="4" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
+    <group id="5" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
+    <group id="6" name="Culture" admin-name="" admin-phone="" admin-email=""/>
   </resource-groups>
   <resources>
-    <resource group="6" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="4" name="Tests" short-name="tes" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="5" name="Scripting Language" short-name="scl" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="6" name="Opterating Systems" short-name="osy" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="7" name="Associations" short-name="ass" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="8" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="9" name="Utilitaire/Tools 7z" short-name="c7z" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="10" name="Mairie de la ville" short-name="m2v" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="11" name="Devices" short-name="dev" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="12" name="Readings" short-name="rds" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="1" name="Hike" short-name="hik" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="4" name="Tests" short-name="tes" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="5" name="Scripting Language" short-name="scl" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="6" name="Opterating Systems" short-name="osy" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="7" name="Associations" short-name="ass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="8" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="9" name="Utilitaire/Tools 7z" short-name="c7z" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="10" name="Mairie de la ville" short-name="m2v" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="11" name="Devices" short-name="dev" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="12" name="Readings" short-name="rds" type="1" units="0" email="" note="" std-rate="0"/>
   </resources>
   <allocations>
+    <allocation task-id="212" resource-id="1" units="100"/>
     <allocation task-id="209" resource-id="1" units="100"/>
     <allocation task-id="208" resource-id="1" units="100"/>
     <allocation task-id="207" resource-id="1" units="100"/>
@@ -926,13 +928,13 @@
     <allocation task-id="179" resource-id="1" units="100"/>
     <allocation task-id="178" resource-id="1" units="100"/>
     <allocation task-id="177" resource-id="1" units="100"/>
-    <allocation task-id="239" resource-id="1" units="33"/>
+    <allocation task-id="240" resource-id="1" units="33"/>
     <allocation task-id="176" resource-id="1" units="100"/>
     <allocation task-id="175" resource-id="1" units="100"/>
     <allocation task-id="174" resource-id="1" units="100"/>
     <allocation task-id="173" resource-id="1" units="100"/>
     <allocation task-id="172" resource-id="1" units="100"/>
-    <allocation task-id="238" resource-id="1" units="50"/>
+    <allocation task-id="239" resource-id="1" units="50"/>
     <allocation task-id="171" resource-id="1" units="100"/>
     <allocation task-id="170" resource-id="1" units="100"/>
     <allocation task-id="169" resource-id="1" units="100"/>
@@ -968,7 +970,7 @@
     <allocation task-id="148" resource-id="1" units="20"/>
     <allocation task-id="147" resource-id="1" units="100"/>
     <allocation task-id="146" resource-id="1" units="100"/>
-    <allocation task-id="236" resource-id="1" units="50"/>
+    <allocation task-id="237" resource-id="1" units="50"/>
     <allocation task-id="29" resource-id="1" units="14"/>
     <allocation task-id="145" resource-id="1" units="100"/>
     <allocation task-id="144" resource-id="1" units="100"/>
@@ -988,14 +990,14 @@
     <allocation task-id="21" resource-id="1" units="17"/>
     <allocation task-id="20" resource-id="1" units="14"/>
     <allocation task-id="19" resource-id="1" units="17"/>
-    <allocation task-id="217" resource-id="1" units="20"/>
-    <allocation task-id="224" resource-id="1" units="50"/>
+    <allocation task-id="218" resource-id="1" units="20"/>
+    <allocation task-id="225" resource-id="1" units="50"/>
     <allocation task-id="117" resource-id="1" units="25"/>
     <allocation task-id="116" resource-id="1" units="17"/>
     <allocation task-id="18" resource-id="1" units="100"/>
     <allocation task-id="113" resource-id="1" units="20"/>
-    <allocation task-id="245" resource-id="1" units="100"/>
-    <allocation task-id="234" resource-id="1" units="33"/>
+    <allocation task-id="246" resource-id="1" units="100"/>
+    <allocation task-id="235" resource-id="1" units="33"/>
     <allocation task-id="17" resource-id="1" units="13"/>
     <allocation task-id="16" resource-id="1" units="13"/>
     <allocation task-id="15" resource-id="1" units="17"/>
@@ -1062,7 +1064,7 @@
     <allocation task-id="35" resource-id="2" units="13"/>
     <allocation task-id="30" resource-id="2" units="14"/>
     <allocation task-id="8" resource-id="2" units="17"/>
-    <allocation task-id="236" resource-id="2" units="50"/>
+    <allocation task-id="237" resource-id="2" units="50"/>
     <allocation task-id="29" resource-id="2" units="14"/>
     <allocation task-id="119" resource-id="2" units="20"/>
     <allocation task-id="27" resource-id="2" units="25"/>
@@ -1074,7 +1076,7 @@
     <allocation task-id="21" resource-id="2" units="17"/>
     <allocation task-id="20" resource-id="2" units="14"/>
     <allocation task-id="19" resource-id="2" units="17"/>
-    <allocation task-id="217" resource-id="2" units="20"/>
+    <allocation task-id="218" resource-id="2" units="20"/>
     <allocation task-id="117" resource-id="2" units="25"/>
     <allocation task-id="114" resource-id="2" units="17"/>
     <allocation task-id="118" resource-id="2" units="17"/>
@@ -1082,7 +1084,7 @@
     <allocation task-id="115" resource-id="2" units="25"/>
     <allocation task-id="18" resource-id="2" units="100"/>
     <allocation task-id="113" resource-id="2" units="20"/>
-    <allocation task-id="245" resource-id="2" units="100"/>
+    <allocation task-id="246" resource-id="2" units="100"/>
     <allocation task-id="17" resource-id="2" units="13"/>
     <allocation task-id="16" resource-id="2" units="13"/>
     <allocation task-id="15" resource-id="2" units="17"/>
@@ -1184,14 +1186,14 @@
     <allocation task-id="21" resource-id="3" units="17"/>
     <allocation task-id="20" resource-id="3" units="14"/>
     <allocation task-id="19" resource-id="3" units="17"/>
-    <allocation task-id="217" resource-id="3" units="20"/>
+    <allocation task-id="218" resource-id="3" units="20"/>
     <allocation task-id="114" resource-id="3" units="17"/>
     <allocation task-id="118" resource-id="3" units="17"/>
     <allocation task-id="116" resource-id="3" units="17"/>
     <allocation task-id="115" resource-id="3" units="25"/>
     <allocation task-id="18" resource-id="3" units="100"/>
     <allocation task-id="113" resource-id="3" units="20"/>
-    <allocation task-id="245" resource-id="3" units="100"/>
+    <allocation task-id="246" resource-id="3" units="100"/>
     <allocation task-id="17" resource-id="3" units="13"/>
     <allocation task-id="16" resource-id="3" units="13"/>
     <allocation task-id="15" resource-id="3" units="17"/>
@@ -1214,7 +1216,7 @@
     <allocation task-id="101" resource-id="4" units="33"/>
     <allocation task-id="100" resource-id="4" units="20"/>
     <allocation task-id="99" resource-id="4" units="17"/>
-    <allocation task-id="247" resource-id="4" units="50"/>
+    <allocation task-id="248" resource-id="4" units="50"/>
     <allocation task-id="98" resource-id="4" units="25"/>
     <allocation task-id="97" resource-id="4" units="20"/>
     <allocation task-id="196" resource-id="4" units="20"/>
@@ -1307,7 +1309,7 @@
     <allocation task-id="21" resource-id="4" units="17"/>
     <allocation task-id="20" resource-id="4" units="14"/>
     <allocation task-id="19" resource-id="4" units="17"/>
-    <allocation task-id="217" resource-id="4" units="20"/>
+    <allocation task-id="218" resource-id="4" units="20"/>
     <allocation task-id="117" resource-id="4" units="25"/>
     <allocation task-id="114" resource-id="4" units="17"/>
     <allocation task-id="118" resource-id="4" units="17"/>
@@ -1424,7 +1426,7 @@
     <allocation task-id="115" resource-id="5" units="25"/>
     <allocation task-id="18" resource-id="5" units="100"/>
     <allocation task-id="113" resource-id="5" units="20"/>
-    <allocation task-id="245" resource-id="5" units="100"/>
+    <allocation task-id="246" resource-id="5" units="100"/>
     <allocation task-id="17" resource-id="5" units="13"/>
     <allocation task-id="16" resource-id="5" units="13"/>
     <allocation task-id="15" resource-id="5" units="17"/>
@@ -1481,7 +1483,7 @@
     <allocation task-id="35" resource-id="6" units="13"/>
     <allocation task-id="34" resource-id="6" units="20"/>
     <allocation task-id="33" resource-id="6" units="17"/>
-    <allocation task-id="245" resource-id="6" units="100"/>
+    <allocation task-id="246" resource-id="6" units="100"/>
     <allocation task-id="135" resource-id="7" units="100"/>
     <allocation task-id="89" resource-id="7" units="17"/>
     <allocation task-id="87" resource-id="7" units="13"/>
@@ -1496,25 +1498,25 @@
     <allocation task-id="18" resource-id="7" units="100"/>
     <allocation task-id="132" resource-id="7" units="100"/>
     <allocation task-id="131" resource-id="7" units="100"/>
-    <allocation task-id="245" resource-id="7" units="100"/>
+    <allocation task-id="246" resource-id="7" units="100"/>
     <allocation task-id="17" resource-id="7" units="13"/>
     <allocation task-id="16" resource-id="7" units="13"/>
     <allocation task-id="15" resource-id="7" units="17"/>
     <allocation task-id="130" resource-id="7" units="50"/>
     <allocation task-id="13" resource-id="7" units="14"/>
     <allocation task-id="10" resource-id="7" units="13"/>
+    <allocation task-id="223" resource-id="8" units="100"/>
+    <allocation task-id="233" resource-id="8" units="100"/>
+    <allocation task-id="248" resource-id="8" units="50"/>
     <allocation task-id="222" resource-id="8" units="100"/>
-    <allocation task-id="232" resource-id="8" units="100"/>
-    <allocation task-id="247" resource-id="8" units="50"/>
     <allocation task-id="221" resource-id="8" units="100"/>
     <allocation task-id="220" resource-id="8" units="100"/>
-    <allocation task-id="219" resource-id="8" units="100"/>
-    <allocation task-id="239" resource-id="8" units="33"/>
-    <allocation task-id="230" resource-id="8" units="100"/>
+    <allocation task-id="240" resource-id="8" units="33"/>
+    <allocation task-id="231" resource-id="8" units="100"/>
+    <allocation task-id="230" resource-id="8" units="50"/>
     <allocation task-id="229" resource-id="8" units="50"/>
-    <allocation task-id="228" resource-id="8" units="50"/>
-    <allocation task-id="226" resource-id="8" units="100"/>
-    <allocation task-id="218" resource-id="8" units="100"/>
+    <allocation task-id="227" resource-id="8" units="100"/>
+    <allocation task-id="219" resource-id="8" units="100"/>
     <allocation task-id="29" resource-id="8" units="14"/>
     <allocation task-id="143" resource-id="8" units="50"/>
     <allocation task-id="25" resource-id="8" units="100"/>
@@ -1522,45 +1524,45 @@
     <allocation task-id="7" resource-id="8" units="14"/>
     <allocation task-id="20" resource-id="8" units="14"/>
     <allocation task-id="19" resource-id="8" units="17"/>
-    <allocation task-id="217" resource-id="8" units="20"/>
-    <allocation task-id="224" resource-id="8" units="50"/>
-    <allocation task-id="215" resource-id="8" units="100"/>
+    <allocation task-id="218" resource-id="8" units="20"/>
+    <allocation task-id="225" resource-id="8" units="50"/>
     <allocation task-id="216" resource-id="8" units="100"/>
+    <allocation task-id="217" resource-id="8" units="100"/>
     <allocation task-id="114" resource-id="8" units="17"/>
     <allocation task-id="118" resource-id="8" units="17"/>
     <allocation task-id="18" resource-id="8" units="100"/>
     <allocation task-id="113" resource-id="8" units="20"/>
-    <allocation task-id="245" resource-id="8" units="100"/>
-    <allocation task-id="234" resource-id="8" units="33"/>
+    <allocation task-id="246" resource-id="8" units="100"/>
+    <allocation task-id="235" resource-id="8" units="33"/>
     <allocation task-id="17" resource-id="8" units="13"/>
     <allocation task-id="16" resource-id="8" units="13"/>
     <allocation task-id="6" resource-id="8" units="17"/>
     <allocation task-id="14" resource-id="8" units="13"/>
-    <allocation task-id="214" resource-id="8" units="100"/>
+    <allocation task-id="215" resource-id="8" units="100"/>
     <allocation task-id="4" resource-id="8" units="100"/>
     <allocation task-id="10" resource-id="8" units="13"/>
     <allocation task-id="11" resource-id="8" units="14"/>
     <allocation task-id="12" resource-id="8" units="14"/>
     <allocation task-id="211" resource-id="10" units="100"/>
     <allocation task-id="210" resource-id="10" units="100"/>
-    <allocation task-id="242" resource-id="10" units="100"/>
+    <allocation task-id="243" resource-id="10" units="100"/>
     <allocation task-id="191" resource-id="10" units="50"/>
+    <allocation task-id="242" resource-id="10" units="100"/>
     <allocation task-id="241" resource-id="10" units="100"/>
-    <allocation task-id="240" resource-id="10" units="100"/>
-    <allocation task-id="239" resource-id="10" units="33"/>
+    <allocation task-id="240" resource-id="10" units="33"/>
+    <allocation task-id="230" resource-id="10" units="50"/>
     <allocation task-id="229" resource-id="10" units="50"/>
-    <allocation task-id="228" resource-id="10" units="50"/>
-    <allocation task-id="238" resource-id="10" units="50"/>
-    <allocation task-id="246" resource-id="10" units="100"/>
+    <allocation task-id="239" resource-id="10" units="50"/>
+    <allocation task-id="247" resource-id="10" units="100"/>
     <allocation task-id="151" resource-id="10" units="20"/>
     <allocation task-id="36" resource-id="10" units="11"/>
-    <allocation task-id="237" resource-id="10" units="33"/>
+    <allocation task-id="238" resource-id="10" units="33"/>
     <allocation task-id="30" resource-id="10" units="14"/>
     <allocation task-id="26" resource-id="10" units="25"/>
     <allocation task-id="18" resource-id="10" units="100"/>
-    <allocation task-id="234" resource-id="10" units="33"/>
+    <allocation task-id="235" resource-id="10" units="33"/>
     <allocation task-id="14" resource-id="10" units="13"/>
-    <allocation task-id="243" resource-id="10" units="100"/>
+    <allocation task-id="244" resource-id="10" units="100"/>
     <allocation task-id="4" resource-id="10" units="100"/>
     <allocation task-id="110" resource-id="11" units="20"/>
     <allocation task-id="109" resource-id="11" units="50"/>
@@ -1605,7 +1607,7 @@
     <allocation task-id="37" resource-id="11" units="13"/>
     <allocation task-id="36" resource-id="11" units="11"/>
     <allocation task-id="33" resource-id="11" units="17"/>
-    <allocation task-id="237" resource-id="11" units="33"/>
+    <allocation task-id="238" resource-id="11" units="33"/>
     <allocation task-id="31" resource-id="11" units="33"/>
     <allocation task-id="149" resource-id="11" units="33"/>
     <allocation task-id="30" resource-id="11" units="14"/>
@@ -1700,7 +1702,7 @@
     <allocation task-id="35" resource-id="12" units="13"/>
     <allocation task-id="34" resource-id="12" units="20"/>
     <allocation task-id="33" resource-id="12" units="17"/>
-    <allocation task-id="237" resource-id="12" units="33"/>
+    <allocation task-id="238" resource-id="12" units="33"/>
     <allocation task-id="31" resource-id="12" units="33"/>
     <allocation task-id="149" resource-id="12" units="33"/>
     <allocation task-id="30" resource-id="12" units="14"/>
