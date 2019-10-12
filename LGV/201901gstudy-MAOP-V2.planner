@@ -641,7 +641,7 @@
       <task id="170" name="Pactise" note="" work="18000" duration="18000" start="20190607T110000Z" end="20190607T170000Z" work-start="20190607T110000Z" percent-complete="99" priority="1" type="normal" scheduling="fixed-duration">
         <constraint type="start-no-earlier-than" time="20190607T000000Z"/>
         <predecessors>
-          <predecessor id="1" predecessor-id="263" type="FS"/>
+          <predecessor id="1" predecessor-id="264" type="FS"/>
           <predecessor id="1" predecessor-id="50" type="FS"/>
         </predecessors>
       </task>
@@ -826,7 +826,7 @@
         <constraint type="must-start-on" time="20191011T000000Z"/>
       </task>
     </task>
-    <task id="227" name="Conf/Renc/Mati/Salo/Expo" note="" work="252000" start="20190101T000000Z" end="20191011T090000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="227" name="Conf/Renc/Mati/Salo/Expo" note="" work="262800" start="20190101T000000Z" end="20191014T110000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
       <task id="228" name="Cin&#xE9;ma" note="" work="122400" start="20190101T000000Z" end="20190910T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <task id="229" name="Saint Michel Paris" note="Sat 19 Jan 2019, 16:17&#10;&#10;Game Girl" work="7200" duration="7200" start="20190118T000000Z" end="20190118T100000Z" work-start="20190118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190118T000000Z"/>
@@ -876,7 +876,7 @@
           <constraint type="must-start-on" time="20190208T000000Z"/>
         </task>
       </task>
-      <task id="250" name="Expo" note="" work="72000" start="20190101T000000Z" end="20191011T090000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="250" name="Expo" note="" work="82800" start="20190101T000000Z" end="20191014T110000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <task id="251" name="F&#xEA;te de l'Europe" note="Sat 04 May 2019, 20:33&#10;Hotel de Ville 5e" work="3600" duration="3600" start="20190101T000000Z" end="20190101T090000Z" work-start="20190101T080000Z" percent-complete="10" priority="1" type="normal" scheduling="fixed-duration"/>
         <task id="252" name="F&#xEA;te du pain" note="" work="3600" duration="3600" start="20190512T000000Z" end="20190513T090000Z" work-start="20190513T080000Z" percent-complete="40" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20190512T000000Z"/>
@@ -902,47 +902,51 @@
         <task id="259" name="F&#xEA;te du vin" note="" work="3600" duration="3600" start="20191011T000000Z" end="20191011T090000Z" work-start="20191011T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20191011T000000Z"/>
         </task>
+        <task id="260" name="Zombie walk " note="" work="10800" duration="10800" start="20191012T000000Z" end="20191014T110000Z" work-start="20191014T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20191012T000000Z"/>
+        </task>
       </task>
-      <task id="260" name="Photographier Paris, l'exposition gratuite &#xE0; l'H&#xF4;tel de Ville : les photos !&#10;En savoir plugraphier-paris-l-exposition-gratuite-a-l-hotel-de-ville-les-photos#RpFMUeLRpJPHuSK9.99" note="" work="3600" duration="3600" start="20190118T000000Z" end="20190118T090000Z" work-start="20190118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="261" name="Photographier Paris, l'exposition gratuite &#xE0; l'H&#xF4;tel de Ville : les photos !&#10;En savoir plugraphier-paris-l-exposition-gratuite-a-l-hotel-de-ville-les-photos#RpFMUeLRpJPHuSK9.99" note="" work="3600" duration="3600" start="20190118T000000Z" end="20190118T090000Z" work-start="20190118T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
         <constraint type="must-start-on" time="20190118T000000Z"/>
       </task>
-      <task id="261" name="Parc" note="" work="39600" start="20190216T000000Z" end="20190906T120000Z" work-start="20190218T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="262" name="Hokey" note="" work="14400" start="20190216T000000Z" end="20190218T083320Z" work-start="20190218T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
+      <task id="262" name="Parc" note="" work="39600" start="20190216T000000Z" end="20190906T120000Z" work-start="20190218T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="263" name="Hokey" note="" work="14400" start="20190216T000000Z" end="20190218T083320Z" work-start="20190218T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
           <constraint type="must-start-on" time="20190216T000000Z"/>
         </task>
-        <task id="263" name="Etude" note="" work="10800" duration="10800" start="20190607T000000Z" end="20190607T110000Z" work-start="20190607T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="264" name="Etude" note="" work="10800" duration="10800" start="20190607T000000Z" end="20190607T110000Z" work-start="20190607T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190607T000000Z"/>
         </task>
-        <task id="264" name="Parc" note="" work="14400" duration="14400" start="20190906T000000Z" end="20190906T120000Z" work-start="20190906T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="265" name="Parc" note="" work="14400" duration="14400" start="20190906T000000Z" end="20190906T120000Z" work-start="20190906T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20190906T000000Z"/>
         </task>
       </task>
-      <task id="265" name="Spectacles" note="" work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="266" name="Spectacles" note="" work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
     </task>
   </tasks>
   <resource-groups>
-    <group id="1" name="Admin" admin-name="" admin-phone="" admin-email=""/>
-    <group id="2" name="Programming" admin-name="" admin-phone="" admin-email=""/>
-    <group id="3" name="Asso" admin-name="" admin-phone="" admin-email=""/>
-    <group id="4" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
-    <group id="5" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
-    <group id="6" name="Culture" admin-name="" admin-phone="" admin-email=""/>
+    <group id="1" name="Culture" admin-name="" admin-phone="" admin-email=""/>
+    <group id="2" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
+    <group id="3" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
+    <group id="4" name="Asso" admin-name="" admin-phone="" admin-email=""/>
+    <group id="5" name="Programming" admin-name="" admin-phone="" admin-email=""/>
+    <group id="6" name="Admin" admin-name="" admin-phone="" admin-email=""/>
   </resource-groups>
   <resources>
-    <resource group="1" id="1" name="Pedestrian / Pi&#xE9;ton" short-name="ppi" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="4" name="Tests" short-name="tes" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="2" id="5" name="Scripting Language" short-name="scl" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="6" name="Opterating Systems" short-name="osy" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="7" name="Associations" short-name="ass" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="8" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="9" name="Utilitaire/Tools 7z" short-name="c7z" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="10" name="Mairie de la ville" short-name="m2v" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="11" name="Devices" short-name="dev" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="12" name="Readings" short-name="rds" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="1" name="Pedestrian / Pi&#xE9;ton" short-name="ppi" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="4" name="Tests" short-name="tes" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="5" id="5" name="Scripting Language" short-name="scl" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="6" name="Opterating Systems" short-name="osy" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="7" name="Associations" short-name="ass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="8" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="9" name="Utilitaire/Tools 7z" short-name="c7z" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="10" name="Mairie de la ville" short-name="m2v" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="11" name="Devices" short-name="dev" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="12" name="Readings" short-name="rds" type="1" units="0" email="" note="" std-rate="0"/>
   </resources>
   <allocations>
+    <allocation task-id="260" resource-id="1" units="33"/>
     <allocation task-id="226" resource-id="1" units="100"/>
     <allocation task-id="225" resource-id="1" units="100"/>
     <allocation task-id="224" resource-id="1" units="100"/>
@@ -1054,7 +1058,7 @@
     <allocation task-id="120" resource-id="1" units="17"/>
     <allocation task-id="18" resource-id="1" units="100"/>
     <allocation task-id="117" resource-id="1" units="20"/>
-    <allocation task-id="262" resource-id="1" units="100"/>
+    <allocation task-id="263" resource-id="1" units="100"/>
     <allocation task-id="249" resource-id="1" units="33"/>
     <allocation task-id="17" resource-id="1" units="13"/>
     <allocation task-id="16" resource-id="1" units="13"/>
@@ -1142,7 +1146,7 @@
     <allocation task-id="119" resource-id="2" units="25"/>
     <allocation task-id="18" resource-id="2" units="100"/>
     <allocation task-id="117" resource-id="2" units="20"/>
-    <allocation task-id="262" resource-id="2" units="100"/>
+    <allocation task-id="263" resource-id="2" units="100"/>
     <allocation task-id="17" resource-id="2" units="13"/>
     <allocation task-id="16" resource-id="2" units="13"/>
     <allocation task-id="15" resource-id="2" units="17"/>
@@ -1256,7 +1260,7 @@
     <allocation task-id="119" resource-id="3" units="25"/>
     <allocation task-id="18" resource-id="3" units="100"/>
     <allocation task-id="117" resource-id="3" units="20"/>
-    <allocation task-id="262" resource-id="3" units="100"/>
+    <allocation task-id="263" resource-id="3" units="100"/>
     <allocation task-id="17" resource-id="3" units="13"/>
     <allocation task-id="16" resource-id="3" units="13"/>
     <allocation task-id="15" resource-id="3" units="17"/>
@@ -1284,7 +1288,7 @@
     <allocation task-id="101" resource-id="4" units="33"/>
     <allocation task-id="100" resource-id="4" units="20"/>
     <allocation task-id="99" resource-id="4" units="17"/>
-    <allocation task-id="264" resource-id="4" units="50"/>
+    <allocation task-id="265" resource-id="4" units="50"/>
     <allocation task-id="98" resource-id="4" units="25"/>
     <allocation task-id="97" resource-id="4" units="20"/>
     <allocation task-id="201" resource-id="4" units="20"/>
@@ -1498,7 +1502,7 @@
     <allocation task-id="119" resource-id="5" units="25"/>
     <allocation task-id="18" resource-id="5" units="100"/>
     <allocation task-id="117" resource-id="5" units="20"/>
-    <allocation task-id="262" resource-id="5" units="100"/>
+    <allocation task-id="263" resource-id="5" units="100"/>
     <allocation task-id="17" resource-id="5" units="13"/>
     <allocation task-id="16" resource-id="5" units="13"/>
     <allocation task-id="15" resource-id="5" units="17"/>
@@ -1558,7 +1562,7 @@
     <allocation task-id="35" resource-id="6" units="13"/>
     <allocation task-id="34" resource-id="6" units="20"/>
     <allocation task-id="33" resource-id="6" units="17"/>
-    <allocation task-id="262" resource-id="6" units="100"/>
+    <allocation task-id="263" resource-id="6" units="100"/>
     <allocation task-id="140" resource-id="7" units="100"/>
     <allocation task-id="89" resource-id="7" units="17"/>
     <allocation task-id="87" resource-id="7" units="13"/>
@@ -1573,17 +1577,18 @@
     <allocation task-id="18" resource-id="7" units="100"/>
     <allocation task-id="137" resource-id="7" units="100"/>
     <allocation task-id="136" resource-id="7" units="100"/>
-    <allocation task-id="262" resource-id="7" units="100"/>
+    <allocation task-id="263" resource-id="7" units="100"/>
     <allocation task-id="17" resource-id="7" units="13"/>
     <allocation task-id="16" resource-id="7" units="13"/>
     <allocation task-id="15" resource-id="7" units="17"/>
     <allocation task-id="135" resource-id="7" units="50"/>
     <allocation task-id="13" resource-id="7" units="14"/>
     <allocation task-id="10" resource-id="7" units="13"/>
+    <allocation task-id="260" resource-id="8" units="33"/>
     <allocation task-id="259" resource-id="8" units="50"/>
     <allocation task-id="237" resource-id="8" units="100"/>
     <allocation task-id="247" resource-id="8" units="100"/>
-    <allocation task-id="264" resource-id="8" units="50"/>
+    <allocation task-id="265" resource-id="8" units="50"/>
     <allocation task-id="236" resource-id="8" units="100"/>
     <allocation task-id="235" resource-id="8" units="100"/>
     <allocation task-id="234" resource-id="8" units="100"/>
@@ -1608,7 +1613,7 @@
     <allocation task-id="122" resource-id="8" units="17"/>
     <allocation task-id="18" resource-id="8" units="100"/>
     <allocation task-id="117" resource-id="8" units="20"/>
-    <allocation task-id="262" resource-id="8" units="100"/>
+    <allocation task-id="263" resource-id="8" units="100"/>
     <allocation task-id="249" resource-id="8" units="33"/>
     <allocation task-id="17" resource-id="8" units="13"/>
     <allocation task-id="16" resource-id="8" units="13"/>
@@ -1619,6 +1624,7 @@
     <allocation task-id="10" resource-id="8" units="13"/>
     <allocation task-id="11" resource-id="8" units="14"/>
     <allocation task-id="12" resource-id="8" units="14"/>
+    <allocation task-id="260" resource-id="10" units="33"/>
     <allocation task-id="259" resource-id="10" units="50"/>
     <allocation task-id="258" resource-id="10" units="50"/>
     <allocation task-id="216" resource-id="10" units="100"/>
@@ -1631,7 +1637,7 @@
     <allocation task-id="244" resource-id="10" units="50"/>
     <allocation task-id="243" resource-id="10" units="50"/>
     <allocation task-id="253" resource-id="10" units="50"/>
-    <allocation task-id="263" resource-id="10" units="100"/>
+    <allocation task-id="264" resource-id="10" units="100"/>
     <allocation task-id="156" resource-id="10" units="20"/>
     <allocation task-id="36" resource-id="10" units="11"/>
     <allocation task-id="252" resource-id="10" units="33"/>
@@ -1640,7 +1646,7 @@
     <allocation task-id="18" resource-id="10" units="100"/>
     <allocation task-id="249" resource-id="10" units="33"/>
     <allocation task-id="14" resource-id="10" units="13"/>
-    <allocation task-id="260" resource-id="10" units="100"/>
+    <allocation task-id="261" resource-id="10" units="100"/>
     <allocation task-id="4" resource-id="10" units="100"/>
     <allocation task-id="114" resource-id="11" units="17"/>
     <allocation task-id="113" resource-id="11" units="17"/>
