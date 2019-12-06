@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* Last Modified : Wed Jun 12 21:21:45 2019
+* @modify date 2019-12-06 09:23:08
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -113,7 +113,7 @@ if ($@){
 		print "No io::MyFileRescue";
 		exit (-1);
 	}
-#	else{ $MyFile="packges::MyFileRescue";}
+	#	else{ $MyFile="packges::MyFileRescue";}
 }
 #print "Content-Type: text/html\n\n";
 #my $timsec=localtime;
@@ -145,8 +145,8 @@ my $furls="urls"; # fichier de sauvegarde urls
 my @month=( "Jan", "Fev", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" );
 my @proc                  = gmtime;
 my $suffix_for_image_file =
-	 $mip
-	. "||";
+$mip
+. "||";
 
 my $fn="album/hist/${mip}";
 
@@ -344,7 +344,7 @@ see sub menu_admin_GoogleMap_ID
 
 - I<Last modification:v1.6.15.105> Aug 17 2015 tests added on geo coordinate format 
 		if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # Begin if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
-		                                               ^^^^
+							       ^^^^
 
 
 - I<Last modification:v1.6.15.80> Jan 20 2015 extra test to avoid user cheating
@@ -491,7 +491,7 @@ Only updates version number datum.
 
 - I<Last modification: v1.4.16.4> Oct 1 2010: see MyUtilities.
 Add unlink for *._.html doc * already done.
- 
+
 - I<Last modification: v1.4.16.2> Oct 1 2010: see MyUtilities.
 
 - I<Last modification: v1.4.16.0> Oct 1 2010: and $main_prog=$0 variable added.
@@ -607,7 +607,7 @@ if( ! -d &io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->() ){mkdir(&io::MyConstantBa
 # This is document which will help to deal with CGI information
 binmode STDOUT, ':utf8';
 print $doc->header(-type => 'text/html',
-	                   -charset => 'utf-8');
+	-charset => 'utf-8');
 
 
 my $timsec=uri_unescape($doc->param("timsec"));
@@ -639,20 +639,20 @@ else{ # Begin else
 
 my $mparam=();
 
-	#my $gurl =();# google url get data time zone name for instance
-	#my $gjson=();# json object return from get with $gurl
-	#my $json_obj = ();# json object
-	#my #$pperl = ();# gjson decoded to perl hash
-	my $mtzg=();# My Time Zone Global
+#my $gurl =();# google url get data time zone name for instance
+#my $gjson=();# json object return from get with $gurl
+#my $json_obj = ();# json object
+#my #$pperl = ();# gjson decoded to perl hash
+my $mtzg=();# My Time Zone Global
 
 # Saving parametters
 foreach my $p ($doc->param){ # Begin foreach my $p ($doc->param)
 	#print ">>>>>>>$p<br>";
 	if($p=~m/^maop\_/){ # Begin if($p=~m/^maop\_/)
 		if($p!~m/^maop_lon$/&&
-		   $p!~m/^maop_lat$/&&
-		   $p!~m/^maop_prog$/&&
-		   $p!~m/^maop_log$/){ # Begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
+			$p!~m/^maop_lat$/&&
+			$p!~m/^maop_prog$/&&
+			$p!~m/^maop_log$/){ # Begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 			my $ull=uri_unescape($doc->param($p));
 			#print "<br>PARAMS-------------->$p:$ull<br>";
 			$mparam.="&$p=".uri_escape($ull);
@@ -664,37 +664,37 @@ $mparam=~s/^\&//;
 #print "oooooooooo>$mparam<br>";
 #exit(1);
 
-	my $url=();
-	my $mltmp=&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(); # my local tmp
-	#print "Content-Type: text/html ; charset=UTF-8\n\n";
-	#print "case 2<br>";exit(1);
-	if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!){ # Begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
-		#print "oooiiiiiiii>case 1-";
-		$url="http://localhost/~sdo/cgi-bin/maop.cgi\?$mparam";
-		#print "*************CHECK******>$url<br>";
-	} # End if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
-	elsif(! defined($mip)||$mip=~m/^$mltmp/||$mip=~m!example2.dev!){ # Begin elsif(! defined($mip)||$mip=~m/^${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL}/||$mip=~m!example2.dev!)
-		#print "iiiiiiii>case 3xxx-";
-		$url="https://$mltmp/~sdo/cgi-bin/maop.cgi\?$mparam";
-		#print "</br>$url<br>";
-		#print "</br>IP---->$mip<br>defined:" . defined($mip) . "<br>${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL} ? match example2.dev :". ($mip=~m!example2.dev!) ."<<br>";
-		#sleep(15);
-		#exit(-1);
-	} # End elsif(! defined($mip)||$mip=~m/^${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL}/||$mip=~m!example2.dev!)
-	else{ # Begin else
-		#print "iiiiiiii>case 2-";
-		$url = 'http';
-		if ("$ENV{HTTPS}" eq "on") {
-			$url .= "s";
-		}
-		$url .= "://";
-		$url.= $ENV{"HTTP_HOST"} . $ENV{REQUEST_URI}. "\?$mparam"; # url where website is hosted
-		$url=~s/album\.cgi/maop\.cgi/;
-	} # End else
-	# ------------------------------------------------------------------------------------------
-	#print "<br>#########################>$url<br>";
+my $url=();
+my $mltmp=&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(); # my local tmp
+#print "Content-Type: text/html ; charset=UTF-8\n\n";
+#print "case 2<br>";exit(1);
+if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!){ # Begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
+	#print "oooiiiiiiii>case 1-";
+	$url="http://localhost/~sdo/cgi-bin/maop.cgi\?$mparam";
+	#print "*************CHECK******>$url<br>";
+} # End if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
+elsif(! defined($mip)||$mip=~m/^$mltmp/||$mip=~m!example2.dev!){ # Begin elsif(! defined($mip)||$mip=~m/^${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL}/||$mip=~m!example2.dev!)
+	#print "iiiiiiii>case 3xxx-";
+	$url="https://$mltmp/~sdo/cgi-bin/maop.cgi\?$mparam";
+	#print "</br>$url<br>";
+	#print "</br>IP---->$mip<br>defined:" . defined($mip) . "<br>${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL} ? match example2.dev :". ($mip=~m!example2.dev!) ."<<br>";
+	#sleep(15);
+	#exit(-1);
+} # End elsif(! defined($mip)||$mip=~m/^${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL}/||$mip=~m!example2.dev!)
+else{ # Begin else
+	#print "iiiiiiii>case 2-";
+	$url = 'http';
+	if ("$ENV{HTTPS}" eq "on") {
+		$url .= "s";
+	}
+	$url .= "://";
+	$url.= $ENV{"HTTP_HOST"} . $ENV{REQUEST_URI}. "\?$mparam"; # url where website is hosted
+	$url=~s/album\.cgi/maop\.cgi/;
+} # End else
+# ------------------------------------------------------------------------------------------
+#print "<br>#########################>$url<br>";
 
-	#exit(0);
+#exit(0);
 
 if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/){ # Begin if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
 	print &my_promptA("<!--<u>part 1 ($logfile):</u> <b></u>$url</b>-->" ."<!-- accordeoniste -->");
@@ -762,12 +762,12 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	# -------- case when local but this case now is rare ----
 	# ---------------------- END ----------------------------
 	# -------------------------------------------------------
-	
+
 	#print "Content-Type: text/html ; charset=UTF-8\n\n";
 	my $t="* <u>($lon)</u> ======== * defined(lon):".((defined($lon)) ? " defined" : " not defined")." <b>=====</b> "
-		."* length(lon)==0: ".((length($lon)==0) ? " length is zero ":" length is not zero ")." <b>=====</b> "
-		."* lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/".(($lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/) ? " not defined for this reg exp " : " defined for this reg exp ")." <b>=====</b> ";
-		print $t;
+	."* length(lon)==0: ".((length($lon)==0) ? " length is zero ":" length is not zero ")." <b>=====</b> "
+	."* lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/".(($lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/) ? " not defined for this reg exp " : " defined for this reg exp ")." <b>=====</b> ";
+	print $t;
 	print &my_promptB("Tests B");
 	#print $c . "<!-- plustot -->";
 	exit(0);
@@ -786,9 +786,9 @@ if($url=~m/$ENV{SERVER_NAME}/){ # Begin if($url=~m/$ENV{SERVER_NAME}/)
 
 # Password for login
 my ( $login, $password )=io::MyUtilities::gets_private_stuff_for_administrator($an_action,
-									       &io::MyConstantBase::PRIVATE_INFO_DIRECTORY->(),
-									       uri_unescape($doc->param("maop_login")),
-									       uri_unescape($doc->param("maop_password")));
+	&io::MyConstantBase::PRIVATE_INFO_DIRECTORY->(),
+	uri_unescape($doc->param("maop_login")),
+	uri_unescape($doc->param("maop_password")));
 
 # We need PID tO make a little security
 my $my_pid=uri_unescape($doc->param('maop_prev_id'));
@@ -801,7 +801,7 @@ chomp($my_pid);
 my $file_conf_to_save="$album_directory/$configuration_file";
 chomp($file_conf_to_save);
 
-	#print "Content-Type: text/html ; charset=UTF-8\n\n";
+#print "Content-Type: text/html ; charset=UTF-8\n\n";
 # That's the service
 my $service=uri_unescape($doc->param("maop_service"));
 chomp(${service});
@@ -890,11 +890,11 @@ my @images_used=(
 	&io::MyConstantBase::DIRECTORY_DEPOSIT->() . "my_lovely_pict.gif",
 	&io::MyConstantBase::DIRECTORY_DEPOSIT->() . "chair1-a.gif",
 	&io::MyConstantBase::DIRECTORY_DEPOSIT->() . "powered.gif"
-	);
+);
 
 my $date_ticket=uri_unescape($doc->param("maop_date"));
 
-	#------------------------------------------------------------------------
+#------------------------------------------------------------------------
 my $mtfn=();# my trip file name
 
 if(-f "$tn"){ # Begin if(-f "$tn")
@@ -1036,25 +1036,25 @@ print $doc->start_head();
 #print "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-15\" />\n";
 print "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n";
 print $doc->meta({
-			-name=>"title",
-			-content=>"Album of pictures/Album photos"
-		})."\n";
+		-name=>"title",
+		-content=>"Album of pictures/Album photos"
+	})."\n";
 print $doc->meta({ 
-			-name=>"description", 
-			-content=>"Album of pictures generated with a script/Album genere avec un script"
-		})."\n" ;
+		-name=>"description", 
+		-content=>"Album of pictures generated with a script/Album genere avec un script"
+	})."\n" ;
 print $doc->meta({ 
-			-name=>"keywords", 
-			-content=>"Merci, Thanks"
-		})."\n" ;
+		-name=>"keywords", 
+		-content=>"Merci, Thanks"
+	})."\n" ;
 #print $doc->meta({ 
-		#-name=>"keywords", 
-		#-content=>"quelque part sur la toile,somewhere on the net, album picture, album photo Sebastien Dorey, mere denis"
-		#}) ;
+#-name=>"keywords", 
+#-content=>"quelque part sur la toile,somewhere on the net, album picture, album photo Sebastien Dorey, mere denis"
+#}) ;
 print $doc->meta({ 
-			-name=>"author", 
-			-content=>"Sebastien DOREY aka shark bait"
-		})."\n" ;
+		-name=>"author", 
+		-content=>"Sebastien DOREY aka shark bait"
+	})."\n" ;
 
 #print "++++===><br />";
 my ($resPing,$ipOk)=(0,0); # stub io::MySec::checksRevIpAdd($mip,io::MySec::getsAllIPReceived); # Checks ping address
@@ -1096,7 +1096,7 @@ my (
 	$grant,				$tag	
 ) = @info_on_picture;
 
-	#my $o=0; print "LIST<br>";foreach (@info_on_picture){ print "<u>$o.</u> $_<br>"; $o++; } print "<br>";
+#my $o=0; print "LIST<br>";foreach (@info_on_picture){ print "<u>$o.</u> $_<br>"; $o++; } print "<br>";
 
 
 #print "<!-- 3 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
@@ -1112,7 +1112,7 @@ if( -f "album/debug_album_DO_NOT_REMOVE"){ # Begin if( -f "album/debug_album_DO_
 	#print "<br />\n---->res ping($resPing,$ipOk) for $mip<br />---$service---<br />";
 } # End if( -f "album/debug_album_DO_NOT_REMOVE")
 use Net::Domain qw(hostname hostfqdn hostdomain);
-         
+
 my @resa=split(/\n/,io::MySec::getsCoordinates(${mip}));# from ip address gets geoloc coordinates
 #print "<!-- 3.3 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 my $l=();
@@ -1149,7 +1149,7 @@ my $locid="$co/$cn/$cr/$ct/$lo/$la";
 	print REC "<br>END < $0 > $tft<br>";
 	close(REC)||die("Error:$!");
 }
-			
+
 if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==0) ) 
 	$user_password=""; # we remove password because of pid and prev pid
 	$password=""; # we remove password because of pid and prev pid
@@ -1168,7 +1168,7 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 		"Entrer le(s) mot(s) (versions Français et Anglais) et &agrave; cot&eacute; son lien pour que ce dernier aparaissent dans le Cyber Album sous forme de lien dans le commentaire. / Enter words to link in message (French, English versions) in order to make links show up in message when Cyber Album is watched.",
 		"Choisir les options de placement. / Choose options for positions.",
 		"Mettre les commentaires. / Write comments."
-		);
+	);
 
 	my $ssection=uri_unescape($doc->param("maop_ssection")) ; # Gets login
 	chomp($ssection);
@@ -1198,10 +1198,10 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 
 				# We use this option in order to make a difference between an image linked to a web site and an image localy uploaded
 				if ( $type_upload eq "Local" ){ # Begin if ($type_upload eq "Local")
-					    # When upload raised a new window with info
-				    #open( W, ">album/dec" ) || error_raised( $doc, "File [$file_conf_to_save] not found!!!" );
-				    #	print W ".";
-				    #	close(W);
+					# When upload raised a new window with info
+					#open( W, ">album/dec" ) || error_raised( $doc, "File [$file_conf_to_save] not found!!!" );
+					#	print W ".";
+					#	close(W);
 					##&raised_upload_window;
 					if(length(uri_unescape($doc->param("maop_file_name_img")))>0){ # Begin if(length(uri_unescape($doc->param("maop_file_name_img")))>0)
 						# watch out case for youtube
@@ -1228,7 +1228,7 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 		else{ # Begin else
 			print "<br />Picture not recorded<br />"
 		} # End else
-		
+
 		# We remove a feature from the list
 		if ( $an_action eq "remove" ){ # Begin if ($an_action eq "remove")
 			print $doc->p( "<br /><br /><br /><br />Picture will be removed from page "
@@ -1242,11 +1242,11 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 
 		&menu_admin_title();
 		&menu_leave_admin;
-		
+
 		print "\n<form action='${main_prog}?maop_service=auth\&maop_upld=ok' method='post' name=\"adminMenu\"  enctype='multipart/form-data'>\n";
 		print "<input type='hidden' name='maop_prev_id' value='$$' />";
 		print "<table width=\"100%\" border=\"0\">\n" . 
-			"<tr>\n<td width=22% bgcolor='#CFD3F6' align='left' valign='top'>\n";
+		"<tr>\n<td width=22% bgcolor='#CFD3F6' align='left' valign='top'>\n";
 
 		# We show the list of pictures that are already taken
 		print &accessToPicture;
@@ -1254,18 +1254,18 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 		print "<td align='left' valign='top' bgcolor='#CFD3F6'>\n";
 
 		print 
-		      $doc->start_table( 
-					{-width=>"100%" , -border=>0},
-		            $doc->Tr(
-			    		[
-					   $doc->td(
-					             { 
-					              -class=>"configuration"
-						     },
-						     "Configure image position"
-						    )
-				        ]
-				      ) ) ; #</tr></table>\n";
+		$doc->start_table( 
+			{-width=>"100%" , -border=>0},
+			$doc->Tr(
+				[
+					$doc->td(
+						{ 
+							-class=>"configuration"
+						},
+						"Configure image position"
+					)
+				]
+			) ) ; #</tr></table>\n";
 		&admin_menu( "Set position of the image in compartment", "Set position of the text from the image in compartment" );
 		print $doc->br() . $doc->start_center();
 		&go_back;
@@ -1278,28 +1278,28 @@ if ( ($resPing==0) && ($resAuth==0) ){ # Begin if ( ($resPing==0) && ($resAuth==
 	} # End elsif($ssection=~m/adminPict/)
 } # End if ( ($resPing==0) && ($resAuth==0) )
 elsif ( 
-	    ($resPing==0) && 
+	($resPing==0) && 
 	(${service} eq "auth")
-      ){
-          # Begin elsif (
-	  #              ($resPing==0) && 
-          #              ( $resPing==0 && ${service} eq "auth" )
-	  #             )
+){
+	# Begin elsif (
+	#              ($resPing==0) && 
+	#              ( $resPing==0 && ${service} eq "auth" )
+	#             )
 	print $doc->title("album ${service}");
 	#print "    </head>\n";
 	print $doc->end_head();
 	print "<body onload=\"JavaScript:show()\">\n";
 	&main_menu(
-			"Aide pour l'authentification / Authentication menu help",
-			"Entrer l'identifiant et le mot de passe. / Enter login and password."
-		);
+		"Aide pour l'authentification / Authentication menu help",
+		"Entrer l'identifiant et le mot de passe. / Enter login and password."
+	);
 
 	# We print the main title of authentication menu
 	&auth_menu;
 } # End elsif (
-  #              (io::MyNav::checksRevIpAdd("${mip}")==0) && 
-  #              ( $resPing==0 && ${service} eq "auth" )
-  #             )
+#              (io::MyNav::checksRevIpAdd("${mip}")==0) && 
+#              ( $resPing==0 && ${service} eq "auth" )
+#             )
 elsif ( ${service} eq "showPict" ){ # Begin elsif ( ${service} eq "showPict" )
 	# shows picture enlarged
 	my $separator=uri_unescape($doc->param("maop_comments"));
@@ -1317,20 +1317,20 @@ elsif ( ${service} eq "showPict" ){ # Begin elsif ( ${service} eq "showPict" )
 	} # End if("$authorized" eq "ok")
 } # End elsif ( ${service} eq "showPict" )
 else { # Begin else 
-#print "<!-- 5 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
+	#print "<!-- 5 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 	my $u="";
 	my $locpa=((uri_unescape($doc->param("maop_page"))=~m/[0-9]+/) ? uri_unescape($doc->param("maop_page")) : 1 );
 
 	&create_dir;# Creates infrastructure directories,...
 	# We create a directory if it does not exists
-#print "<!-- 94111115 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
+	#print "<!-- 94111115 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 	my ($a,$main_page)=&print_page;
-#print "<!-- 44111115 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
+	#print "<!-- 44111115 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 	#print $doc->script( { -language => "javascript" ,
 	print "<script language=\"javascript\" type=\"text/javascript\" >";
 	print "//<![CDATA[\nfunction listOfPages(){\n".'document.write("' . $a . '");'."\n}\n//]]>\n".
-	      "\n</script>\n" . $doc->title("album's page ".uri_unescape($doc->param('maop_googid'))) ; 
-#	) .
+	"\n</script>\n" . $doc->title("album's page ".uri_unescape($doc->param('maop_googid'))) ; 
+	#	) .
 	#$doc->end_head() .
 	#print "\n</script>";
 	print "</head>";
@@ -1338,7 +1338,7 @@ else { # Begin else
 	#&create_dir;# Creates infrastructure directories,...
 	#print "<!-- 2111115 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 	&main_help_menu_css("$u");
-#print "<!-- 1111115 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
+	#print "<!-- 1111115 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 	print $main_page;
 	my $oppp=io::MyTime::gets_formated_date;
 	my $llll_l="";
@@ -1370,13 +1370,13 @@ else { # Begin else
 #&showsStats;
 #print "zzzzzzzzzzzzzzzzzz<br />";
 print "<br /><br />" . io::MyUtilities::footer($doc, 
-						 &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "powered.gif",
-						 &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "jangada.gif",
-						 "http://www.perl.org",
-						 ALBUM_VERSION,
-						 &io::MyConstantBase::TESTED_WITH_BROWSERS->(),
-						 &io::MyConstantBase::HOSTED_BY->(),
-						 &io::MyConstantBase::HOSTED_BY_URL->());
+	&io::MyConstantBase::DIRECTORY_DEPOSIT->() . "powered.gif",
+	&io::MyConstantBase::DIRECTORY_DEPOSIT->() . "jangada.gif",
+	"http://www.perl.org",
+	ALBUM_VERSION,
+	&io::MyConstantBase::TESTED_WITH_BROWSERS->(),
+	&io::MyConstantBase::HOSTED_BY->(),
+	&io::MyConstantBase::HOSTED_BY_URL->());
 print <<EE;
 </div>
 
@@ -1649,7 +1649,7 @@ sub print_pictures { # Begin print_pictures
 	my ( $french, $english )=split( /SEPARATOR/, $comment );
 	my (@stat_img)=stat $img;
 
-print "<!-- 22221 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
+	print "<!-- 22221 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 
 	$french=&switch_from_a_specified_tag_to_characters($french);
 	$english=&switch_from_a_specified_tag_to_characters($english);
@@ -1662,7 +1662,7 @@ print "<!-- 22221 https://developer.mozilla.org/en/User_Agent_Strings_Reference 
 		print "<br />/<br /><font color='#822942'>Picture unreachable</font>\n";
 	}
 	print "</center>\n";
-print "<!-- 22221 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
+	print "<!-- 22221 https://developer.mozilla.org/en/User_Agent_Strings_Reference    -->\n";
 	print "<script  language=\"javascript\" type=\"text/javascript\">\n";
 	print "   document.write(\"<br /><p style='font-size: 10pt; font-weight: lighter; font-style: oblique;'>\");\n";
 
@@ -2021,8 +2021,8 @@ sub menu_page_title { # Begin menu_page_title
 	my ( $title, $num_page )=@_;
 
 	return $doc->center(
-				"<h1>$title<br/>\n$num_page</h1>"
-				) . "<br /><br />" ;
+		"<h1>$title<br/>\n$num_page</h1>"
+	) . "<br /><br />" ;
 } # End sub menu_page_title
 
 =head1 sub menu_admin_title(...)
@@ -2154,34 +2154,34 @@ sub admin_menu { # Begin admin_menu
 		foreach my $l_title (@line_title){ # Begin foreach @line_title
 			print "<tr>\n<td align='left' valign='top'>\n";
 			&manage_position( 
-						(&number_of_pages),
-						$l_title ,
-						( # position of image
-							(length($modify_valign)==0) ?
-								uri_unescape($doc->param("maop_vertical")):
-								$modify_valign
-						),
-						( # position of image
-							(length($modify_halign)==0) ?
-								uri_unescape($doc->param("maop_horizontal")):
-								$modify_halign
-						),
-						( # position of text from image (separated compartment)
-							(length($modify_position_from_the_image)==0) ?	
-								uri_unescape($doc->param("maop_Set_position_of_the_text_from_the_image_in_compartment")): 
-								$modify_position_from_the_image
-						),
-						( # position of text in its compartment
-							(length($modify_vertical_text)==0) ?
-								uri_unescape($doc->param("maop_vertical_text")):
-								$modify_vertical_text
-						),
-						(
-							(length($modify_horizontal_text)==0) ?
-								uri_unescape($doc->param("maop_horizontal_text")):
-								$modify_horizontal_text
-						)
-					);
+				(&number_of_pages),
+				$l_title ,
+				( # position of image
+					(length($modify_valign)==0) ?
+					uri_unescape($doc->param("maop_vertical")):
+					$modify_valign
+				),
+				( # position of image
+					(length($modify_halign)==0) ?
+					uri_unescape($doc->param("maop_horizontal")):
+					$modify_halign
+				),
+				( # position of text from image (separated compartment)
+					(length($modify_position_from_the_image)==0) ?	
+					uri_unescape($doc->param("maop_Set_position_of_the_text_from_the_image_in_compartment")): 
+					$modify_position_from_the_image
+				),
+				( # position of text in its compartment
+					(length($modify_vertical_text)==0) ?
+					uri_unescape($doc->param("maop_vertical_text")):
+					$modify_vertical_text
+				),
+				(
+					(length($modify_horizontal_text)==0) ?
+					uri_unescape($doc->param("maop_horizontal_text")):
+					$modify_horizontal_text
+				)
+			);
 			#            &manage_position( (&number_of_pages), $l_title );
 			print "</tr>\n";
 		} # End foreach @line_title
@@ -2191,34 +2191,34 @@ sub admin_menu { # Begin admin_menu
 		foreach my $l_title (@line_title){ # Begin foreach @line_title
 			print "<tr>\n<td align='left' valign='top'>\n";
 			&manage_position( 
-						(&number_of_pages),
-						$l_title ,
-						( # position of image
-							(length($modify_valign)==0) ?
-								uri_unescape($doc->param("maop_vertical")):
-								$modify_valign
-						),
-						( # position of image
-							(length($modify_halign)==0) ?
-								uri_unescape($doc->param("maop_horizontal")):
-								$modify_halign
-						),
-						( # position of text from image (separated compartment)
-							(length($modify_position_from_the_image)==0) ?	
-								uri_unescape($doc->param("maop_Set_position_of_the_text_from_the_image_in_compartment")): 
-								$modify_position_from_the_image
-						),
-						( # position of text in its compartment
-							(length($modify_vertical_text)==0) ?
-								uri_unescape($doc->param("maop_vertical_text")):
-								$modify_vertical_text
-						),
-						(
-							(length($modify_horizontal_text)==0) ?
-								uri_unescape($doc->param("maop_horizontal_text")):
-								$modify_horizontal_text
-						)
-					);
+				(&number_of_pages),
+				$l_title ,
+				( # position of image
+					(length($modify_valign)==0) ?
+					uri_unescape($doc->param("maop_vertical")):
+					$modify_valign
+				),
+				( # position of image
+					(length($modify_halign)==0) ?
+					uri_unescape($doc->param("maop_horizontal")):
+					$modify_halign
+				),
+				( # position of text from image (separated compartment)
+					(length($modify_position_from_the_image)==0) ?	
+					uri_unescape($doc->param("maop_Set_position_of_the_text_from_the_image_in_compartment")): 
+					$modify_position_from_the_image
+				),
+				( # position of text in its compartment
+					(length($modify_vertical_text)==0) ?
+					uri_unescape($doc->param("maop_vertical_text")):
+					$modify_vertical_text
+				),
+				(
+					(length($modify_horizontal_text)==0) ?
+					uri_unescape($doc->param("maop_horizontal_text")):
+					$modify_horizontal_text
+				)
+			);
 			#            &manage_position( (&number_of_pages), $l_title );
 			print "</tr>\n";
 		} # End foreach @line_title
@@ -2299,17 +2299,17 @@ None.
 sub set_upload { # Begin set_upload
 	if ( $an_action ne "modify" ){ # Begin if ($an_action ne "modify")
 		print "<tr>\n<td>Enter file name to upload from\n" .
-															$doc->popup_menu(
-																	 -name=>'maop_type_of_upload',
-																	 -values=>[
-																			'Local',
-																			'http:/'
-																		  ],
-																	 -defaults=>[
-																			'Local'
-																		    ]
-																       ) .
-															"<td><input type=\"file\" name='maop_file_name_img' size='50' />\n";
+		$doc->popup_menu(
+			-name=>'maop_type_of_upload',
+			-values=>[
+				'Local',
+				'http:/'
+			],
+			-defaults=>[
+				'Local'
+			]
+		) .
+		"<td><input type=\"file\" name='maop_file_name_img' size='50' />\n";
 
 		print "<script language='javascript' type='text/javascript'>\n";
 		print "gti();";
@@ -2537,15 +2537,15 @@ sub manage_position { # Begin manage_position
 		print "<select name='maop_$select_name'>\n";
 		if ($text_position =~ m/Left side of the image/){ # Begin if ($text_position =~ m/Left side of the image/)
 			print 
-				"<option selected>Left side of the image</option>\n" .
-				"<option>Right side of the image</option>\n" .
-				"</select></tr>\n";
+			"<option selected>Left side of the image</option>\n" .
+			"<option>Right side of the image</option>\n" .
+			"</select></tr>\n";
 		} # End if ($text_position =~ m/Left side of the image/)
 		else { # Begin else
 			print 
-				"<option selected>Right side of the image</option>\n" .
-				"<option>Left side of the image</option>\n" .
-				"</select></tr>\n";
+			"<option selected>Right side of the image</option>\n" .
+			"<option>Left side of the image</option>\n" .
+			"</select></tr>\n";
 		} # End else
 		print "<tr>\n<td align='left' valign='top'>${image_vertical}--- Vertical ";
 		print "<select name='maop_vertical_text'>\n";
@@ -2662,7 +2662,7 @@ sub set_select_tag { # Begin set_select_tag
 	chomp($val1);
 	chomp($val2);
 
-#	print "$val1 === $val2";
+	#	print "$val1 === $val2";
 	return (($val2=~m/$val1/i) ? " selected" : "");
 } # End sub set_select_tag
 
@@ -2722,13 +2722,13 @@ None.
 sub auth_menu { # Begin auth_menu
 	my $color='red';
 	print $doc->br
-		. &menu_page_title(
-			"Bienvenue sur l'album photos<br /><font color='blue'>Welcome to the album of pictures</font>",
-			"Authentifiez vous pour administrer l'album photos" . $doc->br . "\n" .
-			"<font color='blue'>Authenticate to administrate the album of pictures</font>", 
-			"\n" .
-			ALBUM_VERSION
-			);
+	. &menu_page_title(
+		"Bienvenue sur l'album photos<br /><font color='blue'>Welcome to the album of pictures</font>",
+		"Authentifiez vous pour administrer l'album photos" . $doc->br . "\n" .
+		"<font color='blue'>Authenticate to administrate the album of pictures</font>", 
+		"\n" .
+		ALBUM_VERSION
+	);
 
 	print <<MENU;
 <center>
@@ -2777,12 +2777,12 @@ MENU
 </center>
 MENU
 	print $doc->br
-		. $doc->br
-		. $doc->br
-		. $doc->br
-		. $doc->br
-		. $doc->br
-		. $doc->br;
+	. $doc->br
+	. $doc->br
+	. $doc->br
+	. $doc->br
+	. $doc->br
+	. $doc->br;
 } # End sub auth_menu
 
 
@@ -2966,23 +2966,23 @@ sub record { # Begin record
 			$file_name=~s/height\=\"\d+\"/height\=\"180\"/;
 		}
 		elsif($file_name=~m/\/watch\?/){ # Begin elsif($file_name=~m/www.youtube.com\/watch\?/)
-				my $tmp="<iframe width=\"200\" height=\"180\" src=\"";
-				$file_name=~s/\/watch\?v\=/\/embed\//;
-				$file_name=~s/\&feature\=related//;
-				$file_name.='"';
-				$tmp.=$file_name . " frameborder=\"0\" allowfullscreen></iframe>";
-				#print "<!-- ZOZOZIZOZO $file_name \n\n $tmp -------->";
-				$file_name=$tmp;
+			my $tmp="<iframe width=\"200\" height=\"180\" src=\"";
+			$file_name=~s/\/watch\?v\=/\/embed\//;
+			$file_name=~s/\&feature\=related//;
+			$file_name.='"';
+			$tmp.=$file_name . " frameborder=\"0\" allowfullscreen></iframe>";
+			#print "<!-- ZOZOZIZOZO $file_name \n\n $tmp -------->";
+			$file_name=$tmp;
 		} # End elsif($file_name=~m/www.youtube.com\/watch\?/)
 	} # End if($file_name=~m/www.youtube.com/)
-	
+
 	print $doc->p( "<br /><br /><br /><br />Information recorded. granted:  $grantPicture" .  $doc->br );
 
 	if ( uri_unescape($doc->param("maop_Set_page_position_in_the_album")) eq "" ){ # Begin if (uri_unescape($doc->param("maop_Set_page_position_in_the_album")) eq "" )
 		error_raised( $doc,
-		"No page position set in the previous menu here is the value ["
-		. uri_unescape($doc->param("maop_Set_page_position_in_the_album"))
-		. "]" );
+			"No page position set in the previous menu here is the value ["
+			. uri_unescape($doc->param("maop_Set_page_position_in_the_album"))
+			. "]" );
 	} # End if (uri_unescape($doc->param("maop_Set_page_position_in_the_album")) eq "" )
 
 	# We check if file has the following format
@@ -3070,7 +3070,7 @@ sub record { # Begin record
 		$file_name_saved_at_server_side=~s!\_!\&\#95;!g;
 		#	print "<br />hhhhhhhhhhhhhhhhhhhh)". $file_name_saved_at_server_side ."(eeeeeeeeeeee<br />";
 		$file_name=~s!\_!\&\#95;!g;
-		
+
 		my $obj=();
 		if($file_name!~m!www.youtube.com!i){ # Begin if($file_name!~m!www.youtube.com!i)
 			$obj="${suffix_for_image_file}$file_name_saved_at_server_side";
@@ -3078,33 +3078,33 @@ sub record { # Begin record
 		else{ # Begin else
 			$obj="${suffix_for_image_file}${file_name}";
 		} # End else
-		
-                #print "before --------------------->file name:$obj<br>";
+
+		#print "before --------------------->file name:$obj<br>";
 		if($commFr=~m!http://www.youtube.com!){$obj=();}
 		if($commEng=~m!http://www.youtube.com!){$obj=();}
-                #print "after --------------------->file name:$obj<br>";
+		#print "after --------------------->file name:$obj<br>";
 		my $line_pos=$page_position_in_album . "||"
-			. $obj . "||" 
-			. $valign . "||"
-			. $halign . "||"
-			. &switch_from_a_specified_character_to_tag($commFr)
-			. "||"
-			. &switch_from_a_specified_character_to_tag($commEng)
-			. "||"
-			. $horizontal_text . "||"
-			. $vertical_text . "||"
-			. uri_unescape($doc->param( "maop_Set_position_of_the_text_from_the_image_in_compartment"))
-			. "||" . "("
-			. uri_unescape($doc->param("maop_name_to_link")) . ","
-			. uri_unescape($doc->param("maop_link")) . ")" . ";" . "("
-			. uri_unescape($doc->param("maop_name_to_link_eng")) . ","
-			. uri_unescape($doc->param("maop_link_eng")) . ")"
-			. "||$grantPicture"
-			. "||" . uri_unescape($doc->param("maop_youtubeln"));
+		. $obj . "||" 
+		. $valign . "||"
+		. $halign . "||"
+		. &switch_from_a_specified_character_to_tag($commFr)
+		. "||"
+		. &switch_from_a_specified_character_to_tag($commEng)
+		. "||"
+		. $horizontal_text . "||"
+		. $vertical_text . "||"
+		. uri_unescape($doc->param( "maop_Set_position_of_the_text_from_the_image_in_compartment"))
+		. "||" . "("
+		. uri_unescape($doc->param("maop_name_to_link")) . ","
+		. uri_unescape($doc->param("maop_link")) . ")" . ";" . "("
+		. uri_unescape($doc->param("maop_name_to_link_eng")) . ","
+		. uri_unescape($doc->param("maop_link_eng")) . ")"
+		. "||$grantPicture"
+		. "||" . uri_unescape($doc->param("maop_youtubeln"));
 		#print "oooo)$line_pos<br />";
 		if($line_pos!~m/^\|\|/){# Begin if($line_pos!~m/^\|\|/)
-				@save_result = (@save_result,$line_pos);
-				@save_result = sort numbers @save_result;
+			@save_result = (@save_result,$line_pos);
+			@save_result = sort numbers @save_result;
 		}# End if($line_pos!~m/^\|\|/)
 	} # End if ($an_action ne "record_modify")
 	else { # Begin else
@@ -3136,22 +3136,22 @@ sub record { # Begin record
 					#print "<br>ooooo><table border=1><tr><td>$_</td></tr></table>"; print "<ooooooooooooooooooo<br>";
 
 					my $l =
-						"$page_position_in_album||$position_in_page||$ipaddr||$file_name||"
-						. uri_unescape($doc->param("maop_vertical")) . "||"
-						. uri_unescape($doc->param("maop_horizontal")) . "||"
-						. uri_unescape($doc->param("maop_lang_French_comment")) . "||"
-						. uri_unescape($doc->param("maop_lang_English_comment")) . "||"
-						. uri_unescape($doc->param("maop_horizontal_text")) . "||"
-						. uri_unescape($doc->param("maop_vertical_text")) . "||"
-						. uri_unescape($doc->param("maop_Set_position_of_the_text_from_the_image_in_compartment")) . "||"
-						. "("
-							. uri_unescape($doc->param("maop_name_to_link")) . "," . uri_unescape($doc->param("maop_link")) 
-						. ")" 
-						. ";"
-						. "("
-							. uri_unescape($doc->param("maop_name_to_link_eng")) . "," . uri_unescape($doc->param("maop_link_eng")) 
-						. ")"
-						. "||$grantPicture||$my_tag";
+					"$page_position_in_album||$position_in_page||$ipaddr||$file_name||"
+					. uri_unescape($doc->param("maop_vertical")) . "||"
+					. uri_unescape($doc->param("maop_horizontal")) . "||"
+					. uri_unescape($doc->param("maop_lang_French_comment")) . "||"
+					. uri_unescape($doc->param("maop_lang_English_comment")) . "||"
+					. uri_unescape($doc->param("maop_horizontal_text")) . "||"
+					. uri_unescape($doc->param("maop_vertical_text")) . "||"
+					. uri_unescape($doc->param("maop_Set_position_of_the_text_from_the_image_in_compartment")) . "||"
+					. "("
+					. uri_unescape($doc->param("maop_name_to_link")) . "," . uri_unescape($doc->param("maop_link")) 
+					. ")" 
+					. ";"
+					. "("
+					. uri_unescape($doc->param("maop_name_to_link_eng")) . "," . uri_unescape($doc->param("maop_link_eng")) 
+					. ")"
+					. "||$grantPicture||$my_tag";
 					if($l!~m/^\|\|/){# Begin if($l!~m/^\|\|/)
 						$_=$l;
 					}# End if($l!~m/^\|\|/)
@@ -3312,16 +3312,16 @@ sub under_construction_prompt { # Begin under_construction_prompt
 	print "<br /><br /><b><a href='${main_prog}?maop_service=auth'  >Administrer le Cyber Album</a></b> /\n";
 	print "<font color='gray42'><b><a href='${main_prog}?maop_service=auth'  >Administrate Cyber Album</a></b></font>\n<br />\n<br />\n";
 	print "<img src='"
-				. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
-				. "under_construction10.gif' alt='y' />\n<br />";
+	. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
+	. "under_construction10.gif' alt='y' />\n<br />";
 	#print "<br />\n<br />\nAller <a href='$url_demo'  >version</a> precedente / <font color='gray42'>Go to previous <a href='$url_demo'  >version</a>.\n</font><br />\n"
-		#. $doc->br
-		#. $doc->br
+	#. $doc->br
+	#. $doc->br
 	print $doc->img( { -src => &io::MyConstantBase::DIRECTORY_DEPOSIT->() . 'powered.gif' } )
-		. $doc->br
-		. "Hosted by "
-		. $doc->a( { -href => &io::MyConstantBase::HOSTED_BY_URL->() }, &io::MyConstantBase::HOSTED_BY->() )
-		. "</center>\n";
+	. $doc->br
+	. "Hosted by "
+	. $doc->a( { -href => &io::MyConstantBase::HOSTED_BY_URL->() }, &io::MyConstantBase::HOSTED_BY->() )
+	. "</center>\n";
 	print "</table>\n";
 	exit(-1);
 } # End sub under_construction_prompt
@@ -3379,12 +3379,12 @@ None.
 sub error_raised_visit { # Begin error_raised_visit
 	my ( $doc, $explaination ) = @_;
 	print $doc->start_html("Error"),
-		$doc->h1("Error"),
-		$doc->p("Your visit was not successful because of the following error: "),
-		$doc->p( $doc->i($explaination) ),
-		$doc->p("<center><img src=\"../img/wheel.gif\" alt='h' /></center><br />"),
-		$doc->p("<a href=\"JavaScript:history.back()\"  >go back</a>"),
-		$doc->end_html;
+	$doc->h1("Error"),
+	$doc->p("Your visit was not successful because of the following error: "),
+	$doc->p( $doc->i($explaination) ),
+	$doc->p("<center><img src=\"../img/wheel.gif\" alt='h' /></center><br />"),
+	$doc->p("<a href=\"JavaScript:history.back()\"  >go back</a>"),
+	$doc->end_html;
 	exit(-1);
 } # End sub error_raised_visit
 
@@ -3460,16 +3460,16 @@ sub shows_page_not_taken_yet { # Begin shows_page_not_taken_yet
 	# read page already saved. Remove from the list page already saved. And print the matrix of page not taken.
 	for ( my $l = 1 ; $l != ( $lmax + 1 ) ; $l++ )
 	{ # Begin for (my $l = 1;$l != ($lmax+1);$l++)
-	for ( my $c = 1 ; $c != ( &io::MyConstantBase::MAX_IMAGES_PER_PAGE->() + 1 ) ; $c++ )
-	{ # Begin for ($c = 1; $c != (&io::MyConstantBase::MAX_IMAGES_PER_PAGE->()+1); $c++)
-	$s .= "$l $c;";
-	} # End for ($c = 1; $c != (&io::MyConstantBase::MAX_IMAGES_PER_PAGE->()+1); $c++)
+		for ( my $c = 1 ; $c != ( &io::MyConstantBase::MAX_IMAGES_PER_PAGE->() + 1 ) ; $c++ )
+		{ # Begin for ($c = 1; $c != (&io::MyConstantBase::MAX_IMAGES_PER_PAGE->()+1); $c++)
+			$s .= "$l $c;";
+		} # End for ($c = 1; $c != (&io::MyConstantBase::MAX_IMAGES_PER_PAGE->()+1); $c++)
 	} # End for (my $l = 1;$l != ($lmax+1);$l++)
 
 	foreach (@save_info){ # Begin foreach (@save_info)
-	@line = split( /\|\|/, $_ ); #save_info
-	$add = $line[0] . " " . $line[1] . ";";
-	$s=~s/$add//;
+		@line = split( /\|\|/, $_ ); #save_info
+		$add = $line[0] . " " . $line[1] . ";";
+		$s=~s/$add//;
 	} # End foreach (@save_info)
 
 	foreach ( split( /\;/, $s ) ){ # Begin foreach (split(/\;/,$s))
@@ -3588,9 +3588,9 @@ sub shows_list_pictures { # Begin shows_list_pictures
 			my $granted=$line[12] ; # granted
 			print "<form action='${main_prog}' method='post'>\n";
 			print "<tr><td valign='top' align='left'>\n<li>"
-				. &switch_from_a_specified_tag_to_characters( ($line[6]=~m!http://www.youtube.com!) ? "<img src='".&io::MyConstantBase::DIRECTORY_DEPOSIT->()."/youtube.gif' alt='q' />" :$line[6] ) . "<br /><font color='#822942'>"
-				. &switch_from_a_specified_tag_to_characters( ($line[7]=~m!http://www.youtube.com!) ? "<img src='".&io::MyConstantBase::DIRECTORY_DEPOSIT->()."/youtube.gif' alt=':' />":$line[7]  )
-				. "</font></li></td>\n";# field 1
+			. &switch_from_a_specified_tag_to_characters( ($line[6]=~m!http://www.youtube.com!) ? "<img src='".&io::MyConstantBase::DIRECTORY_DEPOSIT->()."/youtube.gif' alt='q' />" :$line[6] ) . "<br /><font color='#822942'>"
+			. &switch_from_a_specified_tag_to_characters( ($line[7]=~m!http://www.youtube.com!) ? "<img src='".&io::MyConstantBase::DIRECTORY_DEPOSIT->()."/youtube.gif' alt=':' />":$line[7]  )
+			. "</font></li></td>\n";# field 1
 			print "<td align='center' valign='top'>\n$line[10]</td>\n";# field 2
 			print "<td align='center' valign='top'>\n$line[0]</td>\n";# field 3
 			print "<td align='center' valign='top'>$line[1]</td>\n";#field 4
@@ -3601,12 +3601,12 @@ sub shows_list_pictures { # Begin shows_list_pictures
 				if(&io::MyConstantBase::SHOW_PICTURES_ADMIN->()!=0){ # Begin if(&io::MyConstantBase::SHOW_PICTURES_ADMIN->()!=0)
 					print "<td align='center' valign='middle'>\n";
 					print "<img src='"
-						. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
-						. "$line[3]' width='75'  height='75' alt='xx' />\n</td>";# field 7
+					. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
+					. "$line[3]' width='75'  height='75' alt='xx' />\n</td>";# field 7
 				} # End if(&io::MyConstantBase::SHOW_PICTURES_ADMIN->()!=0)
 				else { # Begin else
 					print "<td align='left' valign='top'>\n";# field 7
-					
+
 					#-------------------------------------
 					# get info from file
 					chdir("../img");
@@ -3622,12 +3622,12 @@ sub shows_list_pictures { # Begin shows_list_pictures
 					chdir("../cgi-bin");
 					print "<u><b>IP/IP:</b></u>$line[2]\n<br />";
 					if($line[3]=~m/www.youtube.com/i){ # Begin if($line[2]=~m/www.youtube.com/i)
-							$line[3]=~s!_!\&\#95;!g;# _ transformed in &#95; because of date format $line[2]
-							$line[3]=~s!'!\&\#39;!g;
-							$line[3]=~s!\"!\&\#34;!g;
-							$line[3]=~s!\<!\&\#60;!g;
-							$line[3]=~s!\>!\&\#62;!g;
-							$line[3]=~s!_!&#95;!g;
+						$line[3]=~s!_!\&\#95;!g;# _ transformed in &#95; because of date format $line[2]
+						$line[3]=~s!'!\&\#39;!g;
+						$line[3]=~s!\"!\&\#34;!g;
+						$line[3]=~s!\<!\&\#60;!g;
+						$line[3]=~s!\>!\&\#62;!g;
+						$line[3]=~s!_!&#95;!g;
 					} # End if($line[2]=~m/www.youtube.com/i)
 					if($line[3]=~m/(jpg|jpeg|gif|png)$/i){ # Begin if($line[3]=~m/(jpg|jpeg|gif|png)$/i)
 						print "<u><b>Img:</b></u>$line[3]\n<br />";
@@ -3644,7 +3644,7 @@ sub shows_list_pictures { # Begin shows_list_pictures
 			if(length($word)>0||length($word_eng)>0){
 				# field 8,9 values
 				print "<td align='center' valign='middle'>\n$word<br /><font color='#822942'>$word_eng</font></td>\n".
-					"<td align='center' valign='middle'>$link<br /><font color='#822942'>$link_eng</font>\n</td>\n";
+				"<td align='center' valign='middle'>$link<br /><font color='#822942'>$link_eng</font>\n</td>\n";
 			} else {
 				# field 8,9 substitute no value
 				print "<td align='center' valign='middle'>\n</td>\n";
@@ -4335,7 +4335,7 @@ sub print_page { # Begin print_page
 				# we get word to link in order to make on screen a link on other web sites. This is done for French and English version.
 				( $word_to_link, $my_link, $word_to_link_eng, $my_link_eng ) =
 				&split_links( $line[11] );
-				
+
 				# that's comments of the picture left or right
 				if ( $word_to_link ne "" && $word_to_link_eng ne "" ){ # Begin if ($word_to_link ne "" && $word_to_link_eng ne "")
 					chomp($my_link);
@@ -4358,8 +4358,8 @@ sub print_page { # Begin print_page
 								$list_page .= " </td><!-- blue jean --></tr><!-- balaaaaa -->\"\n+\"<tr>";
 							} # End if ( ( $line[0] % &io::MyConstantBase::MAX_PAGE_PER_LINE_INDEX->() ) < ( $my_prev % &io::MyConstantBase::MAX_PAGE_PER_LINE_INDEX->() ) )
 							$list_page .= "<td align='center'><a href='${main_prog}?maop_page=$line[0]".
-								"&maop_googid=".uri_unescape($doc->param("maop_googid"))."&maop_gmv=".&io::MyConstantBase::GOOGLE_MAP_SCRIPT_VERSION->(). &io::MyConstantBase::PATH_GOOGLE_MAP_OPT->() .
-								"'>x</a></td><!-- <wwblablablablo -->\"+\n\"";
+							"&maop_googid=".uri_unescape($doc->param("maop_googid"))."&maop_gmv=".&io::MyConstantBase::GOOGLE_MAP_SCRIPT_VERSION->(). &io::MyConstantBase::PATH_GOOGLE_MAP_OPT->() .
+							"'>x</a></td><!-- <wwblablablablo -->\"+\n\"";
 						} # End if ($my_prev != 1)
 						else { #  Begin else 
 							if ( ( $line[0] % &io::MyConstantBase::MAX_PAGE_PER_LINE_INDEX->() ) == 0 ){ # Begin if ( ( $line[0] % &io::MyConstantBase::MAX_PAGE_PER_LINE_INDEX->() ) == 0 )
@@ -4394,20 +4394,20 @@ sub print_page { # Begin print_page
 						if ( $line[10]=~m/left/i ){ # Begin if ($line[10]=~m/left/i)
 							#print "dddddddd: ".(io::MySec::urlsAllowed)[1]." :ddddddddssss$line[2]<br />";
 							$print_my_page_script .=
-										"<tr>\n<td align='$line[8]' valign='$line[9]' width='50\%'> \n$line[6]<br />\n<font color='#822942'>$line[7]</font><br />"
-										."</td>\n<td valign='$line[4]'  align='$line[5]' width='50\%'>";
+							"<tr>\n<td align='$line[8]' valign='$line[9]' width='50\%'> \n$line[6]<br />\n<font color='#822942'>$line[7]</font><br />"
+							."</td>\n<td valign='$line[4]'  align='$line[5]' width='50\%'>";
 							# checks if the user is authorised
 							if((io::MySec::urlsAllowed)[1] eq "ok" ){ # Begin if((io::MySec::urlsAllowed)[1] eq "ok" )
-						#		print "bboboboobooooooo:io::MySec::urlsAllowed)[1]<br />";
-								
+								#		print "bboboboobooooooo:io::MySec::urlsAllowed)[1]<br />";
+
 								if($line[3]!~/.(mp4|3gp|mpeg|mov|dat|mp3|avi|www.youtube.com)$/i){ # Begin if($line[3]!~/.(mp4|3gp|mpeg|mov|dat|mp3|avi)/i)
 									if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i){ # Begin if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
 										$print_my_page_script .= 
-											"\n<!-- momo and toto --><a  href='${main_prog}?maop_service=showPict&maop_pict="
-											. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
-											. "$line[3]&maop_comments="
-											. &switch_from_a_specified_character_to_tag(
-														"$line[6]SEPARATOR$line[7]")
+										"\n<!-- momo and toto --><a  href='${main_prog}?maop_service=showPict&maop_pict="
+										. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
+										. "$line[3]&maop_comments="
+										. &switch_from_a_specified_character_to_tag(
+											"$line[6]SEPARATOR$line[7]")
 										. "'>\n";
 									} # End if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
 									else { # Begin else
@@ -4419,18 +4419,18 @@ sub print_page { # Begin print_page
 							if($line[3]=~/.(mp4|3gp|mpeg|mov|dat|avi)$/i){ # Begin if($line[3]=~/.(mp4|3gp|mpeg|mov|dat|avi)/i)
 								#print "ggggggg<br />";
 								$print_my_page_script .= 
-										  "<embed src='"
-										. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
-										. "$line[3]'  height=360 width=450 border=1 autoplay=false>\n";
+								"<embed src='"
+								. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
+								. "$line[3]'  height=360 width=450 border=1 autoplay=false>\n";
 							} # End if($line[3]=~/.(mp4|3gp|mpeg|mov|dat|avi)/i)
 							else { # Begin else
 								if($line[3]!~/.(mp3)$/i&&$line[3]!~/www.youtube.com/){ # Begin if($line[3]!~/.(mp3)$/i&&$line[3]!~/www.youtube.com/)
 									#print "eeeeeeeeiiiie<br />";	
 									$print_my_page_script .= 
-										  "\n<img src='"
-										. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
-										#. "$line[3]'  height='72' border='0' alt='knn' />\n";
-										. "$line[3]'  height='72' border='0' alt='knn' />\n</td></tr>";
+									"\n<img src='"
+									. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
+									#. "$line[3]'  height='72' border='0' alt='knn' />\n";
+									. "$line[3]'  height='72' border='0' alt='knn' />\n</td></tr>";
 								} # End if($line[3]!~/.(mp3)$/i&&$line[3]!~/www.youtube.com/)
 								elsif($line[3]=~m!www.youtube.com!){ # Begin elsif($line[3]=~m!www.youtube.com!)
 									#print "eeeeeeeeeeeeeeeeeqqqq<br />";
@@ -4439,7 +4439,7 @@ sub print_page { # Begin print_page
 									#$print_my_page_script .= $loca . "<!-- azer qwer -->";
 									$print_my_page_script .= $line[3] . "<!-- azer qwer -->";
 								}# End elsif($line[3]=~m!www.youtube.com!)
-							#print "endend<br />";
+								#print "endend<br />";
 							} # End else
 							if((io::MySec::urlsAllowed)[1] eq "ok" ){ # Begin if((io::MySec::urlsAllowed)[1] eq "ok" )
 								#print "eeeeeeeeeeeeeee<br />";
@@ -4447,77 +4447,77 @@ sub print_page { # Begin print_page
 									$print_my_page_script .= "</a>\n";
 								} # End if($line[3]!~/.(mp4|3gp|mpeg|mov|dat|mp3|avi)$/i)
 								elsif($line[3]=~/.(mp3)$/i){ # Begin if($line[3]=~/.(mp3)$/i)
-							#	    print "tttttttt<br />";
+									#	    print "tttttttt<br />";
 									$print_my_page_script .= 
-												  "<embed src='"
-												. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
-												. "$line[3]'  height=100 width=200 border=0 autoplay=false>\n";
+									"<embed src='"
+									. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
+									. "$line[3]'  height=100 width=200 border=0 autoplay=false>\n";
 								} # End if($line[3]=~/.(mp3)$/i)
 								elsif($line[3]=~m!www.youtube.com!i){# Begin elsif($line[3]=~m!www.youtube.com!)
-							#		print "uuuuuuuuuu$line[3]<br />";
+									#		print "uuuuuuuuuu$line[3]<br />";
 									$print_my_page_script .= $line[3]. "<!-- bobobobobozo le clown -->";
 								}# End elsif($line[3]=~m!www.youtube.com!)
 								$print_my_page_script .= 
-											 &extra_comments("left",
-													"left",
-													$line[0],
-													$line[1],
-													"<p align=left style='font-weight: lighter;font-size: 10pt; font-style: oblique;'>" .
-													&print_date_of_picture_put_on_album($ppj,$date_of_picture_put_on_css,'(stat(&io::MyConstantBase::DIRECTORY_DEPOSIT->() .$line[2]))[9]',$line[12],$line[2],$line[3]) .
-											&print_info_picture((($my_image_per_page == 2) ? 2 :($my_image_per_page)) ,"$line[3]") 
-										       ) ."</td><!-- vouiiiii --></tr>\n";
-									$print_my_page_script .= "</td></tr>";
+								&extra_comments("left",
+									"left",
+									$line[0],
+									$line[1],
+									"<p align=left style='font-weight: lighter;font-size: 10pt; font-style: oblique;'>" .
+									&print_date_of_picture_put_on_album($ppj,$date_of_picture_put_on_css,'(stat(&io::MyConstantBase::DIRECTORY_DEPOSIT->() .$line[2]))[9]',$line[12],$line[2],$line[3]) .
+									&print_info_picture((($my_image_per_page == 2) ? 2 :($my_image_per_page)) ,"$line[3]") 
+								) ."</td><!-- vouiiiii --></tr>\n";
+								$print_my_page_script .= "</td></tr>";
 							} # End if((io::MySec::urlsAllowed)[1] eq "ok" )
 							else{ # Begin else
 								#$print_my_page_script .= "<br />$ppj<!-- date of first time --></td></tr>";
 							} # End else
 							$my_image_per_page += 2;
 						} # End if ($line[scalar(@line)-1]=~m/left/i)
-					else { # Begin else
-						#print "ooooooooooooobabbbbbb$line[2]<br />";
-						$print_my_page_script .= "<tr>\n<td valign='$line[4]'  align='$line[5]' width='50\%'>\n";
-						if($line[3]=~/.(mp4|3gp|mpeg|mov|dat|avi)$/i){# BEGIN if($line[3]=~/.(mp4|3gp|mpeg|mov|dat|avi)$/i)
-							$print_my_page_script .=
-							"<embed src='"
-							. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
-							. "$line[3]'  height=360 width=450 border=0 autoplay=false>\n";
-						} # End if($line[3]=~/.(mp4|3gp|mpeg|mov|dat|avi)$/i)
-						elsif($line[3]=~/.(mp3)$/i){ # Begin if($line[3]=~/.(mp3)/i)
+						else { # Begin else
+							#print "ooooooooooooobabbbbbb$line[2]<br />";
+							$print_my_page_script .= "<tr>\n<td valign='$line[4]'  align='$line[5]' width='50\%'>\n";
+							if($line[3]=~/.(mp4|3gp|mpeg|mov|dat|avi)$/i){# BEGIN if($line[3]=~/.(mp4|3gp|mpeg|mov|dat|avi)$/i)
+								$print_my_page_script .=
+								"<embed src='"
+								. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
+								. "$line[3]'  height=360 width=450 border=0 autoplay=false>\n";
+							} # End if($line[3]=~/.(mp4|3gp|mpeg|mov|dat|avi)$/i)
+							elsif($line[3]=~/.(mp3)$/i){ # Begin if($line[3]=~/.(mp3)/i)
 								$print_my_page_script .= 
-										  "<embed src='"
-										. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
-										. "$line[3]'  height=100 width=200 border=0 autoplay=false>\n";
-						} # End if($line[3]=~/.(mp3)/i)
-						elsif($line[3]=~/www.youtube.com/i){ # Begin if($line[3]=~/www.youtube.com/i)
-	#print "=============>$line[2]<br />";
-							my ($loca)=$line[3];
-	#print "OOOOOOOO>$loca<br />";
-							$print_my_page_script.=$loca;
-						}  # End if($line[3]=~/www.youtube.com/i)
-						else { # BEGIN else
-							if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i){ # Begin if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
-								if((io::MySec::urlsAllowed)[1] eq "ok" ){ # Begin if((io::MySec::urlsAllowed)[1] eq "ok" )
-									$print_my_page_script.="<a   href='${main_prog}?maop_service=showPict&maop_pict="
+								"<embed src='"
+								. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
+								. "$line[3]'  height=100 width=200 border=0 autoplay=false>\n";
+							} # End if($line[3]=~/.(mp3)/i)
+							elsif($line[3]=~/www.youtube.com/i){ # Begin if($line[3]=~/www.youtube.com/i)
+								#print "=============>$line[2]<br />";
+								my ($loca)=$line[3];
+								#print "OOOOOOOO>$loca<br />";
+								$print_my_page_script.=$loca;
+							}  # End if($line[3]=~/www.youtube.com/i)
+							else { # BEGIN else
+								if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i){ # Begin if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
+									if((io::MySec::urlsAllowed)[1] eq "ok" ){ # Begin if((io::MySec::urlsAllowed)[1] eq "ok" )
+										$print_my_page_script.="<a   href='${main_prog}?maop_service=showPict&maop_pict="
 										. &io::MyConstantBase::DIRECTORY_DEPOSIT->()
 										. "$line[3]&maop_comments="
 										. &switch_from_a_specified_character_to_tag(
-										"$line[6]SEPARATOR$line[7]")
+											"$line[6]SEPARATOR$line[7]")
 										. "'>\n";
-								} # End if((io::MySec::urlsAllowed)[1] eq "ok" )
-								$print_my_page_script .= "<img src='" . &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "$line[3]'  height='72'  border='0' alt='oook' />\n" ;
-								if((io::MySec::urlsAllowed)[1] ne "ok" ){ # Begin if((io::MySec::urlsAllowed)[1] ne "ok" )
-									#$print_my_page_script .= "<br />$ppj<!-- date of first time -->" ;
-								}
+									} # End if((io::MySec::urlsAllowed)[1] eq "ok" )
+									$print_my_page_script .= "<img src='" . &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "$line[3]'  height='72'  border='0' alt='oook' />\n" ;
+									if((io::MySec::urlsAllowed)[1] ne "ok" ){ # Begin if((io::MySec::urlsAllowed)[1] ne "ok" )
+										#$print_my_page_script .= "<br />$ppj<!-- date of first time -->" ;
+									}
 
-								if((io::MySec::urlsAllowed)[1] eq "ok" ){ # Begin if((io::MySec::urlsAllowed)[1] eq "ok" )
-									$print_my_page_script.="</a>\n";
-								} # End if((io::MySec::urlsAllowed)[1] eq "ok" )
-							} # End if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
-							else{ # Begin else
-								$print_my_page_script .= "<!-- clearfield -->\n" ;
+									if((io::MySec::urlsAllowed)[1] eq "ok" ){ # Begin if((io::MySec::urlsAllowed)[1] eq "ok" )
+										$print_my_page_script.="</a>\n";
+									} # End if((io::MySec::urlsAllowed)[1] eq "ok" )
+								} # End if( $line[3]!~m!www.youtube.com!i && $line[3]!~m!iframe!i)
+								else{ # Begin else
+									$print_my_page_script .= "<!-- clearfield -->\n" ;
+								} # End else
 							} # End else
-						} # End else
-						$print_my_page_script .=
+							$print_my_page_script .=
 							&extra_comments("left",
 								"left",
 								$line[0],
@@ -4526,15 +4526,15 @@ sub print_page { # Begin print_page
 								&print_date_of_picture_put_on_album($ppj,$date_of_picture_put_on_css,(stat(&io::MyConstantBase::DIRECTORY_DEPOSIT->() .$line[3]))[9],$line[12]," ",$line[2],$line[3]) .
 								&print_info_picture((($my_image_per_page==2 ) ? 2 :($my_image_per_page)),"$line[3]") .
 								"</p>"
-						       )
+							)
 							."</td><td align='$line[8]' valign='$line[9]' width='50\%'>".
-((length($line[6])>0||length($line[7])>0) ? "\n$line[6]<br />\n<font color='#822942'>$line[7]</font>\n" : "")  . "</td><!-- Burette et tout ce qu'il faut --></tr>\n";
+							((length($line[6])>0||length($line[7])>0) ? "\n$line[6]<br />\n<font color='#822942'>$line[7]</font>\n" : "")  . "</td><!-- Burette et tout ce qu'il faut --></tr>\n";
 							$my_image_per_page += 2;
 						} # End else
 					} # End if("$authorized" eq "ok") 
 					else { # Begin else
 						#$print_my_page_script .= "<tr><td><br />\nNe peut être vu de $locip / <font color='#822942'>Cannot be seen from $locip</font></td></tr>\n";
-			#			$print_my_page_script .= "<tr><td><br /> <table><tr><td>\n<!--<img src=\"". &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "/sorry.jpg\" > -->\n</td><td valign=middle align=left><!--La photo ne peut être vue de cette machine <br />\n<font color='#822942'> This picture cannot be seen from this machine</font> --></td></tr></table></td></tr>\n";
+						#			$print_my_page_script .= "<tr><td><br /> <table><tr><td>\n<!--<img src=\"". &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "/sorry.jpg\" > -->\n</td><td valign=middle align=left><!--La photo ne peut être vue de cette machine <br />\n<font color='#822942'> This picture cannot be seen from this machine</font> --></td></tr></table></td></tr>\n";
 						$my_image_per_page += 2;
 					} # End else
 				} # End if ($page_asked eq $line[0])
@@ -4560,87 +4560,87 @@ sub print_page { # Begin print_page
 	# ------------------------------------------
 
 	my $page_result=
-		$doc->br . $doc->br . $doc->table(
+	$doc->br . $doc->br . $doc->table(
 		{
-		-border => 0,
-		-width  => "100%"
+			-border => 0,
+			-width  => "100%"
 		},
 		"\n",
 		$doc->Tr(
-		$doc->td(
-			{ -bgcolor => '#CFD3F6' },
-			"\n",
-			$doc->table(
-				{
-				-width  => "100%",
-				-border => 0
-				},
+			$doc->td(
+				{ -bgcolor => '#CFD3F6' },
 				"\n",
-				$doc->Tr(
-				$doc->td(
-				{
-				    -valign => "top",
-				    -align  => "left",
-				    -width  => "48%",
-				},
-				[$navigator_menu]
-				),
-				"\n",
-				$doc->td(
+				$doc->table(
 					{
-					    -align => 'center',
-					    #										-bgcolor => '#F7C5C5'
-					},"\n",
+						-width  => "100%",
+						-border => 0
+					},
+					"\n",
+					$doc->Tr(
+						$doc->td(
+							{
+								-valign => "top",
+								-align  => "left",
+								-width  => "48%",
+							},
+							[$navigator_menu]
 						),
-				"\n",
-				$doc->td(
-					{
-					    -align  => 'right',
-					    -valign => 'top',
-					} , $allow , "\n"
-				), "\n"
-				), # End of one line
-				"\n"
+						"\n",
+						$doc->td(
+							{
+								-align => 'center',
+								#										-bgcolor => '#F7C5C5'
+							},"\n",
+						),
+						"\n",
+						$doc->td(
+							{
+								-align  => 'right',
+								-valign => 'top',
+							} , $allow , "\n"
+						), "\n"
+					), # End of one line
+					"\n"
 				)
 			) # End of one column
-			)
-			)
-			. "\n"
-			. $doc->table(
+		)
+	)
+	. "\n"
+	. $doc->table(
+		{
+			-border => 0,
+			-class => "xxx",
+			-width  => "100%"
+		},
+		"\n",
+		$doc->Tr(
+			$doc->td(
 				{
-					-border => 0,
-					-class => "xxx",
-					-width  => "100%"
-				},
-				"\n",
-			$doc->Tr(
-				$doc->td(
-					{
 					-align  => 'center',
 					-valign => 'middle',
 					-bgcolor => '#B4C4BD'
-					},
-					&menu_page_title( "Bienvenue sur l'album photos<br /><font color='$rtrip'>Welcome to the album of pictures</font>", "Merci d'&ecirc;tre pass&eacute;.<br /><font color='$rtrip'>Thanks for your visiting.</font>")
-				),
-				"\n"
+				},
+				&menu_page_title( "Bienvenue sur l'album photos<br /><font color='$rtrip'>Welcome to the album of pictures</font>", "Merci d'&ecirc;tre pass&eacute;.<br /><font color='$rtrip'>Thanks for your visiting.</font>")
 			),
-			"\n",
-			$doc->Tr(
-				$doc->td(
-					{
-						-align  => 'center',
-						-valign => 'middle'
-					},
-					$doc->br,
-					$doc->br,
-					$doc->br,
-					$print_my_page_script,
-					"\n"
-					)
-				),
 			"\n"
+		),
+		"\n",
+		$doc->Tr(
+			$doc->td(
+				{
+					-align  => 'center',
+					-valign => 'middle'
+				},
+				$doc->br,
+				$doc->br,
+				$doc->br,
+				$print_my_page_script,
+				"\n"
 			)
-		. $print_my_page_script_head
+		),
+		"\n"
+	)
+	. $print_my_page_script_head
 	;
 	return ($list_page,$page_result);
 } # End sub print_page
@@ -4918,43 +4918,43 @@ sub create_table_for_navigator { # Begin create_table_for_navigator
 					"\n",
 					$doc->Tr(
 						$doc->td(
-						{
-							-align  => 'left',
-							-valign => 'top'
-						},
-						#($_[0]=~m/[A-Z0-9]*/i) ? "$_[0]" : ""
+							{
+								-align  => 'left',
+								-valign => 'top'
+							},
+							#($_[0]=~m/[A-Z0-9]*/i) ? "$_[0]" : ""
 							($_[0]=~m/[A-Z0-9]*/i) ? "" : ""
 						),
 						"\n",
 						$doc->td(
-						{
-							-align  => 'left',
-							-valign => 'top'
-						},
+							{
+								-align  => 'left',
+								-valign => 'top'
+							},
 							#"$_[1]"
 							($_[1]=~m/[A-Z0-9]*/i) ? "$_[1]" : ""
 						),
 						"\n",
 						$doc->td(
-						{
-							-align  => 'left',
-							-valign => 'top'
-						},
+							{
+								-align  => 'left',
+								-valign => 'top'
+							},
 							#"$_[2]"
 							($_[2]=~m/[A-Z0-9]*/i) ? "$_[2]" : ""
 						),
 						"\n",
 						$doc->td(
-						{
-							-align  => 'left',
-							-valign => 'top'
-						},
+							{
+								-align  => 'left',
+								-valign => 'top'
+							},
 							($_[3]=~m/[A-Z0-9]*/i) ? "$_[3]" : ""
 						),
 						"\n",
-						),
-					"\n"
 					),
+					"\n"
+				),
 				"\n"
 			),
 			"\n"
@@ -5015,11 +5015,11 @@ None.
 
 sub cascade_style_sheet_definition { # Begin cascade_style_sheet_definition
 	return &javaScript($_[0]) . "\n".
-		$doc->style({ -type=>'text/css' },
+	$doc->style({ -type=>'text/css' },
 		"\n/*<![CDATA[*/\n<!--\n" . 
 		&general_css_def
 		. "-->\n/*]]>*/"
-		);
+	);
 } # End sub cascade_style_sheet_definition
 
 =head1 sub javaScript(...)
@@ -5363,203 +5363,203 @@ None.
 
 sub general_css_def { # Begin general_css_def
 	return "body {\n"
-		. "color: #07396E;\n"
-		. "font-family: Courier New;\n"
-		. "}\n"
-		. "dl {\n"
-		. "display: block;\n"
-		. "width: 100%;\n"
-		. "}\n"
-		. "dt {\n"
-		. "float: left;\n"
-		. "text-align: center;\n"
-		. "border: 1px solid;\n"
-		. "background-color: #BEC3E5;\n"
-		. "width: 14em;\n"
-		. "height: 2em;\n"
-		. "padding-top: 0.25em;\n"
-		. "}\n"
-		. "dd {\n"
-		. "display: none;\n"
-		. "margin: 2.0;\n"
-		. "height: 12;\n"
-		. "}\n"
-		. "font.footer {\n"
-		. "font-size: 12.0px;\n"
-		. "font-style: italic;\n"
-		. "}\n"
-		. "P.footer {\n"
-		. "border-width: 1;\n"
-		. "border: double;\n"
-		. "border-color: blue;\n"
-		. "background-color: #E5E3FF;\n"
-		. "font-family: Courier New;\n"
-		. "}\n"
-		. "ul.main_menu {\n"
-		. "text-align: left;\n"
-		. "background-color: #ABAFCE;\n"
-		. "color: black;\n"
-		. "border-color: #807CA5;\n"
-		. "color: black;\n"
-		. "}\n"
-		. "#myDemo {\n"
-		. "color: black;\n"
-		. "margin-top: 0px;\n"
-		. "padding: 5px;\n"
-		. "background: grey;\n"
-		. "width: 500px;\n"
-		. "font-size: 12px;\n"
-		#. "height: 200px;\n"
-		. "position: absolute;\n"
-		. "left: 500px;\n"
-		. "top: 100px;\n"
-		. "border-width:1px;\n"
-		. "border-style: double;\n"
-		. "border-radius: 25px;\n"
-		. "z-index: 24;\n"
-		. "}\n"
-		. "#paragHeader{\n"
-		. "position: relative;\n"
-		#. "border-radius: 25px;\n"
-		#. "top: 0px;\n"
-		. "background: green;\n"
-		. "height: 15%;\n"
-		. "width: 100% 15%;\n"
-		. "}\n"
-		. "div.paragBody{\n"
-		. "position: relative;\n"
-		#. "color: yellow;\n"
-		. "}\n"
-		. "li {\n"
-		. "margin-left: 2px;\n"
-		. "display: inline;\n"
-		. "}\n". "li.help_menu_content {\n".
-		"color: red;\n"
-		. "}\n"
-		. "b.taken {\n"
-		. "color: red;\n"
-		. "}\n"
-		. "table.footer {\n"
-		. "font-size: 12px;\n"
-		. "text-align: right;\n"
-		. "color: black;\n"
-		. "background-color: #D2D2FF;\n"
-		. "border: double;\n"
-		. "border-color: blue;\n"
-		. "}\n"
-		. "table.main_auth {\n"
-		. "text-align: right;\n"
-		. "background-color: #D2D2FF;\n"
-		. "color: black;\n"
-		. "font-weight: bolder;\n"
-		. "border: double;\n"
-		. "border-color: #807CA5;\n"
-		. "}\n"
-		. "table.auth {\n"
-		. "text-align: right;\n"
-		. "background-color: #D8D7FF;\n"
-		. "color: black;\n"
-		. "font-weight: bolder;\n"
-		. "}\n"
-		. "td.configuration {\n"
-		. "vertical-align: top;\n"
-		. "text-align: center;\n"
-		. "background-color: #33127F;\n"
-		. "color: white;\n"
-		. "font-weight: bolder;\n"
-		. "}\n"
-		. "img {\n"
-		. "border: 0;\n"
-		. "}\n"
-		. "h1 {\n"
-		. "color: #000067;\n"
-		. "font-family: Courier New;\n"
-		. "}\n"
-		. "i {\n"
-		. "color: #07396E;\n"
-		. "}\n"
-		. "a.toto {\n"
-		. "color: #822942;\n"
-		. "font-style: italic;\n"
-		. "font-weight: bold;\n"
-		. "text-decoration: none;\n"
-		. "}\n"
+	. "color: #07396E;\n"
+	. "font-family: Courier New;\n"
+	. "}\n"
+	. "dl {\n"
+	. "display: block;\n"
+	. "width: 100%;\n"
+	. "}\n"
+	. "dt {\n"
+	. "float: left;\n"
+	. "text-align: center;\n"
+	. "border: 1px solid;\n"
+	. "background-color: #BEC3E5;\n"
+	. "width: 14em;\n"
+	. "height: 2em;\n"
+	. "padding-top: 0.25em;\n"
+	. "}\n"
+	. "dd {\n"
+	. "display: none;\n"
+	. "margin: 2.0;\n"
+	. "height: 12;\n"
+	. "}\n"
+	. "font.footer {\n"
+	. "font-size: 12.0px;\n"
+	. "font-style: italic;\n"
+	. "}\n"
+	. "P.footer {\n"
+	. "border-width: 1;\n"
+	. "border: double;\n"
+	. "border-color: blue;\n"
+	. "background-color: #E5E3FF;\n"
+	. "font-family: Courier New;\n"
+	. "}\n"
+	. "ul.main_menu {\n"
+	. "text-align: left;\n"
+	. "background-color: #ABAFCE;\n"
+	. "color: black;\n"
+	. "border-color: #807CA5;\n"
+	. "color: black;\n"
+	. "}\n"
+	. "#myDemo {\n"
+	. "color: black;\n"
+	. "margin-top: 0px;\n"
+	. "padding: 5px;\n"
+	. "background: grey;\n"
+	. "width: 500px;\n"
+	. "font-size: 12px;\n"
+	#. "height: 200px;\n"
+	. "position: absolute;\n"
+	. "left: 500px;\n"
+	. "top: 100px;\n"
+	. "border-width:1px;\n"
+	. "border-style: double;\n"
+	. "border-radius: 25px;\n"
+	. "z-index: 24;\n"
+	. "}\n"
+	. "#paragHeader{\n"
+	. "position: relative;\n"
+	#. "border-radius: 25px;\n"
+	#. "top: 0px;\n"
+	. "background: green;\n"
+	. "height: 15%;\n"
+	. "width: 100% 15%;\n"
+	. "}\n"
+	. "div.paragBody{\n"
+	. "position: relative;\n"
+	#. "color: yellow;\n"
+	. "}\n"
+	. "li {\n"
+	. "margin-left: 2px;\n"
+	. "display: inline;\n"
+	. "}\n". "li.help_menu_content {\n".
+	"color: red;\n"
+	. "}\n"
+	. "b.taken {\n"
+	. "color: red;\n"
+	. "}\n"
+	. "table.footer {\n"
+	. "font-size: 12px;\n"
+	. "text-align: right;\n"
+	. "color: black;\n"
+	. "background-color: #D2D2FF;\n"
+	. "border: double;\n"
+	. "border-color: blue;\n"
+	. "}\n"
+	. "table.main_auth {\n"
+	. "text-align: right;\n"
+	. "background-color: #D2D2FF;\n"
+	. "color: black;\n"
+	. "font-weight: bolder;\n"
+	. "border: double;\n"
+	. "border-color: #807CA5;\n"
+	. "}\n"
+	. "table.auth {\n"
+	. "text-align: right;\n"
+	. "background-color: #D8D7FF;\n"
+	. "color: black;\n"
+	. "font-weight: bolder;\n"
+	. "}\n"
+	. "td.configuration {\n"
+	. "vertical-align: top;\n"
+	. "text-align: center;\n"
+	. "background-color: #33127F;\n"
+	. "color: white;\n"
+	. "font-weight: bolder;\n"
+	. "}\n"
+	. "img {\n"
+	. "border: 0;\n"
+	. "}\n"
+	. "h1 {\n"
+	. "color: #000067;\n"
+	. "font-family: Courier New;\n"
+	. "}\n"
+	. "i {\n"
+	. "color: #07396E;\n"
+	. "}\n"
+	. "a.toto {\n"
+	. "color: #822942;\n"
+	. "font-style: italic;\n"
+	. "font-weight: bold;\n"
+	. "text-decoration: none;\n"
+	. "}\n"
 
-		. "a {\n"
-		. "color: black;\n"
-		. "font-style: italic;\n"
-		. "font-weight: bold;\n"
-		. "text-decoration: none;\n"
-		. "}\n"
+	. "a {\n"
+	. "color: black;\n"
+	. "font-style: italic;\n"
+	. "font-weight: bold;\n"
+	. "text-decoration: none;\n"
+	. "}\n"
 
-		. ".help_content {\n"
-		. "-moz-border-radius:10px;\n"
-		. "-webkit-border-radius: 10px;\n"
-		. "border-radius: 10px;\n"
-		. "color: yellow;\n"
-		. "position: absolute;\n"
-		. "left: 242px;\n"
-		. "top: 130px;\n"
-		. "width: 600px;\n"
-		. "height: 500px;\n"
-		. "border: 1.42px;\n"
-		. "border-color: #011438;\n"
-		. "border-style: double;\n"
-		. "background: #1a1731;\n"
-		. "opacity: .95;\n"
-		. "z-index: 950;\n"
-		. "}\n"
-		. "#image_help {\n"
-		. "background:  #7e85c1;\n"
-		. "opacity: .1;\n"
-		#	  . "background-image: url(\""
-		#	    . &io::MyConstantBase::DIRECTORY_DEPOSIT->()
-		#	      . "/my_lovely_pict.gif\");\n"
-		#		. "background-repeat: no-repeat;\n"
-		. "background-position: left top;\n"
-		. "}\n"
-		. "#parag_help {\n"
-		. "position: relative;\n"
-		. "text-indent: 40px;\n"
-		. "left: 10px;\n"
-		. "right: 10px;\n"
-		. "width: 500px;\n"
-		. "margin-left: 90px;\n"
-		. "margin-right: 10px;\n"
-		.
+	. ".help_content {\n"
+	. "-moz-border-radius:10px;\n"
+	. "-webkit-border-radius: 10px;\n"
+	. "border-radius: 10px;\n"
+	. "color: yellow;\n"
+	. "position: absolute;\n"
+	. "left: 242px;\n"
+	. "top: 130px;\n"
+	. "width: 600px;\n"
+	. "height: 500px;\n"
+	. "border: 1.42px;\n"
+	. "border-color: #011438;\n"
+	. "border-style: double;\n"
+	. "background: #1a1731;\n"
+	. "opacity: .95;\n"
+	. "z-index: 950;\n"
+	. "}\n"
+	. "#image_help {\n"
+	. "background:  #7e85c1;\n"
+	. "opacity: .1;\n"
+	#	  . "background-image: url(\""
+	#	    . &io::MyConstantBase::DIRECTORY_DEPOSIT->()
+	#	      . "/my_lovely_pict.gif\");\n"
+	#		. "background-repeat: no-repeat;\n"
+	. "background-position: left top;\n"
+	. "}\n"
+	. "#parag_help {\n"
+	. "position: relative;\n"
+	. "text-indent: 40px;\n"
+	. "left: 10px;\n"
+	. "right: 10px;\n"
+	. "width: 500px;\n"
+	. "margin-left: 90px;\n"
+	. "margin-right: 10px;\n"
+	.
 
-		#	"text-align: justify;\n".
-		"}\n". "#title_help {\n".
+	#	"text-align: justify;\n".
+	"}\n". "#title_help {\n".
 
-		#	"position: absolute;\n".
-		"text-align: center;\n"
-		. "top: 5px;\n"
-		. "width: 100%;\n"
-		. "border-bottom: 2px solid #D9D073;\n"
-		. "}\n"
-		. "#my_face_help {\n"
-		. "position: absolute;\n"
-		. "left: 5px;\n"
-		. "top: 5px;\n"
-		. "width: 80px;\n"
-		. "}\n"
-		. "#err {\n"
-		. "width: 40\%;\n"
-		. "}\n"
-		.
+	#	"position: absolute;\n".
+	"text-align: center;\n"
+	. "top: 5px;\n"
+	. "width: 100%;\n"
+	. "border-bottom: 2px solid #D9D073;\n"
+	. "}\n"
+	. "#my_face_help {\n"
+	. "position: absolute;\n"
+	. "left: 5px;\n"
+	. "top: 5px;\n"
+	. "width: 80px;\n"
+	. "}\n"
+	. "#err {\n"
+	. "width: 40\%;\n"
+	. "}\n"
+	.
 
-		#	"dl {display: block;}".
-		"a:hover {\n".
+	#	"dl {display: block;}".
+	"a:hover {\n".
 
-		#	"zindex: 100;".
-		#	"color: #4E5293;\n".
-		"color: #C49209;\n".
+	#	"zindex: 100;".
+	#	"color: #4E5293;\n".
+	"color: #C49209;\n".
 
-		#	"font-size: 20px;\n".
-		#	"font-family: courier;\n".
-		"}\n".
-		"xxx { z-index: 40; position: absolute; left: 0px;top: 120px;}\n".
-		"expl_1_4 { position: absolute; left: 5px; top: 2px; z-index: 2; }\n"; 
+	#	"font-size: 20px;\n".
+	#	"font-family: courier;\n".
+	"}\n".
+	"xxx { z-index: 40; position: absolute; left: 0px;top: 120px;}\n".
+	"expl_1_4 { position: absolute; left: 5px; top: 2px; z-index: 2; }\n"; 
 } # End sub general_css_def
 
 =head1 sub main_menu(...)
@@ -5620,11 +5620,11 @@ sub main_menu { # Begin main_menu
 	#print "<![CDATA[\n";
 	print "<dl><!-- begin dl -->\n";
 	print "<dt>\n<a  href='JavaScript:go_to(\""
-		. "http://dorey.sebastien.free.fr"
-		. "\");'>My website</a>\n</dt>\n";
+	. "http://dorey.sebastien.free.fr"
+	. "\");'>My website</a>\n</dt>\n";
 	#print "<dt>Other albums</dt>\n";
 	print "<dt><a href=\"maop.cgi?maop_prog=g".&io::MyConstantBase::GOOGLE_MAP_SCRIPT_VERSION->()."ogle.cgi" . 
-		"&maop_googid=".uri_unescape($doc->param("maop_googid"))."&maop_gmv=".&io::MyConstantBase::GOOGLE_MAP_SCRIPT_VERSION->(). &io::MyConstantBase::PATH_GOOGLE_MAP_OPT->() . "&maop_lon=$lon&maop_lat=$lat&maop_googid=".uri_unescape($doc->param('maop_googid')). "\">Visitor map</a></dt>\n";
+	"&maop_googid=".uri_unescape($doc->param("maop_googid"))."&maop_gmv=".&io::MyConstantBase::GOOGLE_MAP_SCRIPT_VERSION->(). &io::MyConstantBase::PATH_GOOGLE_MAP_OPT->() . "&maop_lon=$lon&maop_lat=$lat&maop_googid=".uri_unescape($doc->param('maop_googid')). "\">Visitor map</a></dt>\n";
 	print "<dt onclick=\"javascript:show('smenu2');\" onmouseout=\"javascript:show();\">Help</dt>";
 	print "\n<dd id=\"smenu2\"><!-- begin dd smenu2 -->\n";
 	&help_menu_with_css( $title, @help_feature );
@@ -5687,8 +5687,8 @@ None.
 sub help_menu_with_css { # Begin help_menu_with_css
 	my ( $title, @info ) = @_;
 	@info = (
-	"Suivre attentivement les instructions dessous. / Follow carefully instructions below.",
-	@info
+		"Suivre attentivement les instructions dessous. / Follow carefully instructions below.",
+		@info
 	);
 	my $img="<img src=\"" . &io::MyConstantBase::DIRECTORY_DEPOSIT->() . "/my_lovely_pict.gif\" style=\"float: right;padding-top: 25px;\" alt='+' />";
 
@@ -5703,15 +5703,15 @@ $img
 <div id="parag_help"><!-- begin div parag_help -->
 MENU
 
-	foreach my $feature (@info){ # Begin foreach my $feature (@info)
-		$feature=~s/(\/)(.*)/$1\<font color=\"#b05800\"\>$2\<\/font\>/g;
-		print <<MENU;
+foreach my $feature (@info){ # Begin foreach my $feature (@info)
+	$feature=~s/(\/)(.*)/$1\<font color=\"#b05800\"\>$2\<\/font\>/g;
+	print <<MENU;
 <p>+ $feature</p>
 MENU
-	} # End foreach my $feature (@info)
+} # End foreach my $feature (@info)
 
-	#    print "</p>\n";
-	print <<MENU;
+#    print "</p>\n";
+print <<MENU;
 </div><!-- end div parag_help -->
 </div> <!-- end div help_content -->
 MENU
@@ -5769,7 +5769,7 @@ None.
 
 sub switch_from_a_specified_character_to_tag { # Begin switch_from_a_specified_character_to_tag
 	my ($string) = @_;
-print "<!-- ZOZO $string -->";
+	print "<!-- ZOZO $string -->";
 	#$string=~s/\'/\_\_TAG\_COT\_\_/g;
 	#$string=~s/\"/\_\_TAG\_DCOT\_\_/g;
 
@@ -5781,7 +5781,7 @@ print "<!-- ZOZO $string -->";
 	$string=~s!\<!\&\#60;!g;
 	$string=~s!\>!\&\#62;!g;
 	$string=~s!\;!\&\#59;!g;
-	
+
 	return $string;
 } # End sub switch_from_a_specified_character_to_tag
 
@@ -5842,8 +5842,8 @@ sub switch_from_a_specified_tag_to_characters { # Begin switch_from_a_specified_
 
 	#$string=~s/\_\_TAG\_DCOT\_\_/\"/g;
 
-#	$string=~s/\_\_TAG\_UNDERSCORE\_\_/\_/g;
-#	$string=~s/\_\_TAG\_SEMI\_COLUMN\_\_/\;/g;
+	#	$string=~s/\_\_TAG\_UNDERSCORE\_\_/\_/g;
+	#	$string=~s/\_\_TAG\_SEMI\_COLUMN\_\_/\;/g;
 	$string=~s!\&\#39;!\'!g;
 	$string=~s!\&\#34;!\"!g;
 	$string=~s!\&\#45;!\-!g;
@@ -6435,7 +6435,7 @@ sub ipAddressGranted{ # Begin ipAddressGranted
 
 	#my $sen=io::MyNav::gets_server_name;
 
-# -------------------------autorize ip address---------
+	# -------------------------autorize ip address---------
 	print <<MENU;
 	<fieldset>
 		<legend>Administration of IP address</legend>
@@ -6448,8 +6448,8 @@ sub ipAddressGranted{ # Begin ipAddressGranted
 			<input type='hidden' name='maop_ssection' value='adminGroup' />
 			Given name:<input type='text' name='maop_locIdName' value='$locid' />
 MENU
-		&accessAdminPicture;
-		print <<MENU;
+	&accessAdminPicture;
+	print <<MENU;
 			<input type='submit' value='Autoriser cette adresse IP / Authorize this IP adress' />
 			<input type='hidden' name='maop_ssection' value='adminGroup' />
 		</form>
@@ -6458,19 +6458,19 @@ MENU
 MENU
 	if( -d "album/hist"){ # Begin if(-d "album/hist")
 		chdir("album");chdir("hist");
-		
+
 		opendir(ARD,".") || die(". $!");
 		my @dr= grep { $_ ne '.' and $_ ne '..' } readdir(ARD);
 		closedir(ARD) || die(". $!");
-#		print "=====".scalar(@dr)." @dr <<<<br />";
+		#		print "=====".scalar(@dr)." @dr <<<<br />";
 		#print "<select name=\"access\" size=10>\n";
 		print "<select name=\"access\">\n";
-#		my @nr=();
+		#		my @nr=();
 		foreach (@dr){ # Begin foreach (@dr)
 			if(length("$_")>0){# Begin if(length("$_")>0)
 				#print "---->$_<<br />";
 				open(R,"$_") || die("$_ $!"); my $b=<R>;close(R) || die("$_ $!");
-				
+
 				foreach my $m (reverse split(/\,/,$b)){ # Begin foreach my $m (reverse split(/\,/,$b))
 					$m=~s!#!\n<br />\&nbsp\;<br />!g;
 					print "<option>$m</option>\n";
@@ -6590,8 +6590,8 @@ sub menu_admin_GoogleMap_ID{# Begin menu_admin_GoogleMap_ID
 			$ltznb.="<option value='$tzfe'>$_</option>";
 			$ltzne.="<option value='$tzfe'>$_</option>";
 		} else{
-			 $tmpltznb.="<option value='$tzfe'>$_</option>";
-			 $tmpltzne.="<option value='$tzfe'>$_</option>";
+			$tmpltznb.="<option value='$tzfe'>$_</option>";
+			$tmpltzne.="<option value='$tzfe'>$_</option>";
 		}
 	}
 	$tmpltznb.="</select>";
@@ -6864,22 +6864,22 @@ sub ipAddressRemoved{ # Begin ipAddressRemoved
 
 
 			#print "(URL,>$locdep/$furls<";
-				open(URL,">$locdep/$furls") || die("$locdep/$furls $!");
-				foreach my $m (@urlAllowed){ # Begin foreach my $i (@oth)
-					my $i=(split(/\|\|/,$m))[0];
-					#print "oooo>$i has to be removed from <$locRemIp><br />";
-					chomp($i);
-					if($locRemIp=~/$i/){ 1 ; print "removed $locRemIp<br />";}
-					elsif($locRemIp=~/^\ *[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\ *$/){ # Begin elsif($locRemIp=~/^\ *[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\ *$/)
-						print URL "$m,"; }# End elsif($locRemIp=~/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/)
-				} # End foreach my $i (@oth)
-				close(URL) || die("$locdep/$furls $!");
-				@urlAllowed=split(/\,/, io::MyUtilities::getUrlFromFile); # refresh list
-			} # End if(($locRemIp=~/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/) || ($locRemIp=~/[0-9a-z]{0,}\:[0-9a-z]{0,}\:[0-9a-z]{0,}/i))
-		} # End if("$remPid" eq "ok")
+			open(URL,">$locdep/$furls") || die("$locdep/$furls $!");
+			foreach my $m (@urlAllowed){ # Begin foreach my $i (@oth)
+				my $i=(split(/\|\|/,$m))[0];
+				#print "oooo>$i has to be removed from <$locRemIp><br />";
+				chomp($i);
+				if($locRemIp=~/$i/){ 1 ; print "removed $locRemIp<br />";}
+				elsif($locRemIp=~/^\ *[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\ *$/){ # Begin elsif($locRemIp=~/^\ *[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\ *$/)
+					print URL "$m,"; }# End elsif($locRemIp=~/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/)
+			} # End foreach my $i (@oth)
+			close(URL) || die("$locdep/$furls $!");
+			@urlAllowed=split(/\,/, io::MyUtilities::getUrlFromFile); # refresh list
+		} # End if(($locRemIp=~/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/) || ($locRemIp=~/[0-9a-z]{0,}\:[0-9a-z]{0,}\:[0-9a-z]{0,}/i))
+	} # End if("$remPid" eq "ok")
 
-		my $log=uri_unescape($doc->param("maop_login"));
-		print <<MENU;
+	my $log=uri_unescape($doc->param("maop_login"));
+	print <<MENU;
 <form action='${main_prog}?maop_service=auth&maop_maop_upld=ok' method='post' enctype='multipart/form-data'>
 <input type='hidden' name='maop_prev_id' value='$$' />
 <input type='hidden' name='maop_login' value='$log' />
@@ -6887,13 +6887,13 @@ sub ipAddressRemoved{ # Begin ipAddressRemoved
 <input type='hidden' name='maop_service' value='check' />
 <select name='maop_remAddrIp'>
 MENU
-		foreach (@urlAllowed){ # Begin foreach (@urlAllowed)
-			$_=~s!__COMA__!,!g;
-			print <<MENU;
+	foreach (@urlAllowed){ # Begin foreach (@urlAllowed)
+		$_=~s!__COMA__!,!g;
+		print <<MENU;
 <option>$_</option>
 MENU
-		} # End foreach (@urlAllowed)
-		print <<MENU;
+	} # End foreach (@urlAllowed)
+	print <<MENU;
 </select>
 <input type='submit' value='Supprimer cette adresse IP / Remove this IP adress' />
 <input type='hidden' name='maop_ssection' value='adminGroup' />
@@ -7078,7 +7078,7 @@ sub set_history{ # Begin set_history
 
 	#print "<br>----------->>($u,<br>$d,<br>$p,<br>$f,<br>$l,<br>$hdf<br>)<br>\n";
 
-#	print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
+	#	print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
 	io::MyUtilities::setUrlFile("$u#$d#$p#$l","$f",$hdf); 
 	return;
 } # End sub set_history
@@ -7237,22 +7237,22 @@ None.
 
 sub accessToPicture{ # Begin accessToPicture
 	my $grantPicture=($grant=~m!ko!) ? "Public not granted" 
-		: (($grant=~m!adm!) ? "Admin granted" : "Public granted") ;
-	
+	: (($grant=~m!adm!) ? "Admin granted" : "Public granted") ;
+
 	#print "<br>Access to picture: $grant-------$grantPicture<br>$tag------<br>";
 
 	return "How to view a picture:" .
-		$doc->popup_menu(
-				 -name=>'maop_grantPicture',
-				 -values=>[
-						'Public granted',
-						'Public not granted',
-						'Admin granted'
-					  ],
-				 -defaults=>[
-						"$grantPicture"
-					    ]
-			       ) ; 
+	$doc->popup_menu(
+		-name=>'maop_grantPicture',
+		-values=>[
+			'Public granted',
+			'Public not granted',
+			'Admin granted'
+		],
+		-defaults=>[
+			"$grantPicture"
+		]
+	) ; 
 } # End accessToPicture
 
 =head1 sub look_if_page_authorized(...)
@@ -7538,7 +7538,7 @@ MENU
 MENU
 	# Footer is here because it is printed from here on all pages without modifying other page structures
 	#&showsStats;
-		print <<MENU;
+	print <<MENU;
 	<br />
 	<br />
 	<script>
@@ -7555,7 +7555,7 @@ MENU
 	   ->
 MENU
 	print &add_print_info("<br>1basic test<br>");
-		print <<MENU;
+	print <<MENU;
 		<-
 	   <script>
 		   add_print_info( "helloworld<br>"
@@ -7571,14 +7571,14 @@ MENU
 MENU
 	&add_print_info("2222 basic test");
 	print io::MyUtilities::footer(
-						$doc,
-						&io::MyConstantBase::DIRECTORY_DEPOSIT->() . "powered.gif",
-						&io::MyConstantBase::DIRECTORY_DEPOSIT->() . "jangada.gif",
-						"http://www.perl.org", 
-						ALBUM_VERSION ,
-						 &io::MyConstantBase::TESTED_WITH_BROWSERS->(),
-						 &io::MyConstantBase::HOSTED_BY->(),
-						 &io::MyConstantBase::HOSTED_BY_URL->());
+		$doc,
+		&io::MyConstantBase::DIRECTORY_DEPOSIT->() . "powered.gif",
+		&io::MyConstantBase::DIRECTORY_DEPOSIT->() . "jangada.gif",
+		"http://www.perl.org", 
+		ALBUM_VERSION ,
+		&io::MyConstantBase::TESTED_WITH_BROWSERS->(),
+		&io::MyConstantBase::HOSTED_BY->(),
+		&io::MyConstantBase::HOSTED_BY_URL->());
 	&add_print_info("<br>2basic test");
 	print <<MENU;
 </div>
@@ -7781,7 +7781,7 @@ sub setGoogleID{# Begin setGoogleID
 	#if($googlid=~m/[\n\t\ ]*$/){ print "</br></br></br><b>test 2>>>>>>>>>>>$googlid<".length($googleid).">>>>>>>>>>>>>>>>>>>>..there is a match in the trip name</b></br>";}
 	chomp($method);
 
-#	print "We go in param googoid<br>";
+	#	print "We go in param googoid<br>";
 	if($method ne "POST"){ # Begin if($method ne "POST")
 		my $param_trip_delete=uri_unescape($doc->param("maop_TRIP_ID_DELETE"));
 		chomp($param_trip_delete);
@@ -7794,14 +7794,14 @@ sub setGoogleID{# Begin setGoogleID
 			} # End if( ! -f uri_unescape($doc->param("maop_operationokdelete")) . "-trips")
 
 			chdir("../..");
-		
+
 		} # End if($param_trip_delete=~m/^ok$/)
 	} # End if($method ne "POST")
 
 	print "Stge 1<br>";
 	chomp($fname);#chomp($googleid);
 	print "if($param_trip=~m/^ok$/)\n<br>";
-#exit(-1);
+	#exit(-1);
 	if($param_trip=~m/^ok$/){ # Begin if($param_trip=~m/^ok$/)
 		#my $tn=&io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->().uri_escape($googleid)."-".&io::MyConstantBase::TRIP_NAME->(); # Trip name
 		my $tn=&io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->().$googleid."-".&io::MyConstantBase::TRIP_NAME->(); # Trip name
@@ -7827,7 +7827,7 @@ sub setGoogleID{# Begin setGoogleID
 						print "</br>where we store data [$tn]</br>";
 						#print "B4 Storing++++++>".getcwd()."<-----<br>\n"; 
 						#print "B----------------><u>${bdaytime}#${edaytime}#${ltzn_b}#${ltzn_e}</u><br>";
-						
+
 						$tn=&do_untaint($tn);
 						open(W,">","$tn")||die("Error: [$tn] $!");
 						print W "${bdaytime}#${edaytime}#${ltzn_b}#${ltzn_e}";
@@ -7843,22 +7843,22 @@ sub setGoogleID{# Begin setGoogleID
 						my ($ehh,$ehm)=split(/\:/,$bhp);# End hour hour,end hour minute
 						#print "begin 1 datetime<br>";
 						my $dtb= DateTime->new( year       => $bdy,
-									month      => $bdm,
-									day        => $bdd,
-									hour       => $bhh,
-									minute     => $bhm,
-									second     => 0,
-								); # creates object date time for begining of the trip
-								#print "end 1 datetime<br>";
-								#print "begin 2 datetime<br>";
+							month      => $bdm,
+							day        => $bdd,
+							hour       => $bhh,
+							minute     => $bhm,
+							second     => 0,
+						); # creates object date time for begining of the trip
+						#print "end 1 datetime<br>";
+						#print "begin 2 datetime<br>";
 						my $dte= DateTime->new( year       => $edy,
-									month      => $edm,
-									day        => $edd,
-									hour       => $ehh,
-									minute     => $ehm,
-									second     => 0,
-								); # creates object date time for end of the trip
-								#print "end 2 datetime<br>";
+							month      => $edm,
+							day        => $edd,
+							hour       => $ehh,
+							minute     => $ehm,
+							second     => 0,
+						); # creates object date time for end of the trip
+						#print "end 2 datetime<br>";
 						# ---------------------------------------------------
 						#print "A-<br>";
 						my $loc_maop_ltzn_b=uri_unescape($doc->param('maop_ltzn_b'));
@@ -7882,25 +7882,25 @@ sub setGoogleID{# Begin setGoogleID
 						my $dist_map=&io::MyConstantBase::PROTO_USED->().&io::MyConstantBase::DISTANT_HOSTED_BY_URL->().&io::MyConstantBase::WEB_ACCOUNT->()."cgi-bin/maop.cgi\?maop_googid=". uri_unescape($doc->param('maop_googid')).'&maop_gmv='.&io::MyConstantBase::MAP_VER_IN_USE->().'&maop_prog='.&io::MyConstantBase::MAP_PROG->();
 
 						my $message = "\n".
-							"<b><u>Begining of the trip and Time Zone/<i>Debut du voyage et decallage horaire</i>:</u></b>\n".
-							"<ul>".
-								 "<li>".uri_unescape($doc->param('maop_bdaytime')) . " " . $tzbt->name . " " . $tzbt->offset_for_local_datetime( $dtb ) . "s"."</li>".
-							"</ul>\n".
-							"<b><u>End of the trip and Time Zone/<i>Fin du voyage et decalage horaire</i>:</u></b>".
-							"<ul>".
-								"<li>".uri_unescape($doc->param('maop_edaytime')). " " . $tzet->name . " " . $tzet->offset_for_local_datetime( $dte ) . "s"."</li>".
-							"</ul>\n".
-							"<b><u>Pinpoint the map /<i>Mettre un point lors du voyage</i>:</u></b>\n".
-							"<ul>".
-								"<li><span style='background-color:red'><a href='".$loc."'>Trip / Voyage</a></span> (LAN)</li>".
-								"<li><span style='background-color:green'><a href='".$dist."'>Trip / Voyage</a></span> (WAN)</li>".
-							"</ul>\n".
-							"<b><u>Watch the trip on the map/<i>Regarder le voyage sur une carte</i>:</u></b>\n".
-							"<ul>".
-								"<li><span style='background-color:red'><a href='".$loc_map. "'>Trip / Voyage</a></span> (LAN)</li>".
-								"<li><span style='background-color:green'><a href='".$dist_map. "'>Trip / Voyage</a></span> (WAN)</li>".
-							"</ul>\n".
-							"Friendly yours,<br>Bot from MAOP";
+						"<b><u>Begining of the trip and Time Zone/<i>Debut du voyage et decallage horaire</i>:</u></b>\n".
+						"<ul>".
+						"<li>".uri_unescape($doc->param('maop_bdaytime')) . " " . $tzbt->name . " " . $tzbt->offset_for_local_datetime( $dtb ) . "s"."</li>".
+						"</ul>\n".
+						"<b><u>End of the trip and Time Zone/<i>Fin du voyage et decalage horaire</i>:</u></b>".
+						"<ul>".
+						"<li>".uri_unescape($doc->param('maop_edaytime')). " " . $tzet->name . " " . $tzet->offset_for_local_datetime( $dte ) . "s"."</li>".
+						"</ul>\n".
+						"<b><u>Pinpoint the map /<i>Mettre un point lors du voyage</i>:</u></b>\n".
+						"<ul>".
+						"<li><span style='background-color:red'><a href='".$loc."'>Trip / Voyage</a></span> (LAN)</li>".
+						"<li><span style='background-color:green'><a href='".$dist."'>Trip / Voyage</a></span> (WAN)</li>".
+						"</ul>\n".
+						"<b><u>Watch the trip on the map/<i>Regarder le voyage sur une carte</i>:</u></b>\n".
+						"<ul>".
+						"<li><span style='background-color:red'><a href='".$loc_map. "'>Trip / Voyage</a></span> (LAN)</li>".
+						"<li><span style='background-color:green'><a href='".$dist_map. "'>Trip / Voyage</a></span> (WAN)</li>".
+						"</ul>\n".
+						"Friendly yours,<br>Bot from MAOP";
 
 						$ENV{PATH}='/bin:/usr/bin:/usr/local/bin';
 
@@ -7923,22 +7923,22 @@ sub setGoogleID{# Begin setGoogleID
 
 						my $vtodo = Data::ICal::Entry::Event->new();
 						$vtodo->add_properties(
-									summary => "$subject",
-									description => "$message",
-									dtstart => Date::ICal->new ( day => $dbd[2],
-												       month => $dbd[1],
-												       year => $dbd[0],
-												       hour => $dtd[0],
-												       min => $dtd[1],
-												       sec => 00
-												)->ical,
-									dtend => Date::ICal->new(day => $ebd[2],
-												       month => $ebd[1],
-												       year => $ebd[0],
-												       hour => $etd[0],
-												       min => $etd[1],
-												       sec => 00
-												)->ical,
+							summary => "$subject",
+							description => "$message",
+							dtstart => Date::ICal->new ( day => $dbd[2],
+								month => $dbd[1],
+								year => $dbd[0],
+								hour => $dtd[0],
+								min => $dtd[1],
+								sec => 00
+							)->ical,
+							dtend => Date::ICal->new(day => $ebd[2],
+								month => $ebd[1],
+								year => $ebd[0],
+								hour => $etd[0],
+								min => $etd[1],
+								sec => 00
+							)->ical,
 						);
 						$calendar->add_entry($vtodo);
 						open(WC,">",&io::MyConstantBase::PATH_FOR_CALENDAR_ICS->())||die("Error iCal: $!");
@@ -8273,9 +8273,9 @@ sub loadDataTrips{ # Begin sub loadDataTrips
 		#my $lotList="<select name='maop_operationokdelete' onChange='listToDelete()'>"; # List of trips
 		#my $lotList2="<select name='maop_operationokdelete' onChange='listToList()'>"; # List of trips
 
-	#
-	# **************************************************************	
-	#
+		#
+		# **************************************************************	
+		#
 		foreach my $i (sort @dr){ # Begin foreach my $i (@dr)
 			#print "<br>*************>$i<br>";
 			$lot.="\"$i\",\n";
@@ -8293,9 +8293,9 @@ sub loadDataTrips{ # Begin sub loadDataTrips
 	} # End if ( ($resPing==0) && ($resAuth==0) ) 
 	$trips=~s/\,\n$//;
 	$trips.="];\n\n";
-# --------------------------------------------------------- need to check here for the list. It depends 
+	# --------------------------------------------------------- need to check here for the list. It depends 
 	$lot=~s/,$/\)\;/; # They array is built of trips
-# --------------------------------------------------------- 
+	# --------------------------------------------------------- 
 	$lotList.="</select>";
 	$lotList2.="</select>";
 } # End sub loadDataTrips
