@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* Last Modified : Wed Jun 12 21:21:30 2019
+* @modify date 2019-12-06 09:26:10
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.2.1..500
 * License:
@@ -115,16 +115,16 @@ infoCenter
 =cut
 
 
-		{
-			open(REC,">>../rec.html")||die("err: $!");
-			my $tft=gmtime(); #time for test
-			print REC "<br>BEGIN < $0 > $tft<br>";
-			foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
-				print REC ">>>>>>>$p --->".$doc->param($p)."<br>";
-			} # end foreach my $p ($doc->param)
-			print REC "<br>END < $0 > $tft<br>";
-			close(REC)||die("Error:$!");
-		}
+{
+	open(REC,">>../rec.html")||die("err: $!");
+	my $tft=gmtime(); #time for test
+	print REC "<br>BEGIN < $0 > $tft<br>";
+	foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
+		print REC ">>>>>>>$p --->".$doc->param($p)."<br>";
+	} # end foreach my $p ($doc->param)
+	print REC "<br>END < $0 > $tft<br>";
+	close(REC)||die("Error:$!");
+}
 
 my $lstlog=30*2; # that's seconds
 my $lon=$doc->param("maop_lon");
@@ -138,28 +138,28 @@ my $ilws=0; # is local website variable used for tests (local website,distant we
 if($statlastlogfile){ # begin if($statlastlogfile)
 	my $mparam=();
 	print "Content-Type: text/html\n\n";
-#	print "<h1>Under construction</h1><br>$ui > $lstlog<br>";
+	#	print "<h1>Under construction</h1><br>$ui > $lstlog<br>";
 
 	foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
-#		print ">>>>>>>$p --->".$doc->param($p)."<br>";
+		#		print ">>>>>>>$p --->".$doc->param($p)."<br>";
 		if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
 			if($p!~m/^maop_lon$/&&
-			   $p!~m/^maop_lat$/&&
-			   $p!~m/^maop_prog$/&&
-			   $p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
+				$p!~m/^maop_lat$/&&
+				$p!~m/^maop_prog$/&&
+				$p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 				$mparam.='&'."$p=".$doc->param($p);
 			}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 			elsif ($p!~m/^maop_lat$/){ # begin elsif ($p!~m/^maop_lat$/)
-			#&myrec("Case logfile format maop ","../error.html","****** $la" );
+				#&myrec("Case logfile format maop ","../error.html","****** $la" );
 			} # end elsif ($p!~m/^maop_lat$/)
 			elsif($p!~m/^maop_lon$/){ # begin elsif($p!~m/^maop_lon$/)
-			#&myrec("Case logfile format maop ","../error.html","****** $lo" );
+				#&myrec("Case logfile format maop ","../error.html","****** $lo" );
 			} # end elsif($p!~m/^maop_lon$/)
 		} # end if($p=~m/^maop\_/)
 	} # end foreach my $p ($doc->param)
 	my $url=();
-#	if(-e "$logfile") { print "file  $logfile exists<br>";}
-#	else { print "file  $logfile does not exists<br>";}
+	#	if(-e "$logfile") { print "file  $logfile exists<br>";}
+	#	else { print "file  $logfile does not exists<br>";}
 	if( -e "$logfile"){ # begin if( -e "$logfile")
 		my ($foo) = ($logfile =~ /^(.*)$/g);
 		unlink("$foo");
@@ -168,14 +168,14 @@ if($statlastlogfile){ # begin if($statlastlogfile)
 	my @lflb=split(/\//,$logfile);
 	my $lfl=$lflb[scalar(@lflb)-1];
 	$lfl=~/^(.*)$/g;$lfl=$1;
-#	print "<br><h2>this is the log file to use $lfl</h2>";
-#	print "<h1><br>- ". getcwd() ."</h1><br>";
+	#	print "<br><h2>this is the log file to use $lfl</h2>";
+	#	print "<h1><br>- ". getcwd() ."</h1><br>";
 	open(W,">$lfl") || die("Error with $lfl $!");
 	print W " ";
 	close(W) || die("Error with $lfl $!");
 
-#	if(-e "$lfl") {print "<h3>------------>$lfl exist</h3><br>" ;}
-#	else { print "$lfl does not exist<br>";}
+	#	if(-e "$lfl") {print "<h3>------------>$lfl exist</h3><br>" ;}
+	#	else { print "$lfl does not exist<br>";}
 
 	chdir("..");chdir("..");
 	$logfile=~s/\//\_/g;
@@ -190,8 +190,8 @@ if($statlastlogfile){ # begin if($statlastlogfile)
 		#$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_log=$logfile$mparam";
 		$url= "https://".&io::MyConstantBase::DISTANT_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_log=$logfile$mparam";
 	} # end else
-#	print "ooooooooo>$url<br>";
-#	print "case 2-------($statlastlogfile)=======$logfile<br>";exit(1);
+	#	print "ooooooooo>$url<br>";
+	#	print "case 2-------($statlastlogfile)=======$logfile<br>";exit(1);
 	my $c=<<A;
 <!DOCTYPE html>
 <html>
@@ -327,26 +327,26 @@ chomp($id) ;
 
 # Checks options for map rinting with Markers
 #if(defined($prt)){ # Begin if(definied($prt))
-	# Prints where you are
-	if($prt==0){ # Begin if($prt==0)
-		$path.=&getsPath("album/hist","$googid"); # Load file
-		&mapGoogle("$id","$gmv");
-	} # End if($prt==0)
-	# Prints all markers
-	if($prt==1){ # Begin if($prt==1)
-		$path.=&getsLoLa("album","hist"); # Load DB 
-		&mapGoogle("$id","$gmv");
-	} # End if($prt==1)
-	# marks trips
-	if($prt==2){ # Begin if($prt==2)
-		$path.=&getsPath("album/hist","Canada"); # Load file
-		$path.=&getsPath("album/hist","New Zealand"); # Load file
-		$path.=&getsPath("album/hist","THIRDTEST"); # Load file
-		&mapGoogle("$id","$gmv");
-	} # End if($prt==2)
+# Prints where you are
+if($prt==0){ # Begin if($prt==0)
+	$path.=&getsPath("album/hist","$googid"); # Load file
+	&mapGoogle("$id","$gmv");
+} # End if($prt==0)
+# Prints all markers
+if($prt==1){ # Begin if($prt==1)
+	$path.=&getsLoLa("album","hist"); # Load DB 
+	&mapGoogle("$id","$gmv");
+} # End if($prt==1)
+# marks trips
+if($prt==2){ # Begin if($prt==2)
+	$path.=&getsPath("album/hist","Canada"); # Load file
+	$path.=&getsPath("album/hist","New Zealand"); # Load file
+	$path.=&getsPath("album/hist","THIRDTEST"); # Load file
+	&mapGoogle("$id","$gmv");
+} # End if($prt==2)
 #} # End if(definied($prt))
 #else {
-	#&mapGoogle("$id","$gmv");
+#&mapGoogle("$id","$gmv");
 #}
 
 =head1 sub getsLoLa(...)
@@ -436,7 +436,7 @@ sub getsLoLa{ # begin getsLoLa
 	my ($dp,$ds)=@_; # (dp: directory parent,ds: directory son) where are stored DB
 
 	my $llL=();# list of Longitude and latitude taken from a given file
-	
+
 	chdir("$dp");chdir("$ds");# we go in $dp/$ds. Now it's current diectory
 	my $r=();# store content of each file
 	opendir(ARD,".") || die(". $!");# open current directory
@@ -570,7 +570,7 @@ sub getsPath{ # begin getsPath
 		} # end if(length("$ee")>0)
 	} # end foreach (@dr)
 	chdir("..");chdir(".."); # come back to original dir configuration
-	
+
 	my @a=split(/\,/,$r);
 	my $l=();my $L=();my $ll=();my $LL=();
 	my @zz=(); # path stored
@@ -583,20 +583,20 @@ sub getsPath{ # begin getsPath
 		# we check country name below
 		if($q[5]=~m/$field/i){ # begin if($q[7]=~m/$field/i)
 			#print "oooooooooooooooo)$q[14] ------------ ";
-	#		print ")))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))$q[7]<br>";
+			#		print ")))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))$q[7]<br>";
 			my $dte=$q[7]; # Gets login date
 			my $l=$q[4]; # Gets Latitude
 			my $L=$q[3]; # Gets Longitude
 			@infoWC=(@infoWC,&infoCenter("$q[6]"));# Info Weather Center
 			# we remove same coordnitates that next to each ohers (line before)
 			#if(!("$ll" eq "$l" && "$LL" eq "$L")){ # begin if(!("$ll" eq "$l" && "$LL" eq "$L"))
-				# checks here if we can mix array with weather forecast
-				# trig with vi a.s /new google.maps.LatLng
-				#print "------------------------------------------------------->$dte<br>";
-				@zz=(@zz,"$dte@ new google.maps.LatLng($l,$L),\n");
+			# checks here if we can mix array with weather forecast
+			# trig with vi a.s /new google.maps.LatLng
+			#print "------------------------------------------------------->$dte<br>";
+			@zz=(@zz,"$dte@ new google.maps.LatLng($l,$L),\n");
 			#} # end if(!("$ll" eq "$l" && "$LL" eq "$L"))
 			$ll=$l;$LL=$L;
-#print "	
+			#print "	
 		} # end if($q[7]=~m/$field/i)
 	} # end for my $p (@a)
 	my @qq=sort(@zz);
@@ -605,29 +605,29 @@ sub getsPath{ # begin getsPath
 	#print "size of the array ". scalar(@qq) . "<<<<<<<<<<<<<<<<br>";
 	my $max=scalar(@qq);
 	my $cur=1;
-#use constant &io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->() 	=> "album/trips/";
-#use constant &io::MyConstantBase::TRIP_NAME->()           	=> "trips"; # Album trips
-		my $mgidt=$doc->param("maop_googid"); #my google id  trip
-		chomp($mgidt);
+	#use constant &io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->() 	=> "album/trips/";
+	#use constant &io::MyConstantBase::TRIP_NAME->()           	=> "trips"; # Album trips
+	my $mgidt=$doc->param("maop_googid"); #my google id  trip
+	chomp($mgidt);
 
-		my $tn=&io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->().$mgidt ."-".&io::MyConstantBase::TRIP_NAME->(); # Trip name
+	my $tn=&io::MyConstantBase::PATH_GOOGLE_MAP_TRIP->().$mgidt ."-".&io::MyConstantBase::TRIP_NAME->(); # Trip name
 
-		if ( ! -f "$tn"){ # Begin if ( ! -f "$tn")
-			print "Content-type: text/html\n\n";
-			print <<R;
+	if ( ! -f "$tn"){ # Begin if ( ! -f "$tn")
+		print "Content-type: text/html\n\n";
+		print <<R;
 			<p1>
 			File not exists $mgidt;
 			</p1>
 			<br><b><u>We are checking all variables values passed as param:</b></u><br>
 R
-			exit(-1);
-		} # End if ( ! -f "$tn")
-		open(RTN,"$tn") or die ("$tn error $!");my @rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains begin and end of trip)
-		#open(W,">____test.txt");print W "$logfile °°°°°° $rtn[0]\n";close(W);
-		chomp($rtn[0]);my ($brtn,$ertn)=split(/\#/,$rtn[0]);
-		my $anal = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
-		my $dtb = $anal->parse_datetime( $brtn );
-		$logfile=~s/\//\_/g;
+		exit(-1);
+	} # End if ( ! -f "$tn")
+	open(RTN,"$tn") or die ("$tn error $!");my @rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains begin and end of trip)
+	#open(W,">____test.txt");print W "$logfile °°°°°° $rtn[0]\n";close(W);
+	chomp($rtn[0]);my ($brtn,$ertn)=split(/\#/,$rtn[0]);
+	my $anal = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
+	my $dtb = $anal->parse_datetime( $brtn );
+	$logfile=~s/\//\_/g;
 
 	#print "Content-Type: text/html\n\n";
 	foreach(@qq){ # begin foreach(@qq)
@@ -639,8 +639,8 @@ R
 		if($cur<$max){ # Begin if($cur<$max)
 			if ($cur>1){ # begin if ($cur>1)
 				#open(W,">>____test.txt");print W "cur($cur)<max($max) ---  dte($dte)<dt3($dt3)=".($dte<$dt3)."\n";close(W);
-			#	{ # begin if($dte<$dt3)
-					$markersTrip.=<<TRIP_MARKERS;
+				#	{ # begin if($dte<$dt3)
+				$markersTrip.=<<TRIP_MARKERS;
 
 				// --------------  $ea   ------------------
 				var contentString = "$infoWC[$cur]";
@@ -656,7 +656,7 @@ R
 					});
 
 				// --------------------------------
-    
+
 				marker.setMap(map);
 				google.maps.event.addListener( marker, 'click', function( data){
 								// displays marker position
@@ -685,7 +685,7 @@ TRIP_MARKERS
 					});
 
 				// --------------------------------
-    
+
 				marker.setMap(map);
 				google.maps.event.addListener( marker, 'click', function( data){
 				// displays marker position
@@ -702,9 +702,9 @@ TRIP_MARKERS
 			my $dte = $anal2->parse_datetime( $ertn );
 			my $dt3 = DateTime->from_epoch( epoch => time() );# Current date format DateTime
 
-				if($dte<$dt3)
-				{
-					$markersTrip.=<<TRIP_MARKERS;
+			if($dte<$dt3)
+			{
+				$markersTrip.=<<TRIP_MARKERS;
 
 			// --------------  $ea   ------------------
 				var contentString = "$infoWC[$cur]";
@@ -720,7 +720,7 @@ TRIP_MARKERS
 					});
 
 				// --------------------------------
-    
+
 				marker.setMap(map);
 				google.maps.event.addListener( marker, 'click', function( data){
 				// displays marker position
@@ -730,9 +730,9 @@ TRIP_MARKERS
 				// --------------------------------
 			// --------------------------------
 TRIP_MARKERS
-				}
-				else{
-			$markersTrip.=<<TRIP_MARKERS;
+			}
+			else{
+				$markersTrip.=<<TRIP_MARKERS;
 
 			// --------------------------------
 				var marker = new google.maps.Marker({
@@ -1080,7 +1080,7 @@ A
 
 	#my $mldtz=$lanal->offset_for_datetime;
 	my $param_trip=uri_unescape($doc->param("maop_googid"));
-		#my $ldtb = $lanal->parse_datetime( $brtn );
+	#my $ldtb = $lanal->parse_datetime( $brtn );
 	print <<R;
 		<script type="text/javascript" src="../js/markerclusterer.js"></script>
 		<script type="text/javascript">
@@ -1122,8 +1122,8 @@ A
 				map=new google.maps.Map(document.getElementById("map"),mapOptions);
 				map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
 
-$cart;
-$path;
+				$cart;
+				$path;
 				mc=new MarkerClusterer(map,markers,mcOptions);
 				marker=createMarkerWhereYouAre(position,"text");
 				marker.setMap(map);
@@ -1424,25 +1424,25 @@ sub infoCenter{ # begin sub infoCenter
 		my $data = $xml->XMLin("$nwc");
 
 		return   
-			"<div id='content'><!-- $data->{credit} -->"
-			."<p><img class='infoWin' src='$data->{icons}->{icon_set}->{Default}->{icon_url}'>"
-			."<ul><li>$data->{local_time}</li>"
-			."<li>$data->{display_location}->{city},$data->{display_location}->{state_name}</li>"
-			."<li>$data->{temperature_string}</li></ul>"
-			."<ul><li><u>Visibilité/Visibility:</u>$data->{visibility_mi}</li>"
-			."<li><u>Vent/Wind:</u>$data->{wind_string}</li>"
-			."<li><u>Pression/Pressure:</u>$data->{pressure_string}</li>"
-			."<li><u>Lat/Lon:</u>$data->{display_location}->{latitude},$data->{display_location}->{longitude}</li></ul></p>"
-			."</div>"
-			;
+		"<div id='content'><!-- $data->{credit} -->"
+		."<p><img class='infoWin' src='$data->{icons}->{icon_set}->{Default}->{icon_url}'>"
+		."<ul><li>$data->{local_time}</li>"
+		."<li>$data->{display_location}->{city},$data->{display_location}->{state_name}</li>"
+		."<li>$data->{temperature_string}</li></ul>"
+		."<ul><li><u>Visibilité/Visibility:</u>$data->{visibility_mi}</li>"
+		."<li><u>Vent/Wind:</u>$data->{wind_string}</li>"
+		."<li><u>Pression/Pressure:</u>$data->{pressure_string}</li>"
+		."<li><u>Lat/Lon:</u>$data->{display_location}->{latitude},$data->{display_location}->{longitude}</li></ul></p>"
+		."</div>"
+		;
 	} # end if(-e "$nwc")
 	else{ # begin else
 		return   
-			"<div id='content'>"
-			."<ul>"
-			."<li>- No data available</li></ul>"
-			."</div>"
-			;
+		"<div id='content'>"
+		."<ul>"
+		."<li>- No data available</li></ul>"
+		."</div>"
+		;
 	} # end else
 } # end sub infoCenter
 
