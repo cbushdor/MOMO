@@ -1,0 +1,3 @@
+doreys <dorey_s@laposte.net> 1578076397 +0100
+[cbushdor/My-Proj,dev] rename 202001gstudy-MAOP-V2\ copy.html in 202001g...
+https://github.com/cbushdor/My-Proj/commit/fa68216efd08c6b185862940d5cc0bf402d8bde4

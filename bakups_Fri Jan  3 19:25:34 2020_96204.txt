@@ -1,0 +1,3 @@
+doreys <dorey_s@laposte.net> 1578075934 +0100
+[cbushdor/My-Proj,dev] renamed 202001gstudy-MAOP-V2 copy.planner in 2020...
+https://github.com/cbushdor/My-Proj/commit/5afc59d2b9c0a69e4e29f025e2c32a63fdaeda36

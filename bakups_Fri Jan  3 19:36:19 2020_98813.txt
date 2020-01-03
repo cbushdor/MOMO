@@ -1,0 +1,3 @@
+doreys <dorey_s@laposte.net> 1578076579 +0100
+[cbushdor/My-Proj,dev] ok
+https://github.com/cbushdor/My-Proj/commit/af5e7e965d57391f6036a9f4bf211e6fafc9f245
