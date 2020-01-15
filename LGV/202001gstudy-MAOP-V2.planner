@@ -55,8 +55,8 @@
         </task>
       </task>
     </task>
-    <task id="17" name="Sports" note="" work="79200" start="20200103T000000Z" end="20200114T120000Z" work-start="20200103T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="18" name="Practise" note="" work="79200" start="20200103T000000Z" end="20200114T120000Z" work-start="20200103T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="17" name="Sports" note="" work="97200" start="20200103T000000Z" end="20200115T140000Z" work-start="20200103T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="18" name="Practise" note="" work="97200" start="20200103T000000Z" end="20200115T140000Z" work-start="20200103T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <task id="19" name="-" note="" work="7200" duration="7200" start="20200103T000000Z" end="20200103T100000Z" work-start="20200103T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20200103T000000Z"/>
         </task>
@@ -84,28 +84,37 @@
             <predecessor id="1" predecessor-id="19" type="FS"/>
           </predecessors>
         </task>
+        <task id="27" name="-    " note="" work="18000" duration="18000" start="20200115T000000Z" end="20200115T140000Z" work-start="20200115T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="start-no-earlier-than" time="20200115T000000Z"/>
+          <predecessors>
+            <predecessor id="1" predecessor-id="19" type="FS"/>
+          </predecessors>
+        </task>
       </task>
     </task>
-    <task id="27" name="Conf/Renc/Mati/Salo/Expo" note="" work="21600" start="20190101T000000Z" end="20200114T150000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="28" name="Cin&#xE9;ma" note="" work="14400" start="20200108T000000Z" end="20200114T150000Z" work-start="20200108T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="29" name="Reg-" note="" work="7200" start="20200114T120000Z" end="20200114T150000Z" work-start="20200114T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="30" name="RM" note="Fri 03 Jan 2020, 19:29&#10;La mari&#xE9;e aux cheveux blancs" work="7200" duration="7200" start="20200114T120000Z" end="20200114T150000Z" work-start="20200114T120000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+    <task id="28" name="Conf/Renc/Mati/Salo/Expo" note="" work="25200" start="20190101T000000Z" end="20200115T160000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="29" name="Cin&#xE9;ma" note="" work="18000" start="20200108T000000Z" end="20200115T160000Z" work-start="20200108T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="30" name="Reg-" note="" work="7200" start="20200115T140000Z" end="20200115T160000Z" work-start="20200115T140000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="31" name="RM" note="Fri 03 Jan 2020, 19:29&#10;La mari&#xE9;e aux cheveux blancs" work="7200" duration="7200" start="20200115T140000Z" end="20200115T160000Z" work-start="20200115T140000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="start-no-earlier-than" time="20200103T000000Z"/>
             <predecessors>
               <predecessor id="1" predecessor-id="17" type="FS"/>
             </predecessors>
           </task>
         </task>
-        <task id="31" name="Meal" note="" work="7200" start="20200108T000000Z" end="20200114T090000Z" work-start="20200108T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="32" name="-" note="" work="3600" duration="3600" start="20200108T000000Z" end="20200108T090000Z" work-start="20200108T080000Z" percent-complete="90" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="32" name="Meal" note="" work="10800" start="20200108T000000Z" end="20200115T090000Z" work-start="20200108T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="33" name="-" note="" work="3600" duration="3600" start="20200108T000000Z" end="20200108T090000Z" work-start="20200108T080000Z" percent-complete="90" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20200108T000000Z"/>
           </task>
-          <task id="33" name="-" note="" work="3600" duration="3600" start="20200114T000000Z" end="20200114T090000Z" work-start="20200114T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <task id="34" name="-" note="" work="3600" duration="3600" start="20200114T000000Z" end="20200114T090000Z" work-start="20200114T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
             <constraint type="must-start-on" time="20200114T000000Z"/>
+          </task>
+          <task id="35" name="-" note="" work="3600" duration="3600" start="20200115T000000Z" end="20200115T090000Z" work-start="20200115T080000Z" percent-complete="1" priority="1" type="normal" scheduling="fixed-duration">
+            <constraint type="must-start-on" time="20200115T000000Z"/>
           </task>
         </task>
       </task>
-      <task id="34" name="Spectacles" note="" work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="36" name="Spectacles" note="" work="7200" start="20190101T000000Z" end="20190101T100000Z" work-start="20190101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
     </task>
   </tasks>
   <resource-groups>
@@ -131,9 +140,9 @@
     <resource group="1" id="12" name="Readings" short-name="rds" type="1" units="0" email="" note="" std-rate="0"/>
   </resources>
   <allocations>
-    <allocation task-id="33" resource-id="1" units="100"/>
+    <allocation task-id="34" resource-id="1" units="100"/>
     <allocation task-id="18" resource-id="1" units="100"/>
-    <allocation task-id="30" resource-id="1" units="100"/>
+    <allocation task-id="31" resource-id="1" units="100"/>
     <allocation task-id="10" resource-id="2" units="25"/>
     <allocation task-id="7" resource-id="2" units="17"/>
     <allocation task-id="8" resource-id="2" units="25"/>
@@ -152,7 +161,7 @@
     <allocation task-id="9" resource-id="6" units="20"/>
     <allocation task-id="7" resource-id="7" units="17"/>
     <allocation task-id="16" resource-id="7" units="100"/>
-    <allocation task-id="29" resource-id="8" units="100"/>
+    <allocation task-id="30" resource-id="8" units="100"/>
     <allocation task-id="10" resource-id="12" units="25"/>
     <allocation task-id="7" resource-id="12" units="17"/>
   </allocations>
