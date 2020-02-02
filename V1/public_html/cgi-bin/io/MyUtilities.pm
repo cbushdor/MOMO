@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyUtilities.pm
 * Creation Date : Thu Oct 13 22:51:08 2005
-* Last Modified : Fri Feb  1 23:01:16 2019
+* @modify date 2020-02-02 15:08:17
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 1.1.25.60
 * License:
@@ -21,7 +21,7 @@ use strict;
 use warnings;
 
 #sub io::MyConstantBase::do_untaint { ... }
-#use io::MyConstantBase;
+use io::MyConstantBase;
 # @inc=(@inc "packages");
 
 use CGI::Carp qw(fatalsToBrowser); 
@@ -31,20 +31,20 @@ use IO::Socket;
 # use strict;
 use Cwd;
 
-my $VERSION    = '1.1.25.60';
+my $VERSION    = '1.1.25.72';
 $VERSION    = eval $VERSION;
 my @ISA    = qw( Exporter );
 my @EXPORT = qw(
-		finds_directory_where_are_stored_images
-		checks_file_dependencies      footer
-		gets_private_stuff_for_administrator
-		check_password 		   getUrlFromFile
-		getsXML getsXMLFromString
-		googHead loadFile
-		setUrlFile 		   remove_ip
-		isEqualedValue
-		getsDocVers 		myPing
-	    );
+finds_directory_where_are_stored_images
+checks_file_dependencies      footer
+gets_private_stuff_for_administrator
+check_password 		   getUrlFromFile
+getsXML getsXMLFromString
+googHead loadFile
+setUrlFile 		   remove_ip
+isEqualedValue
+getsDocVers 		myPing
+);
 
 
 =head1 NAME
@@ -226,7 +226,7 @@ None.
 
 sub finds_directory_where_are_stored_images {  # begin sub finds_directory_where_are_stored_images
 	if ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/img/" ) { # Begin if ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/img/" )
-		return &io::MyConstantBase::ROOT_DEPOSIT->() . "img/";
+		return &io::MyConstantBase::ROOT_DEPOSIT->() . "/img/";
 	} # End if ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/img/" )
 	elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/image/" ) { # Begin elsif ( -d &io::MyConstantBase::ROOT_DEPOSIT->() . "/image/" ) 
 		return &io::MyConstantBase::ROOT_DEPOSIT->() . "image/";
@@ -422,102 +422,102 @@ None.
 =cut
 
 sub footer {    # begin sub footer
-  my ($doc,$image_used,$image_encryption,$link_with_image,$version,$browsers
-  ,$hosted_url
-  ,$hosted_by
-  ) = @_;
-  # Checks footer url
-  my $chkf= <<CHECK;
+	my ($doc,$image_used,$image_encryption,$link_with_image,$version,$browsers
+		,$hosted_url
+		,$hosted_by
+	) = @_;
+	# Checks footer url
+	my $chkf= <<CHECK;
   <script>
-  	var murl="https://validator.w3.org/check?uri=";
+	var murl="https://validator.w3.org/check?uri=";
 	document.write("<a href='"+murl+encodeURI(document.URL)+"'>Syntax validator</a>");
   </script>
 CHECK
-  return 
-    "	<div id=\"my_footer\">\n".
-    "<!-- <script>document.write('hello');</script> -->\n".
-      $doc->table(
-		  {
-		   -class => "footer",
-		   -border => (${^TAINT}) ? "1" : "0",
-		   -width => '100%'
-		  }, "\n" .
-		  $doc->Tr("\n".
-			   $doc->td(
-				    {
-				     -align  => 'left',
-				     -valign => 'top'
-				    },
-				    "\n<i><u id='pr'>R</u>esponzible f<u id='po'>o</u>r the <u id='pp'>P</u>roj<u id='pe'>e</u>ct</i>"
-				    . "\n" . $doc->a(
-					      {
-					       -href =>
-					       'mailto:esse.dho@laposte.net?subject=Album of pictures'
-					      },
-					      &io::MyConstantBase::MANAGER->()
-					     )
-				    . 
-				    ";\n Designed by "
-				    . $doc->a(
-					      {
-					       -href =>
-					       'mailto:shark.bait@laposte.net?subject=Album of pictures'
-					      },
-					      &io::MyConstantBase::COMPAGNY->()
-					     )
-				    . ";\n Written by "
-				    . $doc->a(
-					      {
-					       -href =>
-					       'mailto:flotilla.reindeer@laposte.net?subject=Album of pictures'
-					      },
-					      &io::MyConstantBase::AUTHOR->()
-					     )
-				    . "\n".$doc->br
-				    . "\n<font class=\"footer\">Script version "
-				    . $version . $doc->br
-				    #. "Tested with browsers: "
-				    #. $browsers . "."
-				    . "</font>\n<br />" 
-				    #. "<script>document.write('<a href=\"https://validator.w3.org/check?uri=');</script>\n"
-				    . "$chkf\n" .
-					"\n"
-				   ),"\n".
-			   $doc->td(
-				    {
-				     -align  => 'right',
-				     -valign => 'bottom'
-				    }, "\n".
-					    $doc->img( { -border => 0,
-								-alt => "",
-					    -src => $image_encryption } )
-				    . "\n"
-				    ),"\n"
-				   .
-			   $doc->td(
-				    {
-				     -align  => 'right',
-				     -valign => 'bottom'
-				    }, "\n".
-				    $doc->a(
-					    { 
-					    -href => $link_with_image 
-					    } ,"\n" . $doc->img( { 
-					    			-border => 0,
-								-alt => "",
-								-src => $image_used } )
-					   )
-				    . $doc->br
-				    . "\nHosted by "
-				    . $doc->a(
-					      { 
-					      -href => $hosted_by }, $hosted_url
-					     )
-				    . "\n")
-			  . "\n")
-			  . "\n"
-		 ) .
-	   "\n";
+	return 
+	"	<div id=\"my_footer\">\n".
+	"<!-- <script>document.write('hello');</script> -->\n".
+	$doc->table(
+		{
+			-class => "footer",
+			-border => (${^TAINT}) ? "1" : "0",
+			-width => '100%'
+		}, "\n" .
+		$doc->Tr("\n".
+			$doc->td(
+				{
+					-align  => 'left',
+					-valign => 'top'
+				},
+				"\n<i><u id='pr'>R</u>esponzible f<u id='po'>o</u>r the <u id='pp'>P</u>roj<u id='pe'>e</u>ct</i>"
+				. "\n" . $doc->a(
+					{
+						-href =>
+						'mailto:esse.dho@laposte.net?subject=Album of pictures'
+					},
+					&io::MyConstantBase::MANAGER->()
+				)
+				. 
+				";\n Designed by "
+				. $doc->a(
+					{
+						-href =>
+						'mailto:shark.bait@laposte.net?subject=Album of pictures'
+					},
+					&io::MyConstantBase::COMPAGNY->()
+				)
+				. ";\n Written by "
+				. $doc->a(
+					{
+						-href =>
+						'mailto:flotilla.reindeer@laposte.net?subject=Album of pictures'
+					},
+					&io::MyConstantBase::AUTHOR->()
+				)
+				. "\n".$doc->br
+				. "\n<font class=\"footer\">Script version "
+				. $version . $doc->br
+				#. "Tested with browsers: "
+				#. $browsers . "."
+				. "</font>\n<br />" 
+				#. "<script>document.write('<a href=\"https://validator.w3.org/check?uri=');</script>\n"
+				. "$chkf\n" .
+				"\n"
+			),"\n".
+			$doc->td(
+				{
+					-align  => 'right',
+					-valign => 'bottom'
+				}, "\n".
+				$doc->img( { -border => 0,
+						-alt => "",
+						-src => $image_encryption } )
+				. "\n"
+			),"\n"
+			.
+			$doc->td(
+				{
+					-align  => 'right',
+					-valign => 'bottom'
+				}, "\n".
+				$doc->a(
+					{ 
+						-href => $link_with_image 
+					} ,"\n" . $doc->img( { 
+							-border => 0,
+							-alt => "",
+							-src => $image_used } )
+				)
+				. $doc->br
+				. "\nHosted by "
+				. $doc->a(
+					{ 
+						-href => $hosted_by }, $hosted_url
+				)
+				. "\n")
+			. "\n")
+		. "\n"
+	) .
+	"\n";
 }    # End sub footer
 
 =head1 sub gets_private_stuff_for_administrator(...)
@@ -586,8 +586,8 @@ sub gets_private_stuff_for_administrator {    # begin sub gets_private_stuff_for
 		if ( -f "$private_info_directory/pswd.txt" ) {    # begin if (-f "private/pswd.txt")
 			open( R, "$private_info_directory/pswd.txt" )
 			|| die( "Cannot find file "
-			    . $private_info_directory
-			    . "/pswd.txt $!\n" );
+				. $private_info_directory
+				. "/pswd.txt $!\n" );
 			my @p = <R>;
 			chomp( $p[0] );
 			chomp( $p[1] );
@@ -601,9 +601,9 @@ sub gets_private_stuff_for_administrator {    # begin sub gets_private_stuff_for
 				$login  = $my_param_login;
 				$passwd = $my_param_password;
 				open( W, ">$private_info_directory/pswd.txt" )
-					|| die( "Cannot find file "
-					      . $private_info_directory
-					      . "/pswd.txt when being created $!\n" );
+				|| die( "Cannot find file "
+					. $private_info_directory
+					. "/pswd.txt when being created $!\n" );
 				print W "$login\n";
 				print W "$passwd\n";
 				close(W);
@@ -612,12 +612,12 @@ sub gets_private_stuff_for_administrator {    # begin sub gets_private_stuff_for
 		else {    # begin else
 			if ( !-d "$private_info_directory" ) {     # begin if (!-d "$album_directory")
 				mkdir( "$private_info_directory", 0700 )
-					|| die("Cannot create $private_info_directory\n");
+				|| die("Cannot create $private_info_directory\n");
 			}    # End if (!-d "$album_directory")
 			open( W, ">$private_info_directory/pswd.txt" )
 			|| die( "Cannot find file "
-				  . $private_info_directory
-				  . "/pswd.txt when being created $!\n" );
+				. $private_info_directory
+				. "/pswd.txt when being created $!\n" );
 			print W "\n";
 			print W "\n";
 			close(W);
@@ -705,25 +705,25 @@ None.
 sub check_password {    # begin sub check_password
 	my (%credentials)=@_;
 	my ($my_pid,
-	$service_from_param,
-	$service_value,
-	$prev_pid_from_param,
-	$user_login,
-	$login,
-	$user_password,
-	$password,
-	$album_pid_file,
-	$doc)=(
-				$credentials{"my_pid"},
-				$credentials{"service_from_param"},
-				$credentials{"service_value"},
-				$credentials{"prev_pid_from_param"},
-				$credentials{"user_login"},
-				$credentials{"login"},
-				$credentials{"user_password"},
-				$credentials{"password"},
-				$credentials{"album_pid_file"},
-				$credentials{"doc"});
+		$service_from_param,
+		$service_value,
+		$prev_pid_from_param,
+		$user_login,
+		$login,
+		$user_password,
+		$password,
+		$album_pid_file,
+		$doc)=(
+		$credentials{"my_pid"},
+		$credentials{"service_from_param"},
+		$credentials{"service_value"},
+		$credentials{"prev_pid_from_param"},
+		$credentials{"user_login"},
+		$credentials{"login"},
+		$credentials{"user_password"},
+		$credentials{"password"},
+		$credentials{"album_pid_file"},
+		$credentials{"doc"});
 
 	#print "<br>\n | $_:$credentials{$_}" foreach keys %credentials;print "\n<br>-----------------------------------------<br>\n";
 	#print " ($my_pid, $service_from_param, $service_value, $prev_pid_from_param, $user_login, $login, $user_password, $password, $album_pid_file, $doc)\n<br>";
@@ -860,7 +860,7 @@ sub getUrlFromFile{
 
 	if(!-f "$locdep/$f") { mkdir($locdep); open(URL,">$locdep/$f"); print URL "$urls"; close(URL); }
 	else { open(URL,"$locdep/$f"); $urls=<URL>; close(URL); }
-#print "oooooooooooo>$urls(rrrrrrrrr<br>";
+	#print "oooooooooooo>$urls(rrrrrrrrr<br>";
 	return $urls; 
 }
 
@@ -919,14 +919,14 @@ sub remove_ip{ # begin sub remove_ip
 	my $f="urls";
 	my $locdep="album";
 
-#	open(URL,">$locdep/$f") || die("$locdep/$f $!");
+	#	open(URL,">$locdep/$f") || die("$locdep/$f $!");
 	foreach my $i (@oth){ # begin foreach my $i (@oth)
 		chomp($i);
-#		if($rem!~/$i/){ print URL "$i,"; }
+		#		if($rem!~/$i/){ print URL "$i,"; }
 		if($rem!~/$i/){ print "+++>ok $i<br>\n"; }
 		else { print "===>to be removed $i<br>\n"; }
 	} # End foreach my $i (@oth)
-#	close(URL) || die("$locdep/$f $!");
+	#	close(URL) || die("$locdep/$f $!");
 	return 0;
 } # end sub remove_ip
 
@@ -990,7 +990,7 @@ sub setUrlFile{ # begin setUrlFile
 	my ($p,$f,$locdep)=@_;#$p:line,$f:file where to store;path
 	my $d=();
 
-#	print "Content-type: txt/html\n\n";
+	#	print "Content-type: txt/html\n\n";
 	chomp($p);
 	if( !-d "$locdep"){# begin if( !-d "$locdep")
 		print "$locdep does not exist<br>";
@@ -1200,14 +1200,14 @@ sub myPing{ # begin sub myPing
 	print "$ho $po $pa\n";
 
 	my $socket=new IO::Socket::INET(PeerAddr => $ho,
-					PeerPort => $po,
-					Proto => 'tcp') or 
-					die "impossible connexion";
+		PeerPort => $po,
+		Proto => 'tcp') or 
+	die "impossible connexion";
 
 	$socket->autoflush(1);
 
 	print $socket "GET $pa HTTP/1.1\n",
-			"Host: $ho\n\n";
+	"Host: $ho\n\n";
 	print while (<$socket>);
 	$socket->close();
 } # end sub myPing
@@ -1273,7 +1273,7 @@ sub getsXML{ # begin sub getsXML
 		my $f=$1; # field content between open and close braquet
 
 		if($1=~m{(\<\/[^\<\>]*\>)}){
-		# begin if($1=~m{(\<\/[^\<\>]*\>)})
+			# begin if($1=~m{(\<\/[^\<\>]*\>)})
 			$lin++;
 			$dta{"$lin-$f"}=$2;
 		} # end if($1=~m{(\<\/[^\<\>]*\>)})
@@ -1342,7 +1342,7 @@ sub getsXMLFromString{ # begin sub getsXML
 		my $f=$1; # field content between open and close braquet
 
 		if($1=~m{(\<\/[^\<\>]*\>)}){
-		# begin if($1=~m{(\<\/[^\<\>]*\>)})
+			# begin if($1=~m{(\<\/[^\<\>]*\>)})
 			$lin++;
 			$dta{"$lin-$f"}=$2;
 		} # end if($1=~m{(\<\/[^\<\>]*\>)})
@@ -1433,9 +1433,9 @@ R
 			</script>
 R
 		} # End else
-#		<script type="text/javascript"
-#		      src="https://maps.googleapis.com/maps/api/js?key=${idgoog}&sensor=false">
-#		</script>
+		#		<script type="text/javascript"
+		#		      src="https://maps.googleapis.com/maps/api/js?key=${idgoog}&sensor=false">
+		#		</script>
 	} else {
 		$r=<<R;
 			<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=${idgoog}" type="text/javascript"></script>
