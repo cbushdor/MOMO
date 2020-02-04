@@ -4,7 +4,8 @@ LGV: La Grande Vadrouille and Gantt files of the project   [execution](http://do
 
 V0: version made before the first release of MAOP.
 
-V1: first version of MAOP (My Album Of Pictures) [execution](http://derased.heliohost.org//cgi-bin/album.cgi).
+V1: first version of MAOP (My Album Of Pictures) [execution](https://dorseb.hopto.org/~sdo/cgi-bin/album.cgi).
+    it is eclosed too the very first program made to exercise with CGI Perl.
 
 V2: second version of MAOP (My Album Of Pictures). 
 
