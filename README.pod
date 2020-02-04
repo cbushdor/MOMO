@@ -1,15 +1,15 @@
 =head1 Directory
 
-LGV: La Grande Vadrouille and Gantt files of the project   [execution](http://dorey.sebastien.free.fr/Project/LGV/mapr/Gantt/).
+LGV: La Grande Vadrouille and Gantt files of the project.
 
 V0: version made before the first release of MAOP.
 
-V1: first version of MAOP (My Album Of Pictures) [execution](https://dorseb.hopto.org/~sdo/cgi-bin/album.cgi).
+V1: first version of MAOP (My Album Of Pictures).
 
 V2: second version of MAOP (My Album Of Pictures). 
 
 
-MyNavBase: this contains a program to include in a directory and it prints pod files at the bottom of the listing (if README.pod exists) [execution](http://derased.heliohost.org/).
+MyNavBase: this contains a program to include in a directory and it prints pod files at the bottom of the listing (if README.pod exists).
 
 
 =head1 Branches
