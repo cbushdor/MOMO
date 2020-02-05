@@ -4,7 +4,7 @@ q##//q#
 * Created By : sdo
 * File Name : login.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* @modify date 2020-02-05 01:52:26
+* @modify date 2020-02-05 01:56:25
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -395,6 +395,7 @@ else { # Begin else
 
 print <<HTML;
 </div>
+				<script>
 footer("http://dorey.sebastien.free.fr","javascript:history.back()");
 				</script>
 				</body>
