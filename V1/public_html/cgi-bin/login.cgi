@@ -4,7 +4,7 @@ q##//q#
 * Created By : sdo
 * File Name : login.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* @modify date 2020-02-05 01:19:38
+* @modify date 2020-02-05 01:52:26
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -229,10 +229,9 @@ print <<HTML;
 	<html>
 		<head>
 
-		<meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript, PHP">
-
 		<script>
-		var mcwd="../Project/";
+		var mcwd="../Project/"; // stubb cannot inclue <?php include.... ?> in CGI Perl for time being
+		var cfnlam="2003/02/05 12:00:23"; // stubb cannot inclue <?php include.... ?> in CGI Perl for time being
 		</script>
 		<script language="javascript" src="../Project/js/menu.js"></script>
 		<script>
@@ -269,14 +268,6 @@ my $color_text_stored    = &gets_line_colors_stored; # That's the text color
 if ( "$guest_book_name" eq "") { # Begin if ( "$guest_book_name" eq "")
 	#print "Content-type: text/html\n\n";
 	print "<br><br>Le livre d'or n'existe pas.<br><font color=orange>Guest book does not exist.</font><br><br><br>\n";
-	#print "<br><br>".
-	#	io::MyUtilities::footer(
-	#				$doc, 
-	#				IMAGE_DIRECTORY_DEPOSIT . "powered.gif",
-	#IMAGE_DIRECTORY_DEPOSIT . "hangada.gif",
-	#				"http://www.perl.org", 
-	#				$VERSION,
-	#"Mozilla 1.7.12");
 	exit;
 }  # End if ( "$guest_book_name" eq "")
 
@@ -358,23 +349,6 @@ HEADER
 			else { # Begin else
 				#print "Content-type: text/html\n\n";
 				print "<html>\n";
-				print <<HEADER;
-     a, a:link, a:visited {
-	 color: orange;
-	 text-decoration: none;
-     }
-
-
-    table.footer {
-		 font-size: 12px;
-		 text-align: right;
-		 color: black;
-		 background-color: #D2D2FF;
-		 opaque: .80;
-	      }
-
-</style>
-HEADER
 				print "<body>";
 				print "Erreur: le livre d'or $new_Guest_book_name ne peux pas etre crée <br><font color=orange>Error: guest book $new_Guest_book_name cannot be created</font><br>";
 				#print &footer($doc, IMAGE_DIRECTORY_DEPOSIT . "powered.gif","0.2","Mozilla 1.7.12");
@@ -388,47 +362,11 @@ HTML
 		elsif ( $function_admin_extra eq "removes_guest_book" ) { # Begin if ( $function_admin_extra eq "removes_guest_book" )
 			if ( &removes_old_guest_book_name == 0) { # Begin if ( &removes_old_guest_book_name == 0)
 				#print "Content-type: text/html\n\n";
-				print "<html>\n";
-				print <<HEADER;
-<style type="text/css">
-     a, a:link, a:visited {
-	 color: orange;
-	 text-decoration: none;
-     }
-
-     table.footer {
-		       font-size: 12px;
-		       text-align: right;
-		       color: yellow;
-		       link: yellow;
-		       vlink: orange;
-		       background-color: #353135;
-		       opacity: .50;
-		  }
-</style>
-HEADER
 				print "Congratulation: livre d'or $old_Guest_book_name a été supprimé <br> <font color=orange>Congratulation: guest book $old_Guest_book_name was removed</font><br>";
 			}  # End if ( &removes_old_guest_book_name == 0)
 			else { # Begin else
 				#print "Content-type: text/html\n\n";
 				print "<html>\n";
-				print <<HEADER;
-<style type="text/css">
-     a, a:link, a:visited {
-	 color: orange;
-	 text-decoration: none;
-     }
-
-     table.footer {
-		       font-size: 12px;
-		       text-align: right;
-		       color: yellow;
-		       background-color: #353135;
-		       opacity: .50;
-		  }
-
-</style>
-HEADER
 				print "Erreur: le livre d'or $old_Guest_book_name  ne peux pas être supprimé <br><font color=orange>Error: guest book $old_Guest_book_name cannot be removed</font><br>";
 			}  # End else
 		} # End if ( $function_admin_extra eq "removes_guest_book" )
@@ -457,9 +395,10 @@ else { # Begin else
 
 print <<HTML;
 </div>
-				<script>
 footer("http://dorey.sebastien.free.fr","javascript:history.back()");
 				</script>
+				</body>
+				</html>
 HTML
 
 =head1 FUNCTION  saveConf
