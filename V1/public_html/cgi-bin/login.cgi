@@ -4,12 +4,12 @@ q##//q#
 * Created By : sdo
 * File Name : login.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* @modify date 2020-02-05 01:56:25
+* @modify date 2020-02-05 02:28:11
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.5.5.1036
+* Version : 1.5.5.1045
 * Purpose :
 #;
 # ------------------------------------------------------
@@ -25,7 +25,7 @@ END {
 	$doc->delete_all(); # We clean all variables and parameters when the script is over
 }
 
-my $VERSION="1.5.5.1036";
+my $VERSION="1.5.5.1045";
 
 use io::MyUtilities;
 use io::MyTime;
@@ -2530,24 +2530,25 @@ END_JAVASCRIPT
 
 	print "<table>\n";
 	print "<tr><td>";
-	print "<font color=\"$color_text_stored\">Auteur / </font></font><font color=orange>Author</font><font color=\"$color_text_stored\">:</font><td><input type=\"text\" name=\"author\"></tr>\n";
-	print "<tr><td><font color=\"$color_text_stored\">Votre nom de site web / </font><font color=orange>Your website name</font><font color=\"$color_text_stored\">:</font><td><input type=\"text\" name=\"home_name\"></tr>\n";
-	print "<tr><td><font color=\"$color_text_stored\">Entrer l'adresse du site web / </font><font color=orange>Your website address</font>:<td><input type=\"text\" name=\"home_url\" value=\"http://\"></tr>\n";
-	print "<tr><td><font color=\"$color_text_stored\">Votre email / </font><font color=\"orange\">Your email</font><font color=\"$color_text_stored\">:</font><td><input type=\"text\" name=\"email\"></tr>\n";
-	print "<tr><td><font color=\"$color_text_stored\">Lieu (ville+pays) / </font><font color=orange>Location (town+country)</font><font color=\"$color_text_stored\">:</font><td><input type=\"text\" name=\"loc\"></tr>\n";
+	print "<font color=\"$color_text_stored\">Auteur / </font></font><font color=orange>Author</font><font color=\"$color_text_stored\">:</font><td><input  size=\"10\" type=\"text\" name=\"author\"></tr>\n";
+	print "<tr><td><font color=\"$color_text_stored\">Votre nom de site web / </font><font color=orange>Your website name</font><font color=\"$color_text_stored\">:</font><td><input  size=\"10\" type=\"text\" name=\"home_name\"></tr>\n";
+	print "<tr><td><font color=\"$color_text_stored\">Entrer l'adresse du site web / </font><font color=orange>Your website address</font>:<td><input  size=\"10\" type=\"text\" name=\"home_url\" value=\"http://\"></tr>\n";
+	print "<tr><td><font color=\"$color_text_stored\">Votre email / </font><font color=\"orange\">Your email</font><font color=\"$color_text_stored\">:</font><td><input  size=\"10\" type=\"text\" name=\"email\"></tr>\n";
+	print "<tr><td><font color=\"$color_text_stored\">Lieu (ville+pays) / </font><font color=orange>Location (town+country)</font><font color=\"$color_text_stored\">:</font><td><input  size=\"10\" type=\"text\" name=\"loc\"></tr>\n";
 	print "</table>\n";
 	print "</fieldset>\n";
 	print "<fieldset>\n";
 	print "<legend><font color=\"$color_text_stored\">Entrez votre message / </font><font color=orange>Enter your message</font></legend><br>\n";
-	print "<textarea name=mess cols=92% rows=5>Entrer texte ici / Enter text here</textarea><br>\n";
+	print "<textarea name=mess cols=30>Entrer texte ici / Enter text here</textarea><br>\n";
 	print "</fieldset>\n";
 	print "<table>\n";
 	print "<tr>\n";
 	print "<td>\n";
-	print "<input type=submit  name=\"privateMess\" value=\"Envoyer\nSubmit\">\n";
-	print "<input type=\"reset\" value=\"Effacer\nReset\">\n";
+	print "<input type=submit  name=\"privateMess\" value=\"Envoyer / Submit\"><br>\n";
+	print "<input type=\"reset\" value=\"Effacer\nReset\"><br>\n";
+	print "</td></tr><tr>\n";
 	print "<td>\n";
-	print "<input type=submit name=\"privateMess\" value=\"Enregistrer en tant que message privé\nSubmit as private message\">\n";
+	print "<input type=submit name=\"privateMess\" value=\"Enregistrer privé / Submit as private\">\n";
 	print "<input type=hidden name=\"page\" value=\"$page\">\n";
 	print "<td>\n";
 	print "</tr>\n";
