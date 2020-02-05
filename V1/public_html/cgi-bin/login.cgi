@@ -1,4 +1,19 @@
 #!/usr/bin/perl-5.30.0
+# ------------------------------------------------------
+q##//q#
+* Created By : sdo
+* File Name : login.cgi
+* Creation Date : Mon Feb 3 22:51:08 2003
+* @modify date 2020-02-05 01:19:38
+* Email Address : sdo@macbook-pro-de-sdo.home
+* License:
+*       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
+*       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
+* Version : 1.5.5.1036
+* Purpose :
+#;
+# ------------------------------------------------------
+
 BEGIN {
 	use CGI;
 	push @INC,"/Users/sdo/Sites/cgi-bin/"; # We add a new path to @INC
@@ -10,7 +25,7 @@ END {
 	$doc->delete_all(); # We clean all variables and parameters when the script is over
 }
 
-my $VERSION="1.5.5.1032";
+my $VERSION="1.5.5.1036";
 
 use io::MyUtilities;
 use io::MyTime;
@@ -210,31 +225,38 @@ elsif($function eq "numMes"){ # Only number of messages per guestbook
 	exit(0);# Exit that's it
 }
 
-	print <<HTML;
+print <<HTML;
 	<html>
 		<head>
 
 		<meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript, PHP">
 
-		<?php 
-			include("../Project/php/base.php"); 
-			?>
 		<script>
 		var mcwd="../Project/";
 		</script>
 		<script language="javascript" src="../Project/js/menu.js"></script>
 		<script>
-			my_menu("<?php echo $mcwd ?>",new Array(
+			my_menu(mcwd,new Array(
 				"Admin", 				"Administration / <font color='orange'>Administration</font>", 
 				"Calculus/default.htm", 	"Calcul / <font color='orange'>Calculus</font>", 
 				"Methodology", 			"Méthodologie / <font color='orange'>Methodology</font>", 
 				"NFS", 				"Simultion de NFS / <font color='orange'>Simulation of NFS</font>", 
 				"Perl", 			"Perl / <font color='orange'>Perl</font>", 
 				"teamProject", 			"Equipe / <font color='orange'>Team</font>"),
-				"Administration / <font color='orange'>Administration</font>"); 
+				"LDO / <font color='orange'>GuBo</font>"); 
 		</script>
+		<style>
+		pre {
+ white-space: pre-wrap;       /* css-3 */
+ white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+ white-space: -pre-wrap;      /* Opera 4-6 */
+ white-space: -o-pre-wrap;    /* Opera 7 */
+ word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+		</style>
 		</head>
 	<body>
+	<div id='admin_project_menu'>
 HTML
 
 # Information related to set about guest book
@@ -272,7 +294,7 @@ if (&checks_if_album_exists($guest_book_name) != 0 ) { # Begin if (&checks_if_al
 	#print "Content-type: text/html\n\n";
 	print <<HTML;
 	<br><br>Le livre d'or [$guest_book_name] n'a pas été trouvé !!!<br> <font color=orange> Guest book  [$guest_book_name] was not found !!!</font><br><br><br>
-		aaaa
+	</div>
 		<script>
 			if (is_not_nav_tests(new Array( "Microsoft", "Konqueror"))) {
 				document.write("<br>");
@@ -355,7 +377,12 @@ HEADER
 HEADER
 				print "<body>";
 				print "Erreur: le livre d'or $new_Guest_book_name ne peux pas etre crée <br><font color=orange>Error: guest book $new_Guest_book_name cannot be created</font><br>";
-				print &footer($doc, IMAGE_DIRECTORY_DEPOSIT . "powered.gif","0.2","Mozilla 1.7.12");
+				#print &footer($doc, IMAGE_DIRECTORY_DEPOSIT . "powered.gif","0.2","Mozilla 1.7.12");
+				print <<HTML;
+				<script>
+footer("http://dorey.sebastien.free.fr","javascript:history.back()");
+				</script>
+HTML
 			}  # End else
 		} # End if ( $function_admin_extra eq "creates_guest_book" )
 		elsif ( $function_admin_extra eq "removes_guest_book" ) { # Begin if ( $function_admin_extra eq "removes_guest_book" )
@@ -428,7 +455,12 @@ else { # Begin else
 	#  &foot;
 } # End else
 
-print &io::MyUtilities::footer($doc, IMAGE_DIRECTORY_DEPOSIT . "powered.gif","0.2","Mozilla 1.7.12");
+print <<HTML;
+</div>
+				<script>
+footer("http://dorey.sebastien.free.fr","javascript:history.back()");
+				</script>
+HTML
 
 =head1 FUNCTION  saveConf
 
@@ -1949,7 +1981,7 @@ sub insertMessageGuestBook { # Begin sub insertMessageGuestBook
 		if ($privateMess =~ /Submit as private message/) { # Begin if ($privateMess =~ /Submit as private message/)
 			print GUESTBOOK "\<!--privateMessageEnd--\>\n";
 		} # End if ($privateMess =~ /Submit as private message/)
-		print GUESTBOOK "\n<center>\n<img src=\"_\&separator_bar_stored\&_\">\n</center>\n<br>\n";
+		print GUESTBOOK "\n<center>\n<img width=\"90\%\" src=\"_\&separator_bar_stored\&_\">\n</center>\n<br>\n";
 		print GUESTBOOK "\<!--${noSpace}End--\>\n";
 		close(GUESTBOOK) ||  die("Cannot close file $!");
 	}
@@ -2017,7 +2049,7 @@ sub insertMessageGuestBook { # Begin sub insertMessageGuestBook
 		if ($privateMess =~ /Submit as private message/) { # Begin if ($privateMess =~ /Submit as private message/)
 			print GUESTBOOK "\<!--privateMessageEnd--\>\n";
 		} # End if ($privateMess =~ /Submit as private message/)
-		print GUESTBOOK "\n<center>\n<img src=\"_\&separator_bar_stored\&_\">\n</center>\n<br>\n";
+		print GUESTBOOK "\n<center>\n<img width=\"90\%\" src=\"_\&separator_bar_stored\&_\">\n</center>\n<br>\n";
 		print GUESTBOOK "\<!--${noSpace}End--\>\n";
 		close(GUESTBOOK) ||  die("Cannot close file $!");
 		while (open(GUESTBOOK,">>". GUEST_BOOK_DIRECTORY_DEPOSIT ."$gb_name") < 0) { # Begin while (open(GUESTBOOK,">>". GUEST_BOOK_DIRECTORY_DEPOSIT ."$gb_name") < 0)
@@ -2852,28 +2884,36 @@ END_JAVASCRIPT
 	print "<body link=\"yellow\" vlink=\"red\" bgcolor=\"black\" text=\"green\" onload=\"javascript:show()\">\n";
 	if ($guest_book_name !~ m/help/) { # Begin if ($guest_book_name !~ m/help/)
 		print "<table width=100%>\n";
+		#&TR;
+		#&TD;
+		#print "<a href=\"http://dorey.sebastien.free.fr/\">";
+		#print "Page d'accueil/Home page\n";
+		#print "</a><br>\n";
+		#&TR_E;
 		&TR;
 		&TD;
-		print "<a href=\"http://dorey.sebastien.free.fr/\">";
-		print "Page d'accueil/Home page\n";
-		print "</a>\n";
 		if (&is_file_date_not_over($guest_book_name) == 0) { # Begin if (&is_file_date_not_over($guest_book_name) == 0)
-			&TD;
 			print "<form action=\"login.cgi\" method=\"post\">\n";
 			print "<input type=hidden name=\"guest_book_name\" value=\"$guest_book_name\">\n";
 			print "<input type=hidden name=\"function\" value=\"fill\">\n";
-			print "<input type=submit value=\"Signer le livre d'or\nSign my guestbook\">\n";
+			print "<input type=submit value=\"Signer / Sign \"><br>\n";
 			print "<input type=hidden name=\"page\" value=\"$page\">\n";
 			print "</form>\n";
 		} # End if (&is_file_date_not_over($guest_book_name) == 0)
+		&TR_E;
+		&TR;
 		&TD;
 		print "<form action=\"login.cgi\" method=\"post\">\n";
 		print "<input type=hidden name=\"function\" value=\"admin\">\n";
-		print "<input type=submit value=\"Autres activités du livre d'or\nOther stuff for guestbook\">\n";
+		print "<input type=submit value=\"Autres activités / Other stuff \"><br>\n";
 		print "<input type=hidden name=\"guest_book_name\" value=\"$guest_book_name\">\n";
 		print "<input type=hidden name=\"old_guest_book_name\" value=\"$guest_book_name\">\n";
 		print "</form>\n";
-		print "<td align=right><dl><dt onclick='javascript:show();javascript:show(\"manage_guest_book0\")'>Aide <font color=orange>Help</font></dt>";
+		&TR_E;
+		&TR;
+		&TD;
+		#print "<td align=right><dl><dt onclick='javascript:show();javascript:show(\"manage_guest_book0\")'>Aide <font color=orange>Help</font></dt>";
+		print "<dt onclick='javascript:show();javascript:show(\"manage_guest_book0\")'>Aide <font color=orange>Help</font></dt>";
 		&prints_help_for_main_menu;
 		print "</dl>\n";
 		&TR_E;
@@ -2883,7 +2923,7 @@ END_JAVASCRIPT
 		print "<a href=\"javascript:show()\"><font color=\"$color_text_stored\">Quitter l'aide / </font><font color=orange>Leave help</font></a><br>\n";
 	}  # End else
 
-	print "<br>\n <center>Livre d'or / <font color=orange>Guest book </font> " . &print_title . "</center><br><br><br>";
+	print "";
 
 	if (-f  GUEST_BOOK_DIRECTORY_DEPOSIT . "$gb_name") { # Begin if (-f  GUEST_BOOK_DIRECTORY_DEPOSIT . "$gb_name")
 		open(FILE_WHERE_BODY_OF_MESSAGE_STORED, GUEST_BOOK_DIRECTORY_DEPOSIT . "$gb_name") || die("Cannot open ". GUEST_BOOK_DIRECTORY_DEPOSIT."/$gb_name $!");
@@ -3069,21 +3109,18 @@ sub show_guest_book_help { # Begin sub show_guest_book_help
 
 	if ($guest_book_name !~ m/help/) { # Begin if ($guest_book_name !~ m/help/)
 		print "<table width=100% border=0>\n";
-		&TR;
-		&TD;
-		print "<form action=\"http://dorey.sebastien.free.fr\" method=\"post\">\n";
-		print "<input type=hidden name=\"function\" value=\"\">\n";
-		print "<input type=submit value=\"Page d'accueil\nHome page\">\n";
-		print "<input type=hidden name=\"guest_book_name\" value=\"$guest_book_name\">\n";
-		print "</form>\n";
 		if (&is_file_date_not_over($guest_book_name) == 0) { # Begin if (&is_file_date_not_over($guest_book_name) == 0)
+			&TR;
 			&TD;
 			print "<form action=\"login.cgi\" method=\"post\">\n";
 			print "<input type=hidden name=\"guest_book_name\" value=\"$guest_book_name\">\n";
 			print "<input type=hidden name=\"function\" value=\"fill\">\n";
-			print "<input type=submit value=\"Signer le livre d'or\nSign my guestbook\">\n";
+			print "<input type=submit value=\"Signer le livre d'or\nSign my guestbook\"><br>\n";
 			print "</form>\n";
+			&TD_E;
+			&TR_E;
 		} # End if (&is_file_date_not_over($guest_book_name) == 0)
+		&TR;
 		&TD;
 		print "<form action=\"login.cgi\" method=\"post\">\n";
 		print "<input type=hidden name=\"function\" value=\"admin\">\n";
@@ -4952,7 +4989,7 @@ sub create_help_file { # Begin sub create_help_file
 	print W "<br>\n";
 	print W "<!--privateMessageEnd-->\n";
 	print W "<center>\n";
-	print W '<img src="_&separator_bar_stored&_">'."\n";
+	print W '<img width="90\%" src="_&separator_bar_stored&_">'."\n";
 	print W "</center>\n";
 	print W "<br>\n";
 	print W "<!--When:SatJul200629th3:09:59amEnd-->\n";
@@ -4966,7 +5003,7 @@ sub create_help_file { # Begin sub create_help_file
 	print W "</pre>\n";
 	print W "<br>\n";
 	print W "<center>\n";
-	print W '<img src="_&separator_bar_stored&_">'."\n";
+	print W '<img width=\"90\%\" src="_&separator_bar_stored&_">'."\n";
 	print W "<center>\n";
 	print W "<br>\n";
 	print W "<!--When:SatJul200629th3:09:16amEnd-->\n";
@@ -4977,7 +5014,7 @@ sub create_help_file { # Begin sub create_help_file
 	print W "If you push the button Submit you will get this message printed.\n";
 	print W "</pre>\n";
 	print W "<center>\n";
-	print W '<img src="_&separator_bar_stored&_">'."\n";
+	print W '<img width=\"90\%\" src="_&separator_bar_stored&_">'."\n";
 	print W "</center>\n";
 	print W "<br>\n";
 	print W "<!--When:SatJul200629th3:04:25amEnd-->\n";
@@ -5191,11 +5228,11 @@ sub prints_help_for_main_menu { # Begin sub prints_help_for_main_menu
 	print "<dd id='manage_guest_book0'>\n";
 	print "<div id='help_main_menu'>\n";
 	print "<a href=\"javascript:show()\">Quitter l'aide <font color=orange>Leave help</font></a><br><br><br>\n";
-	print "<table border=0 width=100%>\n";
-	print "<tr><td align=right width=10% align=center><img src=\"". IMAGE_DIRECTORY_DEPOSIT ."my_lovely_pict.gif\" >\n";
+	print "<table border=1 width=100%>\n";
+	print "<tr><td align=right width=10% align=center><img width=\"90\%\" src=\"". IMAGE_DIRECTORY_DEPOSIT ."my_lovely_pict.gif\" >\n";
 	print "<td align=center>Aide / <font color=orange>Help</font></tr></table><br><br>\n";
 	print "<table width=100% border=0>\n";
-	print "<tr><td align=right valign=top>Page d'acceuil:<td align=left valign=top> retour à la page d'accueil du site web.</td></tr>\n";
+	#print "<tr><td align=right valign=top>Page d'acceuil:<td align=left valign=top> retour à la page d'accueil du site web.</td></tr>\n";
 	print "<tr><td align=right valign=top><font color=orange>Home page:</font><td align=left valign=top> <font color=orange>back to home page.</font></td></tr>\n";
 	print "<tr><td align=right valign=top>Signer le livre d'or:<td align=left valign=top> écrire un message dans le livre d'or.</td></tr>\n";
 	print "<tr><td align=right valign=top><font color=orange>Sign my guest book:</font><td align=left valign=top> <font color=orange>write a message in the guest book.</font></td></tr>\n";
