@@ -4,7 +4,7 @@ q##//q#
 * Created By : sdo
 * File Name : login.cgi
 * Creation Date : Mon Feb 3 22:51:08 2003
-* @modify date 2020-02-05 02:28:11
+* @modify date 2020-02-08 00:06:12
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -228,6 +228,7 @@ elsif($function eq "numMes"){ # Only number of messages per guestbook
 print <<HTML;
 	<html>
 		<head>
+		<title>GuBo</title>
 
 		<script>
 		var mcwd="../Project/"; // stubb cannot inclue <?php include.... ?> in CGI Perl for time being
@@ -782,11 +783,13 @@ END_JAVASCRIPT
       <script type="text/javascript">
 	  <!--
 	     function show(id) {
+	     // *
 		var d = document.getElementById(id);
 END_JAVASCRIPT
 	print "                for (var i = 0; i <= " . ((($num_of_private_messages + $max_mess_page) != 0) ? ( $num_of_private_messages + $max_mess_page + 8) : 15 )." ; i++) {\n";
 	print <<END_JAVASCRIPT;
 			if (document.getElementById('manage_guest_book'+i)) {document.getElementById('manage_guest_book'+i).style.display='none';}
+			if (document.getElementById('smenu'+i)) { document.getElementById('smenu'+i).style.display='none'; }
 		}
 		if (d) {d.style.display='block';}
 	     }
@@ -2483,13 +2486,13 @@ END_JAVASCRIPT
       <script type="text/javascript">
 	  <!--
 	     function show(id) {
+	     // a
 		var d = document.getElementById(id);
 END_JAVASCRIPT
 	print "                for (var i = 0; i <= " . ( $num_of_private_messages + $max_mess_page + 8 )." ; i++) {\n";
 	print <<END_JAVASCRIPT;
-			if (document.getElementById('manage_guest_book'+i)) {
-			      document.getElementById('manage_guest_book'+i).style.display='none';
-			}
+			if (document.getElementById('manage_guest_book'+i)) { document.getElementById('manage_guest_book'+i).style.display='none'; }
+			if (document.getElementById('smenu'+i)) { document.getElementById('smenu'+i).style.display='none'; }
 		}
 		if (d) {
 		    d.style.display='block';
@@ -2805,13 +2808,13 @@ END_JAVASCRIPT
       <script type="text/javascript">
 	  <!--
 	     function show(id) {
+	     // +
 		var d = document.getElementById(id);
 END_JAVASCRIPT
 	print "                for (var i = 0; i <= " . ( $num_of_private_messages + $max_mess_page + 9)." ; i++) {\n";
 	print <<END_JAVASCRIPT;
-			if (document.getElementById('manage_guest_book'+i)) {
-			      document.getElementById('manage_guest_book'+i).style.display='none';
-			}
+			if (document.getElementById('manage_guest_book'+i)) { document.getElementById('manage_guest_book'+i).style.display='none'; }
+			if (document.getElementById('smenu'+i)) { document.getElementById('smenu'+i).style.display='none'; }
 		}
 		if (d) {
 		    d.style.display='block';
