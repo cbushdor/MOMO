@@ -1,27 +1,34 @@
-#!/usr/bin/perl-5.30.0  -T
+#!/usr/bin/perl5.30.2  -T
+##!/usr/local/bin/perl
+
+# #!/usr/bin/perl -T
+# #!/usr/bin/perl-5.30.0  -T
 
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : album.cgi
-* Creation Date : Mon Feb 3 22:51:08 2003
-* @modify date 2019-12-06 09:23:08
+* Creation Date : Mon Mar 4 12:25:20 2003
+* @modify date 2020-02-05 00:28:49
 * Email Address : sdo@macbook-pro-de-sdo.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.6.16.524
+* Version : 1.6.16.5734
 * Purpose :
 #;
 # ------------------------------------------------------
-
+use strict;
+use warnings;
 use CGI;
 
+#print "Content-type: text/html\n\n";
 my $doc;
 #my $rtrip="white"; # We record or not just by color
 my $rtrip; # We record or not just by color
 BEGIN {
 	push @INC,"/Users/sdo/Sites/cgi-bin/"; # We add a new path to @INC
+	push @INC,"/home/sdo/public_html/cgi-bin/"; # We add a new path to @INC
 	# A bug was solved and that's it was "...but still, the newly generated form has al the values from the previous form...".
 	$doc=$CGI::Q ||= new CGI; # It is using the special internal $CGI::Q object, rather than your 'my $doc' object that's why we do this.
 	$rtrip="blue"; # We don't record trip
@@ -30,9 +37,8 @@ END {
 	$doc->delete_all(); # We clean all variables and parameters when the script is over
 }
 
-use strict;
-use warnings;
 
+use Sys::Hostname;
 use Socket;
 use JSON;
 use File::stat;
@@ -126,13 +132,31 @@ use io::MyNav;
 
 use io::MySec;
 
-our $mip=io::MyNav::gets_ip_address;
+#our $mip=io::MyNav::gets_ip_address;
+our $mip=inet_ntoa((gethostbyname(hostname))[4]); # io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.5712'; # Album release
+use constant ALBUM_REL               	=> '16.5734'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
+my $service=uri_unescape($doc->param("maop_service"));
+chomp(${service});
+if($service eq "ver"){ # Only version is asked
+	print "Content-type: text/html\n\n";
+	print <<EE;
+<html>
+	<body>
+	<span style="color: yellow; font-size: 15px; font-family: Bromine;">
+EE
+	print "(Version: ". ALBUM_VERSION. ")";
+	print <<EE;
+	</span>
+	</body>
+</html>
+EE
+	exit(&io::MyConstantBase::OK->());# Exit that's it
+}
 
 my $vnl=100; # calculate version number length (number of characters in string)
 my $main_prog="maop.cgi"; #(split(/[\\\/]/,"$0"))[scalar(split(/[\\\/]/,"$0"))-1]; # gets program name
@@ -159,7 +183,7 @@ my $fn="album/hist/${mip}";
 
 album.cgi
 
-$VERSION=1.6.16.5712
+$VERSION=1.6.16.5724
 
 =head1 ABSTRACT
 
@@ -671,11 +695,16 @@ my $mltmp=&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(); # my local tmp
 if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!){ # Begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
 	#print "oooiiiiiiii>case 1-";
 	$url="http://localhost/~sdo/cgi-bin/maop.cgi\?$mparam";
+	#print "<br>*********>$url<br>";
+	#exit(-1);
 	#print "*************CHECK******>$url<br>";
 } # End if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
 elsif(! defined($mip)||$mip=~m/^$mltmp/||$mip=~m!example2.dev!){ # Begin elsif(! defined($mip)||$mip=~m/^${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL}/||$mip=~m!example2.dev!)
 	#print "iiiiiiii>case 3xxx-";
-	$url="https://$mltmp/~sdo/cgi-bin/maop.cgi\?$mparam";
+	#$url="https://$mltmp/~sdo/cgi-bin/maop.cgi\?$mparam";
+	$url="https://$mip/~sdo/cgi-bin/maop.cgi\?$mparam";
+	#print "<br>*********>$url<br>";
+	#exit(-1);
 	#print "</br>$url<br>";
 	#print "</br>IP---->$mip<br>defined:" . defined($mip) . "<br>${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL} ? match example2.dev :". ($mip=~m!example2.dev!) ."<<br>";
 	#sleep(15);
@@ -690,6 +719,8 @@ else{ # Begin else
 	$url .= "://";
 	$url.= $ENV{"HTTP_HOST"} . $ENV{REQUEST_URI}. "\?$mparam"; # url where website is hosted
 	$url=~s/album\.cgi/maop\.cgi/;
+	#print "<br>*********>$url<br>";
+	#exit(-1);
 } # End else
 # ------------------------------------------------------------------------------------------
 #print "<br>#########################>$url<br>";
@@ -803,8 +834,6 @@ chomp($file_conf_to_save);
 
 #print "Content-Type: text/html ; charset=UTF-8\n\n";
 # That's the service
-my $service=uri_unescape($doc->param("maop_service"));
-chomp(${service});
 #print "eeeeeeeeeeeee)$service<br />";
 
 if( -f "album/debug_album_DO_NOT_REMOVE"){ # Begin if( -f "album/debug_album_DO_NOT_REMOVE")
@@ -837,9 +866,10 @@ if($service eq "verDoc"){ # Only entire documentation + version is asked
 	my $res=encode_base64($cres);
 	print "$res";
 	exit(&io::MyConstantBase::OK->());# Exit that's it
-}elsif($service eq "ver"){ # Only version is asked
-	print ALBUM_VERSION;
-	exit(&io::MyConstantBase::OK->());# Exit that's it
+	#}
+#elsif($service eq "ver"){ # Only version is asked
+#	print ALBUM_VERSION;
+#	exit(&io::MyConstantBase::OK->());# Exit that's it
 }elsif($service=~m/geoLoc/){ # only history is asked
 	my $u=ALBUM_INFO_DIRECTORY->() . ALBUM_HISTORY_INFO_FILE->();
 	if(  -f "$u" ){ # Begin if(  -f "$u" )
