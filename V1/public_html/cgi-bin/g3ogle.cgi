@@ -23,6 +23,7 @@ $|=0;
 my $doc;
 BEGIN {
 	push @INC,"/Users/sdo/Sites/cgi-bin/"; # We add a new path to @INC
+	push @INC,"/home/sdo/public_html/cgi-bin/"; # We add a new path to @INC
 	# A bug was solved and that's it was "...but still, the newly generated form has al the values from the previous form...".
 	$doc=$CGI::Q ||= new CGI; # It is using the special internal $CGI::Q object, rather than your 'my $doc' object that's why we do this.
 }
