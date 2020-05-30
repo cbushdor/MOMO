@@ -13,13 +13,15 @@ q##//q#
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
-* Version : 1.0.12.500
+* Version : 1.0.12.542
 * Purpose : 
 #;
 # ------------------------------------------------------
 use CGI;
 use strict;
 use warnings;
+use Sys::Hostname;
+use Socket;
 
 my $doc;
 BEGIN {
@@ -44,7 +46,7 @@ use URI::Escape;
 use io::MyConstantBase;
 use io::gut::machine::MyFile;
 
-my $VERSION="1.0.12.500";
+my $VERSION="1.0.12.542";
 
 my $now_string = time(); # strftime "%m %d %H:%M:%S UTC %Y", gmtime;
 
@@ -63,8 +65,10 @@ if(uri_unescape($doc->param("maop_upld")) eq "ok"){
 	}
 }
 
-my $ip=io::MyNav::gets_ip_address;
-my $ipAddr=io::MyNav::gets_ip_address;
+#my $ip=io::MyNav::gets_ip_address;
+my $ip=inet_ntoa((gethostbyname(hostname))[4]); # io::MyNav::gets_ip_address;
+my $ipAddr=inet_ntoa((gethostbyname(hostname))[4]); # io::MyNav::gets_ip_address;
+my $logfile="album/hist/log-$ipAddr-$$";
 my $logfile="album/hist/log-$ipAddr-$$";
 my $mparam=();# my parameter passed
 
