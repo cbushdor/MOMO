@@ -45,8 +45,8 @@
         </task>
       </task>
     </task>
-    <task id="11" name="Sports" note="" work="802800" start="20200101T000000Z" end="20200529T150000Z" work-start="20200101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="12" name="Practise" note="" work="802800" start="20200101T000000Z" end="20200529T150000Z" work-start="20200101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="11" name="Sports" note="" work="820800" start="20200101T000000Z" end="20200601T140000Z" work-start="20200101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="12" name="Practise" note="" work="820800" start="20200101T000000Z" end="20200601T140000Z" work-start="20200101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <task id="13" name="-" note="" work="7200" duration="7200" start="20200103T000000Z" end="20200103T100000Z" work-start="20200103T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20200103T000000Z"/>
         </task>
@@ -127,7 +127,7 @@
         <task id="36" name="-" note="" work="25200" start="20200211T170000Z" end="20200212T160000Z" work-start="20200212T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
           <constraint type="start-no-earlier-than" time="20200205T000000Z"/>
           <predecessors>
-            <predecessor id="1" predecessor-id="120" type="FS"/>
+            <predecessor id="1" predecessor-id="121" type="FS"/>
             <predecessor id="1" predecessor-id="3" type="FS"/>
           </predecessors>
         </task>
@@ -334,113 +334,116 @@
         <task id="99" name="-" note="" work="21600" duration="21600" start="20200529T000000Z" end="20200529T150000Z" work-start="20200529T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20200529T000000Z"/>
         </task>
+        <task id="100" name="-" note="" work="18000" duration="18000" start="20200530T000000Z" end="20200601T140000Z" work-start="20200601T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20200530T000000Z"/>
+        </task>
       </task>
     </task>
-    <task id="100" name="Gatherings" note="" work="147600" start="20200101T000000Z" end="20200529T170000Z" work-start="20200101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="101" name="Comedy" note="" work="68400" start="20200101T000000Z" end="20200529T170000Z" work-start="20200101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="102" name="-" note="" work="7200" duration="7200" start="20200529T150000Z" end="20200529T170000Z" work-start="20200529T150000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+    <task id="101" name="Gatherings" note="" work="147600" start="20200101T000000Z" end="20200601T160000Z" work-start="20200101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="102" name="Comedy" note="" work="68400" start="20200101T000000Z" end="20200601T160000Z" work-start="20200101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="103" name="-" note="" work="7200" duration="7200" start="20200601T140000Z" end="20200601T160000Z" work-start="20200601T140000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20200103T000000Z"/>
           <predecessors>
             <predecessor id="1" predecessor-id="11" type="FS"/>
           </predecessors>
         </task>
-        <task id="103" name="-" note="" work="7200" start="20200211T170000Z" end="20200212T100000Z" work-start="20200212T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
+        <task id="104" name="-" note="" work="7200" start="20200211T170000Z" end="20200212T100000Z" work-start="20200212T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
           <constraint type="start-no-earlier-than" time="20200205T000000Z"/>
           <predecessors>
             <predecessor id="1" predecessor-id="3" type="FS"/>
           </predecessors>
         </task>
-        <task id="104" name="-" note="" work="3600" duration="3600" start="20200102T000000Z" end="20200102T090000Z" work-start="20200102T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="105" name="-" note="" work="3600" duration="3600" start="20200102T000000Z" end="20200102T090000Z" work-start="20200102T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20200102T000000Z"/>
         </task>
-        <task id="105" name="-" note="" work="7200" duration="7200" start="20200209T000000Z" end="20200210T100000Z" work-start="20200210T080000Z" percent-complete="78" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="106" name="-" note="" work="7200" duration="7200" start="20200209T000000Z" end="20200210T100000Z" work-start="20200210T080000Z" percent-complete="78" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20200209T000000Z"/>
         </task>
-        <task id="106" name="-" note="" work="14400" duration="14400" start="20200216T000000Z" end="20200217T120000Z" work-start="20200217T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="107" name="-" note="" work="14400" duration="14400" start="20200216T000000Z" end="20200217T120000Z" work-start="20200217T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20200216T000000Z"/>
         </task>
-        <task id="107" name="-" note="" work="7200" duration="7200" start="20200101T000000Z" end="20200101T100000Z" work-start="20200101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
-        <task id="108" name="-" note="" work="14400" duration="28800" start="20200228T000000Z" end="20200228T170000Z" work-start="20200228T080000Z" percent-complete="100" priority="2" type="normal" scheduling="fixed-duration">
+        <task id="108" name="-" note="" work="7200" duration="7200" start="20200101T000000Z" end="20200101T100000Z" work-start="20200101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration"/>
+        <task id="109" name="-" note="" work="14400" duration="28800" start="20200228T000000Z" end="20200228T170000Z" work-start="20200228T080000Z" percent-complete="100" priority="2" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20200228T000000Z"/>
         </task>
-        <task id="109" name="-" note="" work="3600" duration="3600" start="20200310T000000Z" end="20200310T090000Z" work-start="20200310T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="110" name="-" note="" work="3600" duration="3600" start="20200310T000000Z" end="20200310T090000Z" work-start="20200310T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="start-no-earlier-than" time="20200310T000000Z"/>
           <predecessors>
             <predecessor id="1" predecessor-id="3" type="FS"/>
           </predecessors>
         </task>
-        <task id="110" name="-" note="" work="3600" duration="3600" start="20200313T000000Z" end="20200313T090000Z" work-start="20200313T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="111" name="-" note="" work="3600" duration="3600" start="20200313T000000Z" end="20200313T090000Z" work-start="20200313T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20200313T000000Z"/>
         </task>
       </task>
-      <task id="111" name="Meal" note="" work="46800" start="20200101T000000Z" end="20200310T090000Z" work-start="20200101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="112" name="-" note="" work="3600" duration="3600" start="20200108T000000Z" end="20200108T090000Z" work-start="20200108T080000Z" percent-complete="90" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="112" name="Meal" note="" work="46800" start="20200101T000000Z" end="20200310T090000Z" work-start="20200101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="113" name="-" note="" work="3600" duration="3600" start="20200108T000000Z" end="20200108T090000Z" work-start="20200108T080000Z" percent-complete="90" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20200108T000000Z"/>
         </task>
-        <task id="113" name="-" note="" work="3600" duration="3600" start="20200114T000000Z" end="20200114T090000Z" work-start="20200114T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="114" name="-" note="" work="3600" duration="3600" start="20200114T000000Z" end="20200114T090000Z" work-start="20200114T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20200114T000000Z"/>
         </task>
-        <task id="114" name="-" note="" work="3600" duration="3600" start="20200115T000000Z" end="20200115T090000Z" work-start="20200115T080000Z" percent-complete="1" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="115" name="-" note="" work="3600" duration="3600" start="20200115T000000Z" end="20200115T090000Z" work-start="20200115T080000Z" percent-complete="1" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20200115T000000Z"/>
         </task>
-        <task id="115" name="-" note="" work="3600" start="20200101T000000Z" end="20200101T090000Z" work-start="20200101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work"/>
-        <task id="116" name="-" note="" work="7200" start="20200101T000000Z" end="20200101T084000Z" work-start="20200101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-        <task id="117" name="-" note="" work="7200" start="20200117T000000Z" end="20200117T100000Z" work-start="20200117T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
+        <task id="116" name="-" note="" work="3600" start="20200101T000000Z" end="20200101T090000Z" work-start="20200101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work"/>
+        <task id="117" name="-" note="" work="7200" start="20200101T000000Z" end="20200101T084000Z" work-start="20200101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+        <task id="118" name="-" note="" work="7200" start="20200117T000000Z" end="20200117T100000Z" work-start="20200117T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
           <constraint type="must-start-on" time="20200117T000000Z"/>
         </task>
-        <task id="118" name="-" note="" work="3600" start="20200118T000000Z" end="20200120T090000Z" work-start="20200120T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
+        <task id="119" name="-" note="" work="3600" start="20200118T000000Z" end="20200120T090000Z" work-start="20200120T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
           <constraint type="start-no-earlier-than" time="20200118T000000Z"/>
           <predecessors>
             <predecessor id="1" predecessor-id="5" type="FS"/>
           </predecessors>
         </task>
-        <task id="119" name="-" note="" work="3600" start="20200101T000000Z" end="20200101T090000Z" work-start="20200101T080000Z" percent-complete="20" priority="1" type="normal" scheduling="fixed-work"/>
-        <task id="120" name="-" note="" work="3600" duration="3600" start="20200205T000000Z" end="20200205T090000Z" work-start="20200205T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="120" name="-" note="" work="3600" start="20200101T000000Z" end="20200101T090000Z" work-start="20200101T080000Z" percent-complete="20" priority="1" type="normal" scheduling="fixed-work"/>
+        <task id="121" name="-" note="" work="3600" duration="3600" start="20200205T000000Z" end="20200205T090000Z" work-start="20200205T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20200205T000000Z"/>
         </task>
-        <task id="121" name="-" note="" work="3600" duration="3600" start="20200208T000000Z" end="20200210T090000Z" work-start="20200210T080000Z" percent-complete="56" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="122" name="-" note="" work="3600" duration="3600" start="20200208T000000Z" end="20200210T090000Z" work-start="20200210T080000Z" percent-complete="56" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20200208T000000Z"/>
         </task>
-        <task id="122" name="-" note="" work="3600" duration="3600" start="20200310T000000Z" end="20200310T090000Z" work-start="20200310T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="123" name="-" note="" work="3600" duration="3600" start="20200310T000000Z" end="20200310T090000Z" work-start="20200310T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20200310T000000Z"/>
         </task>
       </task>
-      <task id="123" name="Association" note="" work="32400" start="20200101T000000Z" end="20200224T120000Z" work-start="20200101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="124" name="-" note="" work="7200" duration="7200" start="20200106T000000Z" end="20200106T100000Z" work-start="20200106T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+      <task id="124" name="Association" note="" work="32400" start="20200101T000000Z" end="20200224T120000Z" work-start="20200101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="125" name="-" note="" work="7200" duration="7200" start="20200106T000000Z" end="20200106T100000Z" work-start="20200106T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20200106T000000Z"/>
         </task>
-        <task id="125" name="-" note="" work="7200" duration="7200" start="20200203T000000Z" end="20200203T100000Z" work-start="20200203T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+        <task id="126" name="-" note="" work="7200" duration="7200" start="20200203T000000Z" end="20200203T100000Z" work-start="20200203T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
           <constraint type="must-start-on" time="20200203T000000Z"/>
         </task>
-        <task id="126" name="-" note="" work="14400" start="20200222T000000Z" end="20200224T120000Z" work-start="20200224T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
+        <task id="127" name="-" note="" work="14400" start="20200222T000000Z" end="20200224T120000Z" work-start="20200224T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work">
           <constraint type="must-start-on" time="20200222T000000Z"/>
         </task>
-        <task id="127" name="-" note="" work="3600" start="20200101T000000Z" end="20200101T090000Z" work-start="20200101T080000Z" percent-complete="76" priority="1" type="normal" scheduling="fixed-work"/>
+        <task id="128" name="-" note="" work="3600" start="20200101T000000Z" end="20200101T090000Z" work-start="20200101T080000Z" percent-complete="76" priority="1" type="normal" scheduling="fixed-work"/>
       </task>
     </task>
   </tasks>
   <resource-groups>
-    <group id="1" name="Culture" admin-name="" admin-phone="" admin-email=""/>
-    <group id="2" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
-    <group id="3" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
-    <group id="4" name="Asso" admin-name="" admin-phone="" admin-email=""/>
-    <group id="5" name="Programming" admin-name="" admin-phone="" admin-email=""/>
-    <group id="6" name="Admin" admin-name="" admin-phone="" admin-email=""/>
+    <group id="1" name="Admin" admin-name="" admin-phone="" admin-email=""/>
+    <group id="2" name="Programming" admin-name="" admin-phone="" admin-email=""/>
+    <group id="3" name="Asso" admin-name="" admin-phone="" admin-email=""/>
+    <group id="4" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
+    <group id="5" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
+    <group id="6" name="Culture" admin-name="" admin-phone="" admin-email=""/>
   </resource-groups>
   <resources>
-    <resource group="6" id="1" name="Pedestrian / Pi&#xE9;ton" short-name="ppi" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="4" name="Tests" short-name="tes" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="5" id="5" name="Scripting Language" short-name="scl" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="4" id="6" name="Associations" short-name="ass" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="3" id="7" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
-    <resource group="6" id="8" name="Devices" short-name="dev" type="2" units="0" email="" note="" std-rate="0"/>
-    <resource group="1" id="9" name="Readings" short-name="rds" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="1" name="Pedestrian / Pi&#xE9;ton" short-name="ppi" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="4" name="Tests" short-name="tes" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="5" name="Scripting Language" short-name="scl" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="6" name="Associations" short-name="ass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="7" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="8" name="Devices" short-name="dev" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="9" name="Readings" short-name="rds" type="1" units="0" email="" note="" std-rate="0"/>
   </resources>
   <allocations>
-    <allocation task-id="116" resource-id="1" units="100"/>
-    <allocation task-id="113" resource-id="1" units="100"/>
+    <allocation task-id="117" resource-id="1" units="100"/>
+    <allocation task-id="114" resource-id="1" units="100"/>
     <allocation task-id="12" resource-id="1" units="100"/>
     <allocation task-id="2" resource-id="2" units="100"/>
     <allocation task-id="1" resource-id="2" units="100"/>
@@ -454,16 +457,16 @@
     <allocation task-id="2" resource-id="5" units="100"/>
     <allocation task-id="1" resource-id="5" units="100"/>
     <allocation task-id="4" resource-id="5" units="17"/>
-    <allocation task-id="123" resource-id="6" units="100"/>
-    <allocation task-id="4" resource-id="6" units="17"/>
     <allocation task-id="124" resource-id="6" units="100"/>
+    <allocation task-id="4" resource-id="6" units="17"/>
+    <allocation task-id="125" resource-id="6" units="100"/>
     <allocation task-id="2" resource-id="8" units="100"/>
     <allocation task-id="1" resource-id="8" units="100"/>
-    <allocation task-id="116" resource-id="8" units="100"/>
+    <allocation task-id="117" resource-id="8" units="100"/>
     <allocation task-id="2" resource-id="9" units="100"/>
     <allocation task-id="8" resource-id="9" units="100"/>
     <allocation task-id="1" resource-id="9" units="100"/>
-    <allocation task-id="116" resource-id="9" units="100"/>
+    <allocation task-id="117" resource-id="9" units="100"/>
     <allocation task-id="4" resource-id="9" units="17"/>
   </allocations>
 </project>
