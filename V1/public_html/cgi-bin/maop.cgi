@@ -1,4 +1,5 @@
-#!/usr/bin/perl-5.30.0  -T
+#!/usr/bin/perl5.30.2  -T
+# #!/usr/bin/perl-5.30.0  -T
 # #!/usr/bin/perl-5.28.1 -T
 ##!/opt/local/bin/perl -T
 
@@ -23,6 +24,7 @@ use warnings;
 my $doc;
 BEGIN {
 	push @INC,"/Users/sdo/Sites/cgi-bin/"; # We add a new path to @INC
+	push @INC,"/home/sdo/public_html/cgi-bin/"; # We add a new path to @INC
 	# A bug was solved and that's it was "...but still, the newly generated form has al the values from the previous form...".
 	$|=1;
 	$doc=$CGI::Q ||= new CGI; # It is using the special internal $CGI::Q object, rather than your 'my $doc' object that's why we do this.
