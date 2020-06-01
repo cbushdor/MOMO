@@ -950,7 +950,7 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 
 		# Email sent
 		$ENV{PATH}='/bin:/usr/bin:/usr/local/bin';
-		my $from = 'Bot from MAOP<shark.b@laposte.net>';
+		my $from = 'Bot from MAOP<dorey.sebastien@free.fr>';
 		my $to=&io::MyConstantBase::EADM->();
 		my $subject = "Trip / Voyage: report/rapport " . uri_unescape($doc->param('maop_googid')); 
 		$to=&do_untaint($to);
@@ -963,7 +963,7 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 		open(MAIL,"$mypath") || die("Error: $!");
 		# Email Header
 		print MAIL "To: $to\n";
-		#print MAIL "To: sebastien.dorey\@laposte.net\n";
+		#print MAIL "To: dorey.sebastien\@free.fr\n";
 		print MAIL "From: $from\n";
 		print MAIL "Subject: $subject\n";
 		print MAIL "Content-Type: multipart/mixed; boundary=frontier\n";
@@ -7900,7 +7900,7 @@ sub setGoogleID{# Begin setGoogleID
 						#print "D-<br>";
 						my $to = uri_unescape($doc->param("maop_email"));
 						#print "E-<br>";
-						my $from = 'Bot from MAOP<shark.b@laposte.net>';
+						my $from = 'Bot from MAOP<dorey.sebastien@free.fr>';
 						#print "F-<br>";
 						my $maop_url_loc = uri_unescape($doc->param('maop_url')); $maop_url_loc=~s/[\n\t\ ]*$//; # watch out there is a variable that already contains that value it is $mgidt in another word we shave all characters that are at the end of the memory taken from parameter
 						my $maop_url_loc2 = uri_unescape($doc->param('maop_url')); $maop_url_loc2=~s/[\n\t\ ]*$//; # watch out there is a variable that already contains that value it is $mgidt in another word we shave all characters that are at the end of the memory taken from parameter
@@ -7987,7 +7987,7 @@ sub setGoogleID{# Begin setGoogleID
 						open(MAIL,"$mypath") || die("Error: $!");
 						# Email Header
 						print MAIL "To: $to\n";
-						#print MAIL "To: sebastien.dorey\@laposte.net\n";
+						#print MAIL "To: dorey.sebastien\@free.fr\n";
 						print MAIL "From: $from\n";
 						print MAIL "Subject: $subject\n";
 						print MAIL "Content-Type: multipart/mixed; boundary=frontier\n";
@@ -8583,6 +8583,6 @@ sub add_print_info { # Begin sub add_print_info($mess)
 
 =head1 AUTHOR
 
-Current maintainer: M. Shark Bay <shark dot b at laposte dot net>
+Current maintainer: M. Sebastien Dorey <dorey dot sebastien at free dot fr>
 
 =cut
