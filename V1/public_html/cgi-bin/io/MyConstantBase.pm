@@ -1,13 +1,16 @@
-#!/opt/local/bin/perl
+# #!/opt/local/bin/perl
 
 package io::MyConstantBase;
+
+use Sys::Hostname;
+use Socket;
 
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : MyConstantBase.pm
 * Creation Date : Sun Aug 19 22:51:08 2018
-* Last Modified : Wed Dec 12 01:19:46 2018
+* @modify date 2020-02-02 14:58:39
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.5.12
 * License:
@@ -38,7 +41,7 @@ use constant AUTHOR        => sub { 'flotilla reindeer'; };   # Author's name
 use constant COMPAGNY      => sub { 'shark bait'; };         # That's for fun
 use constant ROOT_DEPOSIT  => sub { '../'; }; # To store information
 
-use constant AMOUNT_OF_INFO_TO_READ  => sub { ( 2096 * 7 ); }; # That's the amount bite read each time src files read (slot)
+use constant AMOUNT_OF_INFO_TO_READ => sub { ( 2096 * 7 ); }; # That's the amount bite read each time src files read (slot)
 
 #use constant MY_WEBSITE    => sub { 'http://dorey.sebastien.free.fr'; }    # That's author's url
 
@@ -49,7 +52,8 @@ use constant AMOUNT_OF_INFO_TO_READ  => sub { ( 2096 * 7 ); }; # That's the amou
 
 use constant LOCAL_HOSTS_FILE => "/etc/hosts"; # For security issur where to check hosts files
 use constant PROTO_USED => sub { ($mycgi->https()=~m/on/) ? "https://" : "http"; } ;
-use constant LOCAL_HOSTED_BY_URL => sub { "192.168.1.13"; }; # That's the local url/ip address to reach website
+#use constant LOCAL_HOSTED_BY_URL => sub { "192.168.1.13"; }; # That's the local url/ip address to reach website
+use constant LOCAL_HOSTED_BY_URL => sub { inet_ntoa((gethostbyname(hostname))[4]) ; }; # That's the local url/ip address to reach website
 use constant DISTANT_HOSTED_BY_URL => sub { "dorseb.hopto.org"; }; # That's the local url/ip address to reach website
 use constant WEB_ACCOUNT => sub { '/~sdo/'; }; # Account where to access website 
 use constant HOSTED_BY_URL => sub{ PROTO_USED->() . DISTANT_HOSTED_BY_URL->(). WEB_ACCOUNT->(); }; # That's the url of host name
