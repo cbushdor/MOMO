@@ -6,11 +6,11 @@
 
 # ------------------------------------------------------
 q##//q#
-* Created By : sdo
+* Created By : sebastien.dorey
 * File Name : album.cgi
 * Creation Date : Mon Mar 4 12:25:20 2003
-* @modify date 2020-02-05 00:28:49
-* Email Address : sdo@macbook-pro-de-sdo.home
+* @modify date 2020-06-02 21:08:45
+* Email Address : sebastien.dorey@linux.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
@@ -137,7 +137,7 @@ our $mip=inet_ntoa((gethostbyname(hostname))[4]); # io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.5734'; # Album release
+use constant ALBUM_REL               	=> '16.5743'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 my $service=uri_unescape($doc->param("maop_service"));
@@ -183,7 +183,7 @@ my $fn="album/hist/${mip}";
 
 album.cgi
 
-$VERSION=1.6.16.5724
+$VERSION=1.6.16.5743
 
 =head1 ABSTRACT
 
