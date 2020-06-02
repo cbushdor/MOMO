@@ -61,7 +61,7 @@ use constant HOSTED_BY => sub{  "hopto.org";  }; # That's the host name
 use constant CHECK_PID_SESSION => sub{ 'album/pid'; }; # Checks previous pid to garanty the session
 use constant MAP_VER_IN_USE => sub { "3-0"; }; # Version of the map in use
 use constant MAP_PROG => sub { "g3ogle.cgi"; };
-use constant EADM => sub{ 'dorey_s@laposte.net'; }; # Email 
+use constant EADM => sub{ 'dorey.sebastien@free.fr'; }; # Email 
 
 # We define a boolean value OK=0
 use constant OK  => sub{ 0; };
