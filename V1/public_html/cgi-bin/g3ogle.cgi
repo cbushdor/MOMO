@@ -3,11 +3,11 @@
 
 # ------------------------------------------------------
 q##//q#
-* Created By : sdo
+* Created By : sebastien.dorey
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* @modify date 2019-12-06 09:26:10
-* Email Address : sdo@macbook-pro-de-sdo.home
+* @modify date 2020-06-02 21:09:19
+* Email Address : sebastien.dorey@linux.home
 * Version : 0.2.1..500
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -34,6 +34,8 @@ END {
 use warnings;
 use strict;
 
+use Sys::Hostname;
+use Socket;
 use DateTime;
 use DateTime::Format::Strptime;
 use DateTime::TimeZone;
@@ -55,7 +57,8 @@ use Encode qw(from_to);
 
 
 
-our $mip=io::MyNav::gets_ip_address;
+our $mip=inet_ntoa((gethostbyname(hostname))[4]); # io::MyNav::gets_ip_address;
+#our $mip=io::MyNav::gets_ip_address;
 
 #print "Content-Type: text/html\n\n";
 
@@ -66,7 +69,7 @@ my $VERSION="0.2.1.500";
 
 g3ogle.cgi
 
-$VERSION="0.2.1.500"
+$VERSION="0.2.1.539"
 
 =head1 ABSTRACT
 
