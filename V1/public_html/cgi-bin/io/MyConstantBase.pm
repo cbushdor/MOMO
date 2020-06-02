@@ -10,8 +10,8 @@ q##//q#
 * Created By : sdo
 * File Name : MyConstantBase.pm
 * Creation Date : Sun Aug 19 22:51:08 2018
-* @modify date 2020-02-02 14:58:39
-* Email Address : sdo@macbook-pro-de-sdo.home
+* @modify date 2020-06-02 02:11:28
+* Email Address : sdo@linux.home
 * Version : 0.0.5.12
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
