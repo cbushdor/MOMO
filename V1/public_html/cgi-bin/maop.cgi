@@ -1,14 +1,11 @@
 #!/usr/bin/perl5.30.2  -T
-# #!/usr/bin/perl-5.30.0  -T
-# #!/usr/bin/perl-5.28.1 -T
-##!/opt/local/bin/perl -T
 
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : maop.cgi
 * Creation Date : Wed Aug 19 15:51:08 2015
-* @modify date 2020-06-03 03:16:47
+* @modify date 2020-06-03 16:26:40
 * Email Address : sdo@linux.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -65,8 +62,6 @@ if(uri_unescape($maop_upld) eq "ok"){
 	}
 }
 
-#my $ip=inet_ntoa((gethostbyname(hostname))[4]); # io::MyNav::gets_ip_address;
-#my $ipAddr=inet_ntoa((gethostbyname(hostname))[4]); # io::MyNav::gets_ip_address;
 my $ip=io::MyNav::gets_ip_address;
 my $ipAddr=io::MyNav::gets_ip_address;
 my $logfile="album/hist/log-$ipAddr-$$";
@@ -80,7 +75,10 @@ my $leng=scalar $doc->param;
 my $la=$doc->param("maop_lat");
 my $lo=$doc->param("maop_lon");
 
+my @o=$doc->param;
+print "<br><br><br><br><br><br>";
 foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
+	print "$p: ". $doc->param($p)." <br>";
 	if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
 		if($p!~m/^maop_lon$/&&
 		   $p!~m/^maop_lat$/&&
@@ -115,7 +113,7 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 	#	print REC "\n#####+++++***<$p>".$doc->param($p)."<br>";
 } # end foreach my $p ($doc->param)
 $mparam.="&$extra_param";
-#print "<br>oooooooo>$mparam<br>";
+print "<br>oooooooo>$mparam<br>";
 
 my $maop_prog=$doc->param("maop_prog")||"";
 my $prog=(length($maop_prog)==0) ? "album.cgi" : $maop_prog;
@@ -176,7 +174,7 @@ my $myform=<<FORM;
 
 <script>
 var x=document.getElementById("wait");
-x.innerHTML="Attendre svp pendant le chargement...<br><i>Please wait while loading...</i><br>";
+x.innerHTML="1- Attendre svp pendant le chargement...<br><i>Please wait while loading...</i><br>$url";
 // + "$url?maop_lon="+lon+"&maop_lat="+lat+"$mparam&maop_date=$now_string&maop_log=$logfile";
 getLocation();
 
@@ -208,14 +206,14 @@ function showError(error){ // begin function showError(error)
 } // end function showError(error)
 
 function showPosition(position) { // begin function showPosition(position)
-    //var x=document.getElementById("wait");
+    var x=document.getElementById("wait");
     var lon=position.coords.longitude;
     var lat=position.coords.latitude;
 
     lon=encodeURIComponent(lon);
     lat=encodeURIComponent(lat);
     var myURL="$url?maop_lon="+lon+"&maop_lat="+lat+"&$mparam&maop_date=$now_string&maop_log=$logfile";
-    //x.innerHTML += "<br>Seeking longitude: "+lon+"<br>Seeking latitude: "+lat+"<br>$url";
+    x.innerHTML += "<br>Seeking longitude: "+lon+"<br>Seeking latitude: "+lat+"<br><b><u>$url</u></b>";
     //var myURL="$url?maop_lon="+lon;
     //myURL+="&maop_lat="+lat;
     //myURL+="&$mparam&maop_date=$now_string&maop_log=$logfile";
