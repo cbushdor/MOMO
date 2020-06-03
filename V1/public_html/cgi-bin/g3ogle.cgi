@@ -3,11 +3,11 @@
 
 # ------------------------------------------------------
 q##//q#
-* Created By : sebastien.dorey
+* Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* @modify date 2020-06-02 21:09:19
-* Email Address : sebastien.dorey@linux.home
+* @modify date 2020-06-03 02:28:03
+* Email Address : sdo@linux.home
 * Version : 0.2.1..500
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -34,8 +34,6 @@ END {
 use warnings;
 use strict;
 
-use Sys::Hostname;
-use Socket;
 use DateTime;
 use DateTime::Format::Strptime;
 use DateTime::TimeZone;
@@ -57,13 +55,12 @@ use Encode qw(from_to);
 
 
 
-our $mip=inet_ntoa((gethostbyname(hostname))[4]); # io::MyNav::gets_ip_address;
-#our $mip=io::MyNav::gets_ip_address;
+our $mip=io::MyNav::gets_ip_address;
 
 #print "Content-Type: text/html\n\n";
 
 #my $ipAddr=io::MyNav::gets_ip_address;
-my $VERSION="0.2.1.500";
+my $VERSION="0.2.1.539";
 
 =head1 NAME
 
@@ -184,12 +181,13 @@ if($statlastlogfile){ # begin if($statlastlogfile)
 
 	chdir("..");chdir("..");
 	$logfile=~s/\//\_/g;
-	if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!){ # begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+	#my $locres=&io::MyConstantBase::LOCAL_HOSTED_BY_URL->();
+	if(&io::MyNav::is_local_network_address){ # Begin if(&io::MyNav::is_local_network_address)
 		#$url="http://localhost/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
 		my $param_trip=uri_unescape($doc->param("maop_googid"));
 		$url= "https://".&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_log=$logfile$mparam\&maop_googid=$param_trip";
 		$ilws=0; # is local website 0=yes (for local wesite tests)
-	} # end if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+	} # end if(&io::MyNav::is_local_network_address)
 	else{ # begin else
 		$ilws=1; # is local website 1=no (for distant wesite tests)
 		#$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_log=$logfile$mparam";
@@ -205,7 +203,7 @@ if($statlastlogfile){ # begin if($statlastlogfile)
 
 <script>
 	var x=document.getElementById("wait");
-	x.innerHTML="Please wait while loading...";
+	x.innerHTML="3- Please wait while loading...<br>$url<br>current ip: $mip<br>";
 	window.location="$url";
 </script>
 </body>
@@ -237,7 +235,7 @@ if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 
 <script>
 	var x=document.getElementById("wait");
-	x.innerHTML="Please wait while loading...";
+	x.innerHTML="1- Please wait while loading...";
 	window.location="$url";
 </script>
 </body>
@@ -271,7 +269,7 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 
 <script>
 	var x=document.getElementById("wait");
-	x.innerHTML="Please wait while loading...";
+	x.innerHTML="2- Please wait while loading...";
 	window.location="$url";
 </script>
 </body>
