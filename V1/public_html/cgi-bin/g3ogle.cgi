@@ -1,12 +1,11 @@
 #!/usr/bin/perl5.30.2  -T
-##!/usr/bin/perl-5.30.0  -T
 
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* @modify date 2020-06-03 02:28:03
+* @modify date 2020-06-03 03:49:22
 * Email Address : sdo@linux.home
 * Version : 0.2.1..500
 * License:
@@ -199,6 +198,7 @@ if($statlastlogfile){ # begin if($statlastlogfile)
 <!DOCTYPE html>
 <html>
 <body>
+case 34
 <p id="wait"></p>
 
 <script>
@@ -217,11 +217,13 @@ if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
 	print "Content-Type: text/html\n\n";
 	#print "case 2<br>";exit(1);
-	if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!){ # begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+	#if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!){ # begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+	if(&io::MyNav::is_local_network_address){ # Begin if(&io::MyNav::is_local_network_address)
 		my $param_trip=uri_unescape($doc->param("maop_googid"));
 		$url= "https://".&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_googid=$param_trip";
 		#$url="http://localhost/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
-	}# end if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+		#}# end if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+	} # end if(&io::MyNav::is_local_network_address)
 	else{
 		#$url="http://derased.heliohost.org/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
 		#$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
@@ -248,13 +250,15 @@ A
 if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
 	print "Content-Type: text/html\n\n";
-	#print "case 1<br>";exit(1);
-	if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!){ # begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+	print "case 1<br>";exit(1);
+	#if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!){ # begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+	if(&io::MyNav::is_local_network_address){ # Begin if(&io::MyNav::is_local_network_address)
 		$url="http://localhost/~sdo/cgi-bin/maop.cgi";
 		my $param_trip=uri_unescape($doc->param("maop_googid"));
 		$url= "https://".&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi?maop_googid=$param_trip";
 		$ilws=0; # is local website 0=yes (for local wesite tests)
-	}# end if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+		#}# end if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+	} # end if(&io::MyNav::is_local_network_address)
 	else{
 		#$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
 		#$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi";
@@ -265,6 +269,7 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 <!DOCTYPE html>
 <html>
 <body>
+case 2
 <p id="wait"></p>
 
 <script>
