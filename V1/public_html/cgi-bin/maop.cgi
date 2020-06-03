@@ -8,8 +8,8 @@ q##//q#
 * Created By : sdo
 * File Name : maop.cgi
 * Creation Date : Wed Aug 19 15:51:08 2015
-* Last Modified : Tue Jun 11 21:56:42 2019
-* Email Address : sdo@macbook-pro-de-sdo.home
+* @modify date 2020-06-03 03:16:47
+* Email Address : sdo@linux.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
@@ -50,8 +50,8 @@ my $VERSION="1.0.12.542";
 
 my $now_string = time(); # strftime "%m %d %H:%M:%S UTC %Y", gmtime;
 
-my $extra_param="";
-if(uri_unescape($doc->param("maop_upld")) eq "ok"){
+my $extra_param=""; my $maop_upld=$doc->param("maop_upld")||"";
+if(uri_unescape($maop_upld) eq "ok"){
 	if($doc->param("maop_file_name_img")){
 		my $timsec=localtime;
 		#print "<br><br><br><br><br><br><br><br><br><br>----------------->$timsec<br>";
@@ -65,11 +65,12 @@ if(uri_unescape($doc->param("maop_upld")) eq "ok"){
 	}
 }
 
-#my $ip=io::MyNav::gets_ip_address;
-my $ip=inet_ntoa((gethostbyname(hostname))[4]); # io::MyNav::gets_ip_address;
-my $ipAddr=inet_ntoa((gethostbyname(hostname))[4]); # io::MyNav::gets_ip_address;
+#my $ip=inet_ntoa((gethostbyname(hostname))[4]); # io::MyNav::gets_ip_address;
+#my $ipAddr=inet_ntoa((gethostbyname(hostname))[4]); # io::MyNav::gets_ip_address;
+my $ip=io::MyNav::gets_ip_address;
+my $ipAddr=io::MyNav::gets_ip_address;
 my $logfile="album/hist/log-$ipAddr-$$";
-my $logfile="album/hist/log-$ipAddr-$$";
+#my $logfile="album/hist/log-$ipAddr-$$";
 my $mparam=();# my parameter passed
 
 print "v$VERSION\n<br>";
@@ -116,7 +117,8 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 $mparam.="&$extra_param";
 #print "<br>oooooooo>$mparam<br>";
 
-my $prog=(length($doc->param("maop_prog"))==0) ? "album.cgi" : $doc->param("maop_prog");
+my $maop_prog=$doc->param("maop_prog")||"";
+my $prog=(length($maop_prog)==0) ? "album.cgi" : $maop_prog;
 
 # we build the url
 my $url= 'http';
