@@ -7,8 +7,8 @@ q##//q#
 * Created By : sdo
 * File Name : MyNav.pm
 * Creation Date : Wed Nov 30 22:51:08 2005
-* Last Modified : Fri Oct 26 22:00:20 2018
-* Email Address : sdo@macbook-pro-de-sdo.home
+* @modify date 2020-06-03 02:18:18
+* Email Address : sdo@linux.home
 * Version : 0.0.0.0
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -26,9 +26,11 @@ q##//q#
 require Exporter;
 
 use Fcntl qw( :DEFAULT :flock);
+use Sys::Hostname;
+use Socket;
 
 my $VERS       = '1.0';
-my $REL        = '14.8';
+my $REL        = '14.40';
 $VERSION    = "${VERS}.${REL}";
 $VERSION    = eval $VERSION;
 @ISA    = qw( Exporter );
@@ -53,6 +55,7 @@ $VERSION    = eval $VERSION;
 	gets_user_name
 	sets_url
 	gets_user_log
+	is_local_network_address
 	     );
 
 @EXPORT_OK = qw( 
@@ -76,6 +79,7 @@ $VERSION    = eval $VERSION;
 	gets_url_base
 	gets_user_name
 	sets_url
+	is_local_network_address
 	       );
 
 # Written by shark bait ###
@@ -118,6 +122,8 @@ sets_url
 =head2 HISTORY OF MODIFICATIONS
 
 =over 4
+
+- I<Last modification:> Jun 03 2020 check sub gets_ip_address
 
 - I<Last modification:> Jul 25 2009. Gets in the field $ENV{'HTTP_X_FORWARDED_FOR'}  last IP address (real one).
 
@@ -664,6 +670,8 @@ None.
 
 =over 4
 
+- I<Modified on:> Jun 03 2020. function reshaped entirely
+
 - I<Modified on:> Jul 25 2009. Gets in the field $ENV{'HTTP_X_FORWARDED_FOR'}  last IP address (real one).
 
 - I<Modified on:> Jul 19 2009. Checks for X-Forwarded-For field.
@@ -679,14 +687,21 @@ None.
 =cut
 
 sub gets_ip_address { # begin sub gets_ip_address
-	my $ip="$ENV{'HTTP_X_FORWARDED_FOR'}";
+	my $serv_addr=inet_ntoa((gethostbyname(hostname))[4]);
+	my $remote_addr=$ENV{'REMOTE_ADDR'} if defined $ENV{'REMOTE_ADDR'};
 
-	chomp($ip);
-	$ip=~m/([0-9]{1,3}(.[0-9]{1,3}){3})$/ ; # gets last ip address
-
-	return "$1" if defined $ENV{'HTTP_X_FORWARDED_FOR'} ;
-	return "$ENV{'REMOTE_ADDR'}" if defined $ENV{'REMOTE_ADDR'} ;
-} # begin sub gets_ip_address
+	if ( $serv_addr !~ m/^$remote_addr$/) {
+		#print "distant<br>";
+		#print "1.1 distant address ". $remote_addr  . "<br>";
+		#print "1.2 local address ". $serv_addr  . "<br>";
+		return $remote_addr;
+	} else {
+		#print "local<br>";
+		#print "2.1 distant address ". $remote_addr  . "<br>";
+		#print "2.2 local address ". $serv_addr  . "<br>";
+		return $serv_addr;
+	}
+} # end sub gets_ip_address
 
 =head1 sub gets_remhost_address(...)
 
@@ -1351,6 +1366,69 @@ None.
 sub gets_server_name { # begin sub gets_server_name
 	return $ENV{SERVER_NAME};
 } # end sub gets_server_name
+
+=head1 sub is_local_network_address(...)
+
+This function that returns true if local network address.
+
+=head2 PARAMETER(S)
+
+=over 4
+
+None.
+
+=back
+
+=head2 RETURNED VALUE
+
+=over 4
+
+True if local network else false.
+
+=back
+
+=head2 ERRROR RETURNED
+
+=over 4
+
+None.
+
+=back
+
+=head2 BUG KNOWN
+
+=over 4
+
+None.
+
+=back
+
+=head2 HISTORY OF CREATION/MODIFICATION
+
+=over 4
+
+- I<Created on:> Jun 03 2020. function reshaped entirely
+
+=back
+
+=cut
+
+sub is_local_network_address { # begin sub is_local_network_address
+	my $serv_addr=inet_ntoa((gethostbyname(hostname))[4]);
+	my $remote_addr=$ENV{'REMOTE_ADDR'} if defined $ENV{'REMOTE_ADDR'};
+
+	if ( $serv_addr !~ m/^$remote_addr$/) {
+		#print "distant<br>";
+		#print "1.1 distant address ". $remote_addr  . "<br>";
+		#print "1.2 local address ". $serv_addr  . "<br>";
+		return false;
+	} else {
+		#print "local<br>";
+		#print "2.1 distant address ". $remote_addr  . "<br>";
+		#print "2.2 local address ". $serv_addr  . "<br>";
+		return true;
+	}
+} # end sub is_local_network_address
 
 1;
 

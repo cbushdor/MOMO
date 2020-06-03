@@ -10,7 +10,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyConstantBase.pm
 * Creation Date : Sun Aug 19 22:51:08 2018
-* @modify date 2020-06-02 02:11:28
+* @modify date 2020-06-02 23:46:48
 * Email Address : sdo@linux.home
 * Version : 0.0.5.12
 * License:
@@ -52,7 +52,6 @@ use constant AMOUNT_OF_INFO_TO_READ => sub { ( 2096 * 7 ); }; # That's the amoun
 
 use constant LOCAL_HOSTS_FILE => "/etc/hosts"; # For security issur where to check hosts files
 use constant PROTO_USED => sub { ($mycgi->https()=~m/on/) ? "https://" : "http"; } ;
-#use constant LOCAL_HOSTED_BY_URL => sub { "192.168.1.13"; }; # That's the local url/ip address to reach website
 use constant LOCAL_HOSTED_BY_URL => sub { inet_ntoa((gethostbyname(hostname))[4]) ; }; # That's the local url/ip address to reach website
 use constant DISTANT_HOSTED_BY_URL => sub { "dorseb.hopto.org"; }; # That's the local url/ip address to reach website
 use constant WEB_ACCOUNT => sub { '/~sdo/'; }; # Account where to access website 
