@@ -6,11 +6,11 @@
 
 # ------------------------------------------------------
 q##//q#
-* Created By : sebastien.dorey
+* Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Mar 4 12:25:20 2003
-* @modify date 2020-06-02 21:08:45
-* Email Address : sebastien.dorey@linux.home
+* @modify date 2020-06-03 03:33:43
+* Email Address : sdo@linux.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
@@ -132,8 +132,8 @@ use io::MyNav;
 
 use io::MySec;
 
-#our $mip=io::MyNav::gets_ip_address;
-our $mip=inet_ntoa((gethostbyname(hostname))[4]); # io::MyNav::gets_ip_address;
+our $mip=io::MyNav::gets_ip_address;
+#our $mip=inet_ntoa((gethostbyname(hostname))[4]); # io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
