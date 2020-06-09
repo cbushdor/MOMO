@@ -7,7 +7,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyNav.pm
 * Creation Date : Wed Nov 30 22:51:08 2005
-* @modify date 2020-06-03 02:18:18
+* @modify date 2020-06-10 01:28:06
 * Email Address : sdo@linux.home
 * Version : 0.0.0.0
 * License:
@@ -690,17 +690,18 @@ sub gets_ip_address { # begin sub gets_ip_address
 	my $serv_addr=inet_ntoa((gethostbyname(hostname))[4]);
 	my $remote_addr=$ENV{'REMOTE_ADDR'} if defined $ENV{'REMOTE_ADDR'};
 
-	if ( $serv_addr !~ m/^$remote_addr$/) {
+	if ( $serv_addr !~ m/^$remote_addr$/) { # Begin if ( $serv_addr !~ m/^$remote_addr$/)
 		#print "distant<br>";
 		#print "1.1 distant address ". $remote_addr  . "<br>";
 		#print "1.2 local address ". $serv_addr  . "<br>";
 		return $remote_addr;
-	} else {
+	} # End if ( $serv_addr !~ m/^$remote_addr$/)
+	else { # Begin else
 		#print "local<br>";
 		#print "2.1 distant address ". $remote_addr  . "<br>";
 		#print "2.2 local address ". $serv_addr  . "<br>";
 		return $serv_addr;
-	}
+	} # End else
 } # end sub gets_ip_address
 
 =head1 sub gets_remhost_address(...)
