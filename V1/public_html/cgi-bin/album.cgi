@@ -1,15 +1,11 @@
 #!/usr/bin/perl5.30.2  -T
-##!/usr/local/bin/perl
-
-# #!/usr/bin/perl -T
-# #!/usr/bin/perl-5.30.0  -T
 
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Mar 4 12:25:20 2003
-* @modify date 2020-06-03 03:33:43
+* @modify date 2020-06-10 01:41:45
 * Email Address : sdo@linux.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -132,12 +128,14 @@ use io::MyNav;
 
 use io::MySec;
 
+#print "Content-type: text/html\n\n";
 our $mip=io::MyNav::gets_ip_address;
+#print "<br>--------------my ip address: $mip<br>";
 #our $mip=inet_ntoa((gethostbyname(hostname))[4]); # io::MyNav::gets_ip_address;
 chomp($mip);
 
 use constant ALBUM_VER               	=> '1.6'; # Album version
-use constant ALBUM_REL               	=> '16.5743'; # Album release
+use constant ALBUM_REL               	=> '16.5755'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
 my $service=uri_unescape($doc->param("maop_service"));
@@ -183,7 +181,7 @@ my $fn="album/hist/${mip}";
 
 album.cgi
 
-$VERSION=1.6.16.5743
+$VERSION=1.6.16.5755
 
 =head1 ABSTRACT
 
@@ -671,7 +669,7 @@ my $mtzg=();# My Time Zone Global
 
 # Saving parametters
 foreach my $p ($doc->param){ # Begin foreach my $p ($doc->param)
-	#print ">>>>>>>$p<br>";
+	#print "$0 >>>>>>>$p<br>";
 	if($p=~m/^maop\_/){ # Begin if($p=~m/^maop\_/)
 		if($p!~m/^maop_lon$/&&
 			$p!~m/^maop_lat$/&&
@@ -683,7 +681,7 @@ foreach my $p ($doc->param){ # Begin foreach my $p ($doc->param)
 		}  # End if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 	} # End if($p=~m/^maop\_/)
 } # End foreach my $p ($doc->param)
-#print "iiiiiioooooooooo>$mparam<br>";
+#print "<br>iiiiiioooooooooo>$mparam<br>";
 $mparam=~s/^\&//;
 #print "oooooooooo>$mparam<br>";
 #exit(1);
@@ -693,25 +691,12 @@ my $mltmp=&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(); # my local tmp
 #print "Content-Type: text/html ; charset=UTF-8\n\n";
 #print "case 2<br>";exit(1);
 if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!){ # Begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
-	#print "oooiiiiiiii>case 1-";
 	$url="http://localhost/~sdo/cgi-bin/maop.cgi\?$mparam";
-	#print "<br>*********>$url<br>";
-	#exit(-1);
-	#print "*************CHECK******>$url<br>";
 } # End if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!)
 elsif(! defined($mip)||$mip=~m/^$mltmp/||$mip=~m!example2.dev!){ # Begin elsif(! defined($mip)||$mip=~m/^${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL}/||$mip=~m!example2.dev!)
-	#print "iiiiiiii>case 3xxx-";
-	#$url="https://$mltmp/~sdo/cgi-bin/maop.cgi\?$mparam";
 	$url="https://$mip/~sdo/cgi-bin/maop.cgi\?$mparam";
-	#print "<br>*********>$url<br>";
-	#exit(-1);
-	#print "</br>$url<br>";
-	#print "</br>IP---->$mip<br>defined:" . defined($mip) . "<br>${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL} ? match example2.dev :". ($mip=~m!example2.dev!) ."<<br>";
-	#sleep(15);
-	#exit(-1);
 } # End elsif(! defined($mip)||$mip=~m/^${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL}/||$mip=~m!example2.dev!)
 else{ # Begin else
-	#print "iiiiiiii>case 2-";
 	$url = 'http';
 	if ("$ENV{HTTPS}" eq "on") {
 		$url .= "s";
@@ -719,14 +704,14 @@ else{ # Begin else
 	$url .= "://";
 	$url.= $ENV{"HTTP_HOST"} . $ENV{REQUEST_URI}. "\?$mparam"; # url where website is hosted
 	$url=~s/album\.cgi/maop\.cgi/;
-	#print "<br>*********>$url<br>";
-	#exit(-1);
 } # End else
 # ------------------------------------------------------------------------------------------
 #print "<br>#########################>$url<br>";
 
 #exit(0);
 
+$url=~s/\&{2,}/\&/g; # We made some cleaning in the url generated
+$url=~s/\?maop[^\?]*$//g; # We made some cleaning in the url generated
 if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/){ # Begin if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
 	print &my_promptA("<!--<u>part 1 ($logfile):</u> <b></u>$url</b>-->" ."<!-- accordeoniste -->");
 	exit(0);
@@ -764,16 +749,10 @@ else{ # Begin else
 } # End else
 
 if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # Begin if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
-	#print "Content-Type: text/html ; charset=UTF-8\n\n";
-	# &myrecmyrec("Case 3 ($lon - $lat) latitude exists and as proper format <i>$url</i>","../error.html","(! defined($lat)||length($lat)==0||$lat!~m/^[0-9]{1,}\.[0-9]{1,}$/)");
-	#print "azerty 4<br>";
-	#print $c. "<!-- azerty -->";
 	exit(0);
 } # End if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 
-#my $locweaf=&io::MyConstantBase::ALBUM_INFO_HIST_DIRECTORY->() ."wfc_data.$lon.$lat.$$.".time().".xml";# file for local weather
 my $locweaf=&io::MyConstantBase::ALBUM_INFO_HIST_DIRECTORY->() ."wfc_data-$$-".time().".xml";# file for local weather
-#my $locweaf=&io::MyConstantBase::ALBUM_INFO_HIST_DIRECTORY->() ."owm_data-$$-".time().".xml";# file for local weather (new API Open Weather Map)
 
 # ----------------------------------------------------------------------------------------------
 # format solved - missing but need to check if lon lat can have negative values
@@ -794,19 +773,16 @@ if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	# ---------------------- END ----------------------------
 	# -------------------------------------------------------
 
-	#print "Content-Type: text/html ; charset=UTF-8\n\n";
 	my $t="* <u>($lon)</u> ======== * defined(lon):".((defined($lon)) ? " defined" : " not defined")." <b>=====</b> "
 	."* length(lon)==0: ".((length($lon)==0) ? " length is zero ":" length is not zero ")." <b>=====</b> "
 	."* lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/".(($lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/) ? " not defined for this reg exp " : " defined for this reg exp ")." <b>=====</b> ";
 	print $t;
 	print &my_promptB("Tests B");
-	#print $c . "<!-- plustot -->";
 	exit(0);
 } # End if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 else{ # Begin else
 } # End else
 
-#if($url=~m/dorey/||$url=~m!${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL}!){ # Begin if($url=~m/dorey/||$url=~m!${\&io::MyConstantBase::LOCAL_HOSTED_BY_URL}!)
 if($url=~m/$ENV{SERVER_NAME}/){ # Begin if($url=~m/$ENV{SERVER_NAME}/)
 	# Note Last modification:v1.6.16.140
 	# We want to get time zone Id from param
@@ -847,9 +823,6 @@ else{# Begin else
 		open(W,">album/_debug_album_DO_NOT_REMOVE") or die("error $!");
 		close(W) or die("error $!");
 	} # End if( -f "album/debug_album_DO_NOT_REMOVE")
-	#print "Content-Type: text/html ; charset=UTF-8\n\n";
-	#print "Pragma: no-cache \n\n";
-	#print "oooooo->$name<br />";
 } # End else
 
 if($service eq "verDoc"){ # Only entire documentation + version is asked
@@ -989,7 +962,7 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 
 	if($dtb>$dt3){ # Begin if($dtb>$dt3)
 		# date is not yet arrived
-		print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
+		#print ">>>>>>>>>>>>>>>>>>>>>>>>>>> <u>$dt3</u><$dtb not passed\n";
 		$rtrip='red'; # We record 
 		$mtfn="_-" . &io::MyConstantBase::TRIP_NAME->(); 
 	} # End if($dtb>$dt3)
@@ -8462,6 +8435,7 @@ sub my_promptB{ # Begin sub my_promptB
 	<!DOCTYPE html>
 	<html>
 	<body>
+	>>>>>>>>>>>>>>>>>>>>>>>>>>$url<br>
 	<p id="wait"></p>
 
 	<script  language="javascript"  type="text/javascript">
@@ -8553,6 +8527,7 @@ sub my_promptA{ # Begin sub my_promptA
 <!DOCTYPE html>
 <html>
 <body>
+	<!-- oooooooooooooooooooooooooooooo>$url<br>-->
 <p id="wait"></p>
 
 <script  language="javascript" type="text/javascript">
