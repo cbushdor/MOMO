@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : maop.cgi
 * Creation Date : Wed Aug 19 15:51:08 2015
-* @modify date 2020-06-03 16:26:40
+* @modify date 2020-06-10 02:40:40
 * Email Address : sdo@linux.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -14,6 +14,7 @@ q##//q#
 * Purpose : 
 #;
 # ------------------------------------------------------
+
 use CGI;
 use strict;
 use warnings;
@@ -32,6 +33,7 @@ BEGIN {
 END {
 	$doc->delete_all(); # We clean all variables and parameters when the script is over
 }
+
 use POSIX qw(strftime);
 use io::MyNav;
 use DateTime;
@@ -75,17 +77,15 @@ my $leng=scalar $doc->param;
 my $la=$doc->param("maop_lat");
 my $lo=$doc->param("maop_lon");
 
-my @o=$doc->param;
-print "<br><br><br><br><br><br>";
+#print "<br><br><br><br><br><br>";
 foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
-	print "$p: ". $doc->param($p)." <br>";
+	#	print "$0  $p: ". $doc->param($p)." <br>";
 	if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
 		if($p!~m/^maop_lon$/&&
 		   $p!~m/^maop_lat$/&&
 		   $p!~m/^maop_prog$/&&
 		   $p!~m/^maop_date$/&&
 		   $p!~m/^maop_file_name_img$/&&
-		   #   $p!~m/^maop_Set_page_position_in_the_album$/&&
 		   $p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 			my $pram=$doc->param($p);
 
@@ -95,14 +95,6 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 				} # End if (length($pram)>0)
 			}
 		}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
-		#elsif ($p=~m/^maop_Set_page_position_in_the_album$/){ # Begin elsif ($p=~m/^maop_Set_page_position_in_the_album$/)
-		#my $pram=$doc->param($p);
-		#if($mparam!~m/[\?\&]$p\=/){
-		#if (length($pram)>0) { # Begin if (length($pram)>0)
-		#$mparam.="\&$p=".uri_escape($pram);
-		#} # End if (length($pram)>0)
-		#}
-		#} # End elsif ($p=~m/^maop_Set_page_position_in_the_album$/)
 		elsif ($p!~m/^maop_lat$/){ # begin elsif ($p!~m/^maop_lat$/)
 		} # end elsif ($p!~m/^maop_lat$/)
 		elsif($p!~m/^maop_lon$/){ # begin elsif($p!~m/^maop_lon$/)
@@ -110,10 +102,9 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 		else{ # Begin else
 		} # End else
 	} # end if($p=~m/^maop\_/)
-	#	print REC "\n#####+++++***<$p>".$doc->param($p)."<br>";
 } # end foreach my $p ($doc->param)
 $mparam.="&$extra_param";
-print "<br>oooooooo>$mparam<br>";
+#print "<br>oooooooo>$mparam<br>";
 
 my $maop_prog=$doc->param("maop_prog")||"";
 my $prog=(length($maop_prog)==0) ? "album.cgi" : $maop_prog;
@@ -170,11 +161,13 @@ my $myform=<<FORM;
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <body>
+pouet poet<br>
 <p id="wait"></p>
 
 <script>
+var mycounter=0;
 var x=document.getElementById("wait");
-x.innerHTML="1- Attendre svp pendant le chargement...<br><i>Please wait while loading...</i><br>$url";
+x.innerHTML="1- Attendre svp pendant le chargement...<br><i>Please wait while loading...</i>";
 // + "$url?maop_lon="+lon+"&maop_lat="+lat+"$mparam&maop_date=$now_string&maop_log=$logfile";
 getLocation();
 
@@ -210,6 +203,16 @@ function showPosition(position) { // begin function showPosition(position)
     var lon=position.coords.longitude;
     var lat=position.coords.latitude;
 
+    x.innerHTML += "<br>counter:"+mycounter+"<br>"; 
+    /*
+    mycounter++:
+    if(counter>5){
+	    #x.innerHTML = "too much calculus<br>";
+	    exit(0);
+    }
+    */
+	    
+
     lon=encodeURIComponent(lon);
     lat=encodeURIComponent(lat);
     var myURL="$url?maop_lon="+lon+"&maop_lat="+lat+"&$mparam&maop_date=$now_string&maop_log=$logfile";
@@ -217,7 +220,7 @@ function showPosition(position) { // begin function showPosition(position)
     //var myURL="$url?maop_lon="+lon;
     //myURL+="&maop_lat="+lat;
     //myURL+="&$mparam&maop_date=$now_string&maop_log=$logfile";
-    window.location="$url?maop_lon="+lon+"&maop_lat="+lat+"&$mparam&maop_date=$now_string&maop_log=$logfile";
+    window.location="$url?maop_log=$logfile&maop_lon="+lon+"&maop_lat="+lat+"&$mparam&&maop_date=${now_string}";
 } // end function showPosition(position)
 </script>
 </body>
