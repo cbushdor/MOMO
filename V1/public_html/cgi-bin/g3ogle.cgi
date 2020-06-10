@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* @modify date 2020-06-03 03:49:22
+* @modify date 2020-06-04 22:18:50
 * Email Address : sdo@linux.home
 * Version : 0.2.1..500
 * License:
@@ -52,20 +52,18 @@ use io::MyUtilities;
 use URI::Escape;
 use Encode qw(from_to);
 
+our $mip=io::MyNav::gets_ip_address; # We retreive IP address it can be Public or Private IP
 
-
-our $mip=io::MyNav::gets_ip_address;
-
-#print "Content-Type: text/html\n\n";
+print "Content-Type: text/html\n\n";
 
 #my $ipAddr=io::MyNav::gets_ip_address;
-my $VERSION="0.2.1.539";
+my $VERSION="0.2.1.578";
 
 =head1 NAME
 
 g3ogle.cgi
 
-$VERSION="0.2.1.539"
+$VERSION="0.2.1.578"
 
 =head1 ABSTRACT
 
@@ -96,7 +94,7 @@ infoCenter
 - I<Last modification:v0.2.1.500> Jan 30 2019 This is perl 5, version 24, subversion 3 (v5.24.3) built for darwin-thread-multi-2level to This is perl 5, version 28, subversion 1 (v5.28.1) built for darwin-2level (with 1 registered patch, see perl -V for more detail).
 
 - I<Last modification:v0.2.1.154> Aug 30 2015: removed test below
-			if(!("$ll" eq "$l" && "$LL" eq "$L")){ # begin if(!("$ll" eq "$l" && "$LL" eq "$L"))
+			if(!("$ll" eq "$l" && "$LL" eq "$L")){ # Begin if(!("$ll" eq "$l" && "$LL" eq "$L"))
 
 - I<Last modification:v0.2.1.55> Jan 31 2015: added test below
 		$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/
@@ -120,51 +118,52 @@ infoCenter
 	open(REC,">>../rec.html")||die("err: $!");
 	my $tft=gmtime(); #time for test
 	print REC "<br>BEGIN < $0 > $tft<br>";
-	foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
+	foreach my $p ($doc->param){ # Begin foreach my $p ($doc->param)
 		print REC ">>>>>>>$p --->".$doc->param($p)."<br>";
-	} # end foreach my $p ($doc->param)
+	} # End foreach my $p ($doc->param)
 	print REC "<br>END < $0 > $tft<br>";
 	close(REC)||die("Error:$!");
 }
 
-my $lstlog=30*2; # that's seconds
-my $lon=$doc->param("maop_lon");
-my $lat=$doc->param("maop_lat");
-my $logfile= $doc->param("maop_log");
-$logfile=~s/\_/\//g;
-my $ui=time - (stat "$logfile")[9];
-my $statlastlogfile =($ui > $lstlog); # we check if log file is older that $lstlog seconds
-my $ilws=0; # is local website variable used for tests (local website,distant website)
+my $lstlog=30*2; # That's seconds
+my $lon=$doc->param("maop_lon");# We retreive longitude from param
+my $lat=$doc->param("maop_lat");# We retreive latitude from param
+my $logfile= $doc->param("maop_log"); # We retreive last logfile  to help to calculate if file is older than $lstlog in seconds from param
+$logfile=~s/\_/\//g; # We retreive the path
+my $ui=time - (stat "$logfile")[9]; # We calculte the lag
+my $statlastlogfile =($ui > $lstlog); # We check if log file is older than $lstlog seconds
+my $ilws=0; # Is local website variable used for tests (local website,distant website)
 
-if($statlastlogfile){ # begin if($statlastlogfile)
+if($statlastlogfile){ # Begin if($statlastlogfile)
 	my $mparam=();
 	print "Content-Type: text/html\n\n";
-	#	print "<h1>Under construction</h1><br>$ui > $lstlog<br>";
+	print "<h1>Under construction</h1><br>$ui > $lstlog<br>";
+	#exit(-1);
 
-	foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
+	foreach my $p ($doc->param){ # Begin foreach my $p ($doc->param)
 		#		print ">>>>>>>$p --->".$doc->param($p)."<br>";
-		if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
+		if($p=~m/^maop\_/){ # Begin if($p=~m/^maop\_/)
 			if($p!~m/^maop_lon$/&&
 				$p!~m/^maop_lat$/&&
 				$p!~m/^maop_prog$/&&
-				$p!~m/^maop_log$/){ # begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
+				$p!~m/^maop_log$/){ # Begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 				$mparam.='&'."$p=".$doc->param($p);
-			}  # end if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
-			elsif ($p!~m/^maop_lat$/){ # begin elsif ($p!~m/^maop_lat$/)
+			}  # End if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
+			elsif ($p!~m/^maop_lat$/){ # Begin elsif ($p!~m/^maop_lat$/)
 				#&myrec("Case logfile format maop ","../error.html","****** $la" );
-			} # end elsif ($p!~m/^maop_lat$/)
-			elsif($p!~m/^maop_lon$/){ # begin elsif($p!~m/^maop_lon$/)
+			} # End elsif ($p!~m/^maop_lat$/)
+			elsif($p!~m/^maop_lon$/){ # Begin elsif($p!~m/^maop_lon$/)
 				#&myrec("Case logfile format maop ","../error.html","****** $lo" );
-			} # end elsif($p!~m/^maop_lon$/)
-		} # end if($p=~m/^maop\_/)
-	} # end foreach my $p ($doc->param)
+			} # End elsif($p!~m/^maop_lon$/)
+		} # End if($p=~m/^maop\_/)
+	} # End foreach my $p ($doc->param)
 	my $url=();
 	#	if(-e "$logfile") { print "file  $logfile exists<br>";}
 	#	else { print "file  $logfile does not exists<br>";}
-	if( -e "$logfile"){ # begin if( -e "$logfile")
+	if( -e "$logfile"){ # Begin if( -e "$logfile")
 		my ($foo) = ($logfile =~ /^(.*)$/g);
 		unlink("$foo");
-	} # end if( -e "$logfile")
+	} # End if( -e "$logfile")
 	chdir("album");chdir("hist");
 	my @lflb=split(/\//,$logfile);
 	my $lfl=$lflb[scalar(@lflb)-1];
@@ -186,15 +185,17 @@ if($statlastlogfile){ # begin if($statlastlogfile)
 		my $param_trip=uri_unescape($doc->param("maop_googid"));
 		$url= "https://".&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_log=$logfile$mparam\&maop_googid=$param_trip";
 		$ilws=0; # is local website 0=yes (for local wesite tests)
-	} # end if(&io::MyNav::is_local_network_address)
-	else{ # begin else
+	} # End if(&io::MyNav::is_local_network_address)
+	else{ # Begin else
 		$ilws=1; # is local website 1=no (for distant wesite tests)
 		#$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_log=$logfile$mparam";
 		$url= "https://".&io::MyConstantBase::DISTANT_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_log=$logfile$mparam";
-	} # end else
-	#	print "ooooooooo>$url<br>";
+	} # End else
+	print "ooooooooo>$url<br>";
+	exit(-1);
 	#	print "case 2-------($statlastlogfile)=======$logfile<br>";exit(1);
-	my $c=<<A;
+	#my $c=<<A;
+	print <<A;
 <!DOCTYPE html>
 <html>
 <body>
@@ -209,27 +210,32 @@ case 34
 </body>
 </html>
 A
-	print $c;
+#print $c;
 	exit(0);
-} # end if($statlastlogfile)
+} # End if($statlastlogfile)
+print "Content-Type: text/html\n\n";
+print "<br>We stop here";
 
-if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
+if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # Begin if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
 	print "Content-Type: text/html\n\n";
-	#print "case 2<br>";exit(1);
-	#if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!){ # begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+	print "case 2 latitude not defined or don't exist '$lat'<br>";exit(1);
+	#if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!){ # Begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
 	if(&io::MyNav::is_local_network_address){ # Begin if(&io::MyNav::is_local_network_address)
 		my $param_trip=uri_unescape($doc->param("maop_googid"));
 		$url= "https://".&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi\&maop_googid=$param_trip";
 		#$url="http://localhost/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
-		#}# end if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
-	} # end if(&io::MyNav::is_local_network_address)
+		#}# End if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+	} # End if(&io::MyNav::is_local_network_address)
 	else{
 		#$url="http://derased.heliohost.org/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
 		#$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
 		$url= "https://".&io::MyConstantBase::DISTANT_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi?maop_prog=g3ogle.cgi";
 	}
-	my $c=<<A;
+	print "<br>carlamentrant<br>url:$url<br>";
+	exit(-1);
+	#my $c=<<A;
+	print <<A;
 <!DOCTYPE html>
 <html>
 <body>
@@ -243,29 +249,32 @@ if(! defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 </body>
 </html>
 A
-	print $c;
+	#print $c;
 	exit(0);
-} # end if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
+} # End if(!defined($lat)||length($lat)==0||$lat!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 
-if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # begin if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
+if(! defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/){ # Begin if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 	my $url=();
 	print "Content-Type: text/html\n\n";
-	print "case 1<br>";exit(1);
-	#if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!){ # begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+	print "case 1 longitude not defined or don't exist '$lon'<br>";exit(1);
+	#if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!){ # Begin if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
 	if(&io::MyNav::is_local_network_address){ # Begin if(&io::MyNav::is_local_network_address)
 		$url="http://localhost/~sdo/cgi-bin/maop.cgi";
 		my $param_trip=uri_unescape($doc->param("maop_googid"));
 		$url= "https://".&io::MyConstantBase::LOCAL_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi?maop_googid=$param_trip";
 		$ilws=0; # is local website 0=yes (for local wesite tests)
-		#}# end if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
-	} # end if(&io::MyNav::is_local_network_address)
+		#}# End if(! defined($mip)||$mip=~m/^127\.0\.0\.1/i||$mip=~m!localhost!||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+	} # End if(&io::MyNav::is_local_network_address)
 	else{
 		#$url="http://derased.heliohost.org/cgi-bin/maop.cgi";
 		#$url="https://dorey.effers.com/~sdo/cgi-bin/maop.cgi";
 		$url= "https://".&io::MyConstantBase::DISTANT_HOSTED_BY_URL->(). "/~sdo/cgi-bin/maop.cgi";
 		$ilws=1; # is local website 1=no (for distant wesite tests)
 	}
-	my $c=<<A;
+	#my $c=<<A;
+	print "KARL>>>>>>>>>>>>>>>>>>>>>$url<br>";
+	exit(-1);
+	print <<A;
 <!DOCTYPE html>
 <html>
 <body>
@@ -280,11 +289,12 @@ case 2
 </body>
 </html>
 A
-	print $c;
+#print $c;
 	exit(0);
-} # end if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
+} # End if(!defined($lon)||length($lon)==0||$lon!~m/^[\-\+]{0,1}[0-9]{1,}\.[0-9]{1,}$/)
 
-
+print "<br>We reached end of sanitary tests <br>lon:$lon;<br>lat:$lat<br>";
+#exit(0);
 my ($gmv,$prt)=split(/\-/,$doc->param("maop_gmv")); # Gets google map version, googlemap option: 0,1,2
 my ($googid)=$doc->param("maop_googid"); # Gets google map version
 chomp($prt);chomp($googid);
@@ -292,23 +302,9 @@ chomp($prt);chomp($googid);
 print "Content-type: text/html\n\n";
 
 #print "A - i$gmv,$prt, check  test prt length if it is ok. implemented but not tested yet<br>";
-if(length($googid)==0 || ! defined($googid) ){ # begin if(length($prt)==0 || ! defined($prt) )
+if(length($googid)==0 || ! defined($googid) ){ # Begin if(length($prt)==0 || ! defined($prt) )
 	$prt=1;
-} # end if(length($prt)==0 || ! defined($prt) )
-
-#print "B - i$gmv,$prt, check  test prt length if it is ok. implemented but not tested yet<br>";
-
-if ($mip=~m/127.0.0.1/||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!){ # begin if ($mip=~m/127.0.0.1/||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
-	my $pong = Net::Ping->new( $> ? "tcp" : "icmp" );
-	#if ($pong->ping("www.heliohost.org")) { # begin if ($pong->ping("www.heliohost.org"))
-	#if ($pong->ping("dorey.effers.com")) { # begin if ($pong->ping("dorey.effers.com"))
-	if ($pong->ping(&io::MyConstantBase::DISTANT_HOSTED_BY_URL->())) { # begin if ($pong->ping(&io::MyConstantBase::DISTANT_HOSTED_BY_URL->()))
-	} # end if ($mip=~m/127.0.0.1/||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!) 
-	else { # begin else
-		print "No connection!\n";
-		exit(-1);
-	} # end else
-} # end if ($mip=~m/127.0.0.1/||$mip=~m!&io::MyConstantBase::LOCAL_HOSTED_BY_URL->()!)
+} # End if(length($prt)==0 || ! defined($prt) )
 
 my $fn=$0; # file name
 $fn=~m/([0-9a-zA-Z\-\.]*)$/;
@@ -319,10 +315,10 @@ my ($dev, $ino, $mode, $nlink, $uid, $gid, $rdev, $size, $atime, $mtime, $ctime,
 
 if(-f "debug"){ # Begin if(-f "debug")
 	$id="AIzaSyDoz8j1983lLAncsYMjXLeemy5ks3DkfM8";
-} # end if(-f "debug")
-else{ # begin else
+} # End if(-f "debug")
+else{ # Begin else
 	$id=io::MyUtilities::loadFile("private/id.googlemap.v3");	
-} # end else
+} # End else
 
 my $mymp=() ;
 my $path=(); # olds data to print on the map
@@ -440,7 +436,7 @@ None.
 
 =cut
 
-sub getsLoLa{ # begin getsLoLa
+sub getsLoLa{ # Begin getsLoLa
 	my ($dp,$ds)=@_; # (dp: directory parent,ds: directory son) where are stored DB
 
 	my $llL=();# list of Longitude and latitude taken from a given file
@@ -452,29 +448,29 @@ sub getsLoLa{ # begin getsLoLa
 	closedir(ARD) || die(". $!");# close directory
 
 	# @dr contains all files and directories from current dir except . and ..
-	foreach my $ee (@dr){ # begin foreach (@dr) ; parse each file name from current directory
-		if(length("$ee")>0){ # begin if(length("$ee")>0)
+	foreach my $ee (@dr){ # Begin foreach (@dr) ; parse each file name from current directory
+		if(length("$ee")>0){ # Begin if(length("$ee")>0)
 			open(RO,"$ee") || die("$ee $!");$r.=<RO>;chomp($r);close(RO)||die("$ee $!");# store data from files in $r variable
-		} # end if(length("$ee")>0)
-	} # end foreach (@dr)
+		} # End if(length("$ee")>0)
+	} # End foreach (@dr)
 	chdir("..");chdir(".."); # come back to original dir configuration
 	my @a=split(/\,/,$r);# split in an array
-	for my $p (@a){ # begin for my $p (@a)
+	for my $p (@a){ # Begin for my $p (@a)
 		chomp($p);#remove cariage return if one found
 		my @q=split(/\#/,$p); # split each lines as a column
-		if(scalar(@q)>3){ # begin if(scalar(@q)>3)
+		if(scalar(@q)>3){ # Begin if(scalar(@q)>3)
 			my $dtes=$q[7]; # Gets login date
 			my $l=$q[4]; # Gets Latitude
 			my $L=$q[3]; # Gets Longitude
-			if(length("$l")){ # begin if(length($l))
-				if(length("$L")){ # begin if(length($L))
+			if(length("$l")){ # Begin if(length($l))
+				if(length("$L")){ # Begin if(length($L))
 					@rr=(@rr,"$dtes\@$l,$L");
-				} # end if(length($L))
-			} # end if(length($l))
-		} # end if(scalar(@q)>3)
-	} # end for my $p (@a)
+				} # End if(length($L))
+			} # End if(length($l))
+		} # End if(scalar(@q)>3)
+	} # End for my $p (@a)
 	return $llL; # Returns list
-} # end getsLoLa
+} # End getsLoLa
 
 
 =head1 sub getsPath(...)
@@ -560,23 +556,23 @@ None.
 
 =cut
 
-sub getsPath{ # begin getsPath
+sub getsPath{ # Begin getsPath
 	my ($file,$field)=@_; # File name to analyze
 	my $llL=();# list of Longitude and latitude taken from a given file
 
 	chomp($file);
-	foreach my $ld (split(/\//,$file)){ # begin foreach (split(/\//,$file))
+	foreach my $ld (split(/\//,$file)){ # Begin foreach (split(/\//,$file))
 		chdir("$ld");
-	} # end foreach (split(/\//,$file))
+	} # End foreach (split(/\//,$file))
 	my $r=();# store content of each file
 	opendir(ARD,".") || die(". $!");# open current directory
 	my @dr= grep { $_ ne '.' and $_ ne '..' and $_ !~ m/pl$/i and $_ !~ m/cgi$/i and $_=~m/^maop\-/} readdir(ARD);# parse current directory
 	closedir(ARD) || die(". $!");# close directory
-	foreach my $ee (@dr){ # begin foreach (@dr) ; parse each file name from cuon directory
-		if(length("$ee")>0){ # begin if(length("$ee")>0)
+	foreach my $ee (@dr){ # Begin foreach (@dr) ; parse each file name from cuon directory
+		if(length("$ee")>0){ # Begin if(length("$ee")>0)
 			open(R,"$ee") || die("$ee $!");$r.=<R>;chomp($r);close(R)||die("$ee $!");# store data from files in $r variable
-		} # end if(length("$ee")>0)
-	} # end foreach (@dr)
+		} # End if(length("$ee")>0)
+	} # End foreach (@dr)
 	chdir("..");chdir(".."); # come back to original dir configuration
 
 	my @a=split(/\,/,$r);
@@ -585,11 +581,11 @@ sub getsPath{ # begin getsPath
 	my $prev=();
 	my $newArrows=();
 	my @infoWC=();
-	for my $p (@a){ # begin for my $p (@a)
+	for my $p (@a){ # Begin for my $p (@a)
 		chomp($p);
 		my @q=split(/\#/,$p); # split each lines as a column
 		# we check country name below
-		if($q[5]=~m/$field/i){ # begin if($q[7]=~m/$field/i)
+		if($q[5]=~m/$field/i){ # Begin if($q[7]=~m/$field/i)
 			#print "oooooooooooooooo)$q[14] ------------ ";
 			#		print ")))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))$q[7]<br>";
 			my $dte=$q[7]; # Gets login date
@@ -597,16 +593,16 @@ sub getsPath{ # begin getsPath
 			my $L=$q[3]; # Gets Longitude
 			@infoWC=(@infoWC,&infoCenter("$q[6]"));# Info Weather Center
 			# we remove same coordnitates that next to each ohers (line before)
-			#if(!("$ll" eq "$l" && "$LL" eq "$L")){ # begin if(!("$ll" eq "$l" && "$LL" eq "$L"))
+			#if(!("$ll" eq "$l" && "$LL" eq "$L")){ # Begin if(!("$ll" eq "$l" && "$LL" eq "$L"))
 			# checks here if we can mix array with weather forecast
 			# trig with vi a.s /new google.maps.LatLng
 			#print "------------------------------------------------------->$dte<br>";
 			@zz=(@zz,"$dte@ new google.maps.LatLng($l,$L),\n");
-			#} # end if(!("$ll" eq "$l" && "$LL" eq "$L"))
+			#} # End if(!("$ll" eq "$l" && "$LL" eq "$L"))
 			$ll=$l;$LL=$L;
 			#print "	
-		} # end if($q[7]=~m/$field/i)
-	} # end for my $p (@a)
+		} # End if($q[7]=~m/$field/i)
+	} # End for my $p (@a)
 	my @qq=sort(@zz);
 	my $markersTrip=();
 
@@ -638,16 +634,16 @@ R
 	$logfile=~s/\//\_/g;
 
 	#print "Content-Type: text/html\n\n";
-	foreach(@qq){ # begin foreach(@qq)
+	foreach(@qq){ # Begin foreach(@qq)
 		my($ed,$ea)=split(/\@/,$_);
 		chomp($_);
 		#print "$_<br>\n";
 		chomp($ea);
 		$ea=~s/,$//;
 		if($cur<$max){ # Begin if($cur<$max)
-			if ($cur>1){ # begin if ($cur>1)
+			if ($cur>1){ # Begin if ($cur>1)
 				#open(W,">>____test.txt");print W "cur($cur)<max($max) ---  dte($dte)<dt3($dt3)=".($dte<$dt3)."\n";close(W);
-				#	{ # begin if($dte<$dt3)
+				#	{ # Begin if($dte<$dt3)
 				$markersTrip.=<<TRIP_MARKERS;
 
 				// --------------  $ea   ------------------
@@ -674,9 +670,9 @@ R
 				// --------------------------------
 			// --------------------------------
 TRIP_MARKERS
-				#} # end if($dte<$dt3)
-			} # end if ($cur>1)
-			else { # begin else
+				#} # End if($dte<$dt3)
+			} # End if ($cur>1)
+			else { # Begin else
 				$markersTrip.=<<TRIP_MARKERS;
 
 			// --------------  $ea   ------------------
@@ -703,8 +699,8 @@ TRIP_MARKERS
 				// --------------------------------
 			// --------------------------------
 TRIP_MARKERS
-			} # end else
-		} # end if($cur<$max)
+			} # End else
+		} # End if($cur<$max)
 		else{
 			my $anal2 = DateTime::Format::Strptime->new( pattern => '%Y-%m-%dT%H:%M' ); # Analyzer
 			my $dte = $anal2->parse_datetime( $ertn );
@@ -776,7 +772,7 @@ TRIP_MARKERS
 ARROWS
 		} # End if(length($prev)!=0)
 		$prev="$ea";
-	} # end foreach(@qq)
+	} # End foreach(@qq)
 	#exit(-1);
 	$llL.=<<POLY;
 				// Begin polylines codes
@@ -788,7 +784,7 @@ ARROWS
 					$newArrows
 POLY
 	return $llL; # Returns list
-} # end getsPath
+} # End getsPath
 
 
 =head1 sub loadFile(...)
@@ -872,14 +868,14 @@ added documentation.
 
 =cut
 
-sub loadFile{ # begin loadFile
+sub loadFile{ # Begin loadFile
 	my ($fn)=@_; # File name
 
 	open(R,"$fn");
 	my @r=<R>;# fle content
 	close(R);
 	return join("",@r);
-} # end loadFile
+} # End loadFile
 
 
 =head1 sub mapGoogle(...)
@@ -967,7 +963,7 @@ the moment.
 
 =cut
 
-sub mapGoogle{ # begin mapGoogle
+sub mapGoogle{ # Begin mapGoogle
 	my ($idgoog,$gmv)=@_ ; # Google id for one page; google map version
 	chomp($idgoog); # Remove CR at end of string
 	my $cart=();
@@ -1176,7 +1172,7 @@ A
 
 </html>
 R
-} # end mapGoogle
+} # End mapGoogle
 
 
 =head1 sub is_array(...)
@@ -1257,10 +1253,10 @@ None.
 
 =cut
 
-sub is_array{ # begin sub is_array
+sub is_array{ # Begin sub is_array
 	my ($re)=@_; # $re: variable to check its type.
 	return ref($re) eq 'ARRAY';
-} # end sub is_array
+} # End sub is_array
 
 
 =head1 sub is_hash(...)
@@ -1341,10 +1337,10 @@ None.
 
 =cut
 
-sub is_hash{ # begin sub is_hash
+sub is_hash{ # Begin sub is_hash
 	my ($re)=@_; #$re: variable to check its type.
 	return ref($re) eq 'HASH';
-} # end sub is_hash
+} # End sub is_hash
 
 
 =head1 sub infoCenter(...)
@@ -1425,9 +1421,9 @@ None.
 
 =cut
 
-sub infoCenter{ # begin sub infoCenter
+sub infoCenter{ # Begin sub infoCenter
 	my ($nwc)=@_; # Name weather center
-	if(-e "$nwc"){ # begin if(-e "$nwc")
+	if(-e "$nwc"){ # Begin if(-e "$nwc")
 		my $xml = new XML::Simple;
 		my $data = $xml->XMLin("$nwc");
 
@@ -1443,15 +1439,15 @@ sub infoCenter{ # begin sub infoCenter
 		."<li><u>Lat/Lon:</u>$data->{display_location}->{latitude},$data->{display_location}->{longitude}</li></ul></p>"
 		."</div>"
 		;
-	} # end if(-e "$nwc")
-	else{ # begin else
+	} # End if(-e "$nwc")
+	else{ # Begin else
 		return   
 		"<div id='content'>"
 		."<ul>"
 		."<li>- No data available</li></ul>"
 		."</div>"
 		;
-	} # end else
-} # end sub infoCenter
+	} # End else
+} # End sub infoCenter
 
 print "v$VERSION\n<br>";
