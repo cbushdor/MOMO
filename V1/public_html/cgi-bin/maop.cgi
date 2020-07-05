@@ -7,7 +7,7 @@ q##//q#
 * Created By : sdo
 * File Name : maop.cgi
 * Creation Date : Wed Aug 19 15:51:08 2015
-* @modify date 2020-07-05 00:04:08
+* @modify date 2020-07-06 01:42:44
 * Email Address : sdo@linux.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -28,8 +28,6 @@ my $doc;
 
 BEGIN {
 	push @INC,getcwd; # We add a new path to @INC
-
-	#print join "\n", @INC, "";
 
 # A bug was solved and that's it was "...but still, the newly generated form has al the values from the previous form...".
 	$|=1;
@@ -54,8 +52,10 @@ my $VERSION="1.0.12.5812";
 #print  &io::MyConstantBase::PATH_TMP_DIR_MAOP->() . "\n";
 
 if ( ! -d &io::MyConstantBase::PATH_TMP_DIR_MAOP->() ) { # Begin if ( ! -d &io::MyConstantBase::PATH_TMP_DIR_MAOP->() )
-	print "we create dir\n";
+	#print "$1 we create dir\n";
 	mkdir  &io::MyConstantBase::PATH_TMP_DIR_MAOP->() ;
+	#print &io::MyConstantBase::PATH_TMP_DIR_MAOP->() .  " created dir\n";
+	#exit(0);
 } # End if ( ! -d &io::MyConstantBase::PATH_TMP_DIR_MAOP->() )
 my $now_string = time(); # strftime "%m %d %H:%M:%S UTC %Y", gmtime;
 
