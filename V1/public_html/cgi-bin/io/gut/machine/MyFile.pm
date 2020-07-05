@@ -5,8 +5,8 @@ q##//q#
 * Created By : sdo
 * File Name : MyFile.pm
 * Creation Date : Wed Aug 20 22:51:08 2008
-* Last Modified : Sun Dec 16 01:56:07 2018
-* Email Address : sdo@macbook-pro-de-sdo.home
+* @modify date 2020-07-04 20:48:36
+* Email Address : sdo@linux.home
 * Version : 1.1.4.4
 * Purpose :
 #;
@@ -19,8 +19,13 @@ use File::Basename;
 use Cwd;
 use io::MyConstantBase;
 
+my $file_to_upload=();
+
+use constant GET_FILE_UPLOADED => sub { $file_to_upload ; } ;    # where file has to be stored: that's the "to"
+
 my $tmp=getcwd();chomp($tmp);# gets current directory path
-$CGITempFile::TMPDIRECTORY="$tmp/tmp";# this is where all temporary uploaded file whill go
+$CGITempFile::TMPDIRECTORY="$tmp/" . &io::MyConstantBase::PATH_TMP_DIR_MAOP->() ; # this is where all temporary uploaded file whill go
+exit(0);
 if( ! -d "$CGITempFile::TMPDIRECTORY"){ die "$CGITempFile::TMPDIRECTORY $!";}# if there's an error
 
 
@@ -249,7 +254,6 @@ None.
 sub my_upload { # Begin sub my_upload
 	my ($doc, $file_from, $directory_deposit, $suffix_for_image_file,$file_format) = @_;
 	my $file_name_saved_at_server_side  = ();    # file that is used to save uploaded file
-	my $file_to_upload = ();    # where file has to be stored: that's the "to"
 	my $bytes_read     = ();    # bytes read from file uploaded
 	my $buff           = ();    # buffer used to read image
 	my $is_image_file_need_to_be_uploaded = 1;
@@ -258,18 +262,7 @@ sub my_upload { # Begin sub my_upload
 
 	chomp($file_from);
 	$ldi=&do_untaint($ldi);
-	#print getcwd . "<br><br><br><br> change dir<br>";
-	#chdir($directory_deposit);
-	#print getcwd . "<br>";
-	#print "we check if file $file_from exists ";
-	#print "ok found " if (-e "$file_from");
-	#if (-e "$file_from"){ chdir($ldi); return 0 ; } 
-	#else{ chdir($ldi); }
-	#print "not found<br>";
-	#$buff=();
-
 	$file_from=~m/(\.[a-z0-9]{3})$/i;
-	#print "$file_format--->$1\n<br>";
 	return -1 if ($file_format!~m/$1/i);
 
 	$doc->cgi_error and error_raised( $doc, "Transfert error of file :", $doc->cgi_error );

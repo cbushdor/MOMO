@@ -10,7 +10,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyConstantBase.pm
 * Creation Date : Sun Aug 19 22:51:08 2018
-* @modify date 2020-06-02 23:46:48
+* @modify date 2020-07-04 20:37:16
 * Email Address : sdo@linux.home
 * Version : 0.0.5.12
 * License:
@@ -96,6 +96,11 @@ use constant PATH_FOR_CALENDAR_ICS	=> sub{ ALBUM_INFO_DIRECTORY->() . "myICal_Br
 use constant MAXIMUM_SIZE_FILE 		=> sub{ (1_048_576 * 5); };    # 1 deposit = 1Mo * 5
 use constant MAXIMUM_DIRECTORY_SIZE_THAT_CAN_CONTAIN_FILE => sub{ 100 * MAXIMUM_SIZE_FILE->(); }; # Size of directory that can contains files
 use constant MAXIMUM_FILE_OPENED                          => sub{ 100; }; # Maximum file opened
+
+#use constant ALBUM_BASE => sub{ "./"; }; # Where all info about album are src,dir
+#use constant DIR_ALBUM_DEPOSIT => sub{ "album/";}; # Where all info are stored
+use constant MY_TMP => sub{ "tmp/" ;}; # constant for temporary dir
+use constant PATH_TMP_DIR_MAOP => sub{ ALBUM_INFO_DIRECTORY->() . MY_TMP->(); }; # absolute path
 
 sub do_untaint { # Begin sub do_untaint
 	my ($myvar) = @_;
