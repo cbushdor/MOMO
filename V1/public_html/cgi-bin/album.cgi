@@ -1,4 +1,4 @@
-#!/usr/bin/perl5.30.2  
+#!/usr/bin/perl5.30.2
 #-T
 
 # ------------------------------------------------------
@@ -6,7 +6,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Mar 4 12:25:20 2003
-* @modify date 2020-07-05 00:08:06
+* @modify date 2020-07-05 03:37:15
 * Email Address : sdo@linux.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -21,14 +21,13 @@ use warnings;
 use CGI;
 use Cwd;
 
-#print "Content-type: text/html\n\n";
 my $doc;
 #my $rtrip="white"; # We record or not just by color
 my $rtrip; # We record or not just by color
 BEGIN {
+	print "Content-type: text/html\n\n";
 	push @INC,getcwd; # We add a new path to @INC
-	#push @INC,"/Users/sdo/Sites/cgi-bin/"; # We add a new path to @INC
-	#push @INC,"/home/sdo/public_html/cgi-bin/"; # We add a new path to @INC
+	for (@INC){ print "$_\n"; }
 	# A bug was solved and that's it was "...but still, the newly generated form has al the values from the previous form...".
 	$doc=$CGI::Q ||= new CGI; # It is using the special internal $CGI::Q object, rather than your 'my $doc' object that's why we do this.
 	$rtrip="blue"; # We don't record trip
@@ -36,7 +35,6 @@ BEGIN {
 END {
 	$doc->delete_all(); # We clean all variables and parameters when the script is over
 }
-
 
 use Sys::Hostname;
 use Socket;
@@ -102,6 +100,7 @@ else{ # Begin else
 	} # End else
 } # End else
 
+print "<br>ENTRE ICI---------------------------------------------------<br>";
 my $MyFile=();
 my $locdep="album";# where are stored informations
 my $myuri="$ENV{SERVER_NAME}";
@@ -110,16 +109,18 @@ my $myscript= $ENV{REQUEST_URI};
 $myscript=~s/\?.*$//;
 $myscript=~s/album.cgi/maop.cgi/;
 #print "Content-Type: text/html ; charset=UTF-8\n\n";
+print "<br>ENTRE 1---------------------------------------------------<br>";
 
-eval "use io::gut::machine::MyFile";
-if ($@){
-	eval "use io::gut::machine::MyFileRescue";
-	if($@){
-		print "No io::MyFileRescue";
-		exit (-1);
-	}
+#eval "use io::gut::machine::MyFile";
+#if ($@){
+	#eval "use io::gut::machine::MyFileRescue";
+	#if($@){
+		#print "No io::MyFileRescue";
+		#exit (-1);
+		#}
 	#	else{ $MyFile="packges::MyFileRescue";}
-}
+	#}
+print "<br>ENTRE 2---------------------------------------------------<br>";
 #print "Content-Type: text/html\n\n";
 #my $timsec=localtime;
 #my $final2 = io::gut::machine::MyFile::my_upload($doc, $doc->param("maop_file_name_img"), &io::MyConstantBase::DIRECTORY_DEPOSIT->(), "${timsec}$$",&io::MyConstantBase::ALLOWED_FILE_FORMAT_TYPE->());
@@ -141,6 +142,7 @@ use constant ALBUM_VER               	=> '1.6'; # Album version
 use constant ALBUM_REL               	=> '16.5755'; # Album release
 use constant ALBUM_VERSION           	=> ALBUM_VER . '.' . ALBUM_REL; # Album version
 
+print "<br>ENTRE LA ---------------------------------------------------<br>";
 my $service=uri_unescape($doc->param("maop_service"));
 chomp(${service});
 if($service eq "ver"){ # Only version is asked
