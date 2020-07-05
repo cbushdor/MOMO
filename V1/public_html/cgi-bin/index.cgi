@@ -1,10 +1,11 @@
-#!/usr/bin/perl -T
+#!/usr/bin/perl5.30.2 -T
+##!/usr/bin/perl -T
 
 use strict;
 use warnings;
 use CGI qw(:all);
 use CGI::Carp qw(fatalsToBrowser);
-use CGI::Pretty qw( :html3 );
+#use CGI::Pretty qw( :html3 );
 use Pod::Simple::HTML;
 use POSIX;
 use POSIX qw/strftime/;
