@@ -1,11 +1,13 @@
-#!/usr/bin/perl5.30.2  -T
+#!/usr/bin/perl5.30.2
+
+# -wT
 
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : maop.cgi
 * Creation Date : Wed Aug 19 15:51:08 2015
-* @modify date 2020-06-10 02:40:40
+* @modify date 2020-07-05 00:04:08
 * Email Address : sdo@linux.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -20,12 +22,16 @@ use strict;
 use warnings;
 use Sys::Hostname;
 use Socket;
+use Cwd;
 
 my $doc;
+
 BEGIN {
-	push @INC,"/Users/sdo/Sites/cgi-bin/"; # We add a new path to @INC
-	push @INC,"/home/sdo/public_html/cgi-bin/"; # We add a new path to @INC
-	# A bug was solved and that's it was "...but still, the newly generated form has al the values from the previous form...".
+	push @INC,getcwd; # We add a new path to @INC
+
+	#print join "\n", @INC, "";
+
+# A bug was solved and that's it was "...but still, the newly generated form has al the values from the previous form...".
 	$|=1;
 	$doc=$CGI::Q ||= new CGI; # It is using the special internal $CGI::Q object, rather than your 'my $doc' object that's why we do this.
 	print "Content-Type: text/html ; charset=UTF-8 \n\n";
@@ -35,21 +41,26 @@ END {
 }
 
 use POSIX qw(strftime);
-use io::MyNav;
 use DateTime;
 use DateTime::Format::Strptime;
-use Cwd;
-#use Encode;
 use URI;
 use URI::Escape;
+use io::MyNav;
 use io::MyConstantBase;
-use io::gut::machine::MyFile;
+#use io::gut::machine::MyFile;
 
-my $VERSION="1.0.12.542";
+my $VERSION="1.0.12.5812";
 
+#print  &io::MyConstantBase::PATH_TMP_DIR_MAOP->() . "\n";
+
+if ( ! -d &io::MyConstantBase::PATH_TMP_DIR_MAOP->() ) { # Begin if ( ! -d &io::MyConstantBase::PATH_TMP_DIR_MAOP->() )
+	print "we create dir\n";
+	mkdir  &io::MyConstantBase::PATH_TMP_DIR_MAOP->() ;
+} # End if ( ! -d &io::MyConstantBase::PATH_TMP_DIR_MAOP->() )
 my $now_string = time(); # strftime "%m %d %H:%M:%S UTC %Y", gmtime;
 
 my $extra_param=""; my $maop_upld=$doc->param("maop_upld")||"";
+
 if(uri_unescape($maop_upld) eq "ok"){
 	if($doc->param("maop_file_name_img")){
 		my $timsec=localtime;
@@ -79,7 +90,7 @@ my $lo=$doc->param("maop_lon");
 
 #print "<br><br><br><br><br><br>";
 foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
-	#	print "$0  $p: ". $doc->param($p)." <br>";
+		print "$0  $p: ". $doc->param($p)." <br>";
 	if($p=~m/^maop\_/){ # begin if($p=~m/^maop\_/)
 		if($p!~m/^maop_lon$/&&
 		   $p!~m/^maop_lat$/&&
@@ -103,6 +114,7 @@ foreach my $p ($doc->param){ # begin foreach my $p ($doc->param)
 		} # End else
 	} # end if($p=~m/^maop\_/)
 } # end foreach my $p ($doc->param)
+#exit(-1);
 $mparam.="&$extra_param";
 #print "<br>oooooooo>$mparam<br>";
 
