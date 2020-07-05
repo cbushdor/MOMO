@@ -1,11 +1,12 @@
-#!/usr/bin/perl5.30.2  -T
+#!/usr/bin/perl5.30.2  
+#-T
 
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Mar 4 12:25:20 2003
-* @modify date 2020-06-10 01:41:45
+* @modify date 2020-07-05 00:08:06
 * Email Address : sdo@linux.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -14,17 +15,20 @@ q##//q#
 * Purpose :
 #;
 # ------------------------------------------------------
+
 use strict;
 use warnings;
 use CGI;
+use Cwd;
 
 #print "Content-type: text/html\n\n";
 my $doc;
 #my $rtrip="white"; # We record or not just by color
 my $rtrip; # We record or not just by color
 BEGIN {
-	push @INC,"/Users/sdo/Sites/cgi-bin/"; # We add a new path to @INC
-	push @INC,"/home/sdo/public_html/cgi-bin/"; # We add a new path to @INC
+	push @INC,getcwd; # We add a new path to @INC
+	#push @INC,"/Users/sdo/Sites/cgi-bin/"; # We add a new path to @INC
+	#push @INC,"/home/sdo/public_html/cgi-bin/"; # We add a new path to @INC
 	# A bug was solved and that's it was "...but still, the newly generated form has al the values from the previous form...".
 	$doc=$CGI::Q ||= new CGI; # It is using the special internal $CGI::Q object, rather than your 'my $doc' object that's why we do this.
 	$rtrip="blue"; # We don't record trip
@@ -48,7 +52,6 @@ use Time::localtime;
 #use File::stat;
 use Time::Local;
 use Try::Tiny;
-use Cwd;
 use POSIX qw(strftime);
 use Encode;
 use URI::Escape;
@@ -900,6 +903,15 @@ my $date_ticket=uri_unescape($doc->param("maop_date"));
 #------------------------------------------------------------------------
 my $mtfn=();# my trip file name
 
+{ # Begin test session: we check the file
+	use Test2::Bundle::Simple;
+	plan 3;
+
+	ok(length($mgidt)>0,"one part of the file name $mgidt<br>\n");
+	ok("$tn","file name $tn<br>");
+	ok((-f "$tn") ? 0:-1,"file name $tn saved<br>\n");
+#exit(-1);
+} # End test session: we check the file
 if(-f "$tn"){ # Begin if(-f "$tn")
 	# =================================================================================================
 	# ============================ We calculate if the trip is on schedule ============================
@@ -911,7 +923,7 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 	my $dt3 = DateTime->from_epoch( epoch => time() );# Current date format DateTime
 
 	open(RTN,"$tn") or die ("$tn error $!");my @rtn=<RTN>;close(RTN) or die("$tn close error"); # RTN: read trip name file (contains Begin and end of trip)
-	if (@rtn<2){ 
+	if (@rtn<2){ # Begin if (@rtn<2) 
 		print "<br><u>We didn't record yet the device finger print in <b>$tn</b></u>\n<br>";
 		$tn=&do_untaint($tn);
 		open(my $WOO,'>>'."$tn") || die("error $!");
@@ -950,7 +962,7 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 		close(MAIL) || die("Error: $!");
 
 		print "A mail to $to is being sent...\n<br>";
-	}
+	} # End if (@rtn<2) 
 	chomp($rtn[0]);my ($brtn,$ertn,$tntz_b,$tntz_e)=split(/\#/,$rtn[0]); # begining r... trip name,end r... trip name,trip name (time) zone begining,trip name (time) zone end
 	my $my_finger_print=$rtn[1]; # Loads data stored for finger print
 	chomp($my_finger_print);
@@ -995,7 +1007,7 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 				$localFP1[7] eq $localFP2[7] &&
 				$localFP1[8] eq $localFP2[8] &&
 				$localFP1[6] eq $localFP2[6]
-			) { # Begin if($dcfp eq $my_finger_print)
+			) { # Begin if
 				#print "<h1>We record $dtb<$dt3<$dte</h1></br>";
 				$rtrip='#808080'; # We record 
 				$mtfn="${mgidt}-" . &io::MyConstantBase::TRIP_NAME->(); 
@@ -1019,11 +1031,11 @@ if(-f "$tn"){ # Begin if(-f "$tn")
 						unlink("$locweaf") or die("error $!");
 					} # End if( -e "$locweaf")
 				}; # End catch
-			} # End if($dcfp eq $my_finger_print)
-			else {
+			} # End if
+			else { # Begin else
 				$rtrip='red'; # We record 
 				#print"<br>no record for this device<br>";
-			}
+			} # End else
 		} # End  $dte>=$dt3
 	} # End else $dtb<=$dt3
 } # End if(-f "$tn")
@@ -3675,7 +3687,7 @@ sub shows_list_pictures { # Begin shows_list_pictures
 			print "<input type='hidden' name='maop_vertical_text' value='$line[3]' />\n";
 			print "<input type='hidden' name='maop_horizontal_text' value='$line[4]' />\n";
 			print "<input type='hidden' name='maop_service' value='check' />\n";
-			print "<input type='submit'  value='Soumettre :) / Submit :)' />\n";
+			print "<input type='submit'  value='XXXXXX Soumettre :) / Submit :)' />\n";
 			print "</form></tr>\n";
 		} # End if($counter_p>1)
 		else{ # Begin else
@@ -5111,18 +5123,19 @@ sub javaScript { # Begin javaScript
 				try to field functions wisely ${lot},...
 			*/
 
-	function paramEncode(a){
-		var x = document.getElementById(a);
-		for (i = 0 ; i < x.elements.length ; i++) {
-			document.getElementById("demo").innerHTML += x.elements[i].name + " === " + x.elements[i].value + "<br>";
-			x.elements[i].value = encodeURIComponent(x.elements[i].value) ;
-			document.getElementById("demo").innerHTML += x.elements[i].name + " === " + x.elements[i].value + "<br>";
-		}
-	}
+function paramEncode(a){ // Begin function paramEncode(a)
+	var x = document.getElementById(a);
+	for (i = 0 ; i < x.elements.length ; i++) { // Begin for (i = 0 ; i < x.elements.length ; i++)
+		document.getElementById("demo").innerHTML += x.elements[i].name + " === " + x.elements[i].value + "<br>";
+		x.elements[i].value = encodeURIComponent(x.elements[i].value) ;
+		document.getElementById("demo").innerHTML += x.elements[i].name + " === " + x.elements[i].value + "<br>";
+	} // End for (i = 0 ; i < x.elements.length ; i++)
+} // End function paramEncode(a)
 
-function timeCalculusB(value){
+function timeCalculusB(value){ // Begin function timeCalculusB(value)
 	var mtz=decodeURIComponent(value); // my time zone
-	var formISO='YYYY-MM-DDTHH:mm';
+	//var formISO='YYYY-MM-DDTHH:MM:ss';
+	var formISO='YYYY-MM-DDTHH:MM';
 	//var d=new Date();
 	var nowMoment=moment();
 
@@ -5135,13 +5148,14 @@ function timeCalculusB(value){
 	} // End if (value=="")
 	else{ // Begin else
 		document.myform.maop_bdaytime.value = nowMoment.tz(mtz).add(5,'minutes').format(formISO);
-		//document.getElementById('err').innerHTML = document.myform.maop_bdaytime.value;
+		//document.myform.maop_bdaytime.value = "2014-01-02T11:42:13.510";
 	} // End else
-}
+} // End function timeCalculusB(value)
 
-function timeCalculusE(value){
+function timeCalculusE(value){ // Begin function timeCalculusE(value)
 	var mtz=decodeURIComponent(value); // my time zone
-	var formISO='YYYY-MM-DDTHH:mm';
+	//var formISO='YYYY-MM-DDTHH:MM:ss';
+	var formISO='YYYY-MM-DDTHH:MM';
 	var d=new Date();
 	var nowMoment=moment();
 
@@ -5155,7 +5169,7 @@ function timeCalculusE(value){
 	else{ // Begin else
 		document.myform.maop_edaytime.value = nowMoment.tz(mtz).add(5,'minutes').format(formISO);
 	} // End else
-}
+} // End function timeCalculusE(value)
 
 function manageError(header,eEn,eFr){/* Begin function manageError(header,eEn,eFr) */
 	return "<div name='errFrame' style='border: thin solid black;border-radius: 5px;'>"+ 
@@ -5184,7 +5198,7 @@ function calc(){ /*  Begin function calc() */
 	var myForms = document.forms["myform"];
 	var bot=moment(num1); // date+time begining of trip ; add one minute to the begining of the trip because of he cell bug
 	var eot=moment(num2); // date+time ending of trip 
-	var formISO='YYYY-MM-DDTHH:mm';
+	var formISO='YYYY-MM-DDTHH:MM:ss';
 
 	bot.tz(comp1,true); // Begin of trip: we don't change date but set time zone to it (date and time)
 	var mbot1=bot; // Begin of trip: we don't change date but set time zone to it (date and time)
@@ -5193,7 +5207,7 @@ function calc(){ /*  Begin function calc() */
 	var meot1=eot.tz(comp2,true); // End of trip: we don't change date but set time zone to it (date and time)
 	// begin test not good enougth need to be improved
 	// current date is>=begin of trip?
-	var cdt=moment().format('YYYY-MM-DDTHH:MM'); // current date
+	var cdt=moment().format('yyyy-MM-ddThh:mm:ss'); // current date
 	var mbot3=bot.clone(); // clone date+time at the begining of the trip
 	mbot3.tz(cdt); // we set mbot3 to local time=current date of the trip
 	// end test not good enougth need to be improved
@@ -5211,13 +5225,13 @@ function calc(){ /*  Begin function calc() */
 									"<u><b>Begining of the trip:</u></b> select a time zone first.",
 									"<br><u><b>Début du voyage:</b></u> selectionnez un fuseau horaire en premier.");
 	} /* End else if (document.myform.maop_bdaytime.value=="--" ) */
-	else if (mbot3>=meot1){
+	else if (mbot3>=meot1){ /* Begin else if (mbot3>=meot1) */
 		// test not good enougth need to be improved
 		document.getElementById('err').innerHTML = manageError(
 									"Error/Erreur",
 									"Time zone end and dates <= time zone begining and dates.",
 									"Fuseaux horaires et heures d'arrivées <= Fuseaux horaires et heures de départ.");
-	}
+	} /* End else if (mbot3>=meot1) */
 	else if (document.myform.maop_edaytime.value=="--" ){ /* Begin else if (document.myform.maop_edaytime.value=="--" ) */
 		document.getElementById('err').innerHTML = manageError(
 									"Error/Erreur",
@@ -5232,9 +5246,9 @@ function calc(){ /*  Begin function calc() */
 										"Le nom [<b>" + trip + "</b>] déjà existtant.");
 		} /*  End if( lot.indexOf(trip+ "-trips",0)>=0) */
 		else{ /*  Begin else */
-			if (meot1>mbot1) {
+			if (meot1>mbot1) { /* Begin if (meot1>mbot1) */
 				var lag=0;
-				document.getElementById('err').innerHTML = "<input type='submit' onclick='validForm();'>"+
+				document.getElementById('err').innerHTML = "<input type='submit' onclick='validForm();' value='Envoyer le formulaire' />"+
 										"<input type='hidden' name='maop_url' value='"+r+"'/>";
 										/*
 										+ "----->"+getTimeZone()+ "<-----"+
@@ -5249,7 +5263,7 @@ function calc(){ /*  Begin function calc() */
 						} // End if(myForms.elements[i].value != "Checks dates")
 					} // End for (var i = 0; i < myForms.elements.length; i++)
 				} // End function validForm()
-			}
+			} /* End if (meot1>mbot1) */
 			else{ /*  Begin else */
 				document.getElementById('err').innerHTML = manageError( "Error/Erreur",
 											"(d1,t1) > (d2,t2)",
@@ -6708,12 +6722,12 @@ function myList(){ /*  Begin function myList() */
 		"<input type='hidden' name='maop_ssection' value='adminGroup' />" +
 		"<input type='hidden' name='maop_TRIP_ID' value='ok' />" +
 		"Trip name/Nom du voyage:<input type='text' name='maop_googid' pattern='[a-zA-Z0-9 ]+' /> " +
-		"<br>Email address to send / Addresse mail pour envoie de courriel: <input type='email' name='maop_email' value='$emailADM'>" +
-		"<br>Begining of the trip/Début du voyage<input type='datetime-local' name='maop_bdaytime' value='--' onchange='calc()'>"+
+		"<br>Email address to send / Addresse mail pour envoie de courriel: <input type='email' name='maop_email' value='$emailADM' />" +
+		"<br>Begining of the trip/Début du voyage<input type='datetime-local' name='maop_bdaytime'  onchange='calc()' />"+
 		"$ltznb" +
-		"<br>End of the trip/Fin du voyage<input type='datetime-local' name='maop_edaytime' value='--' onchange='calc()'>"+
+		"<br>End of the trip/Fin du voyage<input type='datetime-local' name='maop_edaytime' onchange='calc()' />"+
 		"$ltzne" +
-		"<br><input type='button' onclick='calc()' value='Checks dates oki ducky'>" +
+		"<br><input type='button' onclick='calc()' value='Checks dates oki ducky' />" +
 		'<div id="err"></div>';
 	} /*  End else if(choice.match("Add")) */
 	else{ /*  Begin else */
@@ -8533,7 +8547,7 @@ sub my_promptA{ # Begin sub my_promptA
 <script  language="javascript" type="text/javascript">
 	var x=document.getElementById("wait");
 	/* x.innerHTML="Please wait while loading..."; */
-	x.innerHTML="<u>$debug</u><br><p>Error case 1<br>[lon,lat]=[$lon,$lat] we check if not defined<br>Please wait while loading...</p>";
+	x.innerHTML="<u>$debug</u><br><p>Error case 1<br>[lon,lat]=[$lon,$lat] we check if not defined<br>Please wait while loading...</p><br>$url<br>";
 	window.location="$url";
 </script>
 </body>
