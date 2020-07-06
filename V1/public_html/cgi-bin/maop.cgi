@@ -7,7 +7,7 @@ q##//q#
 * Created By : sdo
 * File Name : maop.cgi
 * Creation Date : Wed Aug 19 15:51:08 2015
-* @modify date 2020-07-06 01:42:44
+* @modify date 2020-07-06 21:44:08
 * Email Address : sdo@linux.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -45,7 +45,7 @@ use URI;
 use URI::Escape;
 use io::MyNav;
 use io::MyConstantBase;
-#use io::gut::machine::MyFile;
+use io::gut::machine::MyFile;
 
 my $VERSION="1.0.12.5812";
 
