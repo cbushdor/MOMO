@@ -6,7 +6,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Mar 4 12:25:20 2003
-* @modify date 2020-07-06 01:42:37
+* @modify date 2020-07-06 21:45:44
 * Email Address : sdo@linux.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -111,6 +111,7 @@ $myscript=~s/album.cgi/maop.cgi/;
 #print "Content-Type: text/html ; charset=UTF-8\n\n";
 #print "<br>ENTRE 1---------------------------------------------------<br>";
 
+use io::gut::machine::MyFile;
 #eval "use io::gut::machine::MyFile";
 #if ($@){
 	#eval "use io::gut::machine::MyFileRescue";
