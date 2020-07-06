@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : MyFile.pm
 * Creation Date : Wed Aug 20 22:51:08 2008
-* @modify date 2020-07-04 20:48:36
+* @modify date 2020-07-06 21:41:43
 * Email Address : sdo@linux.home
 * Version : 1.1.4.4
 * Purpose :
@@ -25,7 +25,7 @@ use constant GET_FILE_UPLOADED => sub { $file_to_upload ; } ;    # where file ha
 
 my $tmp=getcwd();chomp($tmp);# gets current directory path
 $CGITempFile::TMPDIRECTORY="$tmp/" . &io::MyConstantBase::PATH_TMP_DIR_MAOP->() ; # this is where all temporary uploaded file whill go
-exit(0);
+#exit(0);
 if( ! -d "$CGITempFile::TMPDIRECTORY"){ die "$CGITempFile::TMPDIRECTORY $!";}# if there's an error
 
 
