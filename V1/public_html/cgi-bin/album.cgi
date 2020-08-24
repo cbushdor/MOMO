@@ -6,7 +6,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Mar 4 12:25:20 2003
-* @modify date 2020-07-06 21:45:44
+* @modify date 2020-08-24 19:45:20
 * Email Address : sdo@linux.home
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -659,7 +659,7 @@ my $logfile=uri_unescape($doc->param("maop_log"));
 
 #@chomp($param);
 chomp($logfile);
-#print "Content-type:text/html ; charset=UTF-8\n\n";
+print "Content-type:text/html ; charset=UTF-8\n\n";
 #my $c=(${^TAINT}) ? "Tainted<br>\n":"Not tainted<br>\n";
 #print "<br>------->$c<br>\n";
 #print "---->$bdaytime<br>========>$edaytime<br>";
@@ -680,20 +680,22 @@ my $mparam=();
 my $mtzg=();# My Time Zone Global
 
 # Saving parametters
+print "<br><u><b><h1>tests reg params</h1></b></u><br>";
 foreach my $p ($doc->param){ # Begin foreach my $p ($doc->param)
-	#print "$0 >>>>>>>$p<br>";
+	#print "$0 >>>>>>>$p received param value ->" . uri_unescape($doc->param($p))."<br>";
 	if($p=~m/^maop\_/){ # Begin if($p=~m/^maop\_/)
 		if($p!~m/^maop_lon$/&&
 			$p!~m/^maop_lat$/&&
 			$p!~m/^maop_prog$/&&
 			$p!~m/^maop_log$/){ # Begin if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 			my $ull=uri_unescape($doc->param($p));
-			#print "<br>PARAMS-------------->$p:$ull<br>";
-			$mparam.="&$p=".uri_escape($ull);
+			print "<b>PARAMS-------------->$p:$ull</b><br>";
+			$mparam.='&';
+			$mparam.="$p=".uri_escape($ull);
 		}  # End if($p!~m!maop_lon!&&$p!~m!maop_lat!&&$p!~m!maop_prog!&&$p!~m!maop_log!)
 	} # End if($p=~m/^maop\_/)
 } # End foreach my $p ($doc->param)
-#print "<br>iiiiiioooooooooo>$mparam<br>";
+print "<br>iiiiiioooooooooo>$mparam<br>";
 $mparam=~s/^\&//;
 #print "oooooooooo>$mparam<br>";
 #exit(1);
@@ -723,8 +725,11 @@ else{ # Begin else
 #exit(0);
 
 $url=~s/\&{2,}/\&/g; # We made some cleaning in the url generated
-$url=~s/\?maop[^\?]*$//g; # We made some cleaning in the url generated
+print "Before Study of the URL: $url<br>";
+# $url=~s/\?maop[^\?]*$//g; # We made some cleaning in the url generated
+print "After Study of the URL: $url<br>";
 if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/){ # Begin if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
+	#print "we stop";exit(0);
 	print &my_promptA("<!--<u>part 1 ($logfile):</u> <b></u>$url</b>-->" ."<!-- accordeoniste -->");
 	exit(0);
 } # End if(! defined($logfile)||length($logfile)==0||$logfile!~m/^album\_hist\_log-[0-9]{1,}(\.[0-9]{1,}){3}\-[0-9]{3,}$/)
@@ -917,8 +922,8 @@ my $mtfn=();# my trip file name
 	plan 3;
 
 	ok(length($mgidt)>0,"one part of the file name $mgidt<br>\n");
-	ok("$tn","file name $tn<br>");
-	ok((-f "$tn") ? 0:-1,"file name $tn saved<br>\n");
+	ok("$tn","file name ($mgidt) $tn<br>");
+	ok((-f "$tn") ? 0:-1,"file name ($mgidt) $tn saved<br>\n");
 #exit(-1);
 } # End test session: we check the file
 if(-f "$tn"){ # Begin if(-f "$tn")
@@ -5100,6 +5105,8 @@ sub javaScript { # Begin javaScript
 	my $u=<<R;
 //<![CDATA[
 		<!--
+			var myForms = "-";
+
 			function print_info(title,mess){ /* Begin function print_info(title,mess) */
 				var x = document.getElementById("myDemo"); 
 				x.innerHTML = "<div id='paragHeader'>"+title+"</div>" + "<div id='paragBody'>"+mess+"</div>" ;
@@ -5143,8 +5150,9 @@ function paramEncode(a){ // Begin function paramEncode(a)
 
 function timeCalculusB(value){ // Begin function timeCalculusB(value)
 	var mtz=decodeURIComponent(value); // my time zone
-	//var formISO='YYYY-MM-DDTHH:MM:ss';
-	var formISO='YYYY-MM-DDTHH:MM';
+	//var mtz=value; // my time zone
+	var formISO='YYYY-MM-DDTHH:MM:ss';
+	//var formISO='YYYY-MM-DDTHH:MM';
 	//var d=new Date();
 	var nowMoment=moment();
 
@@ -5163,8 +5171,9 @@ function timeCalculusB(value){ // Begin function timeCalculusB(value)
 
 function timeCalculusE(value){ // Begin function timeCalculusE(value)
 	var mtz=decodeURIComponent(value); // my time zone
-	//var formISO='YYYY-MM-DDTHH:MM:ss';
-	var formISO='YYYY-MM-DDTHH:MM';
+	//var mtz=value; // my time zone
+	var formISO='YYYY-MM-DDTHH:MM:ss';
+	//var formISO='YYYY-MM-DDTHH:MM';
 	var d=new Date();
 	var nowMoment=moment();
 
@@ -5193,18 +5202,47 @@ function manageError(header,eEn,eFr){/* Begin function manageError(header,eEn,eF
 		"</div>"  ;
 } /* End function manageError(header,eEn,eFr) */
 
+function hello(){ // Begin function hello()
+	window.alert("20202716 my old new hello"); // It works fine now need to adapt soution to our problem
+	return;
+} // End function hello()
+
+// Checks if val is envoded
+function isEncoded(val) { // Begin function isEncoded(val)
+	val = val || '';
+
+	return val !== decodeURIComponent(val);
+} // End function isEncoded(val)
+
+function validForm(){ // Begin function validForm()
+	for (var i = 0; i < myForms.elements.length; i++) { // Begin for (var i = 0; i < myForms.elements.length; i++)
+		if(myForms.elements[i].value != "Checks dates"){ // Begin if(myForms.elements[i].value != "Checks dates")
+			document.getElementById('err').innerHTML += "<br>----------->"+ myForms.elements[i].value + "*----*";
+			if(isEncoded(myForms.elements[i].value)){
+				//myForms.elements[i].value=myForms.elements[i].value;
+			}else{
+				//myForms.elements[i].value=encodeURIComponent(myForms.elements[i].value);
+			}
+			document.getElementById('err').innerHTML += "|-----URIEncoded------|"+ myForms.elements[i].value + "<br>";
+		} // End if(myForms.elements[i].value != "Checks dates")
+	} // End for (var i = 0; i < myForms.elements.length; i++)
+	return true;
+} // End function validForm()
+
 function calc(){ /*  Begin function calc() */
 	$lot
 	var trip=decodeURIComponent(document.myform.maop_googid.value);// Trip name
-	var d1; // date with JS (will be be deprecated pretty soon in this code
-	var d2; // date with JS (will be be deprecated pretty soon in this code
+	var d1 = ""; // date with JS (will be be deprecated pretty soon in this code
+	var d2 = ""; // date with JS (will be be deprecated pretty soon in this code
 	var num1=decodeURIComponent(document.myform.maop_bdaytime.value);// date+time local begining of the trip
 	var num2=decodeURIComponent(document.myform.maop_edaytime.value);// date+time local ending of the trip
-	var comp1=decodeURIComponent(document.myform.maop_ltzn_b.value);// time zone begining of the trip
-	var comp2=decodeURIComponent(document.myform.maop_ltzn_e.value);// time zone ending of the trip
+	//var comp1=decodeURIComponent(document.myform.maop_ltzn_b.value);// time zone begining of the trip
+	//var comp2=decodeURIComponent(document.myform.maop_ltzn_e.value);// time zone ending of the trip
+	var comp1=document.myform.maop_ltzn_b.value;// time zone begining of the trip
+	var comp2=document.myform.maop_ltzn_e.value;// time zone ending of the trip
 	var myurl=new String("$myuri$myport/$myscript?maop_googid="+trip+"&maop_gmv=3-0"); // <<<<<<<< here to check for url and ip @
 	var r="https://"+myurl.replace(/[\/]{2,}/g,"/"); /*  Regexp used to eliminate bugs while printing URL   ... */
-	var myForms = document.forms["myform"];
+	myForms = document.forms["myform"];
 	var bot=moment(num1); // date+time begining of trip ; add one minute to the begining of the trip because of he cell bug
 	var eot=moment(num2); // date+time ending of trip 
 	var formISO='YYYY-MM-DDTHH:MM:ss';
@@ -5257,21 +5295,19 @@ function calc(){ /*  Begin function calc() */
 		else{ /*  Begin else */
 			if (meot1>mbot1) { /* Begin if (meot1>mbot1) */
 				var lag=0;
-				document.getElementById('err').innerHTML = "<input type='submit' onclick='validForm();' value='Envoyer le formulaire' />"+
-										"<input type='hidden' name='maop_url' value='"+r+"'/>";
+				document.getElementById('err').innerHTML = `
+									<!--
+									<input type='submit' onclick='hello();' value='Alert Envoyer le formulaire' /> 
+									<input type='submit' onclick='validForm();' value='Envoyer le formulaire' />
+									-->
+									<input type='submit' value='Envoyer le formulaire' />
+									<input type='hidden' name='maop_url' value='`+r+`'/>
+										`;
 										/*
 										+ "----->"+getTimeZone()+ "<-----"+
 										"<input type='hidden' name='maop_tz_offset' value='"+lag+"'/>";
 										*/
 
-				// function validForm() not working fine : not called in the input field above
-				function validForm(){ // Begin function validForm()
-					for (var i = 0; i < myForms.elements.length; i++) { // Begin for (var i = 0; i < myForms.elements.length; i++)
-						if(myForms.elements[i].value != "Checks dates"){ // Begin if(myForms.elements[i].value != "Checks dates")
-							myForms.elements[i].value=encodeURIComponent(myForms.elements[i].value);
-						} // End if(myForms.elements[i].value != "Checks dates")
-					} // End for (var i = 0; i < myForms.elements.length; i++)
-				} // End function validForm()
 			} /* End if (meot1>mbot1) */
 			else{ /*  Begin else */
 				document.getElementById('err').innerHTML = manageError( "Error/Erreur",
@@ -7702,7 +7738,7 @@ MENU
 	# </script>
 	# put infinite loop
 
-	&my_wait(&io::MyConstantBase::LOOP->(),5);
+	#&my_wait(&io::MyConstantBase::LOOP->(),5);
 	&menu_admin_GoogleMap_ID; # --------------------> we locate where the error is
 	&ipAddressGranted;
 	print <<MENU;
@@ -7835,10 +7871,12 @@ sub setGoogleID{# Begin setGoogleID
 		print "Stge 2 [$googleid]".length($googleid)."<br>";
 
 		if(length($googleid)!=0){ # Begin if(length($googleid)!=0)
-			print '<div id="myDemo">';
-			print "trip name [$tn] does not exist<br>" if ( ! -f "$tn" );
-			print "trip name [$tn] does exist<br>" if ( -f "$tn" );
-			print "</div>";
+			print "$$-test need touch $$-test";
+			#while(!-f "$$-test"){ 1;}
+			#print '<div id="myDemo">';
+			#print "trip name [$tn,$mgidt] does not exist<br>" if ( ! -f "$tn" );
+			#print "trip name [$tn,$mgidt] does exist<br>" if ( -f "$tn" );
+			#print "</div>";
 			if( ! -f "$tn" ){ # Begin if( ! -f "$tn" )
 				my $bdaytime=uri_unescape($doc->param("maop_bdaytime"));
 				my $edaytime=uri_unescape($doc->param("maop_edaytime"));
@@ -8204,7 +8242,7 @@ MENU
 		my $e = time;
 		my $r = $e -  $b;
 		print <<MENU;
-<script  language=\"javascript\" type="text/javascript">
+<script  language="javascript" type="text/javascript">
 	var x=document.getElementById("wait2");
 	x.innerHTML="Please wait while loading since ${r}s ... follow the steps bellow to debug...<br>gdb -p $$<br>touch $loop"; /* pid  progr */
 </script>
