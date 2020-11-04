@@ -1,4 +1,5 @@
-#!/usr/bin/perl5.30.2
+#!/usr/local/bin/perl
+# #!/usr/bin/perl5.30.2
 
 # -wT
 
@@ -7,8 +8,8 @@ q##//q#
 * Created By : sdo
 * File Name : maop.cgi
 * Creation Date : Wed Aug 19 15:51:08 2015
-* @modify date 2020-07-06 21:44:08
-* Email Address : sdo@linux.home
+* @modify date 2020-11-04 03:55:13
+* Email Address : sdo@fedora33-sdo
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
