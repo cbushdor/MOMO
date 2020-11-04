@@ -6,8 +6,8 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Mar 4 12:25:20 2003
-* @modify date 2020-11-04 23:22:25
-* Email Address : sdo@macbook-pro-de-sdo.home
+* @modify date 2020-11-04 23:35:00
+* Email Address : sdo@fedora33-sdo
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
