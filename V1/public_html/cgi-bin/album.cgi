@@ -1,4 +1,4 @@
-#!/usr/bin/perl5.30.2
+#!/usr/local/bin/perl
 #-T
 
 # ------------------------------------------------------
@@ -6,8 +6,8 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Mar 4 12:25:20 2003
-* @modify date 2020-08-24 19:45:20
-* Email Address : sdo@linux.home
+* @modify date 2020-11-04 02:59:41
+* Email Address : sdo@fedora33-sdo
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
 *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
