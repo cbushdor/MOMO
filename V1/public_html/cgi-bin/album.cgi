@@ -6,7 +6,7 @@ q##//q#
 * Created By : sdo
 * File Name : album.cgi
 * Creation Date : Mon Mar 4 12:25:20 2003
-* @modify date 2020-11-04 02:59:41
+* @modify date 2020-11-04 22:59:15
 * Email Address : sdo@fedora33-sdo
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
