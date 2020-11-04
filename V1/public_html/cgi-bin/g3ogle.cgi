@@ -1,12 +1,15 @@
-#!/usr/bin/perl5.30.2  -T
+#!/usr/local/bin/perl -T
+
+
+# #!/usr/bin/perl5.30.2  -T
 
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : g3ogle.cgi
 * Creation Date : Sat Jul 26 12:35:15 2014
-* @modify date 2020-06-04 22:18:50
-* Email Address : sdo@linux.home
+* @modify date 2020-11-04 19:41:53
+* Email Address : sdo@fedora33-sdo
 * Version : 0.2.1..500
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
