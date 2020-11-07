@@ -1,10 +1,28 @@
-#!/usr/bin/perl -T
+#!/usr/local/bin/perl -T
+##!/usr/bin/perl5.30.2 -T
+##!/usr/bin/perl -T
+
+
+# ------------------------------------------------------
+q##//q#
+* Created By : sdo
+* File Name : index.cgi
+* Creation Date :2012-02-16 00:40:17
+* @modify date 2020-11-07 21:47:12
+* Email Address : sdo@macbook-pro-de-sdo.home
+* Version : 0.0.0.0
+* License:
+*       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
+*       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
+* Purpose :
+#;
+# ------------------------------------------------------
 
 use strict;
 use warnings;
 use CGI qw(:all);
 use CGI::Carp qw(fatalsToBrowser);
-use CGI::Pretty qw( :html3 );
+#use CGI::Pretty qw( :html3 );
 use Pod::Simple::HTML;
 use POSIX;
 use POSIX qw/strftime/;
@@ -56,7 +74,7 @@ my $timer_directory_mobiles_js = 1000*20; # that's 3 seconds sec*3 1 sec =1000 1
 
 # -------------------------------------------------------------------------------
 # ------------- Setup font and size as default ----------------------------------
-use constant DEFAULT_FONT => '"Helvetica Neue", Arial, Helvetica, sans-serif';#"Courier,Sand, fantasy";
+use constant DEFAULT_FONT => '"Bromine","Coming soon","Helvetica Neue", Arial, Helvetica, sans-serif';#"Courier,Sand, fantasy";
 use constant DEFAULT_SIZE => "12px";
 
 use constant SECOND_DEFAULT_FONT => '"Comic Sans MS","Apple Chancery", "Zapf Chancery", cursive ';
@@ -486,28 +504,74 @@ R
 
 	my $ial = 1; # is a leaf
 
-	print $cgi->header(-type => 'text/html',
-				-charset => 'utf-8');
+	# <link rel="shortcut icon" href="">
+	# <meta charset="utf-8" />
+	# <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+	# <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+	print $cgi->header(-type => 'text/html', 
+		-charset => 'utf-8') ;
 
 	if($nav!~m/msie/i){
 		print $cgi->start_html(
+					-head=> [ 
+						$cgi->Link({ -href=>"", -rel=>"shortcut icon", }),
+		$cgi->meta( {
+			       	-charset => 'utf-8'
+			}),
+		$cgi->meta( {
+				-name => 'viewport' ,
+				-content => "width=device-width,initial-scale=1.0"
+			}),
+		$cgi->meta( {
+				-http_equiv => "X-UA-Compatible",
+				-content => 'text/html'
+			}),
+					],
 					-title => 'Documentation',
 					-meta => {
 						'Event' => 'Direcory',
 						'Keywords' => 'documentation pod,perl',
-						'Description' => 'Perl 6 Tutorial'
+						'Description' => 'Perl 6 Tutorial...',
 						},
 					-style => {-code => "$hp2p"},
 					-script => {-code => "$jasc"}
 					);
 	}else{
 		print $cgi->start_html(
+					-head=> [ 
+						$cgi->Link({ -href=>"", -rel=>"shortcut icon", }),
+		$cgi->meta( {
+			       	-charset => 'utf-8'
+			}),
+		$cgi->meta( {
+				-name => 'viewport' ,
+				-content => "width=device-width,initial-scale=1.0"
+			}),
+		$cgi->meta( {
+				-http_equiv => "X-UA-Compatible",
+				-content => 'text/html'
+			}),
+					],
 					-title => 'Documentation',
 					-meta => {
 						'Event' => '',
 						'Keywords' => 'documentation pod,perl',
 						'Description' => '...'
 						},
+	-head=> [ 
+		$cgi->Link({
+				-href=>"",
+				-rel=>"shortcut icon", 
+			}),
+		$cgi->meta( {
+			       	-charset => 'utf-8'
+			}),
+		$cgi->meta( {
+				-name => 'viewport' ,
+				-content => "width=device-width,initial-scale=1.0"
+			}),
+		],
 					-style => {-code => "$hp2p"}
 					);
 	}
