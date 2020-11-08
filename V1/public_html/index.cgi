@@ -8,7 +8,7 @@ q##//q#
 * Created By : sdo
 * File Name : index.cgi
 * Creation Date :2012-02-16 00:40:17
-* @modify date 2020-11-07 21:47:12
+* @modify date 2020-11-08 23:19:02
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -106,7 +106,7 @@ my @stat = ();# gets its content
 $0 =~ /(.*\/)*(.+)/;# Gets the script name
 my $fnc = $2;# File Name CGI
 my $f2pd = 0;# File To Print Default
-my $cgi = new CGI;
+my $cgi = $CGI::Q || new CGI;
 my $igithub = (); # Script stored there to print a prompt to indicated it is or it will be processing with github
 my $spo = 0;# back or not back menu
 my $jasc = ();
