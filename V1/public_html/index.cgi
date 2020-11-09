@@ -5,8 +5,8 @@ q##//q#
 * Created By : sdo
 * File Name : index.cgi
 * Creation Date :2012-02-16 00:40:17
-* @modify date 2020-11-09 03:04:16
-* Email Address : sdo@fedora33-sdo
+* @modify date 2020-11-09 15:18:25
+* Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -45,6 +45,9 @@ my %pathOS = ( 'linux' => '/home/sdo/public_html/','darwin' => '/Users/sdo/Sites
 my $HOME_ROOT = $pathOS{$osname};# alternative directory for local debug)
 my $MY_HOME_DIR = $HOME_ROOT . "/cgi-bin";# alternative directory for local debug
 my $HOME_URL='http://127.0.0.1/~sdo';
+my $isHomeDir = ($HOME_ROOT !~ m/$gcd/) ? "auto" : "none" ;
+
+
 
 # Deprecated because acount does not exist anymore
 if("$HOME_ROOT" eq "$gcd"){
@@ -240,6 +243,11 @@ sub cartouch{# Board DIRectoryLIStingDETail
 	if(length((defined($font))?"$font":"") == 0){$font = DEFAULT_FONT;}
 	if(length((defined($size))?"$size":"") == 0){$size = DEFAULT_SIZE;}
 	my $hp2p = <<S;
+		#homeDir {
+			pointer-events: $isHomeDir;
+		}
+		#usualLinkInLinsting {
+		}
 		body{
 			font-family: $font;
 			font-size: $size;
@@ -643,9 +651,9 @@ sub corps0{
 			}
 			$ues = uri_escape("$out");# Uri EScape
 			if("$myr" eq ".." || "$out" ne ".."){# case we are not in the homedir
-				$corps .= $cgi->li( $cgi->a({-href => ((-d "$out") ? "$out/$fnc?F=$F" : (($out!~/.pod$/) ? "$ues?F=$F" : "$fnc?F=$F&go=$ues&bgdaem=1"))},(($out =~ m/^\.\.$/) ? "Parent Directory":((-d "$out") ? "$out/" : "$out"))));
+				$corps .= $cgi->li( $cgi->a({-id => ($out =~ m/^\.\.$/) ? "homeDir" : "usualLinkInLinsting" , -href => ((-d "$out") ? "$out/$fnc?F=$F" : (($out!~/.pod$/) ? "$ues?F=$F" : "$fnc?F=$F&go=$ues&bgdaem=1"))},(($out =~ m/^\.\.$/) ? "Parent Directory":((-d "$out") ? "$out/" : "$out"))));
 			}else{
-				$corps .= $cgi->li( $cgi->a({-href => ((-d "$out") ? (("$out" eq "..") ? "":"$out/$fnc?F=$F&go=$ues&C=$C&O=$O&bgdaem=1") : "?F=$F&go=$ues&bgdaem=1")},(($out =~ m/^\.\.$/) ? "Parent Directory":((-d "$out") ? "$out/" : "$out"))));
+				$corps .= $cgi->li( $cgi->a({-id => ($out =~ m/^\.\.$/) ? "homeDir" : "usualLinkInLinsting" ,-href => ((-d "$out") ? (("$out" eq "..") ? "":"$out/$fnc?F=$F&go=$ues&C=$C&O=$O&bgdaem=1") : "?F=$F&go=$ues&bgdaem=1")},(($out =~ m/^\.\.$/) ? "Parent Directory":((-d "$out") ? "$out/" : "$out"))));
 			}
 			if(length("$finace") == 0){
 				if($f2pd == 0){
@@ -752,7 +760,8 @@ sub corps2{
 					$p2p .= $cgi->Tr(
 							$cgi->td({-valign => "top",-align => "left",-class => "cico"},"$fti").
 							$cgi->td({-valign => "top",-align => "left",-class => "cnam"},
-								$cgi->a({-href => (($out =~ m/^\.\.$/) ? "$myr/$fnc?F=$F&C=$C&O=$O" : ((-d "$out") ? "$out?F=$F&C=$C&O=$O":"$out"))}	,(($out =~ m/^\.\.$/) ? "Parent Directory":((-d "$out") ? "$out/" : "$out")))).
+								$cgi->a({-id => ($out =~ m/^\.\.$/) ? "homeDir" : "usualLinkInLinsting" ,-href => (($out =~ m/^\.\.$/) ? "$myr/$fnc?F=$F&C=$C&O=$O" : ((-d "$out") ? "$out?F=$F&C=$C&O=$O":"$out"))}	,(($out =~ m/^\.\.$/) ? "Parent Directory":((-d "$out") ? "$out/" : "$out")))
+							).
 							$cgi->td({-valign => "top",-align => "right",-class => "clamo"},(($out =~ m/^\.\.$/) ? "" : strftime('%d-%b-%Y %H:%M',&calLocalTime($stat[9],$lag)))).
 							$cgi->td({-valign => "top",-align => "right",-class => "csize"},((-d $out) ? "-" : $stat[7])).
 							$cgi->td({-valign => "top",-align => "right"})
@@ -761,7 +770,7 @@ sub corps2{
 					$p2p .= $cgi->Tr(
 							$cgi->td({-valign => "top",-align => "left",-class => "cico"},"$fti").
 							$cgi->td({-valign => "top",-align => "left",-class => "cnam"},
-								$cgi->a({-href => "$fnc?F=$F&go=$ues&C=$C&O=$O&bgdaem=1"},(($out =~ m/^\.\.$/) ? "Parent Directory":((-d "$out") ? "$out/" : "$out")))).
+								$cgi->a({-id => ($out =~ m/^\.\.$/) ? "homeDir" : "usualLinkInLinsting" ,-href => "$fnc?F=$F&go=$ues&C=$C&O=$O&bgdaem=1"},(($out =~ m/^\.\.$/) ? "Parent Directory":((-d "$out") ? "$out/" : "$out")))).
 							$cgi->td({-valign => "top",-align => "right",-class => "clamo"},(($out =~ m/^\.\.$/) ? "" : strftime('%d-%b-%Y %H:%M',&calLocalTime($stat[9],$lag)))).
 							$cgi->td({-valign => "top",-align => "right",-class => "csize"},((-d $out) ? "-" : $stat[7])).
 							$cgi->td({-valign => "top",-align => "right"})
