@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : index.cgi
 * Creation Date :2012-02-16 00:40:17
-* @modify date 2020-11-09 15:18:25
+* @modify date 2020-11-09 22:26:46
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -157,6 +157,7 @@ if($cud =~ m/\~[^~\/]+\//){
 	}
 }else{$pti="./";}
 
+$cud =~ s/\~/\//;# Path to print on the screen/ url built
 #print "$osname  $tmp $cud  *****>".$pti ."\n";
 #exit(0);
 
@@ -596,10 +597,14 @@ R
 	print $cgi->div({-class => "cartouch"},
 				($useragent!~m!msie!i)
 				?
-					$cgi->h2($cgi->span({-style => "position: relative;float: top;top: 1px;"},"Directory listing")).
-					$cgi->h2($cgi->span({-style => "position: relative;float: top;left: 300px;bottom: 30px"},"...")) .
-					$cgi->h3($cgi->span({-style => "position: relative;float: top;left: 300px;bottom: 45px"},"Current: ".strftime('%d-%b-%Y %H:%M',gmtime))).
-					$cgi->h3($cgi->span({-style => "position: relative;float: left;left: 5px;bottom: 60px;"},"Index ".$cgi->i("$cud")))
+					$cgi->h2($cgi->span({-style => "position: relative;float: top;top: 1px;"},"<span style='font-size: 10px;'>Icons made by <a href='https://www.flaticon.com/authors/monkik' title='monkik'>monkik</a> from <a href='https://www.flaticon.com/' title='Flaticon'> www.flaticon.com</a></span>")).
+					#$cgi->h2($cgi->span({-style => "position: relative;float: top;left: 300px;bottom: 30px"},"...")) .
+					#$cgi->h2($cgi->span({-style => "position: relative;float: top;left: 300px;bottom: 30px"},"<br>")) .
+
+					#$cgi->h3($cgi->span({-style => "position: relative;float: top;left: 300px;bottom: 45px"},"Current: ".strftime('%d-%b-%Y %H:%M',gmtime))).
+					#$cgi->h3($cgi->span({-style => "position: relative;float: top;left: 300px;bottom: 45px"},"Current: ")).
+					#$cgi->h3($cgi->span({-style => "position: relative;float: top;left: 300px;bottom: 45px"},"<br>")).
+					$cgi->h3($cgi->span({-style => "position: relative;float: left;left: 5px;bottom: 60px;"},"<br><br><br>".$cgi->i($cud)))
 				:
 					$cgi->span({-style => "position: relative;float:right;top: 5px;"},$cgi->img({-width=>"50",-alt=> "",-src => $HOME_URL . '/icons/logo_mongueurs.png'})).
 					$cgi->h2($cgi->span({-style => "position: relative;float: top;top: 1px;"},"Documentation POD")).
@@ -731,9 +736,9 @@ sub corps2{
 
 			# ------------------------------------------------------
 			# begin we associate aspecific image with the file
-			if ($out =~ m/^\.\.$/){$fti = $cgi->img({-alt => "", -src => $pti . '/icons/back.gif'});}# its a parent directory
-			elsif(-d "$out"){$fti = $cgi->img({-alt => "",-src => $pti . '/icons/folder.gif'});}# its a folder
-			elsif(-f "$out"){$fti = $cgi->img({-alt => "",-src => $pti . '/icons/text.gif'});}# its a file
+			if ($out =~ m/^\.\.$/){$fti = $cgi->img({-alt => "", -width => "15px", -src => $pti . '/icons/upload.png'});}# its a parent directory
+			elsif(-d "$out"){$fti = $cgi->img({-alt => "",-width => "15px", -src => $pti . '/icons/folder.png'});}# its a folder
+			elsif(-f "$out"){$fti = $cgi->img({-alt => "",-width => "15px", -src => $pti . '/icons/file.png'});}# its a file
 			# end we associate a specific image with the file
 			# ------------------------------------------------------
 
