@@ -5,8 +5,8 @@ q##//q#
 * Created By : sdo
 * File Name : index.cgi
 * Creation Date :2012-02-16 00:40:17
-* @modify date 2020-11-09 02:21:59
-* Email Address : sdo@macbook-pro-de-sdo.home
+* @modify date 2020-11-09 03:04:16
+* Email Address : sdo@fedora33-sdo
 * Version : 0.0.0.0
 * License:
 *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
@@ -31,6 +31,8 @@ use Digest::SHA1  qw(sha1 sha1_hex sha1_base64);
 use DateTime;
 use Fcntl qw(:flock SEEK_END); # import LOCK_* and SEEK_END constants
 
+my $osname = $^O;
+
 # -------------------------------------------------------------------------------
 # Do not touch the next line
 my $gcd = getcwd; # Gets current dir
@@ -38,13 +40,15 @@ my $gcd = getcwd; # Gets current dir
 
 # -------------------------------------------------------------------------------
 # ------------- Set directories webhost and local --------------------------------
-my $HOME_ROOT = "/Users/sdo/Sites/";# alternative directory for local debug)
-my $MY_HOME_DIR = "/Users/sdo/Sites/cgi-bin";# alternative directory for local debug
+
+my %pathOS = ( 'linux' => '/home/sdo/public_html/','darwin' => '/Users/sdo/Sites/');
+my $HOME_ROOT = $pathOS{$osname};# alternative directory for local debug)
+my $MY_HOME_DIR = $HOME_ROOT . "/cgi-bin";# alternative directory for local debug
 my $HOME_URL='http://127.0.0.1/~sdo';
 
 # Deprecated because acount does not exist anymore
 if("$HOME_ROOT" eq "$gcd"){
-	#$HOME_ROOT = "/home1/derased/public_html";
+	#$HOME_ROOT = getcwd;
 	#$MY_HOME_DIR = "/home1/derased/public_html/cgi-bin";
 	#$HOME_URL='http://derased.heliohost.org';
 }
@@ -81,7 +85,7 @@ use constant SECOND_DEFAULT_SIZE => "12px";
 
 # -------- MY CODE DO NOT REMOVE THIS LINE ------
 
-$CGI::Pretty::INDENT = "\t";
+#$CGI::Pretty::INDENT = "\t";
 
 use constant MY_ERROR => -1;
 use constant ERROR_CONNEXION => -2;
@@ -149,6 +153,9 @@ if($cud =~ m/\~[^~\/]+\//){
 		$pti .= "../";
 	}
 }else{$pti="./";}
+
+#print "$osname  $tmp $cud  *****>".$pti ."\n";
+#exit(0);
 
 if("$F" eq "0"){
 	if(length($bgdaem)==0){ 
