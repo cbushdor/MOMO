@@ -1,14 +1,11 @@
 #!/usr/local/bin/perl -T
-##!/usr/bin/perl5.30.2 -T
-##!/usr/bin/perl -T
-
 
 # ------------------------------------------------------
 q##//q#
 * Created By : sdo
 * File Name : index.cgi
 * Creation Date :2012-02-16 00:40:17
-* @modify date 2020-11-08 23:40:51
+* @modify date 2020-11-09 02:21:59
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -45,10 +42,11 @@ my $HOME_ROOT = "/Users/sdo/Sites/";# alternative directory for local debug)
 my $MY_HOME_DIR = "/Users/sdo/Sites/cgi-bin";# alternative directory for local debug
 my $HOME_URL='http://127.0.0.1/~sdo';
 
+# Deprecated because acount does not exist anymore
 if("$HOME_ROOT" eq "$gcd"){
-	$HOME_ROOT = "/home1/derased/public_html";
-	$MY_HOME_DIR = "/home1/derased/public_html/cgi-bin";
-	$HOME_URL='http://derased.heliohost.org';
+	#$HOME_ROOT = "/home1/derased/public_html";
+	#$MY_HOME_DIR = "/home1/derased/public_html/cgi-bin";
+	#$HOME_URL='http://derased.heliohost.org';
 }
 
 # -------------------------------------------------------------------------------
@@ -140,21 +138,17 @@ if(!-d "$MY_HOME_DIR"){
 
 
 my $cud = getcwd;# Gets current directory
+my $tmp = $cud ; 
 $cud.= ($cud!~m/\/$/) ? "/" : "";
 $myr = ("$cud" eq "$MY_HOME_DIR") ? ".":"..";# MY Root used for the path when navigating with the browser
 $cud =~ s/$HOME_ROOT/\~/;# Path to print on the screen/ url built
 
-foreach(split(/\//,$cud)){ # calculates number of directories to cross in order to get to root
-	$pti .= "../";
-}
-
-# --------------------------------------------
-# Begin Section only used for debugging
-if(-f "$HOME_ROOT/.foo"){
-	$pti =~ s!^../!!;
-}
-# End Section only used for debugging
-# --------------------------------------------
+my @locpath=split(/\//,$cud);
+if($cud =~ m/\~[^~\/]+\//){
+	foreach(@locpath){ # calculates number of directories to cross in order to get to root
+		$pti .= "../";
+	}
+}else{$pti="./";}
 
 if("$F" eq "0"){
 	if(length($bgdaem)==0){ 
@@ -205,9 +199,11 @@ if("$F" eq "0"){
 	}
 	else{ print "Content-type: text/html\n\n";}
 	&manage_repo;
+	#print "\nOOOOOOOOOOOOOOOOOOOOO\n";
 	&lcd;# Load current directory before doing stuff
 	if("$bgdaem" eq "1"){ 
 		&corps2;
+		#print "ttttttttttttttttttttttt\n";
 		#system("rm coco*;/usr/bin/touch coco0.3");
 	}
 	#system("/usr/bin/touch coco0.3");
@@ -515,7 +511,7 @@ R
 	if($nav!~m/msie/i){
 		print $cgi->start_html(
 					-head=> [ 
-						$cgi->Link({ -href=>"", -rel=>"shortcut icon", }),
+			$cgi->Link({ -href => " ", -rel=>"shortcut icon", }),
 		$cgi->meta( {
 			       	-charset => 'utf-8'
 			}),
@@ -687,7 +683,8 @@ sub corps0{
 
 # Option to print index
 sub corps2{
-	if($lenm>0){$finace = uri_unescape("$finace");
+	if($lenm>0){
+		$finace = uri_unescape("$finace");
 		#open(A,">rrrr.txt");
 		#print A "$finace";
 		#close(A);
@@ -719,9 +716,9 @@ sub corps2{
 
 			# ------------------------------------------------------
 			# begin we associate aspecific image with the file
-			if ($out =~ m/^\.\.$/){$fti = $cgi->img({-alt => "", -src => '/icons/back.gif'});}# its a parent directory
-			elsif(-d "$out"){$fti = $cgi->img({-alt => "",-src => '/icons/folder.gif'});}# its a folder
-			elsif(-f "$out"){$fti = $cgi->img({-alt => "",-src => '/icons/text.gif'});}# its a file
+			if ($out =~ m/^\.\.$/){$fti = $cgi->img({-alt => "", -src => $pti . '/icons/back.gif'});}# its a parent directory
+			elsif(-d "$out"){$fti = $cgi->img({-alt => "",-src => $pti . '/icons/folder.gif'});}# its a folder
+			elsif(-f "$out"){$fti = $cgi->img({-alt => "",-src => $pti . '/icons/text.gif'});}# its a file
 			# end we associate a specific image with the file
 			# ------------------------------------------------------
 
