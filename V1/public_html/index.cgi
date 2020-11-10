@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : index.cgi
 * Creation Date :2012-02-16 00:40:17
-* @modify date 2020-11-09 22:26:46
+* @modify date 2020-11-10 23:07:35
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -244,10 +244,27 @@ sub cartouch{# Board DIRectoryLIStingDETail
 	if(length((defined($font))?"$font":"") == 0){$font = DEFAULT_FONT;}
 	if(length((defined($size))?"$size":"") == 0){$size = DEFAULT_SIZE;}
 	my $hp2p = <<S;
+		#listing {
+			width: 90%;
+//			border-style: solid;
+//			border-color: coral;
+		}
+		#tsum {
+//			border: 1px solid green;
+			width: 90%;
+		}
 		#homeDir {
 			pointer-events: $isHomeDir;
+
 		}
 		#usualLinkInLinsting {
+		}
+		.usualLinkInListing {
+//			color: pink;
+white-space: nowrap;
+width:100px;
+overflow: hidden;
+text-overflow: ellipsis;
 		}
 		body{
 			font-family: $font;
@@ -295,17 +312,19 @@ sub cartouch{# Board DIRectoryLIStingDETail
 		}
 		div.cartouch{
 			height: 70px;
+			width: 90%;
 			background-color: #41436D;
 			-moz-border-radius: 20px;
 			-webkit-border-radius: 20px;
 			-khtml-border-radius: 20px;
 			border-radius: 20px;
 			behavior: url(border-radius.htc);
-			border-radius: 20px;
+			//border-radius: 20px;
 			color: white;
 			padding-left: 20px;
-			padding-right: 10px;
+			padding-right: 20px;
 			box-shadow: 3px 3px 4px #000;
+			margin: 5%,5%,5%,5%;
 			z-index: 1;
 		}
 		td.cico {
@@ -354,7 +373,8 @@ S
 			position: absolute; 
 			background-color: #808080;
 			//height: 550px;
-			width: 550px;
+			//width: 550px;
+			width: 90%;
 			top: 200px; 
 			right: 200px; 
 			padding: 0 10px;
@@ -765,7 +785,7 @@ sub corps2{
 					$p2p .= $cgi->Tr(
 							$cgi->td({-valign => "top",-align => "left",-class => "cico"},"$fti").
 							$cgi->td({-valign => "top",-align => "left",-class => "cnam"},
-								$cgi->a({-id => ($out =~ m/^\.\.$/) ? "homeDir" : "usualLinkInLinsting" ,-href => (($out =~ m/^\.\.$/) ? "$myr/$fnc?F=$F&C=$C&O=$O" : ((-d "$out") ? "$out?F=$F&C=$C&O=$O":"$out"))}	,(($out =~ m/^\.\.$/) ? "Parent Directory":((-d "$out") ? "$out/" : "$out")))
+								$cgi->a({-id => ($out =~ m/^\.\.$/) ? "homeDir" : "usualLinkInLinsting" ,-href => (($out =~ m/^\.\.$/) ? "$myr/$fnc?F=$F&C=$C&O=$O" : ((-d "$out") ? "$out?F=$F&C=$C&O=$O":"$out"))}	,(($out =~ m/^\.\.$/) ? "Parent Directory":((-d "$out") ? "<p class='usualLinkInListing'>$out/</p>" : "<p class='usualLinkInListing'>$out</p>")))
 							).
 							$cgi->td({-valign => "top",-align => "right",-class => "clamo"},(($out =~ m/^\.\.$/) ? "" : strftime('%d-%b-%Y %H:%M',&calLocalTime($stat[9],$lag)))).
 							$cgi->td({-valign => "top",-align => "right",-class => "csize"},((-d $out) ? "-" : $stat[7])).
@@ -800,7 +820,7 @@ sub corps2{
 			$p->parse_file("$finace");
 			#$spo++;
 		}
-		my $body2=$cgi->center($cgi->table({-summary => "Listings of file in current directory"},$p2p)). "\n$html"; # PID(Ajax):$$ $html";
+		my $body2=$cgi->center($cgi->table({-id=>"tsum",-summary => "Listings of file in current directory"},$p2p)). "\n$html"; # PID(Ajax):$$ $html";
 		print "$body2";
 #		&myenc("$html",$spo);
 		#print $cgi->b("+++---------------oooooooooooo-----<br>");
