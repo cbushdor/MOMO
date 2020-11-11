@@ -5,7 +5,7 @@ q##//q#
 * Created By : sdo
 * File Name : index.cgi
 * Creation Date :2012-02-16 00:40:17
-* @modify date 2020-11-11 14:33:07
+* @modify date 2020-11-11 23:52:59
 * Email Address : sdo@macbook-pro-de-sdo.home
 * Version : 0.0.0.0
 * License:
@@ -79,7 +79,7 @@ my $timer_directory_mobiles_js = 1000*20; # that's 3 seconds sec*3 1 sec =1000 1
 
 # -------------------------------------------------------------------------------
 # ------------- Setup font and size as default ----------------------------------
-use constant DEFAULT_FONT => '"Bromine","Coming soon","Helvetica Neue", Arial, Helvetica, sans-serif';#"Courier,Sand, fantasy";
+use constant DEFAULT_FONT => '"Bromine","Coming soon"';
 use constant DEFAULT_SIZE => "12px";
 
 use constant SECOND_DEFAULT_FONT => '"Comic Sans MS","Apple Chancery", "Zapf Chancery", cursive ';
@@ -259,12 +259,23 @@ sub cartouch{# Board DIRectoryLIStingDETail
 	}
 	#usualLinkInLinsting {
 	}
+	#listingDirsAndFiles {
+		position: relative;
+		float: left;
+		left: 1%; 
+		white-space: nowrap; 
+		//width:100px; 
+		width:50%; 
+		overflow: hidden; 
+		text-overflow: ellipsis; /* top:      -20%;*/
+	}
 	.usualLinkInListing {
-		//			color: pink;
+					color: pink;
 		white-space: nowrap;
-		width:100px;
+		//	width:100px;
 		overflow: hidden;
 		text-overflow: ellipsis;
+
 	}
 	body{
 		font-family: $font;
@@ -570,7 +581,7 @@ R
 			},
 			-style => [
 				{-code => "$hp2p"},
-				{'src'=>"$pti/Project/css/mybase.css"}
+				{-src =>"$pti/Project/css/mybase.css"}
 			],
 			-script => {-code => "$jasc"},
 		);
@@ -611,7 +622,7 @@ R
 			],
 			-style => [
 				{-code => "$hp2p"},
-				{'src'=>"$pti/Project/css/mybase.css"}
+				{-src => "$pti/Project/css/mybase.css"}
 			],
 		);
 	}
@@ -625,15 +636,15 @@ R
 	print $cgi->div({-class => "cartouch"},
 		($useragent!~m!msie!i)
 		?
-		$cgi->h2($cgi->span({-style => "position: relative;float: top;top: 1px;"},"<span style='font-size: 10px;'>Icons made by <a href='https://www.flaticon.com/authors/monkik' title='monkik'>monkik</a> from <a href='https://www.flaticon.com/' title='Flaticon'> www.flaticon.com</a></span>")).
+		#$cgi->h2($cgi->span({-style => "position: relative;float: top;top: 1px;"}," ")).
 		#$cgi->h2($cgi->span({-style => "position: relative;float: top;left: 300px;bottom: 30px"},"...")) .
 		#$cgi->h2($cgi->span({-style => "position: relative;float: top;left: 300px;bottom: 30px"},"<br>")) .
 
 		#$cgi->h3($cgi->span({-style => "position: relative;float: top;left: 300px;bottom: 45px"},"Current: ".strftime('%d-%b-%Y %H:%M',gmtime))).
 		#$cgi->h3($cgi->span({-style => "position: relative;float: top;left: 300px;bottom: 45px"},"Current: ")).
 		#$cgi->h3($cgi->span({-style => "position: relative;float: top;left: 300px;bottom: 45px"},"<br>")).
-		$cgi->h3($cgi->span({-style => "position: relative;float: left;left: 5px;bottom: 60px;"},"<br><br><br>".$cgi->i($cud)))
-		:
+		$cgi->h3($cgi->span({-style => "position: relative;float: left;left: 1%; white-space: nowrap; width:100px; overflow: hidden; text-overflow: ellipsis; /* top: -20%;*/"},$cgi->i($cud)))
+		: # below for the showroom not used...
 		$cgi->span({-style => "position: relative;float:right;top: 5px;"},$cgi->img({-width=>"50",-alt=> "",-src => $HOME_URL . '/icons/logo_mongueurs.png'})).
 		$cgi->h2($cgi->span({-style => "position: relative;float: top;top: 1px;"},"Documentation POD")).
 		$cgi->h2($cgi->span({-style => "position: relative;float: top;left: 290px;bottom:20px"},"...")) .
@@ -793,7 +804,9 @@ sub corps2{
 				$p2p .= $cgi->Tr(
 					$cgi->td({-valign => "top",-align => "left",-class => "cico"},"$fti").
 					$cgi->td({-valign => "top",-align => "left",-class => "cnam"},
-						$cgi->a({-id => ($out =~ m/^\.\.$/) ? "homeDir" : "usualLinkInLinsting" ,-href => (($out =~ m/^\.\.$/) ? "$myr/$fnc?F=$F&C=$C&O=$O" : ((-d "$out") ? "$out?F=$F&C=$C&O=$O":"$out"))}	,(($out =~ m/^\.\.$/) ? "Parent Directory":((-d "$out") ? "<p class='usualLinkInListing'>$out/</p>" : "<p class='usualLinkInListing'>$out</p>")))
+						$cgi->a({-id => ($out =~ m/^\.\.$/) ? "homeDir" : "usualLinkInLinsting" ,-href => (($out =~ m/^\.\.$/) ? "$myr/$fnc?F=$F&C=$C&O=$O" : ((-d "$out") ? "$out?F=$F&C=$C&O=$O":"$out"))}	,(($out =~ m/^\.\.$/) ? "Parent Directory":((-d "$out") ? 
+									$cgi->span({-id => "listingDirsAndFiles"},"$out") . "/"
+									: $cgi->span({-id => "listingDirsAndFiles"},"$out"))))
 					).
 					$cgi->td({-valign => "top",-align => "right",-class => "clamo"},(($out =~ m/^\.\.$/) ? "" : strftime('%d-%b-%Y %H:%M',&calLocalTime($stat[9],$lag)))).
 					$cgi->td({-valign => "top",-align => "right",-class => "csize"},((-d $out) ? "-" : $stat[7])).
@@ -828,9 +841,9 @@ sub corps2{
 		$p->parse_file("$finace");
 		#$spo++;
 	}
-	my $body2=$cgi->center($cgi->table({-id=>"tsum",-summary => "Listings of file in current directory"},$p2p)). "\n$html"; # PID(Ajax):$$ $html";
+	my $body2=$cgi->center($cgi->table({-id=>"tsum",-summary => "Listings of file in current directory"},$p2p)). "\n<span style='font-size: 10px;'>Icons made by <a href='https://www.flaticon.com/auth     ors/monkik' title='monkik'>monkik</a> from <a href='https://www.flaticon.com/' title='Flaticon'> www.flaticon.com</a></span>\n$html"; # PID(Ajax):$$ $html";
 	print "$body2";
-	#		&myenc("$html",$spo);
+	#	&myenc("$html",$spo);
 	#print $cgi->b("+++---------------oooooooooooo-----<br>");
 }else{
 	#system("/usr/bin/touch popo2.0.0");
@@ -850,6 +863,7 @@ sub corps2{
 		$spo++;
 	}
 	&myenc("$html",$spo);
+	#&cartouch;
 }
 }
 
