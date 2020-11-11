@@ -1,0 +1,569 @@
+/* -.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
+ *
+ * File Name : mybase.css
+ *
+ * Created By : sdo
+ *
+ * Creation Date : 2019-07-30 14:10:49
+ *
+ * @modify date 2020-11-11 13:25:09
+ *
+ * Email Address : sdo@macbook-pro-de-sdo.home
+ *
+ * Version: 0.0.0.0
+ *
+ * License:
+ *       Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-NonCommercial 3.0
+ *       Unported License, which is available at http: //creativecommons.org/licenses/by- nc/3.0/.
+ * Purpose :
+ *
+ _._._._._._._._._._._._._._._._._._._._._.*/
+
+@charset "UTF-8";
+
+@media screen and (orientation:portrait) and (max-width: 780px){ 
+	body {
+		background-image: url("../Perl/image/arcade.jpg");
+		background-color: black;
+		color: yellow;
+		//font-family: Courier New;
+	}
+
+	div#admin_project_menu {
+		margin: 50px 50px 0px 0px;
+		margin-right: 5%;
+		margin-left: 5%;
+		margin-bottom: 100px;
+	}
+
+
+	div#otpos{
+		border: 2.5px solid #5F89CE;
+		height: 150px;
+		margin-top: 300px;
+	}
+
+	div#otpos img#imgopt {
+		width: 95%;
+	}
+
+	.help_wanted   { // class
+		-moz-border-radius:10px;
+		-webkit-border-radius: 10px;
+		color: black;
+		border-radius: 10px;
+		background: #000000;
+		//background: blue;
+		position: absolute;
+		border: 5.2px solid #426596;
+		top: 50px;
+		left: 10px;
+		width: 350px;
+		height: 480px;
+		z-index: 600;
+	}
+}
+
+
+@media screen and (orientation:landscape) and (max-width: 780px){ 
+	body {
+		background-image: url("../Perl/image/arcade.jpg");
+		background-color: black;
+		color: yellow;
+		//font-family: Courier New;
+	}
+
+	#mynavmenu   {
+		float: left;
+		width: 100%;
+		border: 1px ;
+		margin: 20px 0px 0px 0px;
+	}
+
+	div#admin_project_menu {
+		//position: relative;
+		margin: 10px 50px 0px 0px;
+		border: 0.5px solid #5F89CE;
+		//margin-top: 15%;
+		margin-right: 5%;
+		margin-left: 5%;
+		margin-bottom: 100px;
+	}
+
+
+	div#otpos{
+		border: 2.5px solid #5F89CE;
+		//height: 150px;
+		margin-top: 130px;
+	}
+
+	div#otpos img#imgopt {
+		width: 40%;
+	}
+
+	div#Perl_project {
+		position: relative;
+		border: 0.5px solid #5F89CE;
+		//top: 100px;
+		margin-top: 100px;
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-bottom: 100px;
+	}
+
+	.help_wanted   { // class
+		-moz-border-radius:10px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		background: #000000;
+		//background: red;
+		position: absolute;
+		border: 5.2px solid #426596;
+		top: 45px;
+		left: 10px;
+		width: 690px;
+		height: 240px;
+		z-index: 600;
+	}
+}
+
+
+@media screen and (orientation:landscape) and (max-width: 640px){ 
+	body {
+		background-image: url("../Perl/image/arcade.jpg");
+		background-color: black;
+		color: yellow;
+		//font-family: Courier New;
+	}
+
+	#mynavmenu   {
+		float: left;
+		width: 100%;
+		border: 1px ;
+		margin: 20px 0px 0px 0px;
+	}
+
+	div#admin_project_menu {
+		//position: relative;
+		margin: 10px 50px 0px 0px;
+		border: 0.5px solid #5F89CE;
+		//margin-top: 15%;
+		margin-right: 5%;
+		margin-left: 5%;
+		margin-bottom: 100px;
+	}
+
+
+	div#otpos{
+		border: 2.5px solid #5F89CE;
+		//height: 150px;
+		margin-top: 130px;
+	}
+
+	div#otpos img#imgopt {
+		width: 40%;
+	}
+
+	div#Perl_project {
+		position: relative;
+		border: 0.5px solid #5F89CE;
+		//top: 100px;
+		margin-top: 100px;
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-bottom: 100px;
+	}
+
+	.help_wanted   { // class
+		-moz-border-radius:10px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		background: #000000;
+		//	background: red;
+		position: absolute;
+		border: 5.2px solid #426596;
+		top: 45px;
+		left: 10px;
+		width: 600px;
+		height: 240px;
+		z-index: 600;
+	}
+}
+
+@media screen and (orientation:portrait) and (max-width: 533px){ 
+	body {
+		background-image: url("../Perl/image/arcade.jpg");
+		background-color: black;
+		color: yellow;
+		//font-family: Courier New;
+	}
+
+	#mynavmenu   {
+		float: left;
+		width: 100%;
+		border: 1px ;
+		margin: 20px 0px 0px 0px;
+	}
+
+	div#admin_project_menu {
+		//position: relative;
+		margin: 10px 50px 0px 0px;
+		border: 0.5px solid #5F89CE;
+		//margin-top: 15%;
+		margin-right: 5%;
+		margin-left: 5%;
+		margin-bottom: 100px;
+	}
+
+
+	div#otpos{
+		border: 2.5px solid #5F89CE;
+		//height: 150px;
+		margin-top: 130px;
+	}
+
+	div#otpos img#imgopt {
+		width: 40%;
+	}
+
+	div#Perl_project {
+		position: relative;
+		border: 0.5px solid #5F89CE;
+		//top: 100px;
+		margin-top: 100px;
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-bottom: 100px;
+	}
+
+	.help_wanted   { // class
+		-moz-border-radius:10px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		background: #000000;
+		//background: red;
+		position: absolute;
+		border: 5.2px solid #426596;
+		top: 10px;
+		left: 5px;
+		width: 310px;
+		height: 450px;
+		z-index: 600;
+	}
+}
+
+@media screen and (orientation:landscape) and (max-width: 533px){ 
+	body {
+		background-image: url("../Perl/image/arcade.jpg");
+		background-color: black;
+		color: yellow;
+		//font-family: Courier New;
+	}
+
+	#mynavmenu   {
+		float: left;
+		width: 100%;
+		border: 1px ;
+		margin: 20px 0px 0px 0px;
+	}
+
+	div#admin_project_menu {
+		//position: relative;
+		margin: 10px 50px 0px 0px;
+		border: 0.5px solid #5F89CE;
+		//margin-top: 15%;
+		margin-right: 5%;
+		margin-left: 5%;
+		margin-bottom: 100px;
+	}
+
+
+	div#otpos{
+		border: 2.5px solid #5F89CE;
+		//height: 150px;
+		margin-top: 130px;
+	}
+
+	div#otpos img#imgopt {
+		width: 40%;
+	}
+
+	div#Perl_project {
+		position: relative;
+		border: 0.5px solid #5F89CE;
+		//top: 100px;
+		margin-top: 100px;
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-bottom: 100px;
+	}
+
+	.help_wanted   { // class
+		-moz-border-radius:10px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		background: #000000;
+		//background: red;
+		position: absolute;
+		border: 5.2px solid #426596;
+		top: 10px;
+		left: 5px;
+		width: 530px;
+		height: 250px;
+		z-index: 600;
+	}
+}
+
+@media screen and (orientation:landscape) and (max-width: 854px){ 
+	body {
+		background-image: url("../Perl/image/arcade.jpg");
+		background-color: black;
+		color: yellow;
+		//font-family: Courier New;
+	}
+
+	#mynavmenu   {
+		float: left;
+		width: 100%;
+		border: 1px ;
+		margin: 20px 0px 0px 0px;
+	}
+
+	div#admin_project_menu {
+		//position: relative;
+		margin: 10px 50px 0px 0px;
+		border: 0.5px solid #5F89CE;
+		//margin-top: 15%;
+		margin-right: 5%;
+		margin-left: 5%;
+		margin-bottom: 100px;
+	}
+
+
+	div#otpos{
+		border: 2.5px solid #5F89CE;
+		//height: 150px;
+		margin-top: 130px;
+	}
+
+	div#otpos img#imgopt {
+		width: 40%;
+	}
+
+	div#Perl_project {
+		position: relative;
+		border: 0.5px solid #5F89CE;
+		margin-top: 100px;
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-bottom: 100px;
+	}
+
+	.help_wanted   {
+		-moz-border-radius:10px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		//background: #000000;
+		//background: pink;
+		position: absolute;
+		border: 5.2px solid #426596;
+		top: 10px;
+		left: 5px;
+		width: 630px;
+		height: 300px;
+		z-index: 600;
+	}
+
+	img#confOS {
+		margin-top: 5px;
+		margin-bottom: 5px;
+		width: 40%;
+	}
+
+	#oneMenuTitle{
+		margin: 50px 50px 0px 0px;
+		font-size: 25px;
+		font-family: "Bromine";
+		font-weight: bold;
+		margin-top: 5%;
+	}
+
+}
+
+@media screen and (orientation:portrait) and (max-width: 854px){ 
+	body {
+		background-image: url("../Perl/image/arcade.jpg");
+		background-color: black;
+		color: yellow;
+		//font-family: Courier New;
+	}
+
+	#mynavmenu   {
+		float: left;
+		width: 100%;
+		border: 1px ;
+		margin: 20px 0px 0px 0px;
+	}
+
+	div#admin_project_menu {
+		//position: relative;
+		margin: 10px 50px 0px 0px;
+		border: 0.5px solid #5F89CE;
+		//margin-top: 15%;
+		margin-right: 5%;
+		margin-left: 5%;
+		margin-bottom: 100px;
+	}
+
+
+	div#otpos{
+		border: 2.5px solid #5F89CE;
+		//height: 150px;
+		margin-top: 130px;
+	}
+
+	div#otpos img#imgopt {
+		width: 40%;
+	}
+
+	div#Perl_project {
+		position: relative;
+		border: 0.5px solid #5F89CE;
+		//top: 100px;
+		margin-top: 100px;
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-bottom: 100px;
+	}
+
+	.help_wanted   { // class
+		-moz-border-radius:10px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		background: #000000;
+		//background: red;
+		position: absolute;
+		border: 5.2px solid #426596;
+		top: 10px;
+		left: 5px;
+		width: 350px;
+		height: 550px;
+		z-index: 600;
+	}
+
+	td#prezl {
+		width: 30%;
+		//height: 400px;
+		text-align: left;
+	}
+
+
+	div#CalcRightMenu {
+		display: inline-block;
+		width:85%;
+		margin-left: 4%;
+		margin-bottom: 50px;
+		margin-top: - .5%;
+	}
+
+	div#CalcRightMenu2 {
+		display: inline-block;
+		width:85%;
+		margin-left: 4%;
+		margin-bottom: 50px;
+		margin-top: .5%;
+	}
+
+	#oneMenuTitle{
+		margin: 50px 50px 0px 0px;
+		//	position: absolute;
+		//	top: 10%;
+		font-size: 25px;
+		//font-family: Courier New;
+		font-weight: bold;
+		margin-top: 15%;
+		//	margin-bottom: 30px;
+	}
+
+	div#admin_project_menu_calc {
+		border: 0.5px solid #5F89CE;
+		margin-top: 40%;
+		margin-right: 5%;
+		//margin-bottom: 5%;
+		margin-left: 2%;
+	}
+}
+
+@media screen and (orientation:landscape) and (max-width: 480px){ 
+	body {
+		background-image: url("../Perl/image/arcade.jpg");
+		background-color: black;
+		color: yellow;
+		//font-family: Courier New;
+	}
+
+	#mynavmenu   {
+		float: left;
+		width: 100%;
+		border: 1px ;
+		margin: 20px 0px 0px 0px;
+	}
+
+	div#admin_project_menu {
+		//position: relative;
+		margin: 10px 50px 0px 0px;
+		border: 0.5px solid #5F89CE;
+		//margin-top: 15%;
+		margin-right: 5%;
+		margin-left: 5%;
+		margin-bottom: 100px;
+	}
+
+
+	div#otpos{
+		border: 2.5px solid #5F89CE;
+		//height: 150px;
+		margin-top: 130px;
+	}
+
+	div#otpos img#imgopt {
+		width: 40%;
+	}
+
+	div#Perl_project {
+		position: relative;
+		border: 0.5px solid #5F89CE;
+		//top: 100px;
+		margin-top: 100px;
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-bottom: 100px;
+	}
+
+	.help_wanted   { // class
+		-moz-border-radius:10px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		background: #000000;
+		//background: red;
+		position: absolute;
+		border: 5.2px solid #426596;
+		top: 10px;
+		left: 5px;
+		width: 350px;
+		height: 250px;
+		z-index: 600;
+	}
+}
+
+@media screen and (max-height: 750px) {
+	.sidenav {padding-top: 15px;}
+	.sidenav a {font-size: 18px;}
+	#CalcRightMenu {
+		display: inline-block;
+		width:85%;
+		margin-top: 15%;
+		margin-bottom: 50px;
+	}
+}
+
