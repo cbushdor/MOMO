@@ -6,7 +6,7 @@
  *
  * Creation Date : 2019-07-30 14:10:49
  *
- * @modify date 2020-11-11 13:25:09
+ * @modify date 2020-11-11 23:59:22
  *
  * Email Address : sdo@macbook-pro-de-sdo.home
  *
@@ -491,6 +491,17 @@
 		margin-right: 5%;
 		//margin-bottom: 5%;
 		margin-left: 2%;
+	}
+	#listingDirsAndFiles {
+		//color: pink;
+		position: relative;
+		float: left;
+		left: 1%; 
+		white-space: nowrap; 
+		width:100px; 
+		//width:50%; 
+		overflow: hidden; 
+		text-overflow: ellipsis; /* top:      -20%;*/
 	}
 }
 
