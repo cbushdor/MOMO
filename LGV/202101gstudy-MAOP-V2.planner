@@ -24,12 +24,16 @@
       <task id="2" name="Practise" note="" work="3600" start="20210101T000000Z" end="20210101T081000Z" work-start="20210101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
       <task id="3" name="Readings" note="" work="7200" start="20210101T000000Z" end="20210101T100000Z" work-start="20210101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
     </task>
-    <task id="4" name="Sports" note="" work="3600" start="20210101T000000Z" end="20210101T090000Z" work-start="20210101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="5" name="Practise" note="" work="3600" start="20210101T000000Z" end="20210101T090000Z" work-start="20210101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    <task id="4" name="Sports" note="" work="7200" start="20210106T000000Z" end="20210106T100000Z" work-start="20210106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="5" name="Practise" note="" work="7200" start="20210106T000000Z" end="20210106T100000Z" work-start="20210106T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="6" name="-" note="" work="7200" duration="7200" start="20210106T000000Z" end="20210106T100000Z" work-start="20210106T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-duration">
+          <constraint type="must-start-on" time="20210106T000000Z"/>
+        </task>
+      </task>
     </task>
-    <task id="6" name="Composition" note="" work="3600" start="20210101T000000Z" end="20210101T082000Z" work-start="20210101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="7" name="Practise" note="" work="3600" start="20210101T000000Z" end="20210101T082000Z" work-start="20210101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="8" name="-" note="" work="3600" start="20210101T000000Z" end="20210101T082000Z" work-start="20210101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work"/>
+    <task id="7" name="Composition" note="" work="3600" start="20210101T000000Z" end="20210101T082000Z" work-start="20210101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="8" name="Practise" note="" work="3600" start="20210101T000000Z" end="20210101T082000Z" work-start="20210101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="9" name="-" note="" work="3600" start="20210101T000000Z" end="20210101T082000Z" work-start="20210101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work"/>
       </task>
     </task>
   </tasks>
@@ -53,6 +57,7 @@
     <resource group="6" id="9" name="Readings" short-name="rds" type="1" units="0" email="" note="" std-rate="0"/>
   </resources>
   <allocations>
+    <allocation task-id="4" resource-id="1" units="100"/>
     <allocation task-id="5" resource-id="1" units="100"/>
     <allocation task-id="2" resource-id="2" units="100"/>
     <allocation task-id="1" resource-id="2" units="100"/>
@@ -62,11 +67,14 @@
     <allocation task-id="1" resource-id="4" units="100"/>
     <allocation task-id="2" resource-id="5" units="100"/>
     <allocation task-id="1" resource-id="5" units="100"/>
-    <allocation task-id="8" resource-id="6" units="100"/>
-    <allocation task-id="8" resource-id="7" units="100"/>
+    <allocation task-id="4" resource-id="6" units="100"/>
+    <allocation task-id="9" resource-id="6" units="100"/>
+    <allocation task-id="4" resource-id="7" units="100"/>
+    <allocation task-id="9" resource-id="7" units="100"/>
     <allocation task-id="2" resource-id="8" units="100"/>
     <allocation task-id="1" resource-id="8" units="100"/>
-    <allocation task-id="8" resource-id="9" units="100"/>
+    <allocation task-id="4" resource-id="9" units="100"/>
+    <allocation task-id="9" resource-id="9" units="100"/>
     <allocation task-id="2" resource-id="9" units="100"/>
     <allocation task-id="3" resource-id="9" units="100"/>
     <allocation task-id="1" resource-id="9" units="100"/>
