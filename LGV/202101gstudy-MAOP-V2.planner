@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<project name="" company="" manager="" phase="" project-start="20210101T000000Z" mrproject-version="2" calendar="1">
+  <properties/>
+  <phases/>
+  <calendars>
+    <day-types>
+      <day-type id="0" name="Working" description="A default working day"/>
+      <day-type id="1" name="Nonworking" description="A default non working day"/>
+      <day-type id="2" name="Use base" description="Use day from base calendar"/>
+    </day-types>
+    <calendar id="1" name="Default">
+      <default-week mon="0" tue="0" wed="0" thu="0" fri="0" sat="1" sun="1"/>
+      <overridden-day-types>
+        <overridden-day-type id="0">
+          <interval start="0800" end="1200"/>
+          <interval start="1300" end="1700"/>
+        </overridden-day-type>
+      </overridden-day-types>
+      <days/>
+    </calendar>
+  </calendars>
+  <tasks>
+    <task id="1" name="Projects" note="" work="10800" start="20210101T000000Z" end="20210101T100000Z" work-start="20210101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="2" name="Practise" note="" work="3600" start="20210101T000000Z" end="20210101T081000Z" work-start="20210101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="3" name="Readings" note="" work="7200" start="20210101T000000Z" end="20210101T100000Z" work-start="20210101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    </task>
+    <task id="4" name="Sports" note="" work="3600" start="20210101T000000Z" end="20210101T090000Z" work-start="20210101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="5" name="Practise" note="" work="3600" start="20210101T000000Z" end="20210101T090000Z" work-start="20210101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+    </task>
+    <task id="6" name="Composition" note="" work="3600" start="20210101T000000Z" end="20210101T082000Z" work-start="20210101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="7" name="Practise" note="" work="3600" start="20210101T000000Z" end="20210101T082000Z" work-start="20210101T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="8" name="-" note="" work="3600" start="20210101T000000Z" end="20210101T082000Z" work-start="20210101T080000Z" percent-complete="100" priority="1" type="normal" scheduling="fixed-work"/>
+      </task>
+    </task>
+  </tasks>
+  <resource-groups>
+    <group id="1" name="Admin" admin-name="" admin-phone="" admin-email=""/>
+    <group id="2" name="Programming" admin-name="" admin-phone="" admin-email=""/>
+    <group id="3" name="Asso" admin-name="" admin-phone="" admin-email=""/>
+    <group id="4" name="Cin&#xE9;ma" admin-name="" admin-phone="" admin-email=""/>
+    <group id="5" name="Food/Restaurant" admin-name="" admin-phone="" admin-email=""/>
+    <group id="6" name="Culture" admin-name="" admin-phone="" admin-email=""/>
+  </resource-groups>
+  <resources>
+    <resource group="1" id="1" name="Pedestrian / Pi&#xE9;ton" short-name="ppi" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="2" name="Versionning" short-name="ver" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="3" name="Compilation" short-name="cmp" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="4" name="Tests" short-name="tes" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="2" id="5" name="Scripting Language" short-name="scl" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="3" id="6" name="Associations" short-name="ass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="4" id="7" name="Passion" short-name="pass" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource group="1" id="8" name="Devices" short-name="dev" type="2" units="0" email="" note="" std-rate="0"/>
+    <resource group="6" id="9" name="Readings" short-name="rds" type="1" units="0" email="" note="" std-rate="0"/>
+  </resources>
+  <allocations>
+    <allocation task-id="5" resource-id="1" units="100"/>
+    <allocation task-id="2" resource-id="2" units="100"/>
+    <allocation task-id="1" resource-id="2" units="100"/>
+    <allocation task-id="2" resource-id="3" units="100"/>
+    <allocation task-id="1" resource-id="3" units="100"/>
+    <allocation task-id="2" resource-id="4" units="100"/>
+    <allocation task-id="1" resource-id="4" units="100"/>
+    <allocation task-id="2" resource-id="5" units="100"/>
+    <allocation task-id="1" resource-id="5" units="100"/>
+    <allocation task-id="8" resource-id="6" units="100"/>
+    <allocation task-id="8" resource-id="7" units="100"/>
+    <allocation task-id="2" resource-id="8" units="100"/>
+    <allocation task-id="1" resource-id="8" units="100"/>
+    <allocation task-id="8" resource-id="9" units="100"/>
+    <allocation task-id="2" resource-id="9" units="100"/>
+    <allocation task-id="3" resource-id="9" units="100"/>
+    <allocation task-id="1" resource-id="9" units="100"/>
+  </allocations>
+</project>
